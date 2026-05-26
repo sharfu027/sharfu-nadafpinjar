@@ -114,6 +114,128 @@
         .btn-add-member:hover {
             background: #0056b3;
         }
+        
+        /* Member Card Styles */
+        .member-block {
+            border: 1px solid #ced4da;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            background: #fafafa;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+        .member-block:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            background: #fff;
+        }
+        .member-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #ced4da;
+            padding-bottom: 8px;
+        }
+        .member-title {
+            margin: 0;
+            color: #0066cc;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .btn-remove-member {
+            padding: 4px 12px;
+            font-size: 13px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .btn-remove-member:hover {
+            background: #bd2130;
+        }
+        
+        /* Success Modal Styles */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: backdropFade 0.3s ease-out forwards;
+        }
+        .modal-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+            width: 90%;
+            max-width: 450px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            animation: cardSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .modal-title {
+            color: #b30000;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
+        .modal-badge {
+            background: #0066ff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .modal-desc {
+            color: #b30000;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .btn-modal-print {
+            background: #0066ff;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-modal-print:hover {
+            background: #0052cc;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+        }
+        
+        @keyframes backdropFade {
+            from { background: rgba(255, 255, 255, 0); }
+            to { background: rgba(255, 255, 255, 0.85); }
+        }
+        @keyframes cardSlideIn {
+            from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -293,6 +415,9 @@
                     <label>ಮನೆಯ ಪ್ರಕಾರ</label>
                     <select name="houseType">
                         <option value="ಸ್ವಂತ ಮನೆ">ಸ್ವಂತ ಮನೆ</option>
+                        <option value="ಬಾಡಿಗೆ ಮನೆ">ಬಾಡಿಗೆ ಮನೆ</option>
+                        <option value="ಲೀಸ್ ಮನೆ">ಲೀಸ್ ಮನೆ</option>
+                        <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other (Type Manually)</option>
                     </select>
                 </div>
             </div>
@@ -317,87 +442,101 @@
 
             <h3 class="section-title">ಸದಸ್ಯರ ವಿವರ</h3>
             <div id="membersContainer">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>ಸದಸ್ಯರ ಹೆಸರು</label>
-                        <input type="text" name="memberName[]" placeholder="Member Name">
+                <div class="member-block">
+                    <div class="member-header">
+                        <h4 class="member-title">ಸದಸ್ಯರು #1</h4>
                     </div>
-                    <div class="form-group">
-                        <label>ಪಾಲಕರ ಹೆಸರು</label>
-                        <input type="text" name="memberGuardian[]" placeholder="Guardian Name">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ಸದಸ್ಯರ ಹೆಸರು</label>
+                            <input type="text" name="memberName[]" placeholder="Member Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ಪಾಲಕರ ಹೆಸರು</label>
+                            <input type="text" name="memberGuardian[]" placeholder="Guardian Name">
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>ಆಧಾರ್ ಸಂಖ್ಯೆ</label>
-                        <input type="text" name="memberAadhar[]" placeholder="AdharNo">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ಆಧಾರ್ ಸಂಖ್ಯೆ</label>
+                            <input type="text" name="memberAadhar[]" placeholder="AdharNo">
+                        </div>
+                        <div class="form-group">
+                            <label>ಮೊಬೈಲ್</label>
+                            <input type="text" name="memberMobile[]" placeholder="Mobile">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>ಮೊಬೈಲ್</label>
-                        <input type="text" name="memberMobile[]" placeholder="Mobile">
-                    </div>
-                </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>ಉದ್ಯೋಗ</label>
-                        <input type="text" name="memberOccupation[]" placeholder="Occupation">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ಉದ್ಯೋಗ</label>
+                            <input type="text" name="memberOccupation[]" placeholder="Occupation">
+                        </div>
+                        <div class="form-group">
+                            <label>ಲಿಂಗ</label>
+                            <input type="text" name="memberGender[]" placeholder="Gender">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>ಲಿಂಗ</label>
-                        <input type="text" name="memberGender[]" placeholder="Gender">
-                    </div>
-                </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>ಹುಟ್ಟಿದ ದಿನಾಂಕ</label>
-                        <input type="date" name="memberDob[]" placeholder="Date Of Birth">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ಹುಟ್ಟಿದ ದಿನಾಂಕ</label>
+                            <input type="date" name="memberDob[]" placeholder="Date Of Birth">
+                        </div>
+                        <div class="form-group">
+                            <label>ಕುಟುಂಬದೊಂದಿಗಿನ ಸಂಬಂಧ</label>
+                            <input type="text" name="memberRelation[]" placeholder="Relation">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>ಕುಟುಂಬದೊಂದಿಗಿನ ಸಂಬಂಧ</label>
-                        <input type="text" name="memberRelation[]" placeholder="Relation">
-                    </div>
-                </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>ವಿವಾಹಿತರ?</label>
-                        <select name="memberMarried[]">
-                            <option value="ಅವಿವಾಹಿತರ">ಅವಿವಾಹಿತರ</option>
-                        </select>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ವಿವಾಹಿತರ?</label>
+                            <select name="memberMarried[]">
+                                <option value="ಅವಿವಾಹಿತರ">ಅವಿವಾಹಿತರ</option>
+                                <option value="ವಿವಾಹಿತರ">ವಿವಾಹಿತರ</option>
+                                <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>ಅಂಗವಿಕಲರೇ?</label>
+                            <select name="memberHandicapped[]">
+                                <option value="ಇಲ್ಲ">ಇಲ್ಲ</option>
+                                <option value="ಹೌದು">ಹೌದು</option>
+                                <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>ಅಂಗವಿಕಲರೇ?</label>
-                        <select name="memberHandicapped[]">
-                            <option value="ಇಲ್ಲ">ಇಲ್ಲ</option>
-                        </select>
-                    </div>
-                </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>ಸಾಕ್ಷರಹಾ?</label>
-                        <select name="memberLiterate[]">
-                            <option value="ಶಿಕ್ಷಕರು">ಶಿಕ್ಷಕರು</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>ರಾಜಕೀಯ ಹಿನ್ನೆಲೆ</label>
-                        <select name="memberPolitical[]">
-                            <option value="ಇಲ್ಲ">ಇಲ್ಲ</option>
-                        </select>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ಸಾಕ್ಷರಹಾ?</label>
+                            <select name="memberLiterate[]">
+                                <option value="ಶಿಕ್ಷಕರು">ಶಿಕ್ಷಕರು</option>
+                                <option value="ಸಾಕ್ಷರರು">ಸಾಕ್ಷರರು</option>
+                                <option value="ನಿರಕ್ಷರರು">ನಿರಕ್ಷರರು</option>
+                                <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>ರಾಜಕೀಯ ಹಿನ್ನೆಲೆ</label>
+                            <select name="memberPolitical[]">
+                                <option value="ಇಲ್ಲ">ಇಲ್ಲ</option>
+                                <option value="ಹೌದು">ಹೌದು</option>
+                                <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="form-row">
-                <button type="button" class="btn btn-secondary" onclick="addMember()" style="padding: 10px; width: 48%; margin-left: 0; background: #e9ecef; color: #333; border: 1px solid #ced4da;">ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ</button>
+            <div class="form-row" style="margin-top: 15px; margin-bottom: 25px;">
+                <button type="button" class="btn btn-secondary" onclick="addNewMember()" style="padding: 12px; width: 100%; font-weight: bold; background: #e9ecef; color: #0066cc; border: 2px dashed #0066cc; border-radius: 6px; cursor: pointer; transition: all 0.2s;">+ ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ (Add Member)</button>
             </div>
             
             <div class="btn-container">
-                <button type="button" class="btn-add-member">ಸದಸ್ಯರನ್ನು ಸೇರಿಸು</button>
+                <button type="button" class="btn-submit" onclick="addNewMember()" style="background: #007bff; margin-bottom: 15px;">ಸದಸ್ಯರನ್ನು ಸೇರಿಸು</button>
             </div>
 
             <div class="btn-container">
@@ -415,21 +554,636 @@
         </div>
     </footer>
 
+    <!-- Success Modal -->
+    <div id="successModal" class="modal-backdrop">
+        <div class="modal-card">
+            <h2 class="modal-title">ಸಲ್ಲಿಕೆ ಯಶಸ್ವಿಯಾಗಿದೆ</h2>
+            <div id="modalAppNumber" class="modal-badge">
+                ಅರ್ಜಿ ಸಂಖ್ಯೆ ಪಡೆದು : KRNPS-2026-27-85
+            </div>
+            <p class="modal-desc">
+                ವಿವರಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಸಲ್ಲಿಸಲಾಗಿದೆ.<br>ನಮ್ಮ ಬ್ಯಾಂಕ್‌ನಿಂದ ಸಂದೇಶ ಶೀಘ್ರದಲ್ಲಿ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುವೆವು.
+            </p>
+            <button id="btnPrintReceipt" class="btn-modal-print">
+                ಪ್ರಿಂಟ್ ರಶೀದಿ
+            </button>
+        </div>
+    </div>
+
+    <footer class="wrapper footer-wrapper">
+        <div class="footer-bottom-wrapper">
+            <div class="container">
+                <p style="text-align: center; color: #666;">© 2026 Karnataka State Nadaf / Pinjar Sangha (R). All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="js/jquery-3.4.1.min.js"></script>
-<script src="js/jquery-accessibleMegaMenu.js"></script><script src="js/framework.js"></script><script src="js/megamenu.js"></script>
+    <script src="js/jquery-accessibleMegaMenu.js"></script>
+    <script src="js/framework.js"></script>
+    <script src="js/megamenu.js"></script>
     <script src="js/dropdowns.js"></script>
     <script>
+        let formData = {};
+
+        // Custom Manual Entry Handler for Select Fields
+        function setupOtherOptions() {
+            const selects = document.querySelectorAll('select');
+            selects.forEach(select => {
+                if (select.name === 'houseType' || select.name === 'memberMarried[]' || select.name === 'memberHandicapped[]' || select.name === 'memberLiterate[]' || select.name === 'memberPolitical[]') {
+                    // Check if already bound
+                    if (!select.dataset.otherOptionInit) {
+                        select.dataset.otherOptionInit = "true";
+                        select.addEventListener('change', function() {
+                            handleOtherInput(this);
+                        });
+                    }
+                }
+            });
+        }
+
+        function handleOtherInput(select) {
+            const parent = select.parentNode;
+            let input = select.nextElementSibling;
+            
+            if (input && input.classList.contains("custom-other-input")) {
+                if (select.value !== "__OTHER__") {
+                    input.remove();
+                    const originalName = select.getAttribute("data-original-name");
+                    if (originalName) {
+                        select.setAttribute("name", originalName);
+                        select.removeAttribute("data-original-name");
+                    }
+                }
+            } else {
+                if (select.value === "__OTHER__") {
+                    input = document.createElement("input");
+                    input.type = "text";
+                    input.className = "custom-other-input";
+                    input.placeholder = "ನಮೂದಿಸಿ / Enter value";
+                    input.style.cssText = "width: 100% !important; padding: 10px !important; margin-top: 8px !important; border: 1px solid #0066cc !important; border-radius: 4px !important; font-size: 14px !important; box-sizing: border-box !important;";
+                    
+                    const originalName = select.getAttribute("name");
+                    if (originalName) {
+                        select.setAttribute("data-original-name", originalName);
+                        select.removeAttribute("name");
+                        input.setAttribute("name", originalName);
+                    }
+                    
+                    input.required = true;
+                    parent.appendChild(input);
+                    input.focus();
+                }
+            }
+        }
+
+        // Add Member Dynamically
+        function addNewMember() {
+            const container = document.getElementById('membersContainer');
+            const memberCount = container.querySelectorAll('.member-block').length + 1;
+            
+            const memberHTML = `
+                <div class="member-block">
+                    <div class="member-header">
+                        <h4 class="member-title">ಸದಸ್ಯರು #${memberCount}</h4>
+                        <button type="button" class="btn-remove-member" onclick="removeMember(this)">ತೆಗೆದುಹಾಕಿ (Remove)</button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ಸದಸ್ಯರ ಹೆಸರು</label>
+                            <input type="text" name="memberName[]" placeholder="Member Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ಪಾಲಕರ ಹೆಸರು</label>
+                            <input type="text" name="memberGuardian[]" placeholder="Guardian Name">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ಆಧಾರ್ ಸಂಖ್ಯೆ</label>
+                            <input type="text" name="memberAadhar[]" placeholder="AdharNo">
+                        </div>
+                        <div class="form-group">
+                            <label>ಮೊಬೈಲ್</label>
+                            <input type="text" name="memberMobile[]" placeholder="Mobile">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ಉದ್ಯೋಗ</label>
+                            <input type="text" name="memberOccupation[]" placeholder="Occupation">
+                        </div>
+                        <div class="form-group">
+                            <label>ಲಿಂಗ</label>
+                            <input type="text" name="memberGender[]" placeholder="Gender">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ಹುಟ್ಟಿದ ದಿನಾಂಕ</label>
+                            <input type="date" name="memberDob[]" placeholder="Date Of Birth">
+                        </div>
+                        <div class="form-group">
+                            <label>ಕುಟುಂಬದೊಂದಿಗಿನ ಸಂಬಂಧ</label>
+                            <input type="text" name="memberRelation[]" placeholder="Relation">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ವಿವಾಹಿತರ?</label>
+                            <select name="memberMarried[]">
+                                <option value="ಅವಿವಾಹಿತರ">ಅವಿವಾಹಿತರ</option>
+                                <option value="ವಿವಾಹಿತರ">ವಿವಾಹಿತರ</option>
+                                <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>ಅಂಗವಿಕಲರೇ?</label>
+                            <select name="memberHandicapped[]">
+                                <option value="ಇಲ್ಲ">ಇಲ್ಲ</option>
+                                <option value="ಹೌದು">ಹೌದು</option>
+                                <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ಸಾಕ್ಷರಹಾ?</label>
+                            <select name="memberLiterate[]">
+                                <option value="ಶಿಕ್ಷಕರು">ಶಿಕ್ಷಕರು</option>
+                                <option value="ಸಾಕ್ಷರರು">ಸಾಕ್ಷರರು</option>
+                                <option value="ನಿರಕ್ಷರರು">ನಿರಕ್ಷರರು</option>
+                                <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>ರಾಜಕೀಯ ಹಿನ್ನೆಲೆ</label>
+                            <select name="memberPolitical[]">
+                                <option value="ಇಲ್ಲ">ಇಲ್ಲ</option>
+                                <option value="ಹೌದು">ಹೌದು</option>
+                                <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = memberHTML.trim();
+            container.appendChild(tempDiv.firstChild);
+            
+            // Re-setup change listeners for new selects
+            setupOtherOptions();
+        }
+
+        // Remove Member
+        function removeMember(button) {
+            const block = button.closest('.member-block');
+            block.remove();
+            
+            // Re-index titles
+            const container = document.getElementById('membersContainer');
+            const blocks = container.querySelectorAll('.member-block');
+            blocks.forEach((b, index) => {
+                b.querySelector('.member-title').textContent = `ಸದಸ್ಯರು #${index + 1}`;
+            });
+        }
+
+        // Form Submit
         document.getElementById('censusForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const formObj = new FormData(this);
-            const formData = Object.fromEntries(formObj.entries());
+            
+            // 1. Gather Family Head Details
+            const form = this;
+            const familyData = {
+                headName: form.querySelector('[name="headName"]').value,
+                address: form.querySelector('[name="address"]').value,
+                village: form.querySelector('[name="village"]').value,
+                district: form.querySelector('[name="district"]').value,
+                taluk: form.querySelector('[name="taluk"]').value,
+                headAadhar: form.querySelector('[name="headAadhar"]').value,
+                ward: form.querySelector('[name="ward"]').value,
+                religion: form.querySelector('[name="religion"]').value,
+                caste: form.querySelector('[name="caste"]').value,
+                houseType: form.querySelector('[name="houseType"]').value,
+                landAcres: form.querySelector('[name="landAcres"]').value,
+                formingType: form.querySelector('[name="formingType"]').value,
+                landGunta: form.querySelector('[name="landGunta"]').value,
+            };
+
+            // 2. Loop through members blocks and build array
+            const members = [];
+            const memberBlocks = form.querySelectorAll('.member-block');
+            memberBlocks.forEach(block => {
+                // Get values safely, supporting custom-other-input text fields if present
+                const nameInput = block.querySelector('[name="memberName[]"]') || block.querySelector('.custom-other-input[name="memberName[]"]');
+                const guardianInput = block.querySelector('[name="memberGuardian[]"]') || block.querySelector('.custom-other-input[name="memberGuardian[]"]');
+                const aadharInput = block.querySelector('[name="memberAadhar[]"]') || block.querySelector('.custom-other-input[name="memberAadhar[]"]');
+                const mobileInput = block.querySelector('[name="memberMobile[]"]') || block.querySelector('.custom-other-input[name="memberMobile[]"]');
+                const occupationInput = block.querySelector('[name="memberOccupation[]"]') || block.querySelector('.custom-other-input[name="memberOccupation[]"]');
+                const genderInput = block.querySelector('[name="memberGender[]"]') || block.querySelector('.custom-other-input[name="memberGender[]"]');
+                const dobInput = block.querySelector('[name="memberDob[]"]') || block.querySelector('.custom-other-input[name="memberDob[]"]');
+                const relationInput = block.querySelector('[name="memberRelation[]"]') || block.querySelector('.custom-other-input[name="memberRelation[]"]');
+                const marriedSelect = block.querySelector('[name="memberMarried[]"]') || block.querySelector('.custom-other-input[name="memberMarried[]"]');
+                const handicappedSelect = block.querySelector('[name="memberHandicapped[]"]') || block.querySelector('.custom-other-input[name="memberHandicapped[]"]');
+                const literateSelect = block.querySelector('[name="memberLiterate[]"]') || block.querySelector('.custom-other-input[name="memberLiterate[]"]');
+                const politicalSelect = block.querySelector('[name="memberPolitical[]"]') || block.querySelector('.custom-other-input[name="memberPolitical[]"]');
+
+                members.push({
+                    name: nameInput ? nameInput.value : '',
+                    guardian: guardianInput ? guardianInput.value : '',
+                    aadhar: aadharInput ? aadharInput.value : '',
+                    mobile: mobileInput ? mobileInput.value : '',
+                    occupation: occupationInput ? occupationInput.value : '',
+                    gender: genderInput ? genderInput.value : '',
+                    dob: dobInput ? dobInput.value : '',
+                    relation: relationInput ? relationInput.value : '',
+                    married: marriedSelect ? marriedSelect.value : '',
+                    handicapped: handicappedSelect ? handicappedSelect.value : '',
+                    literate: literateSelect ? literateSelect.value : '',
+                    political: politicalSelect ? politicalSelect.value : ''
+                });
+            });
+
+            formData = {
+                ...familyData,
+                members: members
+            };
+
+            const dataToSave = {
+                formType: "ಜನಗಣತಿ (CENSUS)",
+                amount: 0,
+                paymentId: null,
+                formData: formData
+            };
+
             fetch('/api/donations', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ formType: 'ಜನಗಣತಿ (CENSUS)', amount: 0, formData: formData })
-            }).then(res => res.json()).then(data => { alert('Census data saved successfully!'); window.location.href = 'default.html'; });
+                body: JSON.stringify(dataToSave)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    // Generate dynamic application number
+                    const lastDigits = data.id ? parseInt(data.id.slice(-4), 16) % 100 : Math.floor(Math.random() * 90) + 10;
+                    const appNumber = `KRNPS-2026-27-${lastDigits}`;
+                    
+                    // Show confirmation modal with the generated app number
+                    document.getElementById('modalAppNumber').textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ ಪಡೆದು : ${appNumber}`;
+                    
+                    const modal = document.getElementById('successModal');
+                    modal.style.display = 'flex';
+                    
+                    document.getElementById('btnPrintReceipt').onclick = function() {
+                        printReceipt(formData, appNumber);
+                        
+                        setTimeout(() => {
+                            window.location.href = 'default.html';
+                        }, 2000);
+                    };
+                } else {
+                    alert('Error saving data: ' + (data.error || 'Server error'));
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error saving data. Please check connection.');
+            });
         });
-        function addMember() { alert('Add member functionality goes here.'); }
+
+        // High-Fidelity Indic-Safe Printable Receipt System for Census
+        function printReceipt(data, appNumber) {
+            let membersRows = '';
+            if (data.members && data.members.length > 0) {
+                data.members.forEach((m, idx) => {
+                    membersRows += `
+                        <tr>
+                            <td style="text-align: center; border: 1px solid #b30000; padding: 6px;">${idx + 1}</td>
+                            <td style="border: 1px solid #b30000; padding: 6px;">${m.name || '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 6px;">${m.relation || '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 6px;">${m.mobile || '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 6px;">${m.aadhar || '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 6px;">${m.dob || '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 6px;">${m.literate || '-'}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                membersRows = \`<tr><td colspan="7" style="text-align: center; border: 1px solid #b30000; padding: 10px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>\`;
+            }
+
+            const printHTML = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ಜನಗಣತಿ (Census) - ರಶೀದಿ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .receipt-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 4px double #b30000;
+            padding: 15px;
+            background: #fff;
+            box-sizing: border-box;
+        }
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        .header-table td {
+            padding: 5px;
+            vertical-align: middle;
+        }
+        .header-photo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid #b30000;
+            object-fit: cover;
+        }
+        .header-logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid #b30000;
+            object-fit: cover;
+        }
+        .header-text {
+            text-align: center;
+        }
+        .header-text h1 {
+            color: #b30000;
+            font-size: 20px;
+            margin: 0 0 5px 0;
+            font-weight: bold;
+        }
+        .header-text p {
+            margin: 2px 0;
+            font-size: 11px;
+            color: #444;
+            font-weight: bold;
+        }
+        .header-text .reg-no {
+            font-size: 12px;
+            color: #000;
+        }
+        .header-text .en-title {
+            font-size: 13px;
+            color: #b30000;
+            margin-top: 3px;
+        }
+        .title-banner {
+            border-top: 2px solid #b30000;
+            border-bottom: 2px solid #b30000;
+            padding: 8px;
+            margin: 10px 0;
+            background: #fffcf5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 13px;
+            color: #b30000;
+        }
+        .grid-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        .grid-table td {
+            border: 1px solid #b30000;
+            padding: 6px 8px;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+        .grid-label {
+            background: #fffcf5;
+            color: #b30000;
+            font-weight: bold;
+            width: 25%;
+        }
+        .grid-value {
+            color: #000;
+            width: 25%;
+        }
+        .members-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+            font-size: 11px;
+        }
+        .members-table th {
+            border: 1px solid #b30000;
+            background: #fffcf5;
+            color: #b30000;
+            padding: 6px;
+            font-weight: bold;
+        }
+        .sig-section {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 20px 10px 20px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #b30000;
+        }
+        .sig-box {
+            text-align: center;
+            width: 150px;
+        }
+        .sig-space {
+            height: 40px;
+        }
+        .recommend-text {
+            text-align: center;
+            font-size: 11px;
+            font-weight: bold;
+            color: #b30000;
+            border-top: 1px dashed #b30000;
+            padding: 6px 0;
+            margin-top: 10px;
+        }
+        .checkbox-container {
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #b30000;
+            padding: 8px;
+            background: #fffcf5;
+            margin-top: 5px;
+        }
+        .checkbox-item {
+            font-size: 10px;
+            font-weight: bold;
+            color: #b30000;
+            display: flex;
+            align-items: center;
+        }
+        .box-outline {
+            border: 1px solid #b30000;
+            width: 12px;
+            height: 12px;
+            display: inline-block;
+            margin-left: 4px;
+        }
+        @media print {
+            body {
+                padding: 0;
+            }
+            .receipt-container {
+                border: 4px double #b30000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <table class="header-table">
+            <tr>
+                <td style="width: 15%; text-align: left;">
+                    <img src="images/president.jpeg" class="header-photo" alt="President">
+                </td>
+                <td style="width: 70%;" class="header-text">
+                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
+                    <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
+                    <p class="en-title">KARNATAKA RAJYA NADAF / PINJAR SANGHA &reg;</p>
+                    <p>ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</p>
+                    <p>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
+                </td>
+                <td style="width: 15%; text-align: right;">
+                    <img src="images/logo-graphics.png" class="header-logo" alt="Logo">
+                </td>
+            </tr>
+        </table>
+        
+        <div class="title-banner">
+            <div>ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
+            <div style="font-size: 15px;">ಜನಗಣತಿ (CENSUS) ಅರ್ಜಿ 2026-27</div>
+            <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${new Date().toLocaleDateString('en-US')}</div>
+        </div>
+
+        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">I. ಕುಟುಂಬದ ವಿವರ (Family Details)</h3>
+        <table class="grid-table">
+            <tr>
+                <td class="grid-label">ಮುಖ್ಯಸ್ಥರ ಹೆಸರು</td>
+                <td class="grid-value">${data.headName || '-'}</td>
+                <td class="grid-label">ವಿಳಾಸ :</td>
+                <td class="grid-value">${data.address || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಗ್ರಾಮ / ನಗರ</td>
+                <td class="grid-value">${data.village || '-'}</td>
+                <td class="grid-label">ಜಿಲ್ಲೆ :</td>
+                <td class="grid-value">${data.district || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ತಾಲೂಕು</td>
+                <td class="grid-value">${data.taluk || '-'}</td>
+                <td class="grid-label">ಆಧಾರ್ ಸಂಖ್ಯೆ :</td>
+                <td class="grid-value">${data.headAadhar || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ವಾರ್ಡ್ ಸಂಖ್ಯೆ</td>
+                <td class="grid-value">${data.ward || '-'}</td>
+                <td class="grid-label">ಧರ್ಮ / ಜಾತಿ :</td>
+                <td class="grid-value">${data.religion || '-'} / ${data.caste || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಮನೆಯ ಪ್ರಕಾರ</td>
+                <td class="grid-value">${data.houseType || '-'}</td>
+                <td class="grid-label">ಜಮೀನು :</td>
+                <td class="grid-value">${data.landAcres || '0'} ಎಕರೆ - ${data.landGunta || '0'} ಗುಂಟೆ</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ರೂಪಿಸುವ ಪ್ರಕಾರ</td>
+                <td class="grid-value" colspan="3">${data.formingType || '-'}</td>
+            </tr>
+        </table>
+
+        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">II. ಸದಸ್ಯರ ವಿವರಗಳು (Family Members)</h3>
+        <table class="members-table">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">Sl No.</th>
+                    <th style="width: 25%;">ಸದಸ್ಯರ ಹೆಸರು</th>
+                    <th style="width: 15%;">ಸಂಬಂಧ</th>
+                    <th style="width: 15%;">ಮೊಬೈಲ್</th>
+                    <th style="width: 15%;">ಆಧಾರ್</th>
+                    <th style="width: 13%;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
+                    <th style="width: 12%;">ಸಾಕ್ಷರಹಾ</th>
+                </tr>
+            </thead>
+            <tbody>
+                \${membersRows}
+            </tbody>
+        </table>
+
+        <div class="sig-section">
+            <div class="sig-box">
+                <div class="sig-space"></div>
+                ಕುಟುಂಬದ ಮುಖ್ಯಸ್ಥರ ಸಹಿ
+            </div>
+            <div class="sig-box">
+                <div class="sig-space"></div>
+                ಅರ್ಜಿ ಸ್ವೀಕರಿಸಿದವರ ಸಹಿ
+            </div>
+        </div>
+
+        <div class="recommend-text">
+            ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:___________ ಮಾಹಿತಿಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
+        </div>
+
+        <div class="checkbox-container">
+            <div class="checkbox-item">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು: <span class="box-outline"></span></div>
+            <div class="checkbox-item">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು: <span class="box-outline"></span></div>
+            <div class="checkbox-item">ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು: <span class="box-outline"></span></div>
+            <div class="checkbox-item">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ: <span class="box-outline"></span></div>
+            <div class="checkbox-item">ರಾಜ್ಯ ಘಟಕ: <span class="box-outline"></span></div>
+        </div>
+    </div>
+</body>
+</html>`;
+
+            // Create invisible iframe
+            let iframe = document.getElementById('receiptPrintIframe');
+            if (!iframe) {
+                iframe = document.createElement('iframe');
+                iframe.id = 'receiptPrintIframe';
+                iframe.style.position = 'fixed';
+                iframe.style.right = '0';
+                iframe.style.bottom = '0';
+                iframe.style.width = '0';
+                iframe.style.height = '0';
+                iframe.style.border = '0';
+                document.body.appendChild(iframe);
+            }
+            
+            const doc = iframe.contentWindow.document;
+            doc.open();
+            doc.write(printHTML);
+            doc.close();
+            
+            setTimeout(() => {
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+            }, 800);
+        }
+
+        // Initialize features
+        setupOtherOptions();
     </script>
 </body>
 </html>
