@@ -1,4 +1,4 @@
-﻿const http = require('http');
+const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -60,6 +60,10 @@ const server = http.createServer((req, res) => {
     req.on('data', chunk => body += chunk.toString());
     req.on('end', async () => {
       try {
+        if (!mongoose.connection || mongoose.connection.readyState !== 1) {
+          console.log('Reconnecting to MongoDB...');
+          await mongoose.connect(MONGO_URI);
+        }
         const data = JSON.parse(body);
         const newDonation = new Donation(data);
         await newDonation.save();

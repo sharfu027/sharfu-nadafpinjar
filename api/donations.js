@@ -2,12 +2,11 @@ const mongoose = require('mongoose');
 
 const MONGO_URI = 'mongodb+srv://rakesh_rk:Rakesh2005@faceauth.jvni6bv.mongodb.net/?appName=faceauth';
 
-let isConnected = false;
-
 async function connectToDatabase() {
-  if (isConnected) return;
+  if (mongoose.connection && mongoose.connection.readyState >= 1) {
+    return;
+  }
   await mongoose.connect(MONGO_URI);
-  isConnected = true;
 }
 
 const donationSchema = new mongoose.Schema({
@@ -33,7 +32,17 @@ module.exports = async (req, res) => {
   if (req.method === 'POST') {
     try {
       await connectToDatabase();
-      const newDonation = new Donation(req.body);
+      
+      let data = req.body;
+      if (typeof data === 'string') {
+        try {
+          data = JSON.parse(data);
+        } catch (e) {
+          console.error('Error parsing body string:', e);
+        }
+      }
+      
+      const newDonation = new Donation(data);
       await newDonation.save();
       return res.status(201).json({ success: true, message: 'Donation saved', id: newDonation._id });
     } catch (err) {

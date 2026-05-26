@@ -114,6 +114,84 @@
         .btn-add-member:hover {
             background: #0056b3;
         }
+        
+        /* Success Modal Styles */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: backdropFade 0.3s ease-out forwards;
+        }
+        .modal-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+            width: 90%;
+            max-width: 450px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            animation: cardSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .modal-title {
+            color: #b30000;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
+        .modal-badge {
+            background: #0066ff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .modal-desc {
+            color: #b30000;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .btn-modal-print {
+            background: #0066ff;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-modal-print:hover {
+            background: #0052cc;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+        }
+        
+        @keyframes backdropFade {
+            from { background: rgba(255, 255, 255, 0); }
+            to { background: rgba(255, 255, 255, 0.85); }
+        }
+        @keyframes cardSlideIn {
+            from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -305,6 +383,9 @@
                     <label for="housingInfo">ವಸತಿ ವಿವರ: ವಸತಿ ಪರಿಗಣನೆಗಳು</label>
                     <select id="housingInfo" name="housingInfo">
                         <option value="ಸ್ವಂತ ಮನೆ">ಸ್ವಂತ ಮನೆ</option>
+                        <option value="ಬಾಡಿಗೆ ಮನೆ">ಬಾಡಿಗೆ ಮನೆ</option>
+                        <option value="ಲೀಸ್ ಮನೆ">ಲೀಸ್ ಮನೆ</option>
+                        <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other (Type Manually)</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -318,6 +399,10 @@
                     <label for="houseType">ಮನೆ ನಿರ್ಮಾಣ</label>
                     <select id="houseType" name="houseType">
                         <option value="ಗುಡಿಸಲು ಮನೆ">ಗುಡಿಸಲು ಮನೆ</option>
+                        <option value="ಶೆಡ್ ಮನೆ">ಶೆಡ್ ಮನೆ</option>
+                        <option value="ಆರ್‌ಸಿಸಿ ಮನೆ">ಆರ್‌ಸಿಸಿ ಮನೆ</option>
+                        <option value="ಮಣ್ಣಿನ ಮನೆ">ಮಣ್ಣಿನ ಮನೆ</option>
+                        <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other (Type Manually)</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -407,6 +492,22 @@
         </form>
     </div>
 
+    <!-- Success Modal -->
+    <div id="successModal" class="modal-backdrop">
+        <div class="modal-card">
+            <h2 class="modal-title">ಸಲ್ಲಿಕೆ ಯಶಸ್ವಿಯಾಗಿದೆ</h2>
+            <div id="modalAppNumber" class="modal-badge">
+                ಅರ್ಜಿ ಸಂಖ್ಯೆ ಪಡೆದು : KRNPS-2026-27-85
+            </div>
+            <p class="modal-desc">
+                ವಿವರಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಸಲ್ಲಿಸಲಾಗಿದೆ.<br>ನಮ್ಮ ಬ್ಯಾಂಕ್‌ನಿಂದ ಸಂದೇಶ ಶೀಘ್ರದಲ್ಲಿ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುವೆವು.
+            </p>
+            <button id="btnPrintReceipt" class="btn-modal-print">
+                ಪ್ರಿಂಟ್ ರಶೀದಿ
+            </button>
+        </div>
+    </div>
+
     <footer class="wrapper footer-wrapper">
         <div class="footer-bottom-wrapper">
             <div class="container">
@@ -415,7 +516,7 @@
         </div>
     </footer>
 
-        <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/jquery-accessibleMegaMenu.js"></script>
     <script src="js/framework.js"></script>
     <script src="js/megamenu.js"></script>
@@ -492,17 +593,398 @@
             .then(res => res.json())
             .then(data => {
                 if(data.success) {
-                    alert('Data saved successfully!');
-                    window.location.href = 'default.html';
+                    // Dynamic Application Number Generation
+                    const lastDigits = data.id ? parseInt(data.id.slice(-4), 16) % 100 : Math.floor(Math.random() * 90) + 10;
+                    const appNumber = `KRNPS-2026-27-${lastDigits}`;
+                    
+                    // Show confirmation modal with the generated app number
+                    document.getElementById('modalAppNumber').textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ ಪಡೆದು : ${appNumber}`;
+                    
+                    // Display success modal
+                    const modal = document.getElementById('successModal');
+                    modal.style.display = 'flex';
+                    
+                    // Attach print listener
+                    document.getElementById('btnPrintReceipt').onclick = function() {
+                        printReceipt(formData, appNumber);
+                        
+                        // Automatically redirect to default.html after a small timeout to let the print dialog load
+                        setTimeout(() => {
+                            window.location.href = 'default.html';
+                        }, 2000);
+                    };
                 } else {
-                    alert('Error saving data.');
+                    alert('Error saving data: ' + (data.error || 'Server error'));
                 }
             })
             .catch(err => {
                 console.error(err);
-                alert('Error saving data.');
+                alert('Error saving data. Please check connection.');
             });
         }
+        
+        // Custom Manual Entry Handler for Select Fields
+        function setupOtherOptions() {
+            const selects = document.querySelectorAll('select');
+            selects.forEach(select => {
+                if (select.id === 'housingInfo' || select.id === 'houseType') {
+                    select.addEventListener('change', function() {
+                        handleOtherInput(this);
+                    });
+                }
+            });
+        }
+
+        function handleOtherInput(select) {
+            const parent = select.parentNode;
+            let input = select.nextElementSibling;
+            
+            if (input && input.classList.contains("custom-other-input")) {
+                if (select.value !== "__OTHER__") {
+                    input.remove();
+                    const originalName = select.getAttribute("data-original-name");
+                    if (originalName) {
+                        select.setAttribute("name", originalName);
+                        select.removeAttribute("data-original-name");
+                    }
+                }
+            } else {
+                if (select.value === "__OTHER__") {
+                    input = document.createElement("input");
+                    input.type = "text";
+                    input.className = "custom-other-input";
+                    input.placeholder = "ನಮೂದಿಸಿ / Enter value";
+                    input.style.cssText = "width: 100% !important; padding: 10px !important; margin-top: 8px !important; border: 1px solid #0066cc !important; border-radius: 4px !important; font-size: 14px !important; box-sizing: border-box !important;";
+                    
+                    const originalName = select.getAttribute("name");
+                    if (originalName) {
+                        select.setAttribute("data-original-name", originalName);
+                        select.removeAttribute("name");
+                        input.setAttribute("name", originalName);
+                    }
+                    
+                    input.required = true;
+                    parent.appendChild(input);
+                    input.focus();
+                }
+            }
+        }
+
+        // High-Fidelity Indic-Safe Printable Receipt System
+        function printReceipt(data, appNumber) {
+            const printHTML = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .receipt-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 4px double #b30000;
+            padding: 15px;
+            background: #fff;
+            box-sizing: border-box;
+        }
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        .header-table td {
+            padding: 5px;
+            vertical-align: middle;
+        }
+        .header-photo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid #b30000;
+            object-fit: cover;
+        }
+        .header-logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid #b30000;
+            object-fit: cover;
+        }
+        .header-text {
+            text-align: center;
+        }
+        .header-text h1 {
+            color: #b30000;
+            font-size: 20px;
+            margin: 0 0 5px 0;
+            font-weight: bold;
+        }
+        .header-text p {
+            margin: 2px 0;
+            font-size: 11px;
+            color: #444;
+            font-weight: bold;
+        }
+        .header-text .reg-no {
+            font-size: 12px;
+            color: #000;
+        }
+        .header-text .en-title {
+            font-size: 13px;
+            color: #b30000;
+            margin-top: 3px;
+        }
+        .title-banner {
+            border-top: 2px solid #b30000;
+            border-bottom: 2px solid #b30000;
+            padding: 8px;
+            margin: 10px 0;
+            background: #fffcf5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 13px;
+            color: #b30000;
+        }
+        .grid-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        .grid-table td {
+            border: 1px solid #b30000;
+            padding: 8px 10px;
+            font-size: 13px;
+            vertical-align: middle;
+        }
+        .grid-label {
+            background: #fffcf5;
+            color: #b30000;
+            font-weight: bold;
+            width: 25%;
+        }
+        .grid-value {
+            color: #000;
+            width: 25%;
+            font-weight: 500;
+        }
+        .sig-section {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 20px 10px 20px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #b30000;
+        }
+        .sig-box {
+            text-align: center;
+            width: 150px;
+        }
+        .sig-space {
+            height: 45px;
+        }
+        .recommend-text {
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #b30000;
+            border-top: 1px dashed #b30000;
+            padding: 8px 0;
+            margin-top: 15px;
+        }
+        .checkbox-container {
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #b30000;
+            padding: 10px;
+            background: #fffcf5;
+            margin-top: 5px;
+        }
+        .checkbox-item {
+            font-size: 11px;
+            font-weight: bold;
+            color: #b30000;
+            display: flex;
+            align-items: center;
+        }
+        .box-outline {
+            border: 1px solid #b30000;
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+            margin-left: 6px;
+        }
+        @media print {
+            body {
+                padding: 0;
+            }
+            .receipt-container {
+                border: 4px double #b30000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <table class="header-table">
+            <tr>
+                <td style="width: 15%; text-align: left;">
+                    <img src="images/president.jpeg" class="header-photo" alt="President">
+                </td>
+                <td style="width: 70%;" class="header-text">
+                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
+                    <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
+                    <p class="en-title">KARNATAKA RAJYA NADAF / PINJAR SANGHA &reg;</p>
+                    <p>ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</p>
+                    <p>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
+                </td>
+                <td style="width: 15%; text-align: right;">
+                    <img src="images/logo-graphics.png" class="header-logo" alt="Logo">
+                </td>
+            </tr>
+        </table>
+        
+        <div class="title-banner">
+            <div>ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
+            <div style="font-size: 15px;">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27</div>
+            <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${new Date().toLocaleDateString('en-US')}</div>
+        </div>
+
+        <table class="grid-table">
+            <tr>
+                <td class="grid-label">ವید್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
+                <td class="grid-value">${data.studentName || '-'}</td>
+                <td class="grid-label">ತಂದೆಯ/ಪಾಲಕರ ಹೆಸರು :</td>
+                <td class="grid-value">${data.fatherName || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ತಾಯಿಯ ಹೆಸರು</td>
+                <td class="grid-value">${data.motherName || '-'}</td>
+                <td class="grid-label">ವಿಳಾಸ :</td>
+                <td class="grid-value">${data.address || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ನಗರಿ/ಗ್ರಾಮ</td>
+                <td class="grid-value">${data.village || '-'}</td>
+                <td class="grid-label">ಜಿಲ್ಲೆ :</td>
+                <td class="grid-value">${data.district || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಉದ್ಯೋಗ</td>
+                <td class="grid-value">${data.occupation || '-'}</td>
+                <td class="grid-label">ತಾಲೂಕು :</td>
+                <td class="grid-value">${data.taluk || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಆಧಾರ್ ನಂ</td>
+                <td class="grid-value">${data.aadhar || '-'}</td>
+                <td class="grid-label">ಸಂಘದ ಸದಸ್ಯತ್ವ ಅಂತೋದಯ/ಬಿಪಿಎಲ್ :</td>
+                <td class="grid-value">${data.membership || '-'} / ${data.rationType || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಮನೆ</td>
+                <td class="grid-value">${data.housingInfo || '-'} / ${data.houseType || '-'}</td>
+                <td class="grid-label">ಜಮೀನು :</td>
+                <td class="grid-value">${data.landInfo || '0'} ಎಕರೆ - ${data.gunte || '0'} ಗುಂಟೆ</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಅಂದಾಜು ಆದಾಯ</td>
+                <td class="grid-value">${data.income || '-'}</td>
+                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
+                <td class="grid-value">${data.mobile || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಶಾಲೆ/ಕಾಲೇಜು ಮಾಡುತ್ತಿರುವ</td>
+                <td class="grid-value">${data.currentSchool || '-'}</td>
+                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
+                <td class="grid-value">${data.currentClass || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಹಿಂದಿನ ತರಗತಿಯಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳು</td>
+                <td class="grid-value">${data.previousMarks || '-'}</td>
+                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
+                <td class="grid-value">${data.joiningClass || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು :</td>
+                <td class="grid-value">${data.classSubjects || '-'}</td>
+                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್:</td>
+                <td class="grid-value">${data.coaching || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                <td class="grid-value">${data.bankName || '-'}</td>
+                <td class="grid-label">ಶಾಖೆಯ ಹೆಸರು</td>
+                <td class="grid-value">${data.branchName || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">IFSC ಕೋಡ್</td>
+                <td class="grid-value">${data.ifsc || '-'}</td>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ :</td>
+                <td class="grid-value">${data.bankAccount || '-'}</td>
+            </tr>
+        </table>
+
+        <div class="sig-section">
+            <div class="sig-box">
+                <div class="sig-space"></div>
+                ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ
+            </div>
+            <div class="sig-box">
+                <div class="sig-space"></div>
+                ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ
+            </div>
+        </div>
+
+        <div class="recommend-text">
+            ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:___________ ಮಾಹಿತಿಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
+        </div>
+
+        <div class="checkbox-container">
+            <div class="checkbox-item">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು: <span class="box-outline"></span></div>
+            <div class="checkbox-item">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು: <span class="box-outline"></span></div>
+            <div class="checkbox-item">ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು: <span class="box-outline"></span></div>
+            <div class="checkbox-item">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ: <span class="box-outline"></span></div>
+            <div class="checkbox-item">ರಾಜ್ಯ ಘಟಕ: <span class="box-outline"></span></div>
+        </div>
+    </div>
+</body>
+</html>`;
+
+            // Create invisible iframe
+            let iframe = document.getElementById('receiptPrintIframe');
+            if (!iframe) {
+                iframe = document.createElement('iframe');
+                iframe.id = 'receiptPrintIframe';
+                iframe.style.position = 'fixed';
+                iframe.style.right = '0';
+                iframe.style.bottom = '0';
+                iframe.style.width = '0';
+                iframe.style.height = '0';
+                iframe.style.border = '0';
+                document.body.appendChild(iframe);
+            }
+            
+            const doc = iframe.contentWindow.document;
+            doc.open();
+            doc.write(printHTML);
+            doc.close();
+            
+            setTimeout(() => {
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+            }, 800);
+        }
+
+        // Initialize features
+        setupOtherOptions();
     </script>
 </body>
 </html>
