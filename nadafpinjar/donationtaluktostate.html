@@ -394,35 +394,35 @@
             <h3 class="section-title">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರ ವಿವರ</h3>
             <div class="form-group">
                 <label for="presidentName">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರ ಪೂರ್ಣ ಹೆಸರು</label>
-                <input type="text" id="presidentName" name="presidentName">
+                <input type="text" id="presidentName" name="presidentName" required>
             </div>
 
             <div class="form-group">
                 <label for="presidentAddress">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರ ವಿಳಾಸ</label>
-                <textarea id="presidentAddress" name="presidentAddress"></textarea>
+                <textarea id="presidentAddress" name="presidentAddress" required></textarea>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="presidentMobile">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</label>
-                    <input type="tel" id="presidentMobile" name="presidentMobile" pattern="[0-9]{10}">
+                    <input type="tel" id="presidentMobile" name="presidentMobile" pattern="[0-9]{10}" required>
                 </div>
                 <div class="form-group">
                     <label for="presidentVillage">ಗ್ರಾಮ / ನಗರ</label>
-                    <input type="text" id="presidentVillage" name="presidentVillage">
+                    <input type="text" id="presidentVillage" name="presidentVillage" required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="district">ಜಿಲ್ಲೆ</label>
-                    <select id="district" name="district">
+                    <select id="district" name="district" required>
                         <option value="">-ಜಿಲ್ಲೆ ಆಯ್ಕೆಮಾಡಿ-</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="taluk">ತಾಲೂಕು</label>
-                    <select id="taluk" name="taluk">
+                    <select id="taluk" name="taluk" required>
                         <option value="">-ತಾಲೂಕನ್ನು ಆಯ್ಕೆ ಮಾಡಿ-</option>
                     </select>
                 </div>
@@ -431,22 +431,22 @@
             <h3 class="section-title">ಯಾರ ಪರವಾಗಿ</h3>
             <div class="form-group">
                 <label for="donorName">ಪೂರ್ಣ ಹೆಸರು / ಘಟಕದ ಹೆಸರು</label>
-                <input type="text" id="donorName" name="donorName">
+                <input type="text" id="donorName" name="donorName" required>
             </div>
 
             <div class="form-group">
                 <label for="donorAddress">ವಿಳಾಸ</label>
-                <textarea id="donorAddress" name="donorAddress"></textarea>
+                <textarea id="donorAddress" name="donorAddress" required></textarea>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="donorVillage">ಗ್ರಾಮ / ನಗರ</label>
-                    <input type="text" id="donorVillage" name="donorVillage">
+                    <input type="text" id="donorVillage" name="donorVillage" required>
                 </div>
                 <div class="form-group">
                     <label for="donorDistrict">ಜಿಲ್ಲೆ</label>
-                    <select id="donorDistrict" name="donorDistrict">
+                    <select id="donorDistrict" name="donorDistrict" required>
                         <option value="">-ಜಿಲ್ಲೆ ಆಯ್ಕೆಮಾಡಿ-</option>
                     </select>
                 </div>
@@ -455,13 +455,13 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="donorTaluk">ತಾಲೂಕು</label>
-                    <select id="donorTaluk" name="donorTaluk">
+                    <select id="donorTaluk" name="donorTaluk" required>
                         <option value="">-ತಾಲೂಕನ್ನು ಆಯ್ಕೆ ಮಾಡಿ-</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="donorMobile">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</label>
-                    <input type="tel" id="donorMobile" name="donorMobile" pattern="[0-9]{10}">
+                    <input type="tel" id="donorMobile" name="donorMobile" pattern="[0-9]{10}" required>
                 </div>
             </div>
 
@@ -469,7 +469,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="account">ಖಾತೆ</label>
-                    <select id="account" name="account">
+                    <select id="account" name="account" required>
                         <option value="">-- ಖಾತೆ ಆಯ್ಕೆಮಾಡಿ--</option>
                     </select>
                 </div>
@@ -489,7 +489,7 @@
                 </div>
                 <div class="form-group">
                     <label for="amount">ಮೊತ್ತ (ರೂ.)</label>
-                    <input type="number" id="amount" name="amount" min="1">
+                    <input type="number" id="amount" name="amount" min="1" required>
                 </div>
             </div>
 
@@ -660,7 +660,7 @@
                 },
                 prefill: {
                     name: formData.donorName || formData.presidentName || formData.studentName || '',
-                    contact: formData.mobile || formData.presidentMobile || ''
+                    contact: formData.donorMobile || formData.presidentMobile || formData.mobile || ''
                 },
                 notes: Object.assign({}, formData),
                 theme: {
