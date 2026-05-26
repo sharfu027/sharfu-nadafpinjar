@@ -1,0 +1,92 @@
+﻿const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const mongoose = require('mongoose');
+
+const PORT = 3000;
+const BASE_DIR = path.join(__dirname, 'nadafpinjar');
+
+// MongoDB Connection
+const MONGO_URI = 'mongodb+srv://rakesh_rk:Rakesh2005@faceauth.jvni6bv.mongodb.net/?appName=faceauth';
+
+mongoose.connect(MONGO_URI)
+  .then(() => console.log('\n✅ MongoDB Connected successfully'))
+  .catch(err => console.error('\n❌ MongoDB Connection Error:', err));
+
+// Define Donation Schema & Model
+const donationSchema = new mongoose.Schema({
+  paymentId: String,
+  formType: String,
+  amount: Number,
+  formData: mongoose.Schema.Types.Mixed,
+  date: { type: Date, default: Date.now }
+});
+
+const Donation = mongoose.model('Donation', donationSchema);
+
+// MIME types mapping
+const mimeTypes = {
+  '.html': 'text/html',
+  '.css': 'text/css',
+  '.js': 'application/javascript',
+  '.json': 'application/json',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.svg': 'image/svg+xml',
+  '.ico': 'image/x-icon',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2',
+  '.ttf': 'font/ttf',
+  '.eot': 'application/vnd.ms-fontobject',
+  '.xml': 'application/xml'
+};
+
+const server = http.createServer((req, res) => {
+  if (req.method === 'POST' && req.url === '/api/donations') {
+    let body = '';
+    req.on('data', chunk => body += chunk.toString());
+    req.on('end', async () => {
+      try {
+        const data = JSON.parse(body);
+        const newDonation = new Donation(data);
+        await newDonation.save();
+        res.writeHead(201, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, message: 'Donation saved', id: newDonation._id }));
+      } catch (err) {
+        console.error('Error saving donation:', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
+  let filePath = req.url === '/' ? '/default.html' : req.url;
+  filePath = filePath.split('?')[0];
+  const fullPath = path.join(BASE_DIR, filePath);
+  const ext = path.extname(fullPath).toLowerCase();
+  const contentType = mimeTypes[ext] || 'application/octet-stream';
+  
+  fs.readFile(fullPath, (err, content) => {
+    if (err) {
+      if (err.code === 'ENOENT') {
+        res.writeHead(404, { 'Content-Type': 'text/html' });
+        res.end('<h1>404 - File Not Found</h1>', 'utf-8');
+      } else {
+        res.writeHead(500);
+        res.end(`Server Error: ${err.code}`, 'utf-8');
+      }
+    } else {
+      res.writeHead(200, { 'Content-Type': contentType });
+      res.end(content, 'utf-8');
+    }
+  });
+});
+
+server.listen(PORT, () => {
+  console.log(`\n🚀 Server is running!`);
+  console.log(`\n📂 Serving files from: ${BASE_DIR}`);
+  console.log(`\n🛑 Press Ctrl+C to stop the server\n`);
+});

@@ -1,0 +1,606 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="kn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆಯಾದ ಮೊತ್ತ - Karnataka State Nadaf / Pinjar Sangha</title>
+    <link href="css/base.css" rel="stylesheet" media="all">
+    <link href="css/base-responsive.css" rel="stylesheet" media="all">
+    <link href="css/grid.css" rel="stylesheet" media="all">
+    <link href="css/font.css" rel="stylesheet" media="all">
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/megamenu.css" rel="stylesheet" media="all">
+    <link href="css/site.css" rel="stylesheet" media="all">
+    <link href="css/site-responsive.css" rel="stylesheet" media="all">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        .banner-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .preview-container {
+            display: none;
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #fff;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+        }
+        .preview-title {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #0066cc;
+        }
+        .preview-row {
+            display: flex;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .preview-label {
+            flex: 0 0 200px;
+            font-weight: 600;
+            color: #333;
+        }
+        .preview-value {
+            flex: 1;
+            color: #666;
+        }
+        .amount-display {
+            background: #f0f8ff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .amount-display h3 {
+            color: #0066cc;
+            font-size: 32px;
+            margin: 0;
+        }
+        .payment-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .payment-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .btn-pay {
+            background: #0066cc;
+            color: white;
+            padding: 15px 50px;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .btn-pay:hover {
+            background: #0052a3;
+        }
+        .btn-edit {
+            background: #ffc107;
+            color: #333;
+            padding: 15px 50px;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .btn-edit:hover {
+            background: #e0a800;
+        }
+        .form-container {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #fff;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+        }
+        .form-title {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #0066cc;
+        }
+        .section-title {
+            background: #0066cc;
+            color: white;
+            padding: 10px 15px;
+            margin: 25px 0 15px 0;
+            border-left: 5px solid #004499;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn-submit {
+            background: #28a745;
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .btn-cancel {
+            background: #dc3545;
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .btn-submit:hover {
+            background: #218838;
+        }
+        .btn-cancel:hover {
+            background: #c82333;
+        }
+        .footer-para {
+            text-align: center;
+            color: #666;
+        }
+        .banner-container {
+            max-width: 960px;
+            margin: 20px auto;
+        }
+        .preview-section-title {
+            color: #0066cc;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <img src="images/header-nadaf.png" alt="Karnataka Rajya Nadaf Pinjar Sangha" class="header-image">
+        </div>
+    </header>
+<section class="wrapper megamenu-wraper">
+                <p class="d-none">Megamenu</p>
+                <div class="container common-container four_content">
+                    <p class="showhide"><em></em><em></em><em></em></p>
+                    <nav class="main-menu clearfix" id="main_menu">
+                        <ul class="nav-menu">
+                            <!-- <li class="nav-item"> <a href="#" class="home"><i class="fa fa-home"></i></a> </li>      -->
+                            <li class="nav-item"><a href="index.html">HOME</a>
+
+                            </li>
+                            <li class="nav-item"><a href="#">ABOUT</a>
+                                <div class="sub-nav">
+                                    <ul class="sub-nav-group">
+                                        <li><a href="#">ESTABLISHMENT </a></li>
+                                        <li><a href="#">STATE WORKING COMMITTEE LIST </a></li>
+                                        <li><a href="#">STATE GENERAL COMMITTEE LIST</a></li>
+                                    </ul>
+                                </div>
+                                
+                            </li>
+
+                            <li class="nav-item"><a href="#">SCHEMES </a>
+                                
+                            </li>
+                            <li class="nav-item"><a href="#">ಅರ್ಜಿಗಳು</a>
+                                <div class="sub-nav">
+                                    <ul class="sub-nav-group">
+                                        <li><a href="freeedu.html">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ</a></li>
+                                         <li><a href="Census.html">ಜನಗಣತಿ (Census) </a></li>
+                                        
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item"><a href="#">FINANCE</a>
+                                
+                            </li>
+
+                            <li class="nav-item"><a href="#">ರಸೀದಿಗಳು</a>
+                                <div class="sub-nav">
+                                    <ul class="sub-nav-group">
+                                        <li><a href="donationdirectstate.html">ರಾಜ್ಯಕ್ಕೆ ನೇರವಾಗಿ</a></li>
+
+                                        <li><a href="donationtaluktostate.html">ತಾಲ್ಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                        <li><a href="donationdistricttostate.html">ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                        <li><a href="#">State Unit to Beneficiary</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <!-- li class="nav-item"><a href="#">Tenders</a>
+                      <div class="sub-nav">
+                        <ul class="sub-nav-group">
+                          <li><a href="#">Recent Tenders</a></li>
+                          <li><a href="#">Awarded Tenders</a></li>
+                        </ul>
+                      </div>
+                    </li>
+            
+                    <li class="nav-item"><a href="#">Schemes</a></li>
+            
+                    <li class="nav-item"><a href="#">Services</a></li>
+            
+                    <li class="nav-item"><a href="#">Documents</a>
+                      <div class="sub-nav">
+                        <ul class="sub-nav-group">
+                          <li><a href="#">Publications</a></li>
+                          <li><a href="#">Reports</a></li>
+                          <li><a href="#">Office Orders</a></li>
+                          <li><a href="#">Policies</a></li>
+                          <li><a href="#">Budget</a></li>
+                          <li><a href="#">Citizen Charter</a></li>
+                          <li><a href="#">Major Achievements</a></li>
+                        </ul>
+                      </div>
+                    </li>
+                    
+            
+                    <li class="nav-item"><a href="#">Grievance</a></li>
+                                 
+                    <li class="nav-item">
+                      <a href="#">Parliament Q & A</a>
+                      <div class="sub-nav col-1">
+                         <ul class="sub-nav-group ">
+                            <li><a href="#">Lok Sabha</a></li>
+                            <li><a href="#">Rajya Sabha</a></li>
+                         </ul>
+                      </div>
+                    </li>
+                   
+                    <li class="nav-item"><a href="#">Important Links</a></li> -->
+
+                            <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+
+                        </ul>
+                    </nav>
+                    <nav class="main-menu clearfix" id="overflow_menu">
+                        <ul class="nav-menu clearfix">
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+
+
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="default.html">Home</a> » <span>ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆಯಾದ ಮೊತ್ತ</span>
+        </div>
+    </div>
+
+    <!-- Banner Image -->
+    <div class="container" class="banner-container">
+        <img src="images/slider-3.jpg" alt="Donation Banner" class="banner-image">
+    </div>
+
+    <div class="form-container" id="formContainer">
+        <h1 class="form-title">ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆಯಾದ ಮೊತ್ತ</h1>
+        
+        <form id="districtToStateForm" method="post">
+            <h3 class="section-title">ಜಿಲ್ಲಾಧ್ಯಕ್ಷರ ವಿವರ</h3>
+            <div class="form-group">
+                <label for="presidentName">ಜಿಲ್ಲಾಧ್ಯಕ್ಷರ ಪೂರ್ಣ ಹೆಸರು</label>
+                <input type="text" id="presidentName" name="presidentName">
+            </div>
+
+            <div class="form-group">
+                <label for="presidentAddress">ಜಿಲ್ಲಾಧ್ಯಕ್ಷರ ವಿಳಾಸ</label>
+                <textarea id="presidentAddress" name="presidentAddress"></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="presidentMobile">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</label>
+                    <input type="tel" id="presidentMobile" name="presidentMobile" pattern="[0-9]{10}">
+                </div>
+                <div class="form-group">
+                    <label for="presidentVillage">ಗ್ರಾಮ / ನಗರ</label>
+                    <input type="text" id="presidentVillage" name="presidentVillage">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="district">ಜಿಲ್ಲೆ</label>
+                    <select id="district" name="district">
+                        <option value="">-ಜಿಲ್ಲೆ ಆಯ್ಕೆಮಾಡಿ-</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taluk">ತಾಲೂಕು</label>
+                    <select id="taluk" name="taluk">
+                        <option value="">-ತಾಲೂಕನ್ನು ಆಯ್ಕೆ ಮಾಡಿ-</option>
+                    </select>
+                </div>
+            </div>
+
+            <h3 class="section-title">ಯಾರ ಪರವಾಗಿ</h3>
+            <div class="form-group">
+                <label for="donorName">ಪೂರ್ಣ ಹೆಸರು</label>
+                <input type="text" id="donorName" name="donorName">
+            </div>
+
+            <div class="form-group">
+                <label for="donorAddress">ವಿಳಾಸ</label>
+                <textarea id="donorAddress" name="donorAddress"></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="donorVillage">ಗ್ರಾಮ / ನಗರ</label>
+                    <input type="text" id="donorVillage" name="donorVillage">
+                </div>
+                <div class="form-group">
+                    <label for="donorDistrict">ಜಿಲ್ಲೆ</label>
+                    <select id="donorDistrict" name="donorDistrict">
+                        <option value="">-ಜಿಲ್ಲೆ ಆಯ್ಕೆಮಾಡಿ-</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="donorTaluk">ತಾಲೂಕು</label>
+                    <select id="donorTaluk" name="donorTaluk">
+                        <option value="">-ತಾಲೂಕನ್ನು ಆಯ್ಕೆ ಮಾಡಿ-</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="donorMobile">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</label>
+                    <input type="tel" id="donorMobile" name="donorMobile" pattern="[0-9]{10}">
+                </div>
+            </div>
+
+            <h3 class="section-title">ಉದ್ದೇಶಗಳು</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="account">ಖಾತೆ</label>
+                    <select id="account" name="account">
+                        <option value="">-- ಖಾತೆ ಆಯ್ಕೆಮಾಡಿ--</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="purposeDetails">ಉದ್ದೇಶದ ವಿವರಗಳು</label>
+                <textarea id="purposeDetails" name="purposeDetails"></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="paymentMode">ಪಾವತಿ ವಿಧಾನ</label>
+                    <select id="paymentMode" name="paymentMode">
+                        <option value="Online">Online</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="amount">ಮೊತ್ತ (ರೂ.)</label>
+                    <input type="number" id="amount" name="amount" min="1">
+                </div>
+            </div>
+
+            <div class="btn-container">
+                <button type="submit" class="btn-submit">Preview and Submit</button>
+                <button type="button" class="btn-cancel" onclick="window.history.back()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Preview Container -->
+    <div class="preview-container" id="previewContainer">
+        <h1 class="preview-title">ಪೂರ್ವವೀಕ್ಷಣೆ ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆಯಾದ ಮೊತ್ತ</h1>
+        
+        <img src="images/slider-3.jpg" alt="Donation Banner" class="banner-image">
+        
+        <div id="previewContent"></div>
+
+        <div class="amount-display">
+            <h3>ಮೊತ್ತ: ₹<span id="displayAmount">0</span></h3>
+        </div>
+
+        <div class="payment-section">
+            <h3>Online</h3>
+            <div class="btn-container">
+                <button type="button" class="btn-edit" onclick="editForm()">Edit</button>
+                <button type="button" class="btn-pay" onclick="initiatePayment()">ಈಗ ಪಾವತಿಸಿ</button>
+                <button type="button" class="btn-cancel" onclick="window.history.back()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="wrapper footer-wrapper">
+        <div class="footer-bottom-wrapper">
+            <div class="container">
+                <p class="footer-para">© 2026 Karnataka State Nadaf / Pinjar Sangha (R). All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/jquery-accessibleMegaMenu.js"></script><script src="js/framework.js"></script><script src="js/megamenu.js"></script>
+    <script>
+        // Razorpay Configuration
+        const RAZORPAY_KEY = "rzp_live_SISoxIvhIen2o1";
+        
+        let formData = {};
+
+        document.getElementById('districtToStateForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formObj = new FormData(this);
+            formData = Object.fromEntries(formObj.entries());
+
+            showPreview();
+        });
+
+        function showPreview() {
+            document.getElementById('formContainer').style.display = 'none';
+            if(!document.getElementById('previewContainer')) return submitToMongoDB();
+            document.getElementById('previewContainer').style.display = 'block';
+
+            let previewHTML = '';
+            const form = document.getElementById('districtToStateForm');
+            
+            for (let key in formData) {
+                if (key !== 'amount') {
+                    let input = form.querySelector('[name="' + key + '"]');
+                    let label = '';
+                    if (input) {
+                        let id = input.id;
+                        if(id) {
+                            let l = form.querySelector('label[for="' + id + '"]');
+                            if(l) label = l.textContent;
+                        }
+                        if(!label) {
+                            let p = input.closest('.form-group');
+                            if(p) {
+                                let l = p.querySelector('label');
+                                if(l) label = l.textContent;
+                            }
+                        }
+                    }
+                    if(!label) label = key;
+
+                    previewHTML += `
+                        <div class="preview-row">
+                            <div class="preview-label">${label}:</div>
+                            <div class="preview-value">${formData[key] || '-'}</div>
+                        </div>
+                    `;
+                }
+            }
+
+            document.getElementById('previewContent').innerHTML = previewHTML;
+            if(document.getElementById('displayAmount')) {
+                document.getElementById('displayAmount').textContent = formData.amount || 0;
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        function editForm() {
+            document.getElementById('formContainer').style.display = 'block';
+            document.getElementById('previewContainer').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        function initiatePayment() {
+            const amount = parseInt(formData.amount || 0) * 100;
+            
+            if (!amount) {
+                submitToMongoDB();
+                return;
+            }
+
+            const options = {
+                key: RAZORPAY_KEY,
+                amount: amount,
+                currency: "INR",
+                name: "Karnataka State Nadaf / Pinjar Sangha",
+                description: "ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆಯಾದ ಮೊತ್ತ",
+                image: "images/header-nadaf.png",
+                handler: function (response) {
+                    submitToMongoDB(response.razorpay_payment_id);
+                },
+                prefill: {
+                    name: formData.donorName || formData.presidentName || formData.studentName || '',
+                    contact: formData.mobile || formData.presidentMobile || ''
+                },
+                notes: Object.assign({}, formData),
+                theme: {
+                    color: "#0066cc"
+                },
+                modal: {
+                    ondismiss: function() {
+                        alert('Payment cancelled. You can try again.');
+                    }
+                }
+            };
+
+            const rzp = new Razorpay(options);
+            
+            rzp.on('payment.failed', function (response) {
+                alert('Payment Failed!\n\nError: ' + response.error.description);
+            });
+
+            rzp.open();
+        }
+
+        function submitToMongoDB(paymentId = null) {
+            const dataToSave = {
+                formType: "ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆಯಾದ ಮೊತ್ತ",
+                amount: parseInt(formData.amount || 0),
+                paymentId: paymentId,
+                formData: formData
+            };
+
+            fetch('/api/donations', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dataToSave)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    alert('Data saved successfully!');
+                    window.location.href = 'default.html';
+                } else {
+                    alert('Error saving data.');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error saving data.');
+            });
+        }
+    </script>
+</body>
+</html>
+
+

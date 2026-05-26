@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Test Razorpay Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+        }
+        button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0052a3;
+        }        .result-container {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f0f0f0;
+        }    </style>
+</head>
+<body>
+    <h1>Test Razorpay Payment</h1>
+    <p>Enter amount and test payment:</p>
+    
+    <label for="testAmount">Amount (₹):</label>
+    <input type="number" id="testAmount" value="100" min="1" placeholder="Amount">
+    
+    <label for="testName">Name:</label>
+    <input type="text" id="testName" value="Test User" placeholder="Name">
+    
+    <label for="testMobile">Mobile:</label>
+    <input type="tel" id="testMobile" value="9876543210" placeholder="Mobile">
+    
+    <button onclick="testPayment()">Test Payment</button>
+    
+    <div id="result" class="result-container"></div>
+
+    <script>
+        function testPayment() {
+            const amount = parseInt(document.getElementById('testAmount').value);
+            const name = document.getElementById('testName').value;
+            const mobile = document.getElementById('testMobile').value;
+            
+            const amountInPaise = amount * 100;
+            
+            document.getElementById('result').innerHTML = `
+                <strong>Debug Info:</strong><br>
+                Amount entered: ₹${amount}<br>
+                Amount in paise: ${amountInPaise}<br>
+                Name: ${name}<br>
+                Mobile: ${mobile}
+            `;
+            
+            console.log('Amount:', amount);
+            console.log('Amount in paise:', amountInPaise);
+            
+            const options = {
+                key: "rzp_live_SISoxIvhIen2o1",
+                amount: amountInPaise,
+                currency: "INR",
+                name: "Karnataka State Nadaf / Pinjar Sangha",
+                description: "Test Payment",
+                image: "images/header-nadaf.png",
+                handler: function (response) {
+                    alert('Payment Successful!\n\nPayment ID: ' + response.razorpay_payment_id);
+                    document.getElementById('result').innerHTML += `<br><br><strong>Payment Successful!</strong><br>Payment ID: ${response.razorpay_payment_id}`;
+                },
+                prefill: {
+                    name: name,
+                    contact: mobile
+                },
+                theme: {
+                    color: "#0066cc"
+                },
+                modal: {
+                    ondismiss: function() {
+                        alert('Payment cancelled');
+                    }
+                }
+            };
+
+            const rzp = new Razorpay(options);
+            
+            rzp.on('payment.failed', function (response) {
+                alert('Payment Failed!\n\nError: ' + response.error.description);
+                document.getElementById('result').innerHTML += `<br><br><strong>Payment Failed!</strong><br>Error: ${response.error.description}`;
+            });
+
+            rzp.open();
+        }
+    </script>
+</body>
+</html>

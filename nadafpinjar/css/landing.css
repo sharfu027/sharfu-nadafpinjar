@@ -1,0 +1,31 @@
+.mobile-view a {
+  background: #fff url(../images/ico-mobile.png) no-repeat center center;
+}
+.desktop-view a {
+  background: #fff url(../images/ico-desktop.png) no-repeat center center;
+}
+.preview div.mobile-view a, .preview div.desktop-view a{
+  width: 90px;
+  height: 90px;
+  border: 1px solid #acacac;
+  border-radius: 100%;
+  font-size: 120%;
+  display: inline-block;
+  text-transform: uppercase;
+  line-height: 40px;
+  padding: 0px 40px;
+}
+.preview em {
+  border: 1px solid #dadada;
+  font-size: 90%;
+  font-style: normal;
+  left: 111px;
+  padding: 0px 7px;
+  position: absolute;
+  top: 35px;
+  display: none;
+  white-space: nowrap;
+  border-left: 0;
+  height: 24px;
+  line-height: 20px;
+}

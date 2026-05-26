@@ -1,0 +1,63 @@
+.wtcl div.wpforms-container-full .wpforms-form .wpforms-title {
+  color: #367AAB;
+  font-weight: 400;
+  font-size: 145%;
+}
+.wtcl div.dataTables_wrapper div.dataTables_length select {
+  width: 70px;
+}
+#wtcTab .nav-link {
+  color: #6E7580;
+}
+#wtcTab .nav-link.active{
+	color: #367AAB;
+}
+.wtcl div.wpforms-container-full .wpforms-form input[type="radio"] {
+	width: 1.15em;
+	height: 1.15em;
+	vertical-align: middle;
+	background-color: #eff2f5;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	border: 0px;
+	appearance: none;
+	print-color-adjust: exact;
+	border-radius: 50%;
+}
+.wtcl div.wpforms-container-full .wpforms-form input[type="radio"]:checked {
+	background-color: #009ef7;
+	border-color: #009ef7;
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23ffffff'/%3e%3c/svg%3e");;
+}
+
+.wtcl div.wpforms-container-full .wpforms-form textarea.wpforms-field-small {
+	background-color: #F5F8FA;
+	border-color: #F5F8FA;
+	color: #5E6278;
+	transition: color 0.2s ease;
+	border-radius: 0.95rem;
+	display: block;
+	width: 100%;
+	padding: 0.775rem 1rem;
+	font-size: 1.1rem;
+	font-weight: 500;
+	line-height: 1.5;
+	appearance: none;
+	outline: 0;
+	min-height: calc(1.5em + 1.55rem + 2px);
+}
+.wtcl div.wpforms-container-full .wpforms-form textarea.wpforms-field-small:focus {
+	background-color: #EEF3F7;
+	border-color: #EEF3F7;
+	color: #5E6278;
+	transition: color 0.2s ease;
+}
+.wtcl div.wpforms-container-full .wpforms-form .wpforms-field-label {
+  color: #6E7580;
+  font-size: 100%;
+}
+.wtcl div.wpforms-container-full .wpforms-form .wpforms-field-label-inline {
+  color: #6E7580;
+  font-size: 100%;
+}

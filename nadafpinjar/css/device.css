@@ -1,0 +1,182 @@
+iframe {
+	border: 0 none;
+	height: 100%;
+	position: relative;
+}
+.top-bar {
+	background: none repeat scroll 0 0 #f1f1f1;
+	border-bottom: 1px solid #ffffff;
+	height: 70px;
+	width:100%;
+	text-align:center;
+	transition: .225s ease-out;
+}
+.top-bar.top-fix{
+	top: 0;
+	position: fixed;
+	z-index: 1000;
+	transform: translateY(0%);
+  	transition: none;
+}
+.top-bar ul {
+	display:inline-block;
+}
+.top-bar ul li {
+	float:left;
+	list-style-type:none;
+	padding:5px 10px;
+	line-height:normal;
+	overflow:hidden;
+}
+.top-bar ul li a {
+	display:inline-block;
+	font-size:0px;
+	height:50px;
+}
+.top-bar ul li.active{
+	border-bottom: 2px solid #2b4e71;
+}
+.top-bar ul li.desktop a{
+	width: 40px;
+    background-image: url(../fonts/desktop.svg);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.top-bar ul li.desktop.active a{
+    background-image: url(../fonts/desktop_b.svg);
+}
+.top-bar ul li.tabPort a {
+	width:25px;
+	background-image: url(../fonts/ipad_1.svg);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.top-bar ul li.tabPort.active a {
+	background-image: url(../fonts/ipad_1_b.svg);
+}
+.top-bar ul li.tabLand a {
+	width:32px;
+	background-image: url(../fonts/ipad_2.svg);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.top-bar ul li.tabLand.active a {
+	background-image: url(../fonts/ipad_2_b.svg);
+}
+.top-bar ul li.iPhonePort a {
+	width:20px;
+	background-image: url(../fonts/phone_1.svg);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.top-bar ul li.iPhonePort.active a {
+	background-image: url(../fonts/phone_1_b.svg);
+}
+.top-bar ul li.iPhoneLand a {
+	width:32px;
+	background-image: url(../fonts/phone_2.svg);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.top-bar ul li.iPhoneLand.active a {
+	background-image: url(../fonts/phone_2_b.svg);
+}
+.iframelive {
+	padding:70px 0 20px;
+}
+/* Desktop
+-------------------------*/
+.iframelive .wrap-desktop .frameWrapper {
+	background:url(../images/Desktop-view.png) no-repeat;
+	height: 828px;
+	margin: 0px auto;
+	width: 1300px;
+}
+.iframelive .wrap-desktop iframe {
+	height: 680px !important;
+	margin: 51px 0 0 50px;
+	width: 1200px;
+}
+/* Table Portrait
+-------------------------*/
+.iframelive .tablet-portrait .frameWrapper {
+	background:url(../images/pad-port.png) no-repeat;
+	height: 1242px;
+	margin: 0px auto;
+	width: 871px;
+}
+.iframelive .tablet-portrait iframe {
+	height: 1038px !important;
+	margin: 106px 0 0 44px;
+	width: 783px;
+}
+/* Table Landscape
+-------------------------*/
+
+.iframelive .tablet-landscape .frameWrapper {
+	background:url(../images/pad-land.png) no-repeat;
+	height: 779px;
+	margin: 0px auto;
+	overflow: auto;
+	width: 1242px;
+}
+.iframelive .tablet-landscape iframe {
+	height: 689px !important;
+	margin: 44px 0 0 106px;
+	overflow-x: hidden;
+	width: 1038px;
+}
+/* iPhone Portrait
+-------------------------*/
+.iframelive .iphone-portrait .frameWrapper {
+	background:url(../images/phone-port.png) no-repeat;
+	height: 707px;
+	margin: 0px auto;
+	width: 370px;
+}
+.iframelive .iphone-portrait iframe {
+	height: 495px !important;
+	margin: 106px 0 0 20px;
+	width: 335px;
+}
+/* iPhone Landscape
+-------------------------*/
+.iframelive .iphone-landscape .frameWrapper {
+	background:url(../images/phone-land.png) no-repeat;
+	height: 370px;
+	margin: 100px auto 20px;
+	width: 766px;
+}
+
+.iframelive .iphone-landscape iframe {
+	height: 335px !important;
+	margin: 20px 0 0 106px;
+	width: 565px;
+}
+
+
+
+
+
+.device-view.landing{background:#EEEEEE !important; padding:0px; margin:0px; height:100%; position:relative;}
+.device-view .container{background:#fff; margin:0px auto; border:1px solid #dadada; padding:30px;}
+
+.device-view #closeTab {
+  position: fixed;
+  top: 8px;
+  z-index: 1000;
+  background:#fff;
+  width:30px; height:30px; text-align:center;
+  border-radius:100%;
+  color:#B6B3B1;
+  font-size:18px;
+  transition:all 0.2s ease-in-out;
+  
+}
+.device-view #closeTab:hover{background:#7D7D7D; color:#fff;}
+.device-view #closeTab span{display:none;}
+.close {
+    position: fixed;
+	top: 70px;
+}
+

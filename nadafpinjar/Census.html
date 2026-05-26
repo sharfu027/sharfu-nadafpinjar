@@ -1,0 +1,434 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>ಜನಗಣತಿ (CENSUS) - Karnataka State Nadaf / Pinjar Sangha</title>
+    <link href="css/base.css" rel="stylesheet" media="all">
+    <link href="css/base-responsive.css" rel="stylesheet" media="all">
+    <link href="css/grid.css" rel="stylesheet" media="all">
+    <link href="css/font.css" rel="stylesheet" media="all">
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/megamenu.css" rel="stylesheet" media="all">
+    <link href="css/site.css" rel="stylesheet" media="all">
+    <link href="css/site-responsive.css" rel="stylesheet" media="all">
+    <style>
+        .form-container {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #fff;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+        }
+        .form-title {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #0066cc;
+        }
+        .section-title {
+            background: #0066cc;
+            color: white;
+            padding: 10px 15px;
+            margin: 25px 0 15px 0;
+            border-left: 5px solid #004499;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn-submit {
+            background: #28a745;
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .btn-cancel {
+            background: #dc3545;
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .btn-submit:hover {
+            background: #218838;
+        }
+        .btn-cancel:hover {
+            background: #c82333;
+        }
+        .breadcrumb {
+            padding: 15px 0;
+            background: #f8f9fa;
+        }
+        .btn-add-member {
+            background: #007bff;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-add-member:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <img src="images/header-nadaf.png" alt="Karnataka Rajya Nadaf Pinjar Sangha" class="header-image">
+        </div>
+    </header>
+<section class="wrapper megamenu-wraper">
+                <p class="d-none">Megamenu</p>
+                <div class="container common-container four_content">
+                    <p class="showhide"><em></em><em></em><em></em></p>
+                    <nav class="main-menu clearfix" id="main_menu">
+                        <ul class="nav-menu">
+                            <!-- <li class="nav-item"> <a href="#" class="home"><i class="fa fa-home"></i></a> </li>      -->
+                            <li class="nav-item"><a href="index.html">HOME</a>
+
+                            </li>
+                            <li class="nav-item"><a href="#">ABOUT</a>
+                                <div class="sub-nav">
+                                    <ul class="sub-nav-group">
+                                        <li><a href="#">ESTABLISHMENT </a></li>
+                                        <li><a href="#">STATE WORKING COMMITTEE LIST </a></li>
+                                        <li><a href="#">STATE GENERAL COMMITTEE LIST</a></li>
+                                    </ul>
+                                </div>
+                                
+                            </li>
+
+                            <li class="nav-item"><a href="#">SCHEMES </a>
+                                
+                            </li>
+                            <li class="nav-item"><a href="#">ಅರ್ಜಿಗಳು</a>
+                                <div class="sub-nav">
+                                    <ul class="sub-nav-group">
+                                        <li><a href="freeedu.html">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ</a></li>
+                                         <li><a href="Census.html">ಜನಗಣತಿ (Census) </a></li>
+                                        
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item"><a href="#">FINANCE</a>
+                                
+                            </li>
+
+                            <li class="nav-item"><a href="#">ರಸೀದಿಗಳು</a>
+                                <div class="sub-nav">
+                                    <ul class="sub-nav-group">
+                                        <li><a href="donationdirectstate.html">ರಾಜ್ಯಕ್ಕೆ ನೇರವಾಗಿ</a></li>
+
+                                        <li><a href="donationtaluktostate.html">ತಾಲ್ಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                        <li><a href="donationdistricttostate.html">ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                        <li><a href="#">State Unit to Beneficiary</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <!-- li class="nav-item"><a href="#">Tenders</a>
+                      <div class="sub-nav">
+                        <ul class="sub-nav-group">
+                          <li><a href="#">Recent Tenders</a></li>
+                          <li><a href="#">Awarded Tenders</a></li>
+                        </ul>
+                      </div>
+                    </li>
+            
+                    <li class="nav-item"><a href="#">Schemes</a></li>
+            
+                    <li class="nav-item"><a href="#">Services</a></li>
+            
+                    <li class="nav-item"><a href="#">Documents</a>
+                      <div class="sub-nav">
+                        <ul class="sub-nav-group">
+                          <li><a href="#">Publications</a></li>
+                          <li><a href="#">Reports</a></li>
+                          <li><a href="#">Office Orders</a></li>
+                          <li><a href="#">Policies</a></li>
+                          <li><a href="#">Budget</a></li>
+                          <li><a href="#">Citizen Charter</a></li>
+                          <li><a href="#">Major Achievements</a></li>
+                        </ul>
+                      </div>
+                    </li>
+                    
+            
+                    <li class="nav-item"><a href="#">Grievance</a></li>
+                                 
+                    <li class="nav-item">
+                      <a href="#">Parliament Q & A</a>
+                      <div class="sub-nav col-1">
+                         <ul class="sub-nav-group ">
+                            <li><a href="#">Lok Sabha</a></li>
+                            <li><a href="#">Rajya Sabha</a></li>
+                         </ul>
+                      </div>
+                    </li>
+                   
+                    <li class="nav-item"><a href="#">Important Links</a></li> -->
+
+                            <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+
+                        </ul>
+                    </nav>
+                    <nav class="main-menu clearfix" id="overflow_menu">
+                        <ul class="nav-menu clearfix">
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+
+
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="default.html">Home</a> » <span>ಜನಗಣತಿ (Census)</span>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h1 class="form-title">ಜನಗಣತಿ (CENSUS)</h1>
+        
+        <form id="censusForm" method="post">
+            <h3 class="section-title">ಕುಟುಂಬದ ವಿವರ</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ಕುಟುಂಬದ ಮುಖ್ಯಸ್ಥರ ಹೆಸರು</label>
+                    <input type="text" name="headName" placeholder="Head Name">
+                </div>
+                <div class="form-group">
+                    <label>ವಿಳಾಸ</label>
+                    <textarea name="address" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ಗ್ರಾಮ / ನಗರ</label>
+                    <input type="text" name="village" placeholder="Village">
+                </div>
+                <div class="form-group">
+                    <label>ಜಿಲ್ಲೆ</label>
+                    <select name="district">
+                        <option value="">-ಜಿಲ್ಲೆ ಆಯ್ಕೆಮಾಡಿ-</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ತಾಲೂಕು</label>
+                    <select name="taluk">
+                        <option value="">-ತಾಲೂಕನ್ನು ಆಯ್ಕೆ ಮಾಡಿ-</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>ಆಧಾರ್ ಸಂಖ್ಯೆ</label>
+                    <input type="text" name="headAadhar" placeholder="Aadhar">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ವಾರ್ಡ್ ಸಂಖ್ಯೆ</label>
+                    <input type="text" name="ward" placeholder="Ward">
+                </div>
+                <div class="form-group">
+                    <label>ಧರ್ಮ</label>
+                    <input type="text" name="religion" value="ISLAM">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ಜಾತಿ</label>
+                    <input type="text" name="caste" value="PINJAR/NADAF">
+                </div>
+                <div class="form-group">
+                    <label>ಮನೆಯ ಪ್ರಕಾರ</label>
+                    <select name="houseType">
+                        <option value="ಸ್ವಂತ ಮನೆ">ಸ್ವಂತ ಮನೆ</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ಜಮೀನು ವಿವರ: (ಭೂಮಿ ಇಲ್ಲದಿದ್ದರೆ 0 ಎಂದು ನಮೂದಿಸಿ.) ಎಕರೆ</label>
+                    <input type="text" name="landAcres" placeholder="Land Acres">
+                </div>
+                <div class="form-group">
+                    <label>ರೂಪಿಸುವ ಪ್ರಕಾರ</label>
+                    <input type="text" name="formingType" placeholder="Forming Type">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group half">
+                    <label>ಗುಂಟೆ</label>
+                    <input type="text" name="landGunta" placeholder="Land Gunta">
+                </div>
+            </div>
+
+            <h3 class="section-title">ಸದಸ್ಯರ ವಿವರ</h3>
+            <div id="membersContainer">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>ಸದಸ್ಯರ ಹೆಸರು</label>
+                        <input type="text" name="memberName[]" placeholder="Member Name">
+                    </div>
+                    <div class="form-group">
+                        <label>ಪಾಲಕರ ಹೆಸರು</label>
+                        <input type="text" name="memberGuardian[]" placeholder="Guardian Name">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>ಆಧಾರ್ ಸಂಖ್ಯೆ</label>
+                        <input type="text" name="memberAadhar[]" placeholder="AdharNo">
+                    </div>
+                    <div class="form-group">
+                        <label>ಮೊಬೈಲ್</label>
+                        <input type="text" name="memberMobile[]" placeholder="Mobile">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>ಉದ್ಯೋಗ</label>
+                        <input type="text" name="memberOccupation[]" placeholder="Occupation">
+                    </div>
+                    <div class="form-group">
+                        <label>ಲಿಂಗ</label>
+                        <input type="text" name="memberGender[]" placeholder="Gender">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>ಹುಟ್ಟಿದ ದಿನಾಂಕ</label>
+                        <input type="date" name="memberDob[]" placeholder="Date Of Birth">
+                    </div>
+                    <div class="form-group">
+                        <label>ಕುಟುಂಬದೊಂದಿಗಿನ ಸಂಬಂಧ</label>
+                        <input type="text" name="memberRelation[]" placeholder="Relation">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>ವಿವಾಹಿತರ?</label>
+                        <select name="memberMarried[]">
+                            <option value="ಅವಿವಾಹಿತರ">ಅವಿವಾಹಿತರ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>ಅಂಗವಿಕಲರೇ?</label>
+                        <select name="memberHandicapped[]">
+                            <option value="ಇಲ್ಲ">ಇಲ್ಲ</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>ಸಾಕ್ಷರಹಾ?</label>
+                        <select name="memberLiterate[]">
+                            <option value="ಶಿಕ್ಷಕರು">ಶಿಕ್ಷಕರು</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>ರಾಜಕೀಯ ಹಿನ್ನೆಲೆ</label>
+                        <select name="memberPolitical[]">
+                            <option value="ಇಲ್ಲ">ಇಲ್ಲ</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <button type="button" class="btn btn-secondary" onclick="addMember()" style="padding: 10px; width: 48%; margin-left: 0; background: #e9ecef; color: #333; border: 1px solid #ced4da;">ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ</button>
+            </div>
+            
+            <div class="btn-container">
+                <button type="button" class="btn-add-member">ಸದಸ್ಯರನ್ನು ಸೇರಿಸು</button>
+            </div>
+
+            <div class="btn-container">
+                <button type="submit" class="btn-submit">Save</button>
+                <button type="button" class="btn-cancel" onclick="window.history.back()">Delete</button>
+            </div>
+        </form>
+    </div>
+
+    <footer class="wrapper footer-wrapper">
+        <div class="footer-bottom-wrapper">
+            <div class="container">
+                <p style="text-align: center; color: #666;">© 2026 Karnataka State Nadaf / Pinjar Sangha (R). All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/jquery-accessibleMegaMenu.js"></script><script src="js/framework.js"></script><script src="js/megamenu.js"></script>
+    <script>
+        document.getElementById('censusForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formObj = new FormData(this);
+            const formData = Object.fromEntries(formObj.entries());
+            fetch('/api/donations', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ formType: 'ಜನಗಣತಿ (CENSUS)', amount: 0, formData: formData })
+            }).then(res => res.json()).then(data => { alert('Census data saved successfully!'); window.location.href = 'default.html'; });
+        });
+        function addMember() { alert('Add member functionality goes here.'); }
+    </script>
+</body>
+</html>

@@ -1,0 +1,517 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - Karnataka State Nadaf / Pinjar Sangha</title>
+    <link href="css/base.css" rel="stylesheet" media="all">
+    <link href="css/base-responsive.css" rel="stylesheet" media="all">
+    <link href="css/grid.css" rel="stylesheet" media="all">
+    <link href="css/font.css" rel="stylesheet" media="all">
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/megamenu.css" rel="stylesheet" media="all">
+    <link href="css/site.css" rel="stylesheet" media="all">
+    <link href="css/site-responsive.css" rel="stylesheet" media="all">
+    <style>
+        .form-container {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #fff;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+        }
+        .form-title {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #0066cc;
+        }
+        .section-title {
+            background: #0066cc;
+            color: white;
+            padding: 10px 15px;
+            margin: 25px 0 15px 0;
+            border-left: 5px solid #004499;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn-submit {
+            background: #28a745;
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .btn-cancel {
+            background: #dc3545;
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .btn-submit:hover {
+            background: #218838;
+        }
+        .btn-cancel:hover {
+            background: #c82333;
+        }
+        .breadcrumb {
+            padding: 15px 0;
+            background: #f8f9fa;
+        }
+        .btn-add-member {
+            background: #007bff;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-add-member:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <img src="images/header-nadaf.png" alt="Karnataka Rajya Nadaf Pinjar Sangha" class="header-image">
+        </div>
+    </header>
+<section class="wrapper megamenu-wraper">
+                <p class="d-none">Megamenu</p>
+                <div class="container common-container four_content">
+                    <p class="showhide"><em></em><em></em><em></em></p>
+                    <nav class="main-menu clearfix" id="main_menu">
+                        <ul class="nav-menu">
+                            <!-- <li class="nav-item"> <a href="#" class="home"><i class="fa fa-home"></i></a> </li>      -->
+                            <li class="nav-item"><a href="index.html">HOME</a>
+
+                            </li>
+                            <li class="nav-item"><a href="#">ABOUT</a>
+                                <div class="sub-nav">
+                                    <ul class="sub-nav-group">
+                                        <li><a href="#">ESTABLISHMENT </a></li>
+                                        <li><a href="#">STATE WORKING COMMITTEE LIST </a></li>
+                                        <li><a href="#">STATE GENERAL COMMITTEE LIST</a></li>
+                                    </ul>
+                                </div>
+                                
+                            </li>
+
+                            <li class="nav-item"><a href="#">SCHEMES </a>
+                                
+                            </li>
+                            <li class="nav-item"><a href="#">ಅರ್ಜಿಗಳು</a>
+                                <div class="sub-nav">
+                                    <ul class="sub-nav-group">
+                                        <li><a href="freeedu.html">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ</a></li>
+                                         <li><a href="Census.html">ಜನಗಣತಿ (Census) </a></li>
+                                        
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item"><a href="#">FINANCE</a>
+                                
+                            </li>
+
+                            <li class="nav-item"><a href="#">ರಸೀದಿಗಳು</a>
+                                <div class="sub-nav">
+                                    <ul class="sub-nav-group">
+                                        <li><a href="donationdirectstate.html">ರಾಜ್ಯಕ್ಕೆ ನೇರವಾಗಿ</a></li>
+
+                                        <li><a href="donationtaluktostate.html">ತಾಲ್ಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                        <li><a href="donationdistricttostate.html">ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                        <li><a href="#">State Unit to Beneficiary</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <!-- li class="nav-item"><a href="#">Tenders</a>
+                      <div class="sub-nav">
+                        <ul class="sub-nav-group">
+                          <li><a href="#">Recent Tenders</a></li>
+                          <li><a href="#">Awarded Tenders</a></li>
+                        </ul>
+                      </div>
+                    </li>
+            
+                    <li class="nav-item"><a href="#">Schemes</a></li>
+            
+                    <li class="nav-item"><a href="#">Services</a></li>
+            
+                    <li class="nav-item"><a href="#">Documents</a>
+                      <div class="sub-nav">
+                        <ul class="sub-nav-group">
+                          <li><a href="#">Publications</a></li>
+                          <li><a href="#">Reports</a></li>
+                          <li><a href="#">Office Orders</a></li>
+                          <li><a href="#">Policies</a></li>
+                          <li><a href="#">Budget</a></li>
+                          <li><a href="#">Citizen Charter</a></li>
+                          <li><a href="#">Major Achievements</a></li>
+                        </ul>
+                      </div>
+                    </li>
+                    
+            
+                    <li class="nav-item"><a href="#">Grievance</a></li>
+                                 
+                    <li class="nav-item">
+                      <a href="#">Parliament Q & A</a>
+                      <div class="sub-nav col-1">
+                         <ul class="sub-nav-group ">
+                            <li><a href="#">Lok Sabha</a></li>
+                            <li><a href="#">Rajya Sabha</a></li>
+                         </ul>
+                      </div>
+                    </li>
+                   
+                    <li class="nav-item"><a href="#">Important Links</a></li> -->
+
+                            <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+
+                        </ul>
+                    </nav>
+                    <nav class="main-menu clearfix" id="overflow_menu">
+                        <ul class="nav-menu clearfix">
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+
+
+        <div class="breadcrumb">
+        <div class="container">
+            <a href="default.html">Home</a> » <span>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ</span>
+        </div>
+    </div>
+
+    <!-- Banner Image -->
+    <div class="container" class="banner-container">
+        <img src="images/slider-1.jpg" alt="Donation Banner" style="width: 100%; max-height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 30px;">
+    </div>
+
+    <div class="form-container" id="formContainer">
+        <h1 class="form-title">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ</h1>
+        
+<form id="registrationForm" method="post">
+            <h3 class="section-title">ವಿದ್ಯಾರ್ಥಿಯ ವಿವರ</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="studentName">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</label>
+                    <input type="text" id="studentName" name="studentName">
+                </div>
+                <div class="form-group">
+                    <label for="fatherName">ತಂದೆಯ / ಪಾಲಕರ ಹೆಸರು</label>
+                    <input type="text" id="fatherName" name="fatherName">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="motherName">ತಾಯಿಯ ಹೆಸರು</label>
+                    <input type="text" id="motherName" name="motherName">
+                </div>
+                <div class="form-group">
+                    <label for="address">ವಿಳಾಸ</label>
+                    <textarea id="address" name="address"></textarea>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="village">ಗ್ರಾಮ / ನಗರ</label>
+                    <input type="text" id="village" name="village">
+                </div>
+                <div class="form-group">
+                    <label for="district">ಜಿಲ್ಲೆ</label>
+                    <select id="district" name="district">
+                        <option value="">-ಜಿಲ್ಲೆ ಆಯ್ಕೆಮಾಡಿ-</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="taluk">ತಾಲೂಕು</label>
+                    <select id="taluk" name="taluk">
+                        <option value="">-ತಾಲೂಕನ್ನು ಆಯ್ಕೆ ಮಾಡಿ-</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="occupation">ಉದ್ಯೋಗ</label>
+                    <input type="text" id="occupation" name="occupation">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="membership">ಸಂಘದ ಸದಸ್ಯತ್ವ</label>
+                    <input type="text" id="membership" name="membership">
+                </div>
+                <div class="form-group">
+                    <label for="aadhar">ಆಧಾರ್ ನಂ</label>
+                    <input type="text" id="aadhar" name="aadhar">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="housingInfo">ವಸತಿ ವಿವರ: ವಸತಿ ಪರಿಗಣನೆಗಳು</label>
+                    <select id="housingInfo" name="housingInfo">
+                        <option value="ಸ್ವಂತ ಮನೆ">ಸ್ವಂತ ಮನೆ</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="landInfo">ಜಮೀನು ವಿವರ: (ಭೂಮಿ ಇಲ್ಲದಿದ್ದರೆ 0 ಎಂದು ನಮೂದಿಸಿ.) ಎಕರೆ</label>
+                    <input type="text" id="landInfo" name="landInfo">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="houseType">ಮನೆ ನಿರ್ಮಾಣ</label>
+                    <select id="houseType" name="houseType">
+                        <option value="ಗುಡಿಸಲು ಮನೆ">ಗುಡಿಸಲು ಮನೆ</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="gunte">ಗುಂಟೆ</label>
+                    <input type="text" id="gunte" name="gunte">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="income">ಅಂದಾಜು ಆದಾಯ</label>
+                    <input type="text" id="income" name="income">
+                </div>
+                <div class="form-group">
+                    <label for="rationType">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</label>
+                    <input type="text" id="rationType" name="rationType">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="mobile">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</label>
+                    <input type="tel" id="mobile" name="mobile">
+                </div>
+                <div class="form-group">
+                    <label for="currentSchool">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ಶಾಲೆ ಕಾಲೇಜು</label>
+                    <input type="text" id="currentSchool" name="currentSchool">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="currentClass">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</label>
+                    <input type="text" id="currentClass" name="currentClass">
+                </div>
+                <div class="form-group">
+                    <label for="previousMarks">ಹಿಂದಿನ ತರಗತಿಯಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳು</label>
+                    <input type="text" id="previousMarks" name="previousMarks">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="joiningClass">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</label>
+                    <input type="text" id="joiningClass" name="joiningClass">
+                </div>
+                <div class="form-group">
+                    <label for="classSubjects">ತರಗತಿಯ ವಿಷಯಗಳು</label>
+                    <input type="text" id="classSubjects" name="classSubjects">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="coaching">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್:</label>
+                    <input type="text" id="coaching" name="coaching">
+                </div>
+            </div>
+
+            <h3 class="section-title">ಬ್ಯಾಂಕ್ ವಿವರ</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="bankName">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</label>
+                    <input type="text" id="bankName" name="bankName">
+                </div>
+                <div class="form-group">
+                    <label for="branchName">ಶಾಖೆಯ ಹೆಸರು</label>
+                    <input type="text" id="branchName" name="branchName">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="ifsc">IFSC ಕೋಡ್</label>
+                    <input type="text" id="ifsc" name="ifsc">
+                </div>
+                <div class="form-group">
+                    <label for="bankAccount">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ :</label>
+                    <input type="text" id="bankAccount" name="bankAccount">
+                </div>
+            </div>
+
+            <div class="btn-container">
+                <button type="submit" class="btn-submit">ಸಲ್ಲಿಸು</button>
+                <button type="button" class="btn-cancel" onclick="window.history.back()">ರದ್ದುಮಾಡು</button>
+            </div>
+        </form>
+    </div>
+
+    <footer class="wrapper footer-wrapper">
+        <div class="footer-bottom-wrapper">
+            <div class="container">
+                <p style="text-align: center; color: #666;">© 2026 Karnataka State Nadaf / Pinjar Sangha (R). All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    </div>
+
+    <footer class="wrapper footer-wrapper">
+        <div class="footer-bottom-wrapper">
+            <div class="container">
+                <p style="text-align: center; color: #666;">© 2026 Karnataka State Nadaf / Pinjar Sangha (R). All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+        <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery-accessibleMegaMenu.js"></script>
+    <script src="js/framework.js"></script>
+    <script src="js/megamenu.js"></script>
+    <script>
+        let formData = {};
+
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formObj = new FormData(this);
+            formData = Object.fromEntries(formObj.entries());
+            showPreview();
+        });
+
+        function showPreview() {
+            document.getElementById('formContainer').style.display = 'none';
+            if(!document.getElementById('previewContainer')) return submitToMongoDB();
+            document.getElementById('previewContainer').style.display = 'block';
+
+            let previewHTML = '';
+            const form = document.getElementById('registrationForm');
+            
+            for (let key in formData) {
+                if (key !== 'amount') {
+                    let input = form.querySelector('[name="' + key + '"]');
+                    let label = '';
+                    if (input) {
+                        let id = input.id;
+                        if(id) {
+                            let l = form.querySelector('label[for="' + id + '"]');
+                            if(l) label = l.textContent;
+                        }
+                        if(!label) {
+                            let p = input.closest('.form-group');
+                            if(p) {
+                                let l = p.querySelector('label');
+                                if(l) label = l.textContent;
+                            }
+                        }
+                    }
+                    if(!label) label = key;
+
+                    previewHTML += `<div class="preview-row"><div class="preview-label">${label}:</div><div class="preview-value">${formData[key] || '-'}</div></div>`;
+                }
+            }
+
+            document.getElementById('previewContent').innerHTML = previewHTML;
+            window.scrollTo(0, 0);
+        }
+
+        function editForm() {
+            document.getElementById('formContainer').style.display = 'block';
+            document.getElementById('previewContainer').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        function initiatePayment() {
+            submitToMongoDB();
+        }
+
+        function submitToMongoDB(paymentId = null) {
+            const dataToSave = {
+                formType: "ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ",
+                amount: parseInt(formData.amount || 0),
+                paymentId: paymentId,
+                formData: formData
+            };
+
+            fetch('/api/donations', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dataToSave)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    alert('Data saved successfully!');
+                    window.location.href = 'default.html';
+                } else {
+                    alert('Error saving data.');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error saving data.');
+            });
+        }
+    </script>
+</body>
+</html>

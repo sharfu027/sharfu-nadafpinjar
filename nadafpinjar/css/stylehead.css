@@ -1,0 +1,683 @@
+/****************************************************************** Template Name: Dreams Description: Dreams wedding template Author: Colorib Author URI: https://colorlib.com/ Version: 1.0 Created: Colorib ******************************************************************/
+/*------------------------------------------------------------------ [Table of contents] 1. Template default CSS 1.1 Variables 1.2 Mixins 1.3 Flexbox 1.4 Reset 2. Helper Css 3. Header Section 4. Hero Section 5. Services Section 6. Counter Section 7. Team Section 8. Latest Section 9. Contact 10. Footer Style -------------------------------------------------------------------*/
+/*----------------------------------------*/
+/* Template default CSS 
+/*----------------------------------------*/
+/*--------------------- Helper CSS -----------------------*/
+ .section-title {
+     margin-bottom: 50px;
+}
+ .section-title.center-title {
+     text-align: center;
+}
+ .section-title.center-title h2:after {
+     right: 0;
+     margin: 0 auto;
+}
+/*--------------------- Header -----------------------*/
+ .header {
+     position: relative;
+     left: 0;
+     top: 0;
+     width: 100%;
+     background: transparent;
+     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+     z-index: 9;
+}
+ .home .header {
+     position: absolute;
+}
+ .header__nav__menu > ul ul {
+     border: 1px solid #192e44;
+}
+ .home .header__nav__menu > ul ul {
+     border: none;
+}
+ .site-logo span {
+     color: rgba(255, 255, 255, 1);
+     position: relative;
+     top: 2px;
+}
+ .header__logo {
+     padding: 10px 0;
+}
+ .header__logo a {
+     display: inline-block;
+}
+ .site-logo img {
+     height: 35px;
+}
+ .ne-logo img {
+     height: 60px;
+}
+ .uxdtlogo img {
+     height: 52px;
+     background-color: #fff;
+}
+ .niclogo img {
+     height: 52px;
+     background-color: #fff;
+}
+ .addlogo img {
+     height: 50px;
+}
+ .v__align .header__nav__menu ul li{
+     vertical-align: middle;
+     margin-right: 5px;
+}
+ .v__align .header__nav__menu ul li a{
+     padding:0px;
+}
+ .header__nav__option.v__align{
+     padding-top: 17px;
+}
+ .v__align .header__nav__menu ul li a:after {
+     background: none;
+}
+ .header__nav__option {
+     padding-top: 0.5rem;
+}
+ .header__nav__menu > ul {
+     display: inline-block;
+}
+ .header__nav__menu ul li {
+     list-style: none;
+     display: inline-block;
+     margin-right: 45px;
+     position: relative;
+}
+ .v__align .header__nav__menu ul li:first-child {
+     margin-right: 20px;
+}
+ .header__nav__menu ul li.active a:after {
+     -webkit-transform: scale(1);
+     -ms-transform: scale(1);
+     transform: scale(1);
+}
+ .header__nav__menu ul li:hover a:after {
+     -webkit-transform: scale(1);
+     -ms-transform: scale(1);
+     transform: scale(1);
+}
+/*Menu*/
+ .header__nav__menu ul.dropdown li {
+     background-color: #2b4e71;
+     transition: background-color 0.3s, color 0.3s;
+}
+ .header__nav__menu ul.dropdown li a {
+     border-left: 0px solid #2b4e71;
+     transition: border-left 0.3s;
+}
+ .header__nav__menu ul.dropdown li:hover {
+     background-color: #fff;
+}
+ .header__nav__menu ul.dropdown li:hover a.b-submenu1 {
+     color: #111111;
+}
+/*Submenu*/
+ .header__nav__menu ul.dropdown .b-submenu2-p li a {
+     transition: border-left 0.3s, color 0.3s;
+}
+ .header__nav__menu ul.dropdown .b-submenu2-p li:hover a.b-submenu3 {
+     color: #111111;
+}
+/* Subsubmenu */
+ .header__nav__menu ul.dropdown .b-submenu4-p li a {
+     transition: border-left 0.3s, color 0.3s;
+}
+ .header__nav__menu ul.dropdown .b-submenu4-p li:hover a {
+     color: #111111;
+}
+/*Megamenu*/
+ .b-megamenu {
+     width: 360px;
+     position: absolute;
+     top: 0px;
+     left: calc(-180px + 50%);
+}
+ .header__nav__menu ul li:hover .dropdown {
+     top: 34px;
+     opacity: 1;
+     visibility: visible;
+}
+ .header__nav__menu ul li:last-child {
+     margin-right: 0;
+}
+ .header__nav__menu ul li .dropdown {
+     position: absolute;
+     left: 0;
+     top: 60px;
+     width: 190px;
+     background: #ffffff;
+     text-align: left;
+     z-index: 9;
+     opacity: 0;
+     visibility: hidden;
+     -webkit-transition: all, 0.3s;
+     -o-transition: all, 0.3s;
+     transition: all, 0.3s;
+}
+ .header__nav__menu ul li .dropdown li {
+     display: block;
+     margin-right: 0;
+}
+ .header__nav__menu ul li .dropdown li a {
+     font-size: 85%;
+     color: #fff;
+     padding: 8px 20px;
+     text-transform: capitalize;
+}
+ .header__nav__menu ul li .dropdown li a:after {
+     display: none;
+}
+ .header__nav__menu ul li a {
+     font-size: 85%;
+     font-family: 'Open Sans', sans-serif;
+     color: #ffffff;
+     display: block;
+     text-transform: uppercase;
+     position: relative;
+     padding: 6px 0;
+}
+ .header__nav__menu ul li a::after {
+     position: absolute;
+     left: 0;
+     bottom: 0;
+     width: 100%;
+     height: 2px;
+     background: #00bfe7;
+     content: "";
+     -webkit-transform: scale(0);
+     -ms-transform: scale(0);
+     transform: scale(0);
+     -webkit-transition: all, 0.3s;
+     -o-transition: all, 0.3s;
+     transition: all, 0.3s;
+}
+ .header__nav__menu ul li a.login-btn:after {
+     height: 0px;
+}
+ .header__nav__social {
+     display: inline-block;
+     position: relative;
+     padding-left: 50px;
+}
+ .header__nav__social:before {
+     position: absolute;
+     left: 0;
+     top: 4px;
+     height: 13px;
+     width: 1px;
+     background: rgba(225, 225, 225, 0.2);
+     content: "";
+}
+ .header__nav__social a {
+     color: #ffffff;
+     font-size: 95%;
+     margin-right: 18px;
+}
+ .header__nav__social a:last-child {
+     margin-right: 0;
+}
+ .slicknav_menu {
+     display: none;
+}
+ .slicknav_btn {
+     position: absolute;
+     right: 10px;
+     top: 18px;
+     background: #00bfe700;
+     border: 1px solid #fff!important;
+     border-radius: 2px;
+}
+ .b-submenu2-p {
+     display: none;
+}
+ .b-submenu1-p:hover .b-submenu2-p {
+     display: block;
+     position: absolute;
+     right: -100%;
+     top: 0%;
+    /* z-index: 10;
+     */
+     width: 100%;
+}
+ .b-submenu4-p {
+     display: none;
+}
+ .b-submenu3-p:hover .b-submenu4-p {
+     display: block;
+     position: absolute;
+     right: -100%;
+     top: 0%;
+    /* z-index: 10;
+     */
+     width: 100%;
+}
+/*--------------------- Hero -----------------------*/
+ .hero__text {
+     color:#fff;
+}
+ ul.iformat {
+     list-style: none;
+     display: inline-block;
+     margin-bottom: 30px;
+}
+ ul.iformat li {
+     display: inline-block;
+     padding: 3px 10px;
+     margin: 4px 3px;
+     background-color: rgba(75, 109, 108, 0.5);
+     border-radius: 15px;
+     font-size: 85%;
+}
+ ul.iformat li:last-child {
+     padding: 0px;
+     background-color: transparent;
+     border-radius: 0px;
+}
+ ul.dformat {
+     list-style: none;
+     display: inline-block;
+     margin-bottom: 30px;
+}
+ ul.dformat li{
+     display: block;
+     padding: 7px 20px;
+     background-color: rgba(238, 107, 89, 1);
+     border-radius: 0px;
+     font-size: 150%;
+}
+ .hero__slider.owl-carousel .owl-item.active .hero__text span, .hero__slider.owl-carousel .owl-item.active .hero__text p {
+     top: 0;
+     opacity: 1;
+}
+ .hero__slider.owl-carousel .owl-item.active .hero__text h2 {
+     top: 0;
+     opacity: 1;
+}
+ .hero__slider.owl-carousel .owl-item.active .hero__text .primary-btn {
+     top: 0;
+     opacity: 1;
+}
+ .hero__slider.owl-carousel .owl-dots {
+     position: absolute;
+     left: 0;
+     right: 0;
+     bottom: 45px;
+     width: 100%;
+     max-width: 1140px;
+     margin: 0 auto;
+     text-align: center;
+}
+ .hero__slider.owl-carousel .owl-dots button {
+     color: #adadad;
+     font-size: 112%;
+     font-family: 'Open Sans', sans-serif;
+     margin-right: 16px;
+     position: relative;
+     display: inline-block;
+}
+ .hero__slider.owl-carousel .owl-dots button {
+     color: transparent!important;
+     width: 23px;
+     height: 10px;
+     font-size: 0px;
+}
+ .hero__slider.owl-carousel .owl-dots button.active {
+     color: #ffffff;
+}
+ .hero__slider.owl-carousel .owl-dots button.active:after {
+     background: rgba(255, 255, 255, 1);
+     height: 2px;
+}
+ .hero__slider.owl-carousel .owl-dots button:after {
+     position: absolute;
+     left: 0;
+     bottom: 0px;
+     width: 100%;
+     height: 1px;
+     background: rgba(255, 255, 255, 0.8);
+     content: "";
+}
+ .hero__slider.owl-carousel .owl-dots button:last-child {
+     margin-right: 0;
+}
+ .hero__item {
+     padding-top: 255px;
+     height: calc(100vh);
+     min-height: 700px;
+}
+ .hero__text span, .hero__text p {
+     color: #ffffff;
+     display: block;
+     font-size: 106%;
+     letter-spacing: 2px;
+     text-transform: inherit;
+     margin-bottom: 30px;
+     position: relative;
+     top: 100px;
+     opacity: 0;
+     -webkit-transition: all, 0.3s;
+     -o-transition: all, 0.3s;
+     transition: all, 0.3s;
+     font-weight: 400;
+}
+ .hero__text h2 {
+     color: #ffffff;
+     font-size: 300%;
+     font-weight: 700;
+     line-height: 70px;
+     text-transform: uppercase;
+     margin-bottom: 25px;
+     position: relative;
+     top: 100px;
+     opacity: 0;
+     -webkit-transition: all, 0.5s;
+     -o-transition: all, 0.5s;
+     transition: all, 0.5s;
+}
+ .hero__text .primary-btn {
+     position: relative;
+     top: 100px;
+     opacity: 0;
+}
+/*--------------------------------- Responsive Media Quaries -----------------------------*/
+ @media only screen and (min-width: 1200px) {
+     .container {
+         max-width: 1170px;
+    }
+}
+/* Medium Device = 1200px */
+ @media only screen and (min-width: 992px) and (max-width: 1199px) {
+     .header__nav__menu {
+         margin-right: 25px;
+    }
+     .header__nav__menu ul li {
+         margin-right: 25px;
+    }
+     .header__nav__menu > ul:last-child{
+         margin-left: 25px;
+    }
+     .header__nav__social {
+         padding-left: 25px;
+    }
+     .counter__item::before {
+         display: none;
+    }
+     .counter__content {
+         padding: 0px 145px 0 50px;
+    }
+     .counter__item.second__item {
+         margin-top: -210px;
+    }
+     .counter__item.four__item {
+         margin-top: -210px;
+    }
+     .hero__slider.owl-carousel .owl-dots {
+         max-width: 930px !important;
+    }
+}
+/* Tablet Device = 768px */
+ @media only screen and (min-width: 768px) and (max-width: 991.9px) {
+     .hero__slider.owl-carousel .owl-dots {
+         max-width: 690px !important;
+    }
+     .services__title {
+         margin-bottom: 50px;
+    }
+     .counter__item {
+         -webkit-transform: rotate(0);
+         -ms-transform: rotate(0);
+         transform: rotate(0);
+         margin-bottom: 30px;
+         width: auto;
+    }
+     .counter__item::before {
+         display: none;
+    }
+     .counter__content {
+         padding: 0;
+    }
+     .counter__item.second__item {
+         margin-top: 0;
+    }
+     .counter__item.four__item {
+         margin-top: 0;
+    }
+     .counter__item__text {
+         -webkit-transform: rotate(0);
+         -ms-transform: rotate(0);
+         transform: rotate(0);
+    }
+     .counter {
+         height: auto;
+         padding-top: 100px;
+         padding-bottom: 70px;
+    }
+     .team__item.team__item--second {
+         margin-top: 0;
+    }
+     .team__item.team__item--third {
+         margin-top: 0;
+    }
+     .team__item.team__item--four {
+         margin-top: 0;
+    }
+     .team__btn {
+         position: relative;
+         padding-top: 50px;
+    }
+     .about__pic {
+         margin-bottom: 50px;
+    }
+     .about__text {
+         padding-left: 0;
+    }
+     .portfolio__filter li {
+         padding: 6px 15px;
+    }
+     .slicknav_menu {
+         background: transparent;
+         padding: 0;
+         display: block;
+    }
+     .slicknav_nav ul {
+         margin: 0;
+         padding: 10px 30px;
+    }
+     .slicknav_nav .slicknav_row, .slicknav_nav a {
+         padding: 7px 0;
+         margin: 0;
+         color: #ffffff;
+         font-weight: 600;
+    }
+     .slicknav_nav .slicknav_row:hover {
+         border-radius: 0;
+         background: transparent;
+         color: #ffffff;
+    }
+     .slicknav_nav a:hover {
+         border-radius: 0;
+         background: transparent;
+         color: #111111;
+    }
+     .slicknav_nav {
+         background: #192e44;
+    }
+     .header .container {
+         position: relative;
+    }
+     .header__nav__option {
+         display: none;
+    }
+}
+/* Wide Mobile = 480px */
+ @media only screen and (max-width: 767.9px) {
+     .services__title {
+         margin-bottom: 50px;
+    }
+     .counter__item {
+         -webkit-transform: rotate(0);
+         -ms-transform: rotate(0);
+         transform: rotate(0);
+         margin-bottom: 30px;
+         width: auto;
+    }
+     .counter__item::before {
+         display: none;
+    }
+     .counter__content {
+         padding: 0;
+    }
+     .counter__item.second__item {
+         margin-top: 0;
+    }
+     .counter__item.four__item {
+         margin-top: 0;
+    }
+     .counter__item__text {
+         -webkit-transform: rotate(0);
+         -ms-transform: rotate(0);
+         transform: rotate(0);
+    }
+     .counter {
+         height: auto;
+         padding-top: 100px;
+         padding-bottom: 70px;
+    }
+     .team__item.team__item--second {
+         margin-top: 0;
+    }
+     .team__item.team__item--third {
+         margin-top: 0;
+    }
+     .team__item.team__item--four {
+         margin-top: 0;
+    }
+     .team__btn {
+         position: relative;
+         padding-top: 50px;
+    }
+     .about__pic {
+         margin-bottom: 50px;
+    }
+     .about__text {
+         padding-left: 0;
+    }
+     .hero__slider.owl-carousel .owl-dots {
+         max-width: auto;
+         padding: 0 15px;
+    }
+     .slicknav_menu {
+         background: transparent;
+         padding: 0;
+         display: block;
+    }
+     .slicknav_nav ul {
+         margin: 0;
+         padding: 10px 30px;
+    }
+     .slicknav_nav .slicknav_row, .slicknav_nav a {
+         padding: 7px 0;
+         margin: 0;
+         color: #ffffff;
+         font-weight: 600;
+    }
+     .slicknav_nav .slicknav_row:hover {
+         border-radius: 0;
+         background: transparent;
+         color: #111111;
+    }
+     .slicknav_nav a:hover {
+         border-radius: 0;
+         background: transparent;
+         color: #111111;
+    }
+     .slicknav_nav {
+         background: #192e44;
+    }
+     .header .container {
+         position: relative;
+    }
+     .header__nav__option {
+         display: none;
+    }
+     .hero__text h2 {
+         font-size: 250%;
+         line-height: 40px;
+    }
+     .grid-sizer {
+         width: calc(50% - 10px);
+    }
+     .work__item.wide__item {
+         width: calc(50% - 10px);
+    }
+     .work__item {
+         width: calc(50% - 10px);
+    }
+     .work__item.large__item {
+         width: calc(50% - 10px);
+    }
+     .footer__top__social {
+         text-align: left;
+         padding-top: 30px;
+    }
+     .portfolio__filter li {
+         margin-bottom: 10px;
+    }
+     .input__list {
+         margin-right: 0;
+    }
+     .input__list input {
+         width: 100%;
+         margin-right: 0;
+    }
+     .contact__map {
+         margin-bottom: 40px;
+    }
+     .team__item {
+         margin-bottom: 20px;
+    }
+     .team .p-0 {
+         padding: 0 15px !important;
+    }
+     .about__pic__item {
+         margin-right: 0;
+    }
+     .blog__details__quote {
+         padding: 30px 45px 35px 35px;
+    }
+}
+/* Small Device = 320px */
+ @media only screen and (max-width: 479px) {
+     .hero__text h2 {
+         font-size: 188%;
+         line-height: 40px;
+    }
+     .grid-sizer {
+         width: 100%;
+    }
+     .work__item.wide__item {
+         width: 100%;
+    }
+     .work__item {
+         width: 100%;
+         margin-right: 0;
+    }
+     .work__item.large__item {
+         width: 100%;
+    }
+     .work__gallery {
+         margin-right: 0;
+    }
+     .pagination__option .arrow__pagination.left__arrow {
+         margin-right: 15px;
+    }
+     .pagination__option .arrow__pagination.right__arrow {
+         margin-left: 10px;
+    }
+     .blog__details__quote {
+         padding: 30px 40px 35px 35px;
+    }
+}

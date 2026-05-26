@@ -1,0 +1,213 @@
+/*Responsive CSS*/
+
+@media only screen and (max-width: 1200px) {
+	.hero__text h2 {
+    	font-size: 50px;
+    	margin-bottom: 10px;
+    	line-height: 50px;
+    }
+}
+
+@media (min-width: 991.9px) and (max-width: 1199.9px) {
+    .ne-logo img {
+        height: 50px!important;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .b-search-mobile {
+        display: none;
+    }
+
+    .b-login-mobile {
+        display: none!important;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+	.banner-num4260{
+        background-image: url("../images/banner-6-l.jpg")!important;
+    }
+	.banner-num2828 {
+        background-image: url("../images/banner-4-l.png")!important;
+    }
+    .banner-num2673 {
+        background-image: url("../images/banner-1-l.png")!important;
+    }
+    .banner-num2672 {
+        background-image: url("../images/banner-2-l.png")!important;
+    }
+    .banner-num2668 {
+        background-image: url("../images/banner-3-l.png")!important;
+    }
+}
+
+@media only screen and (max-width: 991.9px) {
+    .b-mobile-click + .b-mobile-showhide,
+    .b-mobile-click.b-hide + .b-mobile-showhide {
+        display: none;
+    }
+    .b-mobile-click.b-show + .b-mobile-showhide {
+        display: block;
+        position: relative;
+        right: 0px;
+    }
+
+    .b-mobile-click2 + .b-mobile-showhide2,
+    .b-mobile-click2.b-hide2 + .b-mobile-showhide2 {
+        display: none;
+    }
+    .b-mobile-click2.b-show2 + .b-mobile-showhide2 {
+        display: block;
+        position: relative;
+        right: 0px;
+    }
+
+    .slicknav_nav li a {
+        color: #fff!important;
+        text-decoration: none!important;
+        border: none!important;
+    }
+    .slicknav_nav li a.login-btn {
+        border: 1px solid #ffffff!important;
+    }
+
+    .slicknav_nav .fa-caret-down {
+        display: none!important;
+    }
+
+    .b-search-mobile {
+        position: absolute;
+        top: 35px;
+        right: 135px;
+    }
+    .b-search-web {
+        display: none!important;
+    }
+    .ne-logo img {
+        height: 55px!important;
+    }
+    .logo-details {
+        margin-top: 50px;
+    }
+
+    .logo-details .b-edit-p,
+    .logo-details .b-down-p {
+        text-align: center;
+    }
+}
+@media only screen and (max-width: 767.9px) {
+	.hero__item {
+	    padding-top: 230px;
+	}
+	.banner-num4260{
+        background-image: url("../images/banner-6-m.jpg")!important;
+    }
+	.banner-num2828 {
+        background-image: url("../images/banner-4-m.png")!important;
+    }
+    .banner-num2673 {
+        background-image: url("../images/banner-1-m.png")!important;
+    }
+    .banner-num2672 {
+        background-image: url("../images/banner-2-m.png")!important;
+    }
+    .banner-num2668 {
+        background-image: url("../images/banner-3-m.png")!important;
+    }
+
+    h2.section-title-underline,
+    h2.b-about-head,
+    h2.b-various-resources2,
+    h2.b-numbers,
+    h2.b-weblogs {
+        font-size: 34px;
+        /*border-bottom: 4px solid #2b4e71;*/
+        display: inline-block;
+    }
+	.section-title h1 {
+		font-size: 34px;
+		display: inline-block;
+	}
+    .section-title-underline span {
+        border-bottom: 0px solid #2b4e71; 
+    }
+
+    .site-logo span{
+		display:none;
+	}
+    .b-search-mobile {
+        position: absolute;
+        top: 41px;
+        right: 135px;
+    }
+
+    .home__about__pic__item.small-item {
+        display: none;
+    }
+}
+
+
+@media only screen and (max-width: 575.9px) {
+    .footer .b-padd {
+        padding-left: 35px!important;
+    }
+	.blogpost_sidebar {
+	  padding: .5em 1.5em 1.5em 1.5em;
+	}
+}
+
+
+
+@media only screen and (max-width: 479px) {
+	.hero__text h2 {
+    	font-size: 35px;
+    	margin-bottom: 10px;
+    	line-height: 50px;
+    }
+    .b-search-mobile {
+        top: 41px;
+        right: 130px;
+    }
+}
+
+@media only screen and (max-width: 425.9px) {
+	.banner-num4260{
+        background-image: url("../images/banner-6-s.jpg")!important;
+    }
+	.banner-num2828 {
+        background-image: url("../images/banner-4-s.png")!important;
+    }
+    .banner-num2673 {
+        background-image: url("../images/banner-1-s.png")!important;
+    }
+    .banner-num2672 {
+        background-image: url("../images/banner-2-s.png")!important;
+    }
+    .banner-num2668 {
+        background-image: url("../images/banner-3-s.png")!important;
+    }
+    .slicknav_menutxt {
+        display: none!important;
+    }
+    .slicknav_icon {
+        margin: 0px!important;
+    }
+    .b-search-mobile {
+        top: 41px;
+        right: 80px;
+    }
+}
+
+@media only screen and (max-width: 394.9px) {
+    a.b-btn {
+        width: 90%;
+        height: 48px;
+    }
+}
+@media only screen and (max-width: 379.9px) {
+    .b-search-mobile {
+        top: 42px;
+        right: 70px;
+    }
+}
