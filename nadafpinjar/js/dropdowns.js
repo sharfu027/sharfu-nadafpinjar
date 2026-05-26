@@ -45,18 +45,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Function to populate a district select element
     function populateDistricts(districtSelect) {
         if (!districtSelect) return;
-        
-        // Preserve first option (placeholder)
-        const firstOpt = districtSelect.options[0];
         districtSelect.innerHTML = "";
-        if (firstOpt) {
-            districtSelect.appendChild(firstOpt);
-        } else {
-            const opt = document.createElement("option");
-            opt.value = "";
-            opt.textContent = "-ಜಿಲ್ಲೆ ಆಯ್ಕೆಮಾಡಿ-";
-            districtSelect.appendChild(opt);
-        }
+        
+        const optDefault = document.createElement("option");
+        optDefault.value = "";
+        optDefault.textContent = "-ಜಿಲ್ಲೆ ಆಯ್ಕೆಮಾಡಿ-";
+        districtSelect.appendChild(optDefault);
 
         // Add districts
         for (const dist in karnatakaData) {
@@ -65,22 +59,23 @@ document.addEventListener("DOMContentLoaded", function() {
             opt.textContent = dist;
             districtSelect.appendChild(opt);
         }
+
+        // Add manual entry option
+        const optOther = document.createElement("option");
+        optOther.value = "__OTHER__";
+        optOther.textContent = "ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other (Type Manually)";
+        districtSelect.appendChild(optOther);
     }
 
     // Function to populate taluk select based on selected district
     function populateTaluks(districtVal, talukSelect) {
         if (!talukSelect) return;
-        
-        const firstOpt = talukSelect.options[0];
         talukSelect.innerHTML = "";
-        if (firstOpt) {
-            talukSelect.appendChild(firstOpt);
-        } else {
-            const opt = document.createElement("option");
-            opt.value = "";
-            opt.textContent = "-ತಾಲೂಕನ್ನು ಆಯ್ಕೆ ಮಾಡಿ-";
-            talukSelect.appendChild(opt);
-        }
+        
+        const optDefault = document.createElement("option");
+        optDefault.value = "";
+        optDefault.textContent = "-ತಾಲೂಕನ್ನು ಆಯ್ಕೆ ಮಾಡಿ-";
+        talukSelect.appendChild(optDefault);
 
         if (districtVal && karnatakaData[districtVal]) {
             const taluks = karnatakaData[districtVal];
@@ -91,22 +86,23 @@ document.addEventListener("DOMContentLoaded", function() {
                 talukSelect.appendChild(opt);
             });
         }
+
+        // Add manual entry option
+        const optOther = document.createElement("option");
+        optOther.value = "__OTHER__";
+        optOther.textContent = "ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other (Type Manually)";
+        talukSelect.appendChild(optOther);
     }
 
     // Function to populate account select element
     function populateAccounts(accountSelect) {
         if (!accountSelect) return;
-        
-        const firstOpt = accountSelect.options[0];
         accountSelect.innerHTML = "";
-        if (firstOpt) {
-            accountSelect.appendChild(firstOpt);
-        } else {
-            const opt = document.createElement("option");
-            opt.value = "";
-            opt.textContent = "-- ಖಾತೆ ಆಯ್ಕೆಮಾಡಿ--";
-            accountSelect.appendChild(opt);
-        }
+        
+        const optDefault = document.createElement("option");
+        optDefault.value = "";
+        optDefault.textContent = "-- ಖಾತೆ ಆಯ್ಕೆಮಾಡಿ--";
+        accountSelect.appendChild(optDefault);
 
         accountsData.forEach(function(acc) {
             const opt = document.createElement("option");
@@ -114,43 +110,101 @@ document.addEventListener("DOMContentLoaded", function() {
             opt.textContent = acc;
             accountSelect.appendChild(opt);
         });
+
+        // Add manual entry option
+        const optOther = document.createElement("option");
+        optOther.value = "__OTHER__";
+        optOther.textContent = "ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other (Type Manually)";
+        accountSelect.appendChild(optOther);
     }
 
-    // Setup pairs of district and taluk selects
-    const pairs = [
-        { districtId: "district", talukId: "taluk" },
-        { districtId: "donorDistrict", talukId: "donorTaluk" },
-        // Fallback for names in Census.html
-        { districtName: "district", talukName: "taluk" }
-    ];
-
-    pairs.forEach(function(pair) {
-        let districtEl = null;
-        let talukEl = null;
-
-        if (pair.districtId) {
-            districtEl = document.getElementById(pair.districtId);
-            talukEl = document.getElementById(pair.talukId);
-        }
+    // Handle display and naming of custom input field when "__OTHER__" is selected
+    function handleOtherSelection(select, placeholder) {
+        const parent = select.parentNode;
+        let input = select.nextElementSibling;
         
-        // Fallback to name search
-        if (!districtEl && pair.districtName) {
-            districtEl = document.querySelector('select[name="' + pair.districtName + '"]');
-            talukEl = document.querySelector('select[name="' + pair.talukName + '"]');
+        if (input && input.classList.contains("custom-other-input")) {
+            if (select.value !== "__OTHER__") {
+                input.remove();
+                const originalName = select.getAttribute("data-original-name");
+                if (originalName) {
+                    select.setAttribute("name", originalName);
+                    select.removeAttribute("data-original-name");
+                }
+            }
+        } else {
+            if (select.value === "__OTHER__") {
+                input = document.createElement("input");
+                input.type = "text";
+                input.className = "custom-other-input";
+                input.placeholder = placeholder || "ನಮೂದಿಸಿ / Enter value";
+                input.style.cssText = "width: 100% !important; padding: 10px !important; margin-top: 8px !important; border: 1px solid #0066cc !important; border-radius: 4px !important; font-size: 14px !important; box-sizing: border-box !important;";
+                
+                const originalName = select.getAttribute("name");
+                if (originalName) {
+                    select.setAttribute("data-original-name", originalName);
+                    select.removeAttribute("name");
+                    input.setAttribute("name", originalName);
+                }
+                
+                input.required = true;
+                select.after(input);
+                input.focus();
+            }
         }
-
-        if (districtEl && talukEl) {
-            populateDistricts(districtEl);
-            
-            districtEl.addEventListener("change", function() {
-                populateTaluks(this.value, talukEl);
-            });
-        }
-    });
-
-    // Setup accounts
-    const accountSelect = document.getElementById("account");
-    if (accountSelect) {
-        populateAccounts(accountSelect);
     }
+
+    // Master function to scan and initialize all dropdown pairs safely
+    function initializeAllFormDropdowns() {
+        const selects = document.querySelectorAll("select");
+        selects.forEach(function(select) {
+            // 1. Initialize District selects
+            if ((select.id === "district" || select.id === "donorDistrict" || select.name === "district") && !select.dataset.dropdownInit) {
+                select.dataset.dropdownInit = "true";
+                populateDistricts(select);
+                
+                let talukSelect = null;
+                if (select.id === "district") talukSelect = document.getElementById("taluk");
+                else if (select.id === "donorDistrict") talukSelect = document.getElementById("donorTaluk");
+                else if (select.name === "district") talukSelect = document.querySelector('select[name="taluk"]');
+
+                select.addEventListener("change", function() {
+                    if (this.value === "__OTHER__") {
+                        handleOtherSelection(this, "ಜಿಲ್ಲೆಯನ್ನು ನಮೂದಿಸಿ / Enter District");
+                        if (talukSelect) {
+                            populateTaluks("", talukSelect);
+                        }
+                    } else {
+                        handleOtherSelection(this);
+                        if (talukSelect) {
+                            populateTaluks(this.value, talukSelect);
+                        }
+                    }
+                });
+            }
+
+            // 2. Initialize Taluk selects
+            if ((select.id === "taluk" || select.id === "donorTaluk" || select.name === "taluk") && !select.dataset.dropdownInit) {
+                select.dataset.dropdownInit = "true";
+                populateTaluks("", select);
+                select.addEventListener("change", function() {
+                    handleOtherSelection(this, "ತಾಲೂಕನ್ನು ನಮೂದಿಸಿ / Enter Taluk");
+                });
+            }
+
+            // 3. Initialize Account selects
+            if ((select.id === "account" || select.name === "account") && !select.dataset.dropdownInit) {
+                select.dataset.dropdownInit = "true";
+                populateAccounts(select);
+                select.addEventListener("change", function() {
+                    handleOtherSelection(this, "ಖಾತೆಯನ್ನು ನಮೂದಿಸಿ / Enter Account");
+                });
+            }
+        });
+    }
+
+    // Run scans immediately, on page loaded states, and continuously at 500ms intervals to be 100% fail-safe
+    initializeAllFormDropdowns();
+    window.addEventListener("load", initializeAllFormDropdowns);
+    setInterval(initializeAllFormDropdowns, 500);
 });
