@@ -1,0 +1,18 @@
+{
+  "builds": [
+    {
+      "src": "nadafpinjar/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://nadafpinjar-backend.onrender.com/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/nadafpinjar/$1"
+    }
+  ]
+}

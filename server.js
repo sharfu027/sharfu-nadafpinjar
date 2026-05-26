@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const BASE_DIR = path.join(__dirname, 'nadafpinjar');
 
 // MongoDB Connection
@@ -44,6 +44,17 @@ const mimeTypes = {
 };
 
 const server = http.createServer((req, res) => {
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(200);
+    res.end();
+    return;
+  }
+
   if (req.method === 'POST' && req.url === '/api/donations') {
     let body = '';
     req.on('data', chunk => body += chunk.toString());
