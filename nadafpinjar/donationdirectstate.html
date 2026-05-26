@@ -105,85 +105,152 @@
         .btn-cancel:hover {
             background: #c82333 !important;
         }
+        /* Premium Preview Card Styles matching Image 2 exactly */
         .preview-container {
             display: none !important;
             max-width: 960px !important;
             margin: 40px auto !important;
-            padding: 30px !important;
+            padding: 40px !important;
             background: #fff !important;
-            border: 2px solid #0066cc !important;
-            border-radius: 8px !important;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+            border: 1px solid #e2e8f0 !important;
+            font-family: 'Inter', 'Outfit', 'Helvetica Neue', sans-serif !important;
         }
-        .preview-title {
+        .preview-header {
             text-align: center !important;
-            color: #333 !important;
-            font-size: 28px !important;
-            margin-bottom: 30px !important;
-            padding-bottom: 15px !important;
-            border-bottom: 3px solid #0066cc !important;
+            margin-bottom: 35px !important;
         }
-        .preview-row {
-            display: flex !important;
-            padding: 15px !important;
-            border-bottom: 1px solid #eee !important;
-        }
-        .preview-label {
-            flex: 0 0 200px !important;
-            font-weight: 600 !important;
-            color: #333 !important;
-        }
-        .preview-value {
-            flex: 1 !important;
-            color: #666 !important;
-        }
-        .amount-display {
-            background: #f0f8ff !important;
-            padding: 20px !important;
-            text-align: center !important;
-            border-radius: 8px !important;
-            margin: 20px 0 !important;
-        }
-        .amount-display h3 {
+        .preview-main-title {
             color: #0066cc !important;
-            font-size: 32px !important;
+            font-size: 28px !important;
+            font-weight: 700 !important;
+            margin: 0 0 8px 0 !important;
+        }
+        .preview-subtitle {
+            color: #718096 !important;
+            font-size: 15px !important;
             margin: 0 !important;
+            font-weight: 500 !important;
         }
-        .payment-section {
-            background: #f8f9fa !important;
-            padding: 20px !important;
+        .preview-section-header {
+            display: flex !important;
+            align-items: center !important;
+            font-size: 18px !important;
+            font-weight: 700 !important;
+            color: #2d3748 !important;
+            margin: 30px 0 20px 0 !important;
+            padding-left: 12px !important;
+            border-left: 4px solid #3b82f6 !important;
+            line-height: 1.2 !important;
+        }
+        .preview-grid {
+            display: grid !important;
+            grid-template-columns: repeat(12, 1fr) !important;
+            gap: 16px !important;
+        }
+        .preview-card {
+            grid-column: span 6 !important;
+            background: #f8fafc !important;
+            border: 1px solid #e2e8f0 !important;
             border-radius: 8px !important;
-            margin: 20px 0 !important;
+            padding: 12px 16px !important;
+            transition: all 0.2s ease !important;
         }
-        .payment-section h3 {
-            color: #333 !important;
-            margin-bottom: 15px !important;
+        .preview-card.span-4 {
+            grid-column: span 4 !important;
         }
-        .btn-pay {
-            background: #0066cc !important;
+        .preview-card.span-12 {
+            grid-column: span 12 !important;
+        }
+        @media (max-width: 768px) {
+            .preview-card {
+                grid-column: span 12 !important;
+            }
+            .preview-card.span-4 {
+                grid-column: span 12 !important;
+            }
+        }
+        .preview-card-label {
+            display: block !important;
+            font-size: 11px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+            color: #718096 !important;
+            margin-bottom: 6px !important;
+            font-weight: 600 !important;
+        }
+        .preview-card-value {
+            font-size: 15px !important;
+            color: #1a202c !important;
+            font-weight: 500 !important;
+            margin: 0 !important;
+            word-break: break-word !important;
+        }
+        .preview-amount-bar {
+            background: #3b82f6 !important;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
             color: white !important;
-            padding: 15px 50px !important;
+            text-align: center !important;
+            padding: 16px !important;
+            border-radius: 8px !important;
+            font-size: 24px !important;
+            font-weight: 700 !important;
+            margin: 30px 0 !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important;
+        }
+        .preview-actions-bar {
+            display: flex !important;
+            justify-content: center !important;
+            gap: 16px !important;
+            margin-top: 30px !important;
+            flex-wrap: wrap !important;
+        }
+        .btn-preview-edit {
+            background: #eab308 !important; /* Yellow */
+            color: #1e293b !important;
+            font-weight: 600 !important;
+            padding: 12px 30px !important;
+            border-radius: 6px !important;
             border: none !important;
-            border-radius: 4px !important;
-            font-size: 18px !important;
             cursor: pointer !important;
-            margin: 0 10px !important;
+            font-size: 16px !important;
+            transition: all 0.2s !important;
         }
-        .btn-pay:hover {
-            background: #0052a3 !important;
+        .btn-preview-edit:hover {
+            background: #ca8a04 !important;
+            transform: translateY(-1px) !important;
         }
-        .btn-edit {
-            background: #ffc107 !important;
-            color: #333 !important;
-            padding: 15px 50px !important;
+        .btn-preview-pay {
+            background: #22c55e !important; /* Green */
+            color: white !important;
+            font-weight: 600 !important;
+            padding: 12px 36px !important;
+            border-radius: 6px !important;
             border: none !important;
-            border-radius: 4px !important;
-            font-size: 18px !important;
             cursor: pointer !important;
-            margin: 0 10px !important;
+            font-size: 16px !important;
+            transition: all 0.2s !important;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2) !important;
         }
-        .btn-edit:hover {
-            background: #e0a800 !important;
+        .btn-preview-pay:hover {
+            background: #16a34a !important;
+            transform: translateY(-1px) !important;
+        }
+        .btn-preview-cancel {
+            background: #ef4444 !important; /* Red */
+            color: white !important;
+            font-weight: 600 !important;
+            padding: 12px 30px !important;
+            border-radius: 6px !important;
+            border: none !important;
+            cursor: pointer !important;
+            font-size: 16px !important;
+            transition: all 0.2s !important;
+        }
+        .btn-preview-cancel:hover {
+            background: #dc2626 !important;
+            transform: translateY(-1px) !important;
         }
         .footer-para {
             text-align: center;
@@ -395,23 +462,24 @@
 
     <!-- Preview Container -->
     <div class="preview-container" id="previewContainer">
-        <h1 class="preview-title">ಪೂರ್ವವೀಕ್ಷಣೆ ರಾಜ್ಯಕ್ಕೆ ನೇರ ಮೊತ್ತ ವರ್ಗಾವಣೆ</h1>
+        <div class="preview-header">
+            <h1 class="preview-main-title">ಪೂರ್ವವೀಕ್ಷಣೆ ರಾಜ್ಯಕ್ಕೆ ನೇರ ಮೊತ್ತ ವರ್ಗಾವಣೆ</h1>
+            <p class="preview-subtitle">ಮುಂದುವರಿಯುವ ಮೊದಲು ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.</p>
+        </div>
         
-        <img src="images/slider-1.jpg" alt="Donation Banner" class="banner-image">
-        
-        <div id="previewContent"></div>
+        <div class="preview-section-header">ಯಾರ ಪರವಾಗಿ</div>
+        <div class="preview-grid" id="previewContent"></div>
 
-        <div class="amount-display">
-            <h3>ಮೊತ್ತ: ₹<span id="displayAmount">0</span></h3>
+        <div class="preview-section-header">Online</div>
+        
+        <div class="preview-amount-bar">
+            ಮೊತ್ತ: ₹<span id="displayAmount">0</span>
         </div>
 
-        <div class="payment-section">
-            <h3>Online</h3>
-            <div class="btn-container">
-                <button type="button" class="btn-edit" onclick="editForm()">Edit</button>
-                <button type="button" class="btn-pay" onclick="initiatePayment()">ಈಗ ಪಾವತಿಸಿ</button>
-                <button type="button" class="btn-cancel" onclick="window.history.back()">Cancel</button>
-            </div>
+        <div class="preview-actions-bar">
+            <button type="button" class="btn-preview-edit" onclick="editForm()">Edit</button>
+            <button type="button" class="btn-preview-pay" onclick="initiatePayment()">ಈಗ ಪಾವತಿಸಿ</button>
+            <button type="button" class="btn-preview-cancel" onclick="window.history.back()">Cancel</button>
         </div>
     </div>
 
@@ -446,33 +514,43 @@
             if(!document.getElementById('previewContainer')) return submitToMongoDB();
             document.getElementById('previewContainer').style.display = 'block';
 
+            // Custom targeted labels mapping
+            const labelMap = {
+                'donorName': 'ಪೂರ್ಣ ಹೆಸರು',
+                'address': 'ಪೂರ್ಣ ವಿಳಾಸ',
+                'village': 'ಗ್ರಾಮ / ನಗರ',
+                'mobile': 'ಮೊಬೈಲ್',
+                'district': 'ಜಿಲ್ಲೆ',
+                'taluk': 'ತಾಲೂಕು',
+                'account': 'ಉದ್ದೇಶ',
+                'purposeDetails': 'ಉದ್ದೇಶದ ವಿವರಗಳು',
+                'paymentMode': 'ಪಾವತಿ ವಿಧಾನ'
+            };
+
+            // Custom grid span classes
+            const spanMap = {
+                'donorName': 'span-6',
+                'address': 'span-6',
+                'village': 'span-4',
+                'district': 'span-4',
+                'mobile': 'span-4',
+                'taluk': 'span-4',
+                'account': 'span-6',
+                'purposeDetails': 'span-6',
+                'paymentMode': 'span-12'
+            };
+
             let previewHTML = '';
-            const form = document.getElementById('directStateForm');
-            
             for (let key in formData) {
                 if (key !== 'amount') {
-                    let input = form.querySelector('[name="' + key + '"]');
-                    let label = '';
-                    if (input) {
-                        let id = input.id;
-                        if(id) {
-                            let l = form.querySelector('label[for="' + id + '"]');
-                            if(l) label = l.textContent;
-                        }
-                        if(!label) {
-                            let p = input.closest('.form-group');
-                            if(p) {
-                                let l = p.querySelector('label');
-                                if(l) label = l.textContent;
-                            }
-                        }
-                    }
-                    if(!label) label = key;
+                    let label = labelMap[key] || key;
+                    let spanClass = spanMap[key] || 'span-6';
+                    let val = formData[key] || '-';
 
                     previewHTML += `
-                        <div class="preview-row">
-                            <div class="preview-label">${label}:</div>
-                            <div class="preview-value">${formData[key] || '-'}</div>
+                        <div class="preview-card ${spanClass}">
+                            <span class="preview-card-label">${label}</span>
+                            <p class="preview-card-value">${val}</p>
                         </div>
                     `;
                 }
