@@ -834,6 +834,7 @@
         }
 
         function printReceipt(data, paymentId) {
+            const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/');
             let tableRows = '';
             tableRows += `<tr><td class="grid-label">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರ ಹೆಸರು</td><td class="grid-value" style="font-weight: bold;">${data.presidentName || '-'}</td></tr>`;
             tableRows += `<tr><td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td><td class="grid-value">${data.presidentMobile || '-'}</td></tr>`;
@@ -981,7 +982,7 @@
         <table class="header-table">
             <tr>
                 <td style="width: 15%; text-align: left;">
-                    <img src="images/president.jpeg" class="header-photo" alt="President">
+                    <img src="${baseUrl}images/president.jpeg" class="header-photo" alt="President">
                 </td>
                 <td style="width: 70%;" class="header-text">
                     <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
@@ -991,7 +992,7 @@
                     <p>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
                 </td>
                 <td style="width: 15%; text-align: right;">
-                    <img src="images/logo-graphics.png" class="header-logo" alt="Logo">
+                    <img src="${baseUrl}images/logo-graphics.png" class="header-logo" alt="Logo">
                 </td>
             </tr>
         </table>
@@ -1045,6 +1046,10 @@
                 </td>
             </tr>
         </table>
+
+        <div style="text-align: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid #ddd; font-size: 12px; color: #666; font-weight: bold;">
+            © 2026 Karnataka State Nadaf / Pinjar Sangha (R). All Rights Reserved.
+        </div>
     </div>
 </body>
 </html>`;
