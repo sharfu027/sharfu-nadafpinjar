@@ -442,58 +442,55 @@
 
             <h3 class="section-title">ಸದಸ್ಯರ ವಿವರ</h3>
             <div id="membersContainer">
-                <div class="member-block">
-                    <div class="member-header">
-                        <h4 class="member-title">ಸದಸ್ಯರು #1</h4>
-                    </div>
+                <div class="member-block" style="border: 1px solid #ced4da; padding: 20px; border-radius: 8px; background: #fafafa; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
                     <div class="form-row">
                         <div class="form-group">
                             <label>ಸದಸ್ಯರ ಹೆಸರು</label>
-                            <input type="text" name="memberName[]" placeholder="Member Name" required>
+                            <input type="text" id="mName" placeholder="Member Name">
                         </div>
                         <div class="form-group">
                             <label>ಪಾಲಕರ ಹೆಸರು</label>
-                            <input type="text" name="memberGuardian[]" placeholder="Guardian Name">
+                            <input type="text" id="mGuardian" placeholder="Guardian Name">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label>ಆಧಾರ್ ಸಂಖ್ಯೆ</label>
-                            <input type="text" name="memberAadhar[]" placeholder="AdharNo">
+                            <input type="text" id="mAadhar" placeholder="AdharNo">
                         </div>
                         <div class="form-group">
                             <label>ಮೊಬೈಲ್</label>
-                            <input type="text" name="memberMobile[]" placeholder="Mobile">
+                            <input type="text" id="mMobile" placeholder="Mobile">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label>ಉದ್ಯೋಗ</label>
-                            <input type="text" name="memberOccupation[]" placeholder="Occupation">
+                            <input type="text" id="mOccupation" placeholder="Occupation">
                         </div>
                         <div class="form-group">
                             <label>ಲಿಂಗ</label>
-                            <input type="text" name="memberGender[]" placeholder="Gender">
+                            <input type="text" id="mGender" placeholder="Gender">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label>ಹುಟ್ಟಿದ ದಿನಾಂಕ</label>
-                            <input type="date" name="memberDob[]" placeholder="Date Of Birth">
+                            <input type="date" id="mDob" placeholder="Date Of Birth">
                         </div>
                         <div class="form-group">
                             <label>ಕುಟುಂಬದೊಂದಿಗಿನ ಸಂಬಂಧ</label>
-                            <input type="text" name="memberRelation[]" placeholder="Relation">
+                            <input type="text" id="mRelation" placeholder="Relation">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label>ವಿವಾಹಿತರ?</label>
-                            <select name="memberMarried[]">
+                            <select id="mMarried">
                                 <option value="ಅವಿವಾಹಿತರ">ಅವಿವಾಹಿತರ</option>
                                 <option value="ವಿವಾಹಿತರ">ವಿವಾಹಿತರ</option>
                                 <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
@@ -501,7 +498,7 @@
                         </div>
                         <div class="form-group">
                             <label>ಅಂಗವಿಕಲರೇ?</label>
-                            <select name="memberHandicapped[]">
+                            <select id="mHandicapped">
                                 <option value="ಇಲ್ಲ">ಇಲ್ಲ</option>
                                 <option value="ಹೌದು">ಹೌದು</option>
                                 <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
@@ -512,7 +509,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>ಸಾಕ್ಷರಹಾ?</label>
-                            <select name="memberLiterate[]">
+                            <select id="mLiterate">
                                 <option value="ಶಿಕ್ಷಕರು">ಶಿಕ್ಷಕರು</option>
                                 <option value="ಸಾಕ್ಷರರು">ಸಾಕ್ಷರರು</option>
                                 <option value="ನಿರಕ್ಷರರು">ನಿರಕ್ಷರರು</option>
@@ -521,38 +518,29 @@
                         </div>
                         <div class="form-group">
                             <label>ರಾಜಕೀಯ ಹಿನ್ನೆಲೆ</label>
-                            <select name="memberPolitical[]">
+                            <select id="mPolitical">
                                 <option value="ಇಲ್ಲ">ಇಲ್ಲ</option>
                                 <option value="ಹೌದು">ಹೌದು</option>
                                 <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
                             </select>
                         </div>
                     </div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button type="button" class="btn btn-secondary" onclick="addMemberToList()" style="padding: 12px 30px; font-weight: bold; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 15px; transition: background 0.2s;">ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ (Add Member)</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-row" style="margin-top: 15px; margin-bottom: 25px;">
-                <button type="button" class="btn btn-secondary" onclick="addNewMember()" style="padding: 12px; width: 100%; font-weight: bold; background: #e9ecef; color: #0066cc; border: 2px dashed #0066cc; border-radius: 6px; cursor: pointer; transition: all 0.2s;">+ ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ (Add Member)</button>
-            </div>
-            
-            <div class="btn-container">
-                <button type="button" class="btn-submit" onclick="addNewMember()" style="background: #007bff; margin-bottom: 15px;">ಸದಸ್ಯರನ್ನು ಸೇರಿಸು</button>
-            </div>
+            <!-- Added Members Table List Container -->
+            <div id="addedMembersListContainer"></div>
 
-            <div class="btn-container">
-                <button type="submit" class="btn-submit">Save</button>
+            <div class="btn-container" style="margin-top: 30px;">
+                <button type="submit" class="btn-submit" style="background: #28a745;">Save</button>
                 <button type="button" class="btn-cancel" onclick="window.history.back()">Delete</button>
             </div>
         </form>
     </div>
-
-    <footer class="wrapper footer-wrapper">
-        <div class="footer-bottom-wrapper">
-            <div class="container">
-                <p style="text-align: center; color: #666;">© 2026 Karnataka State Nadaf / Pinjar Sangha (R). All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
 
     <!-- Success Modal -->
     <div id="successModal" class="modal-backdrop">
@@ -585,13 +573,15 @@
     <script src="js/dropdowns.js"></script>
     <script>
         let formData = {};
+        let addedMembers = [];
 
         // Custom Manual Entry Handler for Select Fields
         function setupOtherOptions() {
             const selects = document.querySelectorAll('select');
             selects.forEach(select => {
-                if (select.name === 'houseType' || select.name === 'memberMarried[]' || select.name === 'memberHandicapped[]' || select.name === 'memberLiterate[]' || select.name === 'memberPolitical[]') {
-                    // Check if already bound
+                const isTarget = select.name === 'houseType' || 
+                                 ['mMarried', 'mHandicapped', 'mLiterate', 'mPolitical'].includes(select.id);
+                if (isTarget) {
                     if (!select.dataset.otherOptionInit) {
                         select.dataset.otherOptionInit = "true";
                         select.addEventListener('change', function() {
@@ -609,11 +599,6 @@
             if (input && input.classList.contains("custom-other-input")) {
                 if (select.value !== "__OTHER__") {
                     input.remove();
-                    const originalName = select.getAttribute("data-original-name");
-                    if (originalName) {
-                        select.setAttribute("name", originalName);
-                        select.removeAttribute("data-original-name");
-                    }
                 }
             } else {
                 if (select.value === "__OTHER__") {
@@ -622,14 +607,6 @@
                     input.className = "custom-other-input";
                     input.placeholder = "ನಮೂದಿಸಿ / Enter value";
                     input.style.cssText = "width: 100% !important; padding: 10px !important; margin-top: 8px !important; border: 1px solid #0066cc !important; border-radius: 4px !important; font-size: 14px !important; box-sizing: border-box !important;";
-                    
-                    const originalName = select.getAttribute("name");
-                    if (originalName) {
-                        select.setAttribute("data-original-name", originalName);
-                        select.removeAttribute("name");
-                        input.setAttribute("name", originalName);
-                    }
-                    
                     input.required = true;
                     parent.appendChild(input);
                     input.focus();
@@ -637,182 +614,199 @@
             }
         }
 
-        // Add Member Dynamically
-        function addNewMember() {
-            const container = document.getElementById('membersContainer');
-            const memberCount = container.querySelectorAll('.member-block').length + 1;
-            
-            const memberHTML = `
-                <div class="member-block">
-                    <div class="member-header">
-                        <h4 class="member-title">ಸದಸ್ಯರು #${memberCount}</h4>
-                        <button type="button" class="btn-remove-member" onclick="removeMember(this)">ತೆಗೆದುಹಾಕಿ (Remove)</button>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>ಸದಸ್ಯರ ಹೆಸರು</label>
-                            <input type="text" name="memberName[]" placeholder="Member Name" required>
-                        </div>
-                        <div class="form-group">
-                            <label>ಪಾಲಕರ ಹೆಸರು</label>
-                            <input type="text" name="memberGuardian[]" placeholder="Guardian Name">
-                        </div>
-                    </div>
+        // Helper to retrieve select element value, supporting manual enter custom inputs
+        function getSelectValue(id) {
+            const select = document.getElementById(id);
+            if (!select) return '';
+            if (select.value === '__OTHER__') {
+                const nextInput = select.nextElementSibling;
+                if (nextInput && nextInput.classList.contains('custom-other-input')) {
+                    return nextInput.value.trim();
+                }
+            }
+            return select.value;
+        }
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>ಆಧಾರ್ ಸಂಖ್ಯೆ</label>
-                            <input type="text" name="memberAadhar[]" placeholder="AdharNo">
-                        </div>
-                        <div class="form-group">
-                            <label>ಮೊಬೈಲ್</label>
-                            <input type="text" name="memberMobile[]" placeholder="Mobile">
-                        </div>
-                    </div>
+        // Add Member dynamically to the roster list array
+        function addMemberToList() {
+            const name = document.getElementById('mName').value.trim();
+            const guardian = document.getElementById('mGuardian').value.trim();
+            const aadhar = document.getElementById('mAadhar').value.trim();
+            const mobile = document.getElementById('mMobile').value.trim();
+            const occupation = document.getElementById('mOccupation').value.trim();
+            const gender = document.getElementById('mGender').value.trim();
+            const dob = document.getElementById('mDob').value;
+            const relation = document.getElementById('mRelation').value.trim();
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>ಉದ್ಯೋಗ</label>
-                            <input type="text" name="memberOccupation[]" placeholder="Occupation">
-                        </div>
-                        <div class="form-group">
-                            <label>ಲಿಂಗ</label>
-                            <input type="text" name="memberGender[]" placeholder="Gender">
-                        </div>
-                    </div>
+            const married = getSelectValue('mMarried');
+            const handicapped = getSelectValue('mHandicapped');
+            const literate = getSelectValue('mLiterate');
+            const political = getSelectValue('mPolitical');
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>ಹುಟ್ಟಿದ ದಿನಾಂಕ</label>
-                            <input type="date" name="memberDob[]" placeholder="Date Of Birth">
-                        </div>
-                        <div class="form-group">
-                            <label>ಕುಟುಂಬದೊಂದಿಗಿನ ಸಂಬಂಧ</label>
-                            <input type="text" name="memberRelation[]" placeholder="Relation">
-                        </div>
-                    </div>
+            if (!name) {
+                alert("ದಯವಿಟ್ಟು ಸದಸ್ಯರ ಹೆಸರನ್ನು ನಮೂದಿಸಿ (Please enter Member Name).");
+                document.getElementById('mName').focus();
+                return;
+            }
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>ವಿವಾಹಿತರ?</label>
-                            <select name="memberMarried[]">
-                                <option value="ಅವಿವಾಹಿತರ">ಅವಿವಾಹಿತರ</option>
-                                <option value="ವಿವಾಹಿತರ">ವಿವಾಹಿತರ</option>
-                                <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>ಅಂಗವಿಕಲರೇ?</label>
-                            <select name="memberHandicapped[]">
-                                <option value="ಇಲ್ಲ">ಇಲ್ಲ</option>
-                                <option value="ಹೌದು">ಹೌದು</option>
-                                <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
-                            </select>
-                        </div>
-                    </div>
+            const member = {
+                name,
+                guardian,
+                aadhar,
+                mobile,
+                occupation,
+                gender,
+                dob,
+                relation,
+                married,
+                handicapped,
+                literate,
+                political
+            };
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>ಸಾಕ್ಷರಹಾ?</label>
-                            <select name="memberLiterate[]">
-                                <option value="ಶಿಕ್ಷಕರು">ಶಿಕ್ಷಕರು</option>
-                                <option value="ಸಾಕ್ಷರರು">ಸಾಕ್ಷರರು</option>
-                                <option value="ನಿರಕ್ಷರರು">ನಿರಕ್ಷರರು</option>
-                                <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>ರಾಜಕೀಯ ಹಿನ್ನೆಲೆ</label>
-                            <select name="memberPolitical[]">
-                                <option value="ಇಲ್ಲ">ಇಲ್ಲ</option>
-                                <option value="ಹೌದು">ಹೌದು</option>
-                                <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
-                            </select>
-                        </div>
+            addedMembers.push(member);
+            renderAddedMembers();
+
+            // Clear input fields
+            document.getElementById('mName').value = '';
+            document.getElementById('mGuardian').value = '';
+            document.getElementById('mAadhar').value = '';
+            document.getElementById('mMobile').value = '';
+            document.getElementById('mOccupation').value = '';
+            document.getElementById('mGender').value = '';
+            document.getElementById('mDob').value = '';
+            document.getElementById('mRelation').value = '';
+
+            // Reset select options
+            const selectIds = ['mMarried', 'mHandicapped', 'mLiterate', 'mPolitical'];
+            selectIds.forEach(id => {
+                const select = document.getElementById(id);
+                if (select) {
+                    select.selectedIndex = 0;
+                    const otherInput = select.nextElementSibling;
+                    if (otherInput && otherInput.classList.contains('custom-other-input')) {
+                        otherInput.remove();
+                    }
+                }
+            });
+
+            // Focus back to first member field
+            document.getElementById('mName').focus();
+        }
+
+        // Remove member from the roster list
+        function removeMemberFromList(index) {
+            addedMembers.splice(index, 1);
+            renderAddedMembers();
+        }
+
+        // Render added members in a beautiful table list below the form card
+        function renderAddedMembers() {
+            const container = document.getElementById('addedMembersListContainer');
+            if (!container) return;
+
+            if (addedMembers.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = `
+                <div style="margin-top: 30px; border: 1px solid #0066cc; border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                    <div style="background: #0066cc; color: white; padding: 12px 20px; font-weight: bold; font-size: 16px; border-bottom: 2px solid #004499;">
+                        ಸೇರಿಸಲಾದ ಸದಸ್ಯರ ಪಟ್ಟಿ (Added Family Members List)
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="table table-striped" style="margin: 0; width: 100%; border-collapse: collapse; font-size: 14px;">
+                            <thead>
+                                <tr style="background: #f8fafc; border-bottom: 2px solid #cbd5e1; text-align: left; color: #334155;">
+                                    <th style="padding: 12px; font-weight: 600; width: 60px; text-align: center;">ಕ್ರ.ಸಂ</th>
+                                    <th style="padding: 12px; font-weight: 600;">ಹೆಸರು (Name)</th>
+                                    <th style="padding: 12px; font-weight: 600;">ಸಂಬಂಧ (Relation)</th>
+                                    <th style="padding: 12px; font-weight: 600;">ಮೊಬೈಲ್ (Mobile)</th>
+                                    <th style="padding: 12px; font-weight: 600;">ಆಧಾರ್ ಸಂಖ್ಯೆ (Aadhar)</th>
+                                    <th style="padding: 12px; font-weight: 600;">ಸಾಕ್ಷರತೆ (Literacy)</th>
+                                    <th style="padding: 12px; font-weight: 600; width: 120px; text-align: center;">ಕ್ರಮ (Action)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+            `;
+
+            addedMembers.forEach((m, idx) => {
+                html += `
+                                <tr style="border-bottom: 1px solid #e2e8f0; background: ${idx % 2 === 0 ? '#ffffff' : '#f8fafc'}; color: #334155;">
+                                    <td style="padding: 12px; font-weight: bold; text-align: center;">${idx + 1}</td>
+                                    <td style="padding: 12px; font-weight: 500;">${m.name}</td>
+                                    <td style="padding: 12px;">${m.relation || '-'}</td>
+                                    <td style="padding: 12px;">${m.mobile || '-'}</td>
+                                    <td style="padding: 12px;">${m.aadhar || '-'}</td>
+                                    <td style="padding: 12px;">${m.literate || '-'}</td>
+                                    <td style="padding: 12px; text-align: center;">
+                                        <button type="button" class="btn-remove-member" onclick="removeMemberFromList(${idx})" style="padding: 6px 12px; font-size: 13px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: all 0.2s;">ತೆಗೆದುಹಾಕಿ (Remove)</button>
+                                    </td>
+                                </tr>
+                `;
+            });
+
+            html += `
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             `;
-            
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = memberHTML.trim();
-            container.appendChild(tempDiv.firstChild);
-            
-            // Re-setup change listeners for new selects
-            setupOtherOptions();
+
+            container.innerHTML = html;
         }
 
-        // Remove Member
-        function removeMember(button) {
-            const block = button.closest('.member-block');
-            block.remove();
-            
-            // Re-index titles
-            const container = document.getElementById('membersContainer');
-            const blocks = container.querySelectorAll('.member-block');
-            blocks.forEach((b, index) => {
-                b.querySelector('.member-title').textContent = `ಸದಸ್ಯರು #${index + 1}`;
-            });
-        }
-
-        // Form Submit
+        // Form Submit handler
         document.getElementById('censusForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // 1. Gather Family Head Details
             const form = this;
-            const familyData = {
-                headName: form.querySelector('[name="headName"]').value,
-                address: form.querySelector('[name="address"]').value,
-                village: form.querySelector('[name="village"]').value,
-                district: form.querySelector('[name="district"]').value,
-                taluk: form.querySelector('[name="taluk"]').value,
-                headAadhar: form.querySelector('[name="headAadhar"]').value,
-                ward: form.querySelector('[name="ward"]').value,
-                religion: form.querySelector('[name="religion"]').value,
-                caste: form.querySelector('[name="caste"]').value,
-                houseType: form.querySelector('[name="houseType"]').value,
-                landAcres: form.querySelector('[name="landAcres"]').value,
-                formingType: form.querySelector('[name="formingType"]').value,
-                landGunta: form.querySelector('[name="landGunta"]').value,
+            
+            // Helper to get family head inputs safely, supporting manually typed other option value
+            const getFormValue = (name) => {
+                const select = form.querySelector(`select[name="${name}"]`);
+                if (select && select.value === '__OTHER__') {
+                    const nextInput = select.nextElementSibling;
+                    if (nextInput && nextInput.classList.contains('custom-other-input')) {
+                        return nextInput.value.trim();
+                    }
+                }
+                const input = form.querySelector(`[name="${name}"]`);
+                return input ? input.value.trim() : '';
             };
 
-            // 2. Loop through members blocks and build array
-            const members = [];
-            const memberBlocks = form.querySelectorAll('.member-block');
-            memberBlocks.forEach(block => {
-                // Get values safely, supporting custom-other-input text fields if present
-                const nameInput = block.querySelector('[name="memberName[]"]') || block.querySelector('.custom-other-input[name="memberName[]"]');
-                const guardianInput = block.querySelector('[name="memberGuardian[]"]') || block.querySelector('.custom-other-input[name="memberGuardian[]"]');
-                const aadharInput = block.querySelector('[name="memberAadhar[]"]') || block.querySelector('.custom-other-input[name="memberAadhar[]"]');
-                const mobileInput = block.querySelector('[name="memberMobile[]"]') || block.querySelector('.custom-other-input[name="memberMobile[]"]');
-                const occupationInput = block.querySelector('[name="memberOccupation[]"]') || block.querySelector('.custom-other-input[name="memberOccupation[]"]');
-                const genderInput = block.querySelector('[name="memberGender[]"]') || block.querySelector('.custom-other-input[name="memberGender[]"]');
-                const dobInput = block.querySelector('[name="memberDob[]"]') || block.querySelector('.custom-other-input[name="memberDob[]"]');
-                const relationInput = block.querySelector('[name="memberRelation[]"]') || block.querySelector('.custom-other-input[name="memberRelation[]"]');
-                const marriedSelect = block.querySelector('[name="memberMarried[]"]') || block.querySelector('.custom-other-input[name="memberMarried[]"]');
-                const handicappedSelect = block.querySelector('[name="memberHandicapped[]"]') || block.querySelector('.custom-other-input[name="memberHandicapped[]"]');
-                const literateSelect = block.querySelector('[name="memberLiterate[]"]') || block.querySelector('.custom-other-input[name="memberLiterate[]"]');
-                const politicalSelect = block.querySelector('[name="memberPolitical[]"]') || block.querySelector('.custom-other-input[name="memberPolitical[]"]');
+            const familyData = {
+                headName: getFormValue('headName'),
+                address: getFormValue('address'),
+                village: getFormValue('village'),
+                district: getFormValue('district'),
+                taluk: getFormValue('taluk'),
+                headAadhar: getFormValue('headAadhar'),
+                ward: getFormValue('ward'),
+                religion: getFormValue('religion'),
+                caste: getFormValue('caste'),
+                houseType: getFormValue('houseType'),
+                landAcres: getFormValue('landAcres'),
+                formingType: getFormValue('formingType'),
+                landGunta: getFormValue('landGunta'),
+            };
 
-                members.push({
-                    name: nameInput ? nameInput.value : '',
-                    guardian: guardianInput ? guardianInput.value : '',
-                    aadhar: aadharInput ? aadharInput.value : '',
-                    mobile: mobileInput ? mobileInput.value : '',
-                    occupation: occupationInput ? occupationInput.value : '',
-                    gender: genderInput ? genderInput.value : '',
-                    dob: dobInput ? dobInput.value : '',
-                    relation: relationInput ? relationInput.value : '',
-                    married: marriedSelect ? marriedSelect.value : '',
-                    handicapped: handicappedSelect ? handicappedSelect.value : '',
-                    literate: literateSelect ? literateSelect.value : '',
-                    political: politicalSelect ? politicalSelect.value : ''
-                });
-            });
+            if (!familyData.headName) {
+                alert("ದಯವಿಟ್ಟು ಕುಟುಂಬದ ಮುಖ್ಯಸ್ಥರ ಹೆಸರನ್ನು ನಮೂದಿಸಿ (Please enter Head Name).");
+                form.querySelector('[name="headName"]').focus();
+                return;
+            }
+
+            if (addedMembers.length === 0) {
+                alert("ದಯವಿಟ್ಟು ಕನಿಷ್ಠ ಒಬ್ಬರು ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ (Please add at least one Family Member).");
+                document.getElementById('mName').focus();
+                return;
+            }
 
             formData = {
                 ...familyData,
-                members: members
+                members: addedMembers
             };
 
             const dataToSave = {
@@ -830,11 +824,9 @@
             .then(res => res.json())
             .then(data => {
                 if(data.success) {
-                    // Generate dynamic application number
                     const lastDigits = data.id ? parseInt(data.id.slice(-4), 16) % 100 : Math.floor(Math.random() * 90) + 10;
                     const appNumber = `KRNPS-2026-27-${lastDigits}`;
                     
-                    // Show confirmation modal with the generated app number
                     document.getElementById('modalAppNumber').textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ ಪಡೆದು : ${appNumber}`;
                     
                     const modal = document.getElementById('successModal');
@@ -875,7 +867,7 @@
                     `;
                 });
             } else {
-                membersRows = \`<tr><td colspan="7" style="text-align: center; border: 1px solid #b30000; padding: 10px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>\`;
+                membersRows = '<tr><td colspan="7" style="text-align: center; border: 1px solid #b30000; padding: 10px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
             }
 
             const printHTML = `<!DOCTYPE html>
@@ -1075,7 +1067,7 @@
             <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${new Date().toLocaleDateString('en-US')}</div>
         </div>
 
-        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">I. ಕುಟುಂಬದ ವಿವರ (Family Details)</h3>
+        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">I. कुटुंबದ ವಿವರ (Family Details)</h3>
         <table class="grid-table">
             <tr>
                 <td class="grid-label">ಮುಖ್ಯಸ್ಥರ ಹೆಸರು</td>
@@ -1127,7 +1119,7 @@
                 </tr>
             </thead>
             <tbody>
-                \${membersRows}
+                ${membersRows}
             </tbody>
         </table>
 
