@@ -219,7 +219,7 @@ $(document).ready(function(){
     
     var a = 0;
     $(window).scroll(function() {
-    
+      if ($('#counter').length === 0) return;
       var oTop = $('#counter').offset().top - window.innerHeight;
       if (a == 0 && $(window).scrollTop() > oTop) {
         $('.count').each(function () {
@@ -278,26 +278,32 @@ $(document).ready(function() {
         video = document.getElementsByTagName('video')[0],
         videoMethods = {
             renderVideoPlayButton: function() {
-                    if (videoWrapper.contains(video)) {
+                    if (videoWrapper && video && videoWrapper.contains(video)) {
                     this.formatVideoPlayButton()
                     video.classList.add('has-media-controls-hidden')
                     videoPlayButton = document.getElementsByClassName('video-overlay-play-button')[0]
-                    videoPlayButton.addEventListener('click', this.hideVideoPlayButton)
+                    if (videoPlayButton) {
+                        videoPlayButton.addEventListener('click', this.hideVideoPlayButton)
+                    }
                     }
             },
             formatVideoPlayButton: function() {
+                    if (videoWrapper) {
                     videoWrapper.insertAdjacentHTML('beforeend', '\
                     <svg class="video-overlay-play-button" viewBox="0 0 200 200" alt="Play video">\
                         <circle cx="100" cy="100" r="90" fill="none" stroke-width="15" stroke="#fff"/>\
                         <polygon points="70, 55 70, 145 145, 100" fill="#fff"/>\
                     </svg>\
                     ')
+                    }
             },
             hideVideoPlayButton: function() {
+                    if (video && videoPlayButton) {
                     video.play()
                     videoPlayButton.classList.add('is-hidden')
                     video.classList.remove('has-media-controls-hidden')
                     video.setAttribute('controls', 'controls')
+                    }
             }
         }
         videoMethods.renderVideoPlayButton()

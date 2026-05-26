@@ -125,7 +125,11 @@ document.addEventListener("DOMContentLoaded", function() {
         
         if (input && input.classList.contains("custom-other-input")) {
             if (select.value !== "__OTHER__") {
-                input.remove();
+                if (input.parentNode) {
+                    input.parentNode.removeChild(input);
+                } else {
+                    input.remove();
+                }
                 const originalName = select.getAttribute("data-original-name");
                 if (originalName) {
                     select.setAttribute("name", originalName);
@@ -148,7 +152,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 
                 input.required = true;
-                select.after(input);
+                if (select.nextSibling) {
+                    parent.insertBefore(input, select.nextSibling);
+                } else {
+                    parent.appendChild(input);
+                }
                 input.focus();
             }
         }
