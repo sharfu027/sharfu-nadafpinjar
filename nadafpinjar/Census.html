@@ -537,7 +537,7 @@
 
             <div class="btn-container" style="margin-top: 30px;">
                 <button type="submit" class="btn-submit" style="background: #28a745;">Save</button>
-                <button type="button" class="btn-cancel" onclick="window.history.back()">Delete</button>
+                <button type="button" class="btn-cancel" onclick="window.history.back()" style="background: #dc3545;">ರದ್ದುಮಾಡು (Cancel)</button>
             </div>
         </form>
     </div>
@@ -552,9 +552,14 @@
             <p class="modal-desc">
                 ವಿವರಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಸಲ್ಲಿಸಲಾಗಿದೆ.<br>ನಮ್ಮ ಬ್ಯಾಂಕ್‌ನಿಂದ ಸಂದೇಶ ಶೀಘ್ರದಲ್ಲಿ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುವೆವು.
             </p>
-            <button id="btnPrintReceipt" class="btn-modal-print">
-                ಪ್ರಿಂಟ್ ರಶೀದಿ
-            </button>
+            <div style="display: flex; gap: 12px; justify-content: center; width: 100%;">
+                <button id="btnPrintReceipt" class="btn-modal-print" style="padding: 12px 18px; font-size: 14px; flex: 1;">
+                    ಪ್ರಿಂಟ್ / PDF ಡೌನ್‌ಲೋಡ್
+                </button>
+                <button id="btnCloseModal" type="button" style="background: #6c757d; color: white; border: none; padding: 12px 18px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.2s; flex: 1;">
+                    ಮುಚ್ಚಿ (Close)
+                </button>
+            </div>
         </div>
     </div>
 
@@ -834,10 +839,10 @@
                     
                     document.getElementById('btnPrintReceipt').onclick = function() {
                         printReceipt(formData, appNumber);
-                        
-                        setTimeout(() => {
-                            window.location.href = 'default.html';
-                        }, 2000);
+                    };
+
+                    document.getElementById('btnCloseModal').onclick = function() {
+                        modal.style.display = 'none';
                     };
                 } else {
                     alert('Error saving data: ' + (data.error || 'Server error'));
