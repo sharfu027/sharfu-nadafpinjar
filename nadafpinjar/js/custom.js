@@ -337,5 +337,3 @@ $(document).ready(function(){
         return false; 
     }); 
  });
-
- x
