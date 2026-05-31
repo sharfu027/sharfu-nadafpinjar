@@ -990,21 +990,6 @@
             padding: 6px;
             font-weight: bold;
         }
-        .sig-section {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px 20px 10px 20px;
-            font-size: 13px;
-            font-weight: bold;
-            color: #b30000;
-        }
-        .sig-box {
-            text-align: center;
-            width: 150px;
-        }
-        .sig-space {
-            height: 40px;
-        }
         .recommend-text {
             text-align: center;
             font-size: 11px;
@@ -1014,27 +999,62 @@
             padding: 6px 0;
             margin-top: 10px;
         }
-        .checkbox-container {
+        .approval-section {
             display: flex;
             justify-content: space-between;
-            border: 1px solid #b30000;
-            padding: 8px;
-            background: #fffcf5;
-            margin-top: 5px;
+            margin-top: 15px;
+            font-size: 13px;
         }
-        .checkbox-item {
-            font-size: 10px;
+        .sig-col {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .sig-item {
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 5px;
+        }
+        .sig-space {
+            height: 40px;
+        }
+        .sig-label {
             font-weight: bold;
             color: #b30000;
-            display: flex;
-            align-items: center;
         }
-        .box-outline {
-            border: 1px solid #b30000;
-            width: 12px;
-            height: 12px;
+        .official-col {
+            width: 55%;
+            border-left: 2px solid #b30000;
+            padding-left: 15px;
+        }
+        .official-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .official-row {
+            height: 32px;
+        }
+        .official-check {
+            width: 10%;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .official-box {
+            border: 2px solid #b30000;
+            width: 15px;
+            height: 15px;
             display: inline-block;
-            margin-left: 4px;
+        }
+        .official-title {
+            width: 40%;
+            font-weight: bold;
+            color: #b30000;
+            padding-left: 5px;
+            vertical-align: middle;
+        }
+        .official-sig-line {
+            width: 50%;
+            border-bottom: 1px dashed #b30000;
         }
         @media print {
             body {
@@ -1069,7 +1089,7 @@
         <div class="title-banner">
             <div>ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
             <div style="font-size: 15px;">ಜನಗಣತಿ (CENSUS) ಅರ್ಜಿ 2026-27</div>
-            <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${new Date().toLocaleDateString('en-US')}</div>
+            <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${new Date().toLocaleDateString('en-GB')}</div>
         </div>
 
         <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">I. कुटुंबದ ವಿವರ (Family Details)</h3>
@@ -1128,27 +1148,53 @@
             </tbody>
         </table>
 
-        <div class="sig-section">
-            <div class="sig-box">
-                <div class="sig-space"></div>
-                ಕುಟುಂಬದ ಮುಖ್ಯಸ್ಥರ ಸಹಿ
-            </div>
-            <div class="sig-box">
-                <div class="sig-space"></div>
-                ಅರ್ಜಿ ಸ್ವೀಕರಿಸಿದವರ ಸಹಿ
-            </div>
-        </div>
-
         <div class="recommend-text">
             ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:___________ ಮಾಹಿತಿಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
         </div>
 
-        <div class="checkbox-container">
-            <div class="checkbox-item">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು: <span class="box-outline"></span></div>
-            <div class="checkbox-item">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು: <span class="box-outline"></span></div>
-            <div class="checkbox-item">ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು: <span class="box-outline"></span></div>
-            <div class="checkbox-item">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ: <span class="box-outline"></span></div>
-            <div class="checkbox-item">ರಾಜ್ಯ ಘಟಕ: <span class="box-outline"></span></div>
+        <div class="approval-section">
+            <!-- Left Column: Signatures -->
+            <div class="sig-col">
+                <div class="sig-item" style="margin-bottom: 25px;">
+                    <div class="sig-space"></div>
+                    <span class="sig-label">ಕುಟುಂಬದ ಮುಖ್ಯಸ್ಥರ ಸಹಿ</span>
+                </div>
+                <div class="sig-item">
+                    <div class="sig-space"></div>
+                    <span class="sig-label">ಅರ್ಜಿ ಸ್ವೀಕರಿಸಿದವರ ಸಹಿ</span>
+                </div>
+            </div>
+
+            <!-- Right Column: Official Approvals -->
+            <div class="official-col">
+                <table class="official-table">
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ರಾಜ್ಯ ಘಟಕ</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </body>
