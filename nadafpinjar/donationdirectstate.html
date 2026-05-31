@@ -69,8 +69,8 @@
             resize: vertical !important;
         }
         .form-row {
-            display: flex !important;
-            gap: 20px !important;
+            display: flex;
+            gap: 20px;
         }
         .form-row .form-group {
             flex: 1 !important;
@@ -1020,20 +1020,24 @@
         const bankDetailsGroup = document.getElementById('bankDetailsGroup');
         const offlineReceiptRow = document.getElementById('offlineReceiptRow');
 
+        function toggleOfflineFields() {
+            if (paymentModeSelect.value === 'Cash/Offline') {
+                bankDetailsGroup.style.display = 'block';
+                offlineReceiptRow.style.display = 'flex';
+                document.getElementById('bankDetails').required = true;
+                document.getElementById('depositDate').required = true;
+            } else {
+                bankDetailsGroup.style.display = 'none';
+                offlineReceiptRow.style.display = 'none';
+                document.getElementById('bankDetails').required = false;
+                document.getElementById('depositDate').required = false;
+            }
+        }
+
         if (paymentModeSelect) {
-            paymentModeSelect.addEventListener('change', function() {
-                if (this.value === 'Cash/Offline') {
-                    bankDetailsGroup.style.display = 'block';
-                    offlineReceiptRow.style.display = 'flex';
-                    document.getElementById('bankDetails').required = true;
-                    document.getElementById('depositDate').required = true;
-                } else {
-                    bankDetailsGroup.style.display = 'none';
-                    offlineReceiptRow.style.display = 'none';
-                    document.getElementById('bankDetails').required = false;
-                    document.getElementById('depositDate').required = false;
-                }
-            });
+            paymentModeSelect.addEventListener('change', toggleOfflineFields);
+            // Run initially to ensure correct visibility state on load
+            toggleOfflineFields();
         }
     </script>
 </body>
