@@ -435,20 +435,16 @@
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="currentClass">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</label>
-                    <input type="text" id="currentClass" name="currentClass">
-                </div>
-                <div class="form-group">
                     <label for="previousMarks">ಹಿಂದಿನ ತರಗತಿಯಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳು</label>
                     <input type="text" id="previousMarks" name="previousMarks">
                 </div>
-            </div>
-
-            <div class="form-row">
                 <div class="form-group">
                     <label for="joiningClass">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</label>
                     <input type="text" id="joiningClass" name="joiningClass">
                 </div>
+            </div>
+
+            <div class="form-row">
                 <div class="form-group">
                     <label for="classSubjects">ತರಗತಿಯ ವಿಷಯಗಳು</label>
                     <input type="text" id="classSubjects" name="classSubjects">
@@ -903,20 +899,18 @@
             <tr>
                 <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಶಾಲೆ/ಕಾಲೇಜು ಮಾಡುತ್ತಿರುವ</td>
                 <td class="grid-value">${data.currentSchool || '-'}</td>
-                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
-                <td class="grid-value">${data.currentClass || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ಹಿಂದಿನ ತರಗತಿಯಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳು</td>
                 <td class="grid-value">${data.previousMarks || '-'}</td>
-                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
-                <td class="grid-value">${data.joiningClass || '-'}</td>
             </tr>
             <tr>
+                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
+                <td class="grid-value">${data.joiningClass || '-'}</td>
                 <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು :</td>
                 <td class="grid-value">${data.classSubjects || '-'}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್:</td>
-                <td class="grid-value">${data.coaching || '-'}</td>
+                <td class="grid-value" colspan="3">${data.coaching || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>

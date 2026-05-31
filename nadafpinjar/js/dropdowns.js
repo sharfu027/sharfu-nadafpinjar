@@ -34,12 +34,12 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     const accountsData = [
-        "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ (General Donation Account)",
-        "ಶಿಕ್ಷಣ ಅಭಿವೃದ್ಧಿ ಖಾತೆ (Education Development Account)",
-        "ಸದಸ್ಯತ್ವ ಖಾತೆ (Membership Account)",
-        "ಕಟ್ಟಡ ನಿಧಿ ಖಾತೆ (Building Fund Account)",
-        "ಸಮಾಜ ಕಲ್ಯಾಣ ಖಾತೆ (Social Welfare Account)",
-        "ತುರ್ತು ಪರಿಹಾರ ಖಾತೆ (Emergency Relief Account)"
+        "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ",
+        "ಶಿಕ್ಷಣ ಅಭಿವೃದ್ಧಿ ಖಾತೆ",
+        "ಸದಸ್ಯತ್ವ ಖಾತೆ",
+        "ಕಟ್ಟಡ ನಿಧಿ ಖಾತೆ",
+        "ಸಮಾಜ ಕಲ್ಯಾಣ ಖಾತೆ",
+        "ತುರ್ತು ಪರಿಹಾರ ಖಾತೆ"
     ];
 
     // Function to populate a district select element
