@@ -316,7 +316,17 @@
                     <input type="text" id="designation" name="designation" placeholder="Enter designation" required>
                 </div>
                 <div class="form-group">
-                    <label for="retirementDate">ನಿವೃತ್ತಿ ಹೊಂದಿದ್ದರೆ ದಿನಾಂಕ (Date of Retirement - Optional)</label>
+                    <label for="isRetired">ನಿವೃತ್ತಿ ಹೊಂದಿದ್ದೀರಾ? (Are you retired?) *</label>
+                    <select id="isRetired" name="isRetired" onchange="toggleRetirementDate(this.value);" required>
+                        <option value="ಇಲ್ಲ">ಇಲ್ಲ (No)</option>
+                        <option value="ಹೌದು">ಹೌದು (Yes)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row" id="retirementDateRow" style="display: none;">
+                <div class="form-group">
+                    <label for="retirementDate">ನಿವೃತ್ತಿ ಹೊಂದಿದ ದಿನಾಂಕ (Date of Retirement) *</label>
                     <input type="date" id="retirementDate" name="retirementDate">
                 </div>
             </div>
@@ -386,9 +396,22 @@
             document.getElementById('age').value = age > 0 ? age : '';
         }
 
+        function toggleRetirementDate(value) {
+            const row = document.getElementById('retirementDateRow');
+            const input = document.getElementById('retirementDate');
+            if (value === 'ಹೌದು') {
+                row.style.display = 'flex';
+                input.setAttribute('required', 'true');
+            } else {
+                row.style.display = 'none';
+                input.removeAttribute('required');
+                input.value = '';
+            }
+        }
+
         function showPreview() {
             const form = document.getElementById('employeesForm');
-            const inputs = form.querySelectorAll('input, textarea');
+            const inputs = form.querySelectorAll('input, textarea, select');
             formData = {};
             
             inputs.forEach(input => {
@@ -407,11 +430,15 @@
                 { key: 'age', label: 'ವಯಸ್ಸು (Age)' },
                 { key: 'departmentName', label: 'ಇಲಾಖೆಯ ಹೆಸರು (Department Name)' },
                 { key: 'designation', label: 'ಹುದ್ದೆಯ ಹೆಸರು (Designation)' },
+                { key: 'isRetired', label: 'ನಿವೃತ್ತಿ ಹೊಂದಿದ್ದೀರಾ? (Are you retired?)' },
                 { key: 'retirementDate', label: 'ನಿವೃತ್ತಿ ದಿನಾಂಕ (Date of Retirement)' },
                 { key: 'permanentAddress', label: 'ಕಾಯಂ ವಿಳಾಸ (Permanent Address)' }
             ];
 
             fieldsOrder.forEach(item => {
+                if (item.key === 'retirementDate' && formData['isRetired'] !== 'ಹೌದು') {
+                    return; // Skip displaying retirement date if not retired
+                }
                 let value = formData[item.key] || '-';
                 if (item.key === 'dob' || item.key === 'retirementDate') {
                     if (value !== '-') {
@@ -480,7 +507,7 @@
         // Indic-Safe HD Vector PDF/Print Receipt Engine
         function printReceipt(data, appNumber) {
             const formattedDob = data.dob ? new Date(data.dob).toLocaleDateString('en-GB') : '-';
-            const formattedRetirement = data.retirementDate ? new Date(data.retirementDate).toLocaleDateString('en-GB') : '-';
+            const formattedRetirement = data.isRetired === 'ಹೌದು' && data.retirementDate ? new Date(data.retirementDate).toLocaleDateString('en-GB') : 'ಇಲ್ಲ (No)';
             
             const printHTML = `<!DOCTYPE html>
 <html>
