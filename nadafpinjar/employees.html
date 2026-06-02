@@ -324,7 +324,7 @@
                 </div>
             </div>
 
-            <div class="form-row" id="retirementDateRow" style="display: none;">
+            <div class="form-row" id="retirementDateRow" style="display: none !important;">
                 <div class="form-group">
                     <label for="retirementDate">ನಿವೃತ್ತಿ ಹೊಂದಿದ ದಿನಾಂಕ (Date of Retirement) *</label>
                     <input type="date" id="retirementDate" name="retirementDate">
@@ -400,10 +400,10 @@
             const row = document.getElementById('retirementDateRow');
             const input = document.getElementById('retirementDate');
             if (value === 'ಹೌದು') {
-                row.style.display = 'flex';
+                row.style.setProperty('display', 'flex', 'important');
                 input.setAttribute('required', 'true');
             } else {
-                row.style.display = 'none';
+                row.style.setProperty('display', 'none', 'important');
                 input.removeAttribute('required');
                 input.value = '';
             }
