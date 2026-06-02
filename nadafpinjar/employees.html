@@ -436,10 +436,14 @@
         }
 
         function submitToMongoDB() {
+            // Dynamic ID generation utilizing timestamp & random digits
+            const lastDigits = Math.floor(Math.random() * 900) + 100;
+            const appNumber = `KRNPS-EMP-2026-27-${lastDigits}`;
+
             const dataToSave = {
                 formType: "ನೌಕರರ ವಿವರ",
                 amount: 0,
-                paymentId: "EMPLOYEE_REG",
+                paymentId: appNumber,
                 formData: formData
             };
 
@@ -451,10 +455,6 @@
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    // Unique ID generation utilizing MongoDB _id slice
-                    const lastDigits = data.id ? parseInt(data.id.slice(-4), 16) % 1000 : Math.floor(Math.random() * 900) + 100;
-                    const appNumber = `KRNPS-EMP-2026-27-${lastDigits}`;
-                    
                     document.getElementById('modalAppNumber').textContent = `ನೌಕರರ ಐಡಿ ಪಡೆದು : ${appNumber}`;
                     
                     const modal = document.getElementById('successModal');
