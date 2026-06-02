@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="kn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>ನೌಕರರ ವಿವರ (Employee Details) - Karnataka State Nadaf / Pinjar Sangha</title>
+    <link href="css/base.css" rel="stylesheet" media="all">
+    <link href="css/base-responsive.css" rel="stylesheet" media="all">
+    <link href="css/grid.css" rel="stylesheet" media="all">
+    <link href="css/font.css" rel="stylesheet" media="all">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/megamenu.css" rel="stylesheet" media="all">
+    <link href="css/site.css" rel="stylesheet" media="all">
+    <link href="css/site-responsive.css" rel="stylesheet" media="all">
+    <style>
+        .form-container {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #fff;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+        }
+        .form-title {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #0066cc;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn-submit {
+            background: #28a745;
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        .btn-cancel {
+            background: #dc3545;
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        .btn-submit:hover {
+            background: #218838;
+        }
+        .btn-cancel:hover {
+            background: #c82333;
+        }
+        .breadcrumb {
+            padding: 15px 0;
+            background: #f8f9fa;
+        }
+        
+        /* Preview Card Styles */
+        .preview-container {
+            display: none;
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 35px;
+            background: #fff;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .preview-header {
+            text-align: center;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .preview-title {
+            color: #0066cc;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .preview-row {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+            font-size: 15px;
+        }
+        .preview-label {
+            width: 35%;
+            font-weight: bold;
+            color: #333;
+        }
+        .preview-value {
+            width: 65%;
+            color: #555;
+        }
+        
+        /* Success Modal Styles */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: backdropFade 0.3s ease-out forwards;
+        }
+        .modal-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+            width: 90%;
+            max-width: 450px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            animation: cardSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .modal-title {
+            color: #b30000;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
+        .modal-badge {
+            background: #0066ff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .modal-desc {
+            color: #b30000;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .btn-modal-print {
+            background: #0066ff;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-modal-print:hover {
+            background: #0052cc;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+        }
+        
+        @keyframes backdropFade {
+            from { background: rgba(255, 255, 255, 0); }
+            to { background: rgba(255, 255, 255, 0.85); }
+        }
+        @keyframes cardSlideIn {
+            from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <img src="images/header-nadaf.png" alt="Karnataka Rajya Nadaf Pinjar Sangha" class="header-image">
+        </div>
+    </header>
+
+    <section class="wrapper megamenu-wraper">
+        <p class="d-none">Megamenu</p>
+        <div class="container common-container four_content">
+            <p class="showhide"><em></em><em></em><em></em></p>
+            <nav class="main-menu clearfix" id="main_menu">
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html">HOME</a></li>
+                    <li class="nav-item"><a href="#">ABOUT</a>
+                        <div class="sub-nav">
+                            <ul class="sub-nav-group">
+                                <li><a href="#">ESTABLISHMENT </a></li>
+                                <li><a href="#">STATE WORKING COMMITTEE LIST </a></li>
+                                <li><a href="#">STATE GENERAL COMMITTEE LIST</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="#">SCHEMES </a></li>
+                    <li class="nav-item"><a href="#">ಅರ್ಜಿಗಳು</a>
+                        <div class="sub-nav">
+                            <ul class="sub-nav-group">
+                                <li><a href="freeedu.html">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ</a></li>
+                                <li><a href="Census.html">ಜನಗಣತಿ (Census) </a></li>
+                                <li><a href="employees.html">ನೌಕರರ ವಿವರ</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="#">FINANCE</a></li>
+                    <li class="nav-item"><a href="#">ರಸೀದಿಗಳು </a>
+                        <div class="sub-nav">
+                            <ul class="sub-nav-group">
+                                <li><a href="donationdirectstate.html">ರಾಜ್ಯಕ್ಕೆ ನೇರವಾಗಿ</a></li>
+                                <li><a href="donationtaluktostate.html">ತಾಲ್ಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                <li><a href="donationdistricttostate.html">ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="gallery.html">GALLERY </a></li>
+                    <li class="nav-item"><a href="contact.html">CONTACT US</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="default.html">Home</a> &raquo; <span>ನೌಕರರ ವಿವರ</span>
+        </div>
+    </div>
+
+    <!-- MAIN FORM CONTAINER -->
+    <div class="container" id="formContainer">
+        <div class="form-container">
+            <h1 class="form-title">ನೌಕರರ ವಿವರ ನೋಂದಣಿ (Employee Registration)</h1>
+            <form id="employeesForm" onsubmit="event.preventDefault(); showPreview();">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employeeName">ನೌಕರರ ಹೆಸರು (Name of Employee) *</label>
+                        <input type="text" id="employeeName" name="employeeName" placeholder="Enter employee name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactNumber">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ (Contact Number) *</label>
+                        <input type="tel" id="contactNumber" name="contactNumber" placeholder="Enter contact number" pattern="[0-9]{10}" title="Please enter 10 digit mobile number" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="qualification">ವಿದ್ಯಾರ್ಹತೆ (Qualification) *</label>
+                        <input type="text" id="qualification" name="qualification" placeholder="Enter educational qualification" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">ಹುಟ್ಟಿದ ದಿನಾಂಕ (Date of Birth) *</label>
+                        <input type="date" id="dob" name="dob" onchange="calculateAge(this.value);" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="age">ವಯಸ್ಸು (Age) *</label>
+                        <input type="number" id="age" name="age" placeholder="Age will be calculated automatically" min="1" max="120" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="departmentName">ಇಲಾಖೆಯ ಹೆಸರು (Department Name) *</label>
+                        <input type="text" id="departmentName" name="departmentName" placeholder="Enter department name" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="designation">ಹುದ್ದೆಯ ಹೆಸರು (Designation) *</label>
+                        <input type="text" id="designation" name="designation" placeholder="Enter designation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="retirementDate">ನಿವೃತ್ತಿ ಹೊಂದಿದ್ದರೆ ದಿನಾಂಕ (Date of Retirement - Optional)</label>
+                        <input type="date" id="retirementDate" name="retirementDate">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="permanentAddress">ಕಾಯಂ ವಿಳಾಸ (Permanent Address) *</label>
+                    <textarea id="permanentAddress" name="permanentAddress" placeholder="Enter permanent address" required></textarea>
+                </div>
+
+                <div class="btn-container">
+                    <button type="submit" class="btn-submit">Preview and Submit</button>
+                    <button type="button" class="btn-cancel" onclick="window.history.back()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- PREVIEW CONTAINER -->
+    <div class="container" id="previewContainer">
+        <div class="preview-container">
+            <div class="preview-header">
+                <h2 class="preview-title">ಅರ್ಜಿ ವಿವರಗಳ ಮುನ್ನೋಟ (Application Preview)</h2>
+                <p style="color: #666; margin-top: 5px;">ದಯವಿಟ್ಟು ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ ಆನಂತರ ಸಲ್ಲಿಸಿ</p>
+            </div>
+            
+            <div id="previewContent"></div>
+
+            <div class="btn-container">
+                <button type="button" class="btn-cancel" style="background: #007bff;" onclick="editForm()">Edit Details</button>
+                <button type="button" class="btn-submit" onclick="submitToMongoDB()">Submit Form</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div class="modal-backdrop" id="successModal">
+        <div class="modal-card">
+            <div style="font-size: 60px; color: #28a745; margin-bottom: 15px;">✓</div>
+            <h2 class="modal-title">ಯಶಸ್ವಿಯಾಗಿ ಸಲ್ಲಿಕೆಯಾಗಿದೆ!</h2>
+            <div class="modal-badge" id="modalAppNumber">ನೌಕರರ ಐಡಿ ಪಡೆದು : ...</div>
+            <p class="modal-desc">
+                ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಇಲಾಖಾ ನೋಂದಣಿಯಲ್ಲಿ ಯಶಸ್ವಿಯಾಗಿ ಉಳಿಸಲಾಗಿದೆ. ದಯವಿಟ್ಟು ನೋಂದಣಿ ಪತ್ರ ಅಥವಾ ಸದಸ್ಯತ್ವ ಕಾರ್ಡ್ ಮುದ್ರಿಸಿಕೊಳ್ಳಿ.
+            </p>
+            <button type="button" class="btn-modal-print" id="btnPrintReceipt">ಪತ್ರ ಪ್ರಿಂಟ್ ಮಾಡಿ</button>
+        </div>
+    </div>
+
+    <footer style="background: #1a1a1a; color: white; text-align: center; padding: 15px 0; margin-top: 50px; font-size: 13px;">
+        <p>© 2026 Karnataka State Nadaf / Pinjar Sangha (R). All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let formData = {};
+
+        function calculateAge(dobString) {
+            if (!dobString) return;
+            const dob = new Date(dobString);
+            const today = new Date();
+            let age = today.getFullYear() - dob.getFullYear();
+            const m = today.getMonth() - dob.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+            document.getElementById('age').value = age > 0 ? age : '';
+        }
+
+        function showPreview() {
+            const form = document.getElementById('employeesForm');
+            const inputs = form.querySelectorAll('input, textarea');
+            formData = {};
+            
+            inputs.forEach(input => {
+                formData[input.name] = input.value;
+            });
+
+            document.getElementById('formContainer').style.display = 'none';
+            document.getElementById('previewContainer').style.display = 'block';
+
+            let previewHTML = '';
+            const fieldsOrder = [
+                { key: 'employeeName', label: 'ನೌಕರರ ಹೆಸರು (Employee Name)' },
+                { key: 'contactNumber', label: 'ಮೊಬೈಲ್ ಸಂಖ್ಯೆ (Contact Number)' },
+                { key: 'qualification', label: 'ವಿದ್ಯಾರ್ಹತೆ (Qualification)' },
+                { key: 'dob', label: 'ಹುಟ್ಟಿದ ದಿನಾಂಕ (Date of Birth)' },
+                { key: 'age', label: 'ವಯಸ್ಸು (Age)' },
+                { key: 'departmentName', label: 'ಇಲಾಖೆಯ ಹೆಸರು (Department Name)' },
+                { key: 'designation', label: 'ಹುದ್ದೆಯ ಹೆಸರು (Designation)' },
+                { key: 'retirementDate', label: 'ನಿವೃತ್ತಿ ದಿನಾಂಕ (Date of Retirement)' },
+                { key: 'permanentAddress', label: 'ಕಾಯಂ ವಿಳಾಸ (Permanent Address)' }
+            ];
+
+            fieldsOrder.forEach(item => {
+                let value = formData[item.key] || '-';
+                if (item.key === 'dob' || item.key === 'retirementDate') {
+                    if (value !== '-') {
+                        value = new Date(value).toLocaleDateString('en-GB');
+                    }
+                }
+                previewHTML += `
+                    <div class="preview-row">
+                        <div class="preview-label">${item.label}:</div>
+                        <div class="preview-value">${value}</div>
+                    </div>`;
+            });
+
+            document.getElementById('previewContent').innerHTML = previewHTML;
+            window.scrollTo(0, 0);
+        }
+
+        function editForm() {
+            document.getElementById('formContainer').style.display = 'block';
+            document.getElementById('previewContainer').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        function submitToMongoDB() {
+            const dataToSave = {
+                formType: "ನೌಕರರ ವಿವರ",
+                amount: 0,
+                paymentId: "EMPLOYEE_REG",
+                formData: formData
+            };
+
+            fetch('/api/donations', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dataToSave)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    // Unique ID generation utilizing MongoDB _id slice
+                    const lastDigits = data.id ? parseInt(data.id.slice(-4), 16) % 1000 : Math.floor(Math.random() * 900) + 100;
+                    const appNumber = `KRNPS-EMP-2026-27-${lastDigits}`;
+                    
+                    document.getElementById('modalAppNumber').textContent = `ನೌಕರರ ಐಡಿ ಪಡೆದು : ${appNumber}`;
+                    
+                    const modal = document.getElementById('successModal');
+                    modal.style.display = 'flex';
+                    
+                    document.getElementById('btnPrintReceipt').onclick = function() {
+                        printReceipt(formData, appNumber);
+                        
+                        setTimeout(() => {
+                            window.location.href = 'default.html';
+                        }, 2000);
+                    };
+                } else {
+                    alert('Error saving data: ' + (data.error || 'Server error'));
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error saving data. Please check connection.');
+            });
+        }
+
+        // Indic-Safe HD Vector PDF/Print Receipt Engine
+        function printReceipt(data, appNumber) {
+            const formattedDob = data.dob ? new Date(data.dob).toLocaleDateString('en-GB') : '-';
+            const formattedRetirement = data.retirementDate ? new Date(data.retirementDate).toLocaleDateString('en-GB') : '-';
+            
+            const printHTML = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ನೌಕರರ ನೋಂದಣಿ ಪತ್ರ - ರಶೀದಿ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .receipt-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 4px double #b30000;
+            padding: 15px;
+            background: #fff;
+            box-sizing: border-box;
+        }
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        .header-table td {
+            padding: 5px;
+            vertical-align: middle;
+        }
+        .header-photo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid #b30000;
+            object-fit: cover;
+        }
+        .header-logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid #b30000;
+            object-fit: cover;
+        }
+        .header-text {
+            text-align: center;
+        }
+        .header-text h1 {
+            color: #b30000;
+            font-size: 20px;
+            margin: 0 0 5px 0;
+            font-weight: bold;
+        }
+        .header-text p {
+            margin: 2px 0;
+            font-size: 11px;
+            color: #444;
+            font-weight: bold;
+        }
+        .header-text .reg-no {
+            font-size: 12px;
+            color: #000;
+        }
+        .header-text .en-title {
+            font-size: 13px;
+            color: #b30000;
+            margin-top: 3px;
+        }
+        .title-banner {
+            border-top: 2px solid #b30000;
+            border-bottom: 2px solid #b30000;
+            padding: 8px;
+            margin: 10px 0;
+            background: #fffcf5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 13px;
+            color: #b30000;
+        }
+        .grid-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        .grid-table td {
+            border: 1px solid #b30000;
+            padding: 8px 10px;
+            font-size: 13px;
+            vertical-align: middle;
+        }
+        .grid-label {
+            background: #fffcf5;
+            color: #b30000;
+            font-weight: bold;
+            width: 25%;
+        }
+        .grid-value {
+            color: #000;
+            width: 25%;
+            font-weight: 500;
+        }
+        .recommend-text {
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #b30000;
+            border-top: 1px dashed #b30000;
+            padding: 8px 0;
+            margin-top: 15px;
+        }
+        .approval-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+        .sig-col {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .sig-item {
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 5px;
+        }
+        .sig-space {
+            height: 40px;
+        }
+        .sig-label {
+            font-weight: bold;
+            color: #b30000;
+        }
+        .official-col {
+            width: 55%;
+            border-left: 2px solid #b30000;
+            padding-left: 15px;
+        }
+        .official-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .official-row {
+            height: 32px;
+        }
+        .official-check {
+            width: 10%;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .official-box {
+            border: 2px solid #b30000;
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+        }
+        .official-title {
+            width: 40%;
+            font-weight: bold;
+            color: #b30000;
+            padding-left: 5px;
+            vertical-align: middle;
+        }
+        .official-sig-line {
+            width: 50%;
+            border-bottom: 1px dashed #b30000;
+        }
+        @media print {
+            body {
+                padding: 0;
+            }
+            .receipt-container {
+                border: 4px double #b30000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <table class="header-table">
+            <tr>
+                <td style="width: 15%; text-align: left;">
+                    <img src="images/president.png" class="header-photo" alt="President">
+                </td>
+                <td style="width: 70%;" class="header-text">
+                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
+                    <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
+                    <p class="en-title">KARNATAKA RAJYA NADAF / PINJAR SANGHA &reg;</p>
+                    <p>ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</p>
+                    <p>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
+                </td>
+                <td style="width: 15%; text-align: right;">
+                    <img src="images/logo-786.png" class="header-logo" alt="Logo">
+                </td>
+            </tr>
+        </table>
+        
+        <div class="title-banner">
+            <div>ನೋಂದಣಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
+            <div style="font-size: 15px;">ನೌಕರರ ಸಂಘದ ಸದಸ್ಯತ್ವ ಅರ್ಜಿ 2026-27</div>
+            <div>ದಿನಾಂಕ : ${new Date().toLocaleDateString('en-GB')}</div>
+        </div>
+
+        <table class="grid-table">
+            <tr>
+                <td class="grid-label">ನೌಕರರ ಹೆಸರು</td>
+                <td class="grid-value">${data.employeeName || '-'}</td>
+                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
+                <td class="grid-value">${data.contactNumber || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಹತೆ</td>
+                <td class="grid-value">${data.qualification || '-'}</td>
+                <td class="grid-label">ಹುಟ್ಟಿದ ದಿನಾಂಕ :</td>
+                <td class="grid-value">${formattedDob}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ವಯಸ್ಸು</td>
+                <td class="grid-value">${data.age || '-'}</td>
+                <td class="grid-label">ಇಲಾಖೆಯ ಹೆಸರು :</td>
+                <td class="grid-value">${data.departmentName || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಹುದ್ದೆಯ ಹೆಸರು</td>
+                <td class="grid-value">${data.designation || '-'}</td>
+                <td class="grid-label">ನಿವೃತ್ತಿ ದಿನಾಂಕ :</td>
+                <td class="grid-value">${formattedRetirement}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಕಾಯಂ ವಿಳಾಸ</td>
+                <td class="grid-value" colspan="3">${data.permanentAddress || '-'}</td>
+            </tr>
+        </table>
+
+        <div class="recommend-text">
+            ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ನೌಕರರ ಸಂಘದ ಘಟಕದಿಂದ ಮಾಹಿತಿ ಪರಿಶೀಲಿಸಿ ಸದಸ್ಯತ್ವಕ್ಕಾಗಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
+        </div>
+
+        <div class="approval-section">
+            <!-- Left Column: Signatures -->
+            <div class="sig-col">
+                <div class="sig-item" style="margin-bottom: 25px;">
+                    <div class="sig-space"></div>
+                    <span class="sig-label">ನೌಕರರ ಸಹಿ</span>
+                </div>
+                <div class="sig-item">
+                    <div class="sig-space"></div>
+                    <span class="sig-label">ಸಂಘದ ಪದಾಧಿಕಾರಿಗಳ ಸಹಿ</span>
+                </div>
+            </div>
+
+            <!-- Right Column: Official Approvals -->
+            <div class="official-col">
+                <table class="official-table">
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ರಾಜ್ಯ ನೌಕರರ ಸಮಿತಿ</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ರಾಜ್ಯ ಘಟಕ</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>`;
+
+            let iframe = document.getElementById('receiptPrintIframe');
+            if (!iframe) {
+                iframe = document.createElement('iframe');
+                iframe.id = 'receiptPrintIframe';
+                iframe.style.position = 'fixed';
+                iframe.style.right = '0';
+                iframe.style.bottom = '0';
+                iframe.style.width = '0';
+                iframe.style.height = '0';
+                iframe.style.border = '0';
+                document.body.appendChild(iframe);
+            }
+            
+            const doc = iframe.contentWindow.document;
+            doc.open();
+            doc.write(printHTML);
+            doc.close();
+            
+            setTimeout(() => {
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+            }, 800);
+        }
+    </script>
+</body>
+</html>
