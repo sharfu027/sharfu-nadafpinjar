@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gallery - Karnataka State Nadaf / Pinjar Sangha</title>
+    <link href="css/base.css" rel="stylesheet" media="all">
+    <link href="css/base-responsive.css" rel="stylesheet" media="all">
+    <link href="css/grid.css" rel="stylesheet" media="all">
+    <link href="css/font.css" rel="stylesheet" media="all">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/flexslider.css" rel="stylesheet" media="all">
+    <link href="css/megamenu.css" rel="stylesheet" media="all">
+    <link href="css/site.css" rel="stylesheet" media="all">
+    <link href="css/site-responsive.css" rel="stylesheet" media="all">
+    <style>
+        .gallery-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .gallery-header h1 {
+            font-size: 32px;
+            color: #0066cc;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .gallery-header p {
+            color: #666;
+            font-size: 16px;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .gallery-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #eee;
+        }
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .gallery-img-wrapper {
+            position: relative;
+            height: 220px;
+            background: linear-gradient(135deg, #0052cc, #00c6ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .gallery-img-placeholder {
+            font-size: 64px;
+            opacity: 0.8;
+            transition: transform 0.3s ease;
+        }
+        .gallery-card:hover .gallery-img-placeholder {
+            transform: scale(1.1);
+        }
+        .gallery-card-content {
+            padding: 20px;
+        }
+        .gallery-card-content h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .gallery-card-content p {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .breadcrumb {
+            padding: 15px 0;
+            background: #f8f9fa;
+        }
+        .breadcrumb a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .breadcrumb .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        .coming-soon-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(3px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="site-header">
+            <div class="header-container">
+                <img src="images/header-nadaf.png" alt="Karnataka Rajya Nadaf Pinjar Sangha" class="header-image">
+            </div>
+        </div>
+        <section class="wrapper megamenu-wraper">
+            <div class="container common-container four_content">
+                <p class="showhide"><em></em><em></em><em></em></p>
+                <nav class="main-menu clearfix" id="main_menu">
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="default.html">HOME</a></li>
+                        <li class="nav-item"><a href="#">ABOUT</a>
+                            <div class="sub-nav">
+                                <ul class="sub-nav-group">
+                                    <li><a href="#">ESTABLISHMENT </a></li>
+                                    <li><a href="#">STATE WORKING COMMITTEE LIST </a></li>
+                                    <li><a href="#">STATE GENERAL COMMITTEE LIST</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a href="#">SCHEMES </a></li>
+                        <li class="nav-item"><a href="#">ಅರ್ಜಿಗಳು</a>
+                            <div class="sub-nav">
+                                <ul class="sub-nav-group">
+                                    <li><a href="freeedu.html">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ</a></li>
+                                     <li><a href="Census.html">ಜನಗಣತಿ (Census) </a></li>
+                                     <li><a href="employees.html">ನೌಕರರ ವಿವರ</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a href="#">FINANCE</a></li>
+                        <li class="nav-item"><a href="#">ರಸೀದಿಗಳು</a>
+                            <div class="sub-nav">
+                                <ul class="sub-nav-group">
+                                    <li><a href="donationdirectstate.html">ರಾಜ್ಯಕ್ಕೆ ನೇರವಾಗಿ</a></li>
+                                    <li><a href="donationtaluktostate.html">ತಾಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                    <li><a href="donationdistricttostate.html">ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                    <li><a href="#">State Unit to Beneficiary</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item active"><a href="gallery.html">GALLERY</a></li>
+                        <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </nav>
+                <nav class="main-menu clearfix" id="overflow_menu">
+                    <ul class="nav-menu clearfix">
+                    </ul>
+                </nav>
+            </div>
+        </section>
+    </header>
+
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="default.html">Home</a> &raquo; <span>Gallery</span>
+        </div>
+    </div>
+
+    <div class="gallery-container">
+        <div class="gallery-header">
+            <h1>ಚಿತ್ರಸಂಪುಟ / Gallery</h1>
+            <p>ನಮ್ಮ ಸಂಘಟನೆಯ ವಿವಿಧ ಕಾರ್ಯಕ್ರಮಗಳ ಮತ್ತು ಸಭೆಗಳ ಚಿತ್ರಾವಳಿಗಳು</p>
+        </div>
+
+        <div class="gallery-grid">
+            <!-- Event Card 1 -->
+            <div class="gallery-card">
+                <div class="gallery-img-wrapper" style="background: linear-gradient(135deg, #3f51b5, #2196f3);">
+                    <span class="coming-soon-badge">ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ / Soon</span>
+                    <i class="fa fa-users gallery-img-placeholder"></i>
+                </div>
+                <div class="gallery-card-content">
+                    <h3>ರಾಜ್ಯ ಮಟ್ಟದ ಸಭೆ</h3>
+                    <p>ರಾಜ್ಯ ಪದಾಧಿಕಾರಿಗಳ ಮಹತ್ವದ ಸಭೆ ಮತ್ತು ಸಮಾಲೋಚನೆ ಕಾರ್ಯಕ್ರಮ.</p>
+                </div>
+            </div>
+
+            <!-- Event Card 2 -->
+            <div class="gallery-card">
+                <div class="gallery-img-wrapper" style="background: linear-gradient(135deg, #e91e63, #ff4081);">
+                    <span class="coming-soon-badge">ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ / Soon</span>
+                    <i class="fa fa-graduation-cap gallery-img-placeholder"></i>
+                </div>
+                <div class="gallery-card-content">
+                    <h3>ಶಿಕ್ಷಣ ಪ್ರಶಸ್ತಿ ವಿತರಣೆ</h3>
+                    <p>ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ ಮತ್ತು ಉಚಿತ ಶಿಕ್ಷಣ ನೆರವು ವಿತರಣೆ.</p>
+                </div>
+            </div>
+
+            <!-- Event Card 3 -->
+            <div class="gallery-card">
+                <div class="gallery-img-wrapper" style="background: linear-gradient(135deg, #4caf50, #8bc34a);">
+                    <span class="coming-soon-badge">ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ / Soon</span>
+                    <i class="fa fa-handshake-o gallery-img-placeholder"></i>
+                </div>
+                <div class="gallery-card-content">
+                    <h3>ಜಿಲ್ಲಾ ಪದಾಧಿಕಾರಿಗಳ ಸಭೆ</h3>
+                    <p>ವಿವಿಧ ಜಿಲ್ಲೆಗಳ ಪದಾಧಿಕಾರಿಗಳೊಂದಿಗೆ ನಡೆದ ಜಿಲ್ಲಾ ಮಟ್ಟದ ಪ್ರಗತಿ ಪರಿಶೀಲನಾ ಸಭೆ.</p>
+                </div>
+            </div>
+
+            <!-- Event Card 4 -->
+            <div class="gallery-card">
+                <div class="gallery-img-wrapper" style="background: linear-gradient(135deg, #ff9800, #ffeb3b);">
+                    <span class="coming-soon-badge">ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ / Soon</span>
+                    <i class="fa fa-bullhorn gallery-img-placeholder"></i>
+                </div>
+                <div class="gallery-card-content">
+                    <h3>ಸಮುದಾಯ ಜಾಗೃತಿ ಅಭಿಯಾನ</h3>
+                    <p>ಸಮುದಾಯದ ಅಭಿವೃದ್ಧಿ ಹಾಗೂ ಹಕ್ಕುಗಳ ಬಗ್ಗೆ ಜಾಗೃತಿ ಮೂಡಿಸುವ ಮಹಾ ಸಭೆ.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="wrapper footer-wrapper">
+        <div class="footer-top-wrapper">
+            <div class="container common-container four_content footer-top-container">
+                <ul>
+                    <li><a href="privacypolicy.html">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="termsconditions.html">Terms and Conditions</a></li>
+                    <li><a href="Disclaimer.html">Disclaimer</a></li>
+                    <li><a href="login.html">Admin Login</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-wrapper">
+            <div class="container common-container four_content footer-bottom-container">
+                <div class="footer-content clearfix">
+                    <div class="copyright-content">
+                        <strong>
+                            <p>© 2026 Karnataka State Nadaf / Pinjar Sangha (R). All Rights Reserved.</p>
+                        </strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery-accessibleMegaMenu.js"></script>
+    <script src="js/framework.js"></script>
+    <script src="js/jquery.flexslider.js"></script>
+    <script src="js/font-size.js"></script>
+    <script src="js/swithcer.js"></script>
+    <script src="js/megamenu.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+</html>
