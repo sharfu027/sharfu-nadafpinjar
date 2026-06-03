@@ -368,7 +368,14 @@
             <p class="modal-desc">
                 ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಇಲಾಖಾ ನೋಂದಣಿಯಲ್ಲಿ ಯಶಸ್ವಿಯಾಗಿ ಉಳಿಸಲಾಗಿದೆ. ದಯವಿಟ್ಟು ನೋಂದಣಿ ಪತ್ರ ಅಥವಾ ಸದಸ್ಯತ್ವ ಕಾರ್ಡ್ ಮುದ್ರಿಸಿಕೊಳ್ಳಿ.
             </p>
-            <button type="button" class="btn-modal-print" id="btnPrintReceipt">ಪತ್ರ ಪ್ರಿಂಟ್ ಮಾಡಿ</button>
+            <div style="display: flex; gap: 12px; justify-content: center; width: 100%;">
+                <button type="button" class="btn-modal-print" id="btnPrintReceipt" style="padding: 12px 18px; font-size: 14px; flex: 1; margin: 0;">
+                    ಪತ್ರ ಪ್ರಿಂಟ್ ಮಾಡಿ
+                </button>
+                <button id="btnCloseModal" type="button" style="background: #6c757d; color: white; border: none; padding: 12px 18px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.2s; flex: 1;">
+                    ಮುಚ್ಚಿ (Close)
+                </button>
+            </div>
         </div>
     </div>
 
@@ -489,10 +496,11 @@
                     
                     document.getElementById('btnPrintReceipt').onclick = function() {
                         printReceipt(formData, appNumber);
-                        
-                        setTimeout(() => {
-                            window.location.href = 'default.html';
-                        }, 2000);
+                    };
+
+                    document.getElementById('btnCloseModal').onclick = function() {
+                        modal.style.display = 'none';
+                        window.location.reload();
                     };
                 } else {
                     alert('Error saving data: ' + (data.error || 'Server error'));
@@ -815,10 +823,8 @@
             doc.write(printHTML);
             doc.close();
             
-            setTimeout(() => {
-                iframe.contentWindow.focus();
-                iframe.contentWindow.print();
-            }, 800);
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
         }
     </script>
 </body>

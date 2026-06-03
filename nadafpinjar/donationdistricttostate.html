@@ -1073,10 +1073,8 @@
             doc.write(printHTML);
             doc.close();
             
-            setTimeout(() => {
-                iframe.contentWindow.focus();
-                iframe.contentWindow.print();
-            }, 800);
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
         }
 
         // Toggle Cash/Offline fields dynamically

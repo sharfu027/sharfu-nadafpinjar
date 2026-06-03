@@ -843,6 +843,7 @@
 
                     document.getElementById('btnCloseModal').onclick = function() {
                         modal.style.display = 'none';
+                        window.location.reload();
                     };
                 } else {
                     alert('Error saving data: ' + (data.error || 'Server error'));
@@ -1219,10 +1220,8 @@
             doc.write(printHTML);
             doc.close();
             
-            setTimeout(() => {
-                iframe.contentWindow.focus();
-                iframe.contentWindow.print();
-            }, 800);
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
         }
 
         // Initialize features
