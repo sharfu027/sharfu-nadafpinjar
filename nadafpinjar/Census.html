@@ -412,8 +412,15 @@
                     <input type="text" name="caste" value="PINJAR/NADAF">
                 </div>
                 <div class="form-group">
-                    <label>ಜಮೀನು ವಿವರ: (ಭೂಮಿ ಇಲ್ಲದಿದ್ದರೆ 0 ಎಂದು ನಮೂದಿಸಿ.) ಎಕರೆ</label>
-                    <input type="text" name="landAcres" placeholder="Land Acres">
+                    <label>ಜಮೀನು ವಿವರ: (ಭೂಮಿ ಇಲ್ಲದಿದ್ದರೆ 0 ಎಂದು ನಮೂದಿಸಿ.)</label>
+                    <div style="margin-bottom: 8px;">
+                        <span style="font-size: 13px; color: #555; display: block; margin-bottom: 4px;">ಎಕರೆ (Acres)</span>
+                        <input type="text" name="landAcres" placeholder="Land Acres">
+                    </div>
+                    <div>
+                        <span style="font-size: 13px; color: #555; display: block; margin-bottom: 4px;">ಗುಂಟೆ (Gunta)</span>
+                        <input type="text" name="landGunta" placeholder="Land Gunta">
+                    </div>
                 </div>
             </div>
 
@@ -430,13 +437,6 @@
                 <div class="form-group">
                     <label>ರೂಪಿಸುವ ಪ್ರಕಾರ</label>
                     <input type="text" name="formingType" placeholder="Forming Type">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group half">
-                    <label>ಗುಂಟೆ</label>
-                    <input type="text" name="landGunta" placeholder="Land Gunta">
                 </div>
             </div>
 
@@ -472,14 +472,35 @@
                         </div>
                         <div class="form-group">
                             <label>ಲಿಂಗ</label>
-                            <input type="text" id="mGender" placeholder="Gender">
+                            <div style="display: flex; gap: 20px; padding: 10px 0;">
+                                <label style="display: flex; align-items: center; gap: 6px; font-weight: normal; cursor: pointer;">
+                                    <input type="radio" name="memberGender" id="mGender_male" value="ಗಂಡು (Male)" style="width: auto; cursor: pointer;">
+                                    ಗಂಡು (Male)
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 6px; font-weight: normal; cursor: pointer;">
+                                    <input type="radio" name="memberGender" id="mGender_female" value="ಹೆಣ್ಣು (Female)" style="width: auto; cursor: pointer;">
+                                    ಹೆಣ್ಣು (Female)
+                                </label>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>ಹುಟ್ಟಿದ ದಿನಾಂಕ</label>
-                            <input type="date" id="mDob" placeholder="Date Of Birth">
+                            <label>ಹುಟ್ಟಿದ ದಿನಾಂಕ (DOB - dd / MM / YYYY)</label>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <select id="mDob_day" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+                                    <option value="">ದಿನ</option>
+                                </select>
+                                <span style="font-weight: bold;">/</span>
+                                <select id="mDob_month" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+                                    <option value="">ತಿಂಗಳು</option>
+                                </select>
+                                <span style="font-weight: bold;">/</span>
+                                <select id="mDob_year" style="flex: 1.2; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+                                    <option value="">ವರ್ಷ</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>ಕುಟುಂಬದೊಂದಿಗಿನ ಸಂಬಂಧ</label>
@@ -639,8 +660,12 @@
             const aadhar = document.getElementById('mAadhar').value.trim();
             const mobile = document.getElementById('mMobile').value.trim();
             const occupation = document.getElementById('mOccupation').value.trim();
-            const gender = document.getElementById('mGender').value.trim();
-            const dob = document.getElementById('mDob').value;
+            const genderRadio = document.querySelector('input[name="memberGender"]:checked');
+            const gender = genderRadio ? genderRadio.value : '';
+            const dobDay = document.getElementById('mDob_day').value;
+            const dobMonth = document.getElementById('mDob_month').value;
+            const dobYear = document.getElementById('mDob_year').value;
+            const dob = (dobDay && dobMonth && dobYear) ? `${dobDay.padStart(2,'0')}/${dobMonth.padStart(2,'0')}/${dobYear}` : '';
             const relation = document.getElementById('mRelation').value.trim();
 
             const married = getSelectValue('mMarried');
@@ -678,8 +703,11 @@
             document.getElementById('mAadhar').value = '';
             document.getElementById('mMobile').value = '';
             document.getElementById('mOccupation').value = '';
-            document.getElementById('mGender').value = '';
-            document.getElementById('mDob').value = '';
+            const genderRadios = document.querySelectorAll('input[name="memberGender"]');
+            genderRadios.forEach(r => r.checked = false);
+            document.getElementById('mDob_day').selectedIndex = 0;
+            document.getElementById('mDob_month').selectedIndex = 0;
+            document.getElementById('mDob_year').selectedIndex = 0;
             document.getElementById('mRelation').value = '';
 
             // Reset select options
@@ -886,36 +914,36 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             margin: 0;
-            padding: 20px;
+            padding: 5px;
             color: #333;
         }
         .receipt-container {
             max-width: 800px;
             margin: 0 auto;
             border: 4px double #b30000;
-            padding: 15px;
+            padding: 10px;
             background: #fff;
             box-sizing: border-box;
         }
         .header-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         .header-table td {
-            padding: 5px;
+            padding: 3px;
             vertical-align: middle;
         }
         .header-photo {
-            width: 90px;
-            height: 90px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             border: 2px solid #b30000;
             object-fit: cover;
         }
         .header-logo {
-            width: 90px;
-            height: 90px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             border: 2px solid #b30000;
             object-fit: cover;
@@ -925,47 +953,47 @@
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 20px;
-            margin: 0 0 5px 0;
+            font-size: 16px;
+            margin: 0 0 3px 0;
             font-weight: bold;
         }
         .header-text p {
-            margin: 2px 0;
-            font-size: 11px;
+            margin: 1px 0;
+            font-size: 10px;
             color: #444;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 12px;
+            font-size: 11px;
             color: #000;
         }
         .header-text .en-title {
-            font-size: 13px;
+            font-size: 12px;
             color: #b30000;
-            margin-top: 3px;
+            margin-top: 2px;
         }
         .title-banner {
             border-top: 2px solid #b30000;
             border-bottom: 2px solid #b30000;
-            padding: 8px;
-            margin: 10px 0;
+            padding: 5px;
+            margin: 8px 0;
             background: #fffcf5;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 11px;
             color: #b30000;
         }
         .grid-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
         .grid-table td {
             border: 1px solid #b30000;
-            padding: 6px 8px;
-            font-size: 12px;
+            padding: 4px 6px;
+            font-size: 11px;
             vertical-align: middle;
         }
         .grid-label {
@@ -981,30 +1009,30 @@
         .members-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 15px;
-            font-size: 11px;
+            margin-bottom: 8px;
+            font-size: 10px;
         }
         .members-table th {
             border: 1px solid #b30000;
             background: #fffcf5;
             color: #b30000;
-            padding: 6px;
+            padding: 4px;
             font-weight: bold;
         }
         .recommend-text {
             text-align: center;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             color: #b30000;
             border-top: 1px dashed #b30000;
-            padding: 6px 0;
-            margin-top: 10px;
+            padding: 4px 0;
+            margin-top: 6px;
         }
         .approval-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 15px;
-            font-size: 13px;
+            margin-top: 8px;
+            font-size: 11px;
         }
         .sig-col {
             width: 40%;
@@ -1014,10 +1042,10 @@
         }
         .sig-item {
             border-bottom: 1px dashed #ccc;
-            padding-bottom: 5px;
+            padding-bottom: 3px;
         }
         .sig-space {
-            height: 40px;
+            height: 20px;
         }
         .sig-label {
             font-weight: bold;
@@ -1026,14 +1054,14 @@
         .official-col {
             width: 55%;
             border-left: 2px solid #b30000;
-            padding-left: 15px;
+            padding-left: 10px;
         }
         .official-table {
             width: 100%;
             border-collapse: collapse;
         }
         .official-row {
-            height: 32px;
+            height: 20px;
         }
         .official-check {
             width: 10%;
@@ -1042,27 +1070,36 @@
         }
         .official-box {
             border: 2px solid #b30000;
-            width: 15px;
-            height: 15px;
+            width: 12px;
+            height: 12px;
             display: inline-block;
         }
         .official-title {
             width: 40%;
             font-weight: bold;
             color: #b30000;
-            padding-left: 5px;
+            padding-left: 4px;
             vertical-align: middle;
+            font-size: 10px;
         }
         .official-sig-line {
             width: 50%;
             border-bottom: 1px dashed #b30000;
         }
         @media print {
+            @page {
+                size: A4;
+                margin: 5mm;
+            }
             body {
                 padding: 0;
+                margin: 0;
             }
             .receipt-container {
                 border: 4px double #b30000;
+                max-width: 100%;
+                padding: 8px;
+                page-break-inside: avoid;
             }
         }
     </style>
@@ -1226,6 +1263,35 @@
 
         // Initialize features
         setupOtherOptions();
+
+        // Initialize DOB dropdowns
+        (function initDobDropdowns() {
+            const daySelect = document.getElementById('mDob_day');
+            const monthSelect = document.getElementById('mDob_month');
+            const yearSelect = document.getElementById('mDob_year');
+            if (daySelect && monthSelect && yearSelect) {
+                for (let d = 1; d <= 31; d++) {
+                    const opt = document.createElement('option');
+                    opt.value = String(d);
+                    opt.textContent = String(d).padStart(2, '0');
+                    daySelect.appendChild(opt);
+                }
+                const months = ['01 - ಜನವರಿ','02 - ಫೆಬ್ರವರಿ','03 - ಮಾರ್ಚ್','04 - ಏಪ್ರಿಲ್','05 - ಮೇ','06 - ಜೂನ್','07 - ಜುಲೈ','08 - ಆಗಸ್ಟ್','09 - ಸೆಪ್ಟೆಂಬರ್','10 - ಅಕ್ಟೋಬರ್','11 - ನವೆಂಬರ್','12 - ಡಿಸೆಂಬರ್'];
+                months.forEach(m => {
+                    const opt = document.createElement('option');
+                    opt.value = m.split(' - ')[0];
+                    opt.textContent = m;
+                    monthSelect.appendChild(opt);
+                });
+                const currentYear = new Date().getFullYear();
+                for (let y = currentYear; y >= 1920; y--) {
+                    const opt = document.createElement('option');
+                    opt.value = String(y);
+                    opt.textContent = String(y);
+                    yearSelect.appendChild(opt);
+                }
+            }
+        })();
     </script>
 </body>
 </html>
