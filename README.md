@@ -51,24 +51,120 @@ The following forms have been added and are fully functional:
 ## 📁 Project Structure
 
 ```
-Clone website/
-├── nadafpinjar/              # Website files
-│   ├── default.html          # Homepage
-│   ├── index.html            # Redirect to default.html
-│   ├── donationdirectstate.html
-│   ├── donationtaluktostate.html
-│   ├── donationdistricttostate.html
-│   ├── freeedu.html
-│   ├── Census.html
-│   ├── css/                  # Stylesheets
-│   ├── js/                   # JavaScript files
-│   ├── images/               # Images
-│   └── fonts/                # Font files
-├── server.js                 # Local web server
-├── clone.js                  # Website scraper (CommonJS)
-├── clone.mjs                 # Website scraper (ES Module)
-├── package.json              # Project configuration
-└── README.md                 # This file
+project-root/
+│
+├── src/                          # Application source code
+│   ├── app/                      # Main application layer
+│   │   ├── frontend/             # Next.js/React frontend codebase
+│   │   │   ├── routes/
+│   │   │   ├── layouts/
+│   │   │   ├── pages/
+│   │   │   ├── providers/
+│   │   │   └── middleware/
+│   │   └── backend/              # Python ASGI backend services (FastAPI)
+│   │       ├── routes/
+│   │       ├── middleware/
+│   │       ├── websocket/
+│   │       └── server.py
+│   │
+│   ├── features/                 # Modular domain features
+│   │   ├── auth/                 # Traditional credentials authentication
+│   │   │   ├── frontend/
+│   │   │   ├── backend/
+│   │   │   ├── api/
+│   │   │   ├── services/
+│   │   │   ├── schemas/
+│   │   │   ├── models/
+│   │   │   ├── hooks/
+│   │   │   ├── components/
+│   │   │   └── tests/
+│   │   ├── users/                # User management
+│   │   ├── face-auth/            # Face recognition & liveness detection
+│   │   │   ├── frontend/
+│   │   │   ├── backend/
+│   │   │   ├── api/
+│   │   │   ├── components/
+│   │   │   ├── hooks/
+│   │   │   ├── services/
+│   │   │   ├── embeddings/
+│   │   │   ├── liveness/
+│   │   │   ├── recognition/
+│   │   │   └── tests/
+│   │   ├── geolocation/          # Geo-fencing & mapping
+│   │   ├── dashboard/            # Administrative portal
+│   │   ├── attendance/           # Punch-in logs & scheduling
+│   │   ├── notifications/        # SMS, Email & push logs
+│   │   ├── analytics/            # Attendance metrics graphs
+│   │   └── reports/              # Export CSV/PDF receipts
+│   │
+│   ├── shared/                   # Shared reusable utilities & components
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── utils/
+│   │   ├── constants/
+│   │   ├── types/
+│   │   ├── validators/
+│   │   └── assets/
+│   │
+│   ├── core/                     # Platform core modules
+│   │   ├── config/               # Pydantic Settings env configuration
+│   │   ├── database/             # SQLAlchemy / Motor ODM engines
+│   │   ├── security/             # JWT keys & password crypt encryption
+│   │   ├── cache/                # Redis key cache layer
+│   │   ├── queue/                # Celery background tasks queue
+│   │   ├── logging/              # Structured logger
+│   │   └── exceptions/           # Global exception handler
+│   │
+│   ├── services/                 # Infrastructure integration services
+│   │   ├── email/
+│   │   ├── sms/
+│   │   ├── storage/
+│   │   ├── payment/              # Razorpay checkout flows
+│   │   └── third-party/
+│   │
+│   ├── ai/                       # AI models & RAG pipelines
+│   │   ├── models/
+│   │   ├── embeddings/
+│   │   ├── vector-db/
+│   │   ├── training/
+│   │   ├── prompts/
+│   │   ├── rag/
+│   │   └── agents/
+│   │
+│   ├── tests/                    # Global test suite
+│   │   ├── unit/
+│   │   ├── integration/
+│   │   ├── e2e/
+│   │   ├── performance/
+│   │   └── security/
+│   │
+│   └── main.py                   # Server startup run entrypoint script
+│
+├── database/                     # DB seeds and schemas migrations
+│   ├── migrations/
+│   ├── seeders/
+│   ├── schemas/
+│   ├── indexes/
+│   └── backups/
+│
+├── infrastructure/               # DevOps infrastructure config
+│   ├── docker/
+│   ├── nginx/
+│   ├── kubernetes/
+│   ├── terraform/
+│   └── monitoring/
+│
+├── scripts/                      # Helper & maintenance scripts
+├── docs/                         # Developer manuals & architecture docs
+├── .github/                      # CI/CD workflows
+│   └── workflows/
+│
+├── .env                          # Local app configurations
+├── docker-compose.yml            # Docker deployment configuration
+├── requirements.txt              # Python requirements list
+├── package.json                  # Legacy frontend packages
+├── nadafpinjar/                  # Legacy/Current deployed static website files
+└── README.md
 ```
 
 ## 🛠️ Available Commands
