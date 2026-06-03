@@ -34,12 +34,12 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     const accountsData = [
-        "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ",
-        "ಶಿಕ್ಷಣ ಅಭಿವೃದ್ಧಿ ಖಾತೆ",
-        "ಸದಸ್ಯತ್ವ ಖಾತೆ",
-        "ಕಟ್ಟಡ ನಿಧಿ ಖಾತೆ",
-        "ಸಮಾಜ ಕಲ್ಯಾಣ ಖಾತೆ",
-        "ತುರ್ತು ಪರಿಹಾರ ಖಾತೆ"
+        "ಝುಕಾತ್",
+        "ಶಿಕ್ಷಣ ನಿಧಿ",
+        "ಜಾಹೀರಾತು",
+        "ವಾರ್ಷಿಕ ವಂತಿಗೆ",
+        "ಕಾರ್ಯಕ್ರಮ ದೇಣಿಗೆ",
+        "ನಾಮ ಪತ್ರ ಶುಲ್ಕ"
     ];
 
     // Function to populate a district select element
@@ -111,10 +111,10 @@ document.addEventListener("DOMContentLoaded", function() {
             accountSelect.appendChild(opt);
         });
 
-        // Add manual entry option
+        // Add manual entry option as "ಇತರೆ"
         const optOther = document.createElement("option");
         optOther.value = "__OTHER__";
-        optOther.textContent = "ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other (Type Manually)";
+        optOther.textContent = "ಇತರೆ";
         accountSelect.appendChild(optOther);
     }
 
