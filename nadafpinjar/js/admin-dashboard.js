@@ -1038,7 +1038,7 @@ window.downloadReceiptPdf = function(receiptId) {
         <table class="header-box">
             <tr>
                 <td class="header-photo-cell">
-                    <img src="images/president.jpeg" class="patron-photo" onerror="this.src='images/president.png'">
+                    <img src="images/president.png" class="patron-photo" onerror="this.src='images/president.jpeg'">
                 </td>
                 <td class="header-text-cell">
                     <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
