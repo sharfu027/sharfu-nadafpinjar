@@ -5,8 +5,23 @@
       "dest": "/api/donations.js"
     },
     {
+      "src": "/admin",
+      "status": 307,
+      "headers": {
+        "Location": "https://nadafpinjar-com-2.onrender.com/admin/"
+      }
+    },
+    {
+      "src": "/admin/(.*)",
+      "status": 307,
+      "headers": {
+        "Location": "https://nadafpinjar-com-2.onrender.com/admin/$1"
+      }
+    },
+    {
       "src": "/(.*)",
       "dest": "/nadafpinjar/$1"
     }
+
   ]
 }

@@ -121,9 +121,8 @@ Version: 1.6.0
         var loading = document.getElementById('loadingOverlay');
 
         if (!isRender) {
-            errorMsg.textContent = 'Notice: The Admin Panel requires the Render backend server. Please log in using your Render deployment URL.';
-            errorMsg.style.backgroundColor = '#f0ad4e'; // Warning orange
-            errorMsg.className = 'error-msg show';
+            // Automatically redirect to the Render app where the proxy server is running
+            window.location.href = 'https://nadafpinjar-com-2.onrender.com/login.html';
         } else {
             // Check if user is already logged in to bypass login page
             fetch('/admin/accountsummary', { credentials: 'include' })
