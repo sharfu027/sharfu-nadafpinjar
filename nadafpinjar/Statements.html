@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statements - Admin Dashboard</title>
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/admin-dashboard.css" rel="stylesheet" media="all">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="header-left">
+            <button class="sidebar-toggle"><i class="fa fa-bars"></i></button>
+            <div class="admin-logo-wrapper">
+                <img src="images/logo-786.png" alt="Logo" class="admin-logo">
+            </div>
+            <span style="color: white; font-weight: bold; font-size: 14px;">KARNATAKA RAJYA NADAF / PINJAR SANGHA</span>
+        </div>
+        <div class="header-right">
+            <span style="margin-right: 15px;"><i class="fa fa-user-circle"></i> Admin</span>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="accountsummary"><i class="fa fa-dashboard"></i> Account Summary</a></li>
+                <li><a href="Beneficiaries"><i class="fa fa-users"></i> Beneficiaries</a></li>
+                <li><a href="Paymentsandtransfers"><i class="fa fa-credit-card"></i> Make Payments</a></li>
+                <li><a href="Receipts"><i class="fa fa-file-text-o"></i> Receipts</a></li>
+                <li><a href="associatedtransfers"><i class="fa fa-exchange"></i> Associated Transfers</a></li>
+                <li><a href="Statements"><i class="fa fa-list-alt"></i> Statements</a></li>
+                <li><a href="Security"><i class="fa fa-lock"></i> Security</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <div class="page-title-bar">
+                <span>Your Details</span>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-header">
+                    <span>View Statement</span>
+                </div>
+                <div class="card-body">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; font-size: 13px; margin-bottom: 20px; border-bottom:1px dashed #cbd5e1; padding-bottom: 15px;">
+                        <div>
+                            <span style="color:#64748b; font-weight:600;">Customer Name:</span>
+                            <p style="margin-top: 5px; font-weight:bold;">KARNATAKA RAJYA NADAF PINJAR SANGHA</p>
+                        </div>
+                        <div>
+                            <span style="color:#64748b; font-weight:600;">Customer Id:</span>
+                            <p style="margin-top: 5px; font-weight:bold;">info@nadafpinjar.com</p>
+                        </div>
+                        <div>
+                            <span style="color:#64748b; font-weight:600;">Account Number:</span>
+                            <p style="margin-top: 5px; font-weight:bold;">74270100009490</p>
+                        </div>
+                    </div>
+
+                    <form id="statementFilterForm" class="filter-bar" style="border:none; padding:0; margin:0;">
+                        <div class="filter-group">
+                            <label for="sStartDate">Start Date (DD/MM/YYYY)</label>
+                            <input type="date" id="sStartDate">
+                        </div>
+                        <div class="filter-group">
+                            <label for="sEndDate">End Date (DD/MM/YYYY)</label>
+                            <input type="date" id="sEndDate">
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <button type="submit" class="btn-submit" style="height:40px;">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-header">
+                    <span>Transaction Details</span>
+                </div>
+                <div class="card-body" style="padding:0;">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Tran Date</th>
+                                    <th>Particulars</th>
+                                    <th>Debit</th>
+                                    <th>Credit</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="statementTableBody">
+                                <!-- Loaded dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

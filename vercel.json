@@ -1,8 +1,37 @@
 {
+  "cleanUrls": true,
   "routes": [
     {
       "src": "/api/donations",
       "dest": "/api/donations.js"
+    },
+    {
+      "src": "/accountsummary",
+      "dest": "/nadafpinjar/accountsummary.html"
+    },
+    {
+      "src": "/Beneficiaries",
+      "dest": "/nadafpinjar/Beneficiaries.html"
+    },
+    {
+      "src": "/Paymentsandtransfers",
+      "dest": "/nadafpinjar/Paymentsandtransfers.html"
+    },
+    {
+      "src": "/Receipts",
+      "dest": "/nadafpinjar/Receipts.html"
+    },
+    {
+      "src": "/associatedtransfers",
+      "dest": "/nadafpinjar/associatedtransfers.html"
+    },
+    {
+      "src": "/Statements",
+      "dest": "/nadafpinjar/Statements.html"
+    },
+    {
+      "src": "/Security",
+      "dest": "/nadafpinjar/Security.html"
     },
     {
       "src": "/(.*)",

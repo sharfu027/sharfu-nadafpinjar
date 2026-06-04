@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security - Admin Dashboard</title>
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/admin-dashboard.css" rel="stylesheet" media="all">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="header-left">
+            <button class="sidebar-toggle"><i class="fa fa-bars"></i></button>
+            <div class="admin-logo-wrapper">
+                <img src="images/logo-786.png" alt="Logo" class="admin-logo">
+            </div>
+            <span style="color: white; font-weight: bold; font-size: 14px;">KARNATAKA RAJYA NADAF / PINJAR SANGHA</span>
+        </div>
+        <div class="header-right">
+            <span style="margin-right: 15px;"><i class="fa fa-user-circle"></i> Admin</span>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="accountsummary"><i class="fa fa-dashboard"></i> Account Summary</a></li>
+                <li><a href="Beneficiaries"><i class="fa fa-users"></i> Beneficiaries</a></li>
+                <li><a href="Paymentsandtransfers"><i class="fa fa-credit-card"></i> Make Payments</a></li>
+                <li><a href="Receipts"><i class="fa fa-file-text-o"></i> Receipts</a></li>
+                <li><a href="associatedtransfers"><i class="fa fa-exchange"></i> Associated Transfers</a></li>
+                <li><a href="Statements"><i class="fa fa-list-alt"></i> Statements</a></li>
+                <li><a href="Security"><i class="fa fa-lock"></i> Security</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <div class="page-title-bar">
+                <span>Security</span>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-header">
+                    <span>Login Credentials</span>
+                </div>
+                <div class="card-body">
+                    <form id="securityForm">
+                        <div class="form-grid" style="max-width: 600px; margin: 0 auto;">
+                            <div class="form-group" style="grid-column: 1 / -1; display: grid; grid-template-columns: 180px 1fr; align-items: center; gap: 15px;">
+                                <label for="secCustomerId">Customer ID</label>
+                                <input type="text" id="secCustomerId" disabled>
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1; display: grid; grid-template-columns: 180px 1fr; align-items: center; gap: 15px;">
+                                <label for="secAccountNum">Customer Account number</label>
+                                <input type="text" id="secAccountNum" disabled>
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1; display: grid; grid-template-columns: 180px 1fr; align-items: center; gap: 15px;">
+                                <label for="secNewPassword">New Password</label>
+                                <input type="password" id="secNewPassword" placeholder="Enter new password (optional)">
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1; display: grid; grid-template-columns: 180px 1fr; align-items: center; gap: 15px;">
+                                <label for="secConfirmPassword">Confirm New Password</label>
+                                <input type="password" id="secConfirmPassword" placeholder="Confirm new password">
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1; display: grid; grid-template-columns: 180px 1fr; align-items: center; gap: 15px;">
+                                <label for="secEmail">Email</label>
+                                <input type="text" id="secEmail" required>
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1; display: grid; grid-template-columns: 180px 1fr; align-items: center; gap: 15px;">
+                                <label for="secMobile">Mobile Number</label>
+                                <input type="text" id="secMobile" required>
+                            </div>
+                            <div class="form-checkbox" style="grid-column: 1 / -1; padding-left: 195px; margin-top: 10px;">
+                                <input type="checkbox" id="secAgreeCheck" required>
+                                <label for="secAgreeCheck" style="font-weight: normal;">Agreed terms and conditions</label>
+                            </div>
+                            <div style="grid-column: 1 / -1; padding-left: 195px; margin-top: 20px;">
+                                <button type="submit" class="btn-submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

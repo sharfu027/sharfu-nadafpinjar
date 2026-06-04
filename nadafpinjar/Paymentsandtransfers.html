@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payments & Transfers - Admin Dashboard</title>
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/admin-dashboard.css" rel="stylesheet" media="all">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="header-left">
+            <button class="sidebar-toggle"><i class="fa fa-bars"></i></button>
+            <div class="admin-logo-wrapper">
+                <img src="images/logo-786.png" alt="Logo" class="admin-logo">
+            </div>
+            <span style="color: white; font-weight: bold; font-size: 14px;">KARNATAKA RAJYA NADAF / PINJAR SANGHA</span>
+        </div>
+        <div class="header-right">
+            <span style="margin-right: 15px;"><i class="fa fa-user-circle"></i> Admin</span>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="accountsummary"><i class="fa fa-dashboard"></i> Account Summary</a></li>
+                <li><a href="Beneficiaries"><i class="fa fa-users"></i> Beneficiaries</a></li>
+                <li><a href="Paymentsandtransfers"><i class="fa fa-credit-card"></i> Make Payments</a></li>
+                <li><a href="Receipts"><i class="fa fa-file-text-o"></i> Receipts</a></li>
+                <li><a href="associatedtransfers"><i class="fa fa-exchange"></i> Associated Transfers</a></li>
+                <li><a href="Statements"><i class="fa fa-list-alt"></i> Statements</a></li>
+                <li><a href="Security"><i class="fa fa-lock"></i> Security</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <div class="page-title-bar">
+                <span>Payments & Transfers</span>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-header">
+                    <span>To Account</span>
+                </div>
+                <div class="card-body" style="padding:0;">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Select</th>
+                                    <th>Sl.No</th>
+                                    <th>Beneficiary</th>
+                                    <th>Bank Account#</th>
+                                    <th>IFSC Code</th>
+                                    <th>SWIFT Code</th>
+                                    <th>TransCrypto ID</th>
+                                    <th>Active</th>
+                                </tr>
+                            </thead>
+                            <tbody id="paymentsTableBody">
+                                <!-- Loaded dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <form id="paymentForm">
+                <div class="admin-card">
+                    <div class="card-header">
+                        <span>From Account</span>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; font-size: 13px;">
+                            <div>
+                                <span style="color:#64748b; font-weight:600;">Customer Name:</span>
+                                <p style="margin-top: 5px; font-weight:bold;">KARNATAKA RAJYA NADAF PINJAR SANGHA</p>
+                            </div>
+                            <div>
+                                <span style="color:#64748b; font-weight:600;">Customer Id:</span>
+                                <p style="margin-top: 5px; font-weight:bold;">info@nadafpinjar.com</p>
+                            </div>
+                            <div>
+                                <span style="color:#64748b; font-weight:600;">Account Number:</span>
+                                <p style="margin-top: 5px; font-weight:bold;">74270100009490</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <span>To Account & Particulars</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="pName">Beneficiary Name</label>
+                                <input type="text" id="pName" placeholder="Select a beneficiary from table above" readonly required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pAccount">Account Number</label>
+                                <input type="text" id="pAccount" placeholder="Account Number" readonly required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pBankName">Bank Name</label>
+                                <input type="text" id="pBankName" placeholder="Bank Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pBranch">Bank Branch Details</label>
+                                <input type="text" id="pBranch" placeholder="Branch Details" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pIfsc">IFSC Code</label>
+                                <input type="text" id="pIfsc" placeholder="IFSC Code" readonly required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pSwift">SWIFT Code</label>
+                                <input type="text" id="pSwift" placeholder="SWIFT Code" readonly required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pAmount">Amount (₹)</label>
+                                <input type="number" id="pAmount" placeholder="Enter amount to transfer" min="1" step="0.01" required>
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label for="pParticulars">Particulars / Cheque Details</label>
+                                <textarea id="pParticulars" placeholder="Enter transfer particulars..." rows="3" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="pAgreeCheck" required>
+                            <label for="pAgreeCheck">Agreed terms and conditions</label>
+                        </div>
+
+                        <div style="margin-top: 20px;">
+                            <button type="submit" class="btn-submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

@@ -140,7 +140,22 @@
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Admin login functionality is not implemented in this demo version.\nPlease contact the system administrator.');
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Check credentials
+            const securityData = JSON.parse(localStorage.getItem('security')) || {
+                username: "info@nadafpinjar.com",
+                password: "password"
+            };
+
+            if (username === securityData.username && password === securityData.password) {
+                localStorage.setItem('adminLoggedIn', 'true');
+                localStorage.setItem('adminUsername', username);
+                window.location.href = 'accountsummary';
+            } else {
+                alert('Invalid Username or Password. Please try again.');
+            }
         });
     </script>
 </body>

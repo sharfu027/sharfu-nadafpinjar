@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beneficiaries - Admin Dashboard</title>
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/admin-dashboard.css" rel="stylesheet" media="all">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="header-left">
+            <button class="sidebar-toggle"><i class="fa fa-bars"></i></button>
+            <div class="admin-logo-wrapper">
+                <img src="images/logo-786.png" alt="Logo" class="admin-logo">
+            </div>
+            <span style="color: white; font-weight: bold; font-size: 14px;">KARNATAKA RAJYA NADAF / PINJAR SANGHA</span>
+        </div>
+        <div class="header-right">
+            <span style="margin-right: 15px;"><i class="fa fa-user-circle"></i> Admin</span>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="accountsummary"><i class="fa fa-dashboard"></i> Account Summary</a></li>
+                <li><a href="Beneficiaries"><i class="fa fa-users"></i> Beneficiaries</a></li>
+                <li><a href="Paymentsandtransfers"><i class="fa fa-credit-card"></i> Make Payments</a></li>
+                <li><a href="Receipts"><i class="fa fa-file-text-o"></i> Receipts</a></li>
+                <li><a href="associatedtransfers"><i class="fa fa-exchange"></i> Associated Transfers</a></li>
+                <li><a href="Statements"><i class="fa fa-list-alt"></i> Statements</a></li>
+                <li><a href="Security"><i class="fa fa-lock"></i> Security</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <div class="page-title-bar">
+                <span>Beneficiaries</span>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-header">
+                    <span>Beneficiaries</span>
+                </div>
+                <div class="card-body" style="padding:0;">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Sl.No</th>
+                                    <th>Beneficiary</th>
+                                    <th>Bank Account#</th>
+                                    <th>IFSC Code</th>
+                                    <th>SWIFT Code</th>
+                                    <th>Purpose</th>
+                                    <th>Active</th>
+                                </tr>
+                            </thead>
+                            <tbody id="beneficiaryTableBody">
+                                <!-- Loaded dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-header">
+                    <span>New Beneficiary</span>
+                </div>
+                <div class="card-body">
+                    <form id="beneficiaryForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="bName">Beneficiary Name</label>
+                                <input type="text" id="bName" placeholder="Beneficiary Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bAccount">Bank Account Number</label>
+                                <input type="text" id="bAccount" placeholder="Bank Account Number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bIfsc">IFSC Code</label>
+                                <input type="text" id="bIfsc" placeholder="IFSC Code" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bSwift">SWIFT Code</label>
+                                <input type="text" id="bSwift" placeholder="SWIFT Code" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bBankName">Bank Name</label>
+                                <input type="text" id="bBankName" placeholder="Bank Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bBranch">Branch Details</label>
+                                <input type="text" id="bBranch" placeholder="Branch Details" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bPurpose">Purpose</label>
+                                <input type="text" id="bPurpose" placeholder="Purpose" required>
+                            </div>
+                        </div>
+
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="agreeCheck" required>
+                            <label for="agreeCheck">Agreed terms and conditions</label>
+                        </div>
+
+                        <div style="margin-top: 20px;">
+                            <button type="submit" class="btn-submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

@@ -80,8 +80,17 @@ const server = http.createServer((req, res) => {
 
   let filePath = req.url === '/' ? '/default.html' : req.url;
   filePath = filePath.split('?')[0];
-  const fullPath = path.join(BASE_DIR, filePath);
-  const ext = path.extname(fullPath).toLowerCase();
+  let fullPath = path.join(BASE_DIR, filePath);
+
+  // Support clean URLs by checking if .html file exists
+  let ext = path.extname(fullPath).toLowerCase();
+  if (!ext) {
+    if (fs.existsSync(fullPath + '.html')) {
+      fullPath += '.html';
+      ext = '.html';
+    }
+  }
+
   const contentType = mimeTypes[ext] || 'application/octet-stream';
   
   fs.readFile(fullPath, (err, content) => {
