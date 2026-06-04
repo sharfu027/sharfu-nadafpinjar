@@ -1,147 +1,90 @@
+
+
 <!DOCTYPE html>
+<!--
+BeyondAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.6
+Version: 1.6.0
+Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB06R48S4
+-->
+
 <html xmlns="http://www.w3.org/1999/xhtml">
+<!--Head-->
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Admin Login - Karnataka State Nadaf / Pinjar Sangha</title>
-    <link href="css/base.css" rel="stylesheet" media="all">
-    <link href="css/base-responsive.css" rel="stylesheet" media="all">
-    <link href="css/grid.css" rel="stylesheet" media="all">
-    <link href="css/font.css" rel="stylesheet" media="all">
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="all">
-    <style>
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .login-container {
-            max-width: 450px;
-            width: 100%;
-            margin: 40px 20px;
-            padding: 40px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .login-header img {
-            max-width: 80px;
-            margin-bottom: 20px;
-        }
-        .login-header h1 {
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .login-header p {
-            color: #666;
-            font-size: 14px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        .btn-login {
-            width: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
-        .forgot-password {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .forgot-password a {
-            color: #667eea;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
-        .back-home {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .back-home a {
-            color: #666;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .back-home a:hover {
-            color: #333;
-        }
-    </style>
+    <meta charset="utf-8" />
+    <title>Login Page</title>
+
+    <meta name="description" content="login page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+
+    <!--Basic Styles-->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/font-awesome.css" rel="stylesheet" />
+
+    <!--Beyond styles-->
+    <link href="css/beyond.css" rel="stylesheet" />
+    <link href="css/demo.css" rel="stylesheet" />
+    <link href="css/animate.css" rel="stylesheet" />
+
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <script src="js/skins.min.js"></script>
 </head>
-<body>
-    <div class="login-container">
-        <div class="login-header">
-            <h1>Admin Login</h1>
-            <p>Karnataka State Nadaf / Pinjar Sangha (R)</p>
+<!--Head Ends-->
+
+<body style="background-color:#4f1971 !important;">
+    <form method="post" action="https://nadafpinjar.com/login" id="ctl01" class="bg-purple">
+        <!-- loader -->
+
+        <div class="login-container animated fadeInDown">
+            <div class="loginbox bg-white" style="width: 120% !important;">
+                <img src="images/loginbanner.jpg" alt="" />
+                <div class="widget-header bg-purple">
+                    <span class="widget-caption  text-align-center" style="font-size: x-large;">Admin Login
+                    </span>
+                    <div class="widget-buttons">
+                    </div>
+                    <!--Widget Buttons-->
+                </div>
+                <div class="loginbox-textbox">
+                    <div class="radio">
+                        <label>
+                            <span class="text">User Name </span>
+                        </label>
+                        <div class="loginbox-textbox">
+                            <input name="txtCustomerId" type="text" id="txtCustomerId" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <span class="text">Password </span>
+                        </label>
+                        <div class="loginbox-textbox">
+                            <input name="txtpassword" type="password" id="txtpassword" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="loginbox-submit text-align-right">
+                        <input type="submit" name="btnLogin" value="Login" id="btnLogin" class="btn btn-purple shiny " />
+                    </div>
+                </div>
+
+                <div class="loginbox-signup">
+                    <a>For Sign Up, Please Download the App</a>
+                </div>
+            </div>
+
         </div>
-        
-        <form id="loginForm" method="post">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required>
-            </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            </div>
+        <!--Basic Scripts-->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.slimscroll.min.js"></script>
 
-            <button type="submit" class="btn-login">Login</button>
+        <!--Beyond Scripts-->
+        <script src="js/beyond.js"></script>
 
-            <div class="forgot-password">
-                <a href="#">Forgot Password?</a>
-            </div>
-
-            <div class="back-home">
-                <a href="default.html">← Back to Home</a>
-            </div>
-        </form>
-    </div>
-
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Admin login functionality is not implemented in this demo version.\nPlease contact the system administrator.');
-        });
-    </script>
+    </form>
 </body>
+
 </html>
