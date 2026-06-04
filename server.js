@@ -45,16 +45,29 @@ setInterval(() => {
   }
 }, 10 * 60 * 1000);
 
+function getCookieValue(cookieHeader, name) {
+  if (!cookieHeader) return null;
+  const cookies = cookieHeader.split(';');
+  for (const cookie of cookies) {
+    const parts = cookie.split('=');
+    if (parts.length >= 2) {
+      if (parts[0].trim() === name) {
+        return parts.slice(1).join('=').trim();
+      }
+    }
+  }
+  return null;
+}
+
 function getSessionFromRequest(req) {
-  const cookieHeader = req.headers.cookie || '';
-  const match = cookieHeader.match(new RegExp(`${SESSION_COOKIE}=([^;]+)`));
-  if (match) {
-    const session = adminSessions.get(match[1]);
+  const sid = getCookieValue(req.headers.cookie, SESSION_COOKIE);
+  if (sid) {
+    const session = adminSessions.get(sid);
     if (session && (Date.now() - session.lastAccess < SESSION_TTL)) {
       session.lastAccess = Date.now();
-      return { sid: match[1], session };
+      return { sid, session };
     }
-    if (session) adminSessions.delete(match[1]);
+    if (session) adminSessions.delete(sid);
   }
   return null;
 }
@@ -71,7 +84,7 @@ function getOrCreateSession(req, res) {
   };
   adminSessions.set(sid, session);
   // Set session cookie
-  res.setHeader('Set-Cookie', `${SESSION_COOKIE}=${sid}; Path=/admin; HttpOnly; SameSite=Lax; Max-Age=3600`);
+  res.setHeader('Set-Cookie', `${SESSION_COOKIE}=${sid}; Path=/; HttpOnly; SameSite=Lax; Max-Age=3600`);
   return { sid, session };
 }
 
@@ -150,31 +163,36 @@ function fetchFromOriginal(urlPath, options = {}) {
 function rewriteHtml(html) {
   let r = html;
 
+  // Rewrite all absolute links to the original domain to point to our proxy /admin
+  r = r.replace(/https?:\/\/(www\.)?nadafpinjar\.com/gi, '/admin');
+
   // Insert <base href="/admin/"> right after <head> for relative URL resolution
   if (!r.includes('<base')) {
     r = r.replace(/<head([^>]*)>/i, '<head$1>\n    <base href="/admin/" />');
   }
 
-  // Rewrite absolute paths: href="/path" → href="/admin/path"
-  // But NOT href="//" (protocol-relative) or href="/" alone
-  r = r.replace(/(href|src|action)="\/((?!\/|admin\/)[^"]*?)"/gi, '$1="/admin/$2"');
+  // Rewrite absolute paths: href="/path" or href='/path' → href="/admin/path"
+  r = r.replace(/(href|src|action)=(['"])\/((?!\/|admin\/)[^'"]*?)\2/gi, '$1=$2/admin/$3$2');
 
-  // Rewrite window.location or location.href assignments pointing to original paths
-  r = r.replace(/location\.href\s*=\s*['"]\//g, "location.href='/admin/");
-  r = r.replace(/window\.location\s*=\s*['"]\//g, "window.location='/admin/");
-  r = r.replace(/location\.replace\(['"]\//g, "location.replace('/admin/");
+  // Rewrite window.location or location.href assignments pointing to original paths, preserving quotes
+  r = r.replace(/location\.href\s*=\s*(['"])\//g, "location.href=$1/admin/");
+  r = r.replace(/window\.location\s*=\s*(['"])\//g, "window.location=$1/admin/");
+  r = r.replace(/location\.replace\((['"])\//g, "location.replace($1/admin/");
 
-  // Rewrite $.ajax/fetch URLs starting with /
-  r = r.replace(/url:\s*['"]\//g, "url:'/admin/");
+  // Rewrite $.ajax/fetch URLs starting with /, preserving quotes
+  r = r.replace(/url:\s*(['"])\//g, "url:$1/admin/");
 
   // Fix any double-prefix /admin/admin/
   r = r.replace(/\/admin\/admin\//g, '/admin/');
 
+  // Clean up double slashes under /admin
+  r = r.replace(/\/admin\/\/+/g, '/admin/');
+
   // Fix protocol-relative URLs that got rewritten: /admin// → //
-  r = r.replace(/(href|src|action)="\/admin\/\//g, '$1="//');
+  r = r.replace(/(href|src|action)=(['"])\/admin\/\/\2/g, '$1=$2//$2');
 
   // Handle logout link - make it go to our proxy logout
-  r = r.replace(/href="([^"]*?)logout([^"]*?)"/gi, 'href="/admin/logout"');
+  r = r.replace(/href=(['"])([^'"]*?)logout([^'"]*?)\1/gi, 'href=$1/admin/logout$1');
 
   return r;
 }
@@ -231,7 +249,7 @@ async function handleAdmin(req, res) {
       }
       res.writeHead(302, {
         'Location': '/admin/',
-        'Set-Cookie': `${SESSION_COOKIE}=; Path=/admin; Max-Age=0`
+        'Set-Cookie': `${SESSION_COOKIE}=; Path=/; Max-Age=0`
       });
       res.end();
       return;

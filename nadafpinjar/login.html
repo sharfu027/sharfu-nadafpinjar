@@ -124,7 +124,20 @@ Version: 1.6.0
             errorMsg.textContent = 'Notice: The Admin Panel requires the Render backend server. Please log in using your Render deployment URL.';
             errorMsg.style.backgroundColor = '#f0ad4e'; // Warning orange
             errorMsg.className = 'error-msg show';
+        } else {
+            // Check if user is already logged in to bypass login page
+            fetch('/admin/accountsummary', { credentials: 'include' })
+            .then(function(r) { return r.text(); })
+            .then(function(html) {
+                if (html.indexOf('txtCustomerId') === -1 && (html.indexOf('Account Summary') > -1 || html.indexOf('Logout') > -1 || html.indexOf('Dashboard') > -1)) {
+                    window.location.href = '/admin/accountsummary';
+                }
+            })
+            .catch(function(e) {
+                console.log('Session check error:', e);
+            });
         }
+
 
 
         form.addEventListener('submit', function(e) {
