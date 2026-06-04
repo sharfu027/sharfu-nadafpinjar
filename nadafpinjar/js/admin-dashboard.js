@@ -32,16 +32,23 @@ const defaultReceipts = [
         status: "Completed",
         mode: "Cash",
         narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :asdasasdaasd",
+        serialNo: 14,
         details: {
             transactionDate: "03-06-2026 00:00:00",
             fullName: "asdasasdaasd",
-            address: "District Address Info",
-            mobile: "9876543210",
-            village: "District Village",
-            district: "District Name",
-            taluk: "District Taluk",
-            purpose: "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ",
-            purposeDetails: "District Help",
+            address: "asdasda",
+            mobile: "4353",
+            village: "aswqeqweqw",
+            district: "ಹಾವೇರಿ",
+            taluk: "ಶಿಗಾವಿ",
+            presidentName: "asdas",
+            presidentAddress: "asdas",
+            presidentMobile: "23423",
+            presidentVillage: "asdas",
+            presidentDistrict: "",
+            presidentTaluk: "",
+            purpose: "ಕಾರ್ಯಕ್ರಮ ದೇಣಿಗೆ",
+            purposeDetails: "asdasa",
             amount: "123211.00",
             mode: "Cash"
         }
@@ -54,16 +61,23 @@ const defaultReceipts = [
         status: "Completed",
         mode: "Cash",
         narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :232343",
+        serialNo: 13,
         details: {
             transactionDate: "03-06-2026 00:00:00",
             fullName: "232343",
-            address: "Taluk Address Info",
-            mobile: "9876543211",
-            village: "Taluk Village",
-            district: "Taluk District",
-            taluk: "Taluk Name",
-            purpose: "ಶಿಕ್ಷಣ ಅಭಿವೃದ್ಧಿ ಖಾತೆ",
-            purposeDetails: "Taluk Help",
+            address: "234234",
+            mobile: "34543453",
+            village: "234234",
+            district: "ಚಿತ್ರದುರ್ಗ",
+            taluk: "ಚಳ್ಳಕೆರೆ",
+            presidentName: "dsaas",
+            presidentAddress: "asdas",
+            presidentMobile: "242343",
+            presidentVillage: "asdas",
+            presidentDistrict: "",
+            presidentTaluk: "",
+            purpose: "ರುಕಾತ್",
+            purposeDetails: "retee",
             amount: "1000.00",
             mode: "Cash"
         }
@@ -76,16 +90,17 @@ const defaultReceipts = [
         status: "Completed",
         mode: "Cash",
         narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :wcvtyu",
+        serialNo: 12,
         details: {
             transactionDate: "26-05-2026 00:00:00",
             fullName: "wcvtyu",
-            address: "State Address Info",
-            mobile: "9876543212",
-            village: "State Village",
-            district: "State District",
-            taluk: "State Taluk",
-            purpose: "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ",
-            purposeDetails: "State Help",
+            address: "wsedrcvghnjimo",
+            mobile: "7896542231",
+            village: "zsxdcfvghj",
+            district: "ವಿಜಯಪುರ",
+            taluk: "ಇಂಡಿ",
+            purpose: "ಇತರೆ",
+            purposeDetails: "zsxrctgbujmok",
             amount: "1.00",
             mode: "Cash"
         }
@@ -98,6 +113,7 @@ const defaultReceipts = [
         status: "Completed",
         mode: "Cash",
         narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :fdfs",
+        serialNo: 11,
         details: {
             transactionDate: "25-05-2026 00:00:00",
             fullName: "fdfs",
@@ -120,6 +136,7 @@ const defaultReceipts = [
         status: "",
         mode: "Cash",
         narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :Shabuddin Sab Noorabash",
+        serialNo: 10,
         details: {
             transactionDate: "05-05-2026 00:00:00",
             fullName: "Shabuddin Sab Noorabash",
@@ -164,13 +181,13 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v5') {
+if (localStorage.getItem('receipts_version') !== 'v7') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v5');
+    localStorage.setItem('receipts_version', 'v7');
 }
-if (localStorage.getItem('security_version') !== 'v2') {
+if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
-    localStorage.setItem('security_version', 'v2');
+    localStorage.setItem('security_version', 'v3');
 }
 
 if (!localStorage.getItem('transfers')) {
@@ -547,6 +564,17 @@ window.generateReceiptId = function(oldId) {
         receipts[index].id = newId;
         receipts[index].status = "Completed";
 
+        // Assign next bottom serial number dynamically
+        let maxSerial = 0;
+        receipts.forEach(r => {
+            if (r.serialNo && !isNaN(r.serialNo)) {
+                if (r.serialNo > maxSerial) {
+                    maxSerial = r.serialNo;
+                }
+            }
+        });
+        receipts[index].serialNo = maxSerial + 1;
+
         if (receipts[index].details) {
             receipts[index].details.receiptId = newId;
         }
@@ -620,129 +648,386 @@ window.downloadReceiptPdf = function(receiptId) {
         return;
     }
     const details = found.details || {};
-    const amountStr = formatCurrency(found.amount);
-    
+
+    // Helper functions for Kannada styling
+    const formatDateDashes = (dateStr) => {
+        if (!dateStr) return "";
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return dateStr;
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const year = d.getFullYear();
+        return `${day}-${month}-${year}`;
+    };
+
+    const formatCurrencyRaw = (amount) => {
+        return Number(amount).toLocaleString('en-IN', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    };
+
+    // Calculate/Assign bottom serial number dynamically if missing
+    let serialNoVal = found.serialNo;
+    if (!serialNoVal) {
+        let maxSerial = 0;
+        receipts.forEach(r => {
+            if (r.serialNo && !isNaN(r.serialNo)) {
+                if (r.serialNo > maxSerial) {
+                    maxSerial = r.serialNo;
+                }
+            }
+        });
+        serialNoVal = maxSerial + 1;
+        // Save back to database
+        const index = receipts.findIndex(r => r.id === receiptId);
+        if (index > -1) {
+            receipts[index].serialNo = serialNoVal;
+            localStorage.setItem('receipts', JSON.stringify(receipts));
+        }
+    }
+
+    // Determine colors, subheader titles and layout fields based on the source category
+    let themeColor = "#b30000"; // Red for State Direct
+    let subheaderTitle = "ನೇರವಾಗಿ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
+    let fieldsHTML = "";
+
+    const fromStr = (found.from || "").toLowerCase();
+    if (fromStr.includes("district")) {
+        themeColor = "#0033cc"; // Blue for District
+        subheaderTitle = "ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
+        fieldsHTML = `
+            <!-- District President Info Row -->
+            <tr style="background-color: #f8fafc;">
+                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 13px;">
+                    ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ
+                </td>
+            </tr>
+            <tr>
+                <td class="grid-cell" style="border-bottom: none; border-top: none; width: 33%;">
+                    <span class="field-label">ಹೆಸರು:</span>
+                    <span class="field-value">${details.presidentName || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-bottom: none; border-top: none; width: 33%;">
+                    <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
+                    <span class="field-value">${details.presidentVillage || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-bottom: none; border-top: none; width: 34%;">
+                    <span class="field-label">ಮೊಬೈಲ್:</span>
+                    <span class="field-value">${details.presidentMobile || ""}</span>
+                </td>
+            </tr>
+            <tr style="border-bottom: 2px solid ${themeColor};">
+                <td class="grid-cell" colspan="2" style="border-top: none;">
+                    <span class="field-label">ವಿಳಾಸ:</span>
+                    <span class="field-value">${details.presidentAddress || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-top: none;">
+                    <div style="margin-bottom: 4px;">
+                        <span class="field-label">ತಾಲೂಕು:</span>
+                        <span class="field-value">${details.presidentTaluk || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
+                        <span class="field-value">${details.presidentDistrict || ""}</span>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- On Behalf Of Info Row -->
+            <tr style="background-color: #f8fafc;">
+                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 13px;">
+                    ಯಾರ ಪರವಾಗಿ:
+                </td>
+            </tr>
+            <tr>
+                <td class="grid-cell" style="border-bottom: none; border-top: none;">
+                    <span class="field-label">ಹೆಸರು:</span>
+                    <span class="field-value" style="font-weight: bold; color: ${themeColor};">${details.fullName || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-bottom: none; border-top: none;">
+                    <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
+                    <span class="field-value">${details.village || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-bottom: none; border-top: none;">
+                    <span class="field-label">ಮೊಬೈಲ್:</span>
+                    <span class="field-value">${details.mobile || ""}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="grid-cell" colspan="2" style="border-top: none;">
+                    <span class="field-label">ವಿಳಾಸ:</span>
+                    <span class="field-value">${details.address || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-top: none;">
+                    <div style="margin-bottom: 4px;">
+                        <span class="field-label">ತಾಲೂಕು:</span>
+                        <span class="field-value">${details.taluk || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
+                        <span class="field-value">${details.district || ""}</span>
+                    </div>
+                </td>
+            </tr>
+        `;
+    } else if (fromStr.includes("taluk")) {
+        themeColor = "#006600"; // Green for Taluk
+        subheaderTitle = "ತಾಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
+        fieldsHTML = `
+            <!-- Taluk President Info Row -->
+            <tr style="background-color: #f8fafc;">
+                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 13px;">
+                    ತಾಲೂಕು ಅಧ್ಯಕ್ಷರ
+                </td>
+            </tr>
+            <tr>
+                <td class="grid-cell" style="border-bottom: none; border-top: none; width: 33%;">
+                    <span class="field-label">ಹೆಸರು:</span>
+                    <span class="field-value">${details.presidentName || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-bottom: none; border-top: none; width: 33%;">
+                    <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
+                    <span class="field-value">${details.presidentVillage || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-bottom: none; border-top: none; width: 34%;">
+                    <span class="field-label">ಮೊಬೈಲ್:</span>
+                    <span class="field-value">${details.presidentMobile || ""}</span>
+                </td>
+            </tr>
+            <tr style="border-bottom: 2px solid ${themeColor};">
+                <td class="grid-cell" colspan="2" style="border-top: none;">
+                    <span class="field-label">ವಿಳಾಸ:</span>
+                    <span class="field-value">${details.presidentAddress || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-top: none;">
+                    <div style="margin-bottom: 4px;">
+                        <span class="field-label">ತಾಲೂಕು:</span>
+                        <span class="field-value">${details.presidentTaluk || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
+                        <span class="field-value">${details.presidentDistrict || ""}</span>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- On Behalf Of Info Row -->
+            <tr style="background-color: #f8fafc;">
+                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 13px;">
+                    ಯಾರ ಪರವಾಗಿ:
+                </td>
+            </tr>
+            <tr>
+                <td class="grid-cell" style="border-bottom: none; border-top: none;">
+                    <span class="field-label">ಹೆಸರು:</span>
+                    <span class="field-value" style="font-weight: bold; color: ${themeColor};">${details.fullName || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-bottom: none; border-top: none;">
+                    <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
+                    <span class="field-value">${details.village || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-bottom: none; border-top: none;">
+                    <span class="field-label">ಮೊಬೈಲ್:</span>
+                    <span class="field-value">${details.mobile || ""}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="grid-cell" colspan="2" style="border-top: none;">
+                    <span class="field-label">ವಿಳಾಸ:</span>
+                    <span class="field-value">${details.address || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-top: none;">
+                    <div style="margin-bottom: 4px;">
+                        <span class="field-label">ತಾಲೂಕು:</span>
+                        <span class="field-value">${details.taluk || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
+                        <span class="field-value">${details.district || ""}</span>
+                    </div>
+                </td>
+            </tr>
+        `;
+    } else {
+        themeColor = "#b30000"; // Red for State Direct
+        subheaderTitle = "ನೇರವಾಗಿ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
+        fieldsHTML = `
+            <tr>
+                <td class="grid-cell" style="border-bottom: none; width: 33%;">
+                    <span class="field-label">ಹೆಸರು:</span>
+                    <span class="field-value" style="font-weight: bold; color: ${themeColor};">${details.fullName || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-bottom: none; width: 33%;">
+                    <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
+                    <span class="field-value">${details.village || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-bottom: none; width: 34%;">
+                    <span class="field-label">ಮೊಬೈಲ್:</span>
+                    <span class="field-value">${details.mobile || ""}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="grid-cell" colspan="2" style="border-top: none;">
+                    <span class="field-label">ವಿಳಾಸ:</span>
+                    <span class="field-value">${details.address || ""}</span>
+                </td>
+                <td class="grid-cell" style="border-top: none;">
+                    <div style="margin-bottom: 4px;">
+                        <span class="field-label">ತಾಲೂಕು:</span>
+                        <span class="field-value">${details.taluk || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
+                        <span class="field-value">${details.district || ""}</span>
+                    </div>
+                </td>
+            </tr>
+        `;
+    }
+
     const printHTML = `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>Donation Receipt - ${found.id}</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             margin: 0;
             padding: 10px;
             color: #333;
         }
         .receipt-container {
-            max-width: 650px;
+            max-width: 800px;
             margin: 0 auto;
-            border: 4px double #5A1F75;
-            padding: 20px;
+            border: 2px solid ${themeColor};
+            padding: 15px;
             background: #fff;
             box-sizing: border-box;
-            position: relative;
         }
-        .header-table {
+        .header-box {
             width: 100%;
             border-collapse: collapse;
-            border-bottom: 2px solid #5A1F75;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            border: 3px solid #b30000;
+            background-color: #fffdeb;
+            margin-bottom: 12px;
+        }
+        .header-photo-cell {
+            width: 110px;
+            text-align: center;
+            padding: 10px;
+            vertical-align: middle;
+        }
+        .patron-photo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid #b30000;
+            object-fit: cover;
+        }
+        .header-logo-cell {
+            width: 110px;
+            text-align: center;
+            padding: 10px;
+            vertical-align: middle;
         }
         .header-logo {
-            width: 80px;
-            height: auto;
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
         }
-        .header-title {
+        .header-text-cell {
             text-align: center;
-            color: #5A1F75;
+            vertical-align: middle;
+            padding: 10px 0;
+            color: #b30000;
         }
-        .header-title h2 {
-            margin: 0;
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-        .header-title p {
-            margin: 5px 0 0 0;
-            font-size: 11px;
-            color: #666;
-        }
-        .receipt-title {
-            text-align: center;
-            font-size: 16px;
+        .kannada-title {
+            font-size: 24px;
             font-weight: bold;
-            color: #5A1F75;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            text-decoration: underline;
+            margin-bottom: 2px;
         }
-        .details-table {
+        .reg-no {
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: #444;
+        }
+        .english-title {
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+        .office-address, .office-location {
+            font-size: 11px;
+            font-weight: bold;
+            color: #333;
+        }
+        .receipt-grid {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            border: 2px solid ${themeColor};
         }
-        .details-table td {
-            padding: 8px 5px;
-            font-size: 13px;
+        .grid-cell {
+            border: 1px solid ${themeColor};
+            padding: 8px 10px;
+            font-size: 12.5px;
             vertical-align: top;
+            color: #1e293b;
         }
-        .label {
-            font-weight: 600;
-            color: #555;
-            width: 160px;
+        .center-align {
+            text-align: center;
         }
-        .value {
-            border-bottom: 1px dashed #ccc;
+        .right-align {
+            text-align: right;
         }
-        .amount-box {
-            background: #f3ebf7;
-            border: 1px solid #5A1F75;
-            padding: 10px;
-            font-size: 16px;
+        .subheader-row {
+            color: ${themeColor};
             font-weight: bold;
-            color: #5A1F75;
-            display: inline-block;
-            margin-top: 15px;
         }
-        .signatures-section {
-            margin-top: 40px;
+        .field-label {
+            font-weight: 600;
+            color: ${themeColor};
+            margin-right: 5px;
+        }
+        .field-value {
+            color: #000;
+            font-weight: bold;
+        }
+        .payment-line {
+            font-size: 13px;
+        }
+        .seal-sig-wrapper {
+            margin-top: 10px;
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: center;
             padding: 0 10px;
         }
-        .sig-block {
-            text-align: center;
-            width: 180px;
-        }
-        .sig-image {
-            height: 50px;
-            margin-bottom: 5px;
-        }
-        .seal-image {
+        .seal-img {
             height: 70px;
-            margin-bottom: 5px;
+            width: auto;
+            border-radius: 50%;
+            border: 1.5px solid #5A1F75;
         }
-        .sig-label {
-            font-size: 11px;
-            font-weight: 600;
-            border-top: 1px solid #333;
-            padding-top: 5px;
-            color: #555;
+        .sig-img {
+            height: 40px;
+            width: auto;
+            margin-bottom: 4px;
         }
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 15mm;
+                margin: 10mm;
             }
             body {
                 padding: 0;
             }
             .receipt-container {
-                border: 4px double #5A1F75;
                 max-width: 100%;
             }
         }
@@ -750,80 +1035,89 @@ window.downloadReceiptPdf = function(receiptId) {
 </head>
 <body>
     <div class="receipt-container">
-        <table class="header-table">
+        <table class="header-box">
             <tr>
-                <td style="width: 90px; text-align: left;">
-                    <img src="images/logo-786.png" class="header-logo" alt="Logo">
+                <td class="header-photo-cell">
+                    <img src="images/president.jpeg" class="patron-photo" onerror="this.src='images/president.png'">
                 </td>
-                <td class="header-title">
-                    <h2>KARNATAKA RAJYA NADAF / PINJAR SANGHA (R)</h2>
-                    <p>Reg No: DRB-3/SOR/27/2020-2021 | Head Office: Bengaluru, Karnataka</p>
-                    <p>Email: info@nadafpinjar.com | Web: www.nadafpinjar.com</p>
+                <td class="header-text-cell">
+                    <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ 23/1993-94</div>
+                    <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
+                    <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
+                    <div class="office-location">ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</div>
+                </td>
+                <td class="header-logo-cell">
+                    <img src="images/logo-786.png" class="header-logo">
                 </td>
             </tr>
         </table>
 
-        <div class="receipt-title">Donation Receipt</div>
+        <table class="receipt-grid">
+            <tr class="subheader-row">
+                <td class="grid-cell" style="width: 33%; border-bottom: 2px solid ${themeColor};">
+                    <span class="field-label">ರಶೀದಿ ಸಂಖ್ಯೆ:</span>
+                    <span class="field-value">${found.id}</span>
+                </td>
+                <td class="grid-cell center-align" style="width: 34%; border-bottom: 2px solid ${themeColor};">
+                    <div style="font-size: 13px; font-weight: bold;">ಪಾವತಿಸಿದ ರಶೀದಿ</div>
+                    <div style="font-size: 12px; font-weight: bold; margin-top: 2px;">${subheaderTitle}</div>
+                </td>
+                <td class="grid-cell right-align" style="width: 33%; border-bottom: 2px solid ${themeColor};">
+                    <span class="field-label">ದಿನಾಂಕ:</span>
+                    <span class="field-value">${formatDateDashes(found.date)}</span>
+                </td>
+            </tr>
 
-        <table class="details-table">
-            <tr>
-                <td class="label">Receipt ID:</td>
-                <td class="value" style="font-weight: bold; color: #5A1F75;">${found.id}</td>
-                <td class="label" style="width: 80px; text-align: right;">Date:</td>
-                <td class="value">${formatDate(found.date)}</td>
+            ${fieldsHTML}
+
+            <tr style="border-top: 2px solid ${themeColor};">
+                <td class="grid-cell" colspan="2" style="border-right: none; border-bottom: none;">
+                    <div class="payment-line" style="margin-top: 5px;">
+                        <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
+                        <span class="field-value" style="font-size: 14px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(found.amount)}</span>
+                    </div>
+                    <div class="payment-line" style="margin-top: 12px;">
+                        <span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span>
+                        <span class="field-value">${formatDateDashes(found.date)}</span>
+                    </div>
+                    <div class="payment-line" style="margin-top: 12px;">
+                        <span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span>
+                        <span class="field-value">${details.purpose || found.from}</span>
+                    </div>
+                    <div class="payment-line" style="margin-top: 12px;">
+                        <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
+                        <span class="field-value">${details.purposeDetails || "N/A"}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="border-left: none; border-bottom: none;">
+                    <div class="payment-line right-align">
+                        <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
+                        <span class="field-value">${details.mode || found.mode}</span>
+                    </div>
+                    <div class="seal-sig-wrapper" style="margin-top: 15px;">
+                        <img src="images/seal.jpg" class="seal-img">
+                        <div style="text-align: center; width: 140px;">
+                            <div style="font-size: 10px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
+                            <img src="images/sig.jpg" class="sig-img">
+                            <div style="font-size: 10.5px; font-weight: bold; line-height: 1.2; color: #000;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
+                            <div style="font-size: 8.5px; line-height: 1.2; color: #555;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
+                            <div style="font-size: 8.5px; line-height: 1.2; color: #555;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                        </div>
+                    </div>
+                </td>
             </tr>
-            <tr>
-                <td class="label">Donor Name:</td>
-                <td class="value" colspan="3">${details.fullName || "N/A"}</td>
-            </tr>
-            <tr>
-                <td class="label">Address:</td>
-                <td class="value" colspan="3">${details.address || "N/A"}</td>
-            </tr>
-            <tr>
-                <td class="label">Mobile Number:</td>
-                <td class="value">${details.mobile || "N/A"}</td>
-                <td class="label" style="width: 80px; text-align: right;">Village/City:</td>
-                <td class="value">${details.village || "N/A"}</td>
-            </tr>
-            <tr>
-                <td class="label">Taluk:</td>
-                <td class="value">${details.taluk || "N/A"}</td>
-                <td class="label" style="width: 80px; text-align: right;">District:</td>
-                <td class="value">${details.district || "N/A"}</td>
-            </tr>
-            <tr>
-                <td class="label">Purpose of Donation:</td>
-                <td class="value" colspan="3">${details.purpose || found.from}</td>
-            </tr>
-            <tr>
-                <td class="label">Payment Mode:</td>
-                <td class="value">${details.mode || found.mode}</td>
-                <td class="label" style="width: 80px; text-align: right;">Status:</td>
-                <td class="value" style="color: green; font-weight: bold;">${found.status || "Pending"}</td>
-            </tr>
-            <tr>
-                <td class="label">Narration:</td>
-                <td class="value" colspan="3" style="font-size: 12px; color: #555;">${found.narration}</td>
+
+            <tr class="bottom-serial-row">
+                <td class="grid-cell" colspan="2" style="border-top: 2px solid ${themeColor}; padding-top: 10px;">
+                    <span class="field-label" style="font-size: 13px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
+                    <span class="field-value" style="font-size: 13px; color: ${themeColor};">KRNPS-2026-27-${serialNoVal}</span>
+                </td>
+                <td class="grid-cell right-align" style="border-top: 2px solid ${themeColor}; padding-top: 10px; font-weight: bold; padding-right: 40px; color: ${themeColor}; font-size: 13px;">
+                    ಅಧಿಕೃತ ಸಹಿ
+                </td>
             </tr>
         </table>
-
-        <div style="text-align: left;">
-            <div class="amount-box">
-                Donation Amount: ${amountStr}
-            </div>
-        </div>
-
-        <div class="signatures-section">
-            <div class="sig-block">
-                <img src="images/seal.jpg" class="seal-image" alt="Seal">
-                <div class="sig-label">OFFICIAL SEAL</div>
-            </div>
-            <div class="sig-block">
-                <img src="images/sig.jpg" class="sig-image" alt="Signature">
-                <div class="sig-label">AUTHORIZED SIGNATORY</div>
-            </div>
-        </div>
     </div>
 </body>
 </html>`;
