@@ -5,18 +5,8 @@
       "dest": "/api/donations.js"
     },
     {
-      "src": "/admin",
-      "dest": "/api/admin.js?path="
-    },
-    {
-      "src": "/admin/(.*)",
-      "dest": "/api/admin.js?path=$1"
-    },
-
-    {
       "src": "/(.*)",
       "dest": "/nadafpinjar/$1"
     }
-
   ]
 }
