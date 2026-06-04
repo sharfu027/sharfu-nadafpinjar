@@ -525,10 +525,11 @@ function loadReceipts() {
     }
 }
 
-// Generate Receipt ID dynamically with correct prefixes: D for district, S for state direct, T for taluk
-window.generateReceiptId = function(oldId) {
+// Ensure formatted Receipt ID is generated dynamically when viewing or downloading
+function ensureReceiptIdGenerated(rId) {
+    if (!rId || !rId.startsWith("GENERATE")) return rId;
     const receipts = JSON.parse(localStorage.getItem('receipts')) || [];
-    const index = receipts.findIndex(r => r.id === oldId);
+    const index = receipts.findIndex(r => r.id === rId);
     if (index > -1) {
         const item = receipts[index];
         let prefix = 'S';
@@ -561,9 +562,6 @@ window.generateReceiptId = function(oldId) {
         const newNum = maxNum + 1;
         const newId = `2026-27-${prefix}-${newNum}`;
 
-        receipts[index].id = newId;
-        receipts[index].status = "Completed";
-
         // Assign next bottom serial number dynamically
         let maxSerial = 0;
         receipts.forEach(r => {
@@ -573,16 +571,30 @@ window.generateReceiptId = function(oldId) {
                 }
             }
         });
-        receipts[index].serialNo = maxSerial + 1;
+        
+        item.id = newId;
+        item.status = "Completed";
+        item.serialNo = maxSerial + 1;
 
-        if (receipts[index].details) {
-            receipts[index].details.receiptId = newId;
+        if (item.details) {
+            item.details.receiptId = newId;
         }
 
+        receipts[index] = item;
         localStorage.setItem('receipts', JSON.stringify(receipts));
-        loadReceipts();
-        alert("Receipt number generated successfully!");
+        if (typeof loadReceipts === 'function') {
+            loadReceipts();
+        }
+        return newId;
     }
+    return rId;
+}
+
+// Generate Receipt ID dynamically with correct prefixes: D for district, S for state direct, T for taluk
+window.generateReceiptId = function(oldId) {
+    ensureReceiptIdGenerated(oldId);
+    loadReceipts();
+    alert("Receipt number generated successfully!");
 };
 
 // Populate the View Receipt Details fields on the viewReceipt.html page
@@ -591,8 +603,13 @@ window.loadViewReceipt = function() {
     const receiptId = params.get('id');
     if (!receiptId) return;
 
+    const finalId = ensureReceiptIdGenerated(receiptId);
+    if (finalId !== receiptId) {
+        window.history.replaceState(null, '', `viewReceipt?id=${encodeURIComponent(finalId)}`);
+    }
+
     const receipts = JSON.parse(localStorage.getItem('receipts')) || [];
-    const found = receipts.find(r => r.id === receiptId);
+    const found = receipts.find(r => r.id === finalId);
     if (!found) return;
 
     const details = found.details || {};
@@ -624,7 +641,7 @@ window.loadViewReceipt = function() {
     const rejectBtn = document.getElementById("rejectReceiptBtn");
     if (rejectBtn) {
         rejectBtn.addEventListener("click", () => {
-            const updatedReceipts = receipts.filter(r => r.id !== receiptId);
+            const updatedReceipts = receipts.filter(r => r.id !== finalId);
             localStorage.setItem('receipts', JSON.stringify(updatedReceipts));
             alert("The Receipt Has Been Rejected Successfully");
             window.location.href = "Receipts";
@@ -641,8 +658,9 @@ window.loadViewReceipt = function() {
 
 // Print/Download high-fidelity Donation Receipt PDF via hidden Iframe
 window.downloadReceiptPdf = function(receiptId) {
+    const finalId = ensureReceiptIdGenerated(receiptId);
     const receipts = JSON.parse(localStorage.getItem('receipts')) || [];
-    const found = receipts.find(r => r.id === receiptId);
+    const found = receipts.find(r => r.id === finalId);
     if (!found) {
         alert("Receipt not found.");
         return;
