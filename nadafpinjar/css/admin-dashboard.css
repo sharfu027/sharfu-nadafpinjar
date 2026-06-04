@@ -113,11 +113,13 @@ body {
     height: 100vh;
     z-index: 999;
     transition: all 0.3s ease;
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
 .admin-sidebar.collapsed {
-    left: -240px;
+    width: 0;
+    border-right: none;
 }
 
 .sidebar-menu {
@@ -159,15 +161,13 @@ body {
 /* Main Content Area */
 .admin-content {
     flex: 1;
-    margin-left: 240px;
     padding: 20px;
     transition: all 0.3s ease;
-    max-width: calc(100% - 240px);
+    max-width: 100%;
 }
 
 .admin-content.expanded {
-    margin-left: 0;
-    max-width: 100%;
+    /* Auto handled by flexbox when sidebar collapses to width 0 */
 }
 
 .page-title-bar {
@@ -469,13 +469,24 @@ body {
 /* Mobile Responsive Adjustments */
 @media (max-width: 768px) {
     .admin-sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: -240px;
         width: 100%;
         max-width: 240px;
-        left: -240px;
+        height: 100vh;
+        z-index: 2000;
     }
     
     .admin-sidebar.active {
         left: 0;
+    }
+    
+    .admin-sidebar.collapsed {
+        width: 100%;
+        max-width: 240px;
+        border-right: 1px solid #eef2f5;
     }
     
     .admin-content {
