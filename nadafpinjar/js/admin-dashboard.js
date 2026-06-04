@@ -45,7 +45,7 @@ const defaultStatements = [
 
 const defaultSecurity = {
     username: "info@nadafpinjar.com",
-    password: "password",
+    password: "123456",
     email: "info@nadafpinjar.com",
     mobile: "+91 9480077666"
 };
@@ -66,7 +66,14 @@ if (!localStorage.getItem('transfers')) {
 if (!localStorage.getItem('statements')) {
     localStorage.setItem('statements', JSON.stringify(defaultStatements));
 }
-if (!localStorage.getItem('security')) {
+
+// Force migrate security password to '123456' if it's currently 'password'
+let currentSec = null;
+try {
+    currentSec = JSON.parse(localStorage.getItem('security'));
+} catch (e) {}
+
+if (!currentSec || currentSec.password === "password") {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
 }
 
