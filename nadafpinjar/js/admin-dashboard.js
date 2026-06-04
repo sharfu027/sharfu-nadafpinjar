@@ -24,11 +24,116 @@ const defaultBeneficiaries = [
 ];
 
 const defaultReceipts = [
-    {id: "2026-27-D-2", date: "2026-06-01", amount: 121211.00, from: "Amount Transfer From District to State", status: "Completed", mode: "Cash", narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM andasandasad"},
-    {id: "2026-27-T-3", date: "2026-06-03", amount: 1800.00, from: "Amount Transfer From Taluk to State", status: "Completed", mode: "Cash", narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM 232343"},
-    {id: "2026-27-D-9", date: "2026-05-26", amount: 1.00, from: "Amount Transfer Direct to State", status: "Completed", mode: "Cash", narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM mcvbyu"},
-    {id: "2026-27-D-8", date: "2026-05-25", amount: 1.00, from: "Amount Transfer Direct to State", status: "Completed", mode: "Cash", narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM Jdjs"},
-    {id: "2026-27-D-7", date: "2026-05-05", amount: 1965000.00, from: "Amount Transfer Direct to State", status: "Completed", mode: "Cash", narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM Shabuddin Sab Noorabash"}
+    {
+        id: "2026-27-D-2",
+        date: "2026-06-03",
+        amount: 123211.00,
+        from: "Amount Transfer from District to State",
+        status: "Completed",
+        mode: "Cash",
+        narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :asdasasdaasd",
+        details: {
+            transactionDate: "03-06-2026 00:00:00",
+            fullName: "asdasasdaasd",
+            address: "District Address Info",
+            mobile: "9876543210",
+            village: "District Village",
+            district: "District Name",
+            taluk: "District Taluk",
+            purpose: "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ",
+            purposeDetails: "District Help",
+            amount: "123211.00",
+            mode: "Cash"
+        }
+    },
+    {
+        id: "2026-27-T-3",
+        date: "2026-06-03",
+        amount: 1000.00,
+        from: "Amount Transfer from Taluk to State",
+        status: "Completed",
+        mode: "Cash",
+        narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :232343",
+        details: {
+            transactionDate: "03-06-2026 00:00:00",
+            fullName: "232343",
+            address: "Taluk Address Info",
+            mobile: "9876543211",
+            village: "Taluk Village",
+            district: "Taluk District",
+            taluk: "Taluk Name",
+            purpose: "ಶಿಕ್ಷಣ ಅಭಿವೃದ್ಧಿ ಖಾತೆ",
+            purposeDetails: "Taluk Help",
+            amount: "1000.00",
+            mode: "Cash"
+        }
+    },
+    {
+        id: "2026-27-S-9",
+        date: "2026-05-26",
+        amount: 1.00,
+        from: "Amount Transfer Direct to State",
+        status: "Completed",
+        mode: "Cash",
+        narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :wcvtyu",
+        details: {
+            transactionDate: "26-05-2026 00:00:00",
+            fullName: "wcvtyu",
+            address: "State Address Info",
+            mobile: "9876543212",
+            village: "State Village",
+            district: "State District",
+            taluk: "State Taluk",
+            purpose: "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ",
+            purposeDetails: "State Help",
+            amount: "1.00",
+            mode: "Cash"
+        }
+    },
+    {
+        id: "2026-27-S-10",
+        date: "2026-05-25",
+        amount: 1.00,
+        from: "Amount Transfer Direct to State",
+        status: "Completed",
+        mode: "Cash",
+        narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :fdfs",
+        details: {
+            transactionDate: "25-05-2026 00:00:00",
+            fullName: "fdfs",
+            address: "State Address Info 2",
+            mobile: "9876543213",
+            village: "State Village 2",
+            district: "State District 2",
+            taluk: "State Taluk 2",
+            purpose: "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ",
+            purposeDetails: "State Help 2",
+            amount: "1.00",
+            mode: "Cash"
+        }
+    },
+    {
+        id: "GENERATE-1",
+        date: "2026-05-05",
+        amount: 1065000.00,
+        from: "Amount Transfer Direct to State",
+        status: "",
+        mode: "Cash",
+        narration: "Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :Shabuddin Sab Noorabash",
+        details: {
+            transactionDate: "05-05-2026 00:00:00",
+            fullName: "Shabuddin Sab Noorabash",
+            address: "M G Cicle Devaraj Aras Colony",
+            mobile: "9620071066",
+            village: "Koppal",
+            district: "ಕೊಪ್ಪಳ",
+            taluk: "ಕುಕನೂರು",
+            purpose: "ಕಾರ್ಯಕ್ರಮ ದೇಣಿಗೆ",
+            purposeDetails: "Education Help",
+            amount: "1065000.00",
+            mode: "Cash"
+        }
+    }
 ];
 
 const defaultTransfers = [
@@ -40,7 +145,7 @@ const defaultStatements = [
     {date: "2026-06-03", particulars: "Transfer to Sha Nawaz [TR-002]", debit: 12000.00, credit: 0.00, balance: 27565929.00},
     {date: "2026-06-03", particulars: "Cash Donation received [2026-27-T-3]", debit: 0.00, credit: 1800.00, balance: 27577929.00},
     {date: "2026-06-02", particulars: "Transfer to Sana Nadaf [TR-001]", debit: 5000.00, credit: 0.00, balance: 27576129.00},
-    {date: "2026-06-01", particulars: "Cash Donation received [2026-27-D-2]", debit: 0.00, credit: 121211.00, balance: 27581129.00}
+    {date: "2026-06-01", particulars: "Cash Donation received [2026-27-D-2]", debit: 0.00, credit: 123211.00, balance: 27581129.00}
 ];
 
 const defaultSecurity = {
@@ -57,24 +162,22 @@ if (!localStorage.getItem('adminBalance')) {
 if (!localStorage.getItem('beneficiaries')) {
     localStorage.setItem('beneficiaries', JSON.stringify(defaultBeneficiaries));
 }
-if (!localStorage.getItem('receipts')) {
+
+// Force migrate/reset database schemas for receipts and security to newer schema version
+if (localStorage.getItem('receipts_version') !== 'v5') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
+    localStorage.setItem('receipts_version', 'v5');
 }
+if (localStorage.getItem('security_version') !== 'v2') {
+    localStorage.setItem('security', JSON.stringify(defaultSecurity));
+    localStorage.setItem('security_version', 'v2');
+}
+
 if (!localStorage.getItem('transfers')) {
     localStorage.setItem('transfers', JSON.stringify(defaultTransfers));
 }
 if (!localStorage.getItem('statements')) {
     localStorage.setItem('statements', JSON.stringify(defaultStatements));
-}
-
-// Force migrate security password to '123456' if it's currently 'password'
-let currentSec = null;
-try {
-    currentSec = JSON.parse(localStorage.getItem('security'));
-} catch (e) {}
-
-if (!currentSec || currentSec.password === "password") {
-    localStorage.setItem('security', JSON.stringify(defaultSecurity));
 }
 
 // Common Dashboard Setup after DOM Load
@@ -135,6 +238,8 @@ function initPageModules() {
         loadStatements();
     } else if (currentPath.includes("security")) {
         loadSecurity();
+    } else if (currentPath.includes("viewreceipt")) {
+        loadViewReceipt();
     }
 }
 
@@ -343,11 +448,11 @@ function loadReceipts() {
         list.forEach((r, index) => {
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td>${index + 1}</td>
+                <td>${list.length - index}</td>
                 <td>
                     ${r.id.startsWith("2026") ? 
                       `<span style="font-weight: 600; color: #4f1971;">${r.id}</span>` : 
-                      `<button class="btn-view" onclick="generateReceiptId('${r.id}')" style="background:#5A1F75; padding: 4px 8px; font-size:11px;">Generate Receipt</button>`}
+                      `<button class="btn-view" onclick="generateReceiptId('${r.id}')" style="background:#0ea5e9; padding: 4px 8px; font-size:11px;">Generate Receipt</button>`}
                 </td>
                 <td>${formatDate(r.date)}</td>
                 <td><strong>${formatCurrency(r.amount)}</strong></td>
@@ -356,7 +461,7 @@ function loadReceipts() {
                 <td>${r.mode}</td>
                 <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${r.narration}</td>
                 <td>
-                    <button class="btn-view" onclick="viewReceiptDetails('${r.id}')"><i class="fa fa-eye"></i> View</button>
+                    <button class="btn-view" onclick="window.location.href='viewReceipt?id=' + encodeURIComponent('${r.id}')"><i class="fa fa-eye"></i> View</button>
                 </td>
                 <td>
                     <button class="btn-download" onclick="downloadReceiptPdf('${r.id}')"><i class="fa fa-download"></i> Download</button>
@@ -403,71 +508,346 @@ function loadReceipts() {
     }
 }
 
-// Generate Receipt ID dynamically
+// Generate Receipt ID dynamically with correct prefixes: D for district, S for state direct, T for taluk
 window.generateReceiptId = function(oldId) {
     const receipts = JSON.parse(localStorage.getItem('receipts')) || [];
     const index = receipts.findIndex(r => r.id === oldId);
     if (index > -1) {
-        const randomNum = Math.floor(Math.random() * 10) + 1;
-        receipts[index].id = `2026-27-D-${randomNum}`;
+        const item = receipts[index];
+        let prefix = 'S';
+        const fromStr = (item.from || "").toLowerCase();
+        if (fromStr.includes("district")) {
+            prefix = 'D';
+        } else if (fromStr.includes("taluk")) {
+            prefix = 'T';
+        } else if (fromStr.includes("direct") || fromStr.includes("state")) {
+            prefix = 'S';
+        }
+
+        // Find highest index number for prefix
+        let maxNum = 0;
+        receipts.forEach(r => {
+            if (r.id && r.id.startsWith("2026-27-")) {
+                const parts = r.id.split('-');
+                if (parts.length >= 4) {
+                    const rPrefix = parts[2];
+                    const rNum = parseInt(parts[3], 10);
+                    if (rPrefix === prefix && !isNaN(rNum)) {
+                        if (rNum > maxNum) {
+                            maxNum = rNum;
+                        }
+                    }
+                }
+            }
+        });
+
+        const newNum = maxNum + 1;
+        const newId = `2026-27-${prefix}-${newNum}`;
+
+        receipts[index].id = newId;
+        receipts[index].status = "Completed";
+
+        if (receipts[index].details) {
+            receipts[index].details.receiptId = newId;
+        }
+
         localStorage.setItem('receipts', JSON.stringify(receipts));
         loadReceipts();
         alert("Receipt number generated successfully!");
     }
 };
 
-// Open View Receipt Details Modal
-window.viewReceiptDetails = function(receiptId) {
+// Populate the View Receipt Details fields on the viewReceipt.html page
+window.loadViewReceipt = function() {
+    const params = new URLSearchParams(window.location.search);
+    const receiptId = params.get('id');
+    if (!receiptId) return;
+
     const receipts = JSON.parse(localStorage.getItem('receipts')) || [];
     const found = receipts.find(r => r.id === receiptId);
     if (!found) return;
 
-    // Create Modal element if it doesn't exist
-    let modal = document.getElementById("receiptModal");
-    if (!modal) {
-        modal = document.createElement("div");
-        modal.id = "receiptModal";
-        modal.className = "admin-modal";
-        document.body.appendChild(modal);
+    const details = found.details || {};
+
+    const viewTxDate = document.getElementById("viewTxDate");
+    const viewFullName = document.getElementById("viewFullName");
+    const viewAddress = document.getElementById("viewAddress");
+    const viewMobile = document.getElementById("viewMobile");
+    const viewVillage = document.getElementById("viewVillage");
+    const viewDistrict = document.getElementById("viewDistrict");
+    const viewTaluk = document.getElementById("viewTaluk");
+    const viewPurpose = document.getElementById("viewPurpose");
+    const viewPurposeDetails = document.getElementById("viewPurposeDetails");
+    const viewAmount = document.getElementById("viewAmount");
+    const viewMode = document.getElementById("viewMode");
+
+    if (viewTxDate) viewTxDate.value = details.transactionDate || formatDate(found.date);
+    if (viewFullName) viewFullName.value = details.fullName || "";
+    if (viewAddress) viewAddress.value = details.address || "";
+    if (viewMobile) viewMobile.value = details.mobile || "";
+    if (viewVillage) viewVillage.value = details.village || "";
+    if (viewDistrict) viewDistrict.value = details.district || "";
+    if (viewTaluk) viewTaluk.value = details.taluk || "";
+    if (viewPurpose) viewPurpose.value = details.purpose || found.from;
+    if (viewPurposeDetails) viewPurposeDetails.value = details.purposeDetails || found.narration;
+    if (viewAmount) viewAmount.value = details.amount || found.amount;
+    if (viewMode) viewMode.value = details.mode || found.mode;
+
+    const rejectBtn = document.getElementById("rejectReceiptBtn");
+    if (rejectBtn) {
+        rejectBtn.addEventListener("click", () => {
+            const updatedReceipts = receipts.filter(r => r.id !== receiptId);
+            localStorage.setItem('receipts', JSON.stringify(updatedReceipts));
+            alert("The Receipt Has Been Rejected Successfully");
+            window.location.href = "Receipts";
+        });
     }
 
-    modal.innerHTML = `
-        <div class="modal-content">
-            <div class="modal-header">
-                <span>Receipt Details - ${found.id}</span>
-                <button class="modal-close" onclick="closeReceiptModal()">&times;</button>
-            </div>
-            <div class="modal-body" style="padding: 25px;">
-                <div style="text-align: center; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
-                    <h3 style="color:#4f1971;">KARNATAKA STATE NADAF PINJAR SANGHA</h3>
-                    <p style="font-size:12px; color:#666;">Chitradurga, Karnataka</p>
-                </div>
-                <table style="width:100%; font-size:13px; border-collapse:collapse;">
-                    <tr style="height:35px;"><td style="font-weight:600; width:150px;">Receipt ID:</td><td>${found.id}</td></tr>
-                    <tr style="height:35px;"><td style="font-weight:600;">Transaction Date:</td><td>${formatDate(found.date)}</td></tr>
-                    <tr style="height:35px;"><td style="font-weight:600;">Amount:</td><td style="font-size:15px; font-weight:bold; color:#4f1971;">${formatCurrency(found.amount)}</td></tr>
-                    <tr style="height:35px;"><td style="font-weight:600;">Account Type:</td><td>${found.from}</td></tr>
-                    <tr style="height:35px;"><td style="font-weight:600;">Payment Mode:</td><td>${found.mode}</td></tr>
-                    <tr style="height:35px;"><td style="font-weight:600;">Payment Status:</td><td><span style="color:green; font-weight:bold;">${found.status}</span></td></tr>
-                    <tr style="height:35px;"><td style="font-weight:600; vertical-align:top;">Narration:</td><td>${found.narration}</td></tr>
-                </table>
-                <div style="text-align:center; margin-top:25px;">
-                    <button class="btn-download" onclick="downloadReceiptPdf('${found.id}')" style="padding:8px 20px;"><i class="fa fa-print"></i> Print Receipt</button>
-                </div>
+    const backBtn = document.getElementById("backReceiptBtn");
+    if (backBtn) {
+        backBtn.addEventListener("click", () => {
+            window.location.href = "Receipts";
+        });
+    }
+};
+
+// Print/Download high-fidelity Donation Receipt PDF via hidden Iframe
+window.downloadReceiptPdf = function(receiptId) {
+    const receipts = JSON.parse(localStorage.getItem('receipts')) || [];
+    const found = receipts.find(r => r.id === receiptId);
+    if (!found) {
+        alert("Receipt not found.");
+        return;
+    }
+    const details = found.details || {};
+    const amountStr = formatCurrency(found.amount);
+    
+    const printHTML = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Donation Receipt - ${found.id}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff;
+            margin: 0;
+            padding: 10px;
+            color: #333;
+        }
+        .receipt-container {
+            max-width: 650px;
+            margin: 0 auto;
+            border: 4px double #5A1F75;
+            padding: 20px;
+            background: #fff;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-bottom: 2px solid #5A1F75;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .header-logo {
+            width: 80px;
+            height: auto;
+        }
+        .header-title {
+            text-align: center;
+            color: #5A1F75;
+        }
+        .header-title h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .header-title p {
+            margin: 5px 0 0 0;
+            font-size: 11px;
+            color: #666;
+        }
+        .receipt-title {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #5A1F75;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-decoration: underline;
+        }
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .details-table td {
+            padding: 8px 5px;
+            font-size: 13px;
+            vertical-align: top;
+        }
+        .label {
+            font-weight: 600;
+            color: #555;
+            width: 160px;
+        }
+        .value {
+            border-bottom: 1px dashed #ccc;
+        }
+        .amount-box {
+            background: #f3ebf7;
+            border: 1px solid #5A1F75;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #5A1F75;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        .signatures-section {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 10px;
+        }
+        .sig-block {
+            text-align: center;
+            width: 180px;
+        }
+        .sig-image {
+            height: 50px;
+            margin-bottom: 5px;
+        }
+        .seal-image {
+            height: 70px;
+            margin-bottom: 5px;
+        }
+        .sig-label {
+            font-size: 11px;
+            font-weight: 600;
+            border-top: 1px solid #333;
+            padding-top: 5px;
+            color: #555;
+        }
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 15mm;
+            }
+            body {
+                padding: 0;
+            }
+            .receipt-container {
+                border: 4px double #5A1F75;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <table class="header-table">
+            <tr>
+                <td style="width: 90px; text-align: left;">
+                    <img src="images/logo-786.png" class="header-logo" alt="Logo">
+                </td>
+                <td class="header-title">
+                    <h2>KARNATAKA RAJYA NADAF / PINJAR SANGHA (R)</h2>
+                    <p>Reg No: DRB-3/SOR/27/2020-2021 | Head Office: Bengaluru, Karnataka</p>
+                    <p>Email: info@nadafpinjar.com | Web: www.nadafpinjar.com</p>
+                </td>
+            </tr>
+        </table>
+
+        <div class="receipt-title">Donation Receipt</div>
+
+        <table class="details-table">
+            <tr>
+                <td class="label">Receipt ID:</td>
+                <td class="value" style="font-weight: bold; color: #5A1F75;">${found.id}</td>
+                <td class="label" style="width: 80px; text-align: right;">Date:</td>
+                <td class="value">${formatDate(found.date)}</td>
+            </tr>
+            <tr>
+                <td class="label">Donor Name:</td>
+                <td class="value" colspan="3">${details.fullName || "N/A"}</td>
+            </tr>
+            <tr>
+                <td class="label">Address:</td>
+                <td class="value" colspan="3">${details.address || "N/A"}</td>
+            </tr>
+            <tr>
+                <td class="label">Mobile Number:</td>
+                <td class="value">${details.mobile || "N/A"}</td>
+                <td class="label" style="width: 80px; text-align: right;">Village/City:</td>
+                <td class="value">${details.village || "N/A"}</td>
+            </tr>
+            <tr>
+                <td class="label">Taluk:</td>
+                <td class="value">${details.taluk || "N/A"}</td>
+                <td class="label" style="width: 80px; text-align: right;">District:</td>
+                <td class="value">${details.district || "N/A"}</td>
+            </tr>
+            <tr>
+                <td class="label">Purpose of Donation:</td>
+                <td class="value" colspan="3">${details.purpose || found.from}</td>
+            </tr>
+            <tr>
+                <td class="label">Payment Mode:</td>
+                <td class="value">${details.mode || found.mode}</td>
+                <td class="label" style="width: 80px; text-align: right;">Status:</td>
+                <td class="value" style="color: green; font-weight: bold;">${found.status || "Pending"}</td>
+            </tr>
+            <tr>
+                <td class="label">Narration:</td>
+                <td class="value" colspan="3" style="font-size: 12px; color: #555;">${found.narration}</td>
+            </tr>
+        </table>
+
+        <div style="text-align: left;">
+            <div class="amount-box">
+                Donation Amount: ${amountStr}
             </div>
         </div>
-    `;
 
-    modal.style.display = "flex";
-};
+        <div class="signatures-section">
+            <div class="sig-block">
+                <img src="images/seal.jpg" class="seal-image" alt="Seal">
+                <div class="sig-label">OFFICIAL SEAL</div>
+            </div>
+            <div class="sig-block">
+                <img src="images/sig.jpg" class="sig-image" alt="Signature">
+                <div class="sig-label">AUTHORIZED SIGNATORY</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>`;
 
-window.closeReceiptModal = function() {
-    const modal = document.getElementById("receiptModal");
-    if (modal) modal.style.display = "none";
-};
-
-window.downloadReceiptPdf = function(receiptId) {
-    alert(`Downloading Receipt PDF for receipt: ${receiptId}`);
+    let iframe = document.getElementById('receiptPrintIframe');
+    if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.id = 'receiptPrintIframe';
+        iframe.style.position = 'fixed';
+        iframe.style.right = '0';
+        iframe.style.bottom = '0';
+        iframe.style.width = '0';
+        iframe.style.height = '0';
+        iframe.style.border = '0';
+        document.body.appendChild(iframe);
+    }
+    
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(printHTML);
+    doc.close();
+    
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
 };
 
 // Format Dates to DD/MM/YYYY

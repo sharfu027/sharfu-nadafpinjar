@@ -34,6 +34,10 @@
       "dest": "/nadafpinjar/Security.html"
     },
     {
+      "src": "/viewReceipt",
+      "dest": "/nadafpinjar/viewReceipt.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/nadafpinjar/$1"
     }

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Receipt - Admin Dashboard</title>
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/admin-dashboard.css" rel="stylesheet" media="all">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="header-left">
+            <button class="sidebar-toggle"><i class="fa fa-bars"></i></button>
+            <div class="admin-logo-wrapper">
+                <img src="images/logo-786.png" alt="Logo" class="admin-logo">
+            </div>
+            <span style="color: white; font-weight: bold; font-size: 14px;">KARNATAKA RAJYA NADAF / PINJAR SANGHA</span>
+        </div>
+        <div class="header-right">
+            <span style="margin-right: 15px;"><i class="fa fa-user-circle"></i> Admin</span>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="accountsummary"><i class="fa fa-dashboard"></i> Account Summary</a></li>
+                <li><a href="Beneficiaries"><i class="fa fa-users"></i> Beneficiaries</a></li>
+                <li><a href="Paymentsandtransfers"><i class="fa fa-credit-card"></i> Make Payments</a></li>
+                <li><a href="Receipts"><i class="fa fa-file-text-o"></i> Receipts</a></li>
+                <li><a href="associatedtransfers"><i class="fa fa-exchange"></i> Associated Transfers</a></li>
+                <li><a href="Statements"><i class="fa fa-list-alt"></i> Statements</a></li>
+                <li><a href="Security"><i class="fa fa-lock"></i> Security</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <div class="page-title-bar">
+                <span>Receipts &gt; Action</span>
+            </div>
+
+            <div class="admin-card" style="max-width: 800px; margin: 0 auto;">
+                <div class="card-header">
+                    <span>ಯಾರ ಪರವಾಗಿ</span>
+                </div>
+                <div class="card-body">
+                    <form style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 15px;">
+                            <label style="font-size:13px; font-weight:600; text-align:right;">Transaction Date</label>
+                            <input type="text" id="viewTxDate" disabled style="background-color:#f8fafc; border:1px solid #cbd5e1; padding:8px 12px; border-radius:4px; font-size:13px;">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 15px;">
+                            <label style="font-size:13px; font-weight:600; text-align:right;">ಪೂರ್ಣ ಹೆಸರು</label>
+                            <input type="text" id="viewFullName" disabled style="background-color:#f8fafc; border:1px solid #cbd5e1; padding:8px 12px; border-radius:4px; font-size:13px;">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 15px;">
+                            <label style="font-size:13px; font-weight:600; text-align:right;">ಪೂರ್ಣ ವಿಳಾಸ</label>
+                            <input type="text" id="viewAddress" disabled style="background-color:#f8fafc; border:1px solid #cbd5e1; padding:8px 12px; border-radius:4px; font-size:13px;">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 15px;">
+                            <label style="font-size:13px; font-weight:600; text-align:right;">ಮೊಬೈಲ್</label>
+                            <input type="text" id="viewMobile" disabled style="background-color:#f8fafc; border:1px solid #cbd5e1; padding:8px 12px; border-radius:4px; font-size:13px;">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 15px;">
+                            <label style="font-size:13px; font-weight:600; text-align:right;">ಗ್ರಾಮ / ನಗರ</label>
+                            <input type="text" id="viewVillage" disabled style="background-color:#f8fafc; border:1px solid #cbd5e1; padding:8px 12px; border-radius:4px; font-size:13px;">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 15px;">
+                            <label style="font-size:13px; font-weight:600; text-align:right;">ಜಿಲ್ಲೆ</label>
+                            <input type="text" id="viewDistrict" disabled style="background-color:#f8fafc; border:1px solid #cbd5e1; padding:8px 12px; border-radius:4px; font-size:13px;">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 15px;">
+                            <label style="font-size:13px; font-weight:600; text-align:right;">ತಾಲೂಕು</label>
+                            <input type="text" id="viewTaluk" disabled style="background-color:#f8fafc; border:1px solid #cbd5e1; padding:8px 12px; border-radius:4px; font-size:13px;">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 15px;">
+                            <label style="font-size:13px; font-weight:600; text-align:right;">ಉದ್ದೇಶ</label>
+                            <input type="text" id="viewPurpose" disabled style="background-color:#f8fafc; border:1px solid #cbd5e1; padding:8px 12px; border-radius:4px; font-size:13px;">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 15px;">
+                            <label style="font-size:13px; font-weight:600; text-align:right;">ಉದ್ದೇಶದ ವಿವರಗಳು</label>
+                            <input type="text" id="viewPurposeDetails" disabled style="background-color:#f8fafc; border:1px solid #cbd5e1; padding:8px 12px; border-radius:4px; font-size:13px;">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 15px;">
+                            <label style="font-size:13px; font-weight:600; text-align:right;">ಮೊತ್ತ</label>
+                            <input type="text" id="viewAmount" disabled style="background-color:#f8fafc; border:1px solid #cbd5e1; padding:8px 12px; border-radius:4px; font-size:13px;">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 15px;">
+                            <label style="font-size:13px; font-weight:600; text-align:right;">Mode</label>
+                            <input type="text" id="viewMode" disabled style="background-color:#f8fafc; border:1px solid #cbd5e1; padding:8px 12px; border-radius:4px; font-size:13px;">
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; gap: 15px; margin-top: 20px;">
+                            <button type="button" id="rejectReceiptBtn" style="background-color: #d9534f; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer; transition: background-color 0.2s;">Reject</button>
+                            <button type="button" id="backReceiptBtn" style="background-color: #5bc0de; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer; transition: background-color 0.2s;">Back To Receipts</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>
