@@ -29,133 +29,8 @@ const donationSchema = new mongoose.Schema({
 const Donation = mongoose.model('Donation', donationSchema);
 
 // ============================================================
-// Admin Proxy - Session Management
+// Admin Proxy - Stateless Cookie-Forwarding Client
 // ============================================================
-const adminSessions = new Map();
-const SESSION_COOKIE = 'nadaf_admin_sid';
-const SESSION_TTL = 60 * 60 * 1000; // 60 minutes
-
-// Clean expired sessions every 10 minutes
-setInterval(() => {
-  const now = Date.now();
-  for (const [sid, session] of adminSessions) {
-    if (now - session.lastAccess > SESSION_TTL) {
-      adminSessions.delete(sid);
-    }
-  }
-}, 10 * 60 * 1000);
-
-function getCookieValue(cookieHeader, name) {
-  if (!cookieHeader) return null;
-  const cookies = cookieHeader.split(';');
-  for (const cookie of cookies) {
-    const parts = cookie.split('=');
-    if (parts.length >= 2) {
-      if (parts[0].trim() === name) {
-        return parts.slice(1).join('=').trim();
-      }
-    }
-  }
-  return null;
-}
-
-function getSessionFromRequest(req) {
-  const sid = getCookieValue(req.headers.cookie, SESSION_COOKIE);
-  if (sid) {
-    const session = adminSessions.get(sid);
-    if (session && (Date.now() - session.lastAccess < SESSION_TTL)) {
-      session.lastAccess = Date.now();
-      return { sid, session };
-    }
-    if (session) adminSessions.delete(sid);
-  }
-  return null;
-}
-
-function getOrCreateSession(req, res) {
-  const existing = getSessionFromRequest(req);
-  if (existing) return existing;
-
-  const sid = crypto.randomUUID();
-  const session = {
-    originalCookies: {},
-    cookieString: '',
-    lastAccess: Date.now()
-  };
-  adminSessions.set(sid, session);
-  // Set session cookie
-  res.setHeader('Set-Cookie', `${SESSION_COOKIE}=${sid}; Path=/; HttpOnly; SameSite=Lax; Max-Age=3600`);
-  return { sid, session };
-}
-
-function updateSessionCookies(session, responseHeaders) {
-  const setCookies = responseHeaders['set-cookie'];
-  if (!setCookies) return;
-
-  const cookieList = Array.isArray(setCookies) ? setCookies : [setCookies];
-  for (const cookie of cookieList) {
-    const nameValue = cookie.split(';')[0];
-    const eqIndex = nameValue.indexOf('=');
-    if (eqIndex > 0) {
-      const name = nameValue.substring(0, eqIndex).trim();
-      const value = nameValue.substring(eqIndex + 1);
-      session.originalCookies[name] = value;
-    }
-  }
-
-  session.cookieString = Object.entries(session.originalCookies)
-    .map(([name, value]) => `${name}=${value}`)
-    .join('; ');
-}
-
-// ============================================================
-// Admin Proxy - HTTPS Fetch from Original Site
-// ============================================================
-function fetchFromOriginal(urlPath, options = {}) {
-  return new Promise((resolve, reject) => {
-    const targetPath = urlPath.startsWith('/') ? urlPath : `/${urlPath}`;
-
-    const reqOptions = {
-      hostname: ORIGINAL_HOST,
-      port: 443,
-      path: targetPath,
-      method: options.method || 'GET',
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': options.accept || '*/*',
-        'Accept-Language': 'en-US,en;q=0.5',
-        'Accept-Encoding': 'identity',
-        'Host': ORIGINAL_HOST,
-        'Connection': 'keep-alive',
-        ...(options.extraHeaders || {})
-      }
-    };
-
-    if (options.cookieString) {
-      reqOptions.headers['Cookie'] = options.cookieString;
-    }
-
-    const req = https.request(reqOptions, (res) => {
-      const chunks = [];
-      res.on('data', chunk => chunks.push(chunk));
-      res.on('end', () => {
-        resolve({
-          statusCode: res.statusCode,
-          headers: res.headers,
-          body: Buffer.concat(chunks)
-        });
-      });
-    });
-
-    req.on('error', reject);
-
-    if (options.body) {
-      req.write(options.body);
-    }
-
-    req.end();
-  });
-}
 
 // ============================================================
 // Admin Proxy - URL Rewriting
@@ -243,178 +118,151 @@ async function handleAdmin(req, res) {
   try {
     // Handle logout
     if (adminPath === 'logout' || adminPath.endsWith('/logout')) {
-      const existing = getSessionFromRequest(req);
-      if (existing) {
-        adminSessions.delete(existing.sid);
-      }
-      res.writeHead(302, {
-        'Location': '/admin/',
-        'Set-Cookie': `${SESSION_COOKIE}=; Path=/; Max-Age=0`
-      });
+      res.setHeader('Set-Cookie', [
+        'ASP.NET_SessionId=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax',
+        '.ASPXAUTH=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax'
+      ]);
+      res.writeHead(302, { 'Location': '/admin/' });
       res.end();
       return;
     }
 
-    const { session } = getOrCreateSession(req, res);
+    const targetPath = adminPath || 'accountsummary';
+    const fullPath = queryString ? `/${targetPath}?${queryString}` : `/${targetPath}`;
+
+    const isAsset = targetPath.startsWith('assets/') ||
+      targetPath.startsWith('fonts/') ||
+      targetPath.match(/\.(css|js|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|ico|webp|map)$/i);
+
+    // Buffer body for POST requests
+    let bodyBuffer = Buffer.alloc(0);
+    if (req.method === 'POST') {
+      const chunks = [];
+      await new Promise((resolve) => {
+        req.on('data', chunk => chunks.push(chunk));
+        req.on('end', () => {
+          bodyBuffer = Buffer.concat(chunks);
+          resolve();
+        });
+      });
+    }
+
+    const reqHeaders = {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      'Accept': isAsset ? '*/*' : 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.5',
+      'Accept-Encoding': 'identity',
+      'Host': ORIGINAL_HOST,
+      'Connection': 'keep-alive'
+    };
+
+    // Forward browser's Cookie header to the original site
+    if (req.headers.cookie) {
+      reqHeaders['Cookie'] = req.headers.cookie;
+    }
 
     if (req.method === 'POST') {
-      await handleAdminPost(req, res, session, adminPath, queryString);
-    } else {
-      await handleAdminGet(req, res, session, adminPath, queryString);
+      reqHeaders['Content-Type'] = req.headers['content-type'] || 'application/x-www-form-urlencoded';
+      reqHeaders['Content-Length'] = bodyBuffer.length;
+      reqHeaders['Referer'] = `https://${ORIGINAL_HOST}/${targetPath}`;
+      reqHeaders['Origin'] = `https://${ORIGINAL_HOST}`;
     }
+
+    const response = await new Promise((resolve, reject) => {
+      const httpsReq = https.request({
+        hostname: ORIGINAL_HOST,
+        port: 443,
+        path: fullPath,
+        method: req.method,
+        headers: reqHeaders
+      }, (httpsRes) => {
+        const chunks = [];
+        httpsRes.on('data', chunk => chunks.push(chunk));
+        httpsRes.on('end', () => {
+          resolve({
+            statusCode: httpsRes.statusCode,
+            headers: httpsRes.headers,
+            body: Buffer.concat(chunks)
+          });
+        });
+      });
+      httpsReq.on('error', reject);
+      if (req.method === 'POST') {
+        httpsReq.write(bodyBuffer);
+      }
+      httpsReq.end();
+    });
+
+    // Forward set-cookie headers from original site to browser
+    const setCookies = response.headers['set-cookie'];
+    if (setCookies) {
+      const cookiesToSet = (Array.isArray(setCookies) ? setCookies : [setCookies]).map(c => {
+        let clean = c.replace(/Domain=[^;]+;?/gi, '');
+        clean = clean.replace(/Path=[^;]+;?/gi, 'Path=/');
+        return clean;
+      });
+      res.setHeader('Set-Cookie', cookiesToSet);
+    }
+
+    // Handle redirects
+    if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
+      const location = response.headers.location;
+      let newLocation;
+      if (location.startsWith('http')) {
+        try {
+          const urlObj = new URL(location);
+          if (urlObj.hostname === ORIGINAL_HOST || urlObj.hostname.endsWith(`.${ORIGINAL_HOST}`)) {
+            newLocation = `/admin${urlObj.pathname}${urlObj.search}`;
+          } else {
+            newLocation = location;
+          }
+        } catch { newLocation = `/admin/${location}`; }
+      } else if (location.startsWith('/')) {
+        newLocation = `/admin${location}`;
+      } else {
+        newLocation = `/admin/${location}`;
+      }
+      res.writeHead(302, { 'Location': newLocation });
+      res.end();
+      return;
+    }
+
+    // Serve assets
+    if (isAsset) {
+      const ct = response.headers['content-type'] || getContentType(targetPath);
+      res.writeHead(response.statusCode, {
+        'Content-Type': ct,
+        'Cache-Control': 'public, max-age=86400'
+      });
+      res.end(response.body);
+      return;
+    }
+
+    // Serve HTML and text content
+    const contentType = response.headers['content-type'] || 'text/html';
+    if (isTextContent(contentType) && contentType.includes('html')) {
+      let html = response.body.toString('utf-8');
+      html = rewriteHtml(html);
+      res.writeHead(response.statusCode, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(html);
+    } else if (isTextContent(contentType)) {
+      let text = response.body.toString('utf-8');
+      if (contentType.includes('css')) {
+        text = text.replace(/url\(\s*['"]*\//g, "url('/admin/");
+        text = text.replace(/\/admin\/admin\//g, '/admin/');
+        text = text.replace(/url\('\/admin\/\//g, "url('//");
+      }
+      res.writeHead(response.statusCode, { 'Content-Type': contentType });
+      res.end(text);
+    } else {
+      res.writeHead(response.statusCode, { 'Content-Type': contentType });
+      res.end(response.body);
+    }
+
   } catch (err) {
     console.error('Admin proxy error:', err);
     res.writeHead(502, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.end(`
-      <html><body style="background:#4f1971;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;">
-        <div style="text-align:center;max-width:500px;">
-          <h1>⚠️ Connection Error</h1>
-          <p>Unable to connect to the admin server. Please try again later.</p>
-          <a href="/admin/" style="color:#ffd700;text-decoration:underline;">← Try Again</a>
-        </div>
-      </body></html>
-    `);
-  }
-}
-
-async function handleAdminGet(req, res, session, adminPath, queryString) {
-  // Default to accountsummary (which shows login if not authenticated)
-  const targetPath = adminPath || 'accountsummary';
-  const fullPath = queryString ? `/${targetPath}?${queryString}` : `/${targetPath}`;
-
-  // Check if this is an asset request (CSS, JS, images, fonts)
-  const isAsset = targetPath.startsWith('assets/') ||
-    targetPath.startsWith('fonts/') ||
-    targetPath.match(/\.(css|js|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|ico|webp|map)$/i);
-
-  const response = await fetchFromOriginal(fullPath, {
-    cookieString: session.cookieString,
-    accept: isAsset ? '*/*' : 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-  });
-
-  updateSessionCookies(session, response.headers);
-
-  // Handle redirects
-  if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
-    const location = response.headers.location;
-    let newLocation;
-    if (location.startsWith('http')) {
-      try {
-        const url = new URL(location);
-        if (url.hostname === ORIGINAL_HOST || url.hostname.endsWith(`.${ORIGINAL_HOST}`)) {
-          newLocation = `/admin${url.pathname}${url.search}`;
-        } else {
-          newLocation = location; // External redirect, keep as-is
-        }
-      } catch { newLocation = `/admin/${location}`; }
-    } else if (location.startsWith('/')) {
-      newLocation = `/admin${location}`;
-    } else {
-      newLocation = `/admin/${location}`;
-    }
-    res.writeHead(302, { 'Location': newLocation });
-    res.end();
-    return;
-  }
-
-  // For assets: serve binary content directly
-  if (isAsset) {
-    const ct = response.headers['content-type'] || getContentType(targetPath);
-    res.writeHead(response.statusCode, {
-      'Content-Type': ct,
-      'Cache-Control': 'public, max-age=86400'
-    });
-    res.end(response.body);
-    return;
-  }
-
-  // For HTML pages: rewrite URLs
-  const contentType = response.headers['content-type'] || 'text/html';
-  if (isTextContent(contentType) && contentType.includes('html')) {
-    let html = response.body.toString('utf-8');
-    html = rewriteHtml(html);
-    res.writeHead(response.statusCode, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.end(html);
-  } else if (isTextContent(contentType)) {
-    // CSS/JS might have absolute URLs too
-    let text = response.body.toString('utf-8');
-    // Rewrite url() in CSS
-    if (contentType.includes('css')) {
-      text = text.replace(/url\(\s*['"]*\//g, "url('/admin/");
-      text = text.replace(/\/admin\/admin\//g, '/admin/');
-      text = text.replace(/url\('\/admin\/\//g, "url('//");
-    }
-    res.writeHead(response.statusCode, { 'Content-Type': contentType });
-    res.end(text);
-  } else {
-    res.writeHead(response.statusCode, { 'Content-Type': contentType });
-    res.end(response.body);
-  }
-}
-
-async function handleAdminPost(req, res, session, adminPath, queryString) {
-  // Collect the POST body
-  const bodyChunks = [];
-  await new Promise((resolve) => {
-    req.on('data', chunk => bodyChunks.push(chunk));
-    req.on('end', resolve);
-  });
-  const body = Buffer.concat(bodyChunks);
-
-  const targetPath = adminPath || 'login';
-  const fullPath = queryString ? `/${targetPath}?${queryString}` : `/${targetPath}`;
-
-  const response = await fetchFromOriginal(fullPath, {
-    method: 'POST',
-    cookieString: session.cookieString,
-    body: body,
-    accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    extraHeaders: {
-      'Content-Type': req.headers['content-type'] || 'application/x-www-form-urlencoded',
-      'Content-Length': body.length,
-      'Referer': `https://${ORIGINAL_HOST}/${targetPath}`,
-      'Origin': `https://${ORIGINAL_HOST}`
-    }
-  });
-
-  updateSessionCookies(session, response.headers);
-
-  // Handle redirects (common after login)
-  if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
-    const location = response.headers.location;
-    let newLocation;
-    if (location.startsWith('http')) {
-      try {
-        const url = new URL(location);
-        if (url.hostname === ORIGINAL_HOST || url.hostname.endsWith(`.${ORIGINAL_HOST}`)) {
-          newLocation = `/admin${url.pathname}${url.search}`;
-        } else {
-          newLocation = location;
-        }
-      } catch { newLocation = `/admin/${location}`; }
-    } else if (location.startsWith('/')) {
-      newLocation = `/admin${location}`;
-    } else {
-      newLocation = `/admin/${location}`;
-    }
-    res.writeHead(302, { 'Location': newLocation });
-    res.end();
-    return;
-  }
-
-  // For HTML responses: rewrite URLs
-  const contentType = response.headers['content-type'] || 'text/html';
-  if (contentType.includes('html')) {
-    let html = response.body.toString('utf-8');
-    html = rewriteHtml(html);
-    res.writeHead(response.statusCode, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.end(html);
-  } else if (contentType.includes('json')) {
-    res.writeHead(response.statusCode, { 'Content-Type': contentType });
-    res.end(response.body);
-  } else {
-    res.writeHead(response.statusCode, { 'Content-Type': contentType });
-    res.end(response.body);
+    res.end(`<h2>Proxy Connection Error</h2><p>${err.message}</p>`);
   }
 }
 

@@ -6,18 +6,13 @@
     },
     {
       "src": "/admin",
-      "status": 307,
-      "headers": {
-        "Location": "https://nadafpinjar-com-2.onrender.com/admin/"
-      }
+      "dest": "/api/admin.js?path="
     },
     {
       "src": "/admin/(.*)",
-      "status": 307,
-      "headers": {
-        "Location": "https://nadafpinjar-com-2.onrender.com/admin/$1"
-      }
+      "dest": "/api/admin.js?path=$1"
     },
+
     {
       "src": "/(.*)",
       "dest": "/nadafpinjar/$1"

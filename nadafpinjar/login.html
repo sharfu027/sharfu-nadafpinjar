@@ -108,34 +108,22 @@ Version: 1.6.0
 
     <script>
     (function() {
-        // Detect the Render backend URL
-        // On Render, the page is served from the same origin
-        // On Vercel, we need to redirect to the Render URL
-        var currentHost = window.location.hostname;
-        var isRender = !currentHost.includes('vercel.app');
-        var adminBaseUrl = isRender ? '/admin/' : null;
-
-        // If on Vercel, warn the user that the Render backend is required
         var form = document.getElementById('loginForm');
         var errorMsg = document.getElementById('errorMsg');
         var loading = document.getElementById('loadingOverlay');
 
-        if (!isRender) {
-            // Automatically redirect to the Render app where the proxy server is running
-            window.location.href = 'https://nadafpinjar-com-2.onrender.com/login.html';
-        } else {
-            // Check if user is already logged in to bypass login page
-            fetch('/admin/accountsummary', { credentials: 'include' })
-            .then(function(r) { return r.text(); })
-            .then(function(html) {
-                if (html.indexOf('txtCustomerId') === -1 && (html.indexOf('Account Summary') > -1 || html.indexOf('Logout') > -1 || html.indexOf('Dashboard') > -1)) {
-                    window.location.href = '/admin/accountsummary';
-                }
-            })
-            .catch(function(e) {
-                console.log('Session check error:', e);
-            });
-        }
+        // Check if user is already logged in to bypass login page
+        fetch('/admin/accountsummary', { credentials: 'include' })
+        .then(function(r) { return r.text(); })
+        .then(function(html) {
+            if (html.indexOf('txtCustomerId') === -1 && (html.indexOf('Account Summary') > -1 || html.indexOf('Logout') > -1 || html.indexOf('Dashboard') > -1)) {
+                window.location.href = '/admin/accountsummary';
+            }
+        })
+        .catch(function(e) {
+            console.log('Session check error:', e);
+        });
+
 
 
 
