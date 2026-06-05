@@ -955,20 +955,27 @@
     <meta charset="utf-8">
     <title>ಜನಗಣತಿ (Census) - ರಶೀದಿ</title>
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
-            margin: 0;
-            padding: 0;
             color: #333;
         }
         .receipt-container {
             max-width: 100%;
+            height: 100%;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 4px;
             background: #fff;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
         }
         .header-table {
             width: 100%;
@@ -1082,7 +1089,7 @@
         .approval-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 3px;
+            margin-top: auto;
             font-size: 8px;
         }
         .sig-col {
@@ -1142,6 +1149,9 @@
                 size: A5;
                 margin: 4mm;
             }
+            html, body {
+                height: 100%;
+            }
             body {
                 padding: 0;
                 margin: 0;
@@ -1149,6 +1159,7 @@
             .receipt-container {
                 border: 2px double #b30000;
                 max-width: 100%;
+                height: 100%;
                 padding: 4px;
                 page-break-inside: avoid;
             }

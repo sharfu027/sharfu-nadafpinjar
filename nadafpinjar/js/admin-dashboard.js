@@ -1007,20 +1007,27 @@ window.downloadReceiptPdf = function(receiptId) {
     <title>Donation Receipt - ${found.id}</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
-            margin: 0;
-            padding: 0;
             color: #333;
         }
         .receipt-container {
             max-width: 100%;
+            height: 100%;
             margin: 0;
             border: 2px solid ${themeColor};
             padding: 6px;
             background: #fff;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
         }
         .header-box {
             width: 100%;
@@ -1085,6 +1092,7 @@ window.downloadReceiptPdf = function(receiptId) {
             width: 100%;
             border-collapse: collapse;
             border: 2px solid ${themeColor};
+            flex: 1;
         }
         .grid-cell {
             border: 1px solid ${themeColor};
@@ -1139,11 +1147,15 @@ window.downloadReceiptPdf = function(receiptId) {
                 size: A5;
                 margin: 4mm;
             }
+            html, body {
+                height: 100%;
+            }
             body {
                 padding: 0;
             }
             .receipt-container {
                 max-width: 100%;
+                height: 100%;
             }
         }
     </style>
@@ -1186,8 +1198,8 @@ window.downloadReceiptPdf = function(receiptId) {
 
             ${fieldsHTML}
 
-            <tr style="border-top: 2px solid ${themeColor};">
-                <td class="grid-cell" colspan="2" style="border-right: none; border-bottom: none;">
+            <tr style="border-top: 2px solid ${themeColor}; height: 100%;">
+                <td class="grid-cell" colspan="2" style="border-right: none; border-bottom: none; vertical-align: top;">
                     <div class="payment-line" style="margin-top: 3px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
                         <span class="field-value" style="font-size: 11px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(found.amount)}</span>
@@ -1205,7 +1217,7 @@ window.downloadReceiptPdf = function(receiptId) {
                         <span class="field-value">${details.purposeDetails || "N/A"}</span>
                     </div>
                 </td>
-                <td class="grid-cell" style="border-left: none; border-bottom: none;">
+                <td class="grid-cell" style="border-left: none; border-bottom: none; vertical-align: bottom;">
                     <div class="payment-line right-align">
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
                         <span class="field-value">${details.mode || found.mode}</span>
@@ -1595,20 +1607,27 @@ function loadAdminFreeEdu() {
     <meta charset="utf-8">
     <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
-            margin: 0;
-            padding: 0;
             color: #333;
         }
         .receipt-container {
             max-width: 100%;
+            height: 100%;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 5px;
             background: #fff;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
         }
         .header-table {
             width: 100%;
@@ -1705,7 +1724,7 @@ function loadAdminFreeEdu() {
         .approval-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 4px;
+            margin-top: auto;
             font-size: 8.5px;
         }
         .sig-col {
@@ -1765,6 +1784,9 @@ function loadAdminFreeEdu() {
                 size: A5;
                 margin: 4mm;
             }
+            html, body {
+                height: 100%;
+            }
             body {
                 padding: 0;
                 margin: 0;
@@ -1772,6 +1794,7 @@ function loadAdminFreeEdu() {
             .receipt-container {
                 border: 2px double #b30000;
                 max-width: 100%;
+                height: 100%;
                 padding: 5px;
                 page-break-inside: avoid;
             }
@@ -2256,20 +2279,27 @@ function loadAdminCensus() {
     <meta charset="utf-8">
     <title>ಜನಗಣತಿ (Census) - ರಶೀದಿ</title>
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
-            margin: 0;
-            padding: 0;
             color: #333;
         }
         .receipt-container {
             max-width: 100%;
+            height: 100%;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 4px;
             background: #fff;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
         }
         .header-table {
             width: 100%;
@@ -2383,7 +2413,7 @@ function loadAdminCensus() {
         .approval-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 3px;
+            margin-top: auto;
             font-size: 8px;
         }
         .sig-col {
@@ -2443,6 +2473,9 @@ function loadAdminCensus() {
                 size: A5;
                 margin: 4mm;
             }
+            html, body {
+                height: 100%;
+            }
             body {
                 padding: 0;
                 margin: 0;
@@ -2450,6 +2483,7 @@ function loadAdminCensus() {
             .receipt-container {
                 border: 2px double #b30000;
                 max-width: 100%;
+                height: 100%;
                 padding: 4px;
                 page-break-inside: avoid;
             }
@@ -2758,149 +2792,27 @@ function loadAdminEmployees() {
     <meta charset="utf-8">
     <title>ನೌಕರರ ನೋಂದಣಿ ಪತ್ರ - ರಶೀದಿ</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #fff;
-            margin: 0;
-            padding: 5px;
-            color: #333;
-        }
-        .receipt-container {
-            max-width: 800px;
-            margin: 0 auto;
-            border: 4px double #b30000;
-            padding: 10px;
-            background: #fff;
-            box-sizing: border-box;
-        }
-        .header-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 5px;
-        }
-        .header-table td {
-            padding: 3px;
-            vertical-align: middle;
-        }
-        .header-photo {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            border: 2px solid #b30000;
-            object-fit: cover;
-        }
-        .header-logo {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            border: 2px solid #b30000;
-            object-fit: cover;
-        }
-        .header-text {
-            text-align: center;
-        }
-        .header-text h1 {
-            color: #b30000;
-            font-size: 16px;
-            margin: 0 0 3px 0;
-            font-weight: bold;
-        }
-        .header-text p {
-            margin: 1px 0;
-            font-size: 10px;
-            color: #444;
-            font-weight: bold;
-        }
-        .header-text .reg-no {
-            font-size: 11px;
-            color: #000;
-        }
-        .header-text .en-title {
-            font-size: 12px;
-            color: #b30000;
-            margin-top: 2px;
-        }
-        .title-banner {
-            border-top: 2px solid #b30000;
-            border-bottom: 2px solid #b30000;
-            padding: 5px;
-            margin: 8px 0;
-            background: #fffcf5;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            font-size: 11px;
-            color: #b30000;
-        }
-        .grid-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 8px;
-        }
-        .grid-table td {
-            border: 1px solid #b30000;
-            padding: 4px 6px;
-            font-size: 11px;
-            vertical-align: middle;
-        }
-        .grid-label {
-            background: #fffcf5;
-            color: #b30000;
-            font-weight: bold;
-            width: 25%;
-        }
-        .grid-value {
-            color: #000;
-            width: 25%;
-            font-weight: 500;
-        }
-        .recommend-text {
-            text-align: center;
-            font-size: 10px;
-            font-weight: bold;
-            color: #b30000;
-            border-top: 1px dashed #b30000;
-            padding: 4px 0;
-            margin-top: 6px;
-        }
-        .approval-section {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 8px;
-            font-size: 11px;
-        }
-        .sig-col {
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .sig-item {
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 3px;
-        }
-        .sig-space {
-            height: 20px;
-        }
-        .sig-label {
-            font-weight: bold;
-            color: #b30000;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #fff;
+        html, body {
+            height: 100%;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff;
             color: #333;
         }
         .receipt-container {
             max-width: 100%;
+            height: 100%;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 5px;
             background: #fff;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
         }
         .header-table {
             width: 100%;
@@ -2997,7 +2909,7 @@ function loadAdminEmployees() {
         .approval-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 4px;
+            margin-top: auto;
             font-size: 8.5px;
         }
         .sig-col {
@@ -3057,6 +2969,9 @@ function loadAdminEmployees() {
                 size: A5;
                 margin: 4mm;
             }
+            html, body {
+                height: 100%;
+            }
             body {
                 padding: 0;
                 margin: 0;
@@ -3064,6 +2979,7 @@ function loadAdminEmployees() {
             .receipt-container {
                 border: 2px double #b30000;
                 max-width: 100%;
+                height: 100%;
                 padding: 5px;
                 page-break-inside: avoid;
             }
