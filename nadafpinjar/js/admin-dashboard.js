@@ -1011,73 +1011,73 @@ window.downloadReceiptPdf = function(receiptId) {
             font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             margin: 0;
-            padding: 10px;
+            padding: 0;
             color: #333;
         }
         .receipt-container {
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 100%;
+            margin: 0;
             border: 2px solid ${themeColor};
-            padding: 15px;
+            padding: 6px;
             background: #fff;
             box-sizing: border-box;
         }
         .header-box {
             width: 100%;
             border-collapse: collapse;
-            border: 3px solid #b30000;
+            border: 2px solid #b30000;
             background-color: #fffdeb;
-            margin-bottom: 12px;
+            margin-bottom: 4px;
         }
         .header-photo-cell {
-            width: 110px;
+            width: 60px;
             text-align: center;
-            padding: 10px;
+            padding: 3px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 90px;
-            height: 90px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 1.5px solid #b30000;
             object-fit: cover;
         }
         .header-logo-cell {
-            width: 110px;
+            width: 60px;
             text-align: center;
-            padding: 10px;
+            padding: 3px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 90px;
-            height: 90px;
+            width: 50px;
+            height: 50px;
             object-fit: contain;
         }
         .header-text-cell {
             text-align: center;
             vertical-align: middle;
-            padding: 10px 0;
+            padding: 3px 0;
             color: #b30000;
         }
         .kannada-title {
-            font-size: 24px;
+            font-size: 13.5px;
             font-weight: bold;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
         .reg-no {
-            font-size: 11px;
+            font-size: 8.5px;
             font-weight: bold;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             color: #444;
         }
         .english-title {
-            font-size: 15px;
+            font-size: 9px;
             font-weight: bold;
-            letter-spacing: 0.5px;
-            margin-bottom: 3px;
+            letter-spacing: 0.2px;
+            margin-bottom: 1px;
         }
         .office-address, .office-location {
-            font-size: 11px;
+            font-size: 8.5px;
             font-weight: bold;
             color: #333;
         }
@@ -1088,10 +1088,11 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         .grid-cell {
             border: 1px solid ${themeColor};
-            padding: 8px 10px;
-            font-size: 12.5px;
+            padding: 3px 5px;
+            font-size: 9px;
             vertical-align: top;
             color: #1e293b;
+            line-height: 1.2;
         }
         .center-align {
             text-align: center;
@@ -1106,37 +1107,37 @@ window.downloadReceiptPdf = function(receiptId) {
         .field-label {
             font-weight: 600;
             color: ${themeColor};
-            margin-right: 5px;
+            margin-right: 4px;
         }
         .field-value {
             color: #000;
             font-weight: bold;
         }
         .payment-line {
-            font-size: 13px;
+            font-size: 9.5px;
         }
         .seal-sig-wrapper {
-            margin-top: 10px;
+            margin-top: 4px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 10px;
+            padding: 0 4px;
         }
         .seal-img {
-            height: 70px;
+            height: 45px;
             width: auto;
             border-radius: 50%;
-            border: 1.5px solid #5A1F75;
+            border: 1px solid #5A1F75;
         }
         .sig-img {
-            height: 40px;
+            height: 25px;
             width: auto;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
         @media print {
             @page {
                 size: A5;
-                margin: 5mm;
+                margin: 4mm;
             }
             body {
                 padding: 0;
@@ -1187,19 +1188,19 @@ window.downloadReceiptPdf = function(receiptId) {
 
             <tr style="border-top: 2px solid ${themeColor};">
                 <td class="grid-cell" colspan="2" style="border-right: none; border-bottom: none;">
-                    <div class="payment-line" style="margin-top: 5px;">
+                    <div class="payment-line" style="margin-top: 3px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
-                        <span class="field-value" style="font-size: 14px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(found.amount)}</span>
+                        <span class="field-value" style="font-size: 11px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(found.amount)}</span>
                     </div>
-                    <div class="payment-line" style="margin-top: 12px;">
+                    <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span>
                         <span class="field-value">${formatDateDashes(found.date)}</span>
                     </div>
-                    <div class="payment-line" style="margin-top: 12px;">
+                    <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span>
                         <span class="field-value">${details.purpose || found.from}</span>
                     </div>
-                    <div class="payment-line" style="margin-top: 12px;">
+                    <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
                         <span class="field-value">${details.purposeDetails || "N/A"}</span>
                     </div>
@@ -1209,25 +1210,25 @@ window.downloadReceiptPdf = function(receiptId) {
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
                         <span class="field-value">${details.mode || found.mode}</span>
                     </div>
-                    <div class="seal-sig-wrapper" style="margin-top: 15px;">
+                    <div class="seal-sig-wrapper" style="margin-top: 4px;">
                         <img src="images/seal.jpg" class="seal-img">
                         <div style="text-align: center; width: 140px;">
-                            <div style="font-size: 10px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
+                            <div style="font-size: 8px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
                             <img src="images/sig.jpg" class="sig-img">
-                            <div style="font-size: 10.5px; font-weight: bold; line-height: 1.2; color: #000;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
-                            <div style="font-size: 8.5px; line-height: 1.2; color: #555;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
-                            <div style="font-size: 8.5px; line-height: 1.2; color: #555;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                            <div style="font-size: 8px; font-weight: bold; line-height: 1.2; color: #000;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
+                            <div style="font-size: 7px; line-height: 1.2; color: #555;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
+                            <div style="font-size: 7px; line-height: 1.2; color: #555;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                         </div>
                     </div>
                 </td>
             </tr>
 
             <tr class="bottom-serial-row">
-                <td class="grid-cell" colspan="2" style="border-top: 2px solid ${themeColor}; padding-top: 10px;">
-                    <span class="field-label" style="font-size: 13px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
-                    <span class="field-value" style="font-size: 13px; color: ${themeColor};">KRNPS-2026-27-${serialNoVal}</span>
+                <td class="grid-cell" colspan="2" style="border-top: 2px solid ${themeColor}; padding-top: 4px;">
+                    <span class="field-label" style="font-size: 9.5px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
+                    <span class="field-value" style="font-size: 9.5px; color: ${themeColor};">KRNPS-2026-27-${serialNoVal}</span>
                 </td>
-                <td class="grid-cell right-align" style="border-top: 2px solid ${themeColor}; padding-top: 10px; font-weight: bold; padding-right: 40px; color: ${themeColor}; font-size: 13px;">
+                <td class="grid-cell right-align" style="border-top: 2px solid ${themeColor}; padding-top: 4px; font-weight: bold; padding-right: 20px; color: ${themeColor}; font-size: 9.5px;">
                     ಅಧಿಕೃತ ಸಹಿ
                 </td>
             </tr>
@@ -1598,38 +1599,38 @@ function loadAdminFreeEdu() {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             margin: 0;
-            padding: 5px;
+            padding: 0;
             color: #333;
         }
         .receipt-container {
-            max-width: 800px;
+            max-width: 100%;
             margin: 0 auto;
-            border: 4px double #b30000;
-            padding: 10px;
+            border: 2px double #b30000;
+            padding: 5px;
             background: #fff;
             box-sizing: border-box;
         }
         .header-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 10px;
+            margin-bottom: 4px;
         }
         .header-table td {
-            padding: 5px;
+            padding: 2px;
             vertical-align: middle;
         }
         .header-photo {
-            width: 70px;
-            height: 70px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 1.5px solid #b30000;
             object-fit: cover;
         }
         .header-logo {
-            width: 70px;
-            height: 70px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 1.5px solid #b30000;
             object-fit: cover;
         }
         .header-text {
@@ -1637,48 +1638,49 @@ function loadAdminFreeEdu() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 17px;
-            margin: 0 0 5px 0;
+            font-size: 13.5px;
+            margin: 0 0 2px 0;
             font-weight: bold;
         }
         .header-text p {
-            margin: 2px 0;
-            font-size: 11px;
+            margin: 1px 0;
+            font-size: 8px;
             color: #444;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 12px;
+            font-size: 8.5px;
             color: #000;
         }
         .header-text .en-title {
-            font-size: 13px;
+            font-size: 9px;
             color: #b30000;
-            margin-top: 3px;
+            margin-top: 1px;
         }
         .title-banner {
-            border-top: 2px solid #b30000;
-            border-bottom: 2px solid #b30000;
-            padding: 5px;
-            margin: 10px 0;
+            border-top: 1.5px solid #b30000;
+            border-bottom: 1.5px solid #b30000;
+            padding: 3px;
+            margin: 4px 0;
             background: #fffcf5;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            font-size: 11px;
+            font-size: 9px;
             color: #b30000;
         }
         .grid-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
         .grid-table td {
             border: 1px solid #b30000;
-            padding: 5px 8px;
-            font-size: 11px;
+            padding: 2.5px 4px;
+            font-size: 8px;
             vertical-align: middle;
+            line-height: 1.2;
         }
         .grid-label {
             background: #fffcf5;
@@ -1689,22 +1691,22 @@ function loadAdminFreeEdu() {
         .grid-value {
             color: #000;
             width: 25%;
-            font-weight: 500;
+            font-weight: bold;
         }
         .recommend-text {
             text-align: center;
-            font-size: 12px;
+            font-size: 8.5px;
             font-weight: bold;
             color: #b30000;
             border-top: 1px dashed #b30000;
-            padding: 8px 0;
-            margin-top: 8px;
+            padding: 3px 0;
+            margin-top: 4px;
         }
         .approval-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 8px;
-            font-size: 11px;
+            margin-top: 4px;
+            font-size: 8.5px;
         }
         .sig-col {
             width: 40%;
@@ -1714,10 +1716,10 @@ function loadAdminFreeEdu() {
         }
         .sig-item {
             border-bottom: 1px dashed #ccc;
-            padding-bottom: 5px;
+            padding-bottom: 2px;
         }
         .sig-space {
-            height: 25px;
+            height: 10px;
         }
         .sig-label {
             font-weight: bold;
@@ -1725,15 +1727,15 @@ function loadAdminFreeEdu() {
         }
         .official-col {
             width: 55%;
-            border-left: 2px solid #b30000;
-            padding-left: 15px;
+            border-left: 1.5px solid #b30000;
+            padding-left: 8px;
         }
         .official-table {
             width: 100%;
             border-collapse: collapse;
         }
         .official-row {
-            height: 24px;
+            height: 13px;
         }
         .official-check {
             width: 10%;
@@ -1741,17 +1743,18 @@ function loadAdminFreeEdu() {
             vertical-align: middle;
         }
         .official-box {
-            border: 2px solid #b30000;
-            width: 15px;
-            height: 15px;
+            border: 1.5px solid #b30000;
+            width: 9px;
+            height: 9px;
             display: inline-block;
         }
         .official-title {
             width: 40%;
             font-weight: bold;
             color: #b30000;
-            padding-left: 5px;
+            padding-left: 4px;
             vertical-align: middle;
+            font-size: 8px;
         }
         .official-sig-line {
             width: 50%;
@@ -1760,16 +1763,16 @@ function loadAdminFreeEdu() {
         @media print {
             @page {
                 size: A5;
-                margin: 5mm;
+                margin: 4mm;
             }
             body {
                 padding: 0;
                 margin: 0;
             }
             .receipt-container {
-                border: 4px double #b30000;
+                border: 2px double #b30000;
                 max-width: 100%;
-                padding: 10px;
+                padding: 5px;
                 page-break-inside: avoid;
             }
         }
@@ -2257,38 +2260,38 @@ function loadAdminCensus() {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             margin: 0;
-            padding: 5px;
+            padding: 0;
             color: #333;
         }
         .receipt-container {
-            max-width: 800px;
+            max-width: 100%;
             margin: 0 auto;
-            border: 4px double #b30000;
-            padding: 10px;
+            border: 2px double #b30000;
+            padding: 4px;
             background: #fff;
             box-sizing: border-box;
         }
         .header-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
         .header-table td {
-            padding: 3px;
+            padding: 1.5px;
             vertical-align: middle;
         }
         .header-photo {
-            width: 65px;
-            height: 65px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 1.5px solid #b30000;
             object-fit: cover;
         }
         .header-logo {
-            width: 65px;
-            height: 65px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 1.5px solid #b30000;
             object-fit: cover;
         }
         .header-text {
@@ -2296,48 +2299,49 @@ function loadAdminCensus() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 16px;
-            margin: 0 0 3px 0;
+            font-size: 13px;
+            margin: 0 0 1px 0;
             font-weight: bold;
         }
         .header-text p {
-            margin: 1px 0;
-            font-size: 10px;
+            margin: 0.5px 0;
+            font-size: 8px;
             color: #444;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 11px;
+            font-size: 8px;
             color: #000;
         }
         .header-text .en-title {
-            font-size: 12px;
+            font-size: 8.5px;
             color: #b30000;
-            margin-top: 2px;
+            margin-top: 1px;
         }
         .title-banner {
-            border-top: 2px solid #b30000;
-            border-bottom: 2px solid #b30000;
-            padding: 5px;
-            margin: 8px 0;
+            border-top: 1.5px solid #b30000;
+            border-bottom: 1.5px solid #b30000;
+            padding: 3px;
+            margin: 4px 0;
             background: #fffcf5;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            font-size: 11px;
+            font-size: 8.5px;
             color: #b30000;
         }
         .grid-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
         .grid-table td {
             border: 1px solid #b30000;
-            padding: 4px 6px;
-            font-size: 11px;
+            padding: 2.5px 4px;
+            font-size: 8px;
             vertical-align: middle;
+            line-height: 1.2;
         }
         .grid-label {
             background: #fffcf5;
@@ -2348,34 +2352,39 @@ function loadAdminCensus() {
         .grid-value {
             color: #000;
             width: 25%;
+            font-weight: bold;
         }
         .members-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 8px;
-            font-size: 10px;
+            margin-bottom: 4px;
+            font-size: 7.5px;
         }
         .members-table th {
             border: 1px solid #b30000;
             background: #fffcf5;
             color: #b30000;
-            padding: 4px;
+            padding: 2px 3px;
             font-weight: bold;
+        }
+        .members-table td {
+            border: 1px solid #b30000;
+            padding: 2px 3px;
         }
         .recommend-text {
             text-align: center;
-            font-size: 10px;
+            font-size: 8px;
             font-weight: bold;
             color: #b30000;
             border-top: 1px dashed #b30000;
-            padding: 4px 0;
-            margin-top: 6px;
+            padding: 2.5px 0;
+            margin-top: 3px;
         }
         .approval-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 8px;
-            font-size: 11px;
+            margin-top: 3px;
+            font-size: 8px;
         }
         .sig-col {
             width: 40%;
@@ -2385,10 +2394,10 @@ function loadAdminCensus() {
         }
         .sig-item {
             border-bottom: 1px dashed #ccc;
-            padding-bottom: 3px;
+            padding-bottom: 2px;
         }
         .sig-space {
-            height: 20px;
+            height: 10px;
         }
         .sig-label {
             font-weight: bold;
@@ -2396,15 +2405,15 @@ function loadAdminCensus() {
         }
         .official-col {
             width: 55%;
-            border-left: 2px solid #b30000;
-            padding-left: 10px;
+            border-left: 1.5px solid #b30000;
+            padding-left: 8px;
         }
         .official-table {
             width: 100%;
             border-collapse: collapse;
         }
         .official-row {
-            height: 20px;
+            height: 12px;
         }
         .official-check {
             width: 10%;
@@ -2412,9 +2421,9 @@ function loadAdminCensus() {
             vertical-align: middle;
         }
         .official-box {
-            border: 2px solid #b30000;
-            width: 12px;
-            height: 12px;
+            border: 1.5px solid #b30000;
+            width: 8px;
+            height: 8px;
             display: inline-block;
         }
         .official-title {
@@ -2423,7 +2432,7 @@ function loadAdminCensus() {
             color: #b30000;
             padding-left: 4px;
             vertical-align: middle;
-            font-size: 10px;
+            font-size: 8px;
         }
         .official-sig-line {
             width: 50%;
@@ -2432,16 +2441,16 @@ function loadAdminCensus() {
         @media print {
             @page {
                 size: A5;
-                margin: 5mm;
+                margin: 4mm;
             }
             body {
                 padding: 0;
                 margin: 0;
             }
             .receipt-container {
-                border: 4px double #b30000;
+                border: 2px double #b30000;
                 max-width: 100%;
-                padding: 8px;
+                padding: 4px;
                 page-break-inside: avoid;
             }
         }
@@ -2535,7 +2544,7 @@ function loadAdminCensus() {
 
         <div class="approval-section">
             <div class="sig-col">
-                <div class="sig-item" style="margin-bottom: 25px;">
+                <div class="sig-item" style="margin-bottom: 6px;">
                     <div class="sig-space"></div>
                     <span class="sig-label">ಕುಟುಂಬದ ಮುಖ್ಯಸ್ಥರ ಸಹಿ</span>
                 </div>
@@ -2878,17 +2887,147 @@ function loadAdminEmployees() {
             font-weight: bold;
             color: #b30000;
         }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .receipt-container {
+            max-width: 100%;
+            margin: 0 auto;
+            border: 2px double #b30000;
+            padding: 5px;
+            background: #fff;
+            box-sizing: border-box;
+        }
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 4px;
+        }
+        .header-table td {
+            padding: 2px;
+            vertical-align: middle;
+        }
+        .header-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1.5px solid #b30000;
+            object-fit: cover;
+        }
+        .header-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1.5px solid #b30000;
+            object-fit: cover;
+        }
+        .header-text {
+            text-align: center;
+        }
+        .header-text h1 {
+            color: #b30000;
+            font-size: 13.5px;
+            margin: 0 0 2px 0;
+            font-weight: bold;
+        }
+        .header-text p {
+            margin: 1px 0;
+            font-size: 8px;
+            color: #444;
+            font-weight: bold;
+        }
+        .header-text .reg-no {
+            font-size: 8.5px;
+            color: #000;
+        }
+        .header-text .en-title {
+            font-size: 9px;
+            color: #b30000;
+            margin-top: 1px;
+        }
+        .title-banner {
+            border-top: 1.5px solid #b30000;
+            border-bottom: 1.5px solid #b30000;
+            padding: 3px;
+            margin: 4px 0;
+            background: #fffcf5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 9px;
+            color: #b30000;
+        }
+        .grid-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 4px;
+        }
+        .grid-table td {
+            border: 1px solid #b30000;
+            padding: 2.5px 4px;
+            font-size: 8px;
+            vertical-align: middle;
+            line-height: 1.2;
+        }
+        .grid-label {
+            background: #fffcf5;
+            color: #b30000;
+            font-weight: bold;
+            width: 25%;
+        }
+        .grid-value {
+            color: #000;
+            width: 25%;
+            font-weight: bold;
+        }
+        .recommend-text {
+            text-align: center;
+            font-size: 8.5px;
+            font-weight: bold;
+            color: #b30000;
+            border-top: 1px dashed #b30000;
+            padding: 3px 0;
+            margin-top: 4px;
+        }
+        .approval-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4px;
+            font-size: 8.5px;
+        }
+        .sig-col {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .sig-item {
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 2px;
+        }
+        .sig-space {
+            height: 10px;
+        }
+        .sig-label {
+            font-weight: bold;
+            color: #b30000;
+        }
         .official-col {
             width: 55%;
-            border-left: 2px solid #b30000;
-            padding-left: 10px;
+            border-left: 1.5px solid #b30000;
+            padding-left: 8px;
         }
         .official-table {
             width: 100%;
             border-collapse: collapse;
         }
         .official-row {
-            height: 20px;
+            height: 13px;
         }
         .official-check {
             width: 10%;
@@ -2896,9 +3035,9 @@ function loadAdminEmployees() {
             vertical-align: middle;
         }
         .official-box {
-            border: 2px solid #b30000;
-            width: 12px;
-            height: 12px;
+            border: 1.5px solid #b30000;
+            width: 9px;
+            height: 9px;
             display: inline-block;
         }
         .official-title {
@@ -2907,7 +3046,7 @@ function loadAdminEmployees() {
             color: #b30000;
             padding-left: 4px;
             vertical-align: middle;
-            font-size: 10px;
+            font-size: 8px;
         }
         .official-sig-line {
             width: 50%;
@@ -2916,16 +3055,16 @@ function loadAdminEmployees() {
         @media print {
             @page {
                 size: A5;
-                margin: 5mm;
+                margin: 4mm;
             }
             body {
                 padding: 0;
                 margin: 0;
             }
             .receipt-container {
-                border: 4px double #b30000;
+                border: 2px double #b30000;
                 max-width: 100%;
-                padding: 8px;
+                padding: 5px;
                 page-break-inside: avoid;
             }
         }
@@ -2994,7 +3133,7 @@ function loadAdminEmployees() {
 
         <div class="approval-section">
             <div class="sig-col">
-                <div class="sig-item" style="margin-bottom: 25px;">
+                <div class="sig-item" style="margin-bottom: 6px;">
                     <div class="sig-space"></div>
                     <span class="sig-label">ನೌಕರರ ಸಹಿ</span>
                 </div>

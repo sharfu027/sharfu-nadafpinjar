@@ -959,38 +959,38 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             margin: 0;
-            padding: 5px;
+            padding: 0;
             color: #333;
         }
         .receipt-container {
-            max-width: 800px;
+            max-width: 100%;
             margin: 0 auto;
-            border: 4px double #b30000;
-            padding: 10px;
+            border: 2px double #b30000;
+            padding: 4px;
             background: #fff;
             box-sizing: border-box;
         }
         .header-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
         .header-table td {
-            padding: 3px;
+            padding: 1.5px;
             vertical-align: middle;
         }
         .header-photo {
-            width: 65px;
-            height: 65px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 1.5px solid #b30000;
             object-fit: cover;
         }
         .header-logo {
-            width: 65px;
-            height: 65px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 1.5px solid #b30000;
             object-fit: cover;
         }
         .header-text {
@@ -998,48 +998,49 @@
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 16px;
-            margin: 0 0 3px 0;
+            font-size: 13px;
+            margin: 0 0 1px 0;
             font-weight: bold;
         }
         .header-text p {
-            margin: 1px 0;
-            font-size: 10px;
+            margin: 0.5px 0;
+            font-size: 8px;
             color: #444;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 11px;
+            font-size: 8px;
             color: #000;
         }
         .header-text .en-title {
-            font-size: 12px;
+            font-size: 8.5px;
             color: #b30000;
-            margin-top: 2px;
+            margin-top: 1px;
         }
         .title-banner {
-            border-top: 2px solid #b30000;
-            border-bottom: 2px solid #b30000;
-            padding: 5px;
-            margin: 8px 0;
+            border-top: 1.5px solid #b30000;
+            border-bottom: 1.5px solid #b30000;
+            padding: 3px;
+            margin: 4px 0;
             background: #fffcf5;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            font-size: 11px;
+            font-size: 8.5px;
             color: #b30000;
         }
         .grid-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
         .grid-table td {
             border: 1px solid #b30000;
-            padding: 4px 6px;
-            font-size: 11px;
+            padding: 2.5px 4px;
+            font-size: 8px;
             vertical-align: middle;
+            line-height: 1.2;
         }
         .grid-label {
             background: #fffcf5;
@@ -1050,34 +1051,39 @@
         .grid-value {
             color: #000;
             width: 25%;
+            font-weight: bold;
         }
         .members-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 8px;
-            font-size: 10px;
+            margin-bottom: 4px;
+            font-size: 7.5px;
         }
         .members-table th {
             border: 1px solid #b30000;
             background: #fffcf5;
             color: #b30000;
-            padding: 4px;
+            padding: 2px 3px;
             font-weight: bold;
+        }
+        .members-table td {
+            border: 1px solid #b30000;
+            padding: 2px 3px;
         }
         .recommend-text {
             text-align: center;
-            font-size: 10px;
+            font-size: 8px;
             font-weight: bold;
             color: #b30000;
             border-top: 1px dashed #b30000;
-            padding: 4px 0;
-            margin-top: 6px;
+            padding: 2.5px 0;
+            margin-top: 3px;
         }
         .approval-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 8px;
-            font-size: 11px;
+            margin-top: 3px;
+            font-size: 8px;
         }
         .sig-col {
             width: 40%;
@@ -1087,10 +1093,10 @@
         }
         .sig-item {
             border-bottom: 1px dashed #ccc;
-            padding-bottom: 3px;
+            padding-bottom: 2px;
         }
         .sig-space {
-            height: 20px;
+            height: 10px;
         }
         .sig-label {
             font-weight: bold;
@@ -1098,15 +1104,15 @@
         }
         .official-col {
             width: 55%;
-            border-left: 2px solid #b30000;
-            padding-left: 10px;
+            border-left: 1.5px solid #b30000;
+            padding-left: 8px;
         }
         .official-table {
             width: 100%;
             border-collapse: collapse;
         }
         .official-row {
-            height: 20px;
+            height: 12px;
         }
         .official-check {
             width: 10%;
@@ -1114,9 +1120,9 @@
             vertical-align: middle;
         }
         .official-box {
-            border: 2px solid #b30000;
-            width: 12px;
-            height: 12px;
+            border: 1.5px solid #b30000;
+            width: 8px;
+            height: 8px;
             display: inline-block;
         }
         .official-title {
@@ -1125,7 +1131,7 @@
             color: #b30000;
             padding-left: 4px;
             vertical-align: middle;
-            font-size: 10px;
+            font-size: 8px;
         }
         .official-sig-line {
             width: 50%;
@@ -1134,16 +1140,16 @@
         @media print {
             @page {
                 size: A5;
-                margin: 5mm;
+                margin: 4mm;
             }
             body {
                 padding: 0;
                 margin: 0;
             }
             .receipt-container {
-                border: 4px double #b30000;
+                border: 2px double #b30000;
                 max-width: 100%;
-                padding: 8px;
+                padding: 4px;
                 page-break-inside: avoid;
             }
         }
@@ -1238,7 +1244,7 @@
         <div class="approval-section">
             <!-- Left Column: Signatures -->
             <div class="sig-col">
-                <div class="sig-item" style="margin-bottom: 25px;">
+                <div class="sig-item" style="margin-bottom: 6px;">
                     <div class="sig-space"></div>
                     <span class="sig-label">ಕುಟುಂಬದ ಮುಖ್ಯಸ್ಥರ ಸಹಿ</span>
                 </div>

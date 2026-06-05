@@ -778,38 +778,38 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             margin: 0;
-            padding: 5px;
+            padding: 0;
             color: #333;
         }
         .receipt-container {
-            max-width: 800px;
+            max-width: 100%;
             margin: 0 auto;
-            border: 4px double #b30000;
-            padding: 10px;
+            border: 2px double #b30000;
+            padding: 5px;
             background: #fff;
             box-sizing: border-box;
         }
         .header-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 10px;
+            margin-bottom: 4px;
         }
         .header-table td {
-            padding: 5px;
+            padding: 2px;
             vertical-align: middle;
         }
         .header-photo {
-            width: 70px;
-            height: 70px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 1.5px solid #b30000;
             object-fit: cover;
         }
         .header-logo {
-            width: 70px;
-            height: 70px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 1.5px solid #b30000;
             object-fit: cover;
         }
         .header-text {
@@ -817,48 +817,49 @@
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 17px;
-            margin: 0 0 5px 0;
+            font-size: 13.5px;
+            margin: 0 0 2px 0;
             font-weight: bold;
         }
         .header-text p {
-            margin: 2px 0;
-            font-size: 11px;
+            margin: 1px 0;
+            font-size: 8px;
             color: #444;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 12px;
+            font-size: 8.5px;
             color: #000;
         }
         .header-text .en-title {
-            font-size: 13px;
+            font-size: 9px;
             color: #b30000;
-            margin-top: 3px;
+            margin-top: 1px;
         }
         .title-banner {
-            border-top: 2px solid #b30000;
-            border-bottom: 2px solid #b30000;
-            padding: 5px;
-            margin: 10px 0;
+            border-top: 1.5px solid #b30000;
+            border-bottom: 1.5px solid #b30000;
+            padding: 3px;
+            margin: 4px 0;
             background: #fffcf5;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            font-size: 11px;
+            font-size: 9px;
             color: #b30000;
         }
         .grid-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
         .grid-table td {
             border: 1px solid #b30000;
-            padding: 5px 8px;
-            font-size: 11px;
+            padding: 2.5px 4px;
+            font-size: 8px;
             vertical-align: middle;
+            line-height: 1.2;
         }
         .grid-label {
             background: #fffcf5;
@@ -869,22 +870,22 @@
         .grid-value {
             color: #000;
             width: 25%;
-            font-weight: 500;
+            font-weight: bold;
         }
         .recommend-text {
             text-align: center;
-            font-size: 12px;
+            font-size: 8.5px;
             font-weight: bold;
             color: #b30000;
             border-top: 1px dashed #b30000;
-            padding: 8px 0;
-            margin-top: 8px;
+            padding: 3px 0;
+            margin-top: 4px;
         }
         .approval-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 8px;
-            font-size: 11px;
+            margin-top: 4px;
+            font-size: 8.5px;
         }
         .sig-col {
             width: 40%;
@@ -894,10 +895,10 @@
         }
         .sig-item {
             border-bottom: 1px dashed #ccc;
-            padding-bottom: 5px;
+            padding-bottom: 2px;
         }
         .sig-space {
-            height: 25px;
+            height: 10px;
         }
         .sig-label {
             font-weight: bold;
@@ -905,15 +906,15 @@
         }
         .official-col {
             width: 55%;
-            border-left: 2px solid #b30000;
-            padding-left: 15px;
+            border-left: 1.5px solid #b30000;
+            padding-left: 8px;
         }
         .official-table {
             width: 100%;
             border-collapse: collapse;
         }
         .official-row {
-            height: 24px;
+            height: 13px;
         }
         .official-check {
             width: 10%;
@@ -921,17 +922,18 @@
             vertical-align: middle;
         }
         .official-box {
-            border: 2px solid #b30000;
-            width: 15px;
-            height: 15px;
+            border: 1.5px solid #b30000;
+            width: 9px;
+            height: 9px;
             display: inline-block;
         }
         .official-title {
             width: 40%;
             font-weight: bold;
             color: #b30000;
-            padding-left: 5px;
+            padding-left: 4px;
             vertical-align: middle;
+            font-size: 8px;
         }
         .official-sig-line {
             width: 50%;
@@ -940,16 +942,16 @@
         @media print {
             @page {
                 size: A5;
-                margin: 5mm;
+                margin: 4mm;
             }
             body {
                 padding: 0;
                 margin: 0;
             }
             .receipt-container {
-                border: 4px double #b30000;
+                border: 2px double #b30000;
                 max-width: 100%;
-                padding: 10px;
+                padding: 5px;
                 page-break-inside: avoid;
             }
         }
@@ -1061,7 +1063,7 @@
         <div class="approval-section">
             <!-- Left Column: Signatures -->
             <div class="sig-col">
-                <div class="sig-item" style="margin-bottom: 25px;">
+                <div class="sig-item" style="margin-bottom: 6px;">
                     <div class="sig-space"></div>
                     <span class="sig-label">ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ</span>
                 </div>
