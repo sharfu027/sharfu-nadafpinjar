@@ -239,6 +239,7 @@ const defaultEmployeesSubmissions = [
         date: new Date().toLocaleDateString('en-GB'),
         formData: {
             employeeName: "ರಫೀಕ್ ಪಿಂಜಾರ್",
+            fatherName: "ಹುಸೇನ್ ಸಾಬ್ ನದಾಫ್",
             contactNumber: "9448011223",
             qualification: "BA, BEd",
             dob: "1980-04-15",
@@ -2845,6 +2846,7 @@ function loadAdminEmployees() {
         const fd = found.formData || {};
         document.getElementById('editIndex').value = id;
         document.getElementById('editEmployeeName').value = fd.employeeName || '';
+        document.getElementById('editFatherName').value = fd.fatherName || '';
         document.getElementById('editContactNumber').value = fd.contactNumber || '';
         document.getElementById('editQualification').value = fd.qualification || '';
         document.getElementById('editDob').value = fd.dob || '';
@@ -2876,6 +2878,7 @@ function loadAdminEmployees() {
 
             submissions[index].formData = {
                 employeeName: document.getElementById('editEmployeeName').value,
+                fatherName: document.getElementById('editFatherName').value,
                 contactNumber: document.getElementById('editContactNumber').value,
                 qualification: document.getElementById('editQualification').value,
                 dob: document.getElementById('editDob').value,
@@ -3145,24 +3148,30 @@ function loadAdminEmployees() {
             <tr>
                 <td class="grid-label">ನೌಕರರ ಹೆಸರು</td>
                 <td class="grid-value">${data.employeeName || '-'}</td>
-                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
+                <td class="grid-label">ತಂದೆಯ ಹೆಸರು :</td>
+                <td class="grid-value">${data.fatherName || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
                 <td class="grid-value">${data.contactNumber || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ವಿದ್ಯಾರ್ಹತೆ</td>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಹತೆ :</td>
                 <td class="grid-value">${data.qualification || '-'}</td>
-                <td class="grid-label">ಹುಟ್ಟಿದ ದಿನಾಂಕ :</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಹುಟ್ಟಿದ ದಿನಾಂಕ</td>
                 <td class="grid-value">${formattedDob}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ವಯಸ್ಸು</td>
+                <td class="grid-label">ವಯಸ್ಸು :</td>
                 <td class="grid-value">${data.age || '-'}</td>
-                <td class="grid-label">ಇಲಾಖೆಯ ಹೆಸರು :</td>
-                <td class="grid-value">${data.departmentName || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ಹುದ್ದೆಯ ಹೆಸರು</td>
+                <td class="grid-label">ಇಲಾಖೆಯ ಹೆಸರು</td>
+                <td class="grid-value">${data.departmentName || '-'}</td>
+                <td class="grid-label">ಹುದ್ದೆಯ ಹೆಸರು :</td>
                 <td class="grid-value">${data.designation || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ನಿವೃತ್ತಿ ಹೊಂದಿದ್ದೀರಾ?</td>
+                <td class="grid-value">${data.isRetired || '-'}</td>
                 <td class="grid-label">ನಿವೃತ್ತಿ ದಿನಾಂಕ :</td>
                 <td class="grid-value">${formattedRetirement}</td>
             </tr>

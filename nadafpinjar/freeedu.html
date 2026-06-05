@@ -116,7 +116,7 @@
         }
         
         /* Success Modal Styles */
-        .modal-backdrop {
+        .custom-modal-backdrop {
             display: none;
             position: fixed;
             top: 0;
@@ -490,7 +490,7 @@
     </div>
 
     <!-- PREVIEW MODAL BACKDROP -->
-    <div class="modal-backdrop" id="previewContainer" style="display:none;">
+    <div class="custom-modal-backdrop" id="previewContainer" style="display:none;">
         <div class="modal-card" style="max-width: 700px; width: 95%; max-height: 90vh; overflow-y: auto; padding: 30px; text-align: left;">
             <div class="preview-header" style="text-align: center; border-bottom: 2px solid #b30000; padding-bottom: 15px; margin-bottom: 20px;">
                 <h2 style="color: #b30000; font-size: 22px; font-weight: bold; margin: 0;">ಅರ್ಜಿ ವಿವರಗಳ ಮುನ್ನೋಟ (Application Preview)</h2>
@@ -505,7 +505,7 @@
     </div>
 
     <!-- Success Modal -->
-    <div id="successModal" class="modal-backdrop">
+    <div id="successModal" class="custom-modal-backdrop">
         <div class="modal-card">
             <h2 class="modal-title">ಸಲ್ಲಿಕೆ ಯಶಸ್ವಿಯಾಗಿದೆ</h2>
             <div id="modalAppNumber" class="modal-badge">
@@ -567,6 +567,7 @@
 
         function showPreview() {
             if(!document.getElementById('previewContainer')) return submitToMongoDB();
+            document.getElementById('formContainer').style.display = 'none';
             document.getElementById('previewContainer').style.display = 'flex';
 
             let previewHTML = '';
@@ -630,6 +631,7 @@
 
         function editForm() {
             document.getElementById('previewContainer').style.display = 'none';
+            document.getElementById('formContainer').style.display = 'block';
         }
 
         function initiatePayment() {
