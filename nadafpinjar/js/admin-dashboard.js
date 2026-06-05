@@ -326,7 +326,133 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Page-specific initializers
     initPageModules();
+
+    // Background Database Sync
+    syncSubmissionsFromDatabase().then(updated => {
+        if (updated) {
+            initPageModules();
+        }
+    });
 });
+
+function trackDeletedId(id) {
+    let deletedIds = JSON.parse(localStorage.getItem('admin_deleted_ids')) || [];
+    if (!deletedIds.includes(id)) {
+        deletedIds.push(id);
+        localStorage.setItem('admin_deleted_ids', JSON.stringify(deletedIds));
+    }
+}
+
+async function syncSubmissionsFromDatabase() {
+    try {
+        const response = await fetch('/api/donations');
+        if (!response.ok) return false;
+        
+        const data = await response.json();
+        if (!data.success || !data.donations) return false;
+        
+        let hasChanges = false;
+        let deletedIds = JSON.parse(localStorage.getItem('admin_deleted_ids')) || [];
+        
+        // Load existing lists
+        let freeeduList = JSON.parse(localStorage.getItem('admin_freeedu_submissions')) || [];
+        let censusList = JSON.parse(localStorage.getItem('admin_census_submissions')) || [];
+        let employeesList = JSON.parse(localStorage.getItem('admin_employees_submissions')) || [];
+        let receiptsList = JSON.parse(localStorage.getItem('receipts')) || [];
+        
+        data.donations.forEach(doc => {
+            const formType = doc.formType;
+            if (!formType) return;
+            
+            // Map by formType
+            if (formType === "ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ") {
+                const appNum = doc.paymentId || `KRNPS-2026-27-${parseInt((doc._id || '').slice(-4), 16) % 100 || 55}`;
+                if (deletedIds.includes(appNum)) return;
+                
+                const exists = freeeduList.some(item => item.id === appNum);
+                if (!exists) {
+                    freeeduList.unshift({
+                        id: appNum,
+                        date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
+                        formData: doc.formData || {}
+                    });
+                    hasChanges = true;
+                }
+            } else if (formType === "ಜನಗಣತಿ" || formType === "ಜನಗಣತಿ (CENSUS)") {
+                const appNum = doc.paymentId || `KRNPS-2026-27-${parseInt((doc._id || '').slice(-4), 16) % 100 || 55}`;
+                if (deletedIds.includes(appNum)) return;
+                
+                const exists = censusList.some(item => item.id === appNum);
+                if (!exists) {
+                    censusList.unshift({
+                        id: appNum,
+                        date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
+                        formData: doc.formData || {}
+                    });
+                    hasChanges = true;
+                }
+            } else if (formType === "ನೌಕರರ ವಿವರ") {
+                const appNum = doc.paymentId || `KRNPS-EMP-2026-27-${parseInt((doc._id || '').slice(-4), 16) % 100 || 55}`;
+                if (deletedIds.includes(appNum)) return;
+                
+                const exists = employeesList.some(item => item.id === appNum);
+                if (!exists) {
+                    employeesList.unshift({
+                        id: appNum,
+                        date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
+                        formData: doc.formData || {}
+                    });
+                    hasChanges = true;
+                }
+            } else if (formType.includes("ವರ್ಗಾವಣೆ") || formType.includes("ವರ್ಗಾವಣೆಯಾದ")) {
+                const receiptId = doc.paymentId || doc._id;
+                const exists = receiptsList.some(item => item.id === receiptId);
+                if (!exists) {
+                    const fd = doc.formData || {};
+                    let source = "state";
+                    if (formType.includes("ಜಿಲ್ಲೆ")) source = "district";
+                    if (formType.includes("ತಾಲ್ಲೂಕು") || formType.includes("ತಾಲೂಕು")) source = "taluk";
+                    
+                    receiptsList.unshift({
+                        id: receiptId,
+                        date: doc.date ? doc.date.split('T')[0] : new Date().toISOString().split('T')[0],
+                        from: source,
+                        amount: doc.amount || 0,
+                        mode: fd.paymentMode || "Online",
+                        details: {
+                            fullName: fd.fullName || fd.presidentName || "",
+                            mobile: fd.mobile || fd.presidentMobile || "",
+                            village: fd.village || fd.presidentVillage || "",
+                            taluk: fd.taluk || fd.presidentTaluk || "",
+                            district: fd.district || fd.presidentDistrict || "",
+                            purpose: fd.account || "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ",
+                            purposeDetails: fd.purposeDetails || "",
+                            mode: fd.paymentMode || "Online",
+                            presidentName: fd.presidentName || "",
+                            presidentMobile: fd.presidentMobile || "",
+                            presidentVillage: fd.presidentVillage || "",
+                            presidentTaluk: fd.presidentTaluk || "",
+                            presidentDistrict: fd.presidentDistrict || ""
+                        }
+                    });
+                    hasChanges = true;
+                }
+            }
+        });
+        
+        if (hasChanges) {
+            localStorage.setItem('admin_freeedu_submissions', JSON.stringify(freeeduList));
+            localStorage.setItem('admin_census_submissions', JSON.stringify(censusList));
+            localStorage.setItem('admin_employees_submissions', JSON.stringify(employeesList));
+            localStorage.setItem('receipts', JSON.stringify(receiptsList));
+        }
+        
+        return hasChanges;
+    } catch (e) {
+        console.error('Error syncing submissions:', e);
+        return false;
+    }
+}
 
 function initPageModules() {
     const currentPath = window.location.pathname.toLowerCase();
@@ -1580,6 +1706,7 @@ function loadAdminFreeEdu() {
     // Delete handler
     window.deleteFreeedu = function(id) {
         if (confirm("Are you sure you want to delete this application?")) {
+            trackDeletedId(id);
             submissions = submissions.filter(app => app.id !== id);
             localStorage.setItem('admin_freeedu_submissions', JSON.stringify(submissions));
             render(submissions);
@@ -2240,6 +2367,7 @@ function loadAdminCensus() {
     // Delete handler
     window.deleteCensus = function(id) {
         if (confirm("Are you sure you want to delete this Census application?")) {
+            trackDeletedId(id);
             submissions = submissions.filter(app => app.id !== id);
             localStorage.setItem('admin_census_submissions', JSON.stringify(submissions));
             render(submissions);
@@ -2769,6 +2897,7 @@ function loadAdminEmployees() {
     // Delete handler
     window.deleteEmployee = function(id) {
         if (confirm("Are you sure you want to delete this employee registration?")) {
+            trackDeletedId(id);
             submissions = submissions.filter(app => app.id !== id);
             localStorage.setItem('admin_employees_submissions', JSON.stringify(submissions));
             render(submissions);

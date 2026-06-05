@@ -55,6 +55,23 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  if (req.method === 'GET' && req.url === '/api/donations') {
+    try {
+      if (!mongoose.connection || mongoose.connection.readyState !== 1) {
+        console.log('Reconnecting to MongoDB...');
+        await mongoose.connect(MONGO_URI);
+      }
+      const donations = await Donation.find({}).sort({ date: -1 });
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, donations }));
+    } catch (err) {
+      console.error('Error fetching donations:', err);
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+    return;
+  }
+
   if (req.method === 'POST' && req.url === '/api/donations') {
     let body = '';
     req.on('data', chunk => body += chunk.toString());

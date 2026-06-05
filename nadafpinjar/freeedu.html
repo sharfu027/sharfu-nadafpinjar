@@ -641,10 +641,13 @@
             if (preview) {
                 preview.style.display = 'none';
             }
+            const lastDigits = Math.floor(Math.random() * 90) + 10;
+            const appNumber = paymentId || `KRNPS-2026-27-${lastDigits}`;
+
             const dataToSave = {
                 formType: "ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ",
                 amount: parseInt(formData.amount || 0),
-                paymentId: paymentId,
+                paymentId: appNumber,
                 formData: formData
             };
 
@@ -666,10 +669,6 @@
             .then(res => res.json())
             .then(data => {
                 if(data.success) {
-                    // Dynamic Application Number Generation
-                    const lastDigits = data.id ? parseInt(data.id.slice(-4), 16) % 100 : Math.floor(Math.random() * 90) + 10;
-                    const appNumber = `KRNPS-2026-27-${lastDigits}`;
-                    
                     saveLocally(appNumber);
 
                     // Show confirmation modal with the generated app number
@@ -695,7 +694,6 @@
             .catch(err => {
                 console.error(err);
                 // Fallback offline saving
-                const appNumber = `KRNPS-2026-27-${Math.floor(Math.random() * 90) + 10}`;
                 saveLocally(appNumber);
                 
                 document.getElementById('modalAppNumber').textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ ಪಡೆದು (ಸ್ಥಳೀಯವಾಗಿ) : ${appNumber}`;

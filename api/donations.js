@@ -29,6 +29,17 @@ module.exports = async (req, res) => {
     return res.status(200).end();
   }
 
+  if (req.method === 'GET') {
+    try {
+      await connectToDatabase();
+      const donations = await Donation.find({}).sort({ date: -1 });
+      return res.status(200).json({ success: true, donations });
+    } catch (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, error: err.message });
+    }
+  }
+
   if (req.method === 'POST') {
     try {
       await connectToDatabase();

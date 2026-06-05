@@ -860,10 +860,13 @@
                 members: addedMembers
             };
 
+            const lastDigits = Math.floor(Math.random() * 90) + 10;
+            const appNumber = `KRNPS-2026-27-${lastDigits}`;
+
             const dataToSave = {
                 formType: "ಜನಗಣತಿ (CENSUS)",
                 amount: 0,
-                paymentId: null,
+                paymentId: appNumber,
                 formData: formData
             };
 
@@ -885,9 +888,6 @@
             .then(res => res.json())
             .then(data => {
                 if(data.success) {
-                    const lastDigits = data.id ? parseInt(data.id.slice(-4), 16) % 100 : Math.floor(Math.random() * 90) + 10;
-                    const appNumber = `KRNPS-2026-27-${lastDigits}`;
-                    
                     saveLocally(appNumber);
 
                     document.getElementById('modalAppNumber').textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ ಪಡೆದು : ${appNumber}`;
@@ -910,7 +910,6 @@
             .catch(err => {
                 console.error(err);
                 // Fallback offline saving
-                const appNumber = `KRNPS-2026-27-${Math.floor(Math.random() * 90) + 10}`;
                 saveLocally(appNumber);
                 
                 document.getElementById('modalAppNumber').textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ ಪಡೆದು (ಸ್ಥಳೀಯವಾಗಿ) : ${appNumber}`;
