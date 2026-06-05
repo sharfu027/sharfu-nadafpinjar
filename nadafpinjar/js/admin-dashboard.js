@@ -1135,8 +1135,8 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         @media print {
             @page {
-                size: A4 portrait;
-                margin: 10mm;
+                size: A5;
+                margin: 5mm;
             }
             body {
                 padding: 0;
@@ -1759,8 +1759,8 @@ function loadAdminFreeEdu() {
         }
         @media print {
             @page {
-                size: A4;
-                margin: 8mm;
+                size: A5;
+                margin: 5mm;
             }
             body {
                 padding: 0;
@@ -2431,7 +2431,7 @@ function loadAdminCensus() {
         }
         @media print {
             @page {
-                size: A4;
+                size: A5;
                 margin: 5mm;
             }
             body {
@@ -2915,7 +2915,7 @@ function loadAdminEmployees() {
         }
         @media print {
             @page {
-                size: A4;
+                size: A5;
                 margin: 5mm;
             }
             body {
