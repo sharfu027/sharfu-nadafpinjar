@@ -648,6 +648,16 @@
                 formData: formData
             };
 
+            const saveLocally = (appNum) => {
+                const submissions = JSON.parse(localStorage.getItem('admin_freeedu_submissions') || '[]');
+                submissions.unshift({
+                    id: appNum,
+                    date: new Date().toLocaleDateString(),
+                    formData: formData
+                });
+                localStorage.setItem('admin_freeedu_submissions', JSON.stringify(submissions));
+            };
+
             fetch('/api/donations', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -660,6 +670,8 @@
                     const lastDigits = data.id ? parseInt(data.id.slice(-4), 16) % 100 : Math.floor(Math.random() * 90) + 10;
                     const appNumber = `KRNPS-2026-27-${lastDigits}`;
                     
+                    saveLocally(appNumber);
+
                     // Show confirmation modal with the generated app number
                     document.getElementById('modalAppNumber').textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ ಪಡೆದು : ${appNumber}`;
                     
@@ -682,7 +694,22 @@
             })
             .catch(err => {
                 console.error(err);
-                alert('Error saving data. Please check connection.');
+                // Fallback offline saving
+                const appNumber = `KRNPS-2026-27-${Math.floor(Math.random() * 90) + 10}`;
+                saveLocally(appNumber);
+                
+                document.getElementById('modalAppNumber').textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ ಪಡೆದು (ಸ್ಥಳೀಯವಾಗಿ) : ${appNumber}`;
+                const modal = document.getElementById('successModal');
+                modal.style.display = 'flex';
+                
+                document.getElementById('btnPrintReceipt').onclick = function() {
+                    printReceipt(formData, appNumber);
+                };
+
+                document.getElementById('btnCloseModal').onclick = function() {
+                    modal.style.display = 'none';
+                    window.location.reload();
+                };
             });
         }
         

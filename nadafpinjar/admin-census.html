@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Census - Admin Dashboard</title>
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/admin-dashboard.css" rel="stylesheet" media="all">
+    <style>
+        .btn-edit {
+            background-color: #f59e0b;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-right: 5px;
+        }
+        .btn-edit:hover {
+            background-color: #d97706;
+        }
+        .btn-delete {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-right: 5px;
+        }
+        .btn-delete:hover {
+            background-color: #dc2626;
+        }
+        .modal-large {
+            max-width: 1000px;
+            width: 95%;
+        }
+        .edit-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .members-edit-section {
+            border-top: 2px dashed #e2e8f0;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        .member-edit-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) 50px;
+            gap: 10px;
+            align-items: center;
+            background-color: #f8fafc;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #e2e8f0;
+        }
+        .member-edit-row input, .member-edit-row select {
+            padding: 6px 8px;
+            font-size: 12px;
+        }
+        .member-edit-row label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <header class="admin-header">
+        <div class="admin-header-container">
+            <button class="sidebar-toggle"><i class="fa fa-bars"></i></button>
+            <img src="images/header-nadaf.png" alt="Karnataka Rajya Nadaf Pinjar Sangha" class="admin-header-image">
+            <div class="header-right">
+                <span style="margin-right: 15px;"><i class="fa fa-user-circle"></i> Admin</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="accountsummary"><i class="fa fa-dashboard"></i> Account Summary</a></li>
+                <li><a href="Beneficiaries"><i class="fa fa-users"></i> Beneficiaries</a></li>
+                <li><a href="Paymentsandtransfers"><i class="fa fa-credit-card"></i> Make Payments</a></li>
+                <li><a href="Receipts"><i class="fa fa-file-text-o"></i> Receipts</a></li>
+                <li><a href="associatedtransfers"><i class="fa fa-exchange"></i> Associated Transfers</a></li>
+                <li><a href="Statements"><i class="fa fa-list-alt"></i> Statements</a></li>
+                <li><a href="Security"><i class="fa fa-lock"></i> Security</a></li>
+                <li><a href="admin-freeedu"><i class="fa fa-graduation-cap"></i> Free Education</a></li>
+                <li class="active"><a href="admin-census"><i class="fa fa-users"></i> Census</a></li>
+                <li><a href="admin-employees"><i class="fa fa-briefcase"></i> Employees</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <div class="page-title-bar">
+                <span>Census Submissions</span>
+            </div>
+
+            <!-- Search Card -->
+            <div class="admin-card">
+                <div class="card-header">
+                    <span>Search / Filter Census</span>
+                </div>
+                <div class="card-body" style="padding: 15px 20px;">
+                    <form id="censusFilterForm" class="filter-bar" style="border:none; padding:0; margin:0;">
+                        <div class="filter-group">
+                            <label for="filterSearch">Search Head Name / Aadhar / District</label>
+                            <input type="text" id="filterSearch" placeholder="Type name, aadhar or district...">
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <button type="submit" class="btn-submit" style="height:40px;">Search</button>
+                            <button type="button" id="btnClearFilter" class="btn-view" style="height:40px; margin-left: 10px; background-color: #64748b;">Clear</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Table Card -->
+            <div class="admin-card">
+                <div class="card-header">
+                    <span>Census Submissions (Click Head of Family Name to View Members)</span>
+                </div>
+                <div class="card-body" style="padding:0;">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Sl.No</th>
+                                    <th>Application ID</th>
+                                    <th>Date</th>
+                                    <th>Head of Family Name</th>
+                                    <th>Mobile</th>
+                                    <th>Village</th>
+                                    <th>Taluk</th>
+                                    <th>District</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="censusTableBody">
+                                <!-- Loaded dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Census Modal -->
+    <div id="editCensusModal" class="admin-modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <span>Edit Census Application</span>
+                <button class="modal-close" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
+                <form id="editCensusForm">
+                    <input type="hidden" id="editIndex">
+                    
+                    <h3 style="color: #4f1971; font-size: 14px; margin-bottom: 15px; border-bottom: 2px solid #efe3f8; padding-bottom: 5px;">I. ಕುಟುಂಬದ ವಿವರ (Family Details)</h3>
+                    <div class="edit-form-grid">
+                        <div class="form-group">
+                            <label>ಮುಖ್ಯಸ್ಥರ ಹೆಸರು (Head Name)</label>
+                            <input type="text" id="editHeadName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ಆಧಾರ್ ಸಂಖ್ಯೆ (Head Aadhar)</label>
+                            <input type="text" id="editHeadAadhar" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ವಿಳಾಸ (Address)</label>
+                            <input type="text" id="editAddress">
+                        </div>
+                        <div class="form-group">
+                            <label>ಗ್ರಾಮ / ನಗರ (Village)</label>
+                            <input type="text" id="editVillage">
+                        </div>
+                        <div class="form-group">
+                            <label>ತಾಲೂಕು (Taluk)</label>
+                            <input type="text" id="editTaluk">
+                        </div>
+                        <div class="form-group">
+                            <label>ಜಿಲ್ಲೆ (District)</label>
+                            <input type="text" id="editDistrict">
+                        </div>
+                        <div class="form-group">
+                            <label>ವಾರ್ಡ್ ಸಂಖ್ಯೆ (Ward)</label>
+                            <input type="text" id="editWard">
+                        </div>
+                        <div class="form-group">
+                            <label>ಧರ್ಮ (Religion)</label>
+                            <input type="text" id="editReligion">
+                        </div>
+                        <div class="form-group">
+                            <label>ಜಾತಿ (Caste)</label>
+                            <input type="text" id="editCaste">
+                        </div>
+                        <div class="form-group">
+                            <label>ಮನೆಯ ಪ್ರಕಾರ (House Type)</label>
+                            <select id="editHouseType">
+                                <option value="ಸ್ವಂತ ಮನೆ">ಸ್ವಂತ ಮನೆ</option>
+                                <option value="ಬಾಡಿಗೆ ಮನೆ">ಬಾಡಿಗೆ ಮನೆ</option>
+                                <option value="ಲೀಸ್ ಮನೆ">ಲೀಸ್ ಮನೆ</option>
+                                <option value="ಇತರೆ">ಇತರೆ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>ಜಮೀನು ಎಕರೆ (Land Acres)</label>
+                            <input type="text" id="editLandAcres">
+                        </div>
+                        <div class="form-group">
+                            <label>ಜಮೀನು ಗುಂಟೆ (Land Gunta)</label>
+                            <input type="text" id="editLandGunta">
+                        </div>
+                        <div class="form-group">
+                            <label>ರೂಪಿಸುವ ಪ್ರಕಾರ (Forming Type)</label>
+                            <input type="text" id="editFormingType">
+                        </div>
+                    </div>
+
+                    <h3 style="color: #4f1971; font-size: 14px; margin: 20px 0 10px 0; border-bottom: 2px solid #efe3f8; padding-bottom: 5px; display: flex; justify-content: space-between; align-items: center;">
+                        <span>II. ಸದಸ್ಯರ ವಿವರಗಳು (Family Members)</span>
+                        <button type="button" class="btn-view" style="background-color: #10b981; padding: 4px 10px;" onclick="addMemberRow()">+ Add Member</button>
+                    </h3>
+                    
+                    <div id="editMembersContainer">
+                        <!-- Members rows appended here -->
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                        <button type="button" class="btn-view" style="background-color: #64748b;" onclick="closeEditModal()">Cancel</button>
+                        <button type="submit" class="btn-submit">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin-dashboard.js"></script>
+    <script>
+        function closeEditModal() {
+            document.getElementById('editCensusModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

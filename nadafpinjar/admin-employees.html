@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees - Admin Dashboard</title>
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/admin-dashboard.css" rel="stylesheet" media="all">
+    <style>
+        .btn-edit {
+            background-color: #f59e0b;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-right: 5px;
+        }
+        .btn-edit:hover {
+            background-color: #d97706;
+        }
+        .btn-delete {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-right: 5px;
+        }
+        .btn-delete:hover {
+            background-color: #dc2626;
+        }
+        .modal-large {
+            max-width: 850px;
+            width: 95%;
+        }
+        .edit-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header class="admin-header">
+        <div class="admin-header-container">
+            <button class="sidebar-toggle"><i class="fa fa-bars"></i></button>
+            <img src="images/header-nadaf.png" alt="Karnataka Rajya Nadaf Pinjar Sangha" class="admin-header-image">
+            <div class="header-right">
+                <span style="margin-right: 15px;"><i class="fa fa-user-circle"></i> Admin</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="accountsummary"><i class="fa fa-dashboard"></i> Account Summary</a></li>
+                <li><a href="Beneficiaries"><i class="fa fa-users"></i> Beneficiaries</a></li>
+                <li><a href="Paymentsandtransfers"><i class="fa fa-credit-card"></i> Make Payments</a></li>
+                <li><a href="Receipts"><i class="fa fa-file-text-o"></i> Receipts</a></li>
+                <li><a href="associatedtransfers"><i class="fa fa-exchange"></i> Associated Transfers</a></li>
+                <li><a href="Statements"><i class="fa fa-list-alt"></i> Statements</a></li>
+                <li><a href="Security"><i class="fa fa-lock"></i> Security</a></li>
+                <li><a href="admin-freeedu"><i class="fa fa-graduation-cap"></i> Free Education</a></li>
+                <li><a href="admin-census"><i class="fa fa-users"></i> Census</a></li>
+                <li class="active"><a href="admin-employees"><i class="fa fa-briefcase"></i> Employees</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <div class="page-title-bar">
+                <span>Employee Registrations</span>
+            </div>
+
+            <!-- Filter Card -->
+            <div class="admin-card">
+                <div class="card-header">
+                    <span>Search / Filter Employees</span>
+                </div>
+                <div class="card-body" style="padding: 15px 20px;">
+                    <form id="employeesFilterForm" class="filter-bar" style="border:none; padding:0; margin:0;">
+                        <div class="filter-group">
+                            <label for="filterSearch">Search Name / Department / Contact</label>
+                            <input type="text" id="filterSearch" placeholder="Type name, department or contact...">
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <button type="submit" class="btn-submit" style="height:40px;">Search</button>
+                            <button type="button" id="btnClearFilter" class="btn-view" style="height:40px; margin-left: 10px; background-color: #64748b;">Clear</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Table Card -->
+            <div class="admin-card">
+                <div class="card-header">
+                    <span>Registered Employees</span>
+                </div>
+                <div class="card-body" style="padding:0;">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Sl.No</th>
+                                    <th>Registration ID</th>
+                                    <th>Date</th>
+                                    <th>Employee Name</th>
+                                    <th>Contact Number</th>
+                                    <th>Department</th>
+                                    <th>Designation</th>
+                                    <th>Retired?</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="employeesTableBody">
+                                <!-- Loaded dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Employee Modal -->
+    <div id="editEmployeeModal" class="admin-modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <span>Edit Employee details</span>
+                <button class="modal-close" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editEmployeeForm">
+                    <input type="hidden" id="editIndex">
+                    <div class="edit-form-grid">
+                        <div class="form-group">
+                            <label>ನೌಕರರ ಹೆಸರು (Employee Name)</label>
+                            <input type="text" id="editEmployeeName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ಮೊಬೈಲ್ ಸಂಖ್ಯೆ (Contact Number)</label>
+                            <input type="text" id="editContactNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ವಿದ್ಯಾರ್ಹತೆ (Qualification)</label>
+                            <input type="text" id="editQualification" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ಹುಟ್ಟಿದ ದಿನಾಂಕ (Date of Birth)</label>
+                            <input type="date" id="editDob" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ವಯಸ್ಸು (Age)</label>
+                            <input type="number" id="editAge" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ಇಲಾಖೆಯ ಹೆಸರು (Department)</label>
+                            <input type="text" id="editDepartmentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ಹುದ್ದೆಯ ಹೆಸರು (Designation)</label>
+                            <input type="text" id="editDesignation" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ನಿವೃತ್ತಿ ಹೊಂದಿದ್ದೀರಾ? (Retired?)</label>
+                            <select id="editIsRetired" onchange="toggleRetirementDateEdit()">
+                                <option value="ಹೌದು">ಹೌದು (Yes)</option>
+                                <option value="ಇಲ್ಲ">ಇಲ್ಲ (No)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="retirementDateGroup">
+                            <label>ನಿವೃತ್ತಿ ದಿನಾಂಕ (Retirement Date)</label>
+                            <input type="date" id="editRetirementDate">
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label>ಕಾಯಂ ವಿಳಾಸ (Address)</label>
+                            <textarea id="editPermanentAddress" rows="3" required></textarea>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                        <button type="button" class="btn-view" style="background-color: #64748b;" onclick="closeEditModal()">Cancel</button>
+                        <button type="submit" class="btn-submit">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin-dashboard.js"></script>
+    <script>
+        function closeEditModal() {
+            document.getElementById('editEmployeeModal').style.display = 'none';
+        }
+        function toggleRetirementDateEdit() {
+            const isRetired = document.getElementById('editIsRetired').value;
+            const group = document.getElementById('retirementDateGroup');
+            if (isRetired === 'ಹೌದು') {
+                group.style.display = 'flex';
+            } else {
+                group.style.display = 'none';
+                document.getElementById('editRetirementDate').value = '';
+            }
+        }
+    </script>
+</body>
+</html>

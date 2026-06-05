@@ -172,6 +172,86 @@ const defaultSecurity = {
     mobile: "+91 9480077666"
 };
 
+const defaultFreeeduSubmissions = [
+    {
+        id: "KRNPS-2026-27-88",
+        date: new Date().toLocaleDateString('en-GB'),
+        formData: {
+            studentName: "ಆಫ್ರಿನ್ ನದಾಫ್",
+            fatherName: "ಇಬ್ರಾಹಿಂ",
+            motherName: "ಫಾತಿಮಾ",
+            address: "ಗಾಂಧಿ ನಗರ",
+            village: "ಚಿತ್ರದುರ್ಗ",
+            district: "ಚಿತ್ರದುರ್ಗ",
+            occupation: "ಕೂಲಿ",
+            taluk: "ಚಿತ್ರದುರ್ಗ",
+            aadhar: "123456789012",
+            membership: "ಹೌದು",
+            rationType: "BPL",
+            housingInfo: "ಸ್ವಂತ",
+            houseType: "ಪಕ್ಕಾ",
+            landInfo: "0",
+            gunte: "0",
+            income: "50000",
+            mobile: "9876543210",
+            currentSchool: "ಸರ್ಕಾರಿ ಪ್ರೌಢಶಾಲೆ",
+            previousMarks: "85%",
+            joiningClass: "10 ನೇ ತರಗತಿ",
+            classSubjects: "ಕನ್ನಡ, ಇಂಗ್ಲಿಷ್, ಗಣಿತ, ವಿಜ್ಞಾನ",
+            coaching: "ಗಣಿತ ಮತ್ತು ವಿಜ್ಞಾನ",
+            bankName: "SBI",
+            branchName: "ಚಿತ್ರದುರ್ಗ",
+            ifsc: "SBIN0001234",
+            bankAccount: "10020030040"
+        }
+    }
+];
+
+const defaultCensusSubmissions = [
+    {
+        id: "KRNPS-2026-27-55",
+        date: new Date().toLocaleDateString('en-GB'),
+        formData: {
+            headName: "ಇಸ್ಮಾಯಿಲ್ ಸಾಬ್ ನದಾಫ್",
+            address: "ನೆಹರು ರಸ್ತೆ",
+            village: "ಹಾವೇರಿ",
+            district: "ಹಾವೇರಿ",
+            taluk: "ಶಿಗಾವಿ",
+            headAadhar: "888877776666",
+            ward: "5",
+            religion: "ಮುಸ್ಲಿಂ",
+            caste: "ನದಾಫ್",
+            houseType: "ಸ್ವಂತ ಮನೆ",
+            landAcres: "2",
+            landGunta: "15",
+            formingType: "ಸ್ವಂತ ಕೃಷಿ",
+            members: [
+                { name: "ರಜಿಯಾ ನದಾಫ್", relation: "ಪತ್ನಿ", mobile: "9988776655", aadhar: "111122223333", dob: "12/05/1985", literate: "ಹೌದು" },
+                { name: "ಸಲೀಮ್ ನದಾಫ್", relation: "ಮಗ", mobile: "9988776654", aadhar: "444455556666", dob: "05/09/2010", literate: "ಹೌದು" }
+            ]
+        }
+    }
+];
+
+const defaultEmployeesSubmissions = [
+    {
+        id: "KRNPS-2026-27-33",
+        date: new Date().toLocaleDateString('en-GB'),
+        formData: {
+            employeeName: "ರಫೀಕ್ ಪಿಂಜಾರ್",
+            contactNumber: "9448011223",
+            qualification: "BA, BEd",
+            dob: "1980-04-15",
+            age: "46",
+            departmentName: "ಶಿಕ್ಷಣ ಇಲಾಖೆ (ಶಿಕ್ಷಕರು)",
+            designation: "ಸಹ ಶಿಕ್ಷಕರು",
+            isRetired: "ಇಲ್ಲ",
+            retirementDate: "",
+            permanentAddress: "ಶಿವಮೊಗ್ಗ ರಸ್ತೆ, ಭದ್ರಾವತಿ"
+        }
+    }
+];
+
 // Initialize Database Storage
 if (!localStorage.getItem('adminBalance')) {
     localStorage.setItem('adminBalance', '27565929.00');
@@ -195,6 +275,16 @@ if (!localStorage.getItem('transfers')) {
 }
 if (!localStorage.getItem('statements')) {
     localStorage.setItem('statements', JSON.stringify(defaultStatements));
+}
+
+if (!localStorage.getItem('admin_freeedu_submissions')) {
+    localStorage.setItem('admin_freeedu_submissions', JSON.stringify(defaultFreeeduSubmissions));
+}
+if (!localStorage.getItem('admin_census_submissions')) {
+    localStorage.setItem('admin_census_submissions', JSON.stringify(defaultCensusSubmissions));
+}
+if (!localStorage.getItem('admin_employees_submissions')) {
+    localStorage.setItem('admin_employees_submissions', JSON.stringify(defaultEmployeesSubmissions));
 }
 
 // Common Dashboard Setup after DOM Load
@@ -257,6 +347,12 @@ function initPageModules() {
         loadSecurity();
     } else if (currentPath.includes("viewreceipt")) {
         loadViewReceipt();
+    } else if (currentPath.includes("admin-freeedu")) {
+        loadAdminFreeEdu();
+    } else if (currentPath.includes("admin-census")) {
+        loadAdminCensus();
+    } else if (currentPath.includes("admin-employees")) {
+        loadAdminEmployees();
     }
 }
 
@@ -1315,4 +1411,1652 @@ function loadSecurity() {
         alert("Security credentials updated successfully!");
         window.location.reload();
     });
+}
+
+// -------------------------------------------------------------
+// 8. Admin Free Education Module
+// -------------------------------------------------------------
+function loadAdminFreeEdu() {
+    const tableBody = document.getElementById("freeeduTableBody");
+    if (!tableBody) return;
+
+    function render(list) {
+        tableBody.innerHTML = "";
+        if (list.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:#999;">No applications found.</td></tr>`;
+            return;
+        }
+
+        list.forEach((app, index) => {
+            const row = document.createElement("tr");
+            const fd = app.formData || {};
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td><span style="font-weight: 600; color: #4f1971;">${app.id}</span></td>
+                <td>${app.date}</td>
+                <td><strong>${fd.studentName || '-'}</strong></td>
+                <td>${fd.fatherName || '-'}</td>
+                <td>${fd.mobile || '-'}</td>
+                <td>${fd.joiningClass || '-'}</td>
+                <td>${fd.district || '-'}</td>
+                <td>
+                    <button class="btn-edit" onclick="editFreeedu('${app.id}')"><i class="fa fa-edit"></i> Edit</button>
+                    <button class="btn-delete" onclick="deleteFreeedu('${app.id}')"><i class="fa fa-trash"></i> Delete</button>
+                    <button class="btn-download" onclick="downloadFreeeduPdf('${app.id}')"><i class="fa fa-download"></i> PDF</button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    let submissions = JSON.parse(localStorage.getItem('admin_freeedu_submissions')) || [];
+    render(submissions);
+
+    // Filter
+    const form = document.getElementById("freeeduFilterForm");
+    if (form) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const search = document.getElementById("filterSearch").value.toLowerCase();
+            const filterClass = document.getElementById("filterClass").value.toLowerCase();
+
+            let filtered = submissions.filter(app => {
+                const fd = app.formData || {};
+                const nameMatch = (fd.studentName || '').toLowerCase().includes(search) || 
+                                  (fd.fatherName || '').toLowerCase().includes(search) ||
+                                  (fd.motherName || '').toLowerCase().includes(search) ||
+                                  (fd.aadhar || '').toLowerCase().includes(search) ||
+                                  (fd.mobile || '').toLowerCase().includes(search);
+                const classMatch = !filterClass || (fd.joiningClass || '').toLowerCase().includes(filterClass);
+                return nameMatch && classMatch;
+            });
+            render(filtered);
+        });
+    }
+
+    const clearBtn = document.getElementById("btnClearFilter");
+    if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+            document.getElementById("freeeduFilterForm").reset();
+            render(submissions);
+        });
+    }
+
+    // Modal Edit handler
+    window.editFreeedu = function(id) {
+        const found = submissions.find(app => app.id === id);
+        if (!found) return;
+
+        const fd = found.formData || {};
+        document.getElementById('editIndex').value = id;
+        document.getElementById('editStudentName').value = fd.studentName || '';
+        document.getElementById('editFatherName').value = fd.fatherName || '';
+        document.getElementById('editMotherName').value = fd.motherName || '';
+        document.getElementById('editMobile').value = fd.mobile || '';
+        document.getElementById('editAadhar').value = fd.aadhar || '';
+        document.getElementById('editIncome').value = fd.income || '';
+        document.getElementById('editCurrentSchool').value = fd.currentSchool || '';
+        document.getElementById('editPreviousMarks').value = fd.previousMarks || '';
+        document.getElementById('editJoiningClass').value = fd.joiningClass || '';
+        document.getElementById('editClassSubjects').value = fd.classSubjects || '';
+        document.getElementById('editCoaching').value = fd.coaching || '';
+        document.getElementById('editMembership').value = fd.membership || 'ಹೌದು';
+        document.getElementById('editRationType').value = fd.rationType || 'BPL';
+        document.getElementById('editAddress').value = fd.address || '';
+        document.getElementById('editVillage').value = fd.village || '';
+        document.getElementById('editTaluk').value = fd.taluk || '';
+        document.getElementById('editDistrict').value = fd.district || '';
+        document.getElementById('editHousingInfo').value = fd.housingInfo || '';
+        document.getElementById('editHouseType').value = fd.houseType || '';
+        document.getElementById('editLandInfo').value = fd.landInfo || '';
+        document.getElementById('editGunte').value = fd.gunte || '';
+        document.getElementById('editOccupation').value = fd.occupation || '';
+        document.getElementById('editBankName').value = fd.bankName || '';
+        document.getElementById('editBranchName').value = fd.branchName || '';
+        document.getElementById('editIfsc').value = fd.ifsc || '';
+        document.getElementById('editBankAccount').value = fd.bankAccount || '';
+
+        document.getElementById('editFreeeduModal').style.display = 'flex';
+    };
+
+    // Modal Save
+    const editForm = document.getElementById("editFreeeduForm");
+    if (editForm) {
+        editForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const id = document.getElementById('editIndex').value;
+            const index = submissions.findIndex(app => app.id === id);
+            if (index === -1) return;
+
+            submissions[index].formData = {
+                studentName: document.getElementById('editStudentName').value,
+                fatherName: document.getElementById('editFatherName').value,
+                motherName: document.getElementById('editMotherName').value,
+                mobile: document.getElementById('editMobile').value,
+                aadhar: document.getElementById('editAadhar').value,
+                income: document.getElementById('editIncome').value,
+                currentSchool: document.getElementById('editCurrentSchool').value,
+                previousMarks: document.getElementById('editPreviousMarks').value,
+                joiningClass: document.getElementById('editJoiningClass').value,
+                classSubjects: document.getElementById('editClassSubjects').value,
+                coaching: document.getElementById('editCoaching').value,
+                membership: document.getElementById('editMembership').value,
+                rationType: document.getElementById('editRationType').value,
+                address: document.getElementById('editAddress').value,
+                village: document.getElementById('editVillage').value,
+                taluk: document.getElementById('editTaluk').value,
+                district: document.getElementById('editDistrict').value,
+                housingInfo: document.getElementById('editHousingInfo').value,
+                houseType: document.getElementById('editHouseType').value,
+                landInfo: document.getElementById('editLandInfo').value,
+                gunte: document.getElementById('editGunte').value,
+                occupation: document.getElementById('editOccupation').value,
+                bankName: document.getElementById('editBankName').value,
+                branchName: document.getElementById('editBranchName').value,
+                ifsc: document.getElementById('editIfsc').value,
+                bankAccount: document.getElementById('editBankAccount').value
+            };
+
+            localStorage.setItem('admin_freeedu_submissions', JSON.stringify(submissions));
+            alert("Application updated successfully!");
+            document.getElementById('editFreeeduModal').style.display = 'none';
+            render(submissions);
+        });
+    }
+
+    // Delete handler
+    window.deleteFreeedu = function(id) {
+        if (confirm("Are you sure you want to delete this application?")) {
+            submissions = submissions.filter(app => app.id !== id);
+            localStorage.setItem('admin_freeedu_submissions', JSON.stringify(submissions));
+            render(submissions);
+        }
+    };
+
+    // Download PDF handler
+    window.downloadFreeeduPdf = function(id) {
+        const found = submissions.find(app => app.id === id);
+        if (!found) return;
+
+        const data = found.formData || {};
+        const appNumber = found.id;
+
+        const formatIncome = (val) => {
+            if (!val) return '-';
+            const cleanVal = val.toString().replace(/,/g, '').trim();
+            const num = Number(cleanVal);
+            return !isNaN(num) ? num.toLocaleString('en-IN') : val;
+        };
+
+        const printHTML = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff;
+            margin: 0;
+            padding: 5px;
+            color: #333;
+        }
+        .receipt-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 4px double #b30000;
+            padding: 10px;
+            background: #fff;
+            box-sizing: border-box;
+        }
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        .header-table td {
+            padding: 5px;
+            vertical-align: middle;
+        }
+        .header-photo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid #b30000;
+            object-fit: cover;
+        }
+        .header-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid #b30000;
+            object-fit: cover;
+        }
+        .header-text {
+            text-align: center;
+        }
+        .header-text h1 {
+            color: #b30000;
+            font-size: 17px;
+            margin: 0 0 5px 0;
+            font-weight: bold;
+        }
+        .header-text p {
+            margin: 2px 0;
+            font-size: 11px;
+            color: #444;
+            font-weight: bold;
+        }
+        .header-text .reg-no {
+            font-size: 12px;
+            color: #000;
+        }
+        .header-text .en-title {
+            font-size: 13px;
+            color: #b30000;
+            margin-top: 3px;
+        }
+        .title-banner {
+            border-top: 2px solid #b30000;
+            border-bottom: 2px solid #b30000;
+            padding: 5px;
+            margin: 10px 0;
+            background: #fffcf5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 11px;
+            color: #b30000;
+        }
+        .grid-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+        }
+        .grid-table td {
+            border: 1px solid #b30000;
+            padding: 5px 8px;
+            font-size: 11px;
+            vertical-align: middle;
+        }
+        .grid-label {
+            background: #fffcf5;
+            color: #b30000;
+            font-weight: bold;
+            width: 25%;
+        }
+        .grid-value {
+            color: #000;
+            width: 25%;
+            font-weight: 500;
+        }
+        .recommend-text {
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #b30000;
+            border-top: 1px dashed #b30000;
+            padding: 8px 0;
+            margin-top: 8px;
+        }
+        .approval-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 11px;
+        }
+        .sig-col {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .sig-item {
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 5px;
+        }
+        .sig-space {
+            height: 25px;
+        }
+        .sig-label {
+            font-weight: bold;
+            color: #b30000;
+        }
+        .official-col {
+            width: 55%;
+            border-left: 2px solid #b30000;
+            padding-left: 15px;
+        }
+        .official-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .official-row {
+            height: 24px;
+        }
+        .official-check {
+            width: 10%;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .official-box {
+            border: 2px solid #b30000;
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+        }
+        .official-title {
+            width: 40%;
+            font-weight: bold;
+            color: #b30000;
+            padding-left: 5px;
+            vertical-align: middle;
+        }
+        .official-sig-line {
+            width: 50%;
+            border-bottom: 1px dashed #b30000;
+        }
+        @media print {
+            @page {
+                size: A4;
+                margin: 8mm;
+            }
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            .receipt-container {
+                border: 4px double #b30000;
+                max-width: 100%;
+                padding: 10px;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <table class="header-table">
+            <tr>
+                <td style="width: 15%; text-align: left;">
+                    <img src="images/president.png" class="header-photo" alt="President" onerror="this.src='images/president.jpeg'">
+                </td>
+                <td style="width: 70%;" class="header-text">
+                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
+                    <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
+                    <p class="en-title">KARNATAKA RAJYA NADAF / PINJAR SANGHA &reg;</p>
+                    <p>ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</p>
+                    <p>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
+                </td>
+                <td style="width: 15%; text-align: right;">
+                    <img src="images/logo-786.png" class="header-logo" alt="Logo">
+                </td>
+            </tr>
+        </table>
+        
+        <div class="title-banner">
+            <div>ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
+            <div style="font-size: 15px;">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27</div>
+            <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${found.date}</div>
+        </div>
+
+        <table class="grid-table">
+            <tr>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
+                <td class="grid-value">${data.studentName || '-'}</td>
+                <td class="grid-label">ತಂದೆಯ/ಪಾಲಕರ ಹೆಸರು :</td>
+                <td class="grid-value">${data.fatherName || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ತಾಯಿಯ ಹೆಸರು</td>
+                <td class="grid-value">${data.motherName || '-'}</td>
+                <td class="grid-label">ವಿಳಾಸ :</td>
+                <td class="grid-value">${data.address || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ನಗರಿ/ಗ್ರಾಮ</td>
+                <td class="grid-value">${data.village || '-'}</td>
+                <td class="grid-label">ಜಿಲ್ಲೆ :</td>
+                <td class="grid-value">${data.district || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಉದ್ಯೋಗ</td>
+                <td class="grid-value">${data.occupation || '-'}</td>
+                <td class="grid-label">ತಾಲೂಕು :</td>
+                <td class="grid-value">${data.taluk || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಆಧಾರ್ ನಂ</td>
+                <td class="grid-value">${data.aadhar || '-'}</td>
+                <td class="grid-label">ಸಂಘದ ಸದಸ್ಯತ್ವ ಅಂತೋದಯ/ಬಿಪಿಎಲ್ :</td>
+                <td class="grid-value">${data.membership || '-'} / ${data.rationType || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಮನೆ</td>
+                <td class="grid-value">${data.housingInfo || '-'} / ${data.houseType || '-'}</td>
+                <td class="grid-label">ಜಮೀನು :</td>
+                <td class="grid-value">${data.landInfo || '0'} ಎಕರೆ - ${data.gunte || '0'} ಗುಂಟೆ</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಅಂದಾಜು ಆದಾಯ</td>
+                <td class="grid-value">${formatIncome(data.income)}</td>
+                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
+                <td class="grid-value">${data.mobile || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಶಾಲೆ/ಕಾಲೇಜು ಮಾಡುತ್ತಿರುವ</td>
+                <td class="grid-value">${data.currentSchool || '-'}</td>
+                <td class="grid-label">ಹಿಂದಿನ ತರಗತಿಯಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳು</td>
+                <td class="grid-value">${data.previousMarks || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
+                <td class="grid-value">${data.joiningClass || '-'}</td>
+                <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು :</td>
+                <td class="grid-value">${data.classSubjects || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್:</td>
+                <td class="grid-value" colspan="3">${data.coaching || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                <td class="grid-value">${data.bankName || '-'}</td>
+                <td class="grid-label">ಶಾಖೆಯ ಹೆಸರು</td>
+                <td class="grid-value">${data.branchName || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">IFSC ಕೋಡ್</td>
+                <td class="grid-value">${data.ifsc || '-'}</td>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ :</td>
+                <td class="grid-value">${data.bankAccount || '-'}</td>
+            </tr>
+        </table>
+
+        <div class="recommend-text">
+            ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:___________ ಮಾಹಿತಿಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
+        </div>
+
+        <div class="approval-section">
+            <div class="sig-col">
+                <div class="sig-item" style="margin-bottom: 25px;">
+                    <div class="sig-space"></div>
+                    <span class="sig-label">ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ</span>
+                </div>
+                <div class="sig-item">
+                    <div class="sig-space"></div>
+                    <span class="sig-label">ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ</span>
+                </div>
+            </div>
+
+            <div class="official-col">
+                <table class="official-table">
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ರಾಜ್ಯ ಘಟಕ</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>`;
+
+        let iframe = document.getElementById('receiptPrintIframe');
+        if (!iframe) {
+            iframe = document.createElement('iframe');
+            iframe.id = 'receiptPrintIframe';
+            iframe.style.position = 'fixed';
+            iframe.style.right = '0';
+            iframe.style.bottom = '0';
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.style.border = '0';
+            document.body.appendChild(iframe);
+        }
+        
+        const doc = iframe.contentWindow.document;
+        doc.open();
+        doc.write(printHTML);
+        doc.close();
+        
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+    };
+}
+
+// -------------------------------------------------------------
+// 9. Admin Census Module
+// -------------------------------------------------------------
+function loadAdminCensus() {
+    const tableBody = document.getElementById("censusTableBody");
+    if (!tableBody) return;
+
+    function render(list) {
+        tableBody.innerHTML = "";
+        if (list.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:#999;">No submissions found.</td></tr>`;
+            return;
+        }
+
+        list.forEach((app, index) => {
+            const row = document.createElement("tr");
+            const fd = app.formData || {};
+            const members = fd.members || [];
+            
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td><span style="font-weight: 600; color: #4f1971;">${app.id}</span></td>
+                <td>${app.date}</td>
+                <td>
+                    <a href="#" onclick="toggleCensusMembers(${index}); return false;" style="color: #4f1971; font-weight: bold; text-decoration: underline;">
+                        <i class="fa fa-chevron-right" id="icon-${index}" style="margin-right: 5px; font-size: 10px;"></i> ${fd.headName || '-'}
+                    </a>
+                </td>
+                <td>${fd.headAadhar ? fd.headAadhar : '-'}</td>
+                <td>${fd.village || '-'}</td>
+                <td>${fd.taluk || '-'}</td>
+                <td>${fd.district || '-'}</td>
+                <td>
+                    <button class="btn-edit" onclick="editCensus('${app.id}')"><i class="fa fa-edit"></i> Edit</button>
+                    <button class="btn-delete" onclick="deleteCensus('${app.id}')"><i class="fa fa-trash"></i> Delete</button>
+                    <button class="btn-download" onclick="downloadCensusPdf('${app.id}')"><i class="fa fa-download"></i> PDF</button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+
+            // Collapsible details row for remaining members
+            const detailsRow = document.createElement("tr");
+            detailsRow.id = `members-details-${index}`;
+            detailsRow.style.display = "none";
+            detailsRow.style.backgroundColor = "#f8fafc";
+            
+            let membersTableContent = "";
+            if (members.length > 0) {
+                members.forEach((m, mIdx) => {
+                    membersTableContent += `
+                        <tr>
+                            <td>${mIdx + 1}</td>
+                            <td><strong>${m.name || '-'}</strong></td>
+                            <td>${m.relation || '-'}</td>
+                            <td>${m.mobile || '-'}</td>
+                            <td>${m.aadhar || '-'}</td>
+                            <td>${m.dob || '-'}</td>
+                            <td>${m.literate || '-'}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                membersTableContent = `<tr><td colspan="7" style="text-align: center; color: #999;">No other family members.</td></tr>`;
+            }
+
+            detailsRow.innerHTML = `
+                <td colspan="9" style="padding: 15px 25px;">
+                    <div style="border-left: 4px solid #4f1971; padding-left: 15px;">
+                        <h4 style="color: #4f1971; margin-bottom: 10px; font-size: 13px;"><i class="fa fa-users"></i> Other Family Members for ${fd.headName}</h4>
+                        <table class="admin-table" style="background-color: white; border: 1px solid #cbd5e1; font-size: 12px;">
+                            <thead>
+                                <tr style="background-color: #f1f5f9;">
+                                    <th style="padding: 8px 10px;">Sl No</th>
+                                    <th style="padding: 8px 10px;">Name</th>
+                                    <th style="padding: 8px 10px;">Relation</th>
+                                    <th style="padding: 8px 10px;">Mobile</th>
+                                    <th style="padding: 8px 10px;">Aadhar</th>
+                                    <th style="padding: 8px 10px;">DOB</th>
+                                    <th style="padding: 8px 10px;">Literate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${membersTableContent}
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            `;
+            tableBody.appendChild(detailsRow);
+        });
+    }
+
+    let submissions = JSON.parse(localStorage.getItem('admin_census_submissions')) || [];
+    render(submissions);
+
+    window.toggleCensusMembers = function(index) {
+        const detailsRow = document.getElementById(`members-details-${index}`);
+        const icon = document.getElementById(`icon-${index}`);
+        if (detailsRow.style.display === "none") {
+            detailsRow.style.display = "table-row";
+            icon.className = "fa fa-chevron-down";
+        } else {
+            detailsRow.style.display = "none";
+            icon.className = "fa fa-chevron-right";
+        }
+    };
+
+    // Filter
+    const form = document.getElementById("censusFilterForm");
+    if (form) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const search = document.getElementById("filterSearch").value.toLowerCase();
+
+            let filtered = submissions.filter(app => {
+                const fd = app.formData || {};
+                return (fd.headName || '').toLowerCase().includes(search) || 
+                       (fd.headAadhar || '').toLowerCase().includes(search) ||
+                       (fd.district || '').toLowerCase().includes(search) ||
+                       (fd.village || '').toLowerCase().includes(search);
+            });
+            render(filtered);
+        });
+    }
+
+    const clearBtn = document.getElementById("btnClearFilter");
+    if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+            document.getElementById("censusFilterForm").reset();
+            render(submissions);
+        });
+    }
+
+    // Add member row helper
+    window.addMemberRow = function(memberData = {}) {
+        const container = document.getElementById("editMembersContainer");
+        const div = document.createElement("div");
+        div.className = "member-edit-row";
+        const uniqueId = 'mem-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5);
+        div.id = uniqueId;
+        
+        div.innerHTML = `
+            <div>
+                <label>ಹೆಸರು (Name)</label>
+                <input type="text" class="mem-name" value="${memberData.name || ''}" placeholder="Name">
+            </div>
+            <div>
+                <label>ಸಂಬಂಧ (Relation)</label>
+                <select class="mem-relation">
+                    <option value="ಪತ್ನಿ" ${memberData.relation === 'ಪತ್ನಿ' ? 'selected' : ''}>ಪತ್ನಿ (Wife)</option>
+                    <option value="ಮಗ" ${memberData.relation === 'ಮಗ' ? 'selected' : ''}>ಮಗ (Son)</option>
+                    <option value="ಮಗಳು" ${memberData.relation === 'ಮಗಳು' ? 'selected' : ''}>ಮಗಳು (Daughter)</option>
+                    <option value="ತಂದೆ" ${memberData.relation === 'ತಂದೆ' ? 'selected' : ''}>ತಂದೆ (Father)</option>
+                    <option value="ತಾಯಿ" ${memberData.relation === 'ತಾಯಿ' ? 'selected' : ''}>ತಾಯಿ (Mother)</option>
+                    <option value="ಸಹೋದರ" ${memberData.relation === 'ಸಹೋದರ' ? 'selected' : ''}>ಸಹೋದರ (Brother)</option>
+                    <option value="ಸಹೋದರಿ" ${memberData.relation === 'ಸಹೋದರಿ' ? 'selected' : ''}>ಸಹೋದರಿ (Sister)</option>
+                    <option value="ಇತರೆ" ${memberData.relation === 'ಇತರೆ' ? 'selected' : ''}>ಇತರೆ (Other)</option>
+                </select>
+            </div>
+            <div>
+                <label>ಮೊಬೈಲ್ (Mobile)</label>
+                <input type="text" class="mem-mobile" value="${memberData.mobile || ''}" placeholder="Mobile">
+            </div>
+            <div>
+                <label>ಆಧಾರ್ (Aadhar)</label>
+                <input type="text" class="mem-aadhar" value="${memberData.aadhar || ''}" placeholder="Aadhar">
+            </div>
+            <div>
+                <label>ಹುಟ್ಟಿದ ದಿನಾಂಕ (DOB)</label>
+                <input type="text" class="mem-dob" value="${memberData.dob || ''}" placeholder="DD/MM/YYYY">
+            </div>
+            <div>
+                <label>ಸಾಕ್ಷರಹಾ (Literate?)</label>
+                <select class="mem-literate">
+                    <option value="ಹೌದು" ${memberData.literate === 'ಹೌದು' ? 'selected' : ''}>ಹೌದು (Yes)</option>
+                    <option value="ಇಲ್ಲ" ${memberData.literate === 'ಇಲ್ಲ' ? 'selected' : ''}>ಇಲ್ಲ (No)</option>
+                </select>
+            </div>
+            <div style="text-align: center; margin-top: 15px;">
+                <button type="button" class="btn-delete" style="padding: 6px; border-radius: 50%; width:30px; height:30px; display:inline-flex; align-items:center; justify-content:center;" onclick="document.getElementById('${uniqueId}').remove()"><i class="fa fa-times"></i></button>
+            </div>
+        `;
+        container.appendChild(div);
+    };
+
+    // Modal Edit handler
+    window.editCensus = function(id) {
+        const found = submissions.find(app => app.id === id);
+        if (!found) return;
+
+        const fd = found.formData || {};
+        document.getElementById('editIndex').value = id;
+        document.getElementById('editHeadName').value = fd.headName || '';
+        document.getElementById('editHeadAadhar').value = fd.headAadhar || '';
+        document.getElementById('editAddress').value = fd.address || '';
+        document.getElementById('editVillage').value = fd.village || '';
+        document.getElementById('editTaluk').value = fd.taluk || '';
+        document.getElementById('editDistrict').value = fd.district || '';
+        document.getElementById('editWard').value = fd.ward || '';
+        document.getElementById('editReligion').value = fd.religion || '';
+        document.getElementById('editCaste').value = fd.caste || '';
+        document.getElementById('editHouseType').value = fd.houseType || 'ಸ್ವಂತ ಮನೆ';
+        document.getElementById('editLandAcres').value = fd.landAcres || '0';
+        document.getElementById('editLandGunta').value = fd.landGunta || '0';
+        document.getElementById('editFormingType').value = fd.formingType || '';
+
+        // Load members list
+        const container = document.getElementById("editMembersContainer");
+        container.innerHTML = "";
+        const members = fd.members || [];
+        members.forEach(m => {
+            window.addMemberRow(m);
+        });
+
+        document.getElementById('editCensusModal').style.display = 'flex';
+    };
+
+    // Modal Save
+    const editForm = document.getElementById("editCensusForm");
+    if (editForm) {
+        editForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const id = document.getElementById('editIndex').value;
+            const index = submissions.findIndex(app => app.id === id);
+            if (index === -1) return;
+
+            // Extract members
+            const memberRows = document.querySelectorAll(".member-edit-row");
+            const membersList = [];
+            memberRows.forEach(row => {
+                membersList.push({
+                    name: row.querySelector(".mem-name").value,
+                    relation: row.querySelector(".mem-relation").value,
+                    mobile: row.querySelector(".mem-mobile").value,
+                    aadhar: row.querySelector(".mem-aadhar").value,
+                    dob: row.querySelector(".mem-dob").value,
+                    literate: row.querySelector(".mem-literate").value
+                });
+            });
+
+            submissions[index].formData = {
+                headName: document.getElementById('editHeadName').value,
+                headAadhar: document.getElementById('editHeadAadhar').value,
+                address: document.getElementById('editAddress').value,
+                village: document.getElementById('editVillage').value,
+                taluk: document.getElementById('editTaluk').value,
+                district: document.getElementById('editDistrict').value,
+                ward: document.getElementById('editWard').value,
+                religion: document.getElementById('editReligion').value,
+                caste: document.getElementById('editCaste').value,
+                houseType: document.getElementById('editHouseType').value,
+                landAcres: document.getElementById('editLandAcres').value,
+                landGunta: document.getElementById('editLandGunta').value,
+                formingType: document.getElementById('editFormingType').value,
+                members: membersList
+            };
+
+            localStorage.setItem('admin_census_submissions', JSON.stringify(submissions));
+            alert("Census updated successfully!");
+            document.getElementById('editCensusModal').style.display = 'none';
+            render(submissions);
+        });
+    }
+
+    // Delete handler
+    window.deleteCensus = function(id) {
+        if (confirm("Are you sure you want to delete this Census application?")) {
+            submissions = submissions.filter(app => app.id !== id);
+            localStorage.setItem('admin_census_submissions', JSON.stringify(submissions));
+            render(submissions);
+        }
+    };
+
+    // Download PDF handler
+    window.downloadCensusPdf = function(id) {
+        const found = submissions.find(app => app.id === id);
+        if (!found) return;
+
+        const data = found.formData || {};
+        const appNumber = found.id;
+
+        let membersRows = '';
+        if (data.members && data.members.length > 0) {
+            data.members.forEach((m, idx) => {
+                membersRows += `
+                    <tr>
+                        <td style="text-align: center; border: 1px solid #b30000; padding: 6px;">${idx + 1}</td>
+                        <td style="border: 1px solid #b30000; padding: 6px;">${m.name || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 6px;">${m.relation || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 6px;">${m.mobile || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 6px;">${m.aadhar || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 6px;">${m.dob || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 6px;">${m.literate || '-'}</td>
+                    </tr>
+                `;
+            });
+        } else {
+            membersRows = '<tr><td colspan="7" style="text-align: center; border: 1px solid #b30000; padding: 10px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
+        }
+
+        const printHTML = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ಜನಗಣತಿ (Census) - ರಶೀದಿ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff;
+            margin: 0;
+            padding: 5px;
+            color: #333;
+        }
+        .receipt-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 4px double #b30000;
+            padding: 10px;
+            background: #fff;
+            box-sizing: border-box;
+        }
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 5px;
+        }
+        .header-table td {
+            padding: 3px;
+            vertical-align: middle;
+        }
+        .header-photo {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 2px solid #b30000;
+            object-fit: cover;
+        }
+        .header-logo {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 2px solid #b30000;
+            object-fit: cover;
+        }
+        .header-text {
+            text-align: center;
+        }
+        .header-text h1 {
+            color: #b30000;
+            font-size: 16px;
+            margin: 0 0 3px 0;
+            font-weight: bold;
+        }
+        .header-text p {
+            margin: 1px 0;
+            font-size: 10px;
+            color: #444;
+            font-weight: bold;
+        }
+        .header-text .reg-no {
+            font-size: 11px;
+            color: #000;
+        }
+        .header-text .en-title {
+            font-size: 12px;
+            color: #b30000;
+            margin-top: 2px;
+        }
+        .title-banner {
+            border-top: 2px solid #b30000;
+            border-bottom: 2px solid #b30000;
+            padding: 5px;
+            margin: 8px 0;
+            background: #fffcf5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 11px;
+            color: #b30000;
+        }
+        .grid-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+        }
+        .grid-table td {
+            border: 1px solid #b30000;
+            padding: 4px 6px;
+            font-size: 11px;
+            vertical-align: middle;
+        }
+        .grid-label {
+            background: #fffcf5;
+            color: #b30000;
+            font-weight: bold;
+            width: 25%;
+        }
+        .grid-value {
+            color: #000;
+            width: 25%;
+        }
+        .members-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+            font-size: 10px;
+        }
+        .members-table th {
+            border: 1px solid #b30000;
+            background: #fffcf5;
+            color: #b30000;
+            padding: 4px;
+            font-weight: bold;
+        }
+        .recommend-text {
+            text-align: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: #b30000;
+            border-top: 1px dashed #b30000;
+            padding: 4px 0;
+            margin-top: 6px;
+        }
+        .approval-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 11px;
+        }
+        .sig-col {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .sig-item {
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 3px;
+        }
+        .sig-space {
+            height: 20px;
+        }
+        .sig-label {
+            font-weight: bold;
+            color: #b30000;
+        }
+        .official-col {
+            width: 55%;
+            border-left: 2px solid #b30000;
+            padding-left: 10px;
+        }
+        .official-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .official-row {
+            height: 20px;
+        }
+        .official-check {
+            width: 10%;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .official-box {
+            border: 2px solid #b30000;
+            width: 12px;
+            height: 12px;
+            display: inline-block;
+        }
+        .official-title {
+            width: 40%;
+            font-weight: bold;
+            color: #b30000;
+            padding-left: 4px;
+            vertical-align: middle;
+            font-size: 10px;
+        }
+        .official-sig-line {
+            width: 50%;
+            border-bottom: 1px dashed #b30000;
+        }
+        @media print {
+            @page {
+                size: A4;
+                margin: 5mm;
+            }
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            .receipt-container {
+                border: 4px double #b30000;
+                max-width: 100%;
+                padding: 8px;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <table class="header-table">
+            <tr>
+                <td style="width: 15%; text-align: left;">
+                    <img src="images/president.png" class="header-photo" alt="President" onerror="this.src='images/president.jpeg'">
+                </td>
+                <td style="width: 70%;" class="header-text">
+                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
+                    <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
+                    <p class="en-title">KARNATAKA RAJYA NADAF / PINJAR SANGHA &reg;</p>
+                    <p>ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</p>
+                    <p>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
+                </td>
+                <td style="width: 15%; text-align: right;">
+                    <img src="images/logo-786.png" class="header-logo" alt="Logo">
+                </td>
+            </tr>
+        </table>
+        
+        <div class="title-banner">
+            <div>ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
+            <div style="font-size: 15px;">ಜನಗಣತಿ (CENSUS) ಅರ್ಜಿ 2026-27</div>
+            <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${found.date}</div>
+        </div>
+
+        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">I. कुटुंबದ ವಿವರ (Family Details)</h3>
+        <table class="grid-table">
+            <tr>
+                <td class="grid-label">ಮುಖ್ಯಸ್ಥರ ಹೆಸರು</td>
+                <td class="grid-value">${data.headName || '-'}</td>
+                <td class="grid-label">ವಿಳಾಸ :</td>
+                <td class="grid-value">${data.address || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಗ್ರಾಮ / ನಗರ</td>
+                <td class="grid-value">${data.village || '-'}</td>
+                <td class="grid-label">ಜಿಲ್ಲೆ :</td>
+                <td class="grid-value">${data.district || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ತಾಲೂಕು</td>
+                <td class="grid-value">${data.taluk || '-'}</td>
+                <td class="grid-label">ಆಧಾರ್ ಸಂಖ್ಯೆ :</td>
+                <td class="grid-value">${data.headAadhar || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ವಾರ್ಡ್ ಸಂಖ್ಯೆ</td>
+                <td class="grid-value">${data.ward || '-'}</td>
+                <td class="grid-label">ಧರ್ಮ / ಜಾತಿ :</td>
+                <td class="grid-value">${data.religion || '-'} / ${data.caste || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಮನೆಯ ಪ್ರಕಾರ</td>
+                <td class="grid-value">${data.houseType || '-'}</td>
+                <td class="grid-label">ಜಮೀನು :</td>
+                <td class="grid-value">${data.landAcres || '0'} ಎಕರೆ - ${data.landGunta || '0'} ಗುಂಟೆ</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ರೂಪಿಸುವ ಪ್ರಕಾರ</td>
+                <td class="grid-value" colspan="3">${data.formingType || '-'}</td>
+            </tr>
+        </table>
+
+        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">II. ಸದಸ್ಯರ ವಿವರಗಳು (Family Members)</h3>
+        <table class="members-table">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">Sl No.</th>
+                    <th style="width: 25%;">ಸದಸ್ಯರ ಹೆಸರು</th>
+                    <th style="width: 15%;">ಸಂಬಂಧ</th>
+                    <th style="width: 15%;">ಮೊಬೈಲ್</th>
+                    <th style="width: 15%;">ಆಧಾರ್</th>
+                    <th style="width: 13%;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
+                    <th style="width: 12%;">ಸಾಕ್ಷರಹಾ</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${membersRows}
+            </tbody>
+        </table>
+
+        <div class="recommend-text">
+            ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:___________ ಮಾಹಿತಿಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
+        </div>
+
+        <div class="approval-section">
+            <div class="sig-col">
+                <div class="sig-item" style="margin-bottom: 25px;">
+                    <div class="sig-space"></div>
+                    <span class="sig-label">ಕುಟುಂಬದ ಮುಖ್ಯಸ್ಥರ ಸಹಿ</span>
+                </div>
+                <div class="sig-item">
+                    <div class="sig-space"></div>
+                    <span class="sig-label">ಅರ್ಜಿ ಸ್ವೀಕರಿಸಿದವರ ಸಹಿ</span>
+                </div>
+            </div>
+
+            <div class="official-col">
+                <table class="official-table">
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ರಾಜ್ಯ ಘಟಕ</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>`;
+
+        let iframe = document.getElementById('receiptPrintIframe');
+        if (!iframe) {
+            iframe = document.createElement('iframe');
+            iframe.id = 'receiptPrintIframe';
+            iframe.style.position = 'fixed';
+            iframe.style.right = '0';
+            iframe.style.bottom = '0';
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.style.border = '0';
+            document.body.appendChild(iframe);
+        }
+        
+        const doc = iframe.contentWindow.document;
+        doc.open();
+        doc.write(printHTML);
+        doc.close();
+        
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+    };
+}
+
+// -------------------------------------------------------------
+// 10. Admin Employees Module
+// -------------------------------------------------------------
+function loadAdminEmployees() {
+    const tableBody = document.getElementById("employeesTableBody");
+    if (!tableBody) return;
+
+    function render(list) {
+        tableBody.innerHTML = "";
+        if (list.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:#999;">No employee registrations found.</td></tr>`;
+            return;
+        }
+
+        list.forEach((app, index) => {
+            const row = document.createElement("tr");
+            const fd = app.formData || {};
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td><span style="font-weight: 600; color: #4f1971;">${app.id}</span></td>
+                <td>${app.date}</td>
+                <td><strong>${fd.employeeName || '-'}</strong></td>
+                <td>${fd.contactNumber || '-'}</td>
+                <td>${fd.departmentName || '-'}</td>
+                <td>${fd.designation || '-'}</td>
+                <td>${fd.isRetired || 'ಇಲ್ಲ'}</td>
+                <td>
+                    <button class="btn-edit" onclick="editEmployee('${app.id}')"><i class="fa fa-edit"></i> Edit</button>
+                    <button class="btn-delete" onclick="deleteEmployee('${app.id}')"><i class="fa fa-trash"></i> Delete</button>
+                    <button class="btn-download" onclick="downloadEmployeePdf('${app.id}')"><i class="fa fa-download"></i> PDF</button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    let submissions = JSON.parse(localStorage.getItem('admin_employees_submissions')) || [];
+    render(submissions);
+
+    // Filter
+    const form = document.getElementById("employeesFilterForm");
+    if (form) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const search = document.getElementById("filterSearch").value.toLowerCase();
+
+            let filtered = submissions.filter(app => {
+                const fd = app.formData || {};
+                return (fd.employeeName || '').toLowerCase().includes(search) || 
+                       (fd.departmentName || '').toLowerCase().includes(search) ||
+                       (fd.contactNumber || '').toLowerCase().includes(search);
+            });
+            render(filtered);
+        });
+    }
+
+    const clearBtn = document.getElementById("btnClearFilter");
+    if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+            document.getElementById("employeesFilterForm").reset();
+            render(submissions);
+        });
+    }
+
+    // Modal Edit handler
+    window.editEmployee = function(id) {
+        const found = submissions.find(app => app.id === id);
+        if (!found) return;
+
+        const fd = found.formData || {};
+        document.getElementById('editIndex').value = id;
+        document.getElementById('editEmployeeName').value = fd.employeeName || '';
+        document.getElementById('editContactNumber').value = fd.contactNumber || '';
+        document.getElementById('editQualification').value = fd.qualification || '';
+        document.getElementById('editDob').value = fd.dob || '';
+        document.getElementById('editAge').value = fd.age || '';
+        document.getElementById('editDepartmentName').value = fd.departmentName || '';
+        document.getElementById('editDesignation').value = fd.designation || '';
+        document.getElementById('editIsRetired').value = fd.isRetired || 'ಇಲ್ಲ';
+        document.getElementById('editRetirementDate').value = fd.retirementDate || '';
+        document.getElementById('editPermanentAddress').value = fd.permanentAddress || '';
+
+        // Toggle retirement date block
+        const isRetired = fd.isRetired || 'ಇಲ್ಲ';
+        const group = document.getElementById('retirementDateGroup');
+        if (group) {
+            group.style.display = (isRetired === 'ಹೌದು') ? 'flex' : 'none';
+        }
+
+        document.getElementById('editEmployeeModal').style.display = 'flex';
+    };
+
+    // Modal Save
+    const editForm = document.getElementById("editEmployeeForm");
+    if (editForm) {
+        editForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const id = document.getElementById('editIndex').value;
+            const index = submissions.findIndex(app => app.id === id);
+            if (index === -1) return;
+
+            submissions[index].formData = {
+                employeeName: document.getElementById('editEmployeeName').value,
+                contactNumber: document.getElementById('editContactNumber').value,
+                qualification: document.getElementById('editQualification').value,
+                dob: document.getElementById('editDob').value,
+                age: document.getElementById('editAge').value,
+                departmentName: document.getElementById('editDepartmentName').value,
+                designation: document.getElementById('editDesignation').value,
+                isRetired: document.getElementById('editIsRetired').value,
+                retirementDate: document.getElementById('editRetirementDate').value,
+                permanentAddress: document.getElementById('editPermanentAddress').value
+            };
+
+            localStorage.setItem('admin_employees_submissions', JSON.stringify(submissions));
+            alert("Employee updated successfully!");
+            document.getElementById('editEmployeeModal').style.display = 'none';
+            render(submissions);
+        });
+    }
+
+    // Delete handler
+    window.deleteEmployee = function(id) {
+        if (confirm("Are you sure you want to delete this employee registration?")) {
+            submissions = submissions.filter(app => app.id !== id);
+            localStorage.setItem('admin_employees_submissions', JSON.stringify(submissions));
+            render(submissions);
+        }
+    };
+
+    // Download PDF handler
+    window.downloadEmployeePdf = function(id) {
+        const found = submissions.find(app => app.id === id);
+        if (!found) return;
+
+        const data = found.formData || {};
+        const appNumber = found.id;
+
+        const formattedDob = data.dob ? new Date(data.dob).toLocaleDateString('en-GB') : '-';
+        const formattedRetirement = data.isRetired === 'ಹೌದು' && data.retirementDate ? new Date(data.retirementDate).toLocaleDateString('en-GB') : 'ಇಲ್ಲ (No)';
+
+        const printHTML = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ನೌಕರರ ನೋಂದಣಿ ಪತ್ರ - ರಶೀದಿ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff;
+            margin: 0;
+            padding: 5px;
+            color: #333;
+        }
+        .receipt-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 4px double #b30000;
+            padding: 10px;
+            background: #fff;
+            box-sizing: border-box;
+        }
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 5px;
+        }
+        .header-table td {
+            padding: 3px;
+            vertical-align: middle;
+        }
+        .header-photo {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 2px solid #b30000;
+            object-fit: cover;
+        }
+        .header-logo {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 2px solid #b30000;
+            object-fit: cover;
+        }
+        .header-text {
+            text-align: center;
+        }
+        .header-text h1 {
+            color: #b30000;
+            font-size: 16px;
+            margin: 0 0 3px 0;
+            font-weight: bold;
+        }
+        .header-text p {
+            margin: 1px 0;
+            font-size: 10px;
+            color: #444;
+            font-weight: bold;
+        }
+        .header-text .reg-no {
+            font-size: 11px;
+            color: #000;
+        }
+        .header-text .en-title {
+            font-size: 12px;
+            color: #b30000;
+            margin-top: 2px;
+        }
+        .title-banner {
+            border-top: 2px solid #b30000;
+            border-bottom: 2px solid #b30000;
+            padding: 5px;
+            margin: 8px 0;
+            background: #fffcf5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 11px;
+            color: #b30000;
+        }
+        .grid-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+        }
+        .grid-table td {
+            border: 1px solid #b30000;
+            padding: 4px 6px;
+            font-size: 11px;
+            vertical-align: middle;
+        }
+        .grid-label {
+            background: #fffcf5;
+            color: #b30000;
+            font-weight: bold;
+            width: 25%;
+        }
+        .grid-value {
+            color: #000;
+            width: 25%;
+            font-weight: 500;
+        }
+        .recommend-text {
+            text-align: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: #b30000;
+            border-top: 1px dashed #b30000;
+            padding: 4px 0;
+            margin-top: 6px;
+        }
+        .approval-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 11px;
+        }
+        .sig-col {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .sig-item {
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 3px;
+        }
+        .sig-space {
+            height: 20px;
+        }
+        .sig-label {
+            font-weight: bold;
+            color: #b30000;
+        }
+        .official-col {
+            width: 55%;
+            border-left: 2px solid #b30000;
+            padding-left: 10px;
+        }
+        .official-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .official-row {
+            height: 20px;
+        }
+        .official-check {
+            width: 10%;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .official-box {
+            border: 2px solid #b30000;
+            width: 12px;
+            height: 12px;
+            display: inline-block;
+        }
+        .official-title {
+            width: 40%;
+            font-weight: bold;
+            color: #b30000;
+            padding-left: 4px;
+            vertical-align: middle;
+            font-size: 10px;
+        }
+        .official-sig-line {
+            width: 50%;
+            border-bottom: 1px dashed #b30000;
+        }
+        @media print {
+            @page {
+                size: A4;
+                margin: 5mm;
+            }
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            .receipt-container {
+                border: 4px double #b30000;
+                max-width: 100%;
+                padding: 8px;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <table class="header-table">
+            <tr>
+                <td style="width: 15%; text-align: left;">
+                    <img src="images/president.png" class="header-photo" alt="President" onerror="this.src='images/president.jpeg'">
+                </td>
+                <td style="width: 70%;" class="header-text">
+                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
+                    <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
+                    <p class="en-title">KARNATAKA RAJYA NADAF / PINJAR SANGHA &reg;</p>
+                    <p>ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</p>
+                    <p>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
+                </td>
+                <td style="width: 15%; text-align: right;">
+                    <img src="images/logo-786.png" class="header-logo" alt="Logo">
+                </td>
+            </tr>
+        </table>
+        
+        <div class="title-banner">
+            <div>ನೋಂದಣಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
+            <div style="font-size: 15px;">ನೌಕರರ ಸಂಘದ ಸದಸ್ಯತ್ವ ಅರ್ಜಿ 2026-27</div>
+            <div>ದಿನಾಂಕ : ${found.date}</div>
+        </div>
+
+        <table class="grid-table">
+            <tr>
+                <td class="grid-label">ನೌಕರರ ಹೆಸರು</td>
+                <td class="grid-value">${data.employeeName || '-'}</td>
+                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
+                <td class="grid-value">${data.contactNumber || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಹತೆ</td>
+                <td class="grid-value">${data.qualification || '-'}</td>
+                <td class="grid-label">ಹುಟ್ಟಿದ ದಿನಾಂಕ :</td>
+                <td class="grid-value">${formattedDob}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ವಯಸ್ಸು</td>
+                <td class="grid-value">${data.age || '-'}</td>
+                <td class="grid-label">ಇಲಾಖೆಯ ಹೆಸರು :</td>
+                <td class="grid-value">${data.departmentName || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಹುದ್ದೆಯ ಹೆಸರು</td>
+                <td class="grid-value">${data.designation || '-'}</td>
+                <td class="grid-label">ನಿವೃತ್ತಿ ದಿನಾಂಕ :</td>
+                <td class="grid-value">${formattedRetirement}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಕಾಯಂ ವಿಳಾಸ</td>
+                <td class="grid-value" colspan="3">${data.permanentAddress || '-'}</td>
+            </tr>
+        </table>
+
+        <div class="recommend-text">
+            ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ನೌಕರರ ಸಂಘದ ಘಟಕದಿಂದ ಮಾಹಿತಿ ಪರಿಶೀಲಿಸಿ ಸದಸ್ಯತ್ವಕ್ಕಾಗಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
+        </div>
+
+        <div class="approval-section">
+            <div class="sig-col">
+                <div class="sig-item" style="margin-bottom: 25px;">
+                    <div class="sig-space"></div>
+                    <span class="sig-label">ನೌಕರರ ಸಹಿ</span>
+                </div>
+                <div class="sig-item">
+                    <div class="sig-space"></div>
+                    <span class="sig-label">ಸಂಘದ ಪದಾಧಿಕಾರಿಗಳ ಸಹಿ</span>
+                </div>
+            </div>
+
+            <div class="official-col">
+                <table class="official-table">
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-title">ರಾಜ್ಯ ಘಟಕ</td>
+                        <td class="official-sig-line"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>`;
+
+        let iframe = document.getElementById('receiptPrintIframe');
+        if (!iframe) {
+            iframe = document.createElement('iframe');
+            iframe.id = 'receiptPrintIframe';
+            iframe.style.position = 'fixed';
+            iframe.style.right = '0';
+            iframe.style.bottom = '0';
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.style.border = '0';
+            document.body.appendChild(iframe);
+        }
+        
+        const doc = iframe.contentWindow.document;
+        doc.open();
+        doc.write(printHTML);
+        doc.close();
+        
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+    };
 }
