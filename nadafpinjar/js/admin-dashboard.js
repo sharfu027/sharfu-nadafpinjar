@@ -865,7 +865,7 @@ window.loadViewReceipt = function() {
     const rejectBtn = document.getElementById("rejectReceiptBtn");
     if (rejectBtn) {
         rejectBtn.addEventListener("click", () => {
-            const updatedReceipts = receipts.filter(r => r.id !== finalId);
+            const updatedReceipts = receipts.filter(r => r.id !== receiptId);
             localStorage.setItem('receipts', JSON.stringify(updatedReceipts));
             alert("The Receipt Has Been Rejected Successfully");
             window.location.href = "Receipts";
@@ -1223,7 +1223,6 @@ window.downloadReceiptPdf = function(receiptId) {
             width: 100%;
             border-collapse: collapse;
             border: 2px solid ${themeColor};
-            flex: 1;
         }
         .grid-cell {
             border: 1px solid ${themeColor};
@@ -1329,7 +1328,7 @@ window.downloadReceiptPdf = function(receiptId) {
 
             ${fieldsHTML}
 
-            <tr style="border-top: 2px solid ${themeColor}; height: 100%;">
+            <tr style="border-top: 2px solid ${themeColor};">
                 <td class="grid-cell" colspan="2" style="border-right: none; border-bottom: none; vertical-align: top; padding-bottom: 10px;">
                     <div class="payment-line" style="margin-top: 3px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
