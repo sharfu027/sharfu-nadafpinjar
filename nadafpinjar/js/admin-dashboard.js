@@ -420,7 +420,9 @@ async function syncSubmissionsFromDatabase() {
                         date: doc.date ? doc.date.split('T')[0] : new Date().toISOString().split('T')[0],
                         from: source,
                         amount: doc.amount || 0,
+                        status: "",
                         mode: fd.paymentMode || "Online",
+                        narration: `Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :${fd.fullName || fd.presidentName || 'Donor'}`,
                         details: {
                             fullName: fd.fullName || fd.presidentName || "",
                             mobile: fd.mobile || fd.presidentMobile || "",
@@ -688,19 +690,22 @@ function loadReceipts() {
 
         list.forEach((r, index) => {
             const row = document.createElement("tr");
+            const isGenerated = r.id && r.id.startsWith("2026");
+            const statusText = (r.status && r.status !== 'undefined') ? r.status : '';
+            const narrationText = (r.narration && r.narration !== 'undefined') ? r.narration : '';
             row.innerHTML = `
                 <td>${list.length - index}</td>
                 <td>
-                    ${r.id.startsWith("2026") ? 
+                    ${isGenerated ? 
                       `<span style="font-weight: 600; color: #4f1971;">${r.id}</span>` : 
                       `<button class="btn-view" onclick="generateReceiptId('${r.id}')" style="background:#0ea5e9; padding: 4px 8px; font-size:11px;">Generate Receipt</button>`}
                 </td>
                 <td>${formatDate(r.date)}</td>
                 <td><strong>${formatCurrency(r.amount)}</strong></td>
-                <td>${r.from}</td>
-                <td><span style="color: green; font-weight: bold;">${r.status}</span></td>
-                <td>${r.mode}</td>
-                <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${r.narration}</td>
+                <td>${r.from || ''}</td>
+                <td><span style="color: green; font-weight: bold;">${statusText}</span></td>
+                <td>${r.mode || ''}</td>
+                <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${narrationText}</td>
                 <td>
                     <button class="btn-view" onclick="window.location.href='viewReceipt?id=' + encodeURIComponent('${r.id}')"><i class="fa fa-eye"></i> View</button>
                 </td>
@@ -751,7 +756,7 @@ function loadReceipts() {
 
 // Ensure formatted Receipt ID is generated dynamically when viewing or downloading
 function ensureReceiptIdGenerated(rId) {
-    if (!rId || !rId.startsWith("GENERATE")) return rId;
+    if (!rId || rId.startsWith("2026")) return rId;
     const receipts = JSON.parse(localStorage.getItem('receipts')) || [];
     const index = receipts.findIndex(r => r.id === rId);
     if (index > -1) {
@@ -1327,32 +1332,38 @@ window.downloadReceiptPdf = function(receiptId) {
             ${fieldsHTML}
 
             <tr style="border-top: 2px solid ${themeColor}; height: 100%;">
-                <td class="grid-cell" colspan="2" style="border-right: none; border-bottom: none; vertical-align: top;">
-                    <div class="payment-line" style="margin-top: 3px;">
-                        <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
-                        <span class="field-value" style="font-size: 11px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(found.amount)}</span>
-                    </div>
-                    <div class="payment-line" style="margin-top: 4px;">
-                        <span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span>
-                        <span class="field-value">${formatDateDashes(found.date)}</span>
-                    </div>
-                    <div class="payment-line" style="margin-top: 4px;">
-                        <span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span>
-                        <span class="field-value">${details.purpose || found.from}</span>
-                    </div>
-                    <div class="payment-line" style="margin-top: 4px;">
-                        <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
-                        <span class="field-value">${details.purposeDetails || "N/A"}</span>
+                <td class="grid-cell" colspan="2" style="border-right: none; border-bottom: none; vertical-align: top; height: 100%;">
+                    <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; box-sizing: border-box;">
+                        <div>
+                            <div class="payment-line" style="margin-top: 3px;">
+                                <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
+                                <span class="field-value" style="font-size: 11px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(found.amount)}</span>
+                            </div>
+                            <div class="payment-line" style="margin-top: 4px;">
+                                <span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span>
+                                <span class="field-value">${formatDateDashes(found.date)}</span>
+                            </div>
+                            <div class="payment-line" style="margin-top: 4px;">
+                                <span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span>
+                                <span class="field-value">${details.purpose || found.from}</span>
+                            </div>
+                            <div class="payment-line" style="margin-top: 4px;">
+                                <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
+                                <span class="field-value">${details.purposeDetails || "N/A"}</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px; text-align: left; padding-left: 10px; padding-bottom: 5px;">
+                            <img src="images/seal.jpg" class="seal-img">
+                        </div>
                     </div>
                 </td>
-                <td class="grid-cell" style="border-left: none; border-bottom: none; vertical-align: bottom;">
-                    <div class="payment-line right-align">
-                        <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
-                        <span class="field-value">${details.mode || found.mode}</span>
-                    </div>
-                    <div class="seal-sig-wrapper" style="margin-top: 4px;">
-                        <img src="images/seal.jpg" class="seal-img">
-                        <div style="text-align: center; width: 140px;">
+                <td class="grid-cell" style="border-left: none; border-bottom: none; vertical-align: top; height: 100%;">
+                    <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; box-sizing: border-box; align-items: flex-end;">
+                        <div class="payment-line right-align" style="width: 100%; margin-top: 3px;">
+                            <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
+                            <span class="field-value">${details.mode || found.mode}</span>
+                        </div>
+                        <div style="text-align: center; width: 140px; margin-top: 10px; padding-bottom: 5px;">
                             <div style="font-size: 8px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
                             <img src="images/sig.jpg" class="sig-img">
                             <div style="font-size: 8px; font-weight: bold; line-height: 1.2; color: #000;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
@@ -1581,9 +1592,9 @@ function loadAdminFreeEdu() {
                 <td>${fd.joiningClass || '-'}</td>
                 <td>${fd.district || '-'}</td>
                 <td>
-                    <button class="btn-edit" onclick="editFreeedu('${app.id}')"><i class="fa fa-edit"></i> Edit</button>
-                    <button class="btn-delete" onclick="deleteFreeedu('${app.id}')"><i class="fa fa-trash"></i> Delete</button>
-                    <button class="btn-download" onclick="downloadFreeeduPdf('${app.id}')"><i class="fa fa-download"></i> PDF</button>
+                    <button class="btn-edit" onclick="editFreeedu('${app.id}')" title="Edit"><i class="fa fa-edit"></i></button>
+                    <button class="btn-delete" onclick="deleteFreeedu('${app.id}')" title="Delete"><i class="fa fa-trash"></i></button>
+                    <button class="btn-download" onclick="downloadFreeeduPdf('${app.id}')" title="Download PDF"><i class="fa fa-download"></i></button>
                 </td>
             `;
             tableBody.appendChild(row);
@@ -2135,9 +2146,9 @@ function loadAdminCensus() {
                 <td>${fd.taluk || '-'}</td>
                 <td>${fd.district || '-'}</td>
                 <td>
-                    <button class="btn-edit" onclick="editCensus('${app.id}')"><i class="fa fa-edit"></i> Edit</button>
-                    <button class="btn-delete" onclick="deleteCensus('${app.id}')"><i class="fa fa-trash"></i> Delete</button>
-                    <button class="btn-download" onclick="downloadCensusPdf('${app.id}')"><i class="fa fa-download"></i> PDF</button>
+                    <button class="btn-edit" onclick="editCensus('${app.id}')" title="Edit"><i class="fa fa-edit"></i></button>
+                    <button class="btn-delete" onclick="deleteCensus('${app.id}')" title="Delete"><i class="fa fa-trash"></i></button>
+                    <button class="btn-download" onclick="downloadCensusPdf('${app.id}')" title="Download PDF"><i class="fa fa-download"></i></button>
                 </td>
             `;
             tableBody.appendChild(row);
@@ -2802,9 +2813,9 @@ function loadAdminEmployees() {
                 <td>${fd.designation || '-'}</td>
                 <td>${fd.isRetired || 'ಇಲ್ಲ'}</td>
                 <td>
-                    <button class="btn-edit" onclick="editEmployee('${app.id}')"><i class="fa fa-edit"></i> Edit</button>
-                    <button class="btn-delete" onclick="deleteEmployee('${app.id}')"><i class="fa fa-trash"></i> Delete</button>
-                    <button class="btn-download" onclick="downloadEmployeePdf('${app.id}')"><i class="fa fa-download"></i> PDF</button>
+                    <button class="btn-edit" onclick="editEmployee('${app.id}')" title="Edit"><i class="fa fa-edit"></i></button>
+                    <button class="btn-delete" onclick="deleteEmployee('${app.id}')" title="Delete"><i class="fa fa-trash"></i></button>
+                    <button class="btn-download" onclick="downloadEmployeePdf('${app.id}')" title="Download PDF"><i class="fa fa-download"></i></button>
                 </td>
             `;
             tableBody.appendChild(row);
