@@ -875,145 +875,167 @@
         }
 
         function printReceipt(data, paymentId) {
-            let tableRows = '';
-            tableRows += `<tr><td class="grid-label">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರ ಹೆಸರು</td><td class="grid-value" style="font-weight: bold;">${data.presidentName || '-'}</td></tr>`;
-            tableRows += `<tr><td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td><td class="grid-value">${data.presidentMobile || '-'}</td></tr>`;
-            tableRows += `<tr><td class="grid-label">ಯಾರ ಪರವಾಗಿ ಪೂರ್ಣ ಹೆಸರು</td><td class="grid-value" style="font-weight: bold;">${data.donorName || '-'}</td></tr>`;
-            tableRows += `<tr><td class="grid-label">ವಿಳಾಸ</td><td class="grid-value">${data.donorAddress || '-'}</td></tr>`;
-            tableRows += `<tr><td class="grid-label">ಗ್ರಾಮ / ನಗರ</td><td class="grid-value">${data.donorVillage || '-'}</td></tr>`;
-            tableRows += `<tr><td class="grid-label">ಜಿಲ್ಲೆ / ತಾಲೂಕು</td><td class="grid-value">${data.donorDistrict || '-'} - ${data.donorTaluk || '-'}</td></tr>`;
-            tableRows += `<tr><td class="grid-label">ಮೊಬೈಲ್ (ಯಾರ ಪರವಾಗಿ)</td><td class="grid-value">${data.donorMobile || '-'}</td></tr>`;
-            tableRows += `<tr><td class="grid-label">ಖಾತೆ</td><td class="grid-value">${data.account || '-'}</td></tr>`;
-            tableRows += `<tr><td class="grid-label">ಉದ್ದೇಶದ ವಿವರಗಳು</td><td class="grid-value">${data.purposeDetails || '-'}</td></tr>`;
+            const formatDateDashes = (dateStr) => {
+                if (!dateStr) return "";
+                const d = new Date(dateStr);
+                if (isNaN(d.getTime())) return dateStr;
+                const day = String(d.getDate()).padStart(2, '0');
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const year = d.getFullYear();
+                return `${day}-${month}-${year}`;
+            };
+
+            const formatCurrencyRaw = (amount) => {
+                return Number(amount).toLocaleString('en-IN', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            };
+
+            const themeColor = "#006600"; // Green for Taluk
+            const subheaderTitle = "ತಾಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
+            const formattedDate = formatDateDashes(new Date());
 
             const printHTML = `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>ಪಾವತಿ ಸ್ವೀಕೃತಿ - ರಶೀದಿ</title>
+    <base href="${window.location.origin}/">
+    <title>Donation Receipt</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
         html, body {
-            height: 100%;
+            height: auto;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             color: #333;
         }
         .receipt-container {
             max-width: 100%;
-            height: 100%;
-            margin: 0 auto;
-            border: 2px double #b30000;
+            height: auto;
+            margin: 0;
+            border: 4px double ${themeColor};
             padding: 6px;
             background: #fff;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
-        .header-table {
+        .header-box {
             width: 100%;
             border-collapse: collapse;
+            border: 2px solid #b30000;
+            background-color: #fffdeb;
             margin-bottom: 4px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
-        .header-table td {
-            padding: 2px;
+        .header-photo-cell {
+            width: 60px;
+            text-align: center;
+            padding: 3px;
             vertical-align: middle;
         }
-        .header-photo {
+        .patron-photo {
             width: 50px;
             height: 50px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
+        }
+        .header-logo-cell {
+            width: 60px;
+            text-align: center;
+            padding: 3px;
+            vertical-align: middle;
         }
         .header-logo {
             width: 50px;
             height: 50px;
-            border-radius: 50%;
-            border: 1.5px solid #b30000;
-            object-fit: cover;
+            object-fit: contain;
         }
-        .header-text {
+        .header-text-cell {
             text-align: center;
-        }
-        .header-text h1 {
+            vertical-align: middle;
+            padding: 3px 0;
             color: #b30000;
+        }
+        .kannada-title {
             font-size: 13.5px;
-            margin: 0 0 2px 0;
             font-weight: bold;
+            margin-bottom: 1px;
         }
-        .header-text p {
-            margin: 1px 0;
-            font-size: 8px;
-            color: #444;
-            font-weight: bold;
-        }
-        .header-text .reg-no {
+        .reg-no {
             font-size: 8.5px;
-            color: #000;
-        }
-        .header-text .en-title {
-            font-size: 9px;
-            color: #b30000;
-            margin-top: 1px;
-        }
-        .title-banner {
-            border-top: 1.5px solid #b30000;
-            border-bottom: 1.5px solid #b30000;
-            padding: 4px;
-            margin: 4px 0;
-            background: #fffcf5;
-            text-align: center;
             font-weight: bold;
-            font-size: 11px;
-            color: #b30000;
+            margin-bottom: 2px;
+            color: #444;
         }
-        .meta-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 4px;
+        .english-title {
             font-size: 9px;
             font-weight: bold;
-            color: #b30000;
+            letter-spacing: 0.2px;
+            margin-bottom: 1px;
         }
-        .meta-table td {
-            padding: 2px 0;
+        .office-address, .office-location {
+            font-size: 8.5px;
+            font-weight: bold;
+            color: #333;
         }
-        .grid-table {
+        .receipt-grid {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 4px;
+            border: 2px solid ${themeColor};
         }
-        .grid-table td {
-            border: 1px solid #b30000;
+        .grid-cell {
+            border: 1px solid ${themeColor};
             padding: 3px 5px;
             font-size: 9px;
-            vertical-align: middle;
+            vertical-align: top;
+            color: #1e293b;
+            line-height: 1.2;
         }
-        .grid-label {
-            background: #fffcf5;
-            color: #b30000;
-            font-weight: bold;
-            width: 30%;
-        }
-        .grid-value {
-            color: #000;
-            width: 70%;
-            font-weight: bold;
-        }
-        .amount-banner {
-            background: #28a745;
-            color: white;
-            padding: 5px;
-            font-weight: bold;
+        .center-align {
             text-align: center;
-            font-size: 11px;
-            border-radius: 4px;
-            margin-bottom: 6px;
+        }
+        .right-align {
+            text-align: right;
+        }
+        .subheader-row {
+            color: ${themeColor};
+            font-weight: bold;
+        }
+        .field-label {
+            font-weight: 600;
+            color: ${themeColor};
+            margin-right: 4px;
+        }
+        .field-value {
+            color: #000;
+            font-weight: bold;
+        }
+        .payment-line {
+            font-size: 9.5px;
+        }
+        .seal-img {
+            height: 45px;
+            width: auto;
+            border-radius: 50%;
+            border: 1px solid #5A1F75;
+        }
+        .sig-img {
+            height: 25px;
+            width: auto;
+            margin-bottom: 2px;
         }
         @media print {
             @page {
@@ -1021,39 +1043,20 @@
                 margin: 4mm;
             }
             html, body {
-                height: 100%;
+                height: auto;
             }
             body {
                 padding: 0;
             }
             .receipt-container {
-                border: 2px double #b30000;
-                height: 100%;
+                max-width: 100%;
+                height: auto;
             }
         }
     </style>
 </head>
 <body>
     <div class="receipt-container">
-        <table class="header-table">
-            <tr>
-                <td style="width: 15%; text-align: left;">
-                    <img src="images/president.png" class="header-photo" alt="President">
-                </td>
-                <td style="width: 70%;" class="header-text">
-                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
-                    <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
-                    <p class="en-title">KARNATAKA RAJYA NADAF / PINJAR SANGHA &reg;</p>
-                    <p>ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</p>
-                    <p>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
-                </td>
-                <td style="width: 15%; text-align: right;">
-                    <img src="images/logo-786.png" class="header-logo" alt="Logo">
-                </td>
-            </tr>
-        </table>
-        
-        <div class="title-banner">
             ಪಾವತಿ ಸ್ವೀಕೃತಿ (PAYMENT RECEIPT)
         </div>
 

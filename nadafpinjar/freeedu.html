@@ -772,13 +772,16 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <base href="${window.location.origin}/">
     <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
     <style>
         html, body {
-            height: 100%;
+            height: auto;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -787,7 +790,7 @@
         }
         .receipt-container {
             max-width: 100%;
-            height: 100%;
+            height: auto;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 5px;
@@ -795,6 +798,8 @@
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
         .header-table {
             width: 100%;
@@ -952,7 +957,7 @@
                 margin: 4mm;
             }
             html, body {
-                height: 100%;
+                height: auto;
             }
             body {
                 padding: 0;
@@ -961,7 +966,7 @@
             .receipt-container {
                 border: 2px double #b30000;
                 max-width: 100%;
-                height: 100%;
+                height: auto;
                 padding: 5px;
                 page-break-inside: avoid;
             }

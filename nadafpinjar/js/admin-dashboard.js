@@ -422,21 +422,23 @@ async function syncSubmissionsFromDatabase() {
                         amount: doc.amount || 0,
                         status: "",
                         mode: fd.paymentMode || "Online",
-                        narration: `Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :${fd.fullName || fd.presidentName || 'Donor'}`,
+                        narration: `Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :${fd.donorName || fd.fullName || fd.presidentName || 'Donor'}`,
                         details: {
-                            fullName: fd.fullName || fd.presidentName || "",
-                            mobile: fd.mobile || fd.presidentMobile || "",
-                            village: fd.village || fd.presidentVillage || "",
-                            taluk: fd.taluk || fd.presidentTaluk || "",
-                            district: fd.district || fd.presidentDistrict || "",
-                            purpose: fd.account || "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ",
+                            fullName: fd.donorName || fd.fullName || "",
+                            address: source === "state" ? (fd.address || fd.donorAddress || "") : (fd.donorAddress || fd.address || ""),
+                            mobile: source === "state" ? (fd.mobile || fd.donorMobile || "") : (fd.donorMobile || fd.mobile || ""),
+                            village: source === "state" ? (fd.village || fd.donorVillage || "") : (fd.donorVillage || fd.village || ""),
+                            taluk: source === "state" ? (fd.taluk || fd.donorTaluk || "") : (fd.donorTaluk || fd.taluk || ""),
+                            district: source === "state" ? (fd.district || fd.donorDistrict || "") : (fd.donorDistrict || fd.district || ""),
+                            purpose: fd.account || fd.purpose || "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ",
                             purposeDetails: fd.purposeDetails || "",
                             mode: fd.paymentMode || "Online",
-                            presidentName: fd.presidentName || "",
-                            presidentMobile: fd.presidentMobile || "",
-                            presidentVillage: fd.presidentVillage || "",
-                            presidentTaluk: fd.presidentTaluk || "",
-                            presidentDistrict: fd.presidentDistrict || ""
+                            presidentName: source !== "state" ? (fd.presidentName || "") : "",
+                            presidentAddress: source !== "state" ? (fd.presidentAddress || "") : "",
+                            presidentMobile: source !== "state" ? (fd.presidentMobile || "") : "",
+                            presidentVillage: source !== "state" ? (fd.presidentVillage || "") : "",
+                            presidentTaluk: source !== "state" ? (fd.taluk || fd.presidentTaluk || "") : "",
+                            presidentDistrict: source !== "state" ? (fd.district || fd.presidentDistrict || "") : ""
                         }
                     });
                     hasChanges = true;
@@ -1135,14 +1137,17 @@ window.downloadReceiptPdf = function(receiptId) {
 <html>
 <head>
     <meta charset="utf-8">
+    <base href="${window.location.origin}/">
     <title>Donation Receipt - ${found.id}</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
         html, body {
-            height: 100%;
+            height: auto;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
         body {
             font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -1151,14 +1156,16 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         .receipt-container {
             max-width: 100%;
-            height: 100%;
+            height: auto;
             margin: 0;
-            border: 2px solid ${themeColor};
+            border: 4px double ${themeColor};
             padding: 6px;
             background: #fff;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
         .header-box {
             width: 100%;
@@ -1278,14 +1285,14 @@ window.downloadReceiptPdf = function(receiptId) {
                 margin: 4mm;
             }
             html, body {
-                height: 100%;
+                height: auto;
             }
             body {
                 padding: 0;
             }
             .receipt-container {
                 max-width: 100%;
-                height: 100%;
+                height: auto;
             }
         }
     </style>
@@ -1736,13 +1743,16 @@ function loadAdminFreeEdu() {
 <html>
 <head>
     <meta charset="utf-8">
+    <base href="${window.location.origin}/">
     <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
     <style>
         html, body {
-            height: 100%;
+            height: auto;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -1751,7 +1761,7 @@ function loadAdminFreeEdu() {
         }
         .receipt-container {
             max-width: 100%;
-            height: 100%;
+            height: auto;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 5px;
@@ -1759,6 +1769,8 @@ function loadAdminFreeEdu() {
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
         .header-table {
             width: 100%;
@@ -1916,7 +1928,7 @@ function loadAdminFreeEdu() {
                 margin: 4mm;
             }
             html, body {
-                height: 100%;
+                height: auto;
             }
             body {
                 padding: 0;
@@ -1925,7 +1937,7 @@ function loadAdminFreeEdu() {
             .receipt-container {
                 border: 2px double #b30000;
                 max-width: 100%;
-                height: 100%;
+                height: auto;
                 padding: 5px;
                 page-break-inside: avoid;
             }
@@ -2409,13 +2421,16 @@ function loadAdminCensus() {
 <html>
 <head>
     <meta charset="utf-8">
+    <base href="${window.location.origin}/">
     <title>ಜನಗಣತಿ (Census) - ರಶೀದಿ</title>
     <style>
         html, body {
-            height: 100%;
+            height: auto;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -2424,7 +2439,7 @@ function loadAdminCensus() {
         }
         .receipt-container {
             max-width: 100%;
-            height: 100%;
+            height: auto;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 4px;
@@ -2432,6 +2447,8 @@ function loadAdminCensus() {
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
         .header-table {
             width: 100%;
@@ -2606,7 +2623,7 @@ function loadAdminCensus() {
                 margin: 4mm;
             }
             html, body {
-                height: 100%;
+                height: auto;
             }
             body {
                 padding: 0;
@@ -2615,7 +2632,7 @@ function loadAdminCensus() {
             .receipt-container {
                 border: 2px double #b30000;
                 max-width: 100%;
-                height: 100%;
+                height: auto;
                 padding: 4px;
                 page-break-inside: avoid;
             }
@@ -2927,13 +2944,16 @@ function loadAdminEmployees() {
 <html>
 <head>
     <meta charset="utf-8">
+    <base href="${window.location.origin}/">
     <title>ನೌಕರರ ನೋಂದಣಿ ಪತ್ರ - ರಶೀದಿ</title>
     <style>
         html, body {
-            height: 100%;
+            height: auto;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -2950,6 +2970,8 @@ function loadAdminEmployees() {
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
         .header-table {
             width: 100%;
@@ -3107,7 +3129,7 @@ function loadAdminEmployees() {
                 margin: 4mm;
             }
             html, body {
-                height: 100%;
+                height: auto;
             }
             body {
                 padding: 0;
@@ -3116,7 +3138,7 @@ function loadAdminEmployees() {
             .receipt-container {
                 border: 2px double #b30000;
                 max-width: 100%;
-                height: 100%;
+                height: auto;
                 padding: 10px;
                 box-sizing: border-box;
                 page-break-inside: avoid;
