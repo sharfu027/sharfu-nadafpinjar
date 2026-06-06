@@ -175,10 +175,11 @@
                             <input type="text" id="editDesignation" required>
                         </div>
                         <div class="form-group">
-                            <label>ನಿವೃತ್ತಿ ಹೊಂದಿದ್ದೀರಾ? (Retired?)</label>
-                            <select id="editIsRetired" onchange="toggleRetirementDateEdit()">
-                                <option value="ಹೌದು">ಹೌದು (Yes)</option>
-                                <option value="ಇಲ್ಲ">ಇಲ್ಲ (No)</option>
+                            <label>ಅರ್ಜಿಯ ವಿಧ (Application Type)</label>
+                            <select id="editEmployeeType" onchange="toggleRetirementDateEdit()">
+                                <option value="ಸರ್ಕಾರಿ ನೌಕರರ ಮಾಹಿತಿ">ಸರ್ಕಾರಿ ನೌಕರರ ಮಾಹಿತಿ</option>
+                                <option value="ಖಾಸಗಿ ನೌಕರರ ಮಾಹಿತಿ">ಖಾಸಗಿ ನೌಕರರ ಮಾಹಿತಿ</option>
+                                <option value="ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ">ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ</option>
                             </select>
                         </div>
                         <div class="form-group" id="retirementDateGroup">
@@ -205,9 +206,9 @@
             document.getElementById('editEmployeeModal').style.display = 'none';
         }
         function toggleRetirementDateEdit() {
-            const isRetired = document.getElementById('editIsRetired').value;
+            const empType = document.getElementById('editEmployeeType').value;
             const group = document.getElementById('retirementDateGroup');
-            if (isRetired === 'ಹೌದು') {
+            if (empType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') {
                 group.style.display = 'flex';
             } else {
                 group.style.display = 'none';

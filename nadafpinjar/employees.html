@@ -277,6 +277,15 @@
         <h1 class="form-title">ನೌಕರರ ವಿವರ ನೋಂದಣಿ (Employee Registration)</h1>
         <form id="employeesForm" onsubmit="event.preventDefault(); showPreview();">
             
+            <div class="form-group" style="margin-bottom: 25px;">
+                <label for="employeeType">ಅರ್ಜಿಯ ವಿಧ (Application Type) *</label>
+                <select id="employeeType" name="employeeType" onchange="handleEmployeeTypeChange(this.value);" required>
+                    <option value="ಸರ್ಕಾರಿ ನೌಕರರ ಮಾಹಿತಿ">ಸರ್ಕಾರಿ ನೌಕರರ ಮಾಹಿತಿ (Government Employee Info)</option>
+                    <option value="ಖಾಸಗಿ ನೌಕರರ ಮಾಹಿತಿ">ಖಾಸಗಿ ನೌಕರರ ಮಾಹಿತಿ (Private Employee Info)</option>
+                    <option value="ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ">ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ (Retired Employee Info)</option>
+                </select>
+            </div>
+
             <div class="form-row">
                 <div class="form-group">
                     <label for="employeeName">ನೌಕರರ ಹೆಸರು (Name of Employee) *</label>
@@ -334,18 +343,9 @@
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="isRetired">ನಿವೃತ್ತಿ ಹೊಂದಿದ್ದೀರಾ? (Are you retired?) *</label>
-                    <select id="isRetired" name="isRetired" onchange="toggleRetirementDate(this.value);" required>
-                        <option value="ಇಲ್ಲ">ಇಲ್ಲ (No)</option>
-                        <option value="ಹೌದು">ಹೌದು (Yes)</option>
-                    </select>
-                </div>
-                <div class="form-group" id="retirementDateGroup" style="display: none !important;">
-                    <label for="retirementDate">ನಿವೃತ್ತಿ ಹೊಂದಿದ ದಿನಾಂಕ (Date of Retirement) *</label>
-                    <input type="date" id="retirementDate" name="retirementDate">
-                </div>
+            <div class="form-group" id="retirementFieldsRow" style="display: none !important; margin-bottom: 20px;">
+                <label for="retirementDate">ನಿವೃತ್ತಿ ಹೊಂದಿದ ದಿನಾಂಕ (Date of Retirement) *</label>
+                <input type="date" id="retirementDate" name="retirementDate">
             </div>
 
             <div class="form-group">
@@ -455,14 +455,14 @@
             }
         }
 
-        function toggleRetirementDate(value) {
-            const group = document.getElementById('retirementDateGroup');
+        function handleEmployeeTypeChange(value) {
+            const row = document.getElementById('retirementFieldsRow');
             const input = document.getElementById('retirementDate');
-            if (value === 'ಹೌದು') {
-                group.style.setProperty('display', 'block', 'important');
+            if (value === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') {
+                row.style.setProperty('display', 'block', 'important');
                 input.setAttribute('required', 'true');
             } else {
-                group.style.setProperty('display', 'none', 'important');
+                row.style.setProperty('display', 'none', 'important');
                 input.removeAttribute('required');
                 input.value = '';
             }
@@ -479,26 +479,29 @@
                 }
             });
 
+            // Set isRetired dynamically
+            formData['isRetired'] = (formData['employeeType'] === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') ? 'ಹೌದು' : 'ಇಲ್ಲ';
+
             document.getElementById('formContainer').style.display = 'none';
             document.getElementById('previewModal').style.display = 'flex';
 
             let previewHTML = '';
             const fieldsOrder = [
+                { key: 'employeeType', label: 'ಅರ್ಜಿಯ ವಿಧ (Application Type)' },
                 { key: 'employeeName', label: 'ನೌಕರರ ಹೆಸರು (Employee Name)' },
                 { key: 'fatherName', label: 'ತಂದೆಯ ಹೆಸರು (Father\'s Name)' },
                 { key: 'contactNumber', label: 'ಮೊಬೈಲ್ ಸಂಖ್ಯೆ (Contact Number)' },
-                { key: 'qualification', label: 'ವಿದ್ಯಾರ್ಹತೆ (Qualification)' },
+                { key: 'qualification', label: 'ವิด್ಯಾರ್ಹತೆ (Qualification)' },
                 { key: 'dob', label: 'ಹುಟ್ಟಿದ ದಿನಾಂಕ (Date of Birth)' },
                 { key: 'age', label: 'ವಯಸ್ಸು (Age)' },
                 { key: 'departmentName', label: 'ಇಲಾಖೆಯ ಹೆಸರು (Department Name)' },
                 { key: 'designation', label: 'ಹುದ್ದೆಯ ಹೆಸರು (Designation)' },
-                { key: 'isRetired', label: 'ನಿವೃತ್ತಿ ಹೊಂದಿದ್ದೀರಾ? (Are you retired?)' },
                 { key: 'retirementDate', label: 'ನಿವೃತ್ತಿ ದಿನಾಂಕ (Date of Retirement)' },
                 { key: 'permanentAddress', label: 'ಕಾಯಂ ವಿಳಾಸ (Permanent Address)' }
             ];
 
             fieldsOrder.forEach(item => {
-                if (item.key === 'retirementDate' && formData['isRetired'] !== 'ಹೌದು') {
+                if (item.key === 'retirementDate' && formData['employeeType'] !== 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') {
                     return; // Skip displaying retirement date if not retired
                 }
                 let value = formData[item.key] || '-';
@@ -526,7 +529,7 @@
         function submitToMongoDB() {
             // Dynamic ID generation utilizing timestamp & random digits
             const lastDigits = Math.floor(Math.random() * 900) + 100;
-            const appNumber = `KRNPS-EMP-2026-27-${lastDigits}`;
+            const appNumber = `EMP/${lastDigits}`;
 
             const dataToSave = {
                 formType: "ನೌಕರರ ವಿವರ",
@@ -616,7 +619,7 @@
         }
         .receipt-container {
             max-width: 100%;
-            height: 100%;
+            height: auto;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 5px;
@@ -790,8 +793,10 @@
             .receipt-container {
                 border: 2px double #b30000;
                 max-width: 100%;
-                height: 100%;
-                padding: 5px;
+                height: auto;
+                min-height: 138mm;
+                padding: 10px;
+                box-sizing: border-box;
                 page-break-inside: avoid;
             }
         }
@@ -819,7 +824,7 @@
         
         <div class="title-banner">
             <div>ನೋಂದಣಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
-            <div style="font-size: 15px;">ನೌಕರರ ಸಂಘದ ಸದಸ್ಯತ್ವ ಅರ್ಜಿ 2026-27</div>
+            <div style="font-size: 15px;">${data.employeeType || 'ನೌಕರರ ಮಾಹಿತಿ 2026'}</div>
             <div>ದಿನಾಂಕ : ${new Date().toLocaleDateString('en-GB')}</div>
         </div>
 
@@ -848,66 +853,17 @@
                 <td class="grid-label">ಹುದ್ದೆಯ ಹೆಸರು :</td>
                 <td class="grid-value">${data.designation || '-'}</td>
             </tr>
+            ${data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ' ? `
             <tr>
-                <td class="grid-label">ನಿವೃತ್ತಿ ಹೊಂದಿದ್ದೀರಾ?</td>
-                <td class="grid-value">${data.isRetired || '-'}</td>
-                <td class="grid-label">ನಿವೃತ್ತಿ ದಿನಾಂಕ :</td>
-                <td class="grid-value">${formattedRetirement}</td>
+                <td class="grid-label">ನಿವೃತ್ತಿ ದಿನಾಂಕ</td>
+                <td class="grid-value" colspan="3">${formattedRetirement}</td>
             </tr>
+            ` : ''}
             <tr>
                 <td class="grid-label">ಕಾಯಂ ವಿಳಾಸ</td>
                 <td class="grid-value" colspan="3">${data.permanentAddress || '-'}</td>
             </tr>
         </table>
-
-        <div class="recommend-text">
-            ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ನೌಕರರ ಸಂಘದ ಘಟಕದಿಂದ ಮಾಹಿತಿ ಪರಿಶೀಲಿಸಿ ಸದಸ್ಯತ್ವಕ್ಕಾಗಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
-        </div>
-
-        <div class="approval-section">
-            <!-- Left Column: Signatures -->
-            <div class="sig-col">
-                <div class="sig-item" style="margin-bottom: 6px;">
-                    <div class="sig-space"></div>
-                    <span class="sig-label">ನೌಕರರ ಸಹಿ</span>
-                </div>
-                <div class="sig-item">
-                    <div class="sig-space"></div>
-                    <span class="sig-label">ಸಂಘದ ಪದಾಧಿಕಾರಿಗಳ ಸಹಿ</span>
-                </div>
-            </div>
-
-            <!-- Right Column: Official Approvals -->
-            <div class="official-col">
-                <table class="official-table">
-                    <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-title">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು</td>
-                        <td class="official-sig-line"></td>
-                    </tr>
-                    <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು</td>
-                        <td class="official-sig-line"></td>
-                    </tr>
-                    <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-title">ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</td>
-                        <td class="official-sig-line"></td>
-                    </tr>
-                    <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-title">ರಾಜ್ಯ ನೌಕರರ ಸಮಿತಿ</td>
-                        <td class="official-sig-line"></td>
-                    </tr>
-                    <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-title">ರಾಜ್ಯ ಘಟಕ</td>
-                        <td class="official-sig-line"></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
     </div>
 </body>
 </html>`;

@@ -238,6 +238,7 @@ const defaultEmployeesSubmissions = [
         id: "KRNPS-2026-27-33",
         date: new Date().toLocaleDateString('en-GB'),
         formData: {
+            employeeType: "ಸರ್ಕಾರಿ ನೌಕರರ ಮಾಹಿತಿ",
             employeeName: "ರಫೀಕ್ ಪಿಂಜಾರ್",
             fatherName: "ಹುಸೇನ್ ಸಾಬ್ ನದಾಫ್",
             contactNumber: "9448011223",
@@ -2853,15 +2854,15 @@ function loadAdminEmployees() {
         document.getElementById('editAge').value = fd.age || '';
         document.getElementById('editDepartmentName').value = fd.departmentName || '';
         document.getElementById('editDesignation').value = fd.designation || '';
-        document.getElementById('editIsRetired').value = fd.isRetired || 'ಇಲ್ಲ';
+        document.getElementById('editEmployeeType').value = fd.employeeType || 'ಸರ್ಕಾರಿ ನೌಕರರ ಮಾಹಿತಿ';
         document.getElementById('editRetirementDate').value = fd.retirementDate || '';
         document.getElementById('editPermanentAddress').value = fd.permanentAddress || '';
 
         // Toggle retirement date block
-        const isRetired = fd.isRetired || 'ಇಲ್ಲ';
+        const empType = fd.employeeType || 'ಸರ್ಕಾರಿ ನೌಕರರ ಮಾಹಿತಿ';
         const group = document.getElementById('retirementDateGroup');
         if (group) {
-            group.style.display = (isRetired === 'ಹೌದು') ? 'flex' : 'none';
+            group.style.display = (empType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') ? 'flex' : 'none';
         }
 
         document.getElementById('editEmployeeModal').style.display = 'flex';
@@ -2876,7 +2877,9 @@ function loadAdminEmployees() {
             const index = submissions.findIndex(app => app.id === id);
             if (index === -1) return;
 
+            const empType = document.getElementById('editEmployeeType').value;
             submissions[index].formData = {
+                employeeType: empType,
                 employeeName: document.getElementById('editEmployeeName').value,
                 fatherName: document.getElementById('editFatherName').value,
                 contactNumber: document.getElementById('editContactNumber').value,
@@ -2885,7 +2888,7 @@ function loadAdminEmployees() {
                 age: document.getElementById('editAge').value,
                 departmentName: document.getElementById('editDepartmentName').value,
                 designation: document.getElementById('editDesignation').value,
-                isRetired: document.getElementById('editIsRetired').value,
+                isRetired: (empType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') ? 'ಹೌದು' : 'ಇಲ್ಲ',
                 retirementDate: document.getElementById('editRetirementDate').value,
                 permanentAddress: document.getElementById('editPermanentAddress').value
             };
@@ -2937,7 +2940,7 @@ function loadAdminEmployees() {
         }
         .receipt-container {
             max-width: 100%;
-            height: 100%;
+            height: auto;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 5px;
@@ -3111,8 +3114,10 @@ function loadAdminEmployees() {
             .receipt-container {
                 border: 2px double #b30000;
                 max-width: 100%;
-                height: 100%;
-                padding: 5px;
+                height: auto;
+                min-height: 138mm;
+                padding: 10px;
+                box-sizing: border-box;
                 page-break-inside: avoid;
             }
         }
@@ -3140,7 +3145,7 @@ function loadAdminEmployees() {
         
         <div class="title-banner">
             <div>ನೋಂದಣಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
-            <div style="font-size: 15px;">ನೌಕರರ ಸಂಘದ ಸದಸ್ಯತ್ವ ಅರ್ಜಿ 2026-27</div>
+            <div style="font-size: 15px;">${data.employeeType || 'ನೌಕರರ ಮಾಹಿತಿ 2026'}</div>
             <div>ದಿನಾಂಕ : ${found.date}</div>
         </div>
 
@@ -3169,64 +3174,17 @@ function loadAdminEmployees() {
                 <td class="grid-label">ಹುದ್ದೆಯ ಹೆಸರು :</td>
                 <td class="grid-value">${data.designation || '-'}</td>
             </tr>
+            ${data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ' ? `
             <tr>
-                <td class="grid-label">ನಿವೃತ್ತಿ ಹೊಂದಿದ್ದೀರಾ?</td>
-                <td class="grid-value">${data.isRetired || '-'}</td>
-                <td class="grid-label">ನಿವೃತ್ತಿ ದಿನಾಂಕ :</td>
-                <td class="grid-value">${formattedRetirement}</td>
+                <td class="grid-label">ನಿವೃತ್ತಿ ದಿನಾಂಕ</td>
+                <td class="grid-value" colspan="3">${formattedRetirement}</td>
             </tr>
+            ` : ''}
             <tr>
                 <td class="grid-label">ಕಾಯಂ ವಿಳಾಸ</td>
                 <td class="grid-value" colspan="3">${data.permanentAddress || '-'}</td>
             </tr>
         </table>
-
-        <div class="recommend-text">
-            ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ನೌಕರರ ಸಂಘದ ಘಟಕದಿಂದ ಮಾಹಿತಿ ಪರಿಶೀಲಿಸಿ ಸದಸ್ಯತ್ವಕ್ಕಾಗಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
-        </div>
-
-        <div class="approval-section">
-            <div class="sig-col">
-                <div class="sig-item" style="margin-bottom: 6px;">
-                    <div class="sig-space"></div>
-                    <span class="sig-label">ನೌಕರರ ಸಹಿ</span>
-                </div>
-                <div class="sig-item">
-                    <div class="sig-space"></div>
-                    <span class="sig-label">ಸಂಘದ ಪದಾಧಿಕಾರಿಗಳ ಸಹಿ</span>
-                </div>
-            </div>
-
-            <div class="official-col">
-                <table class="official-table">
-                    <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-title">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು</td>
-                        <td class="official-sig-line"></td>
-                    </tr>
-                    <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು</td>
-                        <td class="official-sig-line"></td>
-                    </tr>
-                    <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-title">ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</td>
-                        <td class="official-sig-line"></td>
-                    </tr>
-                    <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-title">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ</td>
-                        <td class="official-sig-line"></td>
-                    </tr>
-                    <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-title">ರಾಜ್ಯ ಘಟಕ</td>
-                        <td class="official-sig-line"></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
     </div>
 </body>
 </html>`;
