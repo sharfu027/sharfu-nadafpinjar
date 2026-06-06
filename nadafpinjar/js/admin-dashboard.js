@@ -408,8 +408,8 @@ async function syncSubmissionsFromDatabase() {
                 }
             } else if (formType.includes("ವರ್ಗಾವಣೆ") || formType.includes("ವರ್ಗಾವಣೆಯಾದ")) {
                 const receiptId = doc.paymentId || doc._id;
-                const exists = receiptsList.some(item => item.id === receiptId);
-                if (!exists) {
+                const existingIdx = receiptsList.findIndex(item => item.id === receiptId);
+                if (existingIdx === -1) {
                     const fd = doc.formData || {};
                     let source = "state";
                     if (formType.includes("ಜಿಲ್ಲೆ")) source = "district";
@@ -442,6 +442,98 @@ async function syncSubmissionsFromDatabase() {
                         }
                     });
                     hasChanges = true;
+                } else {
+                    const existingItem = receiptsList[existingIdx];
+                    const fd = doc.formData || {};
+                    let source = "state";
+                    if (formType.includes("ಜಿಲ್ಲೆ")) source = "district";
+                    if (formType.includes("ತಾಲ್ಲೂಕು") || formType.includes("ತಾಲೂಕು")) source = "taluk";
+                    
+                    let needsHealing = false;
+                    if (!existingItem.details) {
+                        existingItem.details = {};
+                        needsHealing = true;
+                    }
+                    
+                    const targetFullName = fd.donorName || fd.fullName || "";
+                    const targetAddress = source === "state" ? (fd.address || fd.donorAddress || "") : (fd.donorAddress || fd.address || "");
+                    
+                    if (!existingItem.details.fullName && targetFullName) {
+                        existingItem.details.fullName = targetFullName;
+                        needsHealing = true;
+                    }
+                    if (!existingItem.details.address && targetAddress) {
+                        existingItem.details.address = targetAddress;
+                        needsHealing = true;
+                    }
+                    
+                    const targetMobile = source === "state" ? (fd.mobile || fd.donorMobile || "") : (fd.donorMobile || fd.mobile || "");
+                    const targetVillage = source === "state" ? (fd.village || fd.donorVillage || "") : (fd.donorVillage || fd.village || "");
+                    const targetTaluk = source === "state" ? (fd.taluk || fd.donorTaluk || "") : (fd.donorTaluk || fd.taluk || "");
+                    const targetDistrict = source === "state" ? (fd.district || fd.donorDistrict || "") : (fd.donorDistrict || fd.district || "");
+                    
+                    if (!existingItem.details.mobile && targetMobile) {
+                        existingItem.details.mobile = targetMobile;
+                        needsHealing = true;
+                    }
+                    if (!existingItem.details.village && targetVillage) {
+                        existingItem.details.village = targetVillage;
+                        needsHealing = true;
+                    }
+                    if (!existingItem.details.taluk && targetTaluk) {
+                        existingItem.details.taluk = targetTaluk;
+                        needsHealing = true;
+                    }
+                    if (!existingItem.details.district && targetDistrict) {
+                        existingItem.details.district = targetDistrict;
+                        needsHealing = true;
+                    }
+                    
+                    if (source !== "state") {
+                        const targetPresName = fd.presidentName || "";
+                        const targetPresAddress = fd.presidentAddress || "";
+                        const targetPresMobile = fd.presidentMobile || "";
+                        const targetPresVillage = fd.presidentVillage || "";
+                        const targetPresTaluk = fd.taluk || fd.presidentTaluk || "";
+                        const targetPresDistrict = fd.district || fd.presidentDistrict || "";
+                        
+                        if (!existingItem.details.presidentName && targetPresName) {
+                            existingItem.details.presidentName = targetPresName;
+                            needsHealing = true;
+                        }
+                        if (!existingItem.details.presidentAddress && targetPresAddress) {
+                            existingItem.details.presidentAddress = targetPresAddress;
+                            needsHealing = true;
+                        }
+                        if (!existingItem.details.presidentMobile && targetPresMobile) {
+                            existingItem.details.presidentMobile = targetPresMobile;
+                            needsHealing = true;
+                        }
+                        if (!existingItem.details.presidentVillage && targetPresVillage) {
+                            existingItem.details.presidentVillage = targetPresVillage;
+                            needsHealing = true;
+                        }
+                        if (!existingItem.details.presidentTaluk && targetPresTaluk) {
+                            existingItem.details.presidentTaluk = targetPresTaluk;
+                            needsHealing = true;
+                        }
+                        if (!existingItem.details.presidentDistrict && targetPresDistrict) {
+                            existingItem.details.presidentDistrict = targetPresDistrict;
+                            needsHealing = true;
+                        }
+                    }
+                    
+                    if (existingItem.narration && existingItem.narration.includes("FROM :Donor")) {
+                        const targetName = fd.donorName || fd.fullName || fd.presidentName;
+                        if (targetName) {
+                            existingItem.narration = `Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :${targetName}`;
+                            needsHealing = true;
+                        }
+                    }
+                    
+                    if (needsHealing) {
+                        hasChanges = true;
+                    }
                 }
             }
         });
