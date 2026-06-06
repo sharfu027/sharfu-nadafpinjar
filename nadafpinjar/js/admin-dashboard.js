@@ -1153,14 +1153,11 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         .receipt-container {
             max-width: 100%;
-            height: 100%;
             margin: 0;
             border: 2px solid ${themeColor};
             padding: 6px;
             background: #fff;
             box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
         }
         .header-box {
             width: 100%;
@@ -1225,7 +1222,6 @@ window.downloadReceiptPdf = function(receiptId) {
             width: 100%;
             border-collapse: collapse;
             border: 2px solid ${themeColor};
-            flex: 1;
         }
         .grid-cell {
             border: 1px solid ${themeColor};
@@ -1281,14 +1277,14 @@ window.downloadReceiptPdf = function(receiptId) {
                 margin: 4mm;
             }
             html, body {
-                height: 100%;
+                height: auto;
             }
             body {
                 padding: 0;
             }
             .receipt-container {
                 max-width: 100%;
-                height: 100%;
+                height: auto;
             }
         }
     </style>
@@ -1331,45 +1327,39 @@ window.downloadReceiptPdf = function(receiptId) {
 
             ${fieldsHTML}
 
-            <tr style="border-top: 2px solid ${themeColor}; height: 100%;">
-                <td class="grid-cell" colspan="2" style="border-right: none; border-bottom: none; vertical-align: top; height: 100%;">
-                    <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; box-sizing: border-box;">
-                        <div>
-                            <div class="payment-line" style="margin-top: 3px;">
-                                <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
-                                <span class="field-value" style="font-size: 11px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(found.amount)}</span>
-                            </div>
-                            <div class="payment-line" style="margin-top: 4px;">
-                                <span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span>
-                                <span class="field-value">${formatDateDashes(found.date)}</span>
-                            </div>
-                            <div class="payment-line" style="margin-top: 4px;">
-                                <span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span>
-                                <span class="field-value">${details.purpose || found.from}</span>
-                            </div>
-                            <div class="payment-line" style="margin-top: 4px;">
-                                <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
-                                <span class="field-value">${details.purposeDetails || "N/A"}</span>
-                            </div>
-                        </div>
-                        <div style="margin-top: 10px; text-align: left; padding-left: 10px; padding-bottom: 5px;">
-                            <img src="images/seal.jpg" class="seal-img">
-                        </div>
+            <tr style="border-top: 2px solid ${themeColor};">
+                <td class="grid-cell" colspan="2" style="border-right: none; border-bottom: none; vertical-align: top; padding-bottom: 10px;">
+                    <div class="payment-line" style="margin-top: 3px;">
+                        <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
+                        <span class="field-value" style="font-size: 11px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(found.amount)}</span>
+                    </div>
+                    <div class="payment-line" style="margin-top: 4px;">
+                        <span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span>
+                        <span class="field-value">${formatDateDashes(found.date)}</span>
+                    </div>
+                    <div class="payment-line" style="margin-top: 4px;">
+                        <span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span>
+                        <span class="field-value">${details.purpose || found.from}</span>
+                    </div>
+                    <div class="payment-line" style="margin-top: 4px;">
+                        <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
+                        <span class="field-value">${details.purposeDetails || "N/A"}</span>
+                    </div>
+                    <div style="margin-top: 15px; text-align: left; padding-left: 10px;">
+                        <img src="images/seal.jpg" class="seal-img">
                     </div>
                 </td>
-                <td class="grid-cell" style="border-left: none; border-bottom: none; vertical-align: top; height: 100%;">
-                    <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; box-sizing: border-box; align-items: flex-end;">
-                        <div class="payment-line right-align" style="width: 100%; margin-top: 3px;">
-                            <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
-                            <span class="field-value">${details.mode || found.mode}</span>
-                        </div>
-                        <div style="text-align: center; width: 140px; margin-top: 10px; padding-bottom: 5px;">
-                            <div style="font-size: 8px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
-                            <img src="images/sig.jpg" class="sig-img">
-                            <div style="font-size: 8px; font-weight: bold; line-height: 1.2; color: #000;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
-                            <div style="font-size: 7px; line-height: 1.2; color: #555;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
-                            <div style="font-size: 7px; line-height: 1.2; color: #555;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
-                        </div>
+                <td class="grid-cell" style="border-left: none; border-bottom: none; vertical-align: top; padding-bottom: 10px;">
+                    <div class="payment-line right-align" style="margin-top: 3px; margin-bottom: 15px;">
+                        <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
+                        <span class="field-value">${details.mode || found.mode}</span>
+                    </div>
+                    <div style="text-align: center; width: 140px; margin-left: auto;">
+                        <div style="font-size: 8px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
+                        <img src="images/sig.jpg" class="sig-img">
+                        <div style="font-size: 8px; font-weight: bold; line-height: 1.2; color: #000;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
+                        <div style="font-size: 7px; line-height: 1.2; color: #555;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
+                        <div style="font-size: 7px; line-height: 1.2; color: #555;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     </div>
                 </td>
             </tr>
