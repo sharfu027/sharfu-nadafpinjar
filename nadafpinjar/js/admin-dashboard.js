@@ -832,13 +832,8 @@ window.loadViewReceipt = function() {
     const receiptId = params.get('id');
     if (!receiptId) return;
 
-    const finalId = ensureReceiptIdGenerated(receiptId);
-    if (finalId !== receiptId) {
-        window.history.replaceState(null, '', `viewReceipt?id=${encodeURIComponent(finalId)}`);
-    }
-
     const receipts = JSON.parse(localStorage.getItem('receipts')) || [];
-    const found = receipts.find(r => r.id === finalId);
+    const found = receipts.find(r => r.id === receiptId);
     if (!found) return;
 
     const details = found.details || {};
@@ -887,9 +882,12 @@ window.loadViewReceipt = function() {
 
 // Print/Download high-fidelity Donation Receipt PDF via hidden Iframe
 window.downloadReceiptPdf = function(receiptId) {
-    const finalId = ensureReceiptIdGenerated(receiptId);
+    if (!receiptId || !receiptId.startsWith("2026")) {
+        alert("Please click 'Generate Receipt' first to generate the receipt number before downloading.");
+        return;
+    }
     const receipts = JSON.parse(localStorage.getItem('receipts')) || [];
-    const found = receipts.find(r => r.id === finalId);
+    const found = receipts.find(r => r.id === receiptId);
     if (!found) {
         alert("Receipt not found.");
         return;
@@ -1153,11 +1151,14 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         .receipt-container {
             max-width: 100%;
+            height: 100%;
             margin: 0;
             border: 2px solid ${themeColor};
             padding: 6px;
             background: #fff;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
         }
         .header-box {
             width: 100%;
@@ -1222,6 +1223,7 @@ window.downloadReceiptPdf = function(receiptId) {
             width: 100%;
             border-collapse: collapse;
             border: 2px solid ${themeColor};
+            flex: 1;
         }
         .grid-cell {
             border: 1px solid ${themeColor};
@@ -1277,14 +1279,14 @@ window.downloadReceiptPdf = function(receiptId) {
                 margin: 4mm;
             }
             html, body {
-                height: auto;
+                height: 100%;
             }
             body {
                 padding: 0;
             }
             .receipt-container {
                 max-width: 100%;
-                height: auto;
+                height: 100%;
             }
         }
     </style>
@@ -1327,7 +1329,7 @@ window.downloadReceiptPdf = function(receiptId) {
 
             ${fieldsHTML}
 
-            <tr style="border-top: 2px solid ${themeColor};">
+            <tr style="border-top: 2px solid ${themeColor}; height: 100%;">
                 <td class="grid-cell" colspan="2" style="border-right: none; border-bottom: none; vertical-align: top; padding-bottom: 10px;">
                     <div class="payment-line" style="margin-top: 3px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
