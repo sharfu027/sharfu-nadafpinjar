@@ -2469,6 +2469,25 @@ function loadAdminCensus() {
         let marriedStatus = memberData.married || 'ಅವಿವಾಹಿತ';
         if (marriedStatus === 'ಅವಿವಾಹಿತರ') marriedStatus = 'ಅವಿವಾಹಿತ';
         if (marriedStatus === 'ವಿವಾಹಿತರ') marriedStatus = 'ವಿವಾಹಿತ';
+
+        let guardianRelation = 'ತಂದೆ';
+        let guardianName = memberData.guardian || '';
+        if (memberData.guardian) {
+            if (memberData.guardian.startsWith('ತಂದೆ:')) {
+                guardianRelation = 'ತಂದೆ';
+                guardianName = memberData.guardian.substring('ತಂದೆ:'.length).trim();
+            } else if (memberData.guardian.startsWith('ಗಂಡ:')) {
+                guardianRelation = 'ಗಂಡ';
+                guardianName = memberData.guardian.substring('ಗಂಡ:'.length).trim();
+            } else if (memberData.guardian.startsWith('ಇತರ:')) {
+                guardianRelation = 'ಇತರ';
+                guardianName = memberData.guardian.substring('ಇತರ:'.length).trim();
+            } else if (memberData.guardian.includes(':')) {
+                const parts = memberData.guardian.split(':');
+                guardianRelation = parts[0].trim();
+                guardianName = parts.slice(1).join(':').trim();
+            }
+        }
         
         div.innerHTML = `
             <div>
@@ -2477,7 +2496,14 @@ function loadAdminCensus() {
             </div>
             <div>
                 <label>ಪಾಲಕರ ಹೆಸರು (Guardian)</label>
-                <input type="text" class="mem-guardian" value="${memberData.guardian || ''}" placeholder="Guardian Name">
+                <div style="display: flex; gap: 8px;">
+                    <select class="mem-guardian-relation" style="width: 35%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                        <option value="ತಂದೆ" ${guardianRelation === 'ತಂದೆ' ? 'selected' : ''}>ತಂದೆ (Father)</option>
+                        <option value="ಗಂಡ" ${guardianRelation === 'ಗಂಡ' ? 'selected' : ''}>ಗಂಡ (Husband)</option>
+                        <option value="ಇತರ" ${guardianRelation === 'ಇತರ' ? 'selected' : ''}>ಇತರ (Other)</option>
+                    </select>
+                    <input type="text" class="mem-guardian-name" value="${guardianName}" placeholder="Guardian Name" style="flex: 1;">
+                </div>
             </div>
             <div>
                 <label>ಸಂಬಂಧ (Relation)</label>
@@ -2617,7 +2643,7 @@ function loadAdminCensus() {
                 membersList.push({
                     name: row.querySelector(".mem-name").value,
                     relation: row.querySelector(".mem-relation").value,
-                    guardian: row.querySelector(".mem-guardian").value,
+                    guardian: (row.querySelector(".mem-guardian-name").value.trim() ? `${row.querySelector(".mem-guardian-relation").value}: ${row.querySelector(".mem-guardian-name").value.trim()}` : ''),
                     mobile: row.querySelector(".mem-mobile").value,
                     aadhar: row.querySelector(".mem-aadhar").value,
                     dob: row.querySelector(".mem-dob").value,
