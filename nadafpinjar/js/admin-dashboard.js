@@ -226,8 +226,8 @@ const defaultCensusSubmissions = [
             landGunta: "15",
             formingType: "ಸ್ವಂತ ಕೃಷಿ",
             members: [
-                { name: "ರಜಿಯಾ ನದಾಫ್", relation: "ಪತ್ನಿ", mobile: "9988776655", aadhar: "111122223333", dob: "12/05/1985", literate: "ಹೌದು" },
-                { name: "ಸಲೀಮ್ ನದಾಫ್", relation: "ಮಗ", mobile: "9988776654", aadhar: "444455556666", dob: "05/09/2010", literate: "ಹೌದು" }
+                { name: "ರಜಿಯಾ ನದಾಫ್", relation: "ಪತ್ನಿ", mobile: "9988776655", aadhar: "111122223333", dob: "12/05/1985", literate: "ಶಿಕ್ಷಿತರು: BA", occupation: "ವ್ಯವಸಾಯ" },
+                { name: "ಸಲೀಮ್ ನದಾಫ್", relation: "ಮಗ", mobile: "9988776654", aadhar: "444455556666", dob: "05/09/2010", literate: "ವಿದ್ಯಾರ್ಥಿ: 10ನೇ ತರಗತಿ", occupation: "ವಿದ್ಯಾರ್ಥಿ" }
             ]
         }
     }
@@ -2271,11 +2271,12 @@ function loadAdminCensus() {
                             <td>${m.aadhar || '-'}</td>
                             <td>${m.dob || '-'}</td>
                             <td>${m.literate || '-'}</td>
+                            <td>${m.occupation || '-'}</td>
                         </tr>
                     `;
                 });
             } else {
-                membersTableContent = `<tr><td colspan="7" style="text-align: center; color: #999;">No other family members.</td></tr>`;
+                membersTableContent = `<tr><td colspan="8" style="text-align: center; color: #999;">No other family members.</td></tr>`;
             }
 
             detailsRow.innerHTML = `
@@ -2292,6 +2293,7 @@ function loadAdminCensus() {
                                     <th style="padding: 8px 10px;">Aadhar</th>
                                     <th style="padding: 8px 10px;">DOB</th>
                                     <th style="padding: 8px 10px;">Literate</th>
+                                    <th style="padding: 8px 10px;">Profession</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -2367,6 +2369,17 @@ function loadAdminCensus() {
         }
     };
 
+    window.toggleAdminMemberOccupation = function(selectEl) {
+        const row = selectEl.closest('.member-edit-row');
+        if (!row) return;
+        const container = row.querySelector('.mem-occupation-details-container');
+        const input = row.querySelector('.mem-occupation-details');
+        if (!container || !input) return;
+
+        const val = selectEl.value;
+        input.placeholder = `${val} ವಿವರಗಳು (Details for ${val})`;
+    };
+
     window.addMemberRow = function(memberData = {}) {
         const container = document.getElementById("editMembersContainer");
         const div = document.createElement("div");
@@ -2392,6 +2405,29 @@ function loadAdminCensus() {
             } else {
                 selectedLiteracy = 'ಶಿಕ್ಷಿತರು';
                 literacyDetails = memberData.literate;
+            }
+        }
+
+        let selectedOccupation = 'ಉದ್ಯೋಗ';
+        let occupationDetails = '';
+        if (memberData.occupation) {
+            const occOptions = ['ಉದ್ಯೋಗ', 'ವ್ಯವಸಾಯ', 'ಖಾಸಗಿ ನೌಕರಿ', 'ಸರ್ಕಾರಿ ನೌಕರಿ', 'ಗಾದಿ ಕೆಲಸ', 'ಕೂಲಿ ಕಾರ್ಮಿಕ', 'ಗಾದಿ ಕಾರ್ಮಿಕ'];
+            let matched = false;
+            for (const opt of occOptions) {
+                if (memberData.occupation.startsWith(opt + ':')) {
+                    selectedOccupation = opt;
+                    occupationDetails = memberData.occupation.substring(opt.length + 1).trim();
+                    matched = true;
+                    break;
+                } else if (memberData.occupation === opt) {
+                    selectedOccupation = opt;
+                    matched = true;
+                    break;
+                }
+            }
+            if (!matched) {
+                selectedOccupation = 'ಉದ್ಯೋಗ';
+                occupationDetails = memberData.occupation;
             }
         }
         
@@ -2438,6 +2474,21 @@ function loadAdminCensus() {
                 </select>
                 <div class="mem-literacy-details-container" style="margin-top: 8px; display: ${selectedLiteracy === 'ಅಶಿಕ್ಷಿತರು' ? 'none' : 'block'};">
                     <input type="text" class="mem-literate-details" value="${literacyDetails}" placeholder="${selectedLiteracy === 'ವಿದ್ಯಾರ್ಥಿ' ? 'ಓದುತ್ತಿರುವ ತರಗತಿ (Class studying)' : 'ಓದಿರುವ ವ್ಯಾಸಂಗದ ಮಾಹಿತಿ (Education details)'}" style="width: 100%;">
+                </div>
+            </div>
+            <div>
+                <label>ವೃತ್ತಿ (Profession)</label>
+                <select class="mem-occupation-select" onchange="toggleAdminMemberOccupation(this)">
+                    <option value="ಉದ್ಯೋಗ" ${selectedOccupation === 'ಉದ್ಯೋಗ' ? 'selected' : ''}>ಉದ್ಯೋಗ (Job/Business)</option>
+                    <option value="ವ್ಯವಸಾಯ" ${selectedOccupation === 'ವ್ಯವಸಾಯ' ? 'selected' : ''}>ವ್ಯವಸಾಯ (Agriculture)</option>
+                    <option value="ಖಾಸಗಿ ನೌಕರಿ" ${selectedOccupation === 'ಖಾಸಗಿ ನೌಕರಿ' ? 'selected' : ''}>ಖಾಸಗಿ ನೌಕರಿ (Private Job)</option>
+                    <option value="ಸರ್ಕಾರಿ ನೌಕರಿ" ${selectedOccupation === 'ಸರ್ಕಾರಿ ನೌಕರಿ' ? 'selected' : ''}>ಸರ್ಕಾರಿ ನೌಕರಿ (Government Job)</option>
+                    <option value="ಗಾದಿ ಕೆಲಸ" ${selectedOccupation === 'ಗಾದಿ ಕೆಲಸ' ? 'selected' : ''}>ಗಾದಿ ಕೆಲಸ (Mattress Work)</option>
+                    <option value="ಕೂಲಿ ಕಾರ್ಮಿಕ" ${selectedOccupation === 'ಕೂಲಿ ಕಾರ್ಮಿಕ' ? 'selected' : ''}>ಕೂಲಿ ಕಾರ್ಮಿಕ (Daily Wage Worker)</option>
+                    <option value="ಗಾದಿ ಕಾರ್ಮಿಕ" ${selectedOccupation === 'ಗಾದಿ ಕಾರ್ಮಿಕ' ? 'selected' : ''}>ಗಾದಿ ಕಾರ್ಮಿಕ (Gadi Worker)</option>
+                </select>
+                <div class="mem-occupation-details-container" style="margin-top: 8px;">
+                    <input type="text" class="mem-occupation-details" value="${occupationDetails}" placeholder="${selectedOccupation} ವಿವರಗಳು" style="width: 100%;">
                 </div>
             </div>
             <div style="text-align: center; margin-top: 15px;">
@@ -2496,6 +2547,10 @@ function loadAdminCensus() {
                 const litDetails = row.querySelector(".mem-literate-details").value.trim();
                 const litVal = (litSelect === 'ಅಶಿಕ್ಷಿತರು' || !litDetails) ? litSelect : `${litSelect}: ${litDetails}`;
 
+                const occSelect = row.querySelector(".mem-occupation-select").value;
+                const occDetails = row.querySelector(".mem-occupation-details").value.trim();
+                const occVal = !occDetails ? occSelect : `${occSelect}: ${occDetails}`;
+
                 membersList.push({
                     name: row.querySelector(".mem-name").value,
                     relation: row.querySelector(".mem-relation").value,
@@ -2503,7 +2558,8 @@ function loadAdminCensus() {
                     mobile: row.querySelector(".mem-mobile").value,
                     aadhar: row.querySelector(".mem-aadhar").value,
                     dob: row.querySelector(".mem-dob").value,
-                    literate: litVal
+                    literate: litVal,
+                    occupation: occVal
                 });
             });
 
@@ -2561,11 +2617,12 @@ function loadAdminCensus() {
                         <td style="border: 1px solid #b30000; padding: 6px;">${m.aadhar || '-'}</td>
                         <td style="border: 1px solid #b30000; padding: 6px;">${m.dob || '-'}</td>
                         <td style="border: 1px solid #b30000; padding: 6px;">${m.literate || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 6px;">${m.occupation || '-'}</td>
                     </tr>
                 `;
             });
         } else {
-            membersRows = '<tr><td colspan="7" style="text-align: center; border: 1px solid #b30000; padding: 10px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
+            membersRows = '<tr><td colspan="8" style="text-align: center; border: 1px solid #b30000; padding: 10px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
         }
 
         const printHTML = `<!DOCTYPE html>
@@ -2863,13 +2920,14 @@ function loadAdminCensus() {
         <table class="members-table">
             <thead>
                 <tr>
-                    <th style="width: 5%;">Sl No.</th>
-                    <th style="width: 25%;">ಸದಸ್ಯರ ಹೆಸರು</th>
-                    <th style="width: 15%;">ಸಂಬಂಧ</th>
-                    <th style="width: 15%;">ಮೊಬೈಲ್</th>
-                    <th style="width: 15%;">ಆಧಾರ್</th>
-                    <th style="width: 13%;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
-                    <th style="width: 12%;">ಸಾಕ್ಷರಹಾ</th>
+                    <th style="width: 4%;">Sl No.</th>
+                    <th style="width: 20%;">ಸದಸ್ಯರ ಹೆಸರು</th>
+                    <th style="width: 12%;">ಸಂಬಂಧ</th>
+                    <th style="width: 12%;">ಮೊಬೈಲ್</th>
+                    <th style="width: 13%;">ಆಧಾರ್</th>
+                    <th style="width: 12%;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
+                    <th style="width: 13%;">ಸಾಕ್ಷರಹಾ</th>
+                    <th style="width: 14%;">ವೃತ್ತಿ</th>
                 </tr>
             </thead>
             <tbody>
