@@ -563,11 +563,13 @@
                         </div>
                         <div class="form-group">
                             <label>ರಾಜಕೀಯ ಹಿನ್ನೆಲೆ</label>
-                            <select id="mPolitical">
-                                <option value="ಇಲ್ಲ">ಇಲ್ಲ</option>
-                                <option value="ಹೌದು">ಹೌದು</option>
-                                <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
+                            <select id="mPolitical" onchange="togglePoliticalDetails()">
+                                <option value="ಇಲ್ಲ">ಇಲ್ಲ (No)</option>
+                                <option value="ಇದೆ">ಇದೆ (Yes)</option>
                             </select>
+                            <div id="mPoliticalDetailsContainer" style="margin-top: 8px; display: none;">
+                                <input type="text" id="mPoliticalDetails" placeholder="ರಾಜಕೀಯ ಮಾಹಿತಿ ಬರೆಯಿರಿ (Enter political details)" style="width: 100%;">
+                            </div>
                         </div>
                     </div>
                     
@@ -647,7 +649,7 @@
             const selects = document.querySelectorAll('select');
             selects.forEach(select => {
                 const isTarget = select.name === 'houseType' || 
-                                 ['mMarried', 'mHandicapped', 'mPolitical'].includes(select.id);
+                                 ['mMarried', 'mHandicapped'].includes(select.id);
                 if (isTarget) {
                     if (!select.dataset.otherOptionInit) {
                         select.dataset.otherOptionInit = "true";
@@ -711,6 +713,21 @@
             input.placeholder = `${val} ವಿವರಗಳು (Details for ${val})`;
         }
 
+        function togglePoliticalDetails() {
+            const select = document.getElementById('mPolitical');
+            const container = document.getElementById('mPoliticalDetailsContainer');
+            const input = document.getElementById('mPoliticalDetails');
+            if (!select || !container || !input) return;
+
+            const val = select.value;
+            if (val === 'ಇದೆ') {
+                container.style.display = 'block';
+            } else {
+                container.style.display = 'none';
+                input.value = '';
+            }
+        }
+
         // Helper to retrieve select element value, supporting manual enter custom inputs
         function getSelectValue(id) {
             const select = document.getElementById(id);
@@ -742,7 +759,10 @@
 
             const married = getSelectValue('mMarried');
             const handicapped = getSelectValue('mHandicapped');
-            const political = getSelectValue('mPolitical');
+            // Handle dynamic political select
+            const politicalSelect = document.getElementById('mPolitical').value;
+            const politicalDetails = document.getElementById('mPoliticalDetails').value.trim();
+            const political = (politicalSelect === 'ಇಲ್ಲ' || !politicalDetails) ? politicalSelect : `${politicalSelect}: ${politicalDetails}`;
 
             // Handle dynamic literacy select
             const literateSelect = document.getElementById('mLiterate').value;
@@ -801,8 +821,13 @@
             document.getElementById('mOccupationDetails').value = '';
             toggleOccupationDetails();
 
+            // Reset select options and dynamic political input
+            document.getElementById('mPolitical').selectedIndex = 0;
+            document.getElementById('mPoliticalDetails').value = '';
+            togglePoliticalDetails();
+
             // Reset select options
-            const selectIds = ['mMarried', 'mHandicapped', 'mPolitical'];
+            const selectIds = ['mMarried', 'mHandicapped'];
             selectIds.forEach(id => {
                 const select = document.getElementById(id);
                 if (select) {
@@ -1409,6 +1434,7 @@
         setupOtherOptions();
         toggleLiteracyDetails();
         toggleOccupationDetails();
+        togglePoliticalDetails();
 
         // Initialize DOB dropdowns
         (function initDobDropdowns() {

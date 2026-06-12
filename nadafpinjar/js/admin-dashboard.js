@@ -2380,6 +2380,22 @@ function loadAdminCensus() {
         input.placeholder = `${val} ವಿವರಗಳು (Details for ${val})`;
     };
 
+    window.toggleAdminMemberPolitical = function(selectEl) {
+        const row = selectEl.closest('.member-edit-row');
+        if (!row) return;
+        const container = row.querySelector('.mem-political-details-container');
+        const input = row.querySelector('.mem-political-details');
+        if (!container || !input) return;
+
+        const val = selectEl.value;
+        if (val === 'ಇದೆ') {
+            container.style.display = 'block';
+        } else {
+            container.style.display = 'none';
+            input.value = '';
+        }
+    };
+
     window.addMemberRow = function(memberData = {}) {
         const container = document.getElementById("editMembersContainer");
         const div = document.createElement("div");
@@ -2428,6 +2444,22 @@ function loadAdminCensus() {
             if (!matched) {
                 selectedOccupation = 'ಉದ್ಯೋಗ';
                 occupationDetails = memberData.occupation;
+            }
+        }
+
+        let selectedPolitical = 'ಇಲ್ಲ';
+        let politicalDetails = '';
+        if (memberData.political) {
+            if (memberData.political.startsWith('ಇದೆ:')) {
+                selectedPolitical = 'ಇದೆ';
+                politicalDetails = memberData.political.substring('ಇದೆ:'.length).trim();
+            } else if (memberData.political === 'ಇದೆ' || memberData.political === 'ಇಲ್ಲ') {
+                selectedPolitical = memberData.political;
+            } else if (memberData.political === 'ಹೌದು') {
+                selectedPolitical = 'ಇದೆ';
+            } else {
+                selectedPolitical = 'ಇದೆ';
+                politicalDetails = memberData.political;
             }
         }
         
@@ -2491,6 +2523,16 @@ function loadAdminCensus() {
                     <input type="text" class="mem-occupation-details" value="${occupationDetails}" placeholder="${selectedOccupation} ವಿವರಗಳು" style="width: 100%;">
                 </div>
             </div>
+            <div>
+                <label>ರಾಜಕೀಯ ಹಿನ್ನೆಲೆ (Political Background)</label>
+                <select class="mem-political-select" onchange="toggleAdminMemberPolitical(this)">
+                    <option value="ಇಲ್ಲ" ${selectedPolitical === 'ಇಲ್ಲ' ? 'selected' : ''}>ಇಲ್ಲ (No)</option>
+                    <option value="ಇದೆ" ${selectedPolitical === 'ಇದೆ' ? 'selected' : ''}>ಇದೆ (Yes)</option>
+                </select>
+                <div class="mem-political-details-container" style="margin-top: 8px; display: ${selectedPolitical === 'ಇಲ್ಲ' ? 'none' : 'block'};">
+                    <input type="text" class="mem-political-details" value="${politicalDetails}" placeholder="ರಾಜಕೀಯ ಮಾಹಿತಿ ಬರೆಯಿರಿ" style="width: 100%;">
+                </div>
+            </div>
             <div style="text-align: center; margin-top: 15px;">
                 <button type="button" class="btn-delete" style="padding: 6px; border-radius: 50%; width:30px; height:30px; display:inline-flex; align-items:center; justify-content:center;" onclick="document.getElementById('${uniqueId}').remove()"><i class="fa fa-times"></i></button>
             </div>
@@ -2551,6 +2593,10 @@ function loadAdminCensus() {
                 const occDetails = row.querySelector(".mem-occupation-details").value.trim();
                 const occVal = !occDetails ? occSelect : `${occSelect}: ${occDetails}`;
 
+                const polSelect = row.querySelector(".mem-political-select").value;
+                const polDetails = row.querySelector(".mem-political-details").value.trim();
+                const polVal = (polSelect === 'ಇಲ್ಲ' || !polDetails) ? polSelect : `${polSelect}: ${polDetails}`;
+
                 membersList.push({
                     name: row.querySelector(".mem-name").value,
                     relation: row.querySelector(".mem-relation").value,
@@ -2559,7 +2605,8 @@ function loadAdminCensus() {
                     aadhar: row.querySelector(".mem-aadhar").value,
                     dob: row.querySelector(".mem-dob").value,
                     literate: litVal,
-                    occupation: occVal
+                    occupation: occVal,
+                    political: polVal
                 });
             });
 
