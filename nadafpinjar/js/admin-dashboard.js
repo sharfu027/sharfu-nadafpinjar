@@ -2360,6 +2360,10 @@ function loadAdminCensus() {
                 <input type="text" class="mem-name" value="${memberData.name || ''}" placeholder="Name">
             </div>
             <div>
+                <label>ಪಾಲಕರ ಹೆಸರು (Guardian)</label>
+                <input type="text" class="mem-guardian" value="${memberData.guardian || ''}" placeholder="Guardian Name">
+            </div>
+            <div>
                 <label>ಸಂಬಂಧ (Relation)</label>
                 <select class="mem-relation">
                     <option value="ಪತ್ನಿ" ${memberData.relation === 'ಪತ್ನಿ' ? 'selected' : ''}>ಪತ್ನಿ (Wife)</option>
@@ -2446,6 +2450,7 @@ function loadAdminCensus() {
                 membersList.push({
                     name: row.querySelector(".mem-name").value,
                     relation: row.querySelector(".mem-relation").value,
+                    guardian: row.querySelector(".mem-guardian").value,
                     mobile: row.querySelector(".mem-mobile").value,
                     aadhar: row.querySelector(".mem-aadhar").value,
                     dob: row.querySelector(".mem-dob").value,

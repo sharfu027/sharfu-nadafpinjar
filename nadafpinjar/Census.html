@@ -454,7 +454,14 @@
                         </div>
                         <div class="form-group">
                             <label>ಪಾಲಕರ ಹೆಸರು</label>
-                            <input type="text" id="mGuardian" placeholder="Guardian Name">
+                            <div style="display: flex; gap: 8px;">
+                                <select id="mGuardianRelation" style="width: 35%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+                                    <option value="ತಂದೆ">ತಂದೆ (Father)</option>
+                                    <option value="ಗಂಡ">ಗಂಡ (Husband)</option>
+                                    <option value="ಇತರ">ಇತರ (Other)</option>
+                                </select>
+                                <input type="text" id="mGuardian" placeholder="Guardian Name" style="flex: 1;">
+                            </div>
                         </div>
                     </div>
 
@@ -677,7 +684,9 @@
         // Add Member dynamically to the roster list array
         function addMemberToList() {
             const name = document.getElementById('mName').value.trim();
-            const guardian = document.getElementById('mGuardian').value.trim();
+            const guardianRelation = document.getElementById('mGuardianRelation').value;
+            const guardianName = document.getElementById('mGuardian').value.trim();
+            const guardian = guardianName ? `${guardianRelation}: ${guardianName}` : '';
             const aadhar = document.getElementById('mAadhar').value.trim();
             const mobile = document.getElementById('mMobile').value.trim();
             const occupation = document.getElementById('mOccupation').value.trim();
@@ -721,6 +730,7 @@
             // Clear input fields
             document.getElementById('mName').value = '';
             document.getElementById('mGuardian').value = '';
+            document.getElementById('mGuardianRelation').selectedIndex = 0;
             document.getElementById('mAadhar').value = '';
             document.getElementById('mMobile').value = '';
             document.getElementById('mOccupation').value = '';
