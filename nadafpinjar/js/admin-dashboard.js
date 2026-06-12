@@ -1267,28 +1267,30 @@ window.downloadReceiptPdf = function(receiptId) {
             margin-bottom: 4px;
         }
         .header-photo-cell {
-            width: 60px;
+            width: 90px;
             text-align: center;
-            padding: 3px;
+            padding: 3px 3px 3px 20px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 50px;
-            height: 50px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
         }
         .header-logo-cell {
-            width: 60px;
+            width: 90px;
             text-align: center;
-            padding: 3px;
+            padding: 3px 20px 3px 3px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 1.5px solid #b30000;
+            object-fit: cover;
         }
         .header-text-cell {
             text-align: center;
@@ -1297,7 +1299,7 @@ window.downloadReceiptPdf = function(receiptId) {
             color: #b30000;
         }
         .kannada-title {
-            font-size: 13.5px;
+            font-size: 19px;
             font-weight: bold;
             margin-bottom: 1px;
         }
@@ -1374,7 +1376,7 @@ window.downloadReceiptPdf = function(receiptId) {
         @media print {
             @page {
                 size: A5 landscape;
-                margin: 4mm;
+                margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
                 height: auto;
@@ -1874,25 +1876,27 @@ function loadAdminFreeEdu() {
             vertical-align: middle;
         }
         .header-photo {
-            width: 50px;
-            height: 50px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
+            margin-left: 20px;
         }
         .header-logo {
-            width: 50px;
-            height: 50px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
+            margin-right: 20px;
         }
         .header-text {
             text-align: center;
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 13.5px;
+            font-size: 19px;
             margin: 0 0 2px 0;
             font-weight: bold;
         }
@@ -2017,7 +2021,7 @@ function loadAdminFreeEdu() {
         @media print {
             @page {
                 size: A5 landscape;
-                margin: 4mm;
+                margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
                 height: auto;
@@ -2552,25 +2556,27 @@ function loadAdminCensus() {
             vertical-align: middle;
         }
         .header-photo {
-            width: 45px;
-            height: 45px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
+            margin-left: 20px;
         }
         .header-logo {
-            width: 45px;
-            height: 45px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
+            margin-right: 20px;
         }
         .header-text {
             text-align: center;
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 13px;
+            font-size: 19px;
             margin: 0 0 1px 0;
             font-weight: bold;
         }
@@ -2712,7 +2718,7 @@ function loadAdminCensus() {
         @media print {
             @page {
                 size: A5 landscape;
-                margin: 4mm;
+                margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
                 height: auto;
@@ -3075,25 +3081,27 @@ function loadAdminEmployees() {
             vertical-align: middle;
         }
         .header-photo {
-            width: 50px;
-            height: 50px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
+            margin-left: 20px;
         }
         .header-logo {
-            width: 50px;
-            height: 50px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
+            margin-right: 20px;
         }
         .header-text {
             text-align: center;
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 13.5px;
+            font-size: 19px;
             margin: 0 0 2px 0;
             font-weight: bold;
         }
@@ -3218,7 +3226,7 @@ function loadAdminEmployees() {
         @media print {
             @page {
                 size: A5 landscape;
-                margin: 4mm;
+                margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
                 height: auto;
