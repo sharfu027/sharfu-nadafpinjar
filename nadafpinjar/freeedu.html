@@ -792,9 +792,9 @@
             max-width: 100%;
             height: auto;
             margin: 0 auto;
-            border: 2px double #b30000;
-            padding: 5px;
-            background: #fff;
+            border: 4px double #b30000;
+            padding: 8px;
+            background: #fffdeb;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -804,6 +804,8 @@
         .header-table {
             width: 100%;
             border-collapse: collapse;
+            border: 2px solid #b30000;
+            background-color: #fffdeb;
             margin-bottom: 4px;
         }
         .header-table td {
@@ -853,7 +855,7 @@
         .title-banner {
             border-top: 1.5px solid #b30000;
             border-bottom: 1.5px solid #b30000;
-            padding: 3px;
+            padding: 4px;
             margin: 4px 0;
             background: #fffcf5;
             display: flex;
@@ -867,16 +869,17 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 4px;
+            background: #fff;
         }
         .grid-table td {
             border: 1px solid #b30000;
-            padding: 3px 5px;
-            font-size: 12px;
+            padding: 4px 6px;
+            font-size: 11.5px;
             vertical-align: middle;
             line-height: 1.2;
         }
         .grid-label {
-            background: #fffcf5;
+            background: #fffdeb;
             color: #b30000;
             font-weight: bold;
             width: 25%;
@@ -886,76 +889,10 @@
             width: 25%;
             font-weight: bold;
         }
-        .recommend-text {
-            text-align: right;
-            font-size: 12px;
-            font-weight: bold;
-            color: #b30000;
-            border-top: 1px dashed #b30000;
-            padding: 4px 15px 4px 0;
-            margin-top: 4px;
-        }
-        .approval-section {
-            display: flex;
-            justify-content: space-between;
-            margin-top: auto;
-            font-size: 12px;
-        }
-        .sig-col {
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .sig-item {
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 2px;
-        }
-        .sig-space {
-            height: 20px;
-        }
-        .sig-label {
-            font-weight: bold;
-            color: #b30000;
-            font-size: 12px;
-        }
-        .official-col {
-            width: 55%;
-            border-left: 1.5px solid #b30000;
-            padding-left: 12px;
-        }
-        .official-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .official-row {
-            height: 18px;
-        }
-        .official-title {
-            width: 45%;
-            font-weight: bold;
-            color: #b30000;
-            vertical-align: middle;
-            font-size: 12px;
-        }
-        .official-check {
-            width: 10%;
-            text-align: left;
-            vertical-align: middle;
-        }
-        .official-box {
-            border: 1.5px solid #b30000;
-            width: 11px;
-            height: 11px;
-            display: inline-block;
-        }
-        .official-empty-space {
-            width: 45%;
-        }
         @media print {
             @page {
-                size: A5 landscape;
-                margin: 1.5mm 4mm 1.5mm 4mm;
+                size: A4 portrait;
+                margin: 6mm 10mm 6mm 10mm;
             }
             html, body {
                 height: auto;
@@ -965,11 +902,12 @@
                 margin: 0;
             }
             .receipt-container {
-                border: 2px double #b30000;
+                border: 4px double #b30000;
                 max-width: 100%;
                 height: auto;
-                padding: 5px;
+                padding: 8px;
                 page-break-inside: avoid;
+                background-color: #fffdeb !important;
             }
         }
     </style>
@@ -996,13 +934,13 @@
         
         <div class="title-banner">
             <div>ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
-            <div style="font-size: 15px;">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27</div>
-            <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${new Date().toLocaleDateString('en-GB')}</div>
+            <div style="font-size: 15px; text-decoration: underline; font-weight: bold;">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27</div>
+            <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${new Date().toLocaleDateString('en-US')}</div>
         </div>
 
         <table class="grid-table">
             <tr>
-                <td class="grid-label">ವید್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
                 <td class="grid-value">${data.studentName || '-'}</td>
                 <td class="grid-label">ತಂದೆಯ/ಪಾಲಕರ ಹೆಸರು :</td>
                 <td class="grid-value">${data.fatherName || '-'}</td>
@@ -1020,7 +958,7 @@
                 <td class="grid-value">${data.district || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ಉದ್ಯೋಗ</td>
+                <td class="grid-label">ವೃತ್ತಿ</td>
                 <td class="grid-value">${data.occupation || '-'}</td>
                 <td class="grid-label">ತಾಲೂಕು :</td>
                 <td class="grid-value">${data.taluk || '-'}</td>
@@ -1038,6 +976,10 @@
                 <td class="grid-value">${data.landInfo || '0'} ಎಕರೆ - ${data.gunte || '0'} ಗುಂಟೆ</td>
             </tr>
             <tr>
+                <td class="grid-label">ಇತರೆ ಆಸ್ತಿ :</td>
+                <td class="grid-value" colspan="3">${data.otherProperty || '-'}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ಅಂದಾಜು ಆದಾಯ</td>
                 <td class="grid-value">${formatIncome(data.income)}</td>
                 <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
@@ -1046,24 +988,106 @@
             <tr>
                 <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಶಾಲೆ/ಕಾಲೇಜು ಮಾಡುತ್ತಿರುವ</td>
                 <td class="grid-value">${data.currentSchool || '-'}</td>
+                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
+                <td class="grid-value">${data.currentClass || '-'}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ಹಿಂದಿನ ತರಗತಿಯಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳು</td>
                 <td class="grid-value">${data.previousMarks || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
                 <td class="grid-value">${data.joiningClass || '-'}</td>
-                <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು :</td>
-                <td class="grid-value">${data.classSubjects || '-'}</td>
             </tr>
             <tr>
+                <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು :</td>
+                <td class="grid-value">${data.classSubjects || '-'}</td>
                 <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್:</td>
-                <td class="grid-value" colspan="3">${data.coaching || '-'}</td>
+                <td class="grid-value">${data.coaching || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
                 <td class="grid-value">${data.bankName || '-'}</td>
                 <td class="grid-label">ಶಾಖೆಯ ಹೆಸರು</td>
                 <td class="grid-value">${data.branchName || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">IFSC ಕೋಡ್</td>
+                <td class="grid-value">${data.ifsc || '-'}</td>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ :</td>
+                <td class="grid-value">${data.bankAccount || '-'}</td>
+            </tr>
+        </table>
+
+        <!-- Signatures & Recommendation Footer -->
+        <table style="width: 100%; border-collapse: collapse; margin-top: 6px; border: 1.5px solid #b30000; background: #fff;">
+            <tr>
+                <td style="width: 50%; border: 1.5px solid #b30000; height: 45px; padding: 4px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 11.5px;">
+                    ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ
+                </td>
+                <td style="width: 50%; border: 1.5px solid #b30000; height: 45px; padding: 4px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 11.5px;">
+                    ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="border: 1.5px solid #b30000; padding: 5px; text-align: center; font-weight: bold; color: #b30000; font-size: 11px; background-color: #fffdeb;">
+                    ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:___________ ಮಾಹಿತ ಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
+                </td>
+            </tr>
+        </table>
+
+        <!-- Official Approvals -->
+        <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #b30000; border-top: none; margin-top: 0px; background: #fff;">
+            <tr>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
+                    ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
+                    ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
+                    ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
+                    ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
+                    ರಾಜ್ಯ ಘಟಕ <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>`;
+
+            // Create invisible iframe
+            let iframe = document.getElementById('receiptPrintIframe');
+            if (!iframe) {
+                iframe = document.createElement('iframe');
+                iframe.id = 'receiptPrintIframe';
+                iframe.style.position = 'fixed';
+                iframe.style.right = '0';
+                iframe.style.bottom = '0';
+                iframe.style.width = '0';
+                iframe.style.height = '0';
+                iframe.style.border = '0';
+                document.body.appendChild(iframe);
+            }
+            
+            const doc = iframe.contentWindow.document;
+            doc.open();
+            doc.write(printHTML);
+            doc.close();
+            
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+        }     <td class="grid-value">${data.branchName || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">IFSC ಕೋಡ್</td>

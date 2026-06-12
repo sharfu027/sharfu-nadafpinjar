@@ -962,13 +962,11 @@
             font-size: 9.5px;
         }
         .seal-img {
-            height: 45px;
+            height: 50px;
             width: auto;
-            border-radius: 50%;
-            border: 1px solid #5A1F75;
         }
         .sig-img {
-            height: 25px;
+            height: 35px;
             width: auto;
             margin-bottom: 2px;
         }
@@ -999,7 +997,7 @@
                 </td>
                 <td class="header-text-cell">
                     <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
-                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ 23/1993-94</div>
+                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</div>
                     <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
                     <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
                     <div class="office-location">ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</div>
@@ -1058,7 +1056,7 @@
             </tr>
 
             <tr style="border-top: 2px solid ${themeColor};">
-                <td class="grid-cell" colspan="2" style="border-right: none; border-bottom: none; vertical-align: top; padding-bottom: 10px;">
+                <td class="grid-cell" style="width: 35%; border-right: 1px solid ${themeColor}; border-bottom: none; vertical-align: top; padding-bottom: 5px;">
                     <div class="payment-line" style="margin-top: 3px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
                         <span class="field-value" style="font-size: 11px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(data.amount)}</span>
@@ -1075,21 +1073,23 @@
                         <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
                         <span class="field-value">${data.purposeDetails || "N/A"}</span>
                     </div>
-                    <div style="margin-top: 15px; text-align: left; padding-left: 10px;">
-                        <img src="images/seal.jpg" class="seal-img">
-                    </div>
                 </td>
-                <td class="grid-cell" style="border-left: none; border-bottom: none; vertical-align: top; padding-bottom: 10px;">
-                    <div class="payment-line right-align" style="margin-top: 3px; margin-bottom: 15px;">
+                <td class="grid-cell center-align" style="width: 30%; border-right: 1px solid ${themeColor}; border-bottom: none; vertical-align: top; padding-bottom: 5px;">
+                    <div class="payment-line" style="margin-top: 3px;">
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
                         <span class="field-value">${data.paymentMode || "Cash"}</span>
                     </div>
-                    <div style="text-align: center; width: 140px; margin-left: auto;">
+                    <div style="margin-top: 15px; text-align: center;">
+                        <img src="images/seal.jpg" class="seal-img">
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 35%; border-bottom: none; vertical-align: top; padding-bottom: 5px;">
+                    <div style="text-align: center; width: 140px; margin: 3px auto 0 auto;">
                         <div style="font-size: 8px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
                         <img src="images/sig.jpg" class="sig-img">
-                        <div style="font-size: 8px; font-weight: bold; line-height: 1.2; color: #000;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
-                        <div style="font-size: 7px; line-height: 1.2; color: #555;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
-                        <div style="font-size: 7px; line-height: 1.2; color: #555;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                        <div style="font-size: 8px; font-weight: bold; line-height: 1.2; color: #8a2be2;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
+                        <div style="font-size: 7px; line-height: 1.2; color: #b30000; font-weight: bold;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
+                        <div style="font-size: 7px; line-height: 1.2; color: #b30000; font-weight: bold;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     </div>
                 </td>
             </tr>

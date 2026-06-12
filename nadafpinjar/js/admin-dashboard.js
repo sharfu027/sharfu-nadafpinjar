@@ -1365,13 +1365,11 @@ window.downloadReceiptPdf = function(receiptId) {
             padding: 0 4px;
         }
         .seal-img {
-            height: 45px;
+            height: 50px;
             width: auto;
-            border-radius: 50%;
-            border: 1px solid #5A1F75;
         }
         .sig-img {
-            height: 25px;
+            height: 35px;
             width: auto;
             margin-bottom: 2px;
         }
@@ -1402,7 +1400,7 @@ window.downloadReceiptPdf = function(receiptId) {
                 </td>
                 <td class="header-text-cell">
                     <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
-                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ 23/1993-94</div>
+                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</div>
                     <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
                     <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
                     <div class="office-location">ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</div>
@@ -1432,7 +1430,7 @@ window.downloadReceiptPdf = function(receiptId) {
             ${fieldsHTML}
 
             <tr style="border-top: 2px solid ${themeColor};">
-                <td class="grid-cell" colspan="2" style="border-right: none; border-bottom: none; vertical-align: top; padding-bottom: 10px;">
+                <td class="grid-cell" style="width: 35%; border-right: 1px solid ${themeColor}; border-bottom: none; vertical-align: top; padding-bottom: 5px;">
                     <div class="payment-line" style="margin-top: 3px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
                         <span class="field-value" style="font-size: 11px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(found.amount)}</span>
@@ -1449,21 +1447,23 @@ window.downloadReceiptPdf = function(receiptId) {
                         <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
                         <span class="field-value">${details.purposeDetails || "N/A"}</span>
                     </div>
-                    <div style="margin-top: 15px; text-align: left; padding-left: 10px;">
-                        <img src="images/seal.jpg" class="seal-img">
-                    </div>
                 </td>
-                <td class="grid-cell" style="border-left: none; border-bottom: none; vertical-align: top; padding-bottom: 10px;">
-                    <div class="payment-line right-align" style="margin-top: 3px; margin-bottom: 15px;">
+                <td class="grid-cell center-align" style="width: 30%; border-right: 1px solid ${themeColor}; border-bottom: none; vertical-align: top; padding-bottom: 5px;">
+                    <div class="payment-line" style="margin-top: 3px;">
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
                         <span class="field-value">${details.mode || found.mode}</span>
                     </div>
-                    <div style="text-align: center; width: 140px; margin-left: auto;">
+                    <div style="margin-top: 15px; text-align: center;">
+                        <img src="images/seal.jpg" class="seal-img">
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 35%; border-bottom: none; vertical-align: top; padding-bottom: 5px;">
+                    <div style="text-align: center; width: 140px; margin: 3px auto 0 auto;">
                         <div style="font-size: 8px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
                         <img src="images/sig.jpg" class="sig-img">
-                        <div style="font-size: 8px; font-weight: bold; line-height: 1.2; color: #000;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
-                        <div style="font-size: 7px; line-height: 1.2; color: #555;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
-                        <div style="font-size: 7px; line-height: 1.2; color: #555;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                        <div style="font-size: 8px; font-weight: bold; line-height: 1.2; color: #8a2be2;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
+                        <div style="font-size: 7px; line-height: 1.2; color: #b30000; font-weight: bold;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
+                        <div style="font-size: 7px; line-height: 1.2; color: #b30000; font-weight: bold;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     </div>
                 </td>
             </tr>
@@ -2021,8 +2021,8 @@ function loadAdminFreeEdu() {
         }
         @media print {
             @page {
-                size: A5 landscape;
-                margin: 1.5mm 4mm 1.5mm 4mm;
+                size: A4 portrait;
+                margin: 6mm 10mm 6mm 10mm;
             }
             html, body {
                 height: auto;
@@ -2032,11 +2032,12 @@ function loadAdminFreeEdu() {
                 margin: 0;
             }
             .receipt-container {
-                border: 2px double #b30000;
+                border: 4px double #b30000;
                 max-width: 100%;
                 height: auto;
-                padding: 5px;
+                padding: 8px;
                 page-break-inside: avoid;
+                background-color: #fffdeb !important;
             }
         }
     </style>
@@ -2063,7 +2064,7 @@ function loadAdminFreeEdu() {
         
         <div class="title-banner">
             <div>ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
-            <div style="font-size: 15px;">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27</div>
+            <div style="font-size: 15px; text-decoration: underline; font-weight: bold;">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27</div>
             <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${found.date}</div>
         </div>
 
@@ -2087,7 +2088,7 @@ function loadAdminFreeEdu() {
                 <td class="grid-value">${data.district || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ಉದ್ಯೋಗ</td>
+                <td class="grid-label">ವೃತ್ತಿ</td>
                 <td class="grid-value">${data.occupation || '-'}</td>
                 <td class="grid-label">ತಾಲೂಕು :</td>
                 <td class="grid-value">${data.taluk || '-'}</td>
@@ -2105,6 +2106,10 @@ function loadAdminFreeEdu() {
                 <td class="grid-value">${data.landInfo || '0'} ಎಕರೆ - ${data.gunte || '0'} ಗುಂಟೆ</td>
             </tr>
             <tr>
+                <td class="grid-label">ಇತರೆ ಆಸ್ತಿ :</td>
+                <td class="grid-value" colspan="3">${data.otherProperty || '-'}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ಅಂದಾಜು ಆದಾಯ</td>
                 <td class="grid-value">${formatIncome(data.income)}</td>
                 <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
@@ -2113,18 +2118,20 @@ function loadAdminFreeEdu() {
             <tr>
                 <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಶಾಲೆ/ಕಾಲೇಜು ಮಾಡುತ್ತಿರುವ</td>
                 <td class="grid-value">${data.currentSchool || '-'}</td>
+                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
+                <td class="grid-value">${data.currentClass || '-'}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ಹಿಂದಿನ ತರಗತಿಯಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳು</td>
                 <td class="grid-value">${data.previousMarks || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
                 <td class="grid-value">${data.joiningClass || '-'}</td>
-                <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು :</td>
-                <td class="grid-value">${data.classSubjects || '-'}</td>
             </tr>
             <tr>
+                <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು :</td>
+                <td class="grid-value">${data.classSubjects || '-'}</td>
                 <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್:</td>
-                <td class="grid-value" colspan="3">${data.coaching || '-'}</td>
+                <td class="grid-value">${data.coaching || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
@@ -2140,52 +2147,51 @@ function loadAdminFreeEdu() {
             </tr>
         </table>
 
-        <div class="recommend-text">
-            ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
-        </div>
+        <!-- Signatures & Recommendation Footer -->
+        <table style="width: 100%; border-collapse: collapse; margin-top: 6px; border: 1.5px solid #b30000; background: #fff;">
+            <tr>
+                <td style="width: 50%; border: 1.5px solid #b30000; height: 45px; padding: 4px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 11.5px;">
+                    ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ
+                </td>
+                <td style="width: 50%; border: 1.5px solid #b30000; height: 45px; padding: 4px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 11.5px;">
+                    ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="border: 1.5px solid #b30000; padding: 5px; text-align: center; font-weight: bold; color: #b30000; font-size: 11px; background-color: #fffdeb;">
+                    ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:___________ ಮಾಹಿತ ಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
+                </td>
+            </tr>
+        </table>
 
-        <div class="approval-section">
-            <div class="sig-col">
-                <div class="sig-item" style="margin-bottom: 25px;">
-                    <div class="sig-space"></div>
-                    <span class="sig-label">ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ</span>
-                </div>
-                <div class="sig-item">
-                    <div class="sig-space"></div>
-                    <span class="sig-label">ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ</span>
-                </div>
-            </div>
-
-            <div class="official-col">
-                <table class="official-table">
-                    <tr class="official-row">
-                        <td class="official-title">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು</td>
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-empty-space"></td>
-                    </tr>
-                    <tr class="official-row">
-                        <td class="official-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು</td>
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-empty-space"></td>
-                    </tr>
-                    <tr class="official-row">
-                        <td class="official-title">ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</td>
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-empty-space"></td>
-                    </tr>
-                    <tr class="official-row">
-                        <td class="official-title">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ</td>
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-empty-space"></td>
-                    </tr>
-                    <tr class="official-row">
-                        <td class="official-title">ರಾಜ್ಯ ಘಟಕ</td>
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-empty-space"></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+        <!-- Official Approvals -->
+        <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #b30000; border-top: none; margin-top: 0px; background: #fff;">
+            <tr>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
+                    ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
+                    ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
+                    ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
+                    ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
+                    ರಾಜ್ಯ ಘಟಕ <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                </td>
+            </tr>
+        </table>
     </div>
 </body>
 </html>`;
