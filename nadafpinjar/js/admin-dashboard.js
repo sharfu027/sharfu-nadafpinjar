@@ -174,7 +174,7 @@ const defaultSecurity = {
 
 const defaultFreeeduSubmissions = [
     {
-        id: "KRNPS-2026-27-88",
+        id: "HEH-2026-27-88",
         date: new Date().toLocaleDateString('en-GB'),
         formData: {
             studentName: "ಆಫ್ರಿನ್ ನದಾಫ್",
@@ -368,7 +368,8 @@ async function syncSubmissionsFromDatabase() {
             
             // Map by formType
             if (formType === "ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ") {
-                const appNum = doc.paymentId || `KRNPS-2026-27-${parseInt((doc._id || '').slice(-4), 16) % 100 || 55}`;
+                let appNum = doc.paymentId || `HEH-2026-27-${parseInt((doc._id || '').slice(-4), 16) % 100 || 55}`;
+                if (appNum.startsWith('KRNPS-')) appNum = appNum.replace('KRNPS-', 'HEH-');
                 if (deletedIds.includes(appNum)) return;
                 
                 const exists = freeeduList.some(item => item.id === appNum);
@@ -1935,8 +1936,8 @@ function loadAdminFreeEdu() {
         }
         .grid-table td {
             border: 1px solid #b30000;
-            padding: 2.5px 4px;
-            font-size: 8px;
+            padding: 3px 5px;
+            font-size: 11px;
             vertical-align: middle;
             line-height: 1.2;
         }
@@ -1952,19 +1953,19 @@ function loadAdminFreeEdu() {
             font-weight: bold;
         }
         .recommend-text {
-            text-align: center;
-            font-size: 8.5px;
+            text-align: right;
+            font-size: 11px;
             font-weight: bold;
             color: #b30000;
             border-top: 1px dashed #b30000;
-            padding: 3px 0;
+            padding: 4px 15px 4px 0;
             margin-top: 4px;
         }
         .approval-section {
             display: flex;
             justify-content: space-between;
             margin-top: auto;
-            font-size: 8.5px;
+            font-size: 11px;
         }
         .sig-col {
             width: 40%;
@@ -1977,7 +1978,7 @@ function loadAdminFreeEdu() {
             padding-bottom: 2px;
         }
         .sig-space {
-            height: 10px;
+            height: 20px;
         }
         .sig-label {
             font-weight: bold;
@@ -1986,37 +1987,35 @@ function loadAdminFreeEdu() {
         .official-col {
             width: 55%;
             border-left: 1.5px solid #b30000;
-            padding-left: 8px;
+            padding-left: 12px;
         }
         .official-table {
             width: 100%;
             border-collapse: collapse;
         }
         .official-row {
-            height: 13px;
+            height: 18px;
+        }
+        .official-title {
+            width: 45%;
+            font-weight: bold;
+            color: #b30000;
+            vertical-align: middle;
+            font-size: 11px;
         }
         .official-check {
             width: 10%;
-            text-align: center;
+            text-align: left;
             vertical-align: middle;
         }
         .official-box {
             border: 1.5px solid #b30000;
-            width: 9px;
-            height: 9px;
+            width: 11px;
+            height: 11px;
             display: inline-block;
         }
-        .official-title {
-            width: 40%;
-            font-weight: bold;
-            color: #b30000;
-            padding-left: 4px;
-            vertical-align: middle;
-            font-size: 8px;
-        }
-        .official-sig-line {
-            width: 50%;
-            border-bottom: 1px dashed #b30000;
+        .official-empty-space {
+            width: 45%;
         }
         @media print {
             @page {
@@ -2140,7 +2139,7 @@ function loadAdminFreeEdu() {
         </table>
 
         <div class="recommend-text">
-            ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:___________ ಮಾಹಿತಿಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
+            ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
         </div>
 
         <div class="approval-section">
@@ -2158,29 +2157,29 @@ function loadAdminFreeEdu() {
             <div class="official-col">
                 <table class="official-table">
                     <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
                         <td class="official-title">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು</td>
-                        <td class="official-sig-line"></td>
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-empty-space"></td>
                     </tr>
                     <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
                         <td class="official-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು</td>
-                        <td class="official-sig-line"></td>
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-empty-space"></td>
                     </tr>
                     <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
                         <td class="official-title">ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</td>
-                        <td class="official-sig-line"></td>
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-empty-space"></td>
                     </tr>
                     <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
                         <td class="official-title">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ</td>
-                        <td class="official-sig-line"></td>
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-empty-space"></td>
                     </tr>
                     <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
                         <td class="official-title">ರಾಜ್ಯ ಘಟಕ</td>
-                        <td class="official-sig-line"></td>
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-empty-space"></td>
                     </tr>
                 </table>
             </div>
