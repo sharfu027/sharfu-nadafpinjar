@@ -2347,12 +2347,53 @@ function loadAdminCensus() {
     }
 
     // Add member row helper
+    window.toggleAdminMemberLiteracy = function(selectEl) {
+        const row = selectEl.closest('.member-edit-row');
+        if (!row) return;
+        const container = row.querySelector('.mem-literacy-details-container');
+        const input = row.querySelector('.mem-literate-details');
+        if (!container || !input) return;
+
+        const val = selectEl.value;
+        if (val === 'ವಿದ್ಯಾರ್ಥಿ') {
+            container.style.display = 'block';
+            input.placeholder = 'ಓದುತ್ತಿರುವ ತರಗತಿ (Class studying)';
+        } else if (val === 'ಶಿಕ್ಷಿತರು') {
+            container.style.display = 'block';
+            input.placeholder = 'ಓದಿರುವ ವ್ಯಾಸಂಗದ ಮಾಹಿತಿ (Education details)';
+        } else {
+            container.style.display = 'none';
+            input.value = '';
+        }
+    };
+
     window.addMemberRow = function(memberData = {}) {
         const container = document.getElementById("editMembersContainer");
         const div = document.createElement("div");
         div.className = "member-edit-row";
         const uniqueId = 'mem-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5);
         div.id = uniqueId;
+        
+        let selectedLiteracy = 'ಅಶಿಕ್ಷಿತರು';
+        let literacyDetails = '';
+        if (memberData.literate) {
+            if (memberData.literate.startsWith('ವಿದ್ಯಾರ್ಥಿ:')) {
+                selectedLiteracy = 'ವಿದ್ಯಾರ್ಥಿ';
+                literacyDetails = memberData.literate.substring('ವಿದ್ಯಾರ್ಥಿ:'.length).trim();
+            } else if (memberData.literate.startsWith('ಶಿಕ್ಷಿತರು:')) {
+                selectedLiteracy = 'ಶಿಕ್ಷಿತರು';
+                literacyDetails = memberData.literate.substring('ಶಿಕ್ಷಿತರು:'.length).trim();
+            } else if (memberData.literate === 'ವಿದ್ಯಾರ್ಥಿ' || memberData.literate === 'ಶಿಕ್ಷಿತರು' || memberData.literate === 'ಅಶಿಕ್ಷಿತರು') {
+                selectedLiteracy = memberData.literate;
+            } else if (memberData.literate === 'ಹೌದು') {
+                selectedLiteracy = 'ಶಿಕ್ಷಿತರು';
+            } else if (memberData.literate === 'ಇಲ್ಲ') {
+                selectedLiteracy = 'ಅಶಿಕ್ಷಿತರು';
+            } else {
+                selectedLiteracy = 'ಶಿಕ್ಷಿತರು';
+                literacyDetails = memberData.literate;
+            }
+        }
         
         div.innerHTML = `
             <div>
@@ -2390,10 +2431,14 @@ function loadAdminCensus() {
             </div>
             <div>
                 <label>ಸಾಕ್ಷರಹಾ (Literate?)</label>
-                <select class="mem-literate">
-                    <option value="ಹೌದು" ${memberData.literate === 'ಹೌದು' ? 'selected' : ''}>ಹೌದು (Yes)</option>
-                    <option value="ಇಲ್ಲ" ${memberData.literate === 'ಇಲ್ಲ' ? 'selected' : ''}>ಇಲ್ಲ (No)</option>
+                <select class="mem-literate-select" onchange="toggleAdminMemberLiteracy(this)">
+                    <option value="ವಿದ್ಯಾರ್ಥಿ" ${selectedLiteracy === 'ವಿದ್ಯಾರ್ಥಿ' ? 'selected' : ''}>ವಿದ್ಯಾರ್ಥಿ (Student)</option>
+                    <option value="ಶಿಕ್ಷಿತರು" ${selectedLiteracy === 'ಶಿಕ್ಷಿತರು' ? 'selected' : ''}>ಶಿಕ್ಷಿತರು (Educated)</option>
+                    <option value="ಅಶಿಕ್ಷಿತರು" ${selectedLiteracy === 'ಅಶಿಕ್ಷಿತರು' ? 'selected' : ''}>ಅಶಿಕ್ಷಿತರು (Uneducated)</option>
                 </select>
+                <div class="mem-literacy-details-container" style="margin-top: 8px; display: ${selectedLiteracy === 'ಅಶಿಕ್ಷಿತರು' ? 'none' : 'block'};">
+                    <input type="text" class="mem-literate-details" value="${literacyDetails}" placeholder="${selectedLiteracy === 'ವಿದ್ಯಾರ್ಥಿ' ? 'ಓದುತ್ತಿರುವ ತರಗತಿ (Class studying)' : 'ಓದಿರುವ ವ್ಯಾಸಂಗದ ಮಾಹಿತಿ (Education details)'}" style="width: 100%;">
+                </div>
             </div>
             <div style="text-align: center; margin-top: 15px;">
                 <button type="button" class="btn-delete" style="padding: 6px; border-radius: 50%; width:30px; height:30px; display:inline-flex; align-items:center; justify-content:center;" onclick="document.getElementById('${uniqueId}').remove()"><i class="fa fa-times"></i></button>
@@ -2447,6 +2492,10 @@ function loadAdminCensus() {
             const memberRows = document.querySelectorAll(".member-edit-row");
             const membersList = [];
             memberRows.forEach(row => {
+                const litSelect = row.querySelector(".mem-literate-select").value;
+                const litDetails = row.querySelector(".mem-literate-details").value.trim();
+                const litVal = (litSelect === 'ಅಶಿಕ್ಷಿತರು' || !litDetails) ? litSelect : `${litSelect}: ${litDetails}`;
+
                 membersList.push({
                     name: row.querySelector(".mem-name").value,
                     relation: row.querySelector(".mem-relation").value,
@@ -2454,7 +2503,7 @@ function loadAdminCensus() {
                     mobile: row.querySelector(".mem-mobile").value,
                     aadhar: row.querySelector(".mem-aadhar").value,
                     dob: row.querySelector(".mem-dob").value,
-                    literate: row.querySelector(".mem-literate").value
+                    literate: litVal
                 });
             });
 

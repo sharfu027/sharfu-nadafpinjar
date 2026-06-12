@@ -541,12 +541,14 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>ಸಾಕ್ಷರಹಾ?</label>
-                            <select id="mLiterate">
-                                <option value="ಶಿಕ್ಷಕರು">ಶಿಕ್ಷಕರು</option>
-                                <option value="ಸಾಕ್ಷರರು">ಸಾಕ್ಷರರು</option>
-                                <option value="ನಿರಕ್ಷರರು">ನಿರಕ್ಷರರು</option>
-                                <option value="__OTHER__">ಇತರೇ (ಖುದ್ದಾಗಿ ನಮೂದಿಸಿ) / Other</option>
+                            <select id="mLiterate" onchange="toggleLiteracyDetails()">
+                                <option value="ವಿದ್ಯಾರ್ಥಿ">ವಿದ್ಯಾರ್ಥಿ (Student)</option>
+                                <option value="ಶಿಕ್ಷಿತರು">ಶಿಕ್ಷಿತರು (Educated)</option>
+                                <option value="ಅಶಿಕ್ಷಿತರು">ಅಶಿಕ್ಷಿತರು (Uneducated)</option>
                             </select>
+                            <div id="mLiteracyDetailsContainer" style="margin-top: 8px; display: block;">
+                                <input type="text" id="mLiteracyDetails" placeholder="ಓದುತ್ತಿರುವ ತರಗತಿ (Class studying)" style="width: 100%;">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>ರಾಜಕೀಯ ಹಿನ್ನೆಲೆ</label>
@@ -634,7 +636,7 @@
             const selects = document.querySelectorAll('select');
             selects.forEach(select => {
                 const isTarget = select.name === 'houseType' || 
-                                 ['mMarried', 'mHandicapped', 'mLiterate', 'mPolitical'].includes(select.id);
+                                 ['mMarried', 'mHandicapped', 'mPolitical'].includes(select.id);
                 if (isTarget) {
                     if (!select.dataset.otherOptionInit) {
                         select.dataset.otherOptionInit = "true";
@@ -665,6 +667,25 @@
                     parent.appendChild(input);
                     input.focus();
                 }
+            }
+        }
+
+        function toggleLiteracyDetails() {
+            const select = document.getElementById('mLiterate');
+            const container = document.getElementById('mLiteracyDetailsContainer');
+            const input = document.getElementById('mLiteracyDetails');
+            if (!select || !container || !input) return;
+
+            const val = select.value;
+            if (val === 'ವಿದ್ಯಾರ್ಥಿ') {
+                container.style.display = 'block';
+                input.placeholder = 'ಓದುತ್ತಿರುವ ತರಗತಿ (Class studying)';
+            } else if (val === 'ಶಿಕ್ಷಿತರು') {
+                container.style.display = 'block';
+                input.placeholder = 'ಓದಿರುವ ವ್ಯಾಸಂಗದ ಮಾಹಿತಿ (Education details)';
+            } else {
+                container.style.display = 'none';
+                input.value = '';
             }
         }
 
@@ -700,8 +721,12 @@
 
             const married = getSelectValue('mMarried');
             const handicapped = getSelectValue('mHandicapped');
-            const literate = getSelectValue('mLiterate');
             const political = getSelectValue('mPolitical');
+
+            // Handle dynamic literacy select
+            const literateSelect = document.getElementById('mLiterate').value;
+            const literateDetails = document.getElementById('mLiteracyDetails').value.trim();
+            const literate = (literateSelect === 'ಅಶಿಕ್ಷಿತರು' || !literateDetails) ? literateSelect : `${literateSelect}: ${literateDetails}`;
 
             if (!name) {
                 alert("ದಯವಿಟ್ಟು ಸದಸ್ಯರ ಹೆಸರನ್ನು ನಮೂದಿಸಿ (Please enter Member Name).");
@@ -741,8 +766,13 @@
             document.getElementById('mDob_year').selectedIndex = 0;
             document.getElementById('mRelation').value = '';
 
+            // Reset select options and dynamic literacy input
+            document.getElementById('mLiterate').selectedIndex = 0;
+            document.getElementById('mLiteracyDetails').value = '';
+            toggleLiteracyDetails();
+
             // Reset select options
-            const selectIds = ['mMarried', 'mHandicapped', 'mLiterate', 'mPolitical'];
+            const selectIds = ['mMarried', 'mHandicapped', 'mPolitical'];
             selectIds.forEach(id => {
                 const select = document.getElementById(id);
                 if (select) {
@@ -1343,6 +1373,7 @@
 
         // Initialize features
         setupOtherOptions();
+        toggleLiteracyDetails();
 
         // Initialize DOB dropdowns
         (function initDobDropdowns() {
