@@ -1274,8 +1274,8 @@ window.downloadReceiptPdf = function(receiptId) {
             vertical-align: middle;
         }
         .patron-photo {
-            width: 75px;
-            height: 75px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -1287,8 +1287,8 @@ window.downloadReceiptPdf = function(receiptId) {
             vertical-align: middle;
         }
         .header-logo {
-            width: 75px;
-            height: 75px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -1300,24 +1300,24 @@ window.downloadReceiptPdf = function(receiptId) {
             color: #b30000;
         }
         .kannada-title {
-            font-size: 19px;
+            font-size: 24px;
             font-weight: bold;
             margin-bottom: 1px;
         }
         .reg-no {
-            font-size: 8.5px;
+            font-size: 10px;
             font-weight: bold;
             margin-bottom: 2px;
             color: #444;
         }
         .english-title {
-            font-size: 9px;
+            font-size: 11px;
             font-weight: bold;
             letter-spacing: 0.2px;
             margin-bottom: 1px;
         }
         .office-address, .office-location {
-            font-size: 8.5px;
+            font-size: 10px;
             font-weight: bold;
             color: #333;
         }
@@ -1329,7 +1329,7 @@ window.downloadReceiptPdf = function(receiptId) {
         .grid-cell {
             border: 1px solid ${themeColor};
             padding: 3px 5px;
-            font-size: 9px;
+            font-size: 12px;
             vertical-align: top;
             color: #1e293b;
             line-height: 1.2;
@@ -1354,7 +1354,7 @@ window.downloadReceiptPdf = function(receiptId) {
             font-weight: bold;
         }
         .payment-line {
-            font-size: 9.5px;
+            font-size: 12px;
         }
         .seal-sig-wrapper {
             margin-top: 4px;
@@ -1877,16 +1877,16 @@ function loadAdminFreeEdu() {
             vertical-align: middle;
         }
         .header-photo {
-            width: 75px;
-            height: 75px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
             margin-left: 20px;
         }
         .header-logo {
-            width: 75px;
-            height: 75px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -1897,22 +1897,22 @@ function loadAdminFreeEdu() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 19px;
+            font-size: 24px;
             margin: 0 0 2px 0;
             font-weight: bold;
         }
         .header-text p {
             margin: 1px 0;
-            font-size: 8px;
+            font-size: 10px;
             color: #444;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 8.5px;
+            font-size: 10px;
             color: #000;
         }
         .header-text .en-title {
-            font-size: 9px;
+            font-size: 11px;
             color: #b30000;
             margin-top: 1px;
         }
@@ -1926,7 +1926,7 @@ function loadAdminFreeEdu() {
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            font-size: 9px;
+            font-size: 12px;
             color: #b30000;
         }
         .grid-table {
@@ -1937,7 +1937,7 @@ function loadAdminFreeEdu() {
         .grid-table td {
             border: 1px solid #b30000;
             padding: 3px 5px;
-            font-size: 11px;
+            font-size: 12px;
             vertical-align: middle;
             line-height: 1.2;
         }
@@ -1954,7 +1954,7 @@ function loadAdminFreeEdu() {
         }
         .recommend-text {
             text-align: right;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             color: #b30000;
             border-top: 1px dashed #b30000;
@@ -1965,7 +1965,7 @@ function loadAdminFreeEdu() {
             display: flex;
             justify-content: space-between;
             margin-top: auto;
-            font-size: 11px;
+            font-size: 12px;
         }
         .sig-col {
             width: 40%;
@@ -1983,6 +1983,7 @@ function loadAdminFreeEdu() {
         .sig-label {
             font-weight: bold;
             color: #b30000;
+            font-size: 12px;
         }
         .official-col {
             width: 55%;
@@ -2001,7 +2002,7 @@ function loadAdminFreeEdu() {
             font-weight: bold;
             color: #b30000;
             vertical-align: middle;
-            font-size: 11px;
+            font-size: 12px;
         }
         .official-check {
             width: 10%;
@@ -2555,16 +2556,16 @@ function loadAdminCensus() {
             vertical-align: middle;
         }
         .header-photo {
-            width: 75px;
-            height: 75px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
             margin-left: 20px;
         }
         .header-logo {
-            width: 75px;
-            height: 75px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -2575,36 +2576,36 @@ function loadAdminCensus() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 19px;
+            font-size: 24px;
             margin: 0 0 1px 0;
             font-weight: bold;
         }
         .header-text p {
             margin: 0.5px 0;
-            font-size: 8px;
+            font-size: 10px;
             color: #444;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 8px;
+            font-size: 10px;
             color: #000;
         }
         .header-text .en-title {
-            font-size: 8.5px;
+            font-size: 11px;
             color: #b30000;
             margin-top: 1px;
         }
         .title-banner {
             border-top: 1.5px solid #b30000;
             border-bottom: 1.5px solid #b30000;
-            padding: 3px;
+            padding: 4px;
             margin: 4px 0;
             background: #fffcf5;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            font-size: 8.5px;
+            font-size: 12px;
             color: #b30000;
         }
         .grid-table {
@@ -2614,8 +2615,8 @@ function loadAdminCensus() {
         }
         .grid-table td {
             border: 1px solid #b30000;
-            padding: 2.5px 4px;
-            font-size: 8px;
+            padding: 3px 5px;
+            font-size: 12px;
             vertical-align: middle;
             line-height: 1.2;
         }
@@ -2634,33 +2635,33 @@ function loadAdminCensus() {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 4px;
-            font-size: 7.5px;
+            font-size: 12px;
         }
         .members-table th {
             border: 1px solid #b30000;
             background: #fffcf5;
             color: #b30000;
-            padding: 2px 3px;
+            padding: 3px 4px;
             font-weight: bold;
         }
         .members-table td {
             border: 1px solid #b30000;
-            padding: 2px 3px;
+            padding: 3px 4px;
         }
         .recommend-text {
-            text-align: center;
-            font-size: 8px;
+            text-align: right;
+            font-size: 12px;
             font-weight: bold;
             color: #b30000;
             border-top: 1px dashed #b30000;
-            padding: 2.5px 0;
-            margin-top: 3px;
+            padding: 4px 15px 4px 0;
+            margin-top: 4px;
         }
         .approval-section {
             display: flex;
             justify-content: space-between;
             margin-top: auto;
-            font-size: 8px;
+            font-size: 12px;
         }
         .sig-col {
             width: 40%;
@@ -2673,42 +2674,45 @@ function loadAdminCensus() {
             padding-bottom: 2px;
         }
         .sig-space {
-            height: 10px;
+            height: 20px;
         }
         .sig-label {
             font-weight: bold;
             color: #b30000;
+            font-size: 12px;
         }
         .official-col {
             width: 55%;
             border-left: 1.5px solid #b30000;
-            padding-left: 8px;
+            padding-left: 12px;
         }
         .official-table {
             width: 100%;
             border-collapse: collapse;
         }
         .official-row {
-            height: 12px;
+            height: 18px;
+        }
+        .official-title {
+            width: 45%;
+            font-weight: bold;
+            color: #b30000;
+            vertical-align: middle;
+            font-size: 12px;
         }
         .official-check {
             width: 10%;
-            text-align: center;
+            text-align: left;
             vertical-align: middle;
         }
         .official-box {
             border: 1.5px solid #b30000;
-            width: 8px;
-            height: 8px;
+            width: 11px;
+            height: 11px;
             display: inline-block;
         }
-        .official-title {
-            width: 40%;
-            font-weight: bold;
-            color: #b30000;
-            padding-left: 4px;
-            vertical-align: middle;
-            font-size: 8px;
+        .official-empty-space {
+            width: 45%;
         }
         .official-sig-line {
             width: 50%;
@@ -2819,7 +2823,7 @@ function loadAdminCensus() {
         </table>
 
         <div class="recommend-text">
-            ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:___________ ಮಾಹಿತಿಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
+            ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
         </div>
 
         <div class="approval-section">
@@ -2837,29 +2841,29 @@ function loadAdminCensus() {
             <div class="official-col">
                 <table class="official-table">
                     <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
                         <td class="official-title">ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು</td>
-                        <td class="official-sig-line"></td>
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-empty-space"></td>
                     </tr>
                     <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
                         <td class="official-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು</td>
-                        <td class="official-sig-line"></td>
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-empty-space"></td>
                     </tr>
                     <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
                         <td class="official-title">ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</td>
-                        <td class="official-sig-line"></td>
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-empty-space"></td>
                     </tr>
                     <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
                         <td class="official-title">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ</td>
-                        <td class="official-sig-line"></td>
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-empty-space"></td>
                     </tr>
                     <tr class="official-row">
-                        <td class="official-check"><span class="official-box"></span></td>
                         <td class="official-title">ರಾಜ್ಯ ಘಟಕ</td>
-                        <td class="official-sig-line"></td>
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-empty-space"></td>
                     </tr>
                 </table>
             </div>
@@ -3080,16 +3084,16 @@ function loadAdminEmployees() {
             vertical-align: middle;
         }
         .header-photo {
-            width: 75px;
-            height: 75px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
             margin-left: 20px;
         }
         .header-logo {
-            width: 75px;
-            height: 75px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -3100,36 +3104,36 @@ function loadAdminEmployees() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 19px;
+            font-size: 24px;
             margin: 0 0 2px 0;
             font-weight: bold;
         }
         .header-text p {
             margin: 1px 0;
-            font-size: 8px;
+            font-size: 10px;
             color: #444;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 8.5px;
+            font-size: 10px;
             color: #000;
         }
         .header-text .en-title {
-            font-size: 9px;
+            font-size: 11px;
             color: #b30000;
             margin-top: 1px;
         }
         .title-banner {
             border-top: 1.5px solid #b30000;
             border-bottom: 1.5px solid #b30000;
-            padding: 3px;
+            padding: 4px;
             margin: 4px 0;
             background: #fffcf5;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            font-size: 9px;
+            font-size: 13px;
             color: #b30000;
         }
         .grid-table {
@@ -3139,8 +3143,8 @@ function loadAdminEmployees() {
         }
         .grid-table td {
             border: 1px solid #b30000;
-            padding: 2.5px 4px;
-            font-size: 8px;
+            padding: 3px 5px;
+            font-size: 13px;
             vertical-align: middle;
             line-height: 1.2;
         }
@@ -3157,7 +3161,7 @@ function loadAdminEmployees() {
         }
         .recommend-text {
             text-align: center;
-            font-size: 8.5px;
+            font-size: 13px;
             font-weight: bold;
             color: #b30000;
             border-top: 1px dashed #b30000;
@@ -3168,7 +3172,7 @@ function loadAdminEmployees() {
             display: flex;
             justify-content: space-between;
             margin-top: auto;
-            font-size: 8.5px;
+            font-size: 13px;
         }
         .sig-col {
             width: 40%;
@@ -3186,6 +3190,7 @@ function loadAdminEmployees() {
         .sig-label {
             font-weight: bold;
             color: #b30000;
+            font-size: 13px;
         }
         .official-col {
             width: 55%;
@@ -3216,7 +3221,7 @@ function loadAdminEmployees() {
             color: #b30000;
             padding-left: 4px;
             vertical-align: middle;
-            font-size: 8px;
+            font-size: 13px;
         }
         .official-sig-line {
             width: 50%;
