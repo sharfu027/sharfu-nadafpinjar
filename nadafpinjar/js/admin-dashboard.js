@@ -2403,6 +2403,9 @@ function loadAdminCensus() {
         const uniqueId = 'mem-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5);
         div.id = uniqueId;
         
+        div.dataset.gender = memberData.gender || '';
+        div.dataset.handicapped = memberData.handicapped || '';
+
         let selectedLiteracy = 'ಅಶಿಕ್ಷಿತರು';
         let literacyDetails = '';
         if (memberData.literate) {
@@ -2427,7 +2430,7 @@ function loadAdminCensus() {
         let selectedOccupation = 'ಉದ್ಯೋಗ';
         let occupationDetails = '';
         if (memberData.occupation) {
-            const occOptions = ['ಉದ್ಯೋಗ', 'ವ್ಯವಸಾಯ', 'ಖಾಸಗಿ ನೌಕರಿ', 'ಸರ್ಕಾರಿ ನೌಕರಿ', 'ಗಾದಿ ಕೆಲಸ', 'ಕೂಲಿ ಕಾರ್ಮಿಕ', 'ಗಾದಿ ಕಾರ್ಮಿಕ'];
+            const occOptions = ['ಉದ್ಯೋಗ', 'ವ್ಯವಸಾಯ', 'ಖಾಸಗಿ ನೌಕರಿ', 'ಸರ್ಕಾರಿ ನೌಕರಿ', 'ಗಾದಿ ಕೆಲಸ', 'ಕೂಲಿ ಕಾರ್ಮಿಕ', 'ಗಾದಿ ಕಾರ್ಮಿಕ', 'ನಿರುದ್ಯೋಗಿ'];
             let matched = false;
             for (const opt of occOptions) {
                 if (memberData.occupation.startsWith(opt + ':')) {
@@ -2462,6 +2465,10 @@ function loadAdminCensus() {
                 politicalDetails = memberData.political;
             }
         }
+
+        let marriedStatus = memberData.married || 'ಅವಿವಾಹಿತ';
+        if (marriedStatus === 'ಅವಿವಾಹಿತರ') marriedStatus = 'ಅವಿವಾಹಿತ';
+        if (marriedStatus === 'ವಿವಾಹಿತರ') marriedStatus = 'ವಿವಾಹಿತ';
         
         div.innerHTML = `
             <div>
@@ -2498,6 +2505,15 @@ function loadAdminCensus() {
                 <input type="text" class="mem-dob" value="${memberData.dob || ''}" placeholder="DD/MM/YYYY">
             </div>
             <div>
+                <label>ವೈವಾಹಿಕ ಮಾಹಿತಿ (Marital Status)</label>
+                <select class="mem-married">
+                    <option value="ಅವಿವಾಹಿತ" ${marriedStatus === 'ಅವಿವಾಹಿತ' ? 'selected' : ''}>ಅವಿವಾಹಿತ</option>
+                    <option value="ವಿವಾಹಿತ" ${marriedStatus === 'ವಿವಾಹಿತ' ? 'selected' : ''}>ವಿವಾಹಿತ</option>
+                    <option value="ವಿಧವಾ" ${marriedStatus === 'ವಿಧವಾ' ? 'selected' : ''}>ವಿಧವಾ</option>
+                    <option value="ವಿಧವೆ" ${marriedStatus === 'ವಿಧವೆ' ? 'selected' : ''}>ವಿಧವೆ</option>
+                </select>
+            </div>
+            <div>
                 <label>ಸಾಕ್ಷರಹಾ (Literate?)</label>
                 <select class="mem-literate-select" onchange="toggleAdminMemberLiteracy(this)">
                     <option value="ವಿದ್ಯಾರ್ಥಿ" ${selectedLiteracy === 'ವಿದ್ಯಾರ್ಥಿ' ? 'selected' : ''}>ವಿದ್ಯಾರ್ಥಿ (Student)</option>
@@ -2518,6 +2534,7 @@ function loadAdminCensus() {
                     <option value="ಗಾದಿ ಕೆಲಸ" ${selectedOccupation === 'ಗಾದಿ ಕೆಲಸ' ? 'selected' : ''}>ಗಾದಿ ಕೆಲಸ (Mattress Work)</option>
                     <option value="ಕೂಲಿ ಕಾರ್ಮಿಕ" ${selectedOccupation === 'ಕೂಲಿ ಕಾರ್ಮಿಕ' ? 'selected' : ''}>ಕೂಲಿ ಕಾರ್ಮಿಕ (Daily Wage Worker)</option>
                     <option value="ಗಾದಿ ಕಾರ್ಮಿಕ" ${selectedOccupation === 'ಗಾದಿ ಕಾರ್ಮಿಕ' ? 'selected' : ''}>ಗಾದಿ ಕಾರ್ಮಿಕ (Gadi Worker)</option>
+                    <option value="ನಿರುದ್ಯೋಗಿ" ${selectedOccupation === 'ನಿರುದ್ಯೋಗಿ' ? 'selected' : ''}>ನಿರುದ್ಯೋಗಿ (Unemployed)</option>
                 </select>
                 <div class="mem-occupation-details-container" style="margin-top: 8px;">
                     <input type="text" class="mem-occupation-details" value="${occupationDetails}" placeholder="${selectedOccupation} ವಿವರಗಳು" style="width: 100%;">
@@ -2606,7 +2623,10 @@ function loadAdminCensus() {
                     dob: row.querySelector(".mem-dob").value,
                     literate: litVal,
                     occupation: occVal,
-                    political: polVal
+                    political: polVal,
+                    married: row.querySelector(".mem-married").value,
+                    gender: row.dataset.gender || '',
+                    handicapped: row.dataset.handicapped || ''
                 });
             });
 
