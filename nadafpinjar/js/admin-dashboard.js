@@ -2794,13 +2794,13 @@ function loadAdminCensus() {
                 <td class="grid-value">${data.religion || '-'} / ${data.caste || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ಮನೆಯ ಪ್ರಕಾರ</td>
+                <td class="grid-label">ಮನೆಯ ವಿವರ</td>
                 <td class="grid-value">${data.houseType || '-'}</td>
                 <td class="grid-label">ಜಮೀನು :</td>
                 <td class="grid-value">${data.landAcres || '0'} ಎಕರೆ - ${data.landGunta || '0'} ಗುಂಟೆ</td>
             </tr>
             <tr>
-                <td class="grid-label">ರೂಪಿಸುವ ಪ್ರಕಾರ</td>
+                <td class="grid-label">ಮನೆಯ ಆಕಾರ</td>
                 <td class="grid-value" colspan="3">${data.formingType || '-'}</td>
             </tr>
         </table>

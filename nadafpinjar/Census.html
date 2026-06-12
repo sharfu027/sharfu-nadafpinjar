@@ -430,7 +430,7 @@
 
             <div class="form-row">
                 <div class="form-group">
-                    <label>ಮನೆಯ ಪ್ರಕಾರ</label>
+                    <label>ಮನೆಯ ವಿವರ</label>
                     <select name="houseType">
                         <option value="ಸ್ವಂತ ಮನೆ">ಸ್ವಂತ ಮನೆ</option>
                         <option value="ಬಾಡಿಗೆ ಮನೆ">ಬಾಡಿಗೆ ಮನೆ</option>
@@ -439,7 +439,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>ರೂಪಿಸುವ ಪ್ರಕಾರ</label>
+                    <label>ಮನೆಯ ಆಕಾರ</label>
                     <input type="text" name="formingType" placeholder="Forming Type">
                 </div>
             </div>
@@ -1227,13 +1227,13 @@
                 <td class="grid-value">${data.religion || '-'} / ${data.caste || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ಮನೆಯ ಪ್ರಕಾರ</td>
+                <td class="grid-label">ಮನೆಯ ವಿವರ</td>
                 <td class="grid-value">${data.houseType || '-'}</td>
                 <td class="grid-label">ಜಮೀನು :</td>
                 <td class="grid-value">${data.landAcres || '0'} ಎಕರೆ - ${data.landGunta || '0'} ಗುಂಟೆ</td>
             </tr>
             <tr>
-                <td class="grid-label">ರೂಪಿಸುವ ಪ್ರಕಾರ</td>
+                <td class="grid-label">ಮನೆಯ ಆಕಾರ</td>
                 <td class="grid-value" colspan="3">${data.formingType || '-'}</td>
             </tr>
         </table>
