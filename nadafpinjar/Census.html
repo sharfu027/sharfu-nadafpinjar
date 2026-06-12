@@ -410,7 +410,10 @@
             <div class="form-row">
                 <div class="form-group">
                     <label>ಜಾತಿ</label>
-                    <input type="text" name="caste" value="PINJAR/NADAF">
+                    <select name="caste">
+                        <option value="ನದಾಫ್">ನದಾಫ್ (NADAF)</option>
+                        <option value="ಪಿಂಜಾರ್">ಪಿಂಜಾರ್ (PINJAR)</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>ಜಮೀನು ವಿವರ: (ಭೂಮಿ ಇಲ್ಲದಿದ್ದರೆ 0 ಎಂದು ನಮೂದಿಸಿ.)</label>
@@ -569,7 +572,7 @@
         <div class="modal-card">
             <h2 class="modal-title">ಸಲ್ಲಿಕೆ ಯಶಸ್ವಿಯಾಗಿದೆ</h2>
             <div id="modalAppNumber" class="modal-badge">
-                ಅರ್ಜಿ ಸಂಖ್ಯೆ ಪಡೆದು : KRNPS-2026-27-85
+                ಅರ್ಜಿ ಸಂಖ್ಯೆ ಪಡೆದು : CEN-2026-27-85
             </div>
             <p class="modal-desc">
                 ವಿವರಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಸಲ್ಲಿಸಲಾಗಿದೆ.<br>ನಮ್ಮ ಬ್ಯಾಂಕ್‌ನಿಂದ ಸಂದೇಶ ಶೀಘ್ರದಲ್ಲಿ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುವೆವು.
@@ -861,7 +864,7 @@
             };
 
             const lastDigits = Math.floor(Math.random() * 90) + 10;
-            const appNumber = `KRNPS-2026-27-${lastDigits}`;
+            const appNumber = `CEN-2026-27-${lastDigits}`;
 
             const dataToSave = {
                 formType: "ಜನಗಣತಿ (CENSUS)",
@@ -991,16 +994,16 @@
             vertical-align: middle;
         }
         .header-photo {
-            width: 90px;
-            height: 90px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
             margin-left: 20px;
         }
         .header-logo {
-            width: 90px;
-            height: 90px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -1011,7 +1014,7 @@
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 24px;
+            font-size: 26px;
             margin: 0 0 1px 0;
             font-weight: bold;
         }
@@ -1197,7 +1200,7 @@
             <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${new Date().toLocaleDateString('en-GB')}</div>
         </div>
 
-        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">I. कुटुंबದ ವಿವರ (Family Details)</h3>
+        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">I. ಕುಟುಂಬದ ವಿವರ (Family Details)</h3>
         <table class="grid-table">
             <tr>
                 <td class="grid-label">ಮುಖ್ಯಸ್ಥರ ಹೆಸರು</td>
@@ -1235,7 +1238,7 @@
             </tr>
         </table>
 
-        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">II. ಸದಸ್ಯರ ವಿವರಗಳು (Family Members)</h3>
+        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">II. ಕುಟುಂಬದ ಸದಸ್ಯರ ವಿವರಗಳು (Family Members)</h3>
         <table class="members-table">
             <thead>
                 <tr>

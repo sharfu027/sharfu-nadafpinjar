@@ -209,7 +209,7 @@ const defaultFreeeduSubmissions = [
 
 const defaultCensusSubmissions = [
     {
-        id: "KRNPS-2026-27-55",
+        id: "CEN-2026-27-55",
         date: new Date().toLocaleDateString('en-GB'),
         formData: {
             headName: "ಇಸ್ಮಾಯಿಲ್ ಸಾಬ್ ನದಾಫ್",
@@ -382,7 +382,8 @@ async function syncSubmissionsFromDatabase() {
                     hasChanges = true;
                 }
             } else if (formType === "ಜನಗಣತಿ" || formType === "ಜನಗಣತಿ (CENSUS)") {
-                const appNum = doc.paymentId || `KRNPS-2026-27-${parseInt((doc._id || '').slice(-4), 16) % 100 || 55}`;
+                let appNum = doc.paymentId || `CEN-2026-27-${parseInt((doc._id || '').slice(-4), 16) % 100 || 55}`;
+                if (appNum.startsWith('KRNPS-')) appNum = appNum.replace('KRNPS-', 'CEN-');
                 if (deletedIds.includes(appNum)) return;
                 
                 const exists = censusList.some(item => item.id === appNum);
@@ -1268,27 +1269,27 @@ window.downloadReceiptPdf = function(receiptId) {
             margin-bottom: 4px;
         }
         .header-photo-cell {
-            width: 90px;
+            width: 110px;
             text-align: center;
             padding: 3px 3px 3px 20px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 90px;
-            height: 90px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
         }
         .header-logo-cell {
-            width: 90px;
+            width: 110px;
             text-align: center;
             padding: 3px 20px 3px 3px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 90px;
-            height: 90px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -1300,7 +1301,7 @@ window.downloadReceiptPdf = function(receiptId) {
             color: #b30000;
         }
         .kannada-title {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
             margin-bottom: 1px;
         }
@@ -1877,16 +1878,16 @@ function loadAdminFreeEdu() {
             vertical-align: middle;
         }
         .header-photo {
-            width: 90px;
-            height: 90px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
             margin-left: 20px;
         }
         .header-logo {
-            width: 90px;
-            height: 90px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -1897,7 +1898,7 @@ function loadAdminFreeEdu() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 24px;
+            font-size: 26px;
             margin: 0 0 2px 0;
             font-weight: bold;
         }
@@ -2556,16 +2557,16 @@ function loadAdminCensus() {
             vertical-align: middle;
         }
         .header-photo {
-            width: 90px;
-            height: 90px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
             margin-left: 20px;
         }
         .header-logo {
-            width: 90px;
-            height: 90px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -2576,7 +2577,7 @@ function loadAdminCensus() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 24px;
+            font-size: 26px;
             margin: 0 0 1px 0;
             font-weight: bold;
         }
@@ -2766,7 +2767,7 @@ function loadAdminCensus() {
             <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${found.date}</div>
         </div>
 
-        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">I. कुटुंबದ ವಿವರ (Family Details)</h3>
+        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">I. ಕುಟುಂಬದ ವಿವರ (Family Details)</h3>
         <table class="grid-table">
             <tr>
                 <td class="grid-label">ಮುಖ್ಯಸ್ಥರ ಹೆಸರು</td>
@@ -2804,7 +2805,7 @@ function loadAdminCensus() {
             </tr>
         </table>
 
-        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">II. ಸದಸ್ಯರ ವಿವರಗಳು (Family Members)</h3>
+        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">II. ಕುಟುಂಬದ ಸದಸ್ಯರ ವಿವರಗಳು (Family Members)</h3>
         <table class="members-table">
             <thead>
                 <tr>
@@ -3084,16 +3085,16 @@ function loadAdminEmployees() {
             vertical-align: middle;
         }
         .header-photo {
-            width: 90px;
-            height: 90px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
             margin-left: 20px;
         }
         .header-logo {
-            width: 90px;
-            height: 90px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -3104,7 +3105,7 @@ function loadAdminEmployees() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 24px;
+            font-size: 26px;
             margin: 0 0 2px 0;
             font-weight: bold;
         }
