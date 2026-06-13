@@ -1426,7 +1426,9 @@ window.downloadReceiptPdf = function(receiptId) {
     <div class="receipt-container">
         <table class="header-box">
             <tr>
-                <td style="width: 75px;"></td>
+                <td class="header-photo-cell">
+                    <img src="images/president.png" class="patron-photo" onerror="this.src='images/president.jpeg'">
+                </td>
                 <td class="header-text-cell">
                     <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</div>
@@ -2110,7 +2112,9 @@ function loadAdminFreeEdu() {
     <div class="receipt-container">
         <table class="header-table">
             <tr>
-                <td style="width: 15%; text-align: left;"></td>
+                <td style="width: 15%; text-align: left;">
+                    <img src="images/president.png" class="header-photo" alt="President" onerror="this.src='images/president.jpeg'">
+                </td>
                 <td style="width: 70%;" class="header-text">
                     <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
                     <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
@@ -3059,7 +3063,9 @@ function loadAdminCensus() {
     <div class="receipt-container">
         <table class="header-table">
             <tr>
-                <td style="width: 15%; text-align: left;"></td>
+                <td style="width: 15%; text-align: left;">
+                    <img src="images/president.png" class="header-photo" alt="President" onerror="this.src='images/president.jpeg'">
+                </td>
                 <td style="width: 70%;" class="header-text">
                     <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
                     <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
@@ -3567,7 +3573,9 @@ function loadAdminEmployees() {
     <div class="receipt-container">
         <table class="header-table">
             <tr>
-                <td style="width: 15%; text-align: left;"></td>
+                <td style="width: 15%; text-align: left;">
+                    <img src="images/president.png" class="header-photo" alt="President" onerror="this.src='images/president.jpeg'">
+                </td>
                 <td style="width: 70%;" class="header-text">
                     <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
                     <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
