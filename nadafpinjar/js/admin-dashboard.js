@@ -1398,7 +1398,7 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         @media print {
             @page {
-                size: landscape;
+                size: A5 landscape;
                 margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
@@ -1426,9 +1426,7 @@ window.downloadReceiptPdf = function(receiptId) {
     <div class="receipt-container">
         <table class="header-box">
             <tr>
-                <td class="header-photo-cell">
-                    <img src="images/president.png" class="patron-photo" onerror="this.src='images/president.jpeg'">
-                </td>
+                <td style="width: 75px;"></td>
                 <td class="header-text-cell">
                     <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</div>
@@ -1491,6 +1489,7 @@ window.downloadReceiptPdf = function(receiptId) {
                 <td class="grid-cell" style="width: 35%; border-bottom: none; vertical-align: top; padding-bottom: 5px;">
                     <div style="text-align: center; width: 140px; margin: 3px auto 0 auto;">
                         <div style="font-size: 7px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
+                        <img src="images/sig.jpg" class="sig-img">
                     </div>
                 </td>
             </tr>
@@ -1546,16 +1545,15 @@ window.downloadReceiptPdf = function(receiptId) {
                     filename: 'Receipt-' + (found.id || 'Offline') + '.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-                    jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
+                    jsPDF: { unit: 'mm', format: 'a5', orientation: 'landscape' }
                 };
                 iframe.contentWindow.html2pdf().from(container).set(opt).save();
             };
             doc.head.appendChild(script);
         } else {
             if (container) {
-                const pageSize = '210mm ' + pageHmm + 'mm';
                 const dynStyle = doc.createElement('style');
-                dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
+                dynStyle.textContent = '@media print { @page { size: A5 landscape; margin: 1.5mm 4mm; } }';
                 doc.head.appendChild(dynStyle);
             }
             iframe.style.width = '0';
@@ -2085,7 +2083,7 @@ function loadAdminFreeEdu() {
         }
         @media print {
             @page {
-                size: portrait;
+                size: A4 portrait;
                 margin: 6mm 10mm 6mm 10mm;
             }
             html, body {
@@ -2112,9 +2110,7 @@ function loadAdminFreeEdu() {
     <div class="receipt-container">
         <table class="header-table">
             <tr>
-                <td style="width: 15%; text-align: left;">
-                    <img src="images/president.png" class="header-photo" alt="President" onerror="this.src='images/president.jpeg'">
-                </td>
+                <td style="width: 15%; text-align: left;"></td>
                 <td style="width: 70%;" class="header-text">
                     <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
                     <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
@@ -2298,16 +2294,15 @@ function loadAdminFreeEdu() {
                         filename: 'FreeEducation-' + (appNumber || 'Receipt') + '.pdf',
                         image: { type: 'jpeg', quality: 0.98 },
                         html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-                        jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
+                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                     };
                     iframe.contentWindow.html2pdf().from(container).set(opt).save();
                 };
                 doc.head.appendChild(script);
             } else {
                 if (container) {
-                    const pageSize = '210mm ' + pageHmm + 'mm';
                     const dynStyle = doc.createElement('style');
-                    dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
+                    dynStyle.textContent = '@media print { @page { size: A4 portrait; margin: 6mm 10mm; } }';
                     doc.head.appendChild(dynStyle);
                 }
                 iframe.style.width = '0';
@@ -3033,8 +3028,8 @@ function loadAdminCensus() {
         }
         @media print {
             @page {
-                size: landscape;
-                margin: 1.5mm 4mm 1.5mm 4mm;
+                size: A4 portrait;
+                margin: 6mm 10mm 6mm 10mm;
             }
             html, body {
                 width: 100%;
@@ -3064,9 +3059,7 @@ function loadAdminCensus() {
     <div class="receipt-container">
         <table class="header-table">
             <tr>
-                <td style="width: 15%; text-align: left;">
-                    <img src="images/president.png" class="header-photo" alt="President" onerror="this.src='images/president.jpeg'">
-                </td>
+                <td style="width: 15%; text-align: left;"></td>
                 <td style="width: 70%;" class="header-text">
                     <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
                     <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
@@ -3187,16 +3180,15 @@ function loadAdminCensus() {
                         filename: 'Census-' + (appNumber || 'Receipt') + '.pdf',
                         image: { type: 'jpeg', quality: 0.98 },
                         html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-                        jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
+                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                     };
                     iframe.contentWindow.html2pdf().from(container).set(opt).save();
                 };
                 doc.head.appendChild(script);
             } else {
                 if (container) {
-                    const pageSize = '210mm ' + pageHmm + 'mm';
                     const dynStyle = doc.createElement('style');
-                    dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
+                    dynStyle.textContent = '@media print { @page { size: A4 portrait; margin: 6mm 10mm; } }';
                     doc.head.appendChild(dynStyle);
                 }
                 iframe.style.width = '0';
@@ -3544,8 +3536,8 @@ function loadAdminEmployees() {
         }
         @media print {
             @page {
-                size: landscape;
-                margin: 1.5mm 4mm 1.5mm 4mm;
+                size: A4 portrait;
+                margin: 6mm 10mm 6mm 10mm;
             }
             html, body {
                 width: 100%;
@@ -3575,9 +3567,7 @@ function loadAdminEmployees() {
     <div class="receipt-container">
         <table class="header-table">
             <tr>
-                <td style="width: 15%; text-align: left;">
-                    <img src="images/president.png" class="header-photo" alt="President" onerror="this.src='images/president.jpeg'">
-                </td>
+                <td style="width: 15%; text-align: left;"></td>
                 <td style="width: 70%;" class="header-text">
                     <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
                     <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
@@ -3674,16 +3664,15 @@ function loadAdminEmployees() {
                         filename: 'Employee-' + (appNumber || 'Receipt') + '.pdf',
                         image: { type: 'jpeg', quality: 0.98 },
                         html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-                        jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
+                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                     };
                     iframe.contentWindow.html2pdf().from(container).set(opt).save();
                 };
                 doc.head.appendChild(script);
             } else {
                 if (container) {
-                    const pageSize = '210mm ' + pageHmm + 'mm';
                     const dynStyle = doc.createElement('style');
-                    dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
+                    dynStyle.textContent = '@media print { @page { size: A4 portrait; margin: 6mm 10mm; } }';
                     doc.head.appendChild(dynStyle);
                 }
                 iframe.style.width = '0';

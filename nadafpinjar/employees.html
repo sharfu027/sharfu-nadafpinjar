@@ -789,8 +789,8 @@
         }
         @media print {
             @page {
-                size: A5 landscape;
-                margin: 1.5mm 4mm 1.5mm 4mm;
+                size: A4 portrait;
+                margin: 6mm 10mm 6mm 10mm;
             }
             html, body {
                 height: auto;
@@ -814,9 +814,7 @@
     <div class="receipt-container">
         <table class="header-table">
             <tr>
-                <td style="width: 15%; text-align: left;">
-                    <img src="images/president.png" class="header-photo" alt="President">
-                </td>
+                <td style="width: 15%; text-align: left;"></td>
                 <td style="width: 70%;" class="header-text">
                     <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
                     <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
@@ -913,16 +911,15 @@
                             filename: 'Employee-' + (appNumber || 'Receipt') + '.pdf',
                             image: { type: 'jpeg', quality: 0.98 },
                             html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-                            jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
+                            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                         };
                         iframe.contentWindow.html2pdf().from(container).set(opt).save();
                     };
                     doc.head.appendChild(script);
                 } else {
                     if (container) {
-                        const pageSize = '210mm ' + pageHmm + 'mm';
                         const dynStyle = doc.createElement('style');
-                        dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
+                        dynStyle.textContent = '@media print { @page { size: A4 portrait; margin: 6mm 10mm; } }';
                         doc.head.appendChild(dynStyle);
                     }
                     iframe.style.width = '0';
