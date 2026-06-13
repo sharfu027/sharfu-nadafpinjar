@@ -1398,8 +1398,8 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         @media print {
             @page {
-                size: A5 landscape;
-                margin: 1.5mm 4mm 1.5mm 4mm;
+                size: A4 portrait;
+                margin: 6mm 10mm 6mm 10mm;
             }
             html, body {
                 width: 100%;
@@ -1547,7 +1547,7 @@ window.downloadReceiptPdf = function(receiptId) {
                     filename: 'Receipt-' + (found.id || 'Offline') + '.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-                    jsPDF: { unit: 'mm', format: 'a5', orientation: 'landscape' }
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
                 iframe.contentWindow.html2pdf().from(container).set(opt).save();
             };
@@ -1555,7 +1555,7 @@ window.downloadReceiptPdf = function(receiptId) {
         } else {
             if (container) {
                 const dynStyle = doc.createElement('style');
-                dynStyle.textContent = '@media print { @page { size: A5 landscape; margin: 1.5mm 4mm; } }';
+                dynStyle.textContent = '@media print { @page { size: A4 portrait; margin: 6mm 10mm; } }';
                 doc.head.appendChild(dynStyle);
             }
             iframe.style.width = '0';
