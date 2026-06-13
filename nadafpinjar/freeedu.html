@@ -813,16 +813,16 @@
             vertical-align: middle;
         }
         .header-photo {
-            width: 80px;
-            height: 80px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
             margin-left: 20px;
         }
         .header-logo {
-            width: 80px;
-            height: 80px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -833,7 +833,7 @@
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 21px;
+            font-size: 18px;
             margin: 0 0 2px 0;
             font-weight: bold;
             white-space: nowrap;
@@ -874,10 +874,10 @@
         }
         .grid-table td {
             border: 1px solid #b30000;
-            padding: 3px 5px;
-            font-size: 10.5px;
+            padding: 2px 4px;
+            font-size: 8.5px;
             vertical-align: middle;
-            line-height: 1.2;
+            line-height: 1.1;
         }
         .grid-label {
             background: #fffdeb;
@@ -955,14 +955,18 @@
             <tr>
                 <td class="grid-label">ನಗರಿ/ಗ್ರಾಮ</td>
                 <td class="grid-value">${data.village || '-'}</td>
-                <td class="grid-label">ಜಿಲ್ಲೆ :</td>
+                <td class="grid-label">ತಾಲೂಕು :</td>
+                <td class="grid-value">${data.taluk || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಜಿಲ್ಲೆ</td>
                 <td class="grid-value">${data.district || '-'}</td>
+                <td class="grid-label">ರಾಜ್ಯ :</td>
+                <td class="grid-value">ಕರ್ನಾಟಕ</td>
             </tr>
             <tr>
                 <td class="grid-label">ವೃತ್ತಿ</td>
-                <td class="grid-value">${data.occupation || '-'}</td>
-                <td class="grid-label">ತಾಲೂಕು :</td>
-                <td class="grid-value">${data.taluk || '-'}</td>
+                <td class="grid-value" colspan="3">${data.occupation || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">ಆಧಾರ್ ನಂ</td>
@@ -1021,10 +1025,10 @@
         <!-- Signatures & Recommendation Footer -->
         <table style="width: 100%; border-collapse: collapse; margin-top: 4px; border: 1.5px solid #b30000; background: #fff;">
             <tr>
-                <td style="width: 50%; border: 1.5px solid #b30000; height: 32px; padding: 3px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px;">
+                <td style="width: 50%; border: 1.5px solid #b30000; height: 20px; padding: 2px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 9px;">
                     ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ
                 </td>
-                <td style="width: 50%; border: 1.5px solid #b30000; height: 32px; padding: 3px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px;">
+                <td style="width: 50%; border: 1.5px solid #b30000; height: 20px; padding: 2px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 9px;">
                     ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ
                 </td>
             </tr>
@@ -1033,28 +1037,28 @@
         <!-- Official Approvals -->
         <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #b30000; border-top: none; margin-top: 0px; background: #fff;">
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
-                    ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
+                    ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
-                    ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
+                    ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
-                    ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
+                    ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
-                    ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
+                    ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
-                    ರಾಜ್ಯ ಘಟಕ <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
+                    ರಾಜ್ಯ ಘಟಕ <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
         </table>

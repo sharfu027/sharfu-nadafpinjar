@@ -1040,7 +1040,7 @@ window.downloadReceiptPdf = function(receiptId) {
         fieldsHTML = `
             <!-- District President Info Row -->
             <tr style="background-color: #f8fafc;">
-                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 13px;">
+                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 10px;">
                     ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ
                 </td>
             </tr>
@@ -1064,20 +1064,24 @@ window.downloadReceiptPdf = function(receiptId) {
                     <span class="field-value">${details.presidentAddress || ""}</span>
                 </td>
                 <td class="grid-cell" style="border-top: none;">
-                    <div style="margin-bottom: 4px;">
+                    <div style="margin-bottom: 2px;">
                         <span class="field-label">ತಾಲೂಕು:</span>
                         <span class="field-value">${details.presidentTaluk || ""}</span>
                     </div>
-                    <div>
+                    <div style="margin-bottom: 2px;">
                         <span class="field-label">ಜಿಲ್ಲೆ:</span>
                         <span class="field-value">${details.presidentDistrict || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ರಾಜ್ಯ:</span>
+                        <span class="field-value">ಕರ್ನಾಟಕ</span>
                     </div>
                 </td>
             </tr>
 
             <!-- On Behalf Of Info Row -->
             <tr style="background-color: #f8fafc;">
-                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 13px;">
+                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 10px;">
                     ಯಾರ ಪರವಾಗಿ:
                 </td>
             </tr>
@@ -1101,13 +1105,17 @@ window.downloadReceiptPdf = function(receiptId) {
                     <span class="field-value">${details.address || ""}</span>
                 </td>
                 <td class="grid-cell" style="border-top: none;">
-                    <div style="margin-bottom: 4px;">
+                    <div style="margin-bottom: 2px;">
                         <span class="field-label">ತಾಲೂಕು:</span>
                         <span class="field-value">${details.taluk || ""}</span>
                     </div>
-                    <div>
+                    <div style="margin-bottom: 2px;">
                         <span class="field-label">ಜಿಲ್ಲೆ:</span>
                         <span class="field-value">${details.district || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ರಾಜ್ಯ:</span>
+                        <span class="field-value">ಕರ್ನಾಟಕ</span>
                     </div>
                 </td>
             </tr>
@@ -1118,7 +1126,7 @@ window.downloadReceiptPdf = function(receiptId) {
         fieldsHTML = `
             <!-- Taluk President Info Row -->
             <tr style="background-color: #f8fafc;">
-                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 13px;">
+                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 10px;">
                     ತಾಲೂಕು ಅಧ್ಯಕ್ಷರ
                 </td>
             </tr>
@@ -1142,20 +1150,24 @@ window.downloadReceiptPdf = function(receiptId) {
                     <span class="field-value">${details.presidentAddress || ""}</span>
                 </td>
                 <td class="grid-cell" style="border-top: none;">
-                    <div style="margin-bottom: 4px;">
+                    <div style="margin-bottom: 2px;">
                         <span class="field-label">ತಾಲೂಕು:</span>
                         <span class="field-value">${details.presidentTaluk || ""}</span>
                     </div>
-                    <div>
+                    <div style="margin-bottom: 2px;">
                         <span class="field-label">ಜಿಲ್ಲೆ:</span>
                         <span class="field-value">${details.presidentDistrict || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ರಾಜ್ಯ:</span>
+                        <span class="field-value">ಕರ್ನಾಟಕ</span>
                     </div>
                 </td>
             </tr>
 
             <!-- On Behalf Of Info Row -->
             <tr style="background-color: #f8fafc;">
-                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 13px;">
+                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 10px;">
                     ಯಾರ ಪರವಾಗಿ:
                 </td>
             </tr>
@@ -1179,13 +1191,17 @@ window.downloadReceiptPdf = function(receiptId) {
                     <span class="field-value">${details.address || ""}</span>
                 </td>
                 <td class="grid-cell" style="border-top: none;">
-                    <div style="margin-bottom: 4px;">
+                    <div style="margin-bottom: 2px;">
                         <span class="field-label">ತಾಲೂಕು:</span>
                         <span class="field-value">${details.taluk || ""}</span>
                     </div>
-                    <div>
+                    <div style="margin-bottom: 2px;">
                         <span class="field-label">ಜಿಲ್ಲೆ:</span>
                         <span class="field-value">${details.district || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ರಾಜ್ಯ:</span>
+                        <span class="field-value">ಕರ್ನಾಟಕ</span>
                     </div>
                 </td>
             </tr>
@@ -1214,13 +1230,17 @@ window.downloadReceiptPdf = function(receiptId) {
                     <span class="field-value">${details.address || ""}</span>
                 </td>
                 <td class="grid-cell" style="border-top: none;">
-                    <div style="margin-bottom: 4px;">
+                    <div style="margin-bottom: 2px;">
                         <span class="field-label">ತಾಲೂಕು:</span>
                         <span class="field-value">${details.taluk || ""}</span>
                     </div>
-                    <div>
+                    <div style="margin-bottom: 2px;">
                         <span class="field-label">ಜಿಲ್ಲೆ:</span>
                         <span class="field-value">${details.district || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ರಾಜ್ಯ:</span>
+                        <span class="field-value">ಕರ್ನಾಟಕ</span>
                     </div>
                 </td>
             </tr>
@@ -1254,7 +1274,7 @@ window.downloadReceiptPdf = function(receiptId) {
             height: auto;
             margin: 0;
             border: 4px double ${themeColor};
-            padding: 6px;
+            padding: 4px;
             background: #fff;
             box-sizing: border-box;
             display: flex;
@@ -1267,30 +1287,30 @@ window.downloadReceiptPdf = function(receiptId) {
             border-collapse: collapse;
             border: 2px solid #b30000;
             background-color: #fffdeb;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
         .header-photo-cell {
-            width: 110px;
+            width: 75px;
             text-align: center;
-            padding: 3px 3px 3px 20px;
+            padding: 2px 2px 2px 10px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 105px;
-            height: 105px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
         }
         .header-logo-cell {
-            width: 110px;
+            width: 75px;
             text-align: center;
-            padding: 3px 20px 3px 3px;
+            padding: 2px 10px 2px 2px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 105px;
-            height: 105px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -1298,29 +1318,29 @@ window.downloadReceiptPdf = function(receiptId) {
         .header-text-cell {
             text-align: center;
             vertical-align: middle;
-            padding: 3px 0;
+            padding: 2px 0;
             color: #b30000;
         }
         .kannada-title {
-            font-size: 19px;
+            font-size: 17px;
             font-weight: bold;
             margin-bottom: 1px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 10px;
+            font-size: 7.5px;
             font-weight: bold;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
             color: #444;
         }
         .english-title {
-            font-size: 11px;
+            font-size: 8px;
             font-weight: bold;
             letter-spacing: 0.2px;
             margin-bottom: 1px;
         }
         .office-address, .office-location {
-            font-size: 10px;
+            font-size: 7.5px;
             font-weight: bold;
             color: #333;
         }
@@ -1331,11 +1351,12 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         .grid-cell {
             border: 1px solid ${themeColor};
-            padding: 3px 5px;
-            font-size: 12px;
+            padding: 2px 4px;
+            font-size: 8px;
             vertical-align: top;
             color: #1e293b;
-            line-height: 1.2;
+            line-height: 1.1;
+            word-break: break-all;
         }
         .center-align {
             text-align: center;
@@ -1357,7 +1378,7 @@ window.downloadReceiptPdf = function(receiptId) {
             font-weight: bold;
         }
         .payment-line {
-            font-size: 12px;
+            font-size: 8px;
         }
         .seal-sig-wrapper {
             margin-top: 4px;
@@ -1367,11 +1388,11 @@ window.downloadReceiptPdf = function(receiptId) {
             padding: 0 4px;
         }
         .seal-img {
-            height: 50px;
+            height: 38px;
             width: auto;
         }
         .sig-img {
-            height: 35px;
+            height: 25px;
             width: auto;
             margin-bottom: 2px;
         }
@@ -1469,21 +1490,21 @@ window.downloadReceiptPdf = function(receiptId) {
                 </td>
                 <td class="grid-cell" style="width: 35%; border-bottom: none; vertical-align: top; padding-bottom: 5px;">
                     <div style="text-align: center; width: 140px; margin: 3px auto 0 auto;">
-                        <div style="font-size: 8px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
+                        <div style="font-size: 7px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
                         <img src="images/sig.jpg" class="sig-img">
-                        <div style="font-size: 8px; font-weight: bold; line-height: 1.2; color: #8a2be2;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
-                        <div style="font-size: 7px; line-height: 1.2; color: #b30000; font-weight: bold;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
-                        <div style="font-size: 7px; line-height: 1.2; color: #b30000; font-weight: bold;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                        <div style="font-size: 7px; font-weight: bold; line-height: 1.2; color: #8a2be2;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
+                        <div style="font-size: 6px; line-height: 1.2; color: #b30000; font-weight: bold;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
+                        <div style="font-size: 6px; line-height: 1.2; color: #b30000; font-weight: bold;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     </div>
                 </td>
             </tr>
 
             <tr class="bottom-serial-row">
-                <td class="grid-cell" colspan="2" style="border-top: 2px solid ${themeColor}; padding-top: 4px;">
-                    <span class="field-label" style="font-size: 9.5px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
-                    <span class="field-value" style="font-size: 9.5px; color: ${themeColor};">KRNPS-2026-27-${serialNoVal}</span>
+                <td class="grid-cell" colspan="2" style="border-top: 2px solid ${themeColor}; padding-top: 2.5px;">
+                    <span class="field-label" style="font-size: 8px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
+                    <span class="field-value" style="font-size: 8px; color: ${themeColor};">KRNPS-2026-27-${serialNoVal}</span>
                 </td>
-                <td class="grid-cell right-align" style="border-top: 2px solid ${themeColor}; padding-top: 4px; font-weight: bold; padding-right: 20px; color: ${themeColor}; font-size: 9.5px;">
+                <td class="grid-cell right-align" style="border-top: 2px solid ${themeColor}; padding-top: 2.5px; font-weight: bold; padding-right: 20px; color: ${themeColor}; font-size: 8px;">
                     ಅಧಿಕೃತ ಸಹಿ
                 </td>
             </tr>
@@ -1924,16 +1945,16 @@ function loadAdminFreeEdu() {
             vertical-align: middle;
         }
         .header-photo {
-            width: 80px;
-            height: 80px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
             margin-left: 20px;
         }
         .header-logo {
-            width: 80px;
-            height: 80px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -1944,7 +1965,7 @@ function loadAdminFreeEdu() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 21px;
+            font-size: 18px;
             margin: 0 0 2px 0;
             font-weight: bold;
             white-space: nowrap;
@@ -1984,10 +2005,10 @@ function loadAdminFreeEdu() {
         }
         .grid-table td {
             border: 1px solid #b30000;
-            padding: 3px 5px;
-            font-size: 10.5px;
+            padding: 2px 4px;
+            font-size: 8.5px;
             vertical-align: middle;
-            line-height: 1.2;
+            line-height: 1.1;
         }
         .grid-label {
             background: #fffcf5;
@@ -2133,14 +2154,18 @@ function loadAdminFreeEdu() {
             <tr>
                 <td class="grid-label">ನಗರಿ/ಗ್ರಾಮ</td>
                 <td class="grid-value">${data.village || '-'}</td>
-                <td class="grid-label">ಜಿಲ್ಲೆ :</td>
+                <td class="grid-label">ತಾಲೂಕು :</td>
+                <td class="grid-value">${data.taluk || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಜಿಲ್ಲೆ</td>
                 <td class="grid-value">${data.district || '-'}</td>
+                <td class="grid-label">ರಾಜ್ಯ :</td>
+                <td class="grid-value">ಕರ್ನಾಟಕ</td>
             </tr>
             <tr>
                 <td class="grid-label">ವೃತ್ತಿ</td>
-                <td class="grid-value">${data.occupation || '-'}</td>
-                <td class="grid-label">ತಾಲೂಕು :</td>
-                <td class="grid-value">${data.taluk || '-'}</td>
+                <td class="grid-value" colspan="3">${data.occupation || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">ಆಧಾರ್ ನಂ</td>
@@ -2199,10 +2224,10 @@ function loadAdminFreeEdu() {
         <!-- Signatures & Recommendation Footer -->
         <table style="width: 100%; border-collapse: collapse; margin-top: 4px; border: 1.5px solid #b30000; background: #fff;">
             <tr>
-                <td style="width: 50%; border: 1.5px solid #b30000; height: 32px; padding: 3px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px;">
+                <td style="width: 50%; border: 1.5px solid #b30000; height: 20px; padding: 2px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 9px;">
                     ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ
                 </td>
-                <td style="width: 50%; border: 1.5px solid #b30000; height: 32px; padding: 3px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px;">
+                <td style="width: 50%; border: 1.5px solid #b30000; height: 20px; padding: 2px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 9px;">
                     ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ
                 </td>
             </tr>
@@ -2211,28 +2236,28 @@ function loadAdminFreeEdu() {
         <!-- Official Approvals -->
         <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #b30000; border-top: none; margin-top: 0px; background: #fff;">
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
-                    ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
+                    ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
-                    ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
+                    ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
-                    ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
+                    ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
-                    ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
+                    ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
-                    ರಾಜ್ಯ ಘಟಕ <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
+                    ರಾಜ್ಯ ಘಟಕ <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
         </table>
@@ -2847,16 +2872,16 @@ function loadAdminCensus() {
             vertical-align: middle;
         }
         .header-photo {
-            width: 105px;
-            height: 105px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
             margin-left: 20px;
         }
         .header-logo {
-            width: 105px;
-            height: 105px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -2867,37 +2892,37 @@ function loadAdminCensus() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 21px;
+            font-size: 18px;
             margin: 0 0 1px 0;
             font-weight: bold;
             white-space: nowrap;
         }
         .header-text p {
             margin: 0.5px 0;
-            font-size: 10px;
+            font-size: 9px;
             color: #444;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 10px;
+            font-size: 9px;
             color: #000;
         }
         .header-text .en-title {
-            font-size: 11px;
+            font-size: 9.5px;
             color: #b30000;
             margin-top: 1px;
         }
         .title-banner {
             border-top: 1.5px solid #b30000;
             border-bottom: 1.5px solid #b30000;
-            padding: 4px;
-            margin: 4px 0;
+            padding: 2.5px;
+            margin: 3px 0;
             background: #fffcf5;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 10px;
             color: #b30000;
         }
         .grid-table {
@@ -2907,10 +2932,10 @@ function loadAdminCensus() {
         }
         .grid-table td {
             border: 1px solid #b30000;
-            padding: 3px 5px;
-            font-size: 12px;
+            padding: 2.5px 4px;
+            font-size: 9.5px;
             vertical-align: middle;
-            line-height: 1.2;
+            line-height: 1.1;
         }
         .grid-label {
             background: #fffcf5;
@@ -2927,33 +2952,33 @@ function loadAdminCensus() {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 4px;
-            font-size: 12px;
+            font-size: 9px;
         }
         .members-table th {
             border: 1px solid #b30000;
             background: #fffcf5;
             color: #b30000;
-            padding: 3px 4px;
+            padding: 2px 3px;
             font-weight: bold;
         }
         .members-table td {
             border: 1px solid #b30000;
-            padding: 3px 4px;
+            padding: 2px 3px;
         }
         .recommend-text {
             text-align: right;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: bold;
             color: #b30000;
             border-top: 1px dashed #b30000;
-            padding: 4px 15px 4px 0;
-            margin-top: 4px;
+            padding: 2px 15px 2px 0;
+            margin-top: 2px;
         }
         .approval-section {
             display: flex;
             justify-content: space-between;
             margin-top: auto;
-            font-size: 12px;
+            font-size: 10px;
         }
         .sig-col {
             width: 40%;
@@ -2963,15 +2988,15 @@ function loadAdminCensus() {
         }
         .sig-item {
             border-bottom: 1px dashed #ccc;
-            padding-bottom: 2px;
+            padding-bottom: 1px;
         }
         .sig-space {
-            height: 20px;
+            height: 12px;
         }
         .sig-label {
             font-weight: bold;
             color: #b30000;
-            font-size: 12px;
+            font-size: 10px;
         }
         .official-col {
             width: 55%;
@@ -2983,14 +3008,14 @@ function loadAdminCensus() {
             border-collapse: collapse;
         }
         .official-row {
-            height: 18px;
+            height: 13px;
         }
         .official-title {
             width: 45%;
             font-weight: bold;
             color: #b30000;
             vertical-align: middle;
-            font-size: 12px;
+            font-size: 9.5px;
         }
         .official-check {
             width: 10%;
@@ -2999,8 +3024,8 @@ function loadAdminCensus() {
         }
         .official-box {
             border: 1.5px solid #b30000;
-            width: 11px;
-            height: 11px;
+            width: 9px;
+            height: 9px;
             display: inline-block;
         }
         .official-empty-space {
@@ -3076,30 +3101,32 @@ function loadAdminCensus() {
             <tr>
                 <td class="grid-label">ಗ್ರಾಮ / ನಗರ</td>
                 <td class="grid-value">${data.village || '-'}</td>
-                <td class="grid-label">ಜಿಲ್ಲೆ :</td>
-                <td class="grid-value">${data.district || '-'}</td>
+                <td class="grid-label">ತಾಲೂಕು :</td>
+                <td class="grid-value">${data.taluk || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ತಾಲೂಕು</td>
-                <td class="grid-value">${data.taluk || '-'}</td>
-                <td class="grid-label">ಆಧಾರ್ ಸಂಖ್ಯೆ :</td>
-                <td class="grid-value">${data.headAadhar || '-'}</td>
+                <td class="grid-label">ಜಿಲ್ಲೆ</td>
+                <td class="grid-value">${data.district || '-'}</td>
+                <td class="grid-label">ರಾಜ್ಯ :</td>
+                <td class="grid-value">ಕರ್ನಾಟಕ</td>
             </tr>
             <tr>
                 <td class="grid-label">ವಾರ್ಡ್ ಸಂಖ್ಯೆ</td>
                 <td class="grid-value">${data.ward || '-'}</td>
-                <td class="grid-label">ಧರ್ಮ / ಜಾತಿ :</td>
-                <td class="grid-value">${data.religion || '-'} / ${data.caste || '-'}</td>
+                <td class="grid-label">ಆಧಾರ್ ಸಂಖ್ಯೆ :</td>
+                <td class="grid-value">${data.headAadhar || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ಮನೆಯ ವಿವರ</td>
-                <td class="grid-value">${data.houseType || '-'}</td>
+                <td class="grid-label">ಧರ್ಮ / ಜಾತಿ</td>
+                <td class="grid-value">${data.religion || '-'} / ${data.caste || '-'}</td>
                 <td class="grid-label">ಜಮೀನು :</td>
                 <td class="grid-value">${data.landAcres || '0'} ಎಕರೆ - ${data.landGunta || '0'} ಗುಂಟೆ</td>
             </tr>
             <tr>
-                <td class="grid-label">ಮನೆಯ ಆಕಾರ</td>
-                <td class="grid-value" colspan="3">${data.formingType || '-'}</td>
+                <td class="grid-label">ಮನೆಯ ವಿವರ</td>
+                <td class="grid-value">${data.houseType || '-'}</td>
+                <td class="grid-label">ಮನೆಯ ಆಕಾರ :</td>
+                <td class="grid-value">${data.formingType || '-'}</td>
             </tr>
         </table>
 

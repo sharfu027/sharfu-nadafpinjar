@@ -856,7 +856,7 @@
             height: auto;
             margin: 0;
             border: 4px double ${themeColor};
-            padding: 6px;
+            padding: 4px;
             background: #fff;
             box-sizing: border-box;
             display: flex;
@@ -869,32 +869,32 @@
             border-collapse: collapse;
             border: 2px solid #b30000;
             background-color: #fffdeb;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
         .header-photo-cell {
-            width: 90px;
+            width: 75px;
             text-align: center;
-            padding: 3px 3px 3px 20px;
+            padding: 2px 2px 2px 10px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 75px;
-            height: 75px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
         }
         .header-logo-cell {
-            width: 90px;
+            width: 75px;
             text-align: center;
-            padding: 3px 20px 3px 3px;
+            padding: 2px 10px 2px 2px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 75px;
-            height: 75px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -902,29 +902,29 @@
         .header-text-cell {
             text-align: center;
             vertical-align: middle;
-            padding: 3px 0;
+            padding: 2px 0;
             color: #b30000;
         }
         .kannada-title {
-            font-size: 19px;
+            font-size: 17px;
             font-weight: bold;
             margin-bottom: 1px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 8.5px;
+            font-size: 7.5px;
             font-weight: bold;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
             color: #444;
         }
         .english-title {
-            font-size: 9px;
+            font-size: 8px;
             font-weight: bold;
             letter-spacing: 0.2px;
             margin-bottom: 1px;
         }
         .office-address, .office-location {
-            font-size: 8.5px;
+            font-size: 7.5px;
             font-weight: bold;
             color: #333;
         }
@@ -935,11 +935,12 @@
         }
         .grid-cell {
             border: 1px solid ${themeColor};
-            padding: 3px 5px;
-            font-size: 9px;
+            padding: 2px 4px;
+            font-size: 8px;
             vertical-align: top;
             color: #1e293b;
-            line-height: 1.2;
+            line-height: 1.1;
+            word-break: break-all;
         }
         .center-align {
             text-align: center;
@@ -961,14 +962,14 @@
             font-weight: bold;
         }
         .payment-line {
-            font-size: 9.5px;
+            font-size: 8px;
         }
         .seal-img {
-            height: 50px;
+            height: 38px;
             width: auto;
         }
         .sig-img {
-            height: 35px;
+            height: 25px;
             width: auto;
             margin-bottom: 2px;
         }
@@ -1054,13 +1055,17 @@
                     <span class="field-value">${data.address || ""}</span>
                 </td>
                 <td class="grid-cell" style="border-top: none;">
-                    <div style="margin-bottom: 4px;">
+                    <div style="margin-bottom: 2px;">
                         <span class="field-label">ತಾಲೂಕು:</span>
                         <span class="field-value">${data.taluk || ""}</span>
                     </div>
-                    <div>
+                    <div style="margin-bottom: 2px;">
                         <span class="field-label">ಜಿಲ್ಲೆ:</span>
                         <span class="field-value">${data.district || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ರಾಜ್ಯ:</span>
+                        <span class="field-value">ಕರ್ನಾಟಕ</span>
                     </div>
                 </td>
             </tr>
@@ -1095,21 +1100,21 @@
                 </td>
                 <td class="grid-cell" style="width: 35%; border-bottom: none; vertical-align: top; padding-bottom: 5px;">
                     <div style="text-align: center; width: 140px; margin: 3px auto 0 auto;">
-                        <div style="font-size: 8px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
+                        <div style="font-size: 7px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
                         <img src="images/sig.jpg" class="sig-img">
-                        <div style="font-size: 8px; font-weight: bold; line-height: 1.2; color: #8a2be2;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
-                        <div style="font-size: 7px; line-height: 1.2; color: #b30000; font-weight: bold;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
-                        <div style="font-size: 7px; line-height: 1.2; color: #b30000; font-weight: bold;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                        <div style="font-size: 7px; font-weight: bold; line-height: 1.2; color: #8a2be2;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
+                        <div style="font-size: 6px; line-height: 1.2; color: #b30000; font-weight: bold;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
+                        <div style="font-size: 6px; line-height: 1.2; color: #b30000; font-weight: bold;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     </div>
                 </td>
             </tr>
 
             <tr class="bottom-serial-row">
-                <td class="grid-cell" colspan="2" style="border-top: 2px solid ${themeColor}; padding-top: 4px;">
-                    <span class="field-label" style="font-size: 9.5px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
-                    <span class="field-value" style="font-size: 9.5px; color: ${themeColor};">KRNPS-2026-27-${paymentId ? paymentId.slice(-4).toUpperCase() : 'PENDING'}</span>
+                <td class="grid-cell" colspan="2" style="border-top: 2px solid ${themeColor}; padding-top: 2.5px;">
+                    <span class="field-label" style="font-size: 8px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
+                    <span class="field-value" style="font-size: 8px; color: ${themeColor};">KRNPS-2026-27-${paymentId ? paymentId.slice(-4).toUpperCase() : 'PENDING'}</span>
                 </td>
-                <td class="grid-cell right-align" style="border-top: 2px solid ${themeColor}; padding-top: 4px; font-weight: bold; padding-right: 20px; color: ${themeColor}; font-size: 9.5px;">
+                <td class="grid-cell right-align" style="border-top: 2px solid ${themeColor}; padding-top: 2.5px; font-weight: bold; padding-right: 20px; color: ${themeColor}; font-size: 8px;">
                     ಅಧಿಕೃತ ಸಹಿ
                 </td>
             </tr>

@@ -1095,16 +1095,16 @@
             vertical-align: middle;
         }
         .header-photo {
-            width: 105px;
-            height: 105px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
             margin-left: 20px;
         }
         .header-logo {
-            width: 105px;
-            height: 105px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -1115,37 +1115,37 @@
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 21px;
+            font-size: 18px;
             margin: 0 0 1px 0;
             font-weight: bold;
             white-space: nowrap;
         }
         .header-text p {
             margin: 0.5px 0;
-            font-size: 10px;
+            font-size: 9px;
             color: #444;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 10px;
+            font-size: 9px;
             color: #000;
         }
         .header-text .en-title {
-            font-size: 11px;
+            font-size: 9.5px;
             color: #b30000;
             margin-top: 1px;
         }
         .title-banner {
             border-top: 1.5px solid #b30000;
             border-bottom: 1.5px solid #b30000;
-            padding: 3px;
-            margin: 4px 0;
+            padding: 2.5px;
+            margin: 3px 0;
             background: #fffcf5;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 10px;
             color: #b30000;
         }
         .grid-table {
@@ -1155,10 +1155,10 @@
         }
         .grid-table td {
             border: 1px solid #b30000;
-            padding: 3px 5px;
-            font-size: 12px;
+            padding: 2.5px 4px;
+            font-size: 9.5px;
             vertical-align: middle;
-            line-height: 1.2;
+            line-height: 1.1;
         }
         .grid-label {
             background: #fffcf5;
@@ -1175,33 +1175,33 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 4px;
-            font-size: 12px;
+            font-size: 9px;
         }
         .members-table th {
             border: 1px solid #b30000;
             background: #fffcf5;
             color: #b30000;
-            padding: 3px 4px;
+            padding: 2px 3px;
             font-weight: bold;
         }
         .members-table td {
             border: 1px solid #b30000;
-            padding: 3px 4px;
+            padding: 2px 3px;
         }
         .recommend-text {
             text-align: right;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: bold;
             color: #b30000;
             border-top: 1px dashed #b30000;
-            padding: 4px 15px 4px 0;
-            margin-top: 4px;
+            padding: 2px 15px 2px 0;
+            margin-top: 2px;
         }
         .approval-section {
             display: flex;
             justify-content: space-between;
             margin-top: auto;
-            font-size: 12px;
+            font-size: 10px;
         }
         .sig-col {
             width: 40%;
@@ -1211,15 +1211,15 @@
         }
         .sig-item {
             border-bottom: 1px dashed #ccc;
-            padding-bottom: 2px;
+            padding-bottom: 1px;
         }
         .sig-space {
-            height: 20px;
+            height: 12px;
         }
         .sig-label {
             font-weight: bold;
             color: #b30000;
-            font-size: 12px;
+            font-size: 10px;
         }
         .official-col {
             width: 55%;
@@ -1231,14 +1231,14 @@
             border-collapse: collapse;
         }
         .official-row {
-            height: 18px;
+            height: 13px;
         }
         .official-title {
             width: 45%;
             font-weight: bold;
             color: #b30000;
             vertical-align: middle;
-            font-size: 12px;
+            font-size: 9.5px;
         }
         .official-check {
             width: 10%;
@@ -1247,8 +1247,8 @@
         }
         .official-box {
             border: 1.5px solid #b30000;
-            width: 11px;
-            height: 11px;
+            width: 9px;
+            height: 9px;
             display: inline-block;
         }
         .official-empty-space {
@@ -1313,30 +1313,32 @@
             <tr>
                 <td class="grid-label">ಗ್ರಾಮ / ನಗರ</td>
                 <td class="grid-value">${data.village || '-'}</td>
-                <td class="grid-label">ಜಿಲ್ಲೆ :</td>
-                <td class="grid-value">${data.district || '-'}</td>
+                <td class="grid-label">ತಾಲೂಕು :</td>
+                <td class="grid-value">${data.taluk || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ತಾಲೂಕು</td>
-                <td class="grid-value">${data.taluk || '-'}</td>
-                <td class="grid-label">ಆಧಾರ್ ಸಂಖ್ಯೆ :</td>
-                <td class="grid-value">${data.headAadhar || '-'}</td>
+                <td class="grid-label">ಜಿಲ್ಲೆ</td>
+                <td class="grid-value">${data.district || '-'}</td>
+                <td class="grid-label">ರಾಜ್ಯ :</td>
+                <td class="grid-value">ಕರ್ನಾಟಕ</td>
             </tr>
             <tr>
                 <td class="grid-label">ವಾರ್ಡ್ ಸಂಖ್ಯೆ</td>
                 <td class="grid-value">${data.ward || '-'}</td>
-                <td class="grid-label">ಧರ್ಮ / ಜಾತಿ :</td>
-                <td class="grid-value">${data.religion || '-'} / ${data.caste || '-'}</td>
+                <td class="grid-label">ಆಧಾರ್ ಸಂಖ್ಯೆ :</td>
+                <td class="grid-value">${data.headAadhar || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ಮನೆಯ ವಿವರ</td>
-                <td class="grid-value">${data.houseType || '-'}</td>
+                <td class="grid-label">ಧರ್ಮ / ಜಾತಿ</td>
+                <td class="grid-value">${data.religion || '-'} / ${data.caste || '-'}</td>
                 <td class="grid-label">ಜಮೀನು :</td>
                 <td class="grid-value">${data.landAcres || '0'} ಎಕರೆ - ${data.landGunta || '0'} ಗುಂಟೆ</td>
             </tr>
             <tr>
-                <td class="grid-label">ಮನೆಯ ಆಕಾರ</td>
-                <td class="grid-value" colspan="3">${data.formingType || '-'}</td>
+                <td class="grid-label">ಮನೆಯ ವಿವರ</td>
+                <td class="grid-value">${data.houseType || '-'}</td>
+                <td class="grid-label">ಮನೆಯ ಆಕಾರ :</td>
+                <td class="grid-value">${data.formingType || '-'}</td>
             </tr>
         </table>
 
