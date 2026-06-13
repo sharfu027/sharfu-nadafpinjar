@@ -1500,14 +1500,27 @@ window.downloadReceiptPdf = function(receiptId) {
         iframe.style.border = '0';
         document.body.appendChild(iframe);
     }
-    
+    iframe.style.width = '210mm';
+    iframe.style.height = 'auto';
     const doc = iframe.contentWindow.document;
     doc.open();
     doc.write(printHTML);
     doc.close();
     
-    iframe.contentWindow.focus();
-    iframe.contentWindow.print();
+    setTimeout(() => {
+        const container = doc.querySelector('.receipt-container');
+        if (container) {
+            const contentH = container.scrollHeight;
+            const pageHmm = Math.ceil(contentH * 0.2646) + 6;
+            const dynStyle = doc.createElement('style');
+            dynStyle.textContent = '@page { size: 210mm ' + pageHmm + 'mm; margin: 1.5mm 4mm; }';
+            doc.head.appendChild(dynStyle);
+        }
+        iframe.style.width = '0';
+        iframe.style.height = '0';
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+    }, 400);
 };
 
 // Format Dates to DD/MM/YYYY
@@ -2214,14 +2227,27 @@ function loadAdminFreeEdu() {
             iframe.style.border = '0';
             document.body.appendChild(iframe);
         }
-        
+        iframe.style.width = '210mm';
+        iframe.style.height = 'auto';
         const doc = iframe.contentWindow.document;
         doc.open();
         doc.write(printHTML);
         doc.close();
         
-        iframe.contentWindow.focus();
-        iframe.contentWindow.print();
+        setTimeout(() => {
+            const container = doc.querySelector('.receipt-container');
+            if (container) {
+                const contentH = container.scrollHeight;
+                const pageHmm = Math.ceil(contentH * 0.2646) + 6;
+                const dynStyle = doc.createElement('style');
+                dynStyle.textContent = '@page { size: 210mm ' + pageHmm + 'mm; margin: 1.5mm 4mm; }';
+                doc.head.appendChild(dynStyle);
+            }
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+        }, 400);
     };
 }
 
@@ -3062,14 +3088,27 @@ function loadAdminCensus() {
             iframe.style.border = '0';
             document.body.appendChild(iframe);
         }
-        
+        iframe.style.width = '210mm';
+        iframe.style.height = 'auto';
         const doc = iframe.contentWindow.document;
         doc.open();
         doc.write(printHTML);
         doc.close();
         
-        iframe.contentWindow.focus();
-        iframe.contentWindow.print();
+        setTimeout(() => {
+            const container = doc.querySelector('.receipt-container');
+            if (container) {
+                const contentH = container.scrollHeight;
+                const pageHmm = Math.ceil(contentH * 0.2646) + 6;
+                const dynStyle = doc.createElement('style');
+                dynStyle.textContent = '@page { size: 210mm ' + pageHmm + 'mm; margin: 1.5mm 4mm; }';
+                doc.head.appendChild(dynStyle);
+            }
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+        }, 400);
     };
 }
 
