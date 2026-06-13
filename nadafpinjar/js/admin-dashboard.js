@@ -1923,16 +1923,16 @@ function loadAdminFreeEdu() {
             vertical-align: middle;
         }
         .header-photo {
-            width: 105px;
-            height: 105px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
             margin-left: 20px;
         }
         .header-logo {
-            width: 105px;
-            height: 105px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -1943,36 +1943,36 @@ function loadAdminFreeEdu() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 26px;
+            font-size: 21px;
             margin: 0 0 2px 0;
             font-weight: bold;
         }
         .header-text p {
             margin: 1px 0;
-            font-size: 10px;
+            font-size: 9px;
             color: #444;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 10px;
+            font-size: 9px;
             color: #000;
         }
         .header-text .en-title {
-            font-size: 11px;
+            font-size: 9.5px;
             color: #b30000;
             margin-top: 1px;
         }
         .title-banner {
             border-top: 1.5px solid #b30000;
             border-bottom: 1.5px solid #b30000;
-            padding: 3px;
-            margin: 4px 0;
+            padding: 2px 4px;
+            margin: 2px 0;
             background: #fffcf5;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 11px;
             color: #b30000;
         }
         .grid-table {
@@ -1983,7 +1983,7 @@ function loadAdminFreeEdu() {
         .grid-table td {
             border: 1px solid #b30000;
             padding: 3px 5px;
-            font-size: 12px;
+            font-size: 10.5px;
             vertical-align: middle;
             line-height: 1.2;
         }
@@ -2195,17 +2195,17 @@ function loadAdminFreeEdu() {
         </table>
 
         <!-- Signatures & Recommendation Footer -->
-        <table style="width: 100%; border-collapse: collapse; margin-top: 6px; border: 1.5px solid #b30000; background: #fff;">
+        <table style="width: 100%; border-collapse: collapse; margin-top: 4px; border: 1.5px solid #b30000; background: #fff;">
             <tr>
-                <td style="width: 50%; border: 1.5px solid #b30000; height: 45px; padding: 4px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 11.5px;">
+                <td style="width: 50%; border: 1.5px solid #b30000; height: 32px; padding: 3px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px;">
                     ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ
                 </td>
-                <td style="width: 50%; border: 1.5px solid #b30000; height: 45px; padding: 4px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 11.5px;">
+                <td style="width: 50%; border: 1.5px solid #b30000; height: 32px; padding: 3px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px;">
                     ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border: 1.5px solid #b30000; padding: 5px; text-align: center; font-weight: bold; color: #b30000; font-size: 11px; background-color: #fffdeb;">
+                <td colspan="2" style="border: 1.5px solid #b30000; padding: 3px; text-align: center; font-weight: bold; color: #b30000; font-size: 10.5px; background-color: #fffdeb;">
                     ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:___________ ಮಾಹಿತ ಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
                 </td>
             </tr>
@@ -2214,28 +2214,28 @@ function loadAdminFreeEdu() {
         <!-- Official Approvals -->
         <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #b30000; border-top: none; margin-top: 0px; background: #fff;">
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
-                    ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
+                    ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
-                    ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
+                    ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
-                    ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
+                    ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
-                    ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
+                    ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 5px; font-weight: bold; color: #b30000; font-size: 11px; vertical-align: middle;">
-                    ರಾಜ್ಯ ಘಟಕ <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
+                <td style="border: 1px solid #b30000; border-top: none; padding: 3.5px; font-weight: bold; color: #b30000; font-size: 10px; vertical-align: middle;">
+                    ರಾಜ್ಯ ಘಟಕ <span style="border: 1.5px solid #b30000; width: 10px; height: 10px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
         </table>
