@@ -1375,11 +1375,15 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         @media print {
             @page {
-                size: A5 landscape;
+                size: 210mm 105mm;
                 margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
-                height: auto;
+                width: 210mm;
+                height: auto !important;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
             }
             body {
                 padding: 0;
@@ -1387,6 +1391,8 @@ window.downloadReceiptPdf = function(receiptId) {
             .receipt-container {
                 max-width: 100%;
                 height: auto;
+                page-break-after: avoid;
+                page-break-inside: avoid;
             }
         }
     </style>
@@ -2931,11 +2937,15 @@ function loadAdminCensus() {
         }
         @media print {
             @page {
-                size: A5 landscape;
+                size: 210mm 105mm;
                 margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
-                height: auto;
+                width: 210mm;
+                height: auto !important;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
             }
             body {
                 padding: 0;
@@ -2946,6 +2956,7 @@ function loadAdminCensus() {
                 max-width: 100%;
                 height: auto;
                 padding: 4px;
+                page-break-after: avoid;
                 page-break-inside: avoid;
             }
         }
@@ -3396,11 +3407,15 @@ function loadAdminEmployees() {
         }
         @media print {
             @page {
-                size: A5 landscape;
+                size: 210mm 105mm;
                 margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
-                height: auto;
+                width: 210mm;
+                height: auto !important;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
             }
             body {
                 padding: 0;
@@ -3412,6 +3427,7 @@ function loadAdminEmployees() {
                 height: auto;
                 padding: 10px;
                 box-sizing: border-box;
+                page-break-after: avoid;
                 page-break-inside: avoid;
             }
         }
