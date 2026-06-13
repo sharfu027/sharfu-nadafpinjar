@@ -1271,7 +1271,7 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         .receipt-container {
             max-width: 100%;
-            height: auto;
+            min-height: 140mm;
             margin: 0;
             border: 4px double ${themeColor};
             padding: 4px;
@@ -1398,8 +1398,8 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         @media print {
             @page {
-                size: A4 portrait;
-                margin: 6mm 10mm 6mm 10mm;
+                size: A5 landscape;
+                margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
                 width: 100%;
@@ -1414,7 +1414,7 @@ window.downloadReceiptPdf = function(receiptId) {
             .receipt-container {
                 width: 100%;
                 max-width: 100%;
-                height: auto;
+                min-height: 140mm;
                 page-break-after: avoid;
                 page-break-inside: avoid;
                 box-sizing: border-box;
@@ -1547,7 +1547,7 @@ window.downloadReceiptPdf = function(receiptId) {
                     filename: 'Receipt-' + (found.id || 'Offline') + '.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                    jsPDF: { unit: 'mm', format: 'a5', orientation: 'landscape' }
                 };
                 iframe.contentWindow.html2pdf().from(container).set(opt).save();
             };
@@ -1555,7 +1555,7 @@ window.downloadReceiptPdf = function(receiptId) {
         } else {
             if (container) {
                 const dynStyle = doc.createElement('style');
-                dynStyle.textContent = '@media print { @page { size: A4 portrait; margin: 6mm 10mm; } }';
+                dynStyle.textContent = '@media print { @page { size: A5 landscape; margin: 1.5mm 4mm; } }';
                 doc.head.appendChild(dynStyle);
             }
             iframe.style.width = '0';
@@ -1920,11 +1920,11 @@ function loadAdminFreeEdu() {
         }
         .receipt-container {
             max-width: 100%;
-            height: auto;
+            min-height: 275mm;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 5px;
-            background: #fff;
+            background: #fffdeb;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -2099,7 +2099,7 @@ function loadAdminFreeEdu() {
                 border: 4px double #b30000;
                 width: 100%;
                 max-width: 100%;
-                height: auto;
+                min-height: 275mm;
                 padding: 8px;
                 page-break-inside: avoid;
                 background-color: #fffdeb !important;
@@ -2846,7 +2846,7 @@ function loadAdminCensus() {
         }
         .receipt-container {
             max-width: 100%;
-            height: auto;
+            min-height: 275mm;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 4px;
@@ -3050,7 +3050,7 @@ function loadAdminCensus() {
                 border: 2px double #b30000;
                 width: 100%;
                 max-width: 100%;
-                height: auto;
+                min-height: 275mm;
                 padding: 4px;
                 page-break-after: avoid;
                 page-break-inside: avoid;
@@ -3375,7 +3375,7 @@ function loadAdminEmployees() {
         }
         .receipt-container {
             max-width: 100%;
-            height: auto;
+            min-height: 275mm;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 5px;
@@ -3560,7 +3560,7 @@ function loadAdminEmployees() {
                 border: 2px double #b30000;
                 width: 100%;
                 max-width: 100%;
-                height: auto;
+                min-height: 275mm;
                 padding: 10px;
                 box-sizing: border-box;
                 page-break-after: avoid;
