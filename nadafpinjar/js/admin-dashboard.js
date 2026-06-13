@@ -1375,6 +1375,7 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         @media print {
             @page {
+                size: landscape;
                 margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
@@ -1512,8 +1513,10 @@ window.downloadReceiptPdf = function(receiptId) {
         if (container) {
             const contentH = container.offsetHeight;
             const pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
+            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            const pageSize = isMobile ? 'landscape' : '210mm ' + pageHmm + 'mm';
             const dynStyle = doc.createElement('style');
-            dynStyle.textContent = '@media print { @page { size: 210mm ' + pageHmm + 'mm; margin: 1.5mm 4mm; } }';
+            dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
             doc.head.appendChild(dynStyle);
         }
         iframe.style.width = '0';
@@ -2040,6 +2043,7 @@ function loadAdminFreeEdu() {
         }
         @media print {
             @page {
+                size: portrait;
                 margin: 6mm 10mm 6mm 10mm;
             }
             html, body {
@@ -2239,8 +2243,10 @@ function loadAdminFreeEdu() {
             if (container) {
                 const contentH = container.offsetHeight;
                 const pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
+                const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                const pageSize = isMobile ? 'portrait' : '210mm ' + pageHmm + 'mm';
                 const dynStyle = doc.createElement('style');
-                dynStyle.textContent = '@media print { @page { size: 210mm ' + pageHmm + 'mm; margin: 1.5mm 4mm; } }';
+                dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
                 doc.head.appendChild(dynStyle);
             }
             iframe.style.width = '0';
@@ -2963,6 +2969,7 @@ function loadAdminCensus() {
         }
         @media print {
             @page {
+                size: landscape;
                 margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
@@ -3100,8 +3107,10 @@ function loadAdminCensus() {
             if (container) {
                 const contentH = container.offsetHeight;
                 const pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
+                const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                const pageSize = isMobile ? 'landscape' : '210mm ' + pageHmm + 'mm';
                 const dynStyle = doc.createElement('style');
-                dynStyle.textContent = '@media print { @page { size: 210mm ' + pageHmm + 'mm; margin: 1.5mm 4mm; } }';
+                dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
                 doc.head.appendChild(dynStyle);
             }
             iframe.style.width = '0';
@@ -3446,6 +3455,7 @@ function loadAdminEmployees() {
         }
         @media print {
             @page {
+                size: landscape;
                 margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
@@ -3562,8 +3572,10 @@ function loadAdminEmployees() {
             if (container) {
                 const contentH = container.offsetHeight;
                 const pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
+                const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                const pageSize = isMobile ? 'landscape' : '210mm ' + pageHmm + 'mm';
                 const dynStyle = doc.createElement('style');
-                dynStyle.textContent = '@media print { @page { size: 210mm ' + pageHmm + 'mm; margin: 1.5mm 4mm; } }';
+                dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
                 doc.head.appendChild(dynStyle);
             }
             iframe.style.width = '0';
