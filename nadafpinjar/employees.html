@@ -888,13 +888,48 @@
                 document.body.appendChild(iframe);
             }
             
+            iframe.style.width = '210mm';
+            iframe.style.height = '800px';
             const doc = iframe.contentWindow.document;
             doc.open();
             doc.write(printHTML);
             doc.close();
             
-            iframe.contentWindow.focus();
-            iframe.contentWindow.print();
+            setTimeout(() => {
+                const container = doc.querySelector('.receipt-container');
+                let pageHmm = 105;
+                if (container) {
+                    const contentH = container.offsetHeight;
+                    pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
+                }
+                const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                if (isMobile) {
+                    const script = doc.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+                    script.onload = () => {
+                        const opt = {
+                            margin: 0,
+                            filename: 'Employee-' + (appNumber || 'Receipt') + '.pdf',
+                            image: { type: 'jpeg', quality: 0.98 },
+                            html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+                            jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
+                        };
+                        iframe.contentWindow.html2pdf().from(container).set(opt).save();
+                    };
+                    doc.head.appendChild(script);
+                } else {
+                    if (container) {
+                        const pageSize = '210mm ' + pageHmm + 'mm';
+                        const dynStyle = doc.createElement('style');
+                        dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
+                        doc.head.appendChild(dynStyle);
+                    }
+                    iframe.style.width = '0';
+                    iframe.style.height = '0';
+                    iframe.contentWindow.focus();
+                    iframe.contentWindow.print();
+                }
+            }, 400);
         }
 
         // Initialize DOB dropdowns for employees form

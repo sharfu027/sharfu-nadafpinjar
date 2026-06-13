@@ -1513,19 +1513,38 @@ window.downloadReceiptPdf = function(receiptId) {
     
     setTimeout(() => {
         const container = doc.querySelector('.receipt-container');
+        let pageHmm = 105;
         if (container) {
             const contentH = container.offsetHeight;
-            const pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
-            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-            const pageSize = isMobile ? 'landscape' : '210mm ' + pageHmm + 'mm';
-            const dynStyle = doc.createElement('style');
-            dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
-            doc.head.appendChild(dynStyle);
+            pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
         }
-        iframe.style.width = '0';
-        iframe.style.height = '0';
-        iframe.contentWindow.focus();
-        iframe.contentWindow.print();
+        const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (isMobile) {
+            const script = doc.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+            script.onload = () => {
+                const opt = {
+                    margin: 0,
+                    filename: 'Receipt-' + (found.id || 'Offline') + '.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+                    jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
+                };
+                iframe.contentWindow.html2pdf().from(container).set(opt).save();
+            };
+            doc.head.appendChild(script);
+        } else {
+            if (container) {
+                const pageSize = '210mm ' + pageHmm + 'mm';
+                const dynStyle = doc.createElement('style');
+                dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
+                doc.head.appendChild(dynStyle);
+            }
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+        }
     }, 400);
 };
 
@@ -2246,19 +2265,38 @@ function loadAdminFreeEdu() {
         
         setTimeout(() => {
             const container = doc.querySelector('.receipt-container');
+            let pageHmm = 297; // standard A4 height fallback
             if (container) {
                 const contentH = container.offsetHeight;
-                const pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
-                const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-                const pageSize = isMobile ? 'portrait' : '210mm ' + pageHmm + 'mm';
-                const dynStyle = doc.createElement('style');
-                dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
-                doc.head.appendChild(dynStyle);
+                pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
             }
-            iframe.style.width = '0';
-            iframe.style.height = '0';
-            iframe.contentWindow.focus();
-            iframe.contentWindow.print();
+            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            if (isMobile) {
+                const script = doc.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+                script.onload = () => {
+                    const opt = {
+                        margin: 0,
+                        filename: 'FreeEducation-' + (appNumber || 'Receipt') + '.pdf',
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+                        jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
+                    };
+                    iframe.contentWindow.html2pdf().from(container).set(opt).save();
+                };
+                doc.head.appendChild(script);
+            } else {
+                if (container) {
+                    const pageSize = '210mm ' + pageHmm + 'mm';
+                    const dynStyle = doc.createElement('style');
+                    dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
+                    doc.head.appendChild(dynStyle);
+                }
+                iframe.style.width = '0';
+                iframe.style.height = '0';
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+            }
         }, 400);
     };
 }
@@ -3113,19 +3151,38 @@ function loadAdminCensus() {
         
         setTimeout(() => {
             const container = doc.querySelector('.receipt-container');
+            let pageHmm = 105;
             if (container) {
                 const contentH = container.offsetHeight;
-                const pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
-                const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-                const pageSize = isMobile ? 'landscape' : '210mm ' + pageHmm + 'mm';
-                const dynStyle = doc.createElement('style');
-                dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
-                doc.head.appendChild(dynStyle);
+                pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
             }
-            iframe.style.width = '0';
-            iframe.style.height = '0';
-            iframe.contentWindow.focus();
-            iframe.contentWindow.print();
+            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            if (isMobile) {
+                const script = doc.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+                script.onload = () => {
+                    const opt = {
+                        margin: 0,
+                        filename: 'Census-' + (appNumber || 'Receipt') + '.pdf',
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+                        jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
+                    };
+                    iframe.contentWindow.html2pdf().from(container).set(opt).save();
+                };
+                doc.head.appendChild(script);
+            } else {
+                if (container) {
+                    const pageSize = '210mm ' + pageHmm + 'mm';
+                    const dynStyle = doc.createElement('style');
+                    dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
+                    doc.head.appendChild(dynStyle);
+                }
+                iframe.style.width = '0';
+                iframe.style.height = '0';
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+            }
         }, 400);
     };
 }
@@ -3580,19 +3637,38 @@ function loadAdminEmployees() {
         
         setTimeout(() => {
             const container = doc.querySelector('.receipt-container');
+            let pageHmm = 105;
             if (container) {
                 const contentH = container.offsetHeight;
-                const pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
-                const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-                const pageSize = isMobile ? 'landscape' : '210mm ' + pageHmm + 'mm';
-                const dynStyle = doc.createElement('style');
-                dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
-                doc.head.appendChild(dynStyle);
+                pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
             }
-            iframe.style.width = '0';
-            iframe.style.height = '0';
-            iframe.contentWindow.focus();
-            iframe.contentWindow.print();
+            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            if (isMobile) {
+                const script = doc.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+                script.onload = () => {
+                    const opt = {
+                        margin: 0,
+                        filename: 'Employee-' + (appNumber || 'Receipt') + '.pdf',
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+                        jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
+                    };
+                    iframe.contentWindow.html2pdf().from(container).set(opt).save();
+                };
+                doc.head.appendChild(script);
+            } else {
+                if (container) {
+                    const pageSize = '210mm ' + pageHmm + 'mm';
+                    const dynStyle = doc.createElement('style');
+                    dynStyle.textContent = '@media print { @page { size: ' + pageSize + '; margin: 1.5mm 4mm; } }';
+                    doc.head.appendChild(dynStyle);
+                }
+                iframe.style.width = '0';
+                iframe.style.height = '0';
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+            }
         }, 400);
     };
 }
