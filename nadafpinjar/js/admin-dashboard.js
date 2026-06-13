@@ -2816,11 +2816,12 @@ function loadAdminCensus() {
                         <td style="border: 1px solid #b30000; padding: 6px;">${m.dob || '-'}</td>
                         <td style="border: 1px solid #b30000; padding: 6px;">${m.literate || '-'}</td>
                         <td style="border: 1px solid #b30000; padding: 6px;">${m.occupation || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 6px;">${m.political || '-'}</td>
                     </tr>
                 `;
             });
         } else {
-            membersRows = '<tr><td colspan="8" style="text-align: center; border: 1px solid #b30000; padding: 10px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
+            membersRows = '<tr><td colspan="9" style="text-align: center; border: 1px solid #b30000; padding: 10px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
         }
 
         const printHTML = `<!DOCTYPE html>
@@ -3130,13 +3131,14 @@ function loadAdminCensus() {
             <thead>
                 <tr>
                     <th style="width: 4%;">Sl No.</th>
-                    <th style="width: 20%;">ಸದಸ್ಯರ ಹೆಸರು</th>
-                    <th style="width: 12%;">ಸಂಬಂಧ</th>
-                    <th style="width: 12%;">ಮೊಬೈಲ್</th>
-                    <th style="width: 13%;">ಆಧಾರ್</th>
-                    <th style="width: 12%;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
-                    <th style="width: 13%;">ಸಾಕ್ಷರಹಾ</th>
-                    <th style="width: 14%;">ವೃತ್ತಿ</th>
+                    <th style="width: 16%;">ಸದಸ್ಯರ ಹೆಸರು</th>
+                    <th style="width: 9%;">ಸಂಬಂಧ</th>
+                    <th style="width: 10%;">ಮೊಬೈಲ್</th>
+                    <th style="width: 12%;">ಆಧಾರ್</th>
+                    <th style="width: 10%;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
+                    <th style="width: 12%;">ಸಾಕ್ಷರಹಾ</th>
+                    <th style="width: 12%;">ವೃತ್ತಿ</th>
+                    <th style="width: 15%;">ರಾಜಕೀಯ</th>
                 </tr>
             </thead>
             <tbody>

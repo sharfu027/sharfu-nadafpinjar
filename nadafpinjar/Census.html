@@ -878,6 +878,7 @@
                                     <th style="padding: 12px; font-weight: 600;">ಆಧಾರ್ ಸಂಖ್ಯೆ (Aadhar)</th>
                                     <th style="padding: 12px; font-weight: 600;">ಸಾಕ್ಷರತೆ (Literacy)</th>
                                     <th style="padding: 12px; font-weight: 600;">ವೃತ್ತಿ (Profession)</th>
+                                    <th style="padding: 12px; font-weight: 600;">ರಾಜಕೀಯ (Political)</th>
                                     <th style="padding: 12px; font-weight: 600; width: 120px; text-align: center;">ಕ್ರಮ (Action)</th>
                                 </tr>
                             </thead>
@@ -894,6 +895,7 @@
                                     <td style="padding: 12px;">${m.aadhar || '-'}</td>
                                     <td style="padding: 12px;">${m.literate || '-'}</td>
                                     <td style="padding: 12px;">${m.occupation || '-'}</td>
+                                    <td style="padding: 12px;">${m.political || '-'}</td>
                                     <td style="padding: 12px; text-align: center;">
                                         <button type="button" class="btn-remove-member" onclick="removeMemberFromList(${idx})" style="padding: 6px 12px; font-size: 13px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: all 0.2s;">ತೆಗೆದುಹಾಕಿ (Remove)</button>
                                     </td>
@@ -1045,11 +1047,12 @@
                             <td style="border: 1px solid #b30000; padding: 6px;">${m.dob || '-'}</td>
                             <td style="border: 1px solid #b30000; padding: 6px;">${m.literate || '-'}</td>
                             <td style="border: 1px solid #b30000; padding: 6px;">${m.occupation || '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 6px;">${m.political || '-'}</td>
                         </tr>
                     `;
                 });
             } else {
-                membersRows = '<tr><td colspan="8" style="text-align: center; border: 1px solid #b30000; padding: 10px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
+                membersRows = '<tr><td colspan="9" style="text-align: center; border: 1px solid #b30000; padding: 10px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
             }
 
             const printHTML = `<!DOCTYPE html>
@@ -1348,13 +1351,14 @@
             <thead>
                 <tr>
                     <th style="width: 4%;">Sl No.</th>
-                    <th style="width: 20%;">ಸದಸ್ಯರ ಹೆಸರು</th>
-                    <th style="width: 12%;">ಸಂಬಂಧ</th>
-                    <th style="width: 12%;">ಮೊಬೈಲ್</th>
-                    <th style="width: 13%;">ಆಧಾರ್</th>
-                    <th style="width: 12%;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
-                    <th style="width: 13%;">ಸಾಕ್ಷರಹಾ</th>
-                    <th style="width: 14%;">ವೃತ್ತಿ</th>
+                    <th style="width: 16%;">ಸದಸ್ಯರ ಹೆಸರು</th>
+                    <th style="width: 9%;">ಸಂಬಂಧ</th>
+                    <th style="width: 10%;">ಮೊಬೈಲ್</th>
+                    <th style="width: 12%;">ಆಧಾರ್</th>
+                    <th style="width: 10%;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
+                    <th style="width: 12%;">ಸಾಕ್ಷರಹಾ</th>
+                    <th style="width: 12%;">ವೃತ್ತಿ</th>
+                    <th style="width: 15%;">ರಾಜಕೀಯ</th>
                 </tr>
             </thead>
             <tbody>
