@@ -1302,9 +1302,10 @@ window.downloadReceiptPdf = function(receiptId) {
             color: #b30000;
         }
         .kannada-title {
-            font-size: 26px;
+            font-size: 19px;
             font-weight: bold;
             margin-bottom: 1px;
+            white-space: nowrap;
         }
         .reg-no {
             font-size: 10px;
@@ -1946,6 +1947,7 @@ function loadAdminFreeEdu() {
             font-size: 21px;
             margin: 0 0 2px 0;
             font-weight: bold;
+            white-space: nowrap;
         }
         .header-text p {
             margin: 1px 0;
@@ -2202,11 +2204,6 @@ function loadAdminFreeEdu() {
                 </td>
                 <td style="width: 50%; border: 1.5px solid #b30000; height: 32px; padding: 3px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px;">
                     ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="border: 1.5px solid #b30000; padding: 3px; text-align: center; font-weight: bold; color: #b30000; font-size: 10.5px; background-color: #fffdeb;">
-                    ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:___________ ಮಾಹಿತ ಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
                 </td>
             </tr>
         </table>
@@ -2870,9 +2867,10 @@ function loadAdminCensus() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 26px;
+            font-size: 21px;
             margin: 0 0 1px 0;
             font-weight: bold;
+            white-space: nowrap;
         }
         .header-text p {
             margin: 0.5px 0;
@@ -3397,9 +3395,10 @@ function loadAdminEmployees() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 26px;
+            font-size: 21px;
             margin: 0 0 2px 0;
             font-weight: bold;
+            white-space: nowrap;
         }
         .header-text p {
             margin: 1px 0;
