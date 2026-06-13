@@ -1491,10 +1491,6 @@ window.downloadReceiptPdf = function(receiptId) {
                 <td class="grid-cell" style="width: 35%; border-bottom: none; vertical-align: top; padding-bottom: 5px;">
                     <div style="text-align: center; width: 140px; margin: 3px auto 0 auto;">
                         <div style="font-size: 7px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
-                        <img src="images/sig.jpg" class="sig-img">
-                        <div style="font-size: 7px; font-weight: bold; line-height: 1.2; color: #8a2be2;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
-                        <div style="font-size: 6px; line-height: 1.2; color: #b30000; font-weight: bold;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
-                        <div style="font-size: 6px; line-height: 1.2; color: #b30000; font-weight: bold;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     </div>
                 </td>
             </tr>
