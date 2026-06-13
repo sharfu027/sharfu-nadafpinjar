@@ -1375,7 +1375,6 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         @media print {
             @page {
-                size: 210mm 105mm;
                 margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
@@ -1488,20 +1487,21 @@ window.downloadReceiptPdf = function(receiptId) {
 </body>
 </html>`;
 
+    // Create invisible iframe off-screen
     let iframe = document.getElementById('receiptPrintIframe');
     if (!iframe) {
         iframe = document.createElement('iframe');
         iframe.id = 'receiptPrintIframe';
         iframe.style.position = 'fixed';
-        iframe.style.right = '0';
-        iframe.style.bottom = '0';
+        iframe.style.left = '-9999px';
+        iframe.style.top = '-9999px';
         iframe.style.width = '0';
         iframe.style.height = '0';
         iframe.style.border = '0';
         document.body.appendChild(iframe);
     }
     iframe.style.width = '210mm';
-    iframe.style.height = 'auto';
+    iframe.style.height = '800px';
     const doc = iframe.contentWindow.document;
     doc.open();
     doc.write(printHTML);
@@ -1510,10 +1510,10 @@ window.downloadReceiptPdf = function(receiptId) {
     setTimeout(() => {
         const container = doc.querySelector('.receipt-container');
         if (container) {
-            const contentH = container.scrollHeight;
-            const pageHmm = Math.ceil(contentH * 0.2646) + 6;
+            const contentH = container.offsetHeight;
+            const pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
             const dynStyle = doc.createElement('style');
-            dynStyle.textContent = '@page { size: 210mm ' + pageHmm + 'mm; margin: 1.5mm 4mm; }';
+            dynStyle.textContent = '@media print { @page { size: 210mm ' + pageHmm + 'mm; margin: 1.5mm 4mm; } }';
             doc.head.appendChild(dynStyle);
         }
         iframe.style.width = '0';
@@ -2040,7 +2040,6 @@ function loadAdminFreeEdu() {
         }
         @media print {
             @page {
-                size: A4 portrait;
                 margin: 6mm 10mm 6mm 10mm;
             }
             html, body {
@@ -2215,20 +2214,21 @@ function loadAdminFreeEdu() {
 </body>
 </html>`;
 
+        // Create invisible iframe off-screen
         let iframe = document.getElementById('receiptPrintIframe');
         if (!iframe) {
             iframe = document.createElement('iframe');
             iframe.id = 'receiptPrintIframe';
             iframe.style.position = 'fixed';
-            iframe.style.right = '0';
-            iframe.style.bottom = '0';
+            iframe.style.left = '-9999px';
+            iframe.style.top = '-9999px';
             iframe.style.width = '0';
             iframe.style.height = '0';
             iframe.style.border = '0';
             document.body.appendChild(iframe);
         }
         iframe.style.width = '210mm';
-        iframe.style.height = 'auto';
+        iframe.style.height = '1200px';
         const doc = iframe.contentWindow.document;
         doc.open();
         doc.write(printHTML);
@@ -2237,10 +2237,10 @@ function loadAdminFreeEdu() {
         setTimeout(() => {
             const container = doc.querySelector('.receipt-container');
             if (container) {
-                const contentH = container.scrollHeight;
-                const pageHmm = Math.ceil(contentH * 0.2646) + 6;
+                const contentH = container.offsetHeight;
+                const pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
                 const dynStyle = doc.createElement('style');
-                dynStyle.textContent = '@page { size: 210mm ' + pageHmm + 'mm; margin: 1.5mm 4mm; }';
+                dynStyle.textContent = '@media print { @page { size: 210mm ' + pageHmm + 'mm; margin: 1.5mm 4mm; } }';
                 doc.head.appendChild(dynStyle);
             }
             iframe.style.width = '0';
@@ -2963,7 +2963,6 @@ function loadAdminCensus() {
         }
         @media print {
             @page {
-                size: 210mm 105mm;
                 margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
@@ -3076,20 +3075,21 @@ function loadAdminCensus() {
 </body>
 </html>`;
 
+        // Create invisible iframe off-screen
         let iframe = document.getElementById('receiptPrintIframe');
         if (!iframe) {
             iframe = document.createElement('iframe');
             iframe.id = 'receiptPrintIframe';
             iframe.style.position = 'fixed';
-            iframe.style.right = '0';
-            iframe.style.bottom = '0';
+            iframe.style.left = '-9999px';
+            iframe.style.top = '-9999px';
             iframe.style.width = '0';
             iframe.style.height = '0';
             iframe.style.border = '0';
             document.body.appendChild(iframe);
         }
         iframe.style.width = '210mm';
-        iframe.style.height = 'auto';
+        iframe.style.height = '800px';
         const doc = iframe.contentWindow.document;
         doc.open();
         doc.write(printHTML);
@@ -3098,10 +3098,10 @@ function loadAdminCensus() {
         setTimeout(() => {
             const container = doc.querySelector('.receipt-container');
             if (container) {
-                const contentH = container.scrollHeight;
-                const pageHmm = Math.ceil(contentH * 0.2646) + 6;
+                const contentH = container.offsetHeight;
+                const pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
                 const dynStyle = doc.createElement('style');
-                dynStyle.textContent = '@page { size: 210mm ' + pageHmm + 'mm; margin: 1.5mm 4mm; }';
+                dynStyle.textContent = '@media print { @page { size: 210mm ' + pageHmm + 'mm; margin: 1.5mm 4mm; } }';
                 doc.head.appendChild(dynStyle);
             }
             iframe.style.width = '0';
@@ -3446,7 +3446,6 @@ function loadAdminEmployees() {
         }
         @media print {
             @page {
-                size: 210mm 105mm;
                 margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
@@ -3538,25 +3537,39 @@ function loadAdminEmployees() {
 </body>
 </html>`;
 
+        // Create invisible iframe off-screen
         let iframe = document.getElementById('receiptPrintIframe');
         if (!iframe) {
             iframe = document.createElement('iframe');
             iframe.id = 'receiptPrintIframe';
             iframe.style.position = 'fixed';
-            iframe.style.right = '0';
-            iframe.style.bottom = '0';
+            iframe.style.left = '-9999px';
+            iframe.style.top = '-9999px';
             iframe.style.width = '0';
             iframe.style.height = '0';
             iframe.style.border = '0';
             document.body.appendChild(iframe);
         }
-        
+        iframe.style.width = '210mm';
+        iframe.style.height = '800px';
         const doc = iframe.contentWindow.document;
         doc.open();
         doc.write(printHTML);
         doc.close();
         
-        iframe.contentWindow.focus();
-        iframe.contentWindow.print();
+        setTimeout(() => {
+            const container = doc.querySelector('.receipt-container');
+            if (container) {
+                const contentH = container.offsetHeight;
+                const pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
+                const dynStyle = doc.createElement('style');
+                dynStyle.textContent = '@media print { @page { size: 210mm ' + pageHmm + 'mm; margin: 1.5mm 4mm; } }';
+                doc.head.appendChild(dynStyle);
+            }
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+        }, 400);
     };
 }
