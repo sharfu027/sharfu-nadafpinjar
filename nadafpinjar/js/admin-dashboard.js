@@ -1231,6 +1231,7 @@ window.downloadReceiptPdf = function(receiptId) {
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="${window.location.origin}/">
     <title>Donation Receipt - ${found.id}</title>
     <style>
@@ -1379,7 +1380,7 @@ window.downloadReceiptPdf = function(receiptId) {
                 margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
-                width: 210mm;
+                width: 100%;
                 height: auto !important;
                 margin: 0;
                 padding: 0;
@@ -1389,10 +1390,12 @@ window.downloadReceiptPdf = function(receiptId) {
                 padding: 0;
             }
             .receipt-container {
+                width: 100%;
                 max-width: 100%;
                 height: auto;
                 page-break-after: avoid;
                 page-break-inside: avoid;
+                box-sizing: border-box;
             }
         }
     </style>
@@ -1861,6 +1864,7 @@ function loadAdminFreeEdu() {
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="${window.location.origin}/">
     <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
     <style>
@@ -2055,11 +2059,13 @@ function loadAdminFreeEdu() {
             }
             .receipt-container {
                 border: 4px double #b30000;
+                width: 100%;
                 max-width: 100%;
                 height: auto;
                 padding: 8px;
                 page-break-inside: avoid;
                 background-color: #fffdeb !important;
+                box-sizing: border-box;
             }
         }
     </style>
@@ -2766,6 +2772,7 @@ function loadAdminCensus() {
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="${window.location.origin}/">
     <title>ಜನಗಣತಿ (Census) - ರಶೀದಿ</title>
     <style>
@@ -2973,7 +2980,7 @@ function loadAdminCensus() {
                 margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
-                width: 210mm;
+                width: 100%;
                 height: auto !important;
                 margin: 0;
                 padding: 0;
@@ -2985,11 +2992,13 @@ function loadAdminCensus() {
             }
             .receipt-container {
                 border: 2px double #b30000;
+                width: 100%;
                 max-width: 100%;
                 height: auto;
                 padding: 4px;
                 page-break-after: avoid;
                 page-break-inside: avoid;
+                box-sizing: border-box;
             }
         }
     </style>
@@ -3271,6 +3280,7 @@ function loadAdminEmployees() {
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="${window.location.origin}/">
     <title>ನೌಕರರ ನೋಂದಣಿ ಪತ್ರ - ರಶೀದಿ</title>
     <style>
@@ -3459,7 +3469,7 @@ function loadAdminEmployees() {
                 margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
-                width: 210mm;
+                width: 100%;
                 height: auto !important;
                 margin: 0;
                 padding: 0;
@@ -3471,6 +3481,7 @@ function loadAdminEmployees() {
             }
             .receipt-container {
                 border: 2px double #b30000;
+                width: 100%;
                 max-width: 100%;
                 height: auto;
                 padding: 10px;

@@ -901,6 +901,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="${window.location.origin}/">
     <title>Donation Receipt</title>
     <style>
@@ -1044,7 +1045,7 @@
                 margin: 1.5mm 4mm 1.5mm 4mm;
             }
             html, body {
-                width: 210mm;
+                width: 100%;
                 height: auto !important;
                 margin: 0;
                 padding: 0;
@@ -1054,10 +1055,12 @@
                 padding: 0;
             }
             .receipt-container {
+                width: 100%;
                 max-width: 100%;
                 height: auto;
                 page-break-after: avoid;
                 page-break-inside: avoid;
+                box-sizing: border-box;
             }
         }
     </style>
