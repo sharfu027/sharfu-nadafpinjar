@@ -1922,9 +1922,9 @@ function loadAdminFreeEdu() {
             max-width: 100%;
             min-height: 275mm;
             margin: 0 auto;
-            border: 2px double #b30000;
-            padding: 5px;
-            background: #fffdeb;
+            border: none;
+            padding: 10px 15px;
+            background: #fff;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -1934,17 +1934,17 @@ function loadAdminFreeEdu() {
         .header-table {
             width: 100%;
             border-collapse: collapse;
-            border: 2.5px solid #b30000;
-            background-color: #fffdeb;
-            margin-bottom: 4px;
+            border: none;
+            background-color: #fff;
+            margin-bottom: 6px;
         }
         .header-table td {
             padding: 4px 6px;
             vertical-align: middle;
         }
         .header-photo {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -1952,8 +1952,8 @@ function loadAdminFreeEdu() {
             margin: 0 auto;
         }
         .header-logo {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -1965,25 +1965,26 @@ function loadAdminFreeEdu() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 16px;
+            font-size: 20px;
             margin: 0 0 2px 0;
             font-weight: bold;
             white-space: nowrap;
         }
         .header-text p {
             margin: 1px 0;
-            font-size: 7.5px;
+            font-size: 9px;
             color: #333;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 7.5px;
+            font-size: 9px;
             color: #444;
         }
         .header-text .en-title {
-            font-size: 8px;
+            font-size: 10px;
             color: #b30000;
             margin-top: 1px;
+            font-weight: bold;
         }
         .grid-table {
             width: 100%;
@@ -1992,9 +1993,9 @@ function loadAdminFreeEdu() {
             background: #fff;
         }
         .grid-table td {
-            border: 1px solid #7f8c8d;
-            padding: 3.5px 5px;
-            font-size: 8.5px;
+            border: 1.2px solid #b30000;
+            padding: 5.5px 7px;
+            font-size: 11px;
             vertical-align: middle;
             line-height: 1.2;
         }
@@ -2008,76 +2009,10 @@ function loadAdminFreeEdu() {
             width: 25%;
             font-weight: bold;
         }
-        .recommend-text {
-            text-align: right;
-            font-size: 12px;
-            font-weight: bold;
-            color: #b30000;
-            border-top: 1px dashed #b30000;
-            padding: 4px 15px 4px 0;
-            margin-top: 4px;
-        }
-        .approval-section {
-            display: flex;
-            justify-content: space-between;
-            margin-top: auto;
-            font-size: 12px;
-        }
-        .sig-col {
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .sig-item {
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 2px;
-        }
-        .sig-space {
-            height: 20px;
-        }
-        .sig-label {
-            font-weight: bold;
-            color: #b30000;
-            font-size: 12px;
-        }
-        .official-col {
-            width: 55%;
-            border-left: 1.5px solid #b30000;
-            padding-left: 12px;
-        }
-        .official-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .official-row {
-            height: 18px;
-        }
-        .official-title {
-            width: 45%;
-            font-weight: bold;
-            color: #b30000;
-            vertical-align: middle;
-            font-size: 12px;
-        }
-        .official-check {
-            width: 10%;
-            text-align: left;
-            vertical-align: middle;
-        }
-        .official-box {
-            border: 1.5px solid #b30000;
-            width: 11px;
-            height: 11px;
-            display: inline-block;
-        }
-        .official-empty-space {
-            width: 45%;
-        }
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 6mm 10mm 6mm 10mm;
+                margin: 8mm 12mm;
             }
             html, body {
                 height: auto;
@@ -2087,14 +2022,13 @@ function loadAdminFreeEdu() {
                 margin: 0;
             }
             .receipt-container {
-                border: 4px double #b30000;
-                width: 100%;
+                border: none !important;
                 max-width: 100%;
                 min-height: 275mm;
-                padding: 8px;
-                page-break-inside: avoid;
-                background-color: #fffdeb !important;
                 box-sizing: border-box;
+                padding: 0px 5px;
+                page-break-inside: avoid;
+                background-color: #fff !important;
             }
         }
     </style>
@@ -2119,12 +2053,12 @@ function loadAdminFreeEdu() {
             </tr>
         </table>
         
-        <div style="text-align: center; margin-top: 6px; margin-bottom: 2px;">
-            <div style="font-size: 15px; font-weight: bold; color: #b30000; margin-bottom: 4px;">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27</div>
-            <div style="display: flex; justify-content: space-between; padding: 0 4px; font-weight: bold; font-size: 8.5px; color: #000;">
-                <div>ಅರ್ಜಿ ಸಂಖ್ಯೆ : ${appNumber}</div>
-                <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${found.date}</div>
-                <div>ಮೊಬೈಲ್ ಸಂಖ್ಯೆ : ${data.mobile || '-'}</div>
+        <div style="text-align: center; margin-top: 6px; margin-bottom: 4px;">
+            <div style="font-size: 15px; font-weight: bold; color: #fff; background-color: #b30000; padding: 4.5px; border-radius: 4px; margin-bottom: 6px;">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27</div>
+            <div style="display: flex; justify-content: space-between; padding: 0 4px; font-weight: bold; font-size: 11px; margin-bottom: 6px;">
+                <div><span style="color: #b30000;">ಅರ್ಜಿ ಸಂಖ್ಯೆ :</span> <span style="color: #000;">${appNumber}</span></div>
+                <div><span style="color: #b30000;">ಅರ್ಜಿ ದಿನಾಂಕ :</span> <span style="color: #000;">${found.date}</span></div>
+                <div><span style="color: #b30000;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</span> <span style="color: #000;">${data.mobile || '-'}</span></div>
             </div>
         </div>
 
@@ -2212,32 +2146,32 @@ function loadAdminFreeEdu() {
         <div style="text-align: center; font-size: 7px; color: #7f8c8d; margin-top: 1px; margin-bottom: 1px;">00000</div>
 
         <!-- Signatures & Recommendation Box -->
-        <table style="width: 100%; border-collapse: collapse; margin-top: 2px; border: 1.5px solid #7f8c8d; background: #fff;">
+        <table style="width: 100%; border-collapse: collapse; margin-top: 2px; border: 1.5px solid #b30000; background: #fff;">
             <tr>
                 <!-- Left Column -->
-                <td style="width: 50%; border-right: 1.5px solid #7f8c8d; padding: 4px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 9px; height: 60px;">
+                <td style="width: 50%; border-right: 1.5px solid #b30000; padding: 6px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 11px; height: 85px;">
                     <div>ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ :</div>
-                    <div style="margin-top: 25px;">ಪಾಲಕರ ಸಹಿ :</div>
+                    <div style="margin-top: 35px;">ಪಾಲಕರ ಸಹಿ :</div>
                 </td>
                 <!-- Right Column -->
-                <td style="width: 50%; padding: 4px; vertical-align: top; font-size: 8.5px; position: relative;">
+                <td style="width: 50%; padding: 6px; vertical-align: top; font-size: 11px; position: relative;">
                     <!-- Recommendation Header (top-right of the cell) -->
-                    <div style="text-align: right; font-weight: bold; color: #b30000; font-size: 9px; margin-bottom: 3px; margin-right: 10px;">
+                    <div style="text-align: right; font-weight: bold; color: #b30000; font-size: 11px; margin-bottom: 5px; margin-right: 10px;">
                         ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ
                     </div>
                     <!-- Checkboxes -->
-                    <div style="display: flex; flex-direction: column; gap: 3px; margin-left: 20px; font-weight: bold; color: #b30000;">
+                    <div style="display: flex; flex-direction: column; gap: 4px; margin-left: 30px; font-weight: bold; color: #b30000;">
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <span>ತಾಲ್ಲೂಕ ಘಟಕ</span>
-                            <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; background-color: #fff;"></span>
+                            <span style="border: 1.5px solid #b30000; width: 11px; height: 11px; display: inline-block; background-color: #fff;"></span>
                         </div>
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <span>ಜಿಲ್ಲಾ ಘಟಕ</span>
-                            <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; background-color: #fff;"></span>
+                            <span style="border: 1.5px solid #b30000; width: 11px; height: 11px; display: inline-block; background-color: #fff;"></span>
                         </div>
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <span>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರ</span>
-                            <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; background-color: #fff;"></span>
+                            <span style="border: 1.5px solid #b30000; width: 11px; height: 11px; display: inline-block; background-color: #fff;"></span>
                         </div>
                     </div>
                 </td>
@@ -2245,7 +2179,7 @@ function loadAdminFreeEdu() {
         </table>
 
         <!-- Signatures below the box -->
-        <div style="display: flex; justify-content: space-between; margin-top: 10px; padding: 0 4px; font-weight: bold; color: #b30000; font-size: 9px;">
+        <div style="display: flex; justify-content: space-between; margin-top: 50px; padding: 0 4px; font-weight: bold; color: #b30000; font-size: 11.5px;">
             <div>ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ಸಹಿ :</div>
             <div>ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
