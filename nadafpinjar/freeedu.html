@@ -804,83 +804,71 @@
         .header-table {
             width: 100%;
             border-collapse: collapse;
-            border: 2px solid #b30000;
+            border: 2.5px solid #b30000;
             background-color: #fffdeb;
             margin-bottom: 4px;
         }
         .header-table td {
-            padding: 2px;
+            padding: 4px 6px;
             vertical-align: middle;
         }
         .header-photo {
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
-            margin-left: 20px;
+            display: block;
+            margin: 0 auto;
         }
         .header-logo {
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
-            margin-right: 20px;
+            display: block;
+            margin: 0 auto;
         }
         .header-text {
             text-align: center;
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 18px;
+            font-size: 16px;
             margin: 0 0 2px 0;
             font-weight: bold;
             white-space: nowrap;
         }
         .header-text p {
             margin: 1px 0;
-            font-size: 9px;
-            color: #444;
+            font-size: 7.5px;
+            color: #333;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 9px;
-            color: #000;
+            font-size: 7.5px;
+            color: #444;
         }
         .header-text .en-title {
-            font-size: 9.5px;
+            font-size: 8px;
             color: #b30000;
             margin-top: 1px;
-        }
-        .title-banner {
-            border-top: 1.5px solid #b30000;
-            border-bottom: 1.5px solid #b30000;
-            padding: 2px 4px;
-            margin: 2px 0;
-            background: #fffcf5;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            font-size: 11px;
-            color: #b30000;
         }
         .grid-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             background: #fff;
         }
         .grid-table td {
-            border: 1px solid #b30000;
-            padding: 2px 4px;
+            border: 1px solid #7f8c8d;
+            padding: 3.5px 5px;
             font-size: 8.5px;
             vertical-align: middle;
-            line-height: 1.1;
+            line-height: 1.2;
         }
         .grid-label {
-            background: #fffdeb;
             color: #b30000;
             font-weight: bold;
             width: 25%;
@@ -918,26 +906,29 @@
     <div class="receipt-container">
         <table class="header-table">
             <tr>
-                <td style="width: 15%; text-align: left;">
+                <td style="width: 15%; text-align: center; vertical-align: middle;">
                     <img src="images/president.png" class="header-photo" alt="President">
                 </td>
                 <td style="width: 70%;" class="header-text">
                     <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
-                    <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
+                    <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
                     <p class="en-title">KARNATAKA RAJYA NADAF / PINJAR SANGHA &reg;</p>
                     <p>ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</p>
                     <p>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
                 </td>
-                <td style="width: 15%; text-align: right;">
+                <td style="width: 15%; text-align: center; vertical-align: middle;">
                     <img src="images/logo-786.png" class="header-logo" alt="Logo">
                 </td>
             </tr>
         </table>
         
-        <div class="title-banner">
-            <div>ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
-            <div style="font-size: 15px; text-decoration: underline; font-weight: bold;">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27</div>
-            <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${new Date().toLocaleDateString('en-US')}</div>
+        <div style="text-align: center; margin-top: 6px; margin-bottom: 2px;">
+            <div style="font-size: 15px; font-weight: bold; color: #b30000; margin-bottom: 4px;">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27</div>
+            <div style="display: flex; justify-content: space-between; padding: 0 4px; font-weight: bold; font-size: 8.5px; color: #000;">
+                <div>ಅರ್ಜಿ ಸಂಖ್ಯೆ : ${appNumber}</div>
+                <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${new Date().toLocaleDateString('en-GB').replace(/\//g, '-')}</div>
+                <div>ಮೊಬೈಲ್ ಸಂಖ್ಯೆ : ${data.mobile || '-'}</div>
+            </div>
         </div>
 
         <table class="grid-table">
@@ -956,40 +947,38 @@
             <tr>
                 <td class="grid-label">ನಗರಿ/ಗ್ರಾಮ</td>
                 <td class="grid-value">${data.village || '-'}</td>
-                <td class="grid-label">ತಾಲೂಕು :</td>
-                <td class="grid-value">${data.taluk || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ಜಿಲ್ಲೆ</td>
                 <td class="grid-value">${data.district || '-'}</td>
-                <td class="grid-label">ರಾಜ್ಯ :</td>
-                <td class="grid-value">ಕರ್ನಾಟಕ</td>
             </tr>
             <tr>
-                <td class="grid-label">ವೃತ್ತಿ</td>
-                <td class="grid-value" colspan="3">${data.occupation || '-'}</td>
+                <td class="grid-label">ತಾಲೂಕು :</td>
+                <td class="grid-value">${data.taluk || '-'}</td>
+                <td class="grid-label">ಉದ್ಯೋಗ</td>
+                <td class="grid-value">${data.occupation || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಕುಟುಂಬದ ಆದಾಯ</td>
+                <td class="grid-value">${formatIncome(data.income)}</td>
+                <td class="grid-label">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
+                <td class="grid-value">${data.membership || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಮನೆಯ ವಿವರ</td>
+                <td class="grid-value">${data.housingInfo || '-'}</td>
+                <td class="grid-label">ಮನೆಯ ಆಕಾರ</td>
+                <td class="grid-value">${data.houseType || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಜಮೀನು</td>
+                <td class="grid-value">${data.landInfo || '0'} ಎಕರೆ ${data.gunte || '0'} ಗುಂಟೆ</td>
+                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
+                <td class="grid-value">${data.mobile || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">ಆಧಾರ್ ನಂ</td>
                 <td class="grid-value">${data.aadhar || '-'}</td>
-                <td class="grid-label">ಸಂಘದ ಸದಸ್ಯತ್ವ ಅಂತೋದಯ/ಬಿಪಿಎಲ್ :</td>
-                <td class="grid-value">${data.membership || '-'} / ${data.rationType || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಮನೆ</td>
-                <td class="grid-value">${data.housingInfo || '-'} / ${data.houseType || '-'}</td>
-                <td class="grid-label">ಜಮೀನು :</td>
-                <td class="grid-value">${data.landInfo || '0'} ಎಕರೆ - ${data.gunte || '0'} ಗುಂಟೆ</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಇತರೆ ಆಸ್ತಿ :</td>
-                <td class="grid-value" colspan="3">${data.otherProperty || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಅಂದಾಜು ಆದಾಯ</td>
-                <td class="grid-value">${formatIncome(data.income)}</td>
-                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
-                <td class="grid-value">${data.mobile || '-'}</td>
+                <td class="grid-label">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
+                <td class="grid-value">${data.rationType || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಶಾಲೆ/ಕಾಲೇಜು ಮಾಡುತ್ತಿರುವ</td>
@@ -1023,46 +1012,46 @@
             </tr>
         </table>
 
-        <!-- Signatures & Recommendation Footer -->
-        <table style="width: 100%; border-collapse: collapse; margin-top: 4px; border: 1.5px solid #b30000; background: #fff;">
+        <div style="text-align: center; font-size: 7px; color: #7f8c8d; margin-top: 1px; margin-bottom: 1px;">00000</div>
+
+        <!-- Signatures & Recommendation Box -->
+        <table style="width: 100%; border-collapse: collapse; margin-top: 2px; border: 1.5px solid #7f8c8d; background: #fff;">
             <tr>
-                <td style="width: 50%; border: 1.5px solid #b30000; height: 20px; padding: 2px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 9px;">
-                    ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ
+                <!-- Left Column -->
+                <td style="width: 50%; border-right: 1.5px solid #7f8c8d; padding: 4px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 9px; height: 60px;">
+                    <div>ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ :</div>
+                    <div style="margin-top: 25px;">ಪಾಲಕರ ಸಹಿ :</div>
                 </td>
-                <td style="width: 50%; border: 1.5px solid #b30000; height: 20px; padding: 2px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 9px;">
-                    ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ
+                <!-- Right Column -->
+                <td style="width: 50%; padding: 4px; vertical-align: top; font-size: 8.5px; position: relative;">
+                    <!-- Recommendation Header (top-right of the cell) -->
+                    <div style="text-align: right; font-weight: bold; color: #b30000; font-size: 9px; margin-bottom: 3px; margin-right: 10px;">
+                        ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ
+                    </div>
+                    <!-- Checkboxes -->
+                    <div style="display: flex; flex-direction: column; gap: 3px; margin-left: 20px; font-weight: bold; color: #b30000;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span>ತಾಲ್ಲೂಕ ಘಟಕ</span>
+                            <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; background-color: #fff;"></span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span>ಜಿಲ್ಲಾ ಘಟಕ</span>
+                            <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; background-color: #fff;"></span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರ</span>
+                            <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; background-color: #fff;"></span>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </table>
 
-        <!-- Official Approvals -->
-        <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #b30000; border-top: none; margin-top: 0px; background: #fff;">
-            <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
-                    ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
-                </td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
-                    ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು: <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
-                </td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
-                    ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
-                </td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
-                    ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
-                </td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #b30000; border-top: none; padding: 2px; font-weight: bold; color: #b30000; font-size: 8.5px; vertical-align: middle;">
-                    ರಾಜ್ಯ ಘಟಕ <span style="border: 1.5px solid #b30000; width: 9px; height: 9px; display: inline-block; margin-left: 10px; vertical-align: middle; background-color: #fff;"></span>
-                </td>
-            </tr>
-        </table>
+        <!-- Signatures below the box -->
+        <div style="display: flex; justify-content: space-between; margin-top: 10px; padding: 0 4px; font-weight: bold; color: #b30000; font-size: 9px;">
+            <div>ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ಸಹಿ :</div>
+            <div>ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
+        </div>
     </div>
 </body>
 </html>`;
