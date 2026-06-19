@@ -1922,9 +1922,9 @@ function loadAdminFreeEdu() {
             max-width: 100%;
             min-height: 275mm;
             margin: 0 auto;
-            border: none;
-            padding: 10px 15px;
-            background: #fff;
+            border: 2px solid #b30000;
+            padding: 8px;
+            background: #fffdeb;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -1934,8 +1934,8 @@ function loadAdminFreeEdu() {
         .header-table {
             width: 100%;
             border-collapse: collapse;
-            border: none;
-            background-color: #fff;
+            border: 2px solid #b30000;
+            background-color: #fffdeb;
             margin-bottom: 6px;
         }
         .header-table td {
@@ -1973,12 +1973,12 @@ function loadAdminFreeEdu() {
         .header-text p {
             margin: 1px 0;
             font-size: 9px;
-            color: #333;
+            color: #b30000;
             font-weight: bold;
         }
         .header-text .reg-no {
             font-size: 9px;
-            color: #444;
+            color: #b30000;
         }
         .header-text .en-title {
             font-size: 10px;
@@ -2022,13 +2022,13 @@ function loadAdminFreeEdu() {
                 margin: 0;
             }
             .receipt-container {
-                border: none !important;
+                border: 2px solid #b30000 !important;
                 max-width: 100%;
                 min-height: 275mm;
                 box-sizing: border-box;
-                padding: 0px 5px;
+                padding: 8px;
                 page-break-inside: avoid;
-                background-color: #fff !important;
+                background-color: #fffdeb !important;
             }
         }
     </style>
@@ -2054,7 +2054,7 @@ function loadAdminFreeEdu() {
         </table>
         
         <div style="text-align: center; margin-top: 6px; margin-bottom: 4px;">
-            <div style="font-size: 15px; font-weight: bold; color: #fff; background-color: #b30000; padding: 4.5px; border-radius: 4px; margin-bottom: 6px;">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27</div>
+            <div style="font-size: 16px; font-weight: bold; color: #b30000; margin-bottom: 6px; letter-spacing: 0.5px;">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27</div>
             <div style="display: flex; justify-content: space-between; padding: 0 4px; font-weight: bold; font-size: 11px; margin-bottom: 6px;">
                 <div><span style="color: #b30000;">ಅರ್ಜಿ ಸಂಖ್ಯೆ :</span> <span style="color: #000;">${appNumber}</span></div>
                 <div><span style="color: #b30000;">ಅರ್ಜಿ ದಿನಾಂಕ :</span> <span style="color: #000;">${found.date}</span></div>
@@ -2066,13 +2066,13 @@ function loadAdminFreeEdu() {
             <tr>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
                 <td class="grid-value">${data.studentName || '-'}</td>
-                <td class="grid-label">ತಂದೆಯ/ಪಾಲಕರ ಹೆಸರು :</td>
+                <td class="grid-label">ತಂದೆಯ/ಪಾಲಕರ ಹೆಸರು</td>
                 <td class="grid-value">${data.fatherName || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">ತಾಯಿಯ ಹೆಸರು</td>
                 <td class="grid-value">${data.motherName || '-'}</td>
-                <td class="grid-label">ವಿಳಾಸ :</td>
+                <td class="grid-label">ವಿಳಾಸ</td>
                 <td class="grid-value">${data.address || '-'}</td>
             </tr>
             <tr>
@@ -2112,7 +2112,7 @@ function loadAdminFreeEdu() {
                 <td class="grid-value">${data.rationType || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಶಾಲೆ/ಕಾಲೇಜು ಮಾಡುತ್ತಿರುವ</td>
+                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ಶಾಲೆ/ಕಾಲೇಜು</td>
                 <td class="grid-value">${data.currentSchool || '-'}</td>
                 <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
                 <td class="grid-value">${data.currentClass || '-'}</td>
@@ -2124,9 +2124,9 @@ function loadAdminFreeEdu() {
                 <td class="grid-value">${data.joiningClass || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು :</td>
+                <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು</td>
                 <td class="grid-value">${data.classSubjects || '-'}</td>
-                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್:</td>
+                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್</td>
                 <td class="grid-value">${data.coaching || '-'}</td>
             </tr>
             <tr>
@@ -2138,7 +2138,7 @@ function loadAdminFreeEdu() {
             <tr>
                 <td class="grid-label">IFSC ಕೋಡ್</td>
                 <td class="grid-value">${data.ifsc || '-'}</td>
-                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ :</td>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
                 <td class="grid-value">${data.bankAccount || '-'}</td>
             </tr>
         </table>
