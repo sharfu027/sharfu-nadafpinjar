@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="icon" href="images/favicon.png">
+    <title>Karnataka State Nadaf / Pinjar Sangha (R)</title>
+    
+    <!-- CSS imports matching the site's layout -->
+    <link href="css/base.css" rel="stylesheet" media="all">
+    <link href="css/base-responsive.css" rel="stylesheet" media="all">
+    <link href="css/grid.css" rel="stylesheet" media="all">
+    <link href="css/font.css" rel="stylesheet" media="all">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/megamenu.css" rel="stylesheet" media="all">
+    <link href="css/site.css" rel="stylesheet" media="all">
+    <link href="css/site-responsive.css" rel="stylesheet" media="all">
+    
+    <style>
+        .committee-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            border-top: 4px solid #0088cc;
+        }
+        
+        .committee-title {
+            color: #0066cc;
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 35px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            top: 12px;
+            color: #888;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-add {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-add:hover {
+            background-color: #218838;
+        }
+
+        .btn-download {
+            background-color: #17a2b8;
+            color: white;
+        }
+        .btn-download:hover {
+            background-color: #138496;
+        }
+
+        .btn-edit {
+            background-color: #ffc107;
+            color: #212529;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        .btn-edit:hover {
+            background-color: #e0a800;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .committee-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .committee-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .committee-table th, .committee-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .committee-table th {
+            background-color: #f5f5f5;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .committee-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        .committee-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .sl-no-col {
+            width: 60px;
+            text-align: center !important;
+            font-weight: bold;
+        }
+        .age-col {
+            width: 80px;
+            text-align: center !important;
+        }
+        .actions-col {
+            width: 150px;
+            text-align: center !important;
+        }
+
+        .member-details {
+            line-height: 1.4;
+        }
+
+        .member-name {
+            font-weight: bold;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .member-address {
+            color: #666;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        /* Modal Overlay styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background: white;
+            padding: 25px;
+            width: 100%;
+            max-width: 550px;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .modal-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 22px;
+            color: #888;
+            cursor: pointer;
+        }
+
+        .modal-form-group {
+            margin-bottom: 15px;
+        }
+
+        .modal-form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .modal-form-group input, .modal-form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .modal-btn-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-save {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .breadcrumb {
+            padding: 12px 0;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            font-size: 14px;
+        }
+
+        .breadcrumb span {
+            color: #777;
+        }
+
+        .breadcrumb a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        /* Print Styling */
+        @media print {
+            body {
+                background: white;
+                color: black;
+                font-family: 'Kavitha', 'Inter', Arial, sans-serif;
+            }
+            
+            /* Hide headers, navigation, footers, controls, breadcrumbs, actions */
+            header, footer, .megamenu-wraper, .breadcrumb, .controls-row, .actions-col, td.actions-col, th.actions-col {
+                display: none !important;
+            }
+
+            .wrapper, .gray-bg, .body-wrapper, .bg-wrapper {
+                background: transparent !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+            }
+
+            .committee-container {
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: 100% !important;
+            }
+
+            /* Custom print heading */
+            .print-header {
+                display: block !important;
+                text-align: center;
+                margin-bottom: 20px;
+                border-bottom: 2px solid #000;
+                padding-bottom: 10px;
+            }
+
+            .print-header h2 {
+                font-size: 22px;
+                font-weight: bold;
+                margin: 0 0 5px 0;
+            }
+
+            .print-header h3 {
+                font-size: 14px;
+                margin: 0 0 5px 0;
+            }
+
+            .print-header p {
+                font-size: 12px;
+                margin: 3px 0;
+            }
+
+            .committee-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 15px;
+            }
+
+            .committee-table th, .committee-table td {
+                border: 1px solid #000 !important;
+                padding: 8px !important;
+                font-size: 12px !important;
+            }
+
+            .committee-table th {
+                background-color: #f2f2f2 !important;
+                color: #000 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            /* Prevent page breaks inside table rows */
+            .committee-table tr {
+                page-break-inside: avoid;
+            }
+
+            /* Force display elements that might be hidden */
+            .print-header {
+                display: block !important;
+            }
+        }
+
+        /* Non-print header elements hidden by default */
+        .print-header {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="./committee" id="form1" onsubmit="event.preventDefault();">
+        
+        <!-- Header copied from default.html -->
+        <header>
+            <header class="site-header">
+                <div class="header-container">
+                    <img src="images/header-nadaf.png" alt="Karnataka Rajya Nadaf Pinjar Sangha" class="header-image">
+                </div>
+            </header>
+            
+            <!-- Navigation megamenu -->
+            <section class="wrapper megamenu-wraper">
+                <div class="container common-container four_content">
+                    <p class="showhide"><em></em><em></em><em></em></p>
+                    <nav class="main-menu clearfix" id="main_menu">
+                        <ul class="nav-menu">
+                            <li class="nav-item"><a href="default.html">HOME</a></li>
+                            <li class="nav-item"><a href="#">ABOUT</a>
+                                <div class="sub-nav">
+                                    <ul class="sub-nav-group">
+                                        <li><a href="#">ESTABLISHMENT </a></li>
+                                        <li><a href="committee.html?type=working">STATE WORKING COMMITTEE LIST </a></li>
+                                        <li><a href="committee.html?type=general">STATE GENERAL COMMITTEE LIST</a></li>
+                                        <li><a href="aims-objectives.html">AIMS AND OBJECTIVES</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item"><a href="#">SCHEMES </a></li>
+                            <li class="nav-item"><a href="#">ಅರ್ಜಿಗಳು</a>
+                                <div class="sub-nav">
+                                    <ul class="sub-nav-group">
+                                        <li><a href="freeedu.html">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ</a></li>
+                                        <li><a href="Census.html">ಜನಗಣತಿ (Census) </a></li>
+                                        <li><a href="employees.html">ನೌಕರರ ವಿವರ</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item"><a href="#">FINANCE</a></li>
+                            <li class="nav-item"><a href="#">ರಸೀದಿಗಳು</a>
+                                <div class="sub-nav">
+                                    <ul class="sub-nav-group">
+                                        <li><a href="donationdirectstate.html">ರಾಜ್ಯಕ್ಕೆ ನೇರವಾಗಿ</a></li>
+                                        <li><a href="donationtaluktostate.html">তಾಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                        <li><a href="donationdistricttostate.html">ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                        <li><a href="#">State Unit to Beneficiary</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item"><a href="gallery.html">GALLERY</a></li>
+                            <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+        </header>
+
+        <!-- Breadcrumb navigation -->
+        <div class="breadcrumb">
+            <div class="container">
+                <a href="default.html">Home</a> &raquo; About &raquo; <span id="breadcrumbTitle">Committee List</span>
+            </div>
+        </div>
+
+        <!-- Body wrapper matching the site visual theme -->
+        <section class="wrapper body-wrapper gray-bg">
+            <div class="container common-container four_content body-container top-body-container">
+                
+                <!-- Main container for the committee -->
+                <div class="committee-container">
+                    
+                    <!-- Print Header (Hidden on screen, shown when printing/saving PDF) -->
+                    <div class="print-header" id="printHeader">
+                        <h2>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ) ಶಿವಮೊಗ್ಗ</h2>
+                        <h3>ನಂ 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/93-94</h3>
+                        <p><strong>: ಆಡಳಿತ ಕಚೇರಿ :</strong> ವಿಶ್ವ ಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ, ಸೀಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
+                        <p style="margin-top: 10px; font-weight: bold; border-top: 1px dashed #000; padding-top: 5px;" id="printHeadingTitle">COMMITTEE LIST</p>
+                        <p style="font-size: 11px;" id="printDate"></p>
+                    </div>
+
+                    <!-- Screen heading -->
+                    <h2 class="committee-title" id="pageTitle">Committee List</h2>
+                    
+                    <!-- Controls row with search box and action buttons -->
+                    <div class="controls-row">
+                        <div class="search-box">
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="searchQuery" placeholder="ಹುಡುಕಿ (Search by Name, Designation, Mobile, Sl.No...)" onkeyup="filterTable()">
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-add" onclick="openAddModal()"><i class="fa fa-plus"></i> ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ (Add Member)</button>
+                            <button class="btn btn-download" onclick="window.print()"><i class="fa fa-download"></i> PDF ಡೌನ್‌ಲೋಡ್ (Download)</button>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Table to list members -->
+                    <div class="committee-table-wrapper">
+                        <table class="committee-table" id="committeeTable">
+                            <thead>
+                                <tr>
+                                    <th class="sl-no-col">ಕ್ರ.ಸಂ.</th>
+                                    <th>ಸದಸ್ಯರ ಹೆಸರು ಮತ್ತು ವಿವರ (Member Details)</th>
+                                    <th class="age-col">ವಯಸ್ಸು</th>
+                                    <th>ಹುದ್ದೆ (Designation)</th>
+                                    <th>ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</th>
+                                    <th class="actions-col">ಕ್ರಿಯೆಗಳು (Actions)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Members loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer section -->
+        <footer class="wrapper footer-wrapper">
+            <div class="footer-top-wrapper">
+                <div class="container common-container four_content footer-top-container">
+                    <ul>
+                        <li><a href="privacypolicy.html">Privacy Policy</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="termsconditions.html">Terms and Conditions </a></li>
+                        <li><a href="Disclaimer.html">Disclaimer</a></li>
+                        <li><a href="login.html">Admin Login</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom-wrapper">
+                <div class="container common-container four_content footer-bottom-container">
+                    <div class="footer-content clearfix">
+                        <div class="copyright-content">
+                            <strong>
+                                <p>© 2026 Karnataka State Nadaf / Pinjar Sangha (R). All Rights Reserved.</p>
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Modal Box for Adding/Editing Member -->
+        <div class="modal-overlay" id="memberModal">
+            <div class="modal-box">
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+                <div class="modal-header" id="modalHeader">ಸದಸ್ಯರ ವಿವರ</div>
+                
+                <input type="hidden" id="editIndex">
+                
+                <div class="modal-form-group">
+                    <label for="formSlNo">ಕ್ರಮ ಸಂಖ್ಯೆ (Sl.No) *</label>
+                    <input type="number" id="formSlNo" required>
+                </div>
+                <div class="modal-form-group">
+                    <label for="formName">ಹೆಸರು (Name) *</label>
+                    <input type="text" id="formName" placeholder="Enter name" required>
+                </div>
+                <div class="modal-form-group">
+                    <label for="formAddress">ವಿಳಾಸ (Address)</label>
+                    <textarea id="formAddress" placeholder="Enter address details" rows="2"></textarea>
+                </div>
+                <div class="modal-form-group">
+                    <label for="formAge">ವಯಸ್ಸು (Age)</label>
+                    <input type="number" id="formAge" placeholder="Enter age">
+                </div>
+                <div class="modal-form-group">
+                    <label for="formDesignation">ಹುದ್ದೆ (Designation)</label>
+                    <input type="text" id="formDesignation" placeholder="Enter designation (e.g. ರಾಜ್ಯಾಧ್ಯಕ್ಷರು, ಸದಸ್ಯರು)">
+                </div>
+                <div class="modal-form-group">
+                    <label for="formMobile">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ (Mobile)</label>
+                    <input type="text" id="formMobile" placeholder="Enter 10-digit mobile number(s)">
+                </div>
+                
+                <div class="modal-btn-row">
+                    <button class="btn btn-cancel" onclick="closeModal()">ರದ್ದುಮಾಡಿ (Cancel)</button>
+                    <button class="btn btn-save" onclick="saveMember()">ಉಳಿಸಿ (Save)</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <!-- Script imports -->
+    <script src="js/committee-data.js"></script>
+    <script>
+        // Parse URL parameters to get type: 'working' or 'general'
+        const urlParams = new URLSearchParams(window.location.search);
+        const type = urlParams.get('type') || 'working';
+
+        // Swap mapping requested by user:
+        // Clicking "STATE WORKING COMMITTEE LIST" (type=working) shows General Committee PDF (434 members)
+        // Clicking "STATE GENERAL COMMITTEE LIST" (type=general) shows Working Committee PDF (96 members)
+        const storageKey = type === 'working' ? 'working_committee' : 'general_committee';
+        const initialData = type === 'working' ? generalCommitteeInitial : workingCommitteeInitial;
+        
+        const pageTitleText = type === 'working' ? 'STATE WORKING COMMITTEE LIST (ರಾಜ್ಯ ಕಾರ್ಯಕಾರಿ ಸಮಿತಿ)' : 'STATE GENERAL COMMITTEE LIST (ರಾಜ್ಯ ಸಮಿತಿ)';
+        const officialPrintHeading = type === 'working' ? 'ರಾಜ್ಯ ಕಾರ್ಯಕಾರಿ ಸಮಿತಿ ಸದಸ್ಯರ ಯಾದಿ 2024-29' : 'ರಾಜ್ಯ ಸಮಿತಿ ಸರ್ವಸದಸ್ಯರ ಯಾದಿ 2024-29';
+        
+        // Initialize localStorage if empty
+        if (!localStorage.getItem(storageKey)) {
+            localStorage.setItem(storageKey, JSON.stringify(initialData));
+        }
+
+        let committeeList = JSON.parse(localStorage.getItem(storageKey));
+
+        // Setup page titles and printed heading values
+        document.getElementById('pageTitle').innerText = pageTitleText;
+        document.getElementById('breadcrumbTitle').innerText = type === 'working' ? 'State Working Committee List' : 'State General Committee List';
+        document.getElementById('printHeadingTitle').innerText = officialPrintHeading;
+        document.getElementById('printDate').innerText = "ಒಟ್ಟು ಸದಸ್ಯರು: " + committeeList.length + " | ಮುದ್ರಣ ದಿನಾಂಕ: " + new Date().toLocaleDateString('kn-IN');
+
+        // Function to render the table rows
+        function renderTable(dataToRender) {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+
+            if (dataToRender.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: #888;">ಯಾವುದೇ ಫಲಿತಾಂಶಗಳು ಕಂಡುಬಂದಿಲ್ಲ (No records found)</td></tr>`;
+                return;
+            }
+
+            dataToRender.forEach((m, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="sl-no-col">${m.sl_no}</td>
+                    <td>
+                        <div class="member-details">
+                            <div class="member-name">${m.name || ''}</div>
+                            <div class="member-address">${m.address || ''}</div>
+                        </div>
+                    </td>
+                    <td class="age-col">${m.age || ''}</td>
+                    <td>${m.designation || ''}</td>
+                    <td>${m.mobile || ''}</td>
+                    <td class="actions-col">
+                        <button class="btn btn-edit" onclick="openEditModal(${m.sl_no})"><i class="fa fa-pencil"></i></button>
+                        <button class="btn btn-delete" onclick="deleteMember(${m.sl_no})"><i class="fa fa-trash"></i></button>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Search filter function
+        function filterTable() {
+            const query = document.getElementById('searchQuery').value.toLowerCase();
+            const filtered = committeeList.filter(m => 
+                String(m.sl_no).includes(query) || 
+                (m.name && m.name.toLowerCase().includes(query)) ||
+                (m.address && m.address.toLowerCase().includes(query)) ||
+                (m.designation && m.designation.toLowerCase().includes(query)) ||
+                (m.mobile && m.mobile.toLowerCase().includes(query)) ||
+                (m.age && String(m.age).includes(query))
+            );
+            renderTable(filtered);
+        }
+
+        // Close modal overlay
+        function closeModal() {
+            document.getElementById('memberModal').style.display = 'none';
+        }
+
+        // Open modal for adding a new member
+        function openAddModal() {
+            document.getElementById('modalHeader').innerText = 'ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ (Add Member)';
+            document.getElementById('editIndex').value = '';
+            
+            // Auto fill the next serial number
+            const nextSl = committeeList.length > 0 ? Math.max(...committeeList.map(m => m.sl_no)) + 1 : 1;
+            document.getElementById('formSlNo').value = nextSl;
+            document.getElementById('formName').value = '';
+            document.getElementById('formAddress').value = '';
+            document.getElementById('formAge').value = '';
+            document.getElementById('formDesignation').value = '';
+            document.getElementById('formMobile').value = '';
+
+            document.getElementById('memberModal').style.display = 'flex';
+        }
+
+        // Open modal for editing an existing member
+        function openEditModal(slNo) {
+            document.getElementById('modalHeader').innerText = 'ಸದಸ್ಯರ ವಿವರ ತಿದ್ದುಪಡಿ (Edit Member)';
+            
+            const member = committeeList.find(m => m.sl_no === slNo);
+            if (!member) return;
+
+            document.getElementById('editIndex').value = slNo;
+            document.getElementById('formSlNo').value = member.sl_no;
+            document.getElementById('formName').value = member.name || '';
+            document.getElementById('formAddress').value = member.address || '';
+            document.getElementById('formAge').value = member.age || '';
+            document.getElementById('formDesignation').value = member.designation || '';
+            document.getElementById('formMobile').value = member.mobile || '';
+
+            document.getElementById('memberModal').style.display = 'flex';
+        }
+
+        // Save member details (Add or Edit)
+        function saveMember() {
+            const slNo = parseInt(document.getElementById('formSlNo').value);
+            const name = document.getElementById('formName').value.trim();
+            const address = document.getElementById('formAddress').value.trim();
+            const age = document.getElementById('formAge').value ? parseInt(document.getElementById('formAge').value) : '';
+            const designation = document.getElementById('formDesignation').value.trim();
+            const mobile = document.getElementById('formMobile').value.trim();
+
+            if (!slNo || !name) {
+                alert('ಕ್ರಮ ಸಂಖ್ಯೆ ಮತ್ತು ಹೆಸರು ಕಡ್ಡಾಯವಾಗಿದೆ (Sl.No and Name are required)');
+                return;
+            }
+
+            const editIndex = document.getElementById('editIndex').value;
+
+            if (editIndex !== '') {
+                // Edit mode
+                const oldSlNo = parseInt(editIndex);
+                const idx = committeeList.findIndex(m => m.sl_no === oldSlNo);
+                
+                // Check duplicate SlNo if changed
+                if (oldSlNo !== slNo && committeeList.some(m => m.sl_no === slNo)) {
+                    alert('ಈ ಕ್ರಮ ಸಂಖ್ಯೆ ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ (This Sl.No already exists)');
+                    return;
+                }
+
+                if (idx !== -1) {
+                    committeeList[idx] = { sl_no: slNo, name, address, age, designation, mobile };
+                }
+            } else {
+                // Add mode
+                if (committeeList.some(m => m.sl_no === slNo)) {
+                    alert('ಈ ಕ್ರಮ ಸಂಖ್ಯೆ ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ (This Sl.No already exists)');
+                    return;
+                }
+                committeeList.push({ sl_no: slNo, name, address, age, designation, mobile });
+            }
+
+            // Sort list by Sl.No
+            committeeList.sort((a, b) => a.sl_no - b.sl_no);
+
+            // Save to LocalStorage and update view
+            localStorage.setItem(storageKey, JSON.stringify(committeeList));
+            document.getElementById('printDate').innerText = "ಒಟ್ಟು ಸದಸ್ಯರು: " + committeeList.length + " | ಮುದ್ರಣ ದಿನಾಂಕ: " + new Date().toLocaleDateString('kn-IN');
+            
+            closeModal();
+            filterTable();
+        }
+
+        // Delete member details
+        function deleteMember(slNo) {
+            if (confirm('ಈ ಸದಸ್ಯರನ್ನು ಪಟ್ಟಿಯಿಂದ ತೆಗೆದುಹಾಕಲು ಖಚಿತವೇ? (Are you sure you want to delete this member?)')) {
+                committeeList = committeeList.filter(m => m.sl_no !== slNo);
+                localStorage.setItem(storageKey, JSON.stringify(committeeList));
+                document.getElementById('printDate').innerText = "ಒಟ್ಟು ಸದಸ್ಯರು: " + committeeList.length + " | ಮುದ್ರಣ ದಿನಾಂಕ: " + new Date().toLocaleDateString('kn-IN');
+                filterTable();
+            }
+        }
+
+        // Render the initial list
+        renderTable(committeeList);
+    </script>
+</body>
+</html>
