@@ -571,11 +571,25 @@
         const urlParams = new URLSearchParams(window.location.search);
         const type = urlParams.get('type') || 'working';
 
-        // Swap mapping requested by user:
-        // Clicking "STATE WORKING COMMITTEE LIST" (type=working) shows General Committee PDF (434 members)
-        // Clicking "STATE GENERAL COMMITTEE LIST" (type=general) shows Working Committee PDF (96 members)
+        // Self-correcting cache logic: clear local storage if previous version had swapped lists
+        if (localStorage.getItem('working_committee')) {
+            const stored = JSON.parse(localStorage.getItem('working_committee'));
+            if (stored.length > 150) { // Should be 96, if >150 it was incorrectly General Committee
+                localStorage.removeItem('working_committee');
+            }
+        }
+        if (localStorage.getItem('general_committee')) {
+            const stored = JSON.parse(localStorage.getItem('general_committee'));
+            if (stored.length < 150) { // Should be 433/434, if <150 it was incorrectly Working Committee
+                localStorage.removeItem('general_committee');
+            }
+        }
+
+        // Standard mapping:
+        // Clicking "STATE WORKING COMMITTEE LIST" (type=working) shows Working Committee PDF (96 members)
+        // Clicking "STATE GENERAL COMMITTEE LIST" (type=general) shows General Committee PDF (434 members)
         const storageKey = type === 'working' ? 'working_committee' : 'general_committee';
-        const initialData = type === 'working' ? generalCommitteeInitial : workingCommitteeInitial;
+        const initialData = type === 'working' ? workingCommitteeInitial : generalCommitteeInitial;
         
         const pageTitleText = type === 'working' ? 'STATE WORKING COMMITTEE LIST (ರಾಜ್ಯ ಕಾರ್ಯಕಾರಿ ಸಮಿತಿ)' : 'STATE GENERAL COMMITTEE LIST (ರಾಜ್ಯ ಸಮಿತಿ)';
         const officialPrintHeading = type === 'working' ? 'ರಾಜ್ಯ ಕಾರ್ಯಕಾರಿ ಸಮಿತಿ ಸದಸ್ಯರ ಯಾದಿ 2024-29' : 'ರಾಜ್ಯ ಸಮಿತಿ ಸರ್ವಸದಸ್ಯರ ಯಾದಿ 2024-29';
