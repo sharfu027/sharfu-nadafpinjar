@@ -13,7 +13,7 @@
   "routes": [
     {
       "src": "/api/donations",
-      "dest": "/api/donations.js"
+      "dest": "https://nadafpinjar-production.up.railway.app/api/donations"
     },
     {
       "src": "/accountsummary",
