@@ -1,3 +1,5 @@
+const https = require('https');
+
 module.exports = async (req, res) => {
   // CORS Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -8,29 +10,43 @@ module.exports = async (req, res) => {
     return res.status(200).end();
   }
 
-  const targetUrl = 'https://nadafpinjar-production.up.railway.app/api/donations';
-
-  try {
-    let fetchOptions = {
-      method: req.method,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
-
+  return new Promise((resolve) => {
+    let bodyData = '';
     if (req.method === 'POST') {
-      let bodyData = req.body;
-      if (typeof bodyData !== 'string') {
-        bodyData = JSON.stringify(bodyData);
-      }
-      fetchOptions.body = bodyData;
+      bodyData = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
     }
 
-    const response = await fetch(targetUrl, fetchOptions);
-    const data = await response.json();
-    return res.status(response.status).json(data);
-  } catch (err) {
-    console.error('Vercel API proxy error:', err);
-    return res.status(500).json({ success: false, error: err.message });
-  }
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+    
+    if (req.method === 'POST') {
+      headers['Content-Length'] = Buffer.byteLength(bodyData);
+    }
+
+    const options = {
+      hostname: 'nadafpinjar-production.up.railway.app',
+      port: 443,
+      path: '/api/donations',
+      method: req.method,
+      headers: headers
+    };
+
+    const proxyReq = https.request(options, (proxyRes) => {
+      res.writeHead(proxyRes.statusCode, proxyRes.headers);
+      proxyRes.pipe(res);
+      resolve();
+    });
+
+    proxyReq.on('error', (err) => {
+      console.error('HTTPS Proxy Error:', err);
+      res.status(500).json({ success: false, error: err.message });
+      resolve();
+    });
+
+    if (req.method === 'POST') {
+      proxyReq.write(bodyData);
+    }
+    proxyReq.end();
+  });
 };
