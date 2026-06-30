@@ -48,8 +48,8 @@
       "dest": "/nadafpinjar/viewReceipt.html"
     },
     {
-      "src": "/([^/.]+)$",
-      "dest": "/nadafpinjar/$1.html"
+      "src": "/:page([^./]+)",
+      "dest": "/nadafpinjar/:page.html"
     },
     {
       "src": "/(.*)",
