@@ -664,7 +664,7 @@
                 localStorage.setItem('admin_freeedu_submissions', JSON.stringify(submissions));
             };
 
-            fetch('/api/donations', {
+            fetch('https://nadafpinjar-production.up.railway.app/api/donations', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dataToSave)
