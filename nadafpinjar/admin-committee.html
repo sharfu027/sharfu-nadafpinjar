@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Committees - Admin Dashboard</title>
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/admin-dashboard.css" rel="stylesheet" media="all">
+    <style>
+        .committee-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            padding: 10px 20px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            color: #64748b;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .tab-btn.active {
+            border-color: #4f1971;
+            background: #4f1971;
+            color: white;
+        }
+        .tab-btn:hover:not(.active) {
+            background: #f8fafc;
+            color: #334155;
+        }
+        .btn-edit {
+            background-color: #f59e0b;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-right: 5px;
+        }
+        .btn-edit:hover {
+            background-color: #d97706;
+        }
+        .btn-delete {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-right: 5px;
+        }
+        .btn-delete:hover {
+            background-color: #dc2626;
+        }
+        .modal-large {
+            max-width: 600px;
+            width: 95%;
+        }
+        .edit-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+        .member-details {
+            line-height: 1.4;
+        }
+        .member-name {
+            font-weight: bold;
+            font-size: 14px;
+            color: #1e293b;
+        }
+        .member-address {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header class="admin-header">
+        <div class="admin-header-container">
+            <button class="sidebar-toggle"><i class="fa fa-bars"></i></button>
+            <img src="images/header-nadaf.png" alt="Karnataka Rajya Nadaf Pinjar Sangha" class="admin-header-image">
+            <div class="header-right">
+                <span style="margin-right: 15px;"><i class="fa fa-user-circle"></i> Admin</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="accountsummary"><i class="fa fa-dashboard"></i> Account Summary</a></li>
+                <li><a href="Beneficiaries"><i class="fa fa-users"></i> Beneficiaries</a></li>
+                <li><a href="Paymentsandtransfers"><i class="fa fa-credit-card"></i> Make Payments</a></li>
+                <li><a href="Receipts"><i class="fa fa-file-text-o"></i> Receipts</a></li>
+                <li><a href="associatedtransfers"><i class="fa fa-exchange"></i> Associated Transfers</a></li>
+                <li><a href="Statements"><i class="fa fa-list-alt"></i> Statements</a></li>
+                <li><a href="Security"><i class="fa fa-lock"></i> Security</a></li>
+                <li><a href="admin-freeedu"><i class="fa fa-graduation-cap"></i> Free Education</a></li>
+                <li><a href="admin-census"><i class="fa fa-users"></i> Census</a></li>
+                <li><a href="admin-employees"><i class="fa fa-briefcase"></i> Employees</a></li>
+                <li class="active"><a href="admin-committee"><i class="fa fa-list-ul"></i> Committees</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <div class="page-title-bar">
+                <span>Committee Management</span>
+            </div>
+
+            <!-- Committee Selector tabs -->
+            <div class="committee-tabs">
+                <button class="tab-btn active" id="tabWorking" onclick="switchTab('working')">Working Committee (ಕಾರ್ಯಕಾರಿ ಸಮಿತಿ)</button>
+                <button class="tab-btn" id="tabGeneral" onclick="switchTab('general')">General Committee (ರಾಜ್ಯ ಸಮಿತಿ)</button>
+            </div>
+
+            <!-- Filter Card -->
+            <div class="admin-card">
+                <div class="card-header">
+                    <span>Search / Filter Members</span>
+                </div>
+                <div class="card-body" style="padding: 15px 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap;">
+                        <div class="filter-group" style="flex: 1; min-width: 250px; margin: 0; border: none; padding: 0;">
+                            <input type="text" id="filterSearch" placeholder="Type name, designation, mobile or sl.no..." onkeyup="filterTable()" style="width: 100%; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <button class="btn-submit" onclick="openAddModal()" style="height: 40px; background-color: #10b981; border: none; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa fa-plus"></i> Add Member (ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table Card -->
+            <div class="admin-card">
+                <div class="card-header" id="tableHeaderTitle">
+                    <span>Working Committee Members</span>
+                </div>
+                <div class="card-body" style="padding:0;">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 80px; text-align: center;">Sl.No</th>
+                                    <th>Member Details</th>
+                                    <th style="width: 80px; text-align: center;">Age</th>
+                                    <th>Designation</th>
+                                    <th>Mobile Number</th>
+                                    <th style="width: 150px; text-align: center;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="committeeTableBody">
+                                <!-- Loaded dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit/Add Modal -->
+    <div id="memberModal" class="admin-modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <span id="modalHeaderTitle">Add Member Details</span>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="memberForm" onsubmit="event.preventDefault(); saveMember();">
+                    <input type="hidden" id="editIndex">
+                    <div class="edit-form-grid">
+                        <div class="form-group">
+                            <label>ಕ್ರಮ ಸಂಖ್ಯೆ (Sl.No) *</label>
+                            <input type="number" id="formSlNo" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ಹೆಸರು (Name) *</label>
+                            <input type="text" id="formName" required placeholder="Enter member name">
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label>ವಿಳಾಸ (Address)</label>
+                            <textarea id="formAddress" rows="2" placeholder="Enter address"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>ವಯಸ್ಸು (Age)</label>
+                            <input type="number" id="formAge" placeholder="Enter age">
+                        </div>
+                        <div class="form-group">
+                            <label>ಹುದ್ದೆ (Designation)</label>
+                            <input type="text" id="formDesignation" placeholder="Enter designation">
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label>ಮೊಬೈಲ್ ಸಂಖ್ಯೆ (Mobile)</label>
+                            <input type="text" id="formMobile" placeholder="Enter mobile number(s)">
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                        <button type="button" class="btn-view" style="background-color: #64748b; height: 40px;" onclick="closeModal()">Cancel</button>
+                        <button type="submit" class="btn-submit" style="height: 40px; background-color: #4f1971;">Save Details</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script imports -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/committee-data.js"></script>
+    <script src="js/admin-dashboard.js"></script>
+    <script>
+        // Check URL parameter for initial type
+        const urlParams = new URLSearchParams(window.location.search);
+        let activeTabType = urlParams.get('type') === 'general' ? 'general' : 'working';
+
+        // Set initial tab styling
+        if (activeTabType === 'general') {
+            document.getElementById('tabWorking').classList.remove('active');
+            document.getElementById('tabGeneral').classList.add('active');
+            document.getElementById('tableHeaderTitle').querySelector('span').innerText = 'General Committee Members';
+        }
+
+        const getStorageKey = () => activeTabType === 'working' ? 'working_committee' : 'general_committee';
+        const getInitialData = () => activeTabType === 'working' ? workingCommitteeInitial : generalCommitteeInitial;
+
+        function getCommitteeList() {
+            const key = getStorageKey();
+            if (!localStorage.getItem(key)) {
+                localStorage.setItem(key, JSON.stringify(getInitialData()));
+            }
+            return JSON.parse(localStorage.getItem(key));
+        }
+
+        function saveCommitteeList(list) {
+            localStorage.setItem(getStorageKey(), JSON.stringify(list));
+        }
+
+        function renderTable(dataToRender) {
+            const tableBody = document.getElementById('committeeTableBody');
+            tableBody.innerHTML = '';
+
+            if (dataToRender.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: #888; padding: 20px;">No members found</td></tr>`;
+                return;
+            }
+
+            dataToRender.forEach((m) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="text-align: center; font-weight: bold;">${m.sl_no}</td>
+                    <td>
+                        <div class="member-details">
+                            <div class="member-name">${m.name || ''}</div>
+                            <div class="member-address">${m.address || ''}</div>
+                        </div>
+                    </td>
+                    <td style="text-align: center;">${m.age || ''}</td>
+                    <td>${m.designation || ''}</td>
+                    <td>${m.mobile || ''}</td>
+                    <td style="text-align: center;">
+                        <button class="btn-edit" onclick="openEditModal(${m.sl_no})"><i class="fa fa-pencil"></i> Edit</button>
+                        <button class="btn-delete" onclick="deleteMember(${m.sl_no})"><i class="fa fa-trash"></i> Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function filterTable() {
+            const query = document.getElementById('filterSearch').value.toLowerCase();
+            const list = getCommitteeList();
+            const filtered = list.filter(m => 
+                String(m.sl_no).includes(query) || 
+                (m.name && m.name.toLowerCase().includes(query)) ||
+                (m.address && m.address.toLowerCase().includes(query)) ||
+                (m.designation && m.designation.toLowerCase().includes(query)) ||
+                (m.mobile && m.mobile.toLowerCase().includes(query)) ||
+                (m.age && String(m.age).includes(query))
+            );
+            renderTable(filtered);
+        }
+
+        function switchTab(type) {
+            if (activeTabType === type) return;
+            activeTabType = type;
+
+            const tabWorking = document.getElementById('tabWorking');
+            const tabGeneral = document.getElementById('tabGeneral');
+            const tableTitle = document.getElementById('tableHeaderTitle').querySelector('span');
+
+            if (type === 'working') {
+                tabWorking.classList.add('active');
+                tabGeneral.classList.remove('active');
+                tableTitle.innerText = 'Working Committee Members';
+            } else {
+                tabGeneral.classList.add('active');
+                tabWorking.classList.remove('active');
+                tableTitle.innerText = 'General Committee Members';
+            }
+
+            document.getElementById('filterSearch').value = '';
+            
+            // Update URL query parameter without reloading
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?type=' + type;
+            window.history.pushState({path:newUrl}, '', newUrl);
+
+            renderTable(getCommitteeList());
+        }
+
+        function closeModal() {
+            document.getElementById('memberModal').style.display = 'none';
+        }
+
+        function openAddModal() {
+            document.getElementById('modalHeaderTitle').innerText = 'Add Member Details';
+            document.getElementById('editIndex').value = '';
+            
+            const list = getCommitteeList();
+            const nextSl = list.length > 0 ? Math.max(...list.map(m => m.sl_no)) + 1 : 1;
+            
+            document.getElementById('formSlNo').value = nextSl;
+            document.getElementById('formName').value = '';
+            document.getElementById('formAddress').value = '';
+            document.getElementById('formAge').value = '';
+            document.getElementById('formDesignation').value = '';
+            document.getElementById('formMobile').value = '';
+
+            document.getElementById('memberModal').style.display = 'flex';
+        }
+
+        function openEditModal(slNo) {
+            document.getElementById('modalHeaderTitle').innerText = 'Edit Member Details';
+            
+            const list = getCommitteeList();
+            const member = list.find(m => m.sl_no === slNo);
+            if (!member) return;
+
+            document.getElementById('editIndex').value = slNo;
+            document.getElementById('formSlNo').value = member.sl_no;
+            document.getElementById('formName').value = member.name || '';
+            document.getElementById('formAddress').value = member.address || '';
+            document.getElementById('formAge').value = member.age || '';
+            document.getElementById('formDesignation').value = member.designation || '';
+            document.getElementById('formMobile').value = member.mobile || '';
+
+            document.getElementById('memberModal').style.display = 'flex';
+        }
+
+        function saveMember() {
+            const slNo = parseInt(document.getElementById('formSlNo').value);
+            const name = document.getElementById('formName').value.trim();
+            const address = document.getElementById('formAddress').value.trim();
+            const age = document.getElementById('formAge').value ? parseInt(document.getElementById('formAge').value) : '';
+            const designation = document.getElementById('formDesignation').value.trim();
+            const mobile = document.getElementById('formMobile').value.trim();
+
+            if (!slNo || !name) {
+                alert('Sl.No and Name are required');
+                return;
+            }
+
+            const editIndex = document.getElementById('editIndex').value;
+            let list = getCommitteeList();
+
+            if (editIndex !== '') {
+                // Edit mode
+                const oldSlNo = parseInt(editIndex);
+                const idx = list.findIndex(m => m.sl_no === oldSlNo);
+                
+                // Check duplicate SlNo if changed
+                if (oldSlNo !== slNo && list.some(m => m.sl_no === slNo)) {
+                    alert('This Sl.No already exists');
+                    return;
+                }
+
+                if (idx !== -1) {
+                    list[idx] = { sl_no: slNo, name, address, age, designation, mobile };
+                }
+            } else {
+                // Add mode
+                if (list.some(m => m.sl_no === slNo)) {
+                    alert('This Sl.No already exists');
+                    return;
+                }
+                list.push({ sl_no: slNo, name, address, age, designation, mobile });
+            }
+
+            // Sort list by Sl.No
+            list.sort((a, b) => a.sl_no - b.sl_no);
+
+            saveCommitteeList(list);
+            closeModal();
+            filterTable();
+        }
+
+        function deleteMember(slNo) {
+            if (confirm('Are you sure you want to delete this member?')) {
+                let list = getCommitteeList();
+                list = list.filter(m => m.sl_no !== slNo);
+                saveCommitteeList(list);
+                filterTable();
+            }
+        }
+
+        // Initialize table on load
+        renderTable(getCommitteeList());
+    </script>
+</body>
+</html>
