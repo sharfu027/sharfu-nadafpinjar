@@ -1998,6 +1998,10 @@ function loadAdminFreeEdu() {
             width: 25%;
             font-weight: bold;
         }
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
         @media print {
             html, body {
                 height: auto;
@@ -2183,30 +2187,16 @@ function loadAdminFreeEdu() {
             document.body.appendChild(iframe);
         }
         iframe.style.width = '210mm';
-        iframe.style.height = '1200px';
+        iframe.style.height = '297mm';
         const doc = iframe.contentWindow.document;
         doc.open();
         doc.write(printHTML);
         doc.close();
         
-        // Step 1: Measure content height
         setTimeout(() => {
-            const container = doc.querySelector('.receipt-container');
-            const contentH = container ? container.offsetHeight : 800;
-            const pageHmm = Math.ceil(contentH * 0.2646 + 2);
-            
-            // Step 2: Re-write HTML with @page baked into CSS (Chrome needs it in initial parse)
-            const finalHTML = printHTML.replace('</style>', `\n@page { size: 210mm ${pageHmm}mm; margin: 0; }\n</style>`);
-            doc.open();
-            doc.write(finalHTML);
-            doc.close();
-            
-            // Step 3: Print after second render completes
-            setTimeout(() => {
-                iframe.contentWindow.focus();
-                iframe.contentWindow.print();
-                setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
-            }, 300);
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+            setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
         }, 500);
     };
 }

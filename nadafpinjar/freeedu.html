@@ -891,6 +891,10 @@
                 max-width: 95%;
             }
         }
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
         @media print {
             html, body {
                 height: auto;
@@ -1076,50 +1080,35 @@
             }
             
             iframe.style.width = '210mm';
-            iframe.style.height = '1200px';
+            iframe.style.height = '297mm';
             const doc = iframe.contentWindow.document;
             doc.open();
             doc.write(printHTML);
             doc.close();
-            // Step 1: Measure content height
+            
             setTimeout(() => {
-                const container = doc.querySelector('.receipt-container');
-                const contentH = container ? container.offsetHeight : 800;
-                const pageHmm = Math.ceil(contentH * 0.2646 + 2);
                 const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                 if (isMobile) {
-                    // Step 2a: Mobile - re-write with @page then use html2pdf
-                    const finalHTML = printHTML.replace('</style>', `\n@page { size: 210mm ${pageHmm}mm; margin: 0; }\n</style>`);
-                    doc.open();
-                    doc.write(finalHTML);
-                    doc.close();
-                    setTimeout(() => {
-                        const script = doc.createElement('script');
-                        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-                        script.onload = () => {
-                            const c = doc.querySelector('.receipt-container');
-                            const opt = {
-                                margin: 0,
-                                filename: 'FreeEducation-' + (appNumber || 'Receipt') + '.pdf',
-                                image: { type: 'jpeg', quality: 0.98 },
-                                html2canvas: { scale: 2, useCORS: true, letterRendering: false },
-                                jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
-                            };
-                            iframe.contentWindow.html2pdf().from(c).set(opt).save();
+                    const container = doc.querySelector('.receipt-container');
+                    const contentH = container ? container.offsetHeight : 800;
+                    const pageHmm = Math.ceil(contentH * 0.2646 + 2);
+                    const script = doc.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+                    script.onload = () => {
+                        const opt = {
+                            margin: 0,
+                            filename: 'FreeEducation-' + (appNumber || 'Receipt') + '.pdf',
+                            image: { type: 'jpeg', quality: 0.98 },
+                            html2canvas: { scale: 2, useCORS: true, letterRendering: false },
+                            jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
                         };
-                        doc.head.appendChild(script);
-                    }, 300);
+                        iframe.contentWindow.html2pdf().from(container).set(opt).save();
+                    };
+                    doc.head.appendChild(script);
                 } else {
-                    // Step 2b: Desktop - re-write with @page baked in then print
-                    const finalHTML = printHTML.replace('</style>', `\n@page { size: 210mm ${pageHmm}mm; margin: 0; }\n</style>`);
-                    doc.open();
-                    doc.write(finalHTML);
-                    doc.close();
-                    setTimeout(() => {
-                        iframe.contentWindow.focus();
-                        iframe.contentWindow.print();
-                        setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
-                    }, 300);
+                    iframe.contentWindow.focus();
+                    iframe.contentWindow.print();
+                    setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
                 }
             }, 500);
         }
