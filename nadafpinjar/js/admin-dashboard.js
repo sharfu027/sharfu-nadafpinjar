@@ -2200,6 +2200,8 @@ function loadAdminFreeEdu() {
         doc.write(printHTML);
         doc.close();
         
+        setTimeout(() => {
+            const container = doc.querySelector('.receipt-container');
             if (container) {
                 const dynStyle = doc.createElement('style');
                 dynStyle.textContent = '@media print { @page { size: A4 portrait; margin: 6mm 10mm; } }';
@@ -3069,6 +3071,8 @@ function loadAdminCensus() {
         doc.write(printHTML);
         doc.close();
         
+        setTimeout(() => {
+            const container = doc.querySelector('.receipt-container');
             if (container) {
                 const dynStyle = doc.createElement('style');
                 dynStyle.textContent = '@media print { @page { size: A4 portrait; margin: 6mm 10mm; } }';
@@ -3534,6 +3538,8 @@ function loadAdminEmployees() {
         doc.write(printHTML);
         doc.close();
         
+        setTimeout(() => {
+            const container = doc.querySelector('.receipt-container');
             if (container) {
                 const dynStyle = doc.createElement('style');
                 dynStyle.textContent = '@media print { @page { size: A4 portrait; margin: 6mm 10mm; } }';
