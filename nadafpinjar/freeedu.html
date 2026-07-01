@@ -1081,34 +1081,45 @@
             doc.open();
             doc.write(printHTML);
             doc.close();
-            
+            // Step 1: Measure content height
             setTimeout(() => {
                 const container = doc.querySelector('.receipt-container');
                 const contentH = container ? container.offsetHeight : 800;
                 const pageHmm = Math.ceil(contentH * 0.2646 + 2);
                 const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                 if (isMobile) {
-                    const script = doc.createElement('script');
-                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-                    script.onload = () => {
-                        const opt = {
-                            margin: 0,
-                            filename: 'FreeEducation-' + (appNumber || 'Receipt') + '.pdf',
-                            image: { type: 'jpeg', quality: 0.98 },
-                            html2canvas: { scale: 2, useCORS: true, letterRendering: false },
-                            jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
+                    // Step 2a: Mobile - re-write with @page then use html2pdf
+                    const finalHTML = printHTML.replace('</style>', `\n@page { size: 210mm ${pageHmm}mm; margin: 0; }\n</style>`);
+                    doc.open();
+                    doc.write(finalHTML);
+                    doc.close();
+                    setTimeout(() => {
+                        const script = doc.createElement('script');
+                        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+                        script.onload = () => {
+                            const c = doc.querySelector('.receipt-container');
+                            const opt = {
+                                margin: 0,
+                                filename: 'FreeEducation-' + (appNumber || 'Receipt') + '.pdf',
+                                image: { type: 'jpeg', quality: 0.98 },
+                                html2canvas: { scale: 2, useCORS: true, letterRendering: false },
+                                jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
+                            };
+                            iframe.contentWindow.html2pdf().from(c).set(opt).save();
                         };
-                        iframe.contentWindow.html2pdf().from(container).set(opt).save();
-                    };
-                    doc.head.appendChild(script);
+                        doc.head.appendChild(script);
+                    }, 300);
                 } else {
-                    const dynStyle = doc.createElement('style');
-                    dynStyle.textContent = `@page { size: 210mm ${pageHmm}mm; margin: 0; }`;
-                    doc.head.appendChild(dynStyle);
-                    void doc.body.offsetHeight;
-                    iframe.contentWindow.focus();
-                    iframe.contentWindow.print();
-                    setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
+                    // Step 2b: Desktop - re-write with @page baked in then print
+                    const finalHTML = printHTML.replace('</style>', `\n@page { size: 210mm ${pageHmm}mm; margin: 0; }\n</style>`);
+                    doc.open();
+                    doc.write(finalHTML);
+                    doc.close();
+                    setTimeout(() => {
+                        iframe.contentWindow.focus();
+                        iframe.contentWindow.print();
+                        setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
+                    }, 300);
                 }
             }, 500);
         }

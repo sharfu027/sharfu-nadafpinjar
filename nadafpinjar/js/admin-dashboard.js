@@ -2189,17 +2189,24 @@ function loadAdminFreeEdu() {
         doc.write(printHTML);
         doc.close();
         
+        // Step 1: Measure content height
         setTimeout(() => {
             const container = doc.querySelector('.receipt-container');
             const contentH = container ? container.offsetHeight : 800;
             const pageHmm = Math.ceil(contentH * 0.2646 + 2);
-            const dynStyle = doc.createElement('style');
-            dynStyle.textContent = `@page { size: 210mm ${pageHmm}mm; margin: 0; }`;
-            doc.head.appendChild(dynStyle);
-            void doc.body.offsetHeight;
-            iframe.contentWindow.focus();
-            iframe.contentWindow.print();
-            setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
+            
+            // Step 2: Re-write HTML with @page baked into CSS (Chrome needs it in initial parse)
+            const finalHTML = printHTML.replace('</style>', `\n@page { size: 210mm ${pageHmm}mm; margin: 0; }\n</style>`);
+            doc.open();
+            doc.write(finalHTML);
+            doc.close();
+            
+            // Step 3: Print after second render completes
+            setTimeout(() => {
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+                setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
+            }, 300);
         }, 500);
     };
 }
