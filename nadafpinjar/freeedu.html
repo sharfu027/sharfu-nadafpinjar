@@ -1091,10 +1091,10 @@
             
             setTimeout(() => {
                 const container = doc.querySelector('.receipt-container');
-                let pageHmm = 297; // standard A4 height fallback
+                let pageHmm = 297;
                 if (container) {
                     const contentH = container.offsetHeight;
-                    pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
+                    pageHmm = Math.ceil(contentH * 0.2646 + 15);
                 }
                 const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                 if (isMobile) {
@@ -1105,8 +1105,8 @@
                             margin: 0,
                             filename: 'FreeEducation-' + (appNumber || 'Receipt') + '.pdf',
                             image: { type: 'jpeg', quality: 0.98 },
-                            html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-                            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                            html2canvas: { scale: 2, useCORS: true, letterRendering: false },
+                            jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
                         };
                         iframe.contentWindow.html2pdf().from(container).set(opt).save();
                     };
@@ -1114,7 +1114,7 @@
                 } else {
                     if (container) {
                         const dynStyle = doc.createElement('style');
-                        dynStyle.textContent = '@media print { @page { size: A4 portrait; margin: 6mm 10mm; } }';
+                        dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 6mm 10mm; } }`;
                         doc.head.appendChild(dynStyle);
                     }
                     iframe.style.width = '0';

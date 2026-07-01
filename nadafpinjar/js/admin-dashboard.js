@@ -1538,14 +1538,14 @@ window.downloadReceiptPdf = function(receiptId) {
     
     setTimeout(() => {
         const container = doc.querySelector('.receipt-container');
-        let pageHmm = 105;
+        let pageHmm = 148;
         if (container) {
             const contentH = container.offsetHeight;
-            pageHmm = Math.ceil(contentH * 0.2646 + 4.5);
+            pageHmm = Math.ceil(contentH * 0.2646 + 6);
         }
         if (container) {
             const dynStyle = doc.createElement('style');
-            dynStyle.textContent = '@media print { @page { size: A5 landscape; margin: 0; } }';
+            dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 0; } }`;
             doc.head.appendChild(dynStyle);
         }
         iframe.style.width = '0';
@@ -2198,9 +2198,14 @@ function loadAdminFreeEdu() {
         
         setTimeout(() => {
             const container = doc.querySelector('.receipt-container');
+            let pageHmm = 297;
+            if (container) {
+                const contentH = container.offsetHeight;
+                pageHmm = Math.ceil(contentH * 0.2646 + 15);
+            }
             if (container) {
                 const dynStyle = doc.createElement('style');
-                dynStyle.textContent = '@media print { @page { size: A4 portrait; margin: 6mm 10mm; } }';
+                dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 6mm 10mm; } }`;
                 doc.head.appendChild(dynStyle);
             }
             iframe.style.width = '0';
@@ -3066,9 +3071,14 @@ function loadAdminCensus() {
         
         setTimeout(() => {
             const container = doc.querySelector('.receipt-container');
+            let pageHmm = 297;
+            if (container) {
+                const contentH = container.offsetHeight;
+                pageHmm = Math.ceil(contentH * 0.2646 + 15);
+            }
             if (container) {
                 const dynStyle = doc.createElement('style');
-                dynStyle.textContent = '@media print { @page { size: A4 portrait; margin: 6mm 10mm; } }';
+                dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 6mm 10mm; } }`;
                 doc.head.appendChild(dynStyle);
             }
             iframe.style.width = '0';
@@ -3530,9 +3540,14 @@ function loadAdminEmployees() {
         
         setTimeout(() => {
             const container = doc.querySelector('.receipt-container');
+            let pageHmm = 297;
+            if (container) {
+                const contentH = container.offsetHeight;
+                pageHmm = Math.ceil(contentH * 0.2646 + 15);
+            }
             if (container) {
                 const dynStyle = doc.createElement('style');
-                dynStyle.textContent = '@media print { @page { size: A4 portrait; margin: 6mm 10mm; } }';
+                dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 6mm 10mm; } }`;
                 doc.head.appendChild(dynStyle);
             }
             iframe.style.width = '0';
