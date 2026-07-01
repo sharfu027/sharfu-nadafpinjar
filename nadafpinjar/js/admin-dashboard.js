@@ -2190,21 +2190,15 @@ function loadAdminFreeEdu() {
         doc.close();
         
         setTimeout(() => {
-            const fullH = Math.max(
-                doc.body.scrollHeight,
-                doc.body.offsetHeight,
-                doc.documentElement.scrollHeight,
-                doc.documentElement.offsetHeight
-            );
-            const pageHmm = Math.ceil(fullH * 0.2646 + 2);
+            const container = doc.querySelector('.receipt-container');
+            const contentH = container ? container.offsetHeight : 800;
+            const pageHmm = Math.ceil(contentH * 0.2646 + 2);
             const dynStyle = doc.createElement('style');
             dynStyle.textContent = `@page { size: 210mm ${pageHmm}mm; margin: 0; }`;
             doc.head.appendChild(dynStyle);
-            // Force reflow before printing
             void doc.body.offsetHeight;
             iframe.contentWindow.focus();
             iframe.contentWindow.print();
-            // Hide iframe after print dialog opens
             setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
         }, 500);
     };

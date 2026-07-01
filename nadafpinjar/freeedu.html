@@ -1083,19 +1083,14 @@
             doc.close();
             
             setTimeout(() => {
-                const fullH = Math.max(
-                    doc.body.scrollHeight,
-                    doc.body.offsetHeight,
-                    doc.documentElement.scrollHeight,
-                    doc.documentElement.offsetHeight
-                );
-                const pageHmm = Math.ceil(fullH * 0.2646 + 2);
+                const container = doc.querySelector('.receipt-container');
+                const contentH = container ? container.offsetHeight : 800;
+                const pageHmm = Math.ceil(contentH * 0.2646 + 2);
                 const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                 if (isMobile) {
                     const script = doc.createElement('script');
                     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
                     script.onload = () => {
-                        const container = doc.querySelector('.receipt-container');
                         const opt = {
                             margin: 0,
                             filename: 'FreeEducation-' + (appNumber || 'Receipt') + '.pdf',
