@@ -534,10 +534,10 @@
         const type = urlParams.get('type') || 'working';
 
         // Force migration cache reset if version is not v2
-        if (localStorage.getItem('committee_data_version') !== 'v2') {
+        if (localStorage.getItem('committee_data_version') !== 'v3') {
             localStorage.removeItem('working_committee');
             localStorage.removeItem('general_committee');
-            localStorage.setItem('committee_data_version', 'v2');
+            localStorage.setItem('committee_data_version', 'v3');
         }
 
         // Standard mapping:
