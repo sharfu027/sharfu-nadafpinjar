@@ -1912,7 +1912,7 @@ function loadAdminFreeEdu() {
             height: auto;
             margin: 0 auto;
             border: 2px solid #b30000;
-            padding: 8px;
+            padding: 5px;
             background: #fffdeb;
             box-sizing: border-box;
             display: flex;
@@ -1925,15 +1925,15 @@ function loadAdminFreeEdu() {
             border-collapse: collapse;
             border: 2px solid #b30000;
             background-color: #fffdeb;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
         .header-table td {
-            padding: 3px 6px;
+            padding: 2px 4px;
             vertical-align: middle;
         }
         .header-photo {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -1941,8 +1941,8 @@ function loadAdminFreeEdu() {
             margin: 0 auto;
         }
         .header-logo {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -1954,8 +1954,8 @@ function loadAdminFreeEdu() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 18px;
-            margin: 0 0 1px 0;
+            font-size: 16px;
+            margin: 0;
             font-weight: bold;
             white-space: nowrap;
         }
@@ -1978,13 +1978,13 @@ function loadAdminFreeEdu() {
         .grid-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 2px;
+            margin-bottom: 0;
             background: #fff;
         }
         .grid-table td {
             border: 1.2px solid #b30000;
-            padding: 4px 6px;
-            font-size: 10.5px;
+            padding: 3px 5px;
+            font-size: 10px;
             vertical-align: middle;
             line-height: 1.2;
         }
@@ -2001,7 +2001,7 @@ function loadAdminFreeEdu() {
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 4mm 8mm;
+                margin: 2mm 6mm;
             }
             html, body {
                 height: auto;
@@ -2015,7 +2015,7 @@ function loadAdminFreeEdu() {
                 max-width: 100%;
                 height: auto;
                 box-sizing: border-box;
-                padding: 8px;
+                padding: 5px;
                 page-break-inside: avoid;
                 background-color: #fffdeb !important;
             }
@@ -2042,9 +2042,9 @@ function loadAdminFreeEdu() {
             </tr>
         </table>
         
-        <div style="text-align: center; margin-top: 3px; margin-bottom: 2px;">
-            <div style="font-size: 14px; font-weight: bold; color: #b30000; margin-bottom: 3px; letter-spacing: 0.5px;">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27</div>
-            <div style="display: flex; justify-content: space-between; padding: 0 4px; font-weight: bold; font-size: 10.5px; margin-bottom: 3px;">
+        <div style="text-align: center; margin-top: 1px; margin-bottom: 1px;">
+            <div style="font-size: 13px; font-weight: bold; color: #b30000; margin-bottom: 2px; letter-spacing: 0.5px;">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27</div>
+            <div style="display: flex; justify-content: space-between; padding: 0 4px; font-weight: bold; font-size: 10px; margin-bottom: 1px;">
                 <div><span style="color: #b30000;">ಅರ್ಜಿ ಸಂಖ್ಯೆ :</span> <span style="color: #000;">${appNumber}</span></div>
                 <div><span style="color: #b30000;">ಅರ್ಜಿ ದಿನಾಂಕ :</span> <span style="color: #000;">${found.date}</span></div>
                 <div><span style="color: #b30000;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</span> <span style="color: #000;">${data.mobile || '-'}</span></div>
@@ -2138,18 +2138,18 @@ function loadAdminFreeEdu() {
         <table style="width: 100%; border-collapse: collapse; margin-top: 1px; border: 1.5px solid #b30000; background: #fff;">
             <tr>
                 <!-- Left Column -->
-                <td style="width: 50%; border-right: 1.5px solid #b30000; padding: 4px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px; height: 60px;">
+                <td style="width: 50%; border-right: 1.5px solid #b30000; padding: 3px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10px; height: 45px;">
                     <div>ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ :</div>
-                    <div style="margin-top: 20px;">ಪಾಲಕರ ಸಹಿ :</div>
+                    <div style="margin-top: 12px;">ಪಾಲಕರ ಸಹಿ :</div>
                 </td>
                 <!-- Right Column -->
-                <td style="width: 50%; padding: 4px; vertical-align: top; font-size: 10.5px; position: relative;">
+                <td style="width: 50%; padding: 3px; vertical-align: top; font-size: 10px; position: relative;">
                     <!-- Recommendation Header (top-right of the cell) -->
-                    <div style="text-align: right; font-weight: bold; color: #b30000; font-size: 10.5px; margin-bottom: 3px; margin-right: 10px;">
+                    <div style="text-align: right; font-weight: bold; color: #b30000; font-size: 10px; margin-bottom: 2px; margin-right: 10px;">
                         ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ
                     </div>
                     <!-- Checkboxes -->
-                    <div style="display: flex; flex-direction: column; gap: 4px; margin-left: 30px; font-weight: bold; color: #b30000;">
+                    <div style="display: flex; flex-direction: column; gap: 2px; margin-left: 30px; font-weight: bold; color: #b30000;">
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <span>ತಾಲ್ಲೂಕ ಘಟಕ</span>
                             <span style="border: 1.5px solid #b30000; width: 11px; height: 11px; display: inline-block; background-color: #fff;"></span>
@@ -2168,9 +2168,9 @@ function loadAdminFreeEdu() {
         </table>
 
         <!-- Signatures below the box -->
-        <div style="margin-top: 8px; padding: 0 4px; font-weight: bold; color: #b30000; font-size: 11px;">
+        <div style="margin-top: 3px; padding: 0 4px; font-weight: bold; color: #b30000; font-size: 10px;">
             <div>ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ಸಹಿ :</div>
-            <div style="margin-top: 20px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
+            <div style="margin-top: 8px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
     </div>
 </body>
@@ -2205,7 +2205,7 @@ function loadAdminFreeEdu() {
             }
             if (container) {
                 const dynStyle = doc.createElement('style');
-                dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 4mm 8mm; } }`;
+                dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 2mm 6mm; } }`;
                 doc.head.appendChild(dynStyle);
             }
             iframe.style.width = '0';
