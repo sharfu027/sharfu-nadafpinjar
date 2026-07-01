@@ -1271,7 +1271,6 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         .receipt-container {
             max-width: 100%;
-            min-height: 140mm;
             margin: 0;
             border: 4px double ${themeColor};
             padding: 4px;
@@ -1404,7 +1403,7 @@ window.downloadReceiptPdf = function(receiptId) {
             }
             html, body {
                 width: 210mm;
-                height: 148mm;
+                height: auto;
                 margin: 0;
                 padding: 0;
                 overflow: hidden;
@@ -1414,7 +1413,7 @@ window.downloadReceiptPdf = function(receiptId) {
             }
             .receipt-container {
                 width: 210mm;
-                height: 148mm;
+                height: auto;
                 margin: 0 auto;
                 padding: 6px;
                 border: 4px double ${themeColor} !important;
@@ -1910,7 +1909,7 @@ function loadAdminFreeEdu() {
         }
         .receipt-container {
             max-width: 100%;
-            min-height: 275mm;
+            height: auto;
             margin: 0 auto;
             border: 2px solid #b30000;
             padding: 8px;
@@ -2007,9 +2006,6 @@ function loadAdminFreeEdu() {
             html, body {
                 height: auto;
             }
-            html, body {
-                height: auto;
-            }
             body {
                 padding: 0;
                 margin: 0;
@@ -2017,7 +2013,7 @@ function loadAdminFreeEdu() {
             .receipt-container {
                 border: 2px solid #b30000 !important;
                 max-width: 100%;
-                min-height: 275mm;
+                height: auto;
                 box-sizing: border-box;
                 padding: 8px;
                 page-break-inside: avoid;
@@ -2744,7 +2740,7 @@ function loadAdminCensus() {
         }
         .receipt-container {
             max-width: 100%;
-            min-height: 275mm;
+            height: auto;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 4px;
@@ -2940,9 +2936,6 @@ function loadAdminCensus() {
                 padding: 0;
                 overflow: hidden;
             }
-            html, body {
-                height: auto;
-            }
             body {
                 padding: 0;
                 margin: 0;
@@ -2951,7 +2944,7 @@ function loadAdminCensus() {
                 border: 2px double #b30000;
                 width: 100%;
                 max-width: 100%;
-                min-height: 275mm;
+                height: auto;
                 padding: 4px;
                 page-break-after: avoid;
                 page-break-inside: avoid;
@@ -3255,7 +3248,7 @@ function loadAdminEmployees() {
         }
         .receipt-container {
             max-width: 100%;
-            min-height: 275mm;
+            height: auto;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 5px;
@@ -3432,9 +3425,6 @@ function loadAdminEmployees() {
                 padding: 0;
                 overflow: hidden;
             }
-            html, body {
-                height: auto;
-            }
             body {
                 padding: 0;
                 margin: 0;
@@ -3443,7 +3433,7 @@ function loadAdminEmployees() {
                 border: 2px double #b30000;
                 width: 100%;
                 max-width: 100%;
-                min-height: 275mm;
+                height: auto;
                 padding: 10px;
                 box-sizing: border-box;
                 page-break-after: avoid;
