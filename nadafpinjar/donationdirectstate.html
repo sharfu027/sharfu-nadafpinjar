@@ -854,7 +854,6 @@
         }
         .receipt-container {
             max-width: 100%;
-            min-height: 140mm;
             margin: 0;
             border: 4px double ${themeColor};
             padding: 4px;
@@ -862,6 +861,7 @@
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            gap: 10px;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
@@ -981,7 +981,7 @@
             }
             html, body {
                 width: 210mm;
-                height: 148mm;
+                height: auto;
                 margin: 0;
                 padding: 0;
                 overflow: hidden;
@@ -991,14 +991,14 @@
             }
             .receipt-container {
                 width: 210mm;
-                height: 148mm;
-                margin: 0;
+                height: auto;
+                margin: 0 auto;
                 padding: 6px;
                 border: 4px double ${themeColor} !important;
                 box-sizing: border-box;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
+                gap: 10px;
                 page-break-inside: avoid;
                 page-break-after: avoid;
                 background: #fff !important;
