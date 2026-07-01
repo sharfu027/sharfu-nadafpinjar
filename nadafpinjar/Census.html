@@ -1078,7 +1078,7 @@
         }
         .receipt-container {
             max-width: 100%;
-            height: auto;
+            min-height: 275mm;
             margin: 0 auto;
             border: 2px double #b30000;
             padding: 4px;
@@ -1258,6 +1258,17 @@
         .official-empty-space {
             width: 45%;
         }
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .form-container {
+                padding: 15px;
+                margin: 20px auto;
+                max-width: 95%;
+            }
+        }
         @media print {
             @page {
                 size: A4 portrait;
@@ -1273,7 +1284,7 @@
             .receipt-container {
                 border: 2px double #b30000;
                 max-width: 100%;
-                height: auto;
+                min-height: 275mm;
                 box-sizing: border-box;
                 padding: 4px;
                 page-break-inside: avoid;

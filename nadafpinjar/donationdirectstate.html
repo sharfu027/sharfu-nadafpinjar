@@ -173,6 +173,15 @@
             .preview-card.span-4 {
                 grid-column: span 12 !important;
             }
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .form-container {
+                padding: 15px;
+                margin: 20px auto;
+                max-width: 95%;
+            }
         }
         .preview-card-label {
             display: block !important;
@@ -854,6 +863,7 @@
         }
         .receipt-container {
             max-width: 100%;
+            min-height: 140mm;
             margin: 0;
             border: 4px double ${themeColor};
             padding: 4px;
@@ -981,7 +991,7 @@
             }
             html, body {
                 width: 210mm;
-                height: auto;
+                height: 148mm;
                 margin: 0;
                 padding: 0;
                 overflow: hidden;
@@ -991,7 +1001,7 @@
             }
             .receipt-container {
                 width: 210mm;
-                height: auto;
+                height: 148mm;
                 margin: 0 auto;
                 padding: 6px;
                 border: 4px double ${themeColor} !important;
