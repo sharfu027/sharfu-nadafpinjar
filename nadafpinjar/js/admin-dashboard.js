@@ -2001,10 +2001,8 @@ function loadAdminFreeEdu() {
         @media print {
             html, body {
                 height: auto;
-            }
-            body {
-                padding: 3mm 5mm;
                 margin: 0;
+                padding: 0;
             }
             .receipt-container {
                 border: 2px solid #b30000 !important;
@@ -2012,7 +2010,6 @@ function loadAdminFreeEdu() {
                 height: auto;
                 box-sizing: border-box;
                 padding: 5px;
-                page-break-inside: avoid;
                 background-color: #fffdeb !important;
             }
         }
@@ -2193,22 +2190,23 @@ function loadAdminFreeEdu() {
         doc.close();
         
         setTimeout(() => {
-            const container = doc.querySelector('.receipt-container');
-            let pageHmm = 297;
-            if (container) {
-                const contentH = container.offsetHeight;
-                pageHmm = Math.ceil(contentH * 0.2646 + 10);
-            }
-            if (container) {
-                const dynStyle = doc.createElement('style');
-                dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 0; } }`;
-                doc.head.appendChild(dynStyle);
-            }
-            iframe.style.width = '0';
-            iframe.style.height = '0';
+            const fullH = Math.max(
+                doc.body.scrollHeight,
+                doc.body.offsetHeight,
+                doc.documentElement.scrollHeight,
+                doc.documentElement.offsetHeight
+            );
+            const pageHmm = Math.ceil(fullH * 0.2646 + 2);
+            const dynStyle = doc.createElement('style');
+            dynStyle.textContent = `@page { size: 210mm ${pageHmm}mm; margin: 0; }`;
+            doc.head.appendChild(dynStyle);
+            // Force reflow before printing
+            void doc.body.offsetHeight;
             iframe.contentWindow.focus();
             iframe.contentWindow.print();
-        }, 400);
+            // Hide iframe after print dialog opens
+            setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
+        }, 500);
     };
 }
 

@@ -894,10 +894,8 @@
         @media print {
             html, body {
                 height: auto;
-            }
-            body {
-                padding: 3mm 5mm;
                 margin: 0;
+                padding: 0;
             }
             .receipt-container {
                 border: 2px solid #b30000 !important;
@@ -905,7 +903,6 @@
                 height: auto;
                 box-sizing: border-box;
                 padding: 5px;
-                page-break-inside: avoid;
                 background-color: #fffdeb !important;
             }
         }
@@ -1086,17 +1083,19 @@
             doc.close();
             
             setTimeout(() => {
-                const container = doc.querySelector('.receipt-container');
-                let pageHmm = 297;
-                if (container) {
-                    const contentH = container.offsetHeight;
-                    pageHmm = Math.ceil(contentH * 0.2646 + 10);
-                }
+                const fullH = Math.max(
+                    doc.body.scrollHeight,
+                    doc.body.offsetHeight,
+                    doc.documentElement.scrollHeight,
+                    doc.documentElement.offsetHeight
+                );
+                const pageHmm = Math.ceil(fullH * 0.2646 + 2);
                 const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                 if (isMobile) {
                     const script = doc.createElement('script');
                     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
                     script.onload = () => {
+                        const container = doc.querySelector('.receipt-container');
                         const opt = {
                             margin: 0,
                             filename: 'FreeEducation-' + (appNumber || 'Receipt') + '.pdf',
@@ -1108,17 +1107,15 @@
                     };
                     doc.head.appendChild(script);
                 } else {
-                    if (container) {
-                        const dynStyle = doc.createElement('style');
-                        dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 0; } }`;
-                        doc.head.appendChild(dynStyle);
-                    }
-                    iframe.style.width = '0';
-                    iframe.style.height = '0';
+                    const dynStyle = doc.createElement('style');
+                    dynStyle.textContent = `@page { size: 210mm ${pageHmm}mm; margin: 0; }`;
+                    doc.head.appendChild(dynStyle);
+                    void doc.body.offsetHeight;
                     iframe.contentWindow.focus();
                     iframe.contentWindow.print();
+                    setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
                 }
-            }, 400);
+            }, 500);
         }
 
         // Initialize features
