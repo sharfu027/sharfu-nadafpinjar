@@ -1999,15 +1999,11 @@ function loadAdminFreeEdu() {
             font-weight: bold;
         }
         @media print {
-            @page {
-                size: A4 portrait;
-                margin: 2mm 6mm;
-            }
             html, body {
                 height: auto;
             }
             body {
-                padding: 0;
+                padding: 3mm 5mm;
                 margin: 0;
             }
             .receipt-container {
@@ -2201,11 +2197,11 @@ function loadAdminFreeEdu() {
             let pageHmm = 297;
             if (container) {
                 const contentH = container.offsetHeight;
-                pageHmm = Math.ceil(contentH * 0.2646 + 5);
+                pageHmm = Math.ceil(contentH * 0.2646 + 10);
             }
             if (container) {
                 const dynStyle = doc.createElement('style');
-                dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 2mm 6mm; } }`;
+                dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 0; } }`;
                 doc.head.appendChild(dynStyle);
             }
             iframe.style.width = '0';
