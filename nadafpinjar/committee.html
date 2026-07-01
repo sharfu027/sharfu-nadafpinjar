@@ -533,18 +533,11 @@
         const urlParams = new URLSearchParams(window.location.search);
         const type = urlParams.get('type') || 'working';
 
-        // Self-correcting cache logic: clear local storage if previous version had swapped lists
-        if (localStorage.getItem('working_committee')) {
-            const stored = JSON.parse(localStorage.getItem('working_committee'));
-            if (stored.length > 150) { // Should be 96, if >150 it was incorrectly General Committee
-                localStorage.removeItem('working_committee');
-            }
-        }
-        if (localStorage.getItem('general_committee')) {
-            const stored = JSON.parse(localStorage.getItem('general_committee'));
-            if (stored.length < 150) { // Should be 433/434, if <150 it was incorrectly Working Committee
-                localStorage.removeItem('general_committee');
-            }
+        // Force migration cache reset if version is not v2
+        if (localStorage.getItem('committee_data_version') !== 'v2') {
+            localStorage.removeItem('working_committee');
+            localStorage.removeItem('general_committee');
+            localStorage.setItem('committee_data_version', 'v2');
         }
 
         // Standard mapping:
