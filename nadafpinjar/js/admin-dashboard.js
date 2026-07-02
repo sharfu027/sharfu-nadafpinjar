@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v17') {
+if (localStorage.getItem('receipts_version') !== 'v18') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v17');
+    localStorage.setItem('receipts_version', 'v18');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1725,40 +1725,43 @@ function loadAdminFreeEdu() {
         }
         .receipt-container {
             max-width: 100%;
-            height: auto;
+            min-height: 282mm;
             margin: 0 auto;
             border: 2px solid #b30000;
             padding: 5px;
             background: #fffdeb;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
         .header-table {
             width: 100%;
             border-collapse: collapse;
-            border: 2px solid #b30000;
+            border: 3.5px double #b30000;
             background-color: #fffdeb;
             margin-bottom: 2px;
         }
         .header-table td {
-            padding: 2px 4px;
+            padding: 3px 4px;
             vertical-align: middle;
         }
         .header-photo {
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            border: 1.5px solid #b30000;
+            border: 2px solid #b30000;
             object-fit: cover;
             display: block;
             margin: 0 auto;
         }
         .header-logo {
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            border: 1.5px solid #b30000;
+            border: 2px solid #b30000;
             object-fit: cover;
             display: block;
             margin: 0 auto;
@@ -1768,7 +1771,7 @@ function loadAdminFreeEdu() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 16px;
+            font-size: 18px;
             margin: 0;
             font-weight: bold;
             white-space: nowrap;
@@ -1825,7 +1828,7 @@ function loadAdminFreeEdu() {
             .receipt-container {
                 border: 2px solid #b30000 !important;
                 max-width: 100%;
-                height: auto !important;
+                min-height: 282mm !important;
                 box-sizing: border-box;
                 padding: 5px;
                 background-color: #fffdeb !important;
@@ -1943,9 +1946,9 @@ function loadAdminFreeEdu() {
         </table>
 
         <!-- Signatures & Recommendation Section -->
-        <table style="width: 100%; border-collapse: collapse; margin-top: 2px; border: 1.2px solid #b30000; background: #fff;">
+        <table style="width: 100%; border-collapse: collapse; margin-top: 2px; border: 1.2px solid #b30000; background: #fff; flex-grow: 1;">
             <tr>
-                <td style="width: 50%; border-right: 1.2px solid #b30000; padding: 6px 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px; height: 35px;">
+                <td style="width: 50%; border-right: 1.2px solid #b30000; padding: 6px 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px; height: 40px;">
                     ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ
                 </td>
                 <td style="width: 50%; padding: 6px 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px;">
@@ -1958,31 +1961,31 @@ function loadAdminFreeEdu() {
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 10.5px; height: 28px; vertical-align: middle;">
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 8px; font-weight: bold; color: #b30000; font-size: 10.5px; height: 52px; vertical-align: top;">
                     <span>ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರು:</span>
                     <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; margin-left: 8px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 10.5px; height: 28px; vertical-align: middle;">
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 8px; font-weight: bold; color: #b30000; font-size: 10.5px; height: 52px; vertical-align: top;">
                     <span>ಜಿಲ್ಲಾ_ ಅಧ್ಯಕ್ಷರು:</span>
                     <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; margin-left: 8px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 10.5px; height: 28px; vertical-align: middle;">
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 8px; font-weight: bold; color: #b30000; font-size: 10.5px; height: 52px; vertical-align: top;">
                     <span>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</span>
                     <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; margin-left: 8px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 10.5px; height: 28px; vertical-align: middle;">
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 8px; font-weight: bold; color: #b30000; font-size: 10.5px; height: 52px; vertical-align: top;">
                     <span>ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ</span>
                     <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; margin-left: 8px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 10.5px; height: 28px; vertical-align: middle;">
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 8px; font-weight: bold; color: #b30000; font-size: 10.5px; height: 52px; vertical-align: top;">
                     <span>ರಾಜ್ಯ ಘಟಕ</span>
                     <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; margin-left: 8px; vertical-align: middle; background-color: #fff;"></span>
                 </td>
