@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 const BASE_DIR = path.join(__dirname, 'nadafpinjar');
 
 // MongoDB Connection
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://rakesh_rk:Rakesh2005@faceauth.jvni6bv.mongodb.net/?appName=faceauth';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://rakesh_rk:Rakesh2005@faceauth.jvni6bv.mongodb.net/nadaf_census?appName=faceauth';
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('\n✅ MongoDB Connected successfully'))
