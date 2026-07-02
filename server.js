@@ -130,7 +130,7 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`\n🚀 Server is running!`);
+  console.log(`\n🚀 Server is running on port ${PORT}!`);
   console.log(`\n📂 Serving files from: ${BASE_DIR}`);
   console.log(`\n🛑 Press Ctrl+C to stop the server\n`);
 });
