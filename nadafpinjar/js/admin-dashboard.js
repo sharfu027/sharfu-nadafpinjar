@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v11') {
+if (localStorage.getItem('receipts_version') !== 'v12') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v11');
+    localStorage.setItem('receipts_version', 'v12');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1284,7 +1284,7 @@ window.downloadReceiptPdf = function(receiptId) {
             ${fieldsHTML}
 
             <tr style="border-top: 2px solid ${themeColor};">
-                <td class="grid-cell" style="width: 35%; border-bottom: none; vertical-align: top; padding: 10px 12px;">
+                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 10px 12px;">
                     <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
                         <span class="field-value" style="font-size: 15px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(found.amount)}</span>
@@ -1302,7 +1302,7 @@ window.downloadReceiptPdf = function(receiptId) {
                         <span class="field-value">${details.purposeDetails || ""}</span>
                     </div>
                 </td>
-                <td class="grid-cell center-align" style="width: 30%; border-bottom: none; vertical-align: top; padding: 10px 12px;">
+                <td class="grid-cell center-align" style="width: 30%; border-bottom: none !important; vertical-align: top; padding: 10px 12px;">
                     <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
                         <span class="field-value">${details.mode || found.mode}</span>
@@ -1311,7 +1311,7 @@ window.downloadReceiptPdf = function(receiptId) {
                         <img src="images/seal.jpg" class="seal-img">
                     </div>
                 </td>
-                <td class="grid-cell" style="width: 35%; border-bottom: none; vertical-align: top; padding: 10px 12px;">
+                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 10px 12px;">
                     <div style="text-align: center; width: 180px; margin: 4px auto 0 auto;">
                         <div style="font-size: 12px; font-weight: bold; color: ${themeColor}; margin-bottom: 4px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
                         <img src="images/sig.jpg" class="sig-img" style="margin-bottom: 2px;">
@@ -1323,11 +1323,11 @@ window.downloadReceiptPdf = function(receiptId) {
             </tr>
 
             <tr class="bottom-serial-row">
-                <td class="grid-cell" colspan="2" style="border-top: 2px solid ${themeColor}; padding: 5px 10px;">
+                <td class="grid-cell" colspan="2" style="border-top: none !important; padding: 5px 10px;">
                     <span class="field-label" style="font-size: 12px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
                     <span class="field-value" style="font-size: 12px; color: ${themeColor};">KRNPS-2026-27-${serialNoVal}</span>
                 </td>
-                <td class="grid-cell right-align" style="border-top: 2px solid ${themeColor}; padding: 5px 20px 5px 10px; font-weight: bold; color: ${themeColor}; font-size: 12px;">
+                <td class="grid-cell right-align" style="border-top: none !important; padding: 5px 20px 5px 10px; font-weight: bold; color: ${themeColor}; font-size: 12px;">
                     ಅಧಿಕೃತ ಸಹಿ
                 </td>
             </tr>

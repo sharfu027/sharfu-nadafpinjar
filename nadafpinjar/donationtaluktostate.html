@@ -1145,7 +1145,7 @@
             </tr>
 
             <tr style="border-top: 2px solid ${themeColor};">
-                <td class="grid-cell" style="width: 35%; border-bottom: none; vertical-align: top; padding: 10px 12px;">
+                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 10px 12px;">
                     <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
                         <span class="field-value" style="font-size: 15px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(data.amount)}</span>
@@ -1163,7 +1163,7 @@
                         <span class="field-value">${data.purposeDetails || ""}</span>
                     </div>
                 </td>
-                <td class="grid-cell center-align" style="width: 30%; border-bottom: none; vertical-align: top; padding: 10px 12px;">
+                <td class="grid-cell center-align" style="width: 30%; border-bottom: none !important; vertical-align: top; padding: 10px 12px;">
                     <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
                         <span class="field-value">${data.paymentMode || "Cash"}</span>
@@ -1172,7 +1172,7 @@
                         <img src="images/seal.jpg" class="seal-img">
                     </div>
                 </td>
-                <td class="grid-cell" style="width: 35%; border-bottom: none; vertical-align: top; padding: 10px 12px;">
+                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 10px 12px;">
                     <div style="text-align: center; width: 180px; margin: 4px auto 0 auto;">
                         <div style="font-size: 12px; font-weight: bold; color: ${themeColor}; margin-bottom: 4px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
                         <img src="images/sig.jpg" class="sig-img" style="margin-bottom: 2px;">
@@ -1184,11 +1184,11 @@
             </tr>
 
             <tr class="bottom-serial-row">
-                <td class="grid-cell" colspan="2" style="border-top: 2px solid ${themeColor}; padding-top: 2.5px;">
-                    <span class="field-label" style="font-size: 8px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
-                    <span class="field-value" style="font-size: 8px; color: ${themeColor};">KRNPS-2026-27-${paymentId ? paymentId.slice(-4).toUpperCase() : 'PENDING'}</span>
+                <td class="grid-cell" colspan="2" style="border-top: none !important; padding: 5px 10px;">
+                    <span class="field-label" style="font-size: 12px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
+                    <span class="field-value" style="font-size: 12px; color: ${themeColor};">KRNPS-2026-27-${paymentId ? paymentId.slice(-4).toUpperCase() : 'PENDING'}</span>
                 </td>
-                <td class="grid-cell right-align" style="border-top: 2px solid ${themeColor}; padding-top: 2.5px; font-weight: bold; padding-right: 20px; color: ${themeColor}; font-size: 8px;">
+                <td class="grid-cell right-align" style="border-top: none !important; padding: 5px 20px 5px 10px; font-weight: bold; color: ${themeColor}; font-size: 12px;">
                     ಅಧಿಕೃತ ಸಹಿ
                 </td>
             </tr>
