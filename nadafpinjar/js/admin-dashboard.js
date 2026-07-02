@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v14') {
+if (localStorage.getItem('receipts_version') !== 'v15') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v14');
+    localStorage.setItem('receipts_version', 'v15');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1711,7 +1711,7 @@ function loadAdminFreeEdu() {
     <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
     <style>
         html, body {
-            height: 100%;
+            height: auto;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -1725,7 +1725,7 @@ function loadAdminFreeEdu() {
         }
         .receipt-container {
             max-width: 100%;
-            height: 100vh;
+            height: auto;
             margin: 0 auto;
             border: 2px solid #b30000;
             padding: 5px;
@@ -1820,14 +1820,14 @@ function loadAdminFreeEdu() {
         }
         @media print {
             html, body {
-                height: 100%;
+                height: auto;
                 margin: 0;
                 padding: 0;
             }
             .receipt-container {
                 border: 2px solid #b30000 !important;
                 max-width: 100%;
-                height: 100vh;
+                height: auto !important;
                 box-sizing: border-box;
                 padding: 5px;
                 background-color: #fffdeb !important;
@@ -1946,40 +1946,61 @@ function loadAdminFreeEdu() {
         </table>
 
         <!-- Signatures & Recommendation Section -->
-        <table style="width: 100%; border-collapse: collapse; margin-top: 1px; border: 1.5px solid #b30000; background: #fff;">
+        <table style="width: 100%; border-collapse: collapse; margin-top: 2px; border: 1.2px solid #b30000; background: #fff;">
             <tr>
-                <td style="width: 50%; border-right: 1.5px solid #b30000; padding: 5px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10px; height: 30px;">
+                <td style="width: 50%; border-right: 1.2px solid #b30000; padding: 6px 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 11px; height: 35px;">
                     ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ
                 </td>
-                <td style="width: 50%; padding: 5px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10px; text-align: right;">
-                    ಪಾಲಕರ/ ಪಾಲಕರ ಸಹಿ
+                <td style="width: 50%; padding: 6px 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 11px;">
+                    ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 5px 8px; font-weight: bold; color: #b30000; font-size: 10px; line-height: 1.4;">
+                    ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:________________ ಮಾಹಿತಿಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 28px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರು:</span>
+                        <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; background-color: #fff;"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 28px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>ಜಿಲ್ಲಾ_ ಅಧ್ಯಕ್ಷರು:</span>
+                        <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; background-color: #fff;"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 28px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</span>
+                        <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; background-color: #fff;"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 28px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ</span>
+                        <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; background-color: #fff;"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 28px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>ರಾಜ್ಯ ಘಟಕ</span>
+                        <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; background-color: #fff;"></span>
+                    </div>
                 </td>
             </tr>
         </table>
-
-        <div style="flex-grow: 1; padding: 4px; font-weight: bold; color: #b30000; font-size: 9px;">
-            <div style="margin-top: 3px; line-height: 1.4;">
-                ಸಂಬಂಧಪಟ್ಟ, ಪಾಲಕರ ದಿನಾಂಕ:________________ ಮಾಹಿತಿಹೊಂದಿರು ಅರ್ಜಿ ಶಿಫಾರಿಲೇಶಿಫಾರಸ್ಸು, ಮಾಡಲಾಗಿದೆ
-            </div>
-
-            <div style="margin-top: 15px; font-size: 10px;">
-                <div>ತಾಲ್ಲೂಕ ಅಧ್ಯಕ್ಷರು</div>
-            </div>
-
-            <div style="margin-top: 20px; font-size: 10px;">
-                <div>ಜಿಲ್ಲಾ_ ಅಧ್ಯಕ್ಷರು:</div>
-                <div style="margin-top: 5px; margin-left: 10px;"><span style="border: 1.5px solid #b30000; width: 11px; height: 11px; display: inline-block; background-color: #fff;"></span></div>
-            </div>
-
-            <div style="margin-top: 20px; font-size: 10px;">
-                <div>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು <span style="border: 1.5px solid #b30000; width: 11px; height: 11px; display: inline-block; background-color: #fff;"></span></div>
-                <div style="margin-top: 5px;">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ <span style="border: 1.5px solid #b30000; width: 11px; height: 11px; display: inline-block; background-color: #fff;"></span></div>
-            </div>
-
-            <div style="margin-top: 20px; font-size: 10px;">
-                <div>ರಾಜ್ಯ ಘಟಕ</div>
-            </div>
-        </div>
     </div>
 </body>
 </html>`;
