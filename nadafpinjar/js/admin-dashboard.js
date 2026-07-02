@@ -45,8 +45,8 @@ const defaultReceipts = [
             presidentAddress: "asdas",
             presidentMobile: "23423",
             presidentVillage: "asdas",
-            presidentDistrict: "",
-            presidentTaluk: "",
+            presidentDistrict: "ಹಾವೇರಿ",
+            presidentTaluk: "ಶಿಗಾವಿ",
             purpose: "ಕಾರ್ಯಕ್ರಮ ದೇಣಿಗೆ",
             purposeDetails: "asdasa",
             amount: "123211.00",
@@ -74,8 +74,8 @@ const defaultReceipts = [
             presidentAddress: "asdas",
             presidentMobile: "242343",
             presidentVillage: "asdas",
-            presidentDistrict: "",
-            presidentTaluk: "",
+            presidentDistrict: "ಚಿತ್ರದುರ್ಗ",
+            presidentTaluk: "ಚಳ್ಳಕೆರೆ",
             purpose: "ರುಕಾತ್",
             purposeDetails: "retee",
             amount: "1000.00",
@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v7') {
+if (localStorage.getItem('receipts_version') !== 'v8') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v7');
+    localStorage.setItem('receipts_version', 'v8');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
