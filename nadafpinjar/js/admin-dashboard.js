@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v13') {
+if (localStorage.getItem('receipts_version') !== 'v14') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v13');
+    localStorage.setItem('receipts_version', 'v14');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1725,7 +1725,7 @@ function loadAdminFreeEdu() {
         }
         .receipt-container {
             max-width: 100%;
-            min-height: 297mm;
+            height: 100vh;
             margin: 0 auto;
             border: 2px solid #b30000;
             padding: 5px;
@@ -1827,7 +1827,7 @@ function loadAdminFreeEdu() {
             .receipt-container {
                 border: 2px solid #b30000 !important;
                 max-width: 100%;
-                min-height: 297mm;
+                height: 100vh;
                 box-sizing: border-box;
                 padding: 5px;
                 background-color: #fffdeb !important;
@@ -1957,16 +1957,28 @@ function loadAdminFreeEdu() {
             </tr>
         </table>
 
-        <div style="margin-top: 3px; padding: 2px 4px; font-weight: bold; color: #b30000; font-size: 9px; line-height: 1.4;">
-            ಸಂಬಂಧಪಟ್ಟ, ಪಾಲಕರ ದಿನಾಂಕ:__________ ಮಾಹಿತಿಹೊಂದಿರು ಅರ್ಜಿ ಶಿಫಾರಿಲೇಶಿಫಾರಸ್ಸು, ಮಾಡಲಾಗಿದೆ
-        </div>
+        <div style="flex-grow: 1; padding: 4px; font-weight: bold; color: #b30000; font-size: 9px;">
+            <div style="margin-top: 3px; line-height: 1.4;">
+                ಸಂಬಂಧಪಟ್ಟ, ಪಾಲಕರ ದಿನಾಂಕ:________________ ಮಾಹಿತಿಹೊಂದಿರು ಅರ್ಜಿ ಶಿಫಾರಿಲೇಶಿಫಾರಸ್ಸು, ಮಾಡಲಾಗಿದೆ
+            </div>
 
-        <div style="margin-top: 5px; padding: 0 4px; font-weight: bold; color: #b30000; font-size: 10px;">
-            <div>ತಾಲ್ಲೂಕ ಅಧ್ಯಕ್ಷರು</div>
-            <div style="margin-top: 10px;">ಜಿಲ್ಲಾ_ ಅಧ್ಯಕ್ಷರು <span style="border: 1.5px solid #b30000; width: 11px; height: 11px; display: inline-block; background-color: #fff;"></span></div>
-            <div style="margin-top: 15px;">ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು <span style="border: 1.5px solid #b30000; width: 11px; height: 11px; display: inline-block; background-color: #fff;"></span></div>
-            <div style="margin-top: 10px;">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ <span style="border: 1.5px solid #b30000; width: 11px; height: 11px; display: inline-block; background-color: #fff;"></span></div>
-            <div style="margin-top: 15px;">ರಾಜ್ಯ ಘಟಕ</div>
+            <div style="margin-top: 15px; font-size: 10px;">
+                <div>ತಾಲ್ಲೂಕ ಅಧ್ಯಕ್ಷರು</div>
+            </div>
+
+            <div style="margin-top: 20px; font-size: 10px;">
+                <div>ಜಿಲ್ಲಾ_ ಅಧ್ಯಕ್ಷರು:</div>
+                <div style="margin-top: 5px; margin-left: 10px;"><span style="border: 1.5px solid #b30000; width: 11px; height: 11px; display: inline-block; background-color: #fff;"></span></div>
+            </div>
+
+            <div style="margin-top: 20px; font-size: 10px;">
+                <div>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು <span style="border: 1.5px solid #b30000; width: 11px; height: 11px; display: inline-block; background-color: #fff;"></span></div>
+                <div style="margin-top: 5px;">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ <span style="border: 1.5px solid #b30000; width: 11px; height: 11px; display: inline-block; background-color: #fff;"></span></div>
+            </div>
+
+            <div style="margin-top: 20px; font-size: 10px;">
+                <div>ರಾಜ್ಯ ಘಟಕ</div>
+            </div>
         </div>
     </div>
 </body>
