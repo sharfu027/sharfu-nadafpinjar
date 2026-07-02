@@ -1711,7 +1711,7 @@ function loadAdminFreeEdu() {
     <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
     <style>
         html, body {
-            height: auto;
+            height: 100%;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -1725,7 +1725,7 @@ function loadAdminFreeEdu() {
         }
         .receipt-container {
             max-width: 100%;
-            height: auto;
+            min-height: 297mm;
             margin: 0 auto;
             border: 2px solid #b30000;
             padding: 5px;
@@ -1820,14 +1820,14 @@ function loadAdminFreeEdu() {
         }
         @media print {
             html, body {
-                height: auto;
+                height: 100%;
                 margin: 0;
                 padding: 0;
             }
             .receipt-container {
                 border: 2px solid #b30000 !important;
                 max-width: 100%;
-                height: auto;
+                min-height: 297mm;
                 box-sizing: border-box;
                 padding: 5px;
                 background-color: #fffdeb !important;
