@@ -1031,221 +1031,52 @@ window.downloadReceiptPdf = function(receiptId) {
     // Determine colors, subheader titles and layout fields based on the source category
     let themeColor = "#b30000"; // Red for State Direct
     let subheaderTitle = "ನೇರವಾಗಿ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
-    let fieldsHTML = "";
 
     const fromStr = (found.from || "").toLowerCase();
     if (fromStr.includes("district")) {
         themeColor = "#0033cc"; // Blue for District
         subheaderTitle = "ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
-        fieldsHTML = `
-            <!-- District President Info Row -->
-            <tr style="background-color: #f8fafc;">
-                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 10px;">
-                    ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ
-                </td>
-            </tr>
-            <tr>
-                <td class="grid-cell" style="border-bottom: none; border-top: none; width: 33%;">
-                    <span class="field-label">ಹೆಸರು:</span>
-                    <span class="field-value">${details.presidentName || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-bottom: none; border-top: none; width: 33%;">
-                    <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
-                    <span class="field-value">${details.presidentVillage || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-bottom: none; border-top: none; width: 34%;">
-                    <span class="field-label">ಮೊಬೈಲ್:</span>
-                    <span class="field-value">${details.presidentMobile || ""}</span>
-                </td>
-            </tr>
-            <tr style="border-bottom: 2px solid ${themeColor};">
-                <td class="grid-cell" colspan="2" style="border-top: none;">
-                    <span class="field-label">ವಿಳಾಸ:</span>
-                    <span class="field-value">${details.presidentAddress || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-top: none;">
-                    <div style="margin-bottom: 2px;">
-                        <span class="field-label">ತಾಲೂಕು:</span>
-                        <span class="field-value">${details.presidentTaluk || ""}</span>
-                    </div>
-                    <div style="margin-bottom: 2px;">
-                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
-                        <span class="field-value">${details.presidentDistrict || ""}</span>
-                    </div>
-                    <div>
-                        <span class="field-label">ರಾಜ್ಯ:</span>
-                        <span class="field-value">ಕರ್ನಾಟಕ</span>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- On Behalf Of Info Row -->
-            <tr style="background-color: #f8fafc;">
-                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 10px;">
-                    ಯಾರ ಪರವಾಗಿ:
-                </td>
-            </tr>
-            <tr>
-                <td class="grid-cell" style="border-bottom: none; border-top: none;">
-                    <span class="field-label">ಹೆಸರು:</span>
-                    <span class="field-value" style="font-weight: bold; color: ${themeColor};">${details.fullName || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-bottom: none; border-top: none;">
-                    <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
-                    <span class="field-value">${details.village || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-bottom: none; border-top: none;">
-                    <span class="field-label">ಮೊಬೈಲ್:</span>
-                    <span class="field-value">${details.mobile || ""}</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="grid-cell" colspan="2" style="border-top: none;">
-                    <span class="field-label">ವಿಳಾಸ:</span>
-                    <span class="field-value">${details.address || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-top: none;">
-                    <div style="margin-bottom: 2px;">
-                        <span class="field-label">ತಾಲೂಕು:</span>
-                        <span class="field-value">${details.taluk || ""}</span>
-                    </div>
-                    <div style="margin-bottom: 2px;">
-                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
-                        <span class="field-value">${details.district || ""}</span>
-                    </div>
-                    <div>
-                        <span class="field-label">ರಾಜ್ಯ:</span>
-                        <span class="field-value">ಕರ್ನಾಟಕ</span>
-                    </div>
-                </td>
-            </tr>
-        `;
     } else if (fromStr.includes("taluk")) {
         themeColor = "#006600"; // Green for Taluk
         subheaderTitle = "ತಾಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
-        fieldsHTML = `
-            <!-- Taluk President Info Row -->
-            <tr style="background-color: #f8fafc;">
-                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 10px;">
-                    ತಾಲೂಕು ಅಧ್ಯಕ್ಷರ
-                </td>
-            </tr>
-            <tr>
-                <td class="grid-cell" style="border-bottom: none; border-top: none; width: 33%;">
-                    <span class="field-label">ಹೆಸರು:</span>
-                    <span class="field-value">${details.presidentName || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-bottom: none; border-top: none; width: 33%;">
-                    <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
-                    <span class="field-value">${details.presidentVillage || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-bottom: none; border-top: none; width: 34%;">
-                    <span class="field-label">ಮೊಬೈಲ್:</span>
-                    <span class="field-value">${details.presidentMobile || ""}</span>
-                </td>
-            </tr>
-            <tr style="border-bottom: 2px solid ${themeColor};">
-                <td class="grid-cell" colspan="2" style="border-top: none;">
-                    <span class="field-label">ವಿಳಾಸ:</span>
-                    <span class="field-value">${details.presidentAddress || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-top: none;">
-                    <div style="margin-bottom: 2px;">
-                        <span class="field-label">ತಾಲೂಕು:</span>
-                        <span class="field-value">${details.presidentTaluk || ""}</span>
-                    </div>
-                    <div style="margin-bottom: 2px;">
-                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
-                        <span class="field-value">${details.presidentDistrict || ""}</span>
-                    </div>
-                    <div>
-                        <span class="field-label">ರಾಜ್ಯ:</span>
-                        <span class="field-value">ಕರ್ನಾಟಕ</span>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- On Behalf Of Info Row -->
-            <tr style="background-color: #f8fafc;">
-                <td class="grid-cell" colspan="3" style="font-weight: bold; border-bottom: none; text-decoration: underline; color: ${themeColor}; font-size: 10px;">
-                    ಯಾರ ಪರವಾಗಿ:
-                </td>
-            </tr>
-            <tr>
-                <td class="grid-cell" style="border-bottom: none; border-top: none;">
-                    <span class="field-label">ಹೆಸರು:</span>
-                    <span class="field-value" style="font-weight: bold; color: ${themeColor};">${details.fullName || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-bottom: none; border-top: none;">
-                    <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
-                    <span class="field-value">${details.village || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-bottom: none; border-top: none;">
-                    <span class="field-label">ಮೊಬೈಲ್:</span>
-                    <span class="field-value">${details.mobile || ""}</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="grid-cell" colspan="2" style="border-top: none;">
-                    <span class="field-label">ವಿಳಾಸ:</span>
-                    <span class="field-value">${details.address || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-top: none;">
-                    <div style="margin-bottom: 2px;">
-                        <span class="field-label">ತಾಲೂಕು:</span>
-                        <span class="field-value">${details.taluk || ""}</span>
-                    </div>
-                    <div style="margin-bottom: 2px;">
-                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
-                        <span class="field-value">${details.district || ""}</span>
-                    </div>
-                    <div>
-                        <span class="field-label">ರಾಜ್ಯ:</span>
-                        <span class="field-value">ಕರ್ನಾಟಕ</span>
-                    </div>
-                </td>
-            </tr>
-        `;
-    } else {
-        themeColor = "#b30000"; // Red for State Direct
-        subheaderTitle = "ನೇರವಾಗಿ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
-        fieldsHTML = `
-            <tr>
-                <td class="grid-cell" style="border-bottom: none; width: 33%;">
-                    <span class="field-label">ಹೆಸರು:</span>
-                    <span class="field-value" style="font-weight: bold; color: ${themeColor};">${details.fullName || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-bottom: none; width: 33%;">
-                    <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
-                    <span class="field-value">${details.village || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-bottom: none; width: 34%;">
-                    <span class="field-label">ಮೊಬೈಲ್:</span>
-                    <span class="field-value">${details.mobile || ""}</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="grid-cell" colspan="2" style="border-top: none;">
-                    <span class="field-label">ವಿಳಾಸ:</span>
-                    <span class="field-value">${details.address || ""}</span>
-                </td>
-                <td class="grid-cell" style="border-top: none;">
-                    <div style="margin-bottom: 2px;">
-                        <span class="field-label">ತಾಲೂಕು:</span>
-                        <span class="field-value">${details.taluk || ""}</span>
-                    </div>
-                    <div style="margin-bottom: 2px;">
-                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
-                        <span class="field-value">${details.district || ""}</span>
-                    </div>
-                    <div>
-                        <span class="field-label">ರಾಜ್ಯ:</span>
-                        <span class="field-value">ಕರ್ನಾಟಕ</span>
-                    </div>
-                </td>
-            </tr>
-        `;
     }
+
+    let fieldsHTML = `
+        <tr>
+            <td class="grid-cell" style="border-bottom: none; width: 33%;">
+                <span class="field-label">ಹೆಸರು:</span>
+                <span class="field-value" style="font-weight: bold; color: ${themeColor};">${details.fullName || ""}</span>
+            </td>
+            <td class="grid-cell" style="border-bottom: none; width: 33%;">
+                <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
+                <span class="field-value">${details.village || ""}</span>
+            </td>
+            <td class="grid-cell" style="border-bottom: none; width: 34%;">
+                <span class="field-label">ಮೊಬೈಲ್:</span>
+                <span class="field-value">${details.mobile || ""}</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="grid-cell" colspan="2" style="border-top: none;">
+                <span class="field-label">ವಿಳಾಸ:</span>
+                <span class="field-value">${details.address || ""}</span>
+            </td>
+            <td class="grid-cell" style="border-top: none;">
+                <div style="margin-bottom: 2px;">
+                    <span class="field-label">ತಾಲೂಕು:</span>
+                    <span class="field-value">${details.taluk || ""}</span>
+                </div>
+                <div style="margin-bottom: 2px;">
+                    <span class="field-label">ಜಿಲ್ಲೆ:</span>
+                    <span class="field-value">${details.district || ""}</span>
+                </div>
+                <div>
+                    <span class="field-label">ರಾಜ್ಯ:</span>
+                    <span class="field-value">ಕರ್ನಾಟಕ</span>
+                </div>
+            </td>
+        </tr>
+    `;
 
     const printHTML = `<!DOCTYPE html>
 <html>
