@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v15') {
+if (localStorage.getItem('receipts_version') !== 'v16') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v15');
+    localStorage.setItem('receipts_version', 'v16');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1725,7 +1725,7 @@ function loadAdminFreeEdu() {
         }
         .receipt-container {
             max-width: 100%;
-            height: auto;
+            min-height: 282mm;
             margin: 0 auto;
             border: 2px solid #b30000;
             padding: 5px;
@@ -1733,6 +1733,7 @@ function loadAdminFreeEdu() {
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
@@ -1827,10 +1828,13 @@ function loadAdminFreeEdu() {
             .receipt-container {
                 border: 2px solid #b30000 !important;
                 max-width: 100%;
-                height: auto !important;
+                min-height: 282mm !important;
                 box-sizing: border-box;
                 padding: 5px;
                 background-color: #fffdeb !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
             }
         }
     </style>
@@ -1948,55 +1952,55 @@ function loadAdminFreeEdu() {
         <!-- Signatures & Recommendation Section -->
         <table style="width: 100%; border-collapse: collapse; margin-top: 2px; border: 1.2px solid #b30000; background: #fff;">
             <tr>
-                <td style="width: 50%; border-right: 1.2px solid #b30000; padding: 6px 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 11px; height: 35px;">
+                <td style="width: 50%; border-right: 1.2px solid #b30000; padding: 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 11px; height: 45px;">
                     ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ
                 </td>
-                <td style="width: 50%; padding: 6px 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 11px;">
+                <td style="width: 50%; padding: 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 11px;">
                     ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 5px 8px; font-weight: bold; color: #b30000; font-size: 10px; line-height: 1.4;">
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 10px; line-height: 1.4;">
                     ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:________________ ಮಾಹಿತಿಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 28px;">
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 10px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 38px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span>ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರು:</span>
-                        <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; background-color: #fff;"></span>
+                        <span style="border: 1.5px solid #b30000; width: 15px; height: 15px; display: inline-block; background-color: #fff;"></span>
                     </div>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 28px;">
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 10px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 38px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span>ಜಿಲ್ಲಾ_ ಅಧ್ಯಕ್ಷರು:</span>
-                        <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; background-color: #fff;"></span>
+                        <span style="border: 1.5px solid #b30000; width: 15px; height: 15px; display: inline-block; background-color: #fff;"></span>
                     </div>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 28px;">
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 10px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 38px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</span>
-                        <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; background-color: #fff;"></span>
+                        <span style="border: 1.5px solid #b30000; width: 15px; height: 15px; display: inline-block; background-color: #fff;"></span>
                     </div>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 28px;">
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 10px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 38px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span>ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ</span>
-                        <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; background-color: #fff;"></span>
+                        <span style="border: 1.5px solid #b30000; width: 15px; height: 15px; display: inline-block; background-color: #fff;"></span>
                     </div>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 6px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 28px;">
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 10px 8px; font-weight: bold; color: #b30000; font-size: 11px; height: 38px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span>ರಾಜ್ಯ ಘಟಕ</span>
-                        <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; background-color: #fff;"></span>
+                        <span style="border: 1.5px solid #b30000; width: 15px; height: 15px; display: inline-block; background-color: #fff;"></span>
                     </div>
                 </td>
             </tr>
