@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v10') {
+if (localStorage.getItem('receipts_version') !== 'v11') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v10');
+    localStorage.setItem('receipts_version', 'v11');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1043,30 +1043,30 @@ window.downloadReceiptPdf = function(receiptId) {
 
     let fieldsHTML = `
         <tr>
-            <td class="grid-cell" style="border-bottom: none; width: 33%;">
+            <td class="grid-cell" style="width: 33%;">
                 <span class="field-label">ಹೆಸರು:</span>
                 <span class="field-value" style="font-weight: bold; color: ${themeColor};">${details.fullName || ""}</span>
             </td>
-            <td class="grid-cell" style="border-bottom: none; width: 33%;">
-                <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
-                <span class="field-value">${details.village || ""}</span>
+            <td class="grid-cell" style="width: 33%;">
+                <div style="margin-bottom: 8px;">
+                    <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
+                    <span class="field-value">${details.village || ""}</span>
+                </div>
+                <div>
+                    <span class="field-label">ವಿಳಾಸ:</span>
+                    <span class="field-value">${details.address || ""}</span>
+                </div>
             </td>
-            <td class="grid-cell" style="border-bottom: none; width: 34%;">
-                <span class="field-label">ಮೊಬೈಲ್:</span>
-                <span class="field-value">${details.mobile || ""}</span>
-            </td>
-        </tr>
-        <tr>
-            <td class="grid-cell" colspan="2" style="border-top: none;">
-                <span class="field-label">ವಿಳಾಸ:</span>
-                <span class="field-value">${details.address || ""}</span>
-            </td>
-            <td class="grid-cell" style="border-top: none;">
-                <div style="margin-bottom: 2px;">
+            <td class="grid-cell" style="width: 34%;">
+                <div style="margin-bottom: 4px;">
+                    <span class="field-label">ಮೊಬೈಲ್:</span>
+                    <span class="field-value">${details.mobile || ""}</span>
+                </div>
+                <div style="margin-bottom: 4px;">
                     <span class="field-label">ತಾಲೂಕು:</span>
                     <span class="field-value">${details.taluk || ""}</span>
                 </div>
-                <div style="margin-bottom: 2px;">
+                <div style="margin-bottom: 4px;">
                     <span class="field-label">ಜಿಲ್ಲೆ:</span>
                     <span class="field-value">${details.district || ""}</span>
                 </div>
@@ -1103,7 +1103,7 @@ window.downloadReceiptPdf = function(receiptId) {
         .receipt-container {
             width: 190mm;
             margin: 5mm auto;
-            border: 4px double ${themeColor};
+            border: 2px solid ${themeColor};
             padding: 12px;
             background: #fff;
             box-sizing: border-box;
@@ -1236,7 +1236,7 @@ window.downloadReceiptPdf = function(receiptId) {
                 height: auto;
                 margin: 5mm auto;
                 padding: 12px;
-                border: 4px double ${themeColor} !important;
+                border: 2px solid ${themeColor} !important;
                 box-sizing: border-box;
                 page-break-inside: avoid;
                 page-break-after: avoid;
