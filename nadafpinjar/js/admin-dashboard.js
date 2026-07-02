@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v12') {
+if (localStorage.getItem('receipts_version') !== 'v13') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v12');
+    localStorage.setItem('receipts_version', 'v13');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1066,13 +1066,9 @@ window.downloadReceiptPdf = function(receiptId) {
                     <span class="field-label">ತಾಲೂಕು:</span>
                     <span class="field-value">${details.taluk || ""}</span>
                 </div>
-                <div style="margin-bottom: 4px;">
+                <div>
                     <span class="field-label">ಜಿಲ್ಲೆ:</span>
                     <span class="field-value">${details.district || ""}</span>
-                </div>
-                <div>
-                    <span class="field-label">ರಾಜ್ಯ:</span>
-                    <span class="field-value">ಕರ್ನಾಟಕ</span>
                 </div>
             </td>
         </tr>
