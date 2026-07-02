@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v21') {
+if (localStorage.getItem('receipts_version') !== 'v22') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v21');
+    localStorage.setItem('receipts_version', 'v22');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1725,14 +1725,12 @@ function loadAdminFreeEdu() {
         }
         .receipt-container {
             max-width: 100%;
-            min-height: 282mm;
+            height: auto;
             margin: 0 auto;
             border: 2px solid #b30000;
             padding: 5px;
             background: #fffdeb;
             box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
@@ -1799,10 +1797,10 @@ function loadAdminFreeEdu() {
         }
         .grid-table td {
             border: 1.2px solid #b30000;
-            padding: 3px 5px;
+            padding: 4.5px 6px;
             font-size: 10px;
             vertical-align: middle;
-            line-height: 1.2;
+            line-height: 1.25;
         }
         .grid-label {
             color: #b30000;
@@ -1827,12 +1825,10 @@ function loadAdminFreeEdu() {
             .receipt-container {
                 border: 2px solid #b30000 !important;
                 max-width: 100%;
-                min-height: 282mm !important;
+                height: auto !important;
                 box-sizing: border-box;
                 padding: 5px;
                 background-color: #fffdeb !important;
-                display: flex !important;
-                flex-direction: column !important;
             }
         }
     </style>
@@ -1949,42 +1945,42 @@ function loadAdminFreeEdu() {
         <!-- Signatures & Recommendation Section -->
         <table style="width: 100%; border-collapse: collapse; margin-top: 2px; border: 1.2px solid #b30000; background: #fff;">
             <tr>
-                <td style="width: 50%; border-right: 1.2px solid #b30000; padding: 6px 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px; height: 35px;">
+                <td style="width: 50%; border-right: 1.2px solid #b30000; padding: 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px; height: 45px;">
                     ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ
                 </td>
-                <td style="width: 50%; padding: 6px 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px;">
+                <td style="width: 50%; padding: 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px;">
                     ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ
                 </td>
             </tr>
         </table>
 
-        <div style="border: 1.2px solid #b30000; border-top: none; background: #fff; padding: 12px 14px 15px 14px; font-weight: bold; color: #b30000; font-size: 10.5px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; margin-top: 0; box-sizing: border-box;">
-            <div style="line-height: 1.4;">
+        <div style="border: 1.2px solid #b30000; border-top: none; background: #fff; padding: 10px 14px; font-weight: bold; color: #b30000; font-size: 10.5px; margin-top: 0; box-sizing: border-box;">
+            <div style="line-height: 1.4; margin-bottom: 20px;">
                 ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:________________ ಮಾಹಿತಿಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
             </div>
 
-            <div>
+            <div style="margin-bottom: 22px;">
                 <span>ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರು:</span>
                 <span style="border: 1.5px solid #b30000; width: 15px; height: 15px; display: inline-block; margin-left: 8px; vertical-align: middle; background-color: #fff;"></span>
             </div>
 
-            <div>
+            <div style="margin-bottom: 22px;">
                 <span>ಜಿಲ್ಲಾ_ ಅಧ್ಯಕ್ಷರು:</span>
                 <span style="border: 1.5px solid #b30000; width: 15px; height: 15px; display: inline-block; margin-left: 8px; vertical-align: middle; background-color: #fff;"></span>
             </div>
 
-            <div style="display: flex; justify-content: space-between; max-width: 85%;">
+            <div style="display: flex; justify-content: space-between; max-width: 85%; margin-bottom: 22px;">
                 <div>
                     <span>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</span>
                     <span style="border: 1.5px solid #b30000; width: 15px; height: 15px; display: inline-block; margin-left: 8px; vertical-align: middle; background-color: #fff;"></span>
                 </div>
                 <div>
                     <span>ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ</span>
-                    <span style="border: 1.5px solid #b30000; width: 15px; height: 15px; display: inline-block; margin-left: 8px; vertical-align: middle; background-color: #fff;"></span>
+                    <span style="border: 1.5px solid #b30000; width: 14px; height: 14px; display: inline-block; margin-left: 8px; vertical-align: middle; background-color: #fff;"></span>
                 </div>
             </div>
 
-            <div>
+            <div style="margin-bottom: 10px;">
                 <div>ರಾಜ್ಯ ಘಟಕ</div>
             </div>
         </div>
