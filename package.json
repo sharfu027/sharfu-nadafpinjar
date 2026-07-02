@@ -13,6 +13,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "dotenv": "^17.4.2",
     "mongoose": "^9.6.2",
     "website-scraper": "^6.0.0"
   },

@@ -3,6 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
 
+// Load environment variables from .env if present
+require('dotenv').config();
+
 const PORT = process.env.PORT || 3000;
 const BASE_DIR = path.join(__dirname, 'nadafpinjar');
 
