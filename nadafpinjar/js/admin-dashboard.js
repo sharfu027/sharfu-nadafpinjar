@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v9') {
+if (localStorage.getItem('receipts_version') !== 'v10') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v9');
+    localStorage.setItem('receipts_version', 'v10');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1177,7 +1177,8 @@ window.downloadReceiptPdf = function(receiptId) {
             border: 2px solid ${themeColor};
         }
         .grid-cell {
-            border: 1px solid ${themeColor};
+            border: none;
+            border-bottom: 1px solid ${themeColor};
             padding: 6px 10px;
             font-size: 13px;
             vertical-align: top;
@@ -1283,7 +1284,7 @@ window.downloadReceiptPdf = function(receiptId) {
             ${fieldsHTML}
 
             <tr style="border-top: 2px solid ${themeColor};">
-                <td class="grid-cell" style="width: 35%; border-right: 1px solid ${themeColor}; border-bottom: none; vertical-align: top; padding: 10px 12px;">
+                <td class="grid-cell" style="width: 35%; border-bottom: none; vertical-align: top; padding: 10px 12px;">
                     <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
                         <span class="field-value" style="font-size: 15px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(found.amount)}</span>
@@ -1301,7 +1302,7 @@ window.downloadReceiptPdf = function(receiptId) {
                         <span class="field-value">${details.purposeDetails || ""}</span>
                     </div>
                 </td>
-                <td class="grid-cell center-align" style="width: 30%; border-right: 1px solid ${themeColor}; border-bottom: none; vertical-align: top; padding: 10px 12px;">
+                <td class="grid-cell center-align" style="width: 30%; border-bottom: none; vertical-align: top; padding: 10px 12px;">
                     <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
                         <span class="field-value">${details.mode || found.mode}</span>
