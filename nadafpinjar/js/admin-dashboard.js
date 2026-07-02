@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v18') {
+if (localStorage.getItem('receipts_version') !== 'v19') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v18');
+    localStorage.setItem('receipts_version', 'v19');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1955,8 +1955,8 @@ function loadAdminFreeEdu() {
                     ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ
                 </td>
             </tr>
-            <tr>
-                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 5px 8px; font-weight: bold; color: #b30000; font-size: 9.5px; line-height: 1.4;">
+            <tr style="height: 20px;">
+                <td colspan="2" style="border-top: 1.2px solid #b30000; padding: 3px 8px; font-weight: bold; color: #b30000; font-size: 9.5px; line-height: 1.2; height: 20px; vertical-align: middle;">
                     ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:________________ ಮಾಹಿತಿಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
                 </td>
             </tr>
