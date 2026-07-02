@@ -847,7 +847,7 @@
     <base href="${window.location.origin}/">
     <title>Donation Receipt</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap');
         html, body {
             height: auto;
             margin: 0;
@@ -857,85 +857,78 @@
             print-color-adjust: exact;
         }
         body {
-            font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Noto Sans Kannada', 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             color: #333;
         }
         .receipt-container {
-            max-width: 100%;
-            height: auto;
-            margin: 0;
+            width: 190mm;
+            margin: 5mm auto;
             border: 4px double ${themeColor};
-            padding: 4px;
+            padding: 12px;
             background: #fff;
             box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
         }
         .header-box {
             width: 100%;
             border-collapse: collapse;
-            border: 2px solid #b30000;
-            background-color: #fffdeb;
-            margin-bottom: 2px;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
+            border: 2.5px solid #b30000;
+            border-radius: 12px;
+            background-color: #fffde8;
+            margin-bottom: 8px;
         }
         .header-photo-cell {
-            width: 75px;
+            width: 90px;
             text-align: center;
-            padding: 2px 2px 2px 10px;
+            padding: 8px 4px 8px 14px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            border: 1.5px solid #b30000;
+            border: 2px solid #b30000;
             object-fit: cover;
         }
         .header-logo-cell {
-            width: 75px;
+            width: 90px;
             text-align: center;
-            padding: 2px 10px 2px 2px;
+            padding: 8px 14px 8px 4px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            border: 1.5px solid #b30000;
+            border: 2px solid #b30000;
             object-fit: cover;
         }
         .header-text-cell {
             text-align: center;
             vertical-align: middle;
-            padding: 2px 0;
+            padding: 8px 0;
             color: #b30000;
         }
         .kannada-title {
-            font-size: 17px;
+            font-size: 26px;
             font-weight: bold;
-            margin-bottom: 1px;
+            margin-bottom: 2px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 7.5px;
+            font-size: 11px;
             font-weight: bold;
-            margin-bottom: 1px;
+            margin-bottom: 2px;
             color: #444;
         }
         .english-title {
-            font-size: 8px;
+            font-size: 13px;
             font-weight: bold;
-            letter-spacing: 0.2px;
-            margin-bottom: 1px;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
         }
         .office-address, .office-location {
-            font-size: 7.5px;
+            font-size: 11px;
             font-weight: bold;
             color: #333;
         }
@@ -946,12 +939,11 @@
         }
         .grid-cell {
             border: 1px solid ${themeColor};
-            padding: 2px 4px;
-            font-size: 8px;
+            padding: 6px 10px;
+            font-size: 13px;
             vertical-align: top;
             color: #1e293b;
-            line-height: 1.1;
-            word-break: break-all;
+            line-height: 1.4;
         }
         .center-align {
             text-align: center;
@@ -966,27 +958,27 @@
         .field-label {
             font-weight: 600;
             color: ${themeColor};
-            margin-right: 4px;
+            margin-right: 6px;
         }
         .field-value {
             color: #000;
             font-weight: bold;
         }
         .payment-line {
-            font-size: 8px;
+            font-size: 13px;
         }
         .seal-img {
-            height: 38px;
+            height: 60px;
             width: auto;
         }
         .sig-img {
-            height: 25px;
+            height: 40px;
             width: auto;
             margin-bottom: 2px;
         }
         @media print {
             @page {
-                size: A5 landscape;
+                size: A4 portrait;
                 margin: 0;
             }
             html, body {
@@ -1000,15 +992,12 @@
                 padding: 0;
             }
             .receipt-container {
-                width: 210mm;
+                width: 196mm;
                 height: auto;
-                margin: 0 auto;
-                padding: 6px;
+                margin: 5mm auto;
+                padding: 12px;
                 border: 4px double ${themeColor} !important;
                 box-sizing: border-box;
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
                 page-break-inside: avoid;
                 page-break-after: avoid;
                 background: #fff !important;
@@ -1025,10 +1014,10 @@
                 </td>
                 <td class="header-text-cell">
                     <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
-                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</div>
+                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
                     <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
                     <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
-                    <div class="office-location">ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</div>
+                    <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                 </td>
                 <td class="header-logo-cell">
                     <img src="images/logo-786.png" class="header-logo">
@@ -1043,8 +1032,8 @@
                     <span class="field-value">${paymentId || 'Offline / Cash'}</span>
                 </td>
                 <td class="grid-cell center-align" style="width: 34%; border-bottom: 2px solid ${themeColor};">
-                    <div style="font-size: 13px; font-weight: bold;">ಪಾವತಿಸಿದ ರಶೀದಿ</div>
-                    <div style="font-size: 12px; font-weight: bold; margin-top: 2px;">${subheaderTitle}</div>
+                    <div style="font-size: 16px; font-weight: bold;">ಪಾವತಿಸಿದ ರಶೀದಿ</div>
+                    <div style="font-size: 14px; font-weight: bold; margin-top: 2px;">${subheaderTitle}</div>
                 </td>
                 <td class="grid-cell right-align" style="width: 33%; border-bottom: 2px solid ${themeColor};">
                     <span class="field-label">ದಿನಾಂಕ:</span>
@@ -1088,50 +1077,50 @@
             </tr>
 
             <tr style="border-top: 2px solid ${themeColor};">
-                <td class="grid-cell" style="width: 35%; border-right: 1px solid ${themeColor}; border-bottom: none; vertical-align: top; padding-bottom: 5px;">
-                    <div class="payment-line" style="margin-top: 3px;">
-                        <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
-                        <span class="field-value" style="font-size: 11px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(data.amount)}</span>
-                    </div>
+                <td class="grid-cell" style="width: 35%; border-right: 1px solid ${themeColor}; border-bottom: none; vertical-align: top; padding: 10px 12px;">
                     <div class="payment-line" style="margin-top: 4px;">
+                        <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
+                        <span class="field-value" style="font-size: 15px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(data.amount)}</span>
+                    </div>
+                    <div class="payment-line" style="margin-top: 8px;">
                         <span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span>
                         <span class="field-value">${formattedDate}</span>
                     </div>
-                    <div class="payment-line" style="margin-top: 4px;">
+                    <div class="payment-line" style="margin-top: 8px;">
                         <span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span>
                         <span class="field-value">${data.account || "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ"}</span>
                     </div>
-                    <div class="payment-line" style="margin-top: 4px;">
+                    <div class="payment-line" style="margin-top: 8px;">
                         <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
-                        <span class="field-value">${data.purposeDetails || "N/A"}</span>
+                        <span class="field-value">${data.purposeDetails || ""}</span>
                     </div>
                 </td>
-                <td class="grid-cell center-align" style="width: 30%; border-right: 1px solid ${themeColor}; border-bottom: none; vertical-align: top; padding-bottom: 5px;">
-                    <div class="payment-line" style="margin-top: 3px;">
+                <td class="grid-cell center-align" style="width: 30%; border-right: 1px solid ${themeColor}; border-bottom: none; vertical-align: top; padding: 10px 12px;">
+                    <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
                         <span class="field-value">${data.paymentMode || "Cash"}</span>
                     </div>
-                    <div style="margin-top: 15px; text-align: center;">
+                    <div style="margin-top: 20px; text-align: center;">
                         <img src="images/seal.jpg" class="seal-img">
                     </div>
                 </td>
-                <td class="grid-cell" style="width: 35%; border-bottom: none; vertical-align: top; padding-bottom: 5px;">
-                    <div style="text-align: center; width: 140px; margin: 3px auto 0 auto;">
-                        <div style="font-size: 7px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
-                        <img src="images/sig.jpg" class="sig-img" style="margin-bottom: 1px;">
-                        <div style="font-size: 8px; font-weight: bold; color: #4f1971; margin-top: 1px; line-height: 1.1; white-space: nowrap;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
-                        <div style="font-size: 7px; font-weight: bold; color: #4f1971; line-height: 1.1; white-space: nowrap;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
-                        <div style="font-size: 6px; font-weight: bold; color: #4f1971; line-height: 1.1; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                <td class="grid-cell" style="width: 35%; border-bottom: none; vertical-align: top; padding: 10px 12px;">
+                    <div style="text-align: center; width: 180px; margin: 4px auto 0 auto;">
+                        <div style="font-size: 12px; font-weight: bold; color: ${themeColor}; margin-bottom: 4px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
+                        <img src="images/sig.jpg" class="sig-img" style="margin-bottom: 2px;">
+                        <div style="font-size: 12px; font-weight: bold; color: #4f1971; margin-top: 2px; line-height: 1.3; white-space: nowrap;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
+                        <div style="font-size: 11px; font-weight: bold; color: #4f1971; line-height: 1.3; white-space: nowrap;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
+                        <div style="font-size: 10px; font-weight: bold; color: #4f1971; line-height: 1.3; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     </div>
                 </td>
             </tr>
 
             <tr class="bottom-serial-row">
-                <td class="grid-cell" colspan="2" style="border-top: 2px solid ${themeColor}; padding-top: 2.5px;">
-                    <span class="field-label" style="font-size: 8px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
-                    <span class="field-value" style="font-size: 8px; color: ${themeColor};">KRNPS-2026-27-${paymentId ? paymentId.slice(-4).toUpperCase() : 'PENDING'}</span>
+                <td class="grid-cell" colspan="2" style="border-top: 2px solid ${themeColor}; padding: 5px 10px;">
+                    <span class="field-label" style="font-size: 12px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
+                    <span class="field-value" style="font-size: 12px; color: ${themeColor};">KRNPS-2026-27-${paymentId ? paymentId.slice(-4).toUpperCase() : 'PENDING'}</span>
                 </td>
-                <td class="grid-cell right-align" style="border-top: 2px solid ${themeColor}; padding-top: 2.5px; font-weight: bold; padding-right: 20px; color: ${themeColor}; font-size: 8px;">
+                <td class="grid-cell right-align" style="border-top: 2px solid ${themeColor}; padding: 5px 20px 5px 10px; font-weight: bold; color: ${themeColor}; font-size: 12px;">
                     ಅಧಿಕೃತ ಸಹಿ
                 </td>
             </tr>
@@ -1163,11 +1152,6 @@
             
             setTimeout(() => {
                 const container = doc.querySelector('.receipt-container');
-                let pageHmm = 148;
-                if (container) {
-                    const contentH = container.offsetHeight;
-                    pageHmm = Math.ceil(contentH * 0.2646 + 6);
-                }
                 const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                 if (isMobile) {
                     const script = doc.createElement('script');
@@ -1178,17 +1162,12 @@
                             filename: 'Receipt-' + (paymentId || 'Offline') + '.pdf',
                             image: { type: 'jpeg', quality: 0.98 },
                             html2canvas: { scale: 2, useCORS: true, letterRendering: false },
-                            jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'landscape' }
+                            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                         };
                         iframe.contentWindow.html2pdf().from(container).set(opt).save();
                     };
                     doc.head.appendChild(script);
                 } else {
-                    if (container) {
-                        const dynStyle = doc.createElement('style');
-                        dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 0; } }`;
-                        doc.head.appendChild(dynStyle);
-                    }
                     iframe.style.width = '0';
                     iframe.style.height = '0';
                     iframe.contentWindow.focus();
