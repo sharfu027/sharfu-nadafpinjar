@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v55') {
+if (localStorage.getItem('receipts_version') !== 'v56') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v55');
+    localStorage.setItem('receipts_version', 'v56');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -2631,8 +2631,8 @@ function loadAdminCensus() {
                         <td style="border: 1px solid #b30000; padding: 2px;">${m.mobile || '-'}</td>
                         <td style="border: 1px solid #b30000; padding: 2px;">${m.aadhar || '-'}</td>
                         <td style="border: 1px solid #b30000; padding: 2px;">${m.dob || '-'}</td>
-                        <td style="border: 1px solid #b30000; padding: 2px;">${m.literate || '-'}</td>
-                        <td style="border: 1px solid #b30000; padding: 2px;">${m.occupation || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 2px;">${(m.literate || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="border: 1px solid #b30000; padding: 2px;">${(m.occupation || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
                         <td style="border: 1px solid #b30000; padding: 2px;">${m.political || '-'}</td>
                     </tr>
                 `;
@@ -2932,14 +2932,14 @@ function loadAdminCensus() {
             <thead>
                 <tr>
                     <th style="width: 4%;">Sl No.</th>
-                    <th style="width: 15%;">ಸದಸ್ಯರ ಹೆಸರು</th>
-                    <th style="width: 8%;">ಸಂಬಂಧ</th>
-                    <th style="width: 10%;">ಮೊಬೈಲ್</th>
-                    <th style="width: 11%;">ಆಧಾರ್</th>
-                    <th style="width: 10%;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
-                    <th style="width: 15%;">ಸಾಕ್ಷರಹಾ</th>
-                    <th style="width: 13%;">ವೃತ್ತಿ</th>
-                    <th style="width: 14%;">ರಾಜಕೀಯ</th>
+                    <th style="width: 17%;">ಸದಸ್ಯರ ಹೆಸರು</th>
+                    <th style="width: 7%;">ಸಂಬಂಧ</th>
+                    <th style="width: 12%;">ಮೊಬೈಲ್</th>
+                    <th style="width: 15%;">ಆಧಾರ್</th>
+                    <th style="width: 12%;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
+                    <th style="width: 17%;">ಸಾಕ್ಷರಹಾ</th>
+                    <th style="width: 10%;">ವೃತ್ತಿ</th>
+                    <th style="width: 6%;">ರಾಜಕೀಯ</th>
                 </tr>
             </thead>
             <tbody>
@@ -3033,7 +3033,7 @@ function loadAdminCensus() {
                     doc.head.appendChild(script);
                 } else {
                     const dynStyle = doc.createElement('style');
-                    dynStyle.textContent = `@media print { @page { size: a4 portrait; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 0 auto !important; width: 210mm !important; height: 297mm !important; box-sizing: border-box; } }`;
+                    dynStyle.textContent = `@media print { @page { size: a4 portrait; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 4mm auto !important; width: 202mm !important; height: 289mm !important; box-sizing: border-box; } }`;
                     doc.head.appendChild(dynStyle);
 
                     iframe.contentWindow.focus();
