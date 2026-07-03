@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v26') {
+if (localStorage.getItem('receipts_version') !== 'v27') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v26');
+    localStorage.setItem('receipts_version', 'v27');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -2033,38 +2033,66 @@ function loadAdminFreeEdu() {
         doc.close();
         
         setTimeout(() => {
-            const container = doc.querySelector('.receipt-container');
-            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-            if (isMobile) {
-                iframe.style.width = '794px';
-                iframe.style.height = 'auto';
-                setTimeout(() => {
-                    const contentH = container ? container.scrollHeight : 800;
-                    const pageHmm = Math.ceil(contentH * 0.2646) + 2;
-                    const contentW = container ? container.scrollWidth : 794;
-                    let pageWmm = Math.ceil(contentW * 0.2646) + 2;
-                    if (pageWmm < 210) pageWmm = 210;
+            iframe.style.width = '794px';
+            iframe.style.height = '100px';
+            
+            setTimeout(() => {
+                const container = doc.querySelector('.receipt-container');
+                const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                if (container) {
+                    container.style.margin = '0 auto';
+                }
+                const rect = container ? container.getBoundingClientRect() : { width: 750, height: 800 };
+                const contentH = Math.ceil(rect.height || (container ? container.offsetHeight : 800));
+                const contentW = Math.ceil(rect.width || (container ? container.offsetWidth : 750));
+                const pageHmm = Math.ceil(contentH * 0.264583) + 1;
+                let pageWmm = Math.ceil(contentW * 0.264583) + 1;
+                if (pageWmm < 210) pageWmm = 210;
 
+                if (isMobile) {
                     const script = doc.createElement('script');
                     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
                     script.onload = () => {
-                        const opt = {
-                            margin: 0,
-                            filename: 'FreeEducation-' + (id || 'Receipt') + '.pdf',
-                            image: { type: 'jpeg', quality: 0.98 },
-                            html2canvas: { scale: 2, useCORS: true, letterRendering: false, scrollX: 0, scrollY: 0, width: contentW, height: contentH, windowWidth: contentW },
-                            jsPDF: { unit: 'mm', format: [pageWmm, pageHmm], orientation: 'portrait' }
-                        };
-                        iframe.contentWindow.html2pdf().from(container).set(opt).save();
+                        const h2c = iframe.contentWindow.html2canvas || window.html2canvas;
+                        const jsPdfLib = (iframe.contentWindow.jspdf && iframe.contentWindow.jspdf.jsPDF) || (window.jspdf && window.jspdf.jsPDF) || iframe.contentWindow.jsPDF;
+
+                        h2c(container, {
+                            scale: 2,
+                            useCORS: true,
+                            letterRendering: false,
+                            scrollX: 0,
+                            scrollY: 0,
+                            width: contentW,
+                            height: contentH,
+                            windowWidth: contentW,
+                            windowHeight: contentH
+                        }).then(canvas => {
+                            const imgData = canvas.toDataURL('image/jpeg', 0.98);
+                            const pdfWmm = contentW * 0.264583;
+                            const pdfHmm = contentH * 0.264583;
+
+                            const pdf = new jsPdfLib({
+                                orientation: 'portrait',
+                                unit: 'mm',
+                                format: [pdfWmm, pdfHmm]
+                            });
+
+                            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWmm, pdfHmm);
+                            pdf.save('FreeEducation-' + (id || 'Receipt') + '.pdf');
+                        });
                     };
                     doc.head.appendChild(script);
-                }, 300);
-            } else {
-                iframe.contentWindow.focus();
-                iframe.contentWindow.print();
-                setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
-            }
-        }, 500);
+                } else {
+                    const dynStyle = doc.createElement('style');
+                    dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 0 auto !important; } }`;
+                    doc.head.appendChild(dynStyle);
+
+                    iframe.contentWindow.focus();
+                    iframe.contentWindow.print();
+                    setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
+                }
+            }, 200);
+        }, 300);
     };
 }
 
