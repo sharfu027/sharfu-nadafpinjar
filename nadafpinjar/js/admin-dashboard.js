@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v38') {
+if (localStorage.getItem('receipts_version') !== 'v39') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v38');
+    localStorage.setItem('receipts_version', 'v39');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1908,11 +1908,11 @@ function loadAdminFreeEdu() {
             </tr>
         </table>
         
-        <div style="text-align: center; color: #b30000; font-weight: bold; font-size: 11px; margin: 1px 0; text-decoration: underline;">
+        <div style="text-align: center; color: #b30000; font-weight: bold; font-size: 13px; margin: 3px 0; text-decoration: underline;">
             ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27
         </div>
 
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 2px; font-size: 8.5px; font-weight: bold; color: #b30000;">
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 3px; font-size: 9.5px; font-weight: bold; color: #b30000;">
             <tr>
                 <td style="width: 33%; text-align: left;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color: #000;">${appNumber}</span></td>
                 <td style="width: 34%; text-align: center;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color: #000;">${found.date}</span></td>
@@ -2002,36 +2002,36 @@ function loadAdminFreeEdu() {
         </table>
         <div style="text-align: center; font-size: 7.5px; color: #666; margin: 0 0 1px 0;">00000</div>
 
-        <!-- Signatures & Recommendation Section (Matches Image 2 100%) -->
-        <div style="border: 1.2px solid #b30000; background: #fff; padding: 4px 8px; font-weight: bold; color: #b30000; font-size: 9px; box-sizing: border-box;">
+        <!-- Signatures & Recommendation Section -->
+        <div style="border: 1.2px solid #b30000; background: #fff; padding: 6px 10px; font-weight: bold; color: #b30000; font-size: 10px; box-sizing: border-box;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div style="width: 35%; display: flex; flex-direction: column; gap: 12px;">
+                <div style="width: 35%; display: flex; flex-direction: column; gap: 14px;">
                     <div>ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ :</div>
                     <div>ಪಾಲಕರ ಸಹಿ :</div>
                 </div>
-                <div style="width: 45%; display: flex; flex-direction: column; gap: 4px;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; width: 150px;">
+                <div style="width: 45%; display: flex; flex-direction: column; gap: 5px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 160px;">
                         <span>ತಾಲ್ಲೂಕು ಘಟಕ</span>
-                        <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; background: #fff;"></span>
+                        <span style="border: 1.5px solid #b30000; width: 13px; height: 13px; display: inline-block; background: #fff;"></span>
                     </div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; width: 150px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 160px;">
                         <span>ಜಿಲ್ಲಾ ಘಟಕ</span>
-                        <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; background: #fff;"></span>
+                        <span style="border: 1.5px solid #b30000; width: 13px; height: 13px; display: inline-block; background: #fff;"></span>
                     </div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; width: 150px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 160px;">
                         <span>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರ</span>
-                        <span style="border: 1.5px solid #b30000; width: 12px; height: 12px; display: inline-block; background: #fff;"></span>
+                        <span style="border: 1.5px solid #b30000; width: 13px; height: 13px; display: inline-block; background: #fff;"></span>
                     </div>
                 </div>
-                <div style="width: 20%; text-align: right; font-size: 9.5px; font-weight: bold; color: #b30000; padding-top: 2px;">
+                <div style="width: 20%; text-align: right; font-size: 10.5px; font-weight: bold; color: #b30000; padding-top: 2px;">
                     ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ
                 </div>
             </div>
         </div>
 
-        <div style="background-color: #b30000; color: #fff; font-weight: bold; font-size: 11px; margin-top: 10px; padding: 6px 12px; display: flex; flex-direction: column; gap: 8px;">
-            <div>ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
-            <div>ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
+        <div style="font-weight: bold; color: #b30000; font-size: 11px; margin-top: 10px; padding: 2px 4px;">
+            <div style="margin-bottom: 25px;">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
+            <div style="margin-bottom: 4px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
     </div>
 </body>
