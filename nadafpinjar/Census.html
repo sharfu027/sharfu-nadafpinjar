@@ -1493,7 +1493,7 @@
                         doc.head.appendChild(script);
                     } else {
                         const dynStyle = doc.createElement('style');
-                        dynStyle.textContent = `@media print { @page { size: ${pdfWmm}mm ${pdfHmm}mm; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 0 auto !important; } }`;
+                        dynStyle.textContent = `@media print { @page { size: a4 portrait; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 0 auto !important; width: 210mm !important; height: 297mm !important; box-sizing: border-box; } }`;
                         doc.head.appendChild(dynStyle);
 
                         iframe.style.width = '0';

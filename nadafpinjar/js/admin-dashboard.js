@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v49') {
+if (localStorage.getItem('receipts_version') !== 'v50') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v49');
+    localStorage.setItem('receipts_version', 'v50');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -3073,7 +3073,7 @@ function loadAdminCensus() {
                     doc.head.appendChild(script);
                 } else {
                     const dynStyle = doc.createElement('style');
-                    dynStyle.textContent = `@media print { @page { size: ${pdfWmm}mm ${pdfHmm}mm; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 0 auto !important; } }`;
+                    dynStyle.textContent = `@media print { @page { size: a4 portrait; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 0 auto !important; width: 210mm !important; height: 297mm !important; box-sizing: border-box; } }`;
                     doc.head.appendChild(dynStyle);
 
                     iframe.contentWindow.focus();
