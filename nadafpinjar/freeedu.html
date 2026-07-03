@@ -790,13 +790,16 @@
             color: #333;
         }
         .receipt-container {
-            max-width: 100%;
-            height: auto;
-            margin: 0 auto;
-            border: 2px solid #b30000;
-            padding: 5px;
+            width: 196mm;
+            min-height: 280mm;
+            margin: 2mm auto;
+            border: 2.5px solid #b30000;
+            padding: 8px 10px;
             background: #fffdeb;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
@@ -890,6 +893,7 @@
             }
         }
         @page {
+            size: A4 portrait;
             margin: 0;
         }
         @media print {
@@ -899,11 +903,12 @@
                 padding: 0;
             }
             .receipt-container {
-                border: 2px solid #b30000 !important;
-                max-width: 100%;
-                height: auto !important;
+                border: 2.5px solid #b30000 !important;
+                width: 196mm !important;
+                min-height: 280mm !important;
+                margin: 2mm auto !important;
                 box-sizing: border-box;
-                padding: 5px;
+                padding: 8px 10px;
                 background-color: #fffdeb !important;
             }
         }
@@ -1079,20 +1084,14 @@
             
             setTimeout(() => {
                 iframe.style.width = '794px';
-                iframe.style.height = '100px';
+                iframe.style.height = '1123px';
                 
                 setTimeout(() => {
                     const container = doc.querySelector('.receipt-container');
                     const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                     if (container) {
-                        container.style.margin = '0 auto';
+                        container.style.margin = '2mm auto';
                     }
-                    const rect = container ? container.getBoundingClientRect() : { width: 750, height: 800 };
-                    const contentH = Math.ceil(rect.height || (container ? container.offsetHeight : 800));
-                    const contentW = Math.ceil(rect.width || (container ? container.offsetWidth : 750));
-                    const pageHmm = Math.ceil(contentH * 0.264583) + 1;
-                    let pageWmm = Math.ceil(contentW * 0.264583) + 1;
-                    if (pageWmm < 210) pageWmm = 210;
 
                     if (isMobile) {
                         const script = doc.createElement('script');
@@ -1102,10 +1101,6 @@
                             const h2c = win.html2canvas || window.html2canvas;
                             const jsPdfClass = win.jsPDF || (win.jspdf && win.jspdf.jsPDF) || window.jsPDF || (window.jspdf && window.jspdf.jsPDF);
 
-                            const pdfWmm = contentW * 0.264583;
-                            const pdfHmm = contentH * 0.264583;
-                            const isLandscape = pdfWmm >= pdfHmm;
-
                             if (h2c && jsPdfClass) {
                                 h2c(container, {
                                     scale: 2,
@@ -1113,18 +1108,18 @@
                                     letterRendering: false,
                                     scrollX: 0,
                                     scrollY: 0,
-                                    width: contentW,
-                                    height: contentH,
-                                    windowWidth: contentW,
-                                    windowHeight: contentH
+                                    width: 794,
+                                    height: 1123,
+                                    windowWidth: 794,
+                                    windowHeight: 1123
                                 }).then(canvas => {
                                     const imgData = canvas.toDataURL('image/jpeg', 0.98);
                                     const pdf = new jsPdfClass({
-                                        orientation: isLandscape ? 'landscape' : 'portrait',
+                                        orientation: 'portrait',
                                         unit: 'mm',
-                                        format: [Math.min(pdfWmm, pdfHmm), Math.max(pdfWmm, pdfHmm)]
+                                        format: 'a4'
                                     });
-                                    pdf.addImage(imgData, 'JPEG', 0, 0, pdfWmm, pdfHmm);
+                                    pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
                                     pdf.save('FreeEducation-' + (appNumber || 'Receipt') + '.pdf');
                                 });
                             } else {
@@ -1132,8 +1127,8 @@
                                     margin: 0,
                                     filename: 'FreeEducation-' + (appNumber || 'Receipt') + '.pdf',
                                     image: { type: 'jpeg', quality: 0.98 },
-                                    html2canvas: { scale: 2, useCORS: true, letterRendering: false, scrollX: 0, scrollY: 0, width: contentW, height: contentH, windowWidth: contentW, windowHeight: contentH },
-                                    jsPDF: { unit: 'mm', format: [Math.min(pdfWmm, pdfHmm), Math.max(pdfWmm, pdfHmm)], orientation: isLandscape ? 'landscape' : 'portrait' }
+                                    html2canvas: { scale: 2, useCORS: true, letterRendering: false, scrollX: 0, scrollY: 0, width: 794, height: 1123, windowWidth: 794, windowHeight: 1123 },
+                                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                                 };
                                 win.html2pdf().from(container).set(opt).save();
                             }
@@ -1141,7 +1136,7 @@
                         doc.head.appendChild(script);
                     } else {
                         const dynStyle = doc.createElement('style');
-                        dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 0 auto !important; } }`;
+                        dynStyle.textContent = `@media print { @page { size: A4 portrait; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 2mm auto !important; width: 196mm !important; min-height: 280mm !important; } }`;
                         doc.head.appendChild(dynStyle);
 
                         iframe.contentWindow.focus();
