@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v24') {
+if (localStorage.getItem('receipts_version') !== 'v25') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v24');
+    localStorage.setItem('receipts_version', 'v25');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1214,7 +1214,6 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         @media print {
             @page {
-                size: A4 portrait;
                 margin: 0;
             }
             html, body {
@@ -1230,7 +1229,7 @@ window.downloadReceiptPdf = function(receiptId) {
             .receipt-container {
                 width: 196mm;
                 height: auto;
-                margin: 5mm auto;
+                margin: 2mm auto;
                 padding: 12px;
                 border: 2px solid ${themeColor} !important;
                 box-sizing: border-box;
@@ -1836,7 +1835,6 @@ function loadAdminFreeEdu() {
             font-weight: bold;
         }
         @page {
-            size: A4 portrait;
             margin: 0;
         }
         @media print {
@@ -2782,8 +2780,7 @@ function loadAdminCensus() {
         }
         @media print {
             @page {
-                size: A4 portrait;
-                margin: 6mm 10mm 6mm 10mm;
+                margin: 0;
             }
             html, body {
                 width: 100%;
@@ -3301,8 +3298,7 @@ function loadAdminEmployees() {
         }
         @media print {
             @page {
-                size: A4 portrait;
-                margin: 6mm 10mm 6mm 10mm;
+                margin: 0;
             }
             html, body {
                 width: 100%;
