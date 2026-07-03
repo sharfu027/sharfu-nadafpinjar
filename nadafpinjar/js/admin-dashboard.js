@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v27') {
+if (localStorage.getItem('receipts_version') !== 'v28') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v27');
+    localStorage.setItem('receipts_version', 'v28');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1372,14 +1372,34 @@ window.downloadReceiptPdf = function(receiptId) {
                 const script = doc.createElement('script');
                 script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
                 script.onload = () => {
-                    const opt = {
-                        margin: 0,
-                        filename: 'Receipt-' + (receiptId || 'Download') + '.pdf',
-                        image: { type: 'jpeg', quality: 0.98 },
-                        html2canvas: { scale: 2, useCORS: true, letterRendering: false, scrollX: 0, scrollY: 0, width: contentW, height: contentH, windowWidth: contentW, windowHeight: contentH },
-                        jsPDF: { unit: 'mm', format: [pageWmm, pageHmm], orientation: 'portrait' }
-                    };
-                    iframe.contentWindow.html2pdf().from(container).set(opt).save();
+                    const h2c = iframe.contentWindow.html2canvas || window.html2canvas;
+                    const jsPdfLib = (iframe.contentWindow.jspdf && iframe.contentWindow.jspdf.jsPDF) || (window.jspdf && window.jspdf.jsPDF) || iframe.contentWindow.jsPDF;
+
+                    h2c(container, {
+                        scale: 2,
+                        useCORS: true,
+                        letterRendering: false,
+                        scrollX: 0,
+                        scrollY: 0,
+                        width: contentW,
+                        height: contentH,
+                        windowWidth: contentW,
+                        windowHeight: contentH
+                    }).then(canvas => {
+                        const imgData = canvas.toDataURL('image/jpeg', 0.98);
+                        const pdfWmm = contentW * 0.264583;
+                        const pdfHmm = contentH * 0.264583;
+                        const isLandscape = pdfWmm >= pdfHmm;
+
+                        const pdf = new jsPdfLib({
+                            orientation: isLandscape ? 'landscape' : 'portrait',
+                            unit: 'mm',
+                            format: [Math.min(pdfWmm, pdfHmm), Math.max(pdfWmm, pdfHmm)]
+                        });
+
+                        pdf.addImage(imgData, 'JPEG', 0, 0, pdfWmm, pdfHmm);
+                        pdf.save('Receipt-' + (receiptId || 'Download') + '.pdf');
+                    });
                 };
                 doc.head.appendChild(script);
             } else {
@@ -2071,10 +2091,12 @@ function loadAdminFreeEdu() {
                             const pdfWmm = contentW * 0.264583;
                             const pdfHmm = contentH * 0.264583;
 
+                            const isLandscape = pdfWmm >= pdfHmm;
+
                             const pdf = new jsPdfLib({
-                                orientation: 'portrait',
+                                orientation: isLandscape ? 'landscape' : 'portrait',
                                 unit: 'mm',
-                                format: [pdfWmm, pdfHmm]
+                                format: [Math.min(pdfWmm, pdfHmm), Math.max(pdfWmm, pdfHmm)]
                             });
 
                             pdf.addImage(imgData, 'JPEG', 0, 0, pdfWmm, pdfHmm);
