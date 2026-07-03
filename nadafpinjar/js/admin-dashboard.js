@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v57') {
+if (localStorage.getItem('receipts_version') !== 'v58') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v57');
+    localStorage.setItem('receipts_version', 'v58');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -2732,7 +2732,7 @@ function loadAdminCensus() {
         .grid-table td {
             border: 1.2px solid #b30000;
             padding: 1.5px 5px;
-            font-size: 17.5px;
+            font-size: 14px;
             vertical-align: middle;
             line-height: 1.1;
         }
@@ -2741,19 +2741,20 @@ function loadAdminCensus() {
             color: #b30000;
             font-weight: bold;
             width: 18%;
-            font-size: 17.5px;
+            font-size: 14px;
         }
         .grid-value {
             color: #000;
             width: 32%;
             font-weight: bold;
-            font-size: 17.5px;
+            font-size: 14px;
         }
         .members-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 2px;
-            font-size: 17.5px;
+            font-size: 13px;
+            table-layout: fixed;
         }
         .members-table th {
             border: 1.2px solid #b30000;
@@ -2761,14 +2762,18 @@ function loadAdminCensus() {
             color: #b30000;
             padding: 1.5px 3px;
             font-weight: bold;
-            font-size: 17.5px;
+            font-size: 13.5px;
+            word-wrap: break-word;
+            overflow: hidden;
         }
         .members-table td {
             border: 1.2px solid #b30000;
             padding: 1.5px 3px;
             font-weight: bold;
-            font-size: 17.5px;
+            font-size: 13px;
             line-height: 1.1;
+            word-wrap: break-word;
+            overflow: hidden;
         }
         .approval-section {
             display: flex;
