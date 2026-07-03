@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v72') {
+if (localStorage.getItem('receipts_version') !== 'v73') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v72');
+    localStorage.setItem('receipts_version', 'v73');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1182,8 +1182,8 @@ window.downloadReceiptPdf = function(receiptId) {
             width: 100%;
             max-width: 200mm;
             margin: 5mm auto;
-            border: 1.5px solid ${themeColor};
-            padding: 6px 8px;
+            border: none;
+            padding: 4px 6px;
             background: #fff;
             box-sizing: border-box;
         }
@@ -1348,7 +1348,7 @@ window.downloadReceiptPdf = function(receiptId) {
                 height: 138mm !important;
                 margin: 5mm auto !important;
                 padding: 6px 8px !important;
-                border: 1.5px solid ${themeColor} !important;
+                border: none !important;
                 box-sizing: border-box !important;
                 page-break-inside: avoid !important;
                 page-break-after: avoid !important;
@@ -1439,11 +1439,11 @@ window.downloadReceiptPdf = function(receiptId) {
             </tr>
 
             <tr class="bottom-serial-row">
-                <td class="grid-cell" colspan="2" style="border-top: none !important; padding: 4px 8px;">
+                <td class="grid-cell" colspan="2" style="border-top: none !important; border-bottom: none !important; padding: 4px 8px 6px 8px;">
                     <span class="field-label" style="font-size: 14px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
                     <span class="field-value" style="font-size: 14px; color: #000; white-space: nowrap;">KRNPS-2026-27-${serialNoVal}</span>
                 </td>
-                <td class="grid-cell right-align" style="border-top: none !important; padding: 4px 12px 4px 8px; font-weight: bold; color: ${themeColor}; font-size: 14px; white-space: nowrap;">
+                <td class="grid-cell right-align" style="border-top: none !important; border-bottom: none !important; padding: 4px 12px 6px 8px; font-weight: bold; color: ${themeColor}; font-size: 14px; white-space: nowrap;">
                     ಅಧಿಕೃತ ಸಹಿ
                 </td>
             </tr>
