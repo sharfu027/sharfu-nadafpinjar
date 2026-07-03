@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v67') {
+if (localStorage.getItem('receipts_version') !== 'v68') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v67');
+    localStorage.setItem('receipts_version', 'v68');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1029,15 +1029,13 @@ window.downloadReceiptPdf = function(receiptId) {
     }
 
     // Determine colors, subheader titles and layout fields based on the source category
-    let themeColor = "#b30000"; // Red for State Direct
+    let themeColor = "#b30000"; // Maroon/Red for all receipts as per reference design
     let subheaderTitle = "ನೇರವಾಗಿ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
 
     const fromStr = (found.from || "").toLowerCase();
     if (fromStr.includes("district")) {
-        themeColor = "#0033cc"; // Blue for District
         subheaderTitle = "ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
     } else if (fromStr.includes("taluk")) {
-        themeColor = "#006600"; // Green for Taluk
         subheaderTitle = "ತಾಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
     }
 
