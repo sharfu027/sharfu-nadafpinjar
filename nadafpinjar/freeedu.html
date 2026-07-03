@@ -941,124 +941,117 @@
             <tr>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
                 <td class="grid-value">${data.studentName || '-'}</td>
-                <td class="grid-label">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು :</td>
+                <td class="grid-label">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು</td>
                 <td class="grid-value">${data.fatherName || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">ತಾಯಿಯ ಹೆಸರು</td>
                 <td class="grid-value">${data.motherName || '-'}</td>
-                <td class="grid-label">ವಿಳಾಸ:</td>
+                <td class="grid-label">ವಿಳಾಸ</td>
                 <td class="grid-value">${data.address || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">ನಗರಿ/ಗ್ರಾಮ</td>
                 <td class="grid-value">${data.village || '-'}</td>
-                <td class="grid-label">ಜಿಲ್ಲೆ :</td>
+                <td class="grid-label">ಜಿಲ್ಲೆ</td>
                 <td class="grid-value">${data.district || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ಉದ್ಯೋಗ(ಗಳ)</td>
+                <td class="grid-label">ಉದ್ಯೋಗ :</td>
                 <td class="grid-value">${data.occupation || '-'}</td>
-                <td class="grid-label">ತಾಲೂಕ:</td>
+                <td class="grid-label">ತಾಲೂಕು:</td>
                 <td class="grid-value">${data.taluk || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಆಧಾರ್ ಸಂ</td>
-                <td class="grid-value">${data.aadhar || '-'}</td>
-                <td class="grid-label">ಸಂಖ್ಯೆ ನದನ್ಯಸ್ವ,<br>ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್:</td>
-                <td class="grid-value">${data.rationType || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಮನೆ</td>
-                <td class="grid-value">${data.housingInfo || '-'}</td>
-                <td class="grid-label">ಜಮೀನು :</td>
-                <td class="grid-value">${data.landInfo || '0'} ಎಕರೆ - ${data.gunte || '0'} ಗುಂಟೆ</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಟಡಿಗೆ ಮನೆ</td>
-                <td class="grid-value">${data.houseType || '-'}</td>
-                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
-                <td class="grid-value">${data.mobile || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">ಅಂದಾಜು ಆದಾಯ</td>
                 <td class="grid-value">${formatIncome(data.income)}</td>
-                <td class="grid-label">ಮೊಬೈಲ್ಯೋ ಸಂಖ್ಯೆ</td>
+                <td class="grid-label">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
+                <td class="grid-value">${data.membership || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಮನೆಯ ವಿವರ</td>
+                <td class="grid-value">${data.housingInfo || '-'}</td>
+                <td class="grid-label">ವಸತಿ ವಿವರ</td>
+                <td class="grid-value">${data.houseType || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಜಮೀನು</td>
+                <td class="grid-value">${data.landInfo || '0'} ಎಕರೆ ${data.gunte || '0'} ಗುಂಟೆ</td>
+                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
                 <td class="grid-value">${data.mobile || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಶಾಲೆ/ಕಾಲೇಜಿನ<br>ಮಾಡುತ್ತಿರುವ</td>
+                <td class="grid-label">ಆಧಾರ್ ನಂ</td>
+                <td class="grid-value" style="color: #b30000; font-weight: bold;">${data.aadhar || '-'}</td>
+                <td class="grid-label">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
+                <td class="grid-value">${data.rationType || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ಶಾಲೆ/ಕಾಲೇಜು</td>
                 <td class="grid-value">${data.currentSchool || '-'}</td>
-                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ<br>ತರಗತಿ</td>
+                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
                 <td class="grid-value">${data.currentClass || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ಹಿಂದಿನ ತರಗತಿ ಮೂಲಿ<br>ಪಡೆದ ಅಂಕಗಳು</td>
+                <td class="grid-label">ಹಿಂದಿನ ತರಗತಿಯಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳು</td>
                 <td class="grid-value">${data.previousMarks || '-'}</td>
                 <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
                 <td class="grid-value">${data.joiningClass || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ತರಗತಿಮೂ ವಿಷಯಗಳು :</td>
+                <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು</td>
                 <td class="grid-value">${data.classSubjects || '-'}</td>
-                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ<br>ಕೋಚಿಂಗ್/ಕೋಚಿಂಗ್</td>
+                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್</td>
                 <td class="grid-value">${data.coaching || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್<br>ಹೆಸರು</td>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
                 <td class="grid-value">${data.bankName || '-'}</td>
                 <td class="grid-label">ಶಾಖೆಯ ಹೆಸರು</td>
                 <td class="grid-value">${data.branchName || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">IFSC ಕೋಡ್</td>
-                <td class="grid-value">${data.ifsc || '-'}</td>
-                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ<br>ಸಂಖ್ಯೆ :</td>
+                <td class="grid-value" style="font-weight: bold; color: #b30000;">${data.ifsc || '-'}</td>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
                 <td class="grid-value">${data.bankAccount || '-'}</td>
             </tr>
         </table>
+        <div style="text-align: center; font-size: 8px; color: #666; margin: 1px 0 3px 0;">00000</div>
 
-        <!-- Signatures & Recommendation Section -->
-        <table style="width: 100%; border-collapse: collapse; margin-top: 2px; border: 1.2px solid #b30000; background: #fff;">
-            <tr>
-                <td style="width: 50%; border-right: 1.2px solid #b30000; padding: 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px; height: 45px;">
-                    ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ
-                </td>
-                <td style="width: 50%; padding: 8px; vertical-align: top; font-weight: bold; color: #b30000; font-size: 10.5px;">
-                    ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ
-                </td>
-            </tr>
-        </table>
-
-        <div style="border: 1.2px solid #b30000; border-top: none; background: #fff; padding: 10px 14px; font-weight: bold; color: #b30000; font-size: 10.5px; margin-top: 0; box-sizing: border-box;">
-            <div style="line-height: 1.4; margin-bottom: 20px;">
-                ಸಂಬಂಧಪಟ್ಟ ಪಾಲಕರು/ಘಟಕದಿಂದ ದಿನಾಂಕ:________________ ಮಾಹಿತಿಪಡೆದು ಅರ್ಜಿ ಪರಿಶೀಲಿಸಿಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ.
+        <!-- Signatures & Recommendation Section (Matches media__1783061615598.png 100%) -->
+        <div style="border: 1.2px solid #b30000; background: #fff; padding: 6px 10px; font-weight: bold; color: #b30000; font-size: 10px; box-sizing: border-box;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #b30000; padding-bottom: 6px; margin-bottom: 6px;">
+                <div style="width: 50%;">ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ :</div>
+                <div style="width: 50%; text-align: right;">ತಂದೆಯ/ ಪಾಲಕರ ಸಹಿ</div>
             </div>
 
-            <div style="margin-bottom: 22px;">
-                <span>ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರು:</span>
-                <span style="border: 1.5px solid #b30000; width: 15px; height: 15px; display: inline-block; margin-left: 8px; vertical-align: middle; background-color: #fff;"></span>
-            </div>
-
-            <div style="margin-bottom: 22px;">
-                <span>ಜಿಲ್ಲಾ_ ಅಧ್ಯಕ್ಷರು:</span>
-                <span style="border: 1.5px solid #b30000; width: 15px; height: 15px; display: inline-block; margin-left: 8px; vertical-align: middle; background-color: #fff;"></span>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; max-width: 85%; margin-bottom: 22px;">
-                <div>
-                    <span>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರು</span>
-                    <span style="border: 1.5px solid #b30000; width: 15px; height: 15px; display: inline-block; margin-left: 8px; vertical-align: middle; background-color: #fff;"></span>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div style="display: flex; flex-direction: column; gap: 6px; width: 60%;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 180px;">
+                        <span>ತಾಲ್ಲೂಕು ಘಟಕ</span>
+                        <span style="border: 1.5px solid #b30000; width: 13px; height: 13px; display: inline-block;"></span>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 180px;">
+                        <span>ಜಿಲ್ಲಾ ಘಟಕ</span>
+                        <span style="border: 1.5px solid #b30000; width: 13px; height: 13px; display: inline-block;"></span>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 180px;">
+                        <span>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರ</span>
+                        <span style="border: 1.5px solid #b30000; width: 13px; height: 13px; display: inline-block;"></span>
+                    </div>
                 </div>
-                <div>
-                    <span>ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿ</span>
-                    <span style="border: 1.5px solid #b30000; width: 15px; height: 15px; display: inline-block; margin-left: 8px; vertical-align: middle; background-color: #fff;"></span>
+                <div style="width: 40%; text-align: right; font-size: 10.5px; font-weight: bold; color: #b30000; padding-top: 15px;">
+                    ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ
                 </div>
             </div>
+        </div>
 
-            <div style="margin-bottom: 10px;">
-                <div>ರಾಜ್ಯ ಘಟಕ</div>
-            </div>
+        <div style="font-weight: bold; color: #b30000; font-size: 10px; margin-top: 6px;">
+            ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :
+        </div>
+        <div style="font-weight: bold; color: #b30000; font-size: 10px; margin-top: 14px;">
+            ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :
         </div>
     </div>
 </body>
