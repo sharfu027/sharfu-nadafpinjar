@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v37') {
+if (localStorage.getItem('receipts_version') !== 'v38') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v37');
+    localStorage.setItem('receipts_version', 'v38');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -2029,11 +2029,9 @@ function loadAdminFreeEdu() {
             </div>
         </div>
 
-        <div style="font-weight: bold; color: #b30000; font-size: 9px; margin-top: 5px; padding-left: 2px;">
-            ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :
-        </div>
-        <div style="font-weight: bold; color: #b30000; font-size: 9px; margin-top: 12px; margin-bottom: 2px; padding-left: 2px;">
-            ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :
+        <div style="background-color: #b30000; color: #fff; font-weight: bold; font-size: 11px; margin-top: 10px; padding: 6px 12px; display: flex; flex-direction: column; gap: 8px;">
+            <div>ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
+            <div>ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
     </div>
 </body>
@@ -2061,7 +2059,7 @@ function loadAdminFreeEdu() {
         
         setTimeout(() => {
             iframe.style.width = '794px';
-            iframe.style.height = '100px';
+            iframe.style.height = '1123px';
             
             setTimeout(() => {
                 const container = doc.querySelector('.receipt-container');
@@ -2069,12 +2067,12 @@ function loadAdminFreeEdu() {
                 if (container) {
                     container.style.margin = '0 auto';
                 }
-                const rect = container ? container.getBoundingClientRect() : { width: 750, height: 800 };
-                const contentH = Math.ceil(rect.height || (container ? container.offsetHeight : 800));
-                const contentW = Math.ceil(rect.width || (container ? container.offsetWidth : 750));
-                const pdfWmm = contentW * 0.264583;
-                const pdfHmm = contentH * 0.264583;
-                const isLandscape = pdfWmm >= pdfHmm;
+                const rect = container ? container.getBoundingClientRect() : { width: 794, height: 1123 };
+                const contentH = Math.ceil(rect.height || (container ? container.offsetHeight : 1123));
+                const contentW = Math.ceil(rect.width || (container ? container.offsetWidth : 794));
+                
+                const pdfWmm = 210;
+                const pdfHmm = 297;
 
                 if (isMobile) {
                     const script = doc.createElement('script');
@@ -2098,11 +2096,14 @@ function loadAdminFreeEdu() {
                             }).then(canvas => {
                                 const imgData = canvas.toDataURL('image/jpeg', 0.98);
                                 const pdf = new jsPdfClass({
-                                    orientation: isLandscape ? 'landscape' : 'portrait',
+                                    orientation: 'portrait',
                                     unit: 'mm',
-                                    format: [Math.min(pdfWmm, pdfHmm), Math.max(pdfWmm, pdfHmm)]
+                                    format: 'a4'
                                 });
-                                pdf.addImage(imgData, 'JPEG', 0, 0, pdfWmm, pdfHmm);
+                                // Scale to fit exactly A4 width
+                                const finalW = 210;
+                                const finalH = (contentH * 210) / contentW;
+                                pdf.addImage(imgData, 'JPEG', 0, 0, finalW, finalH > 297 ? 297 : finalH);
                                 pdf.save('FreeEducation-' + (id || 'Receipt') + '.pdf');
                             });
                         } else {
@@ -2111,7 +2112,7 @@ function loadAdminFreeEdu() {
                                 filename: 'FreeEducation-' + (id || 'Receipt') + '.pdf',
                                 image: { type: 'jpeg', quality: 0.98 },
                                 html2canvas: { scale: 2, useCORS: true, letterRendering: false, scrollX: 0, scrollY: 0, width: contentW, height: contentH, windowWidth: contentW, windowHeight: contentH },
-                                jsPDF: { unit: 'mm', format: [Math.min(pdfWmm, pdfHmm), Math.max(pdfWmm, pdfHmm)], orientation: isLandscape ? 'landscape' : 'portrait' }
+                                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                             };
                             win.html2pdf().from(container).set(opt).save();
                         }
@@ -2119,7 +2120,7 @@ function loadAdminFreeEdu() {
                     doc.head.appendChild(script);
                 } else {
                     const dynStyle = doc.createElement('style');
-                    dynStyle.textContent = `@media print { @page { size: ${pdfWmm}mm ${pdfHmm}mm; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 0 auto !important; } }`;
+                    dynStyle.textContent = `@media print { @page { size: a4 portrait; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 0 auto !important; width: 210mm !important; height: 297mm !important; } }`;
                     doc.head.appendChild(dynStyle);
 
                     iframe.contentWindow.focus();
