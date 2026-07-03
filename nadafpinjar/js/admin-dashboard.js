@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v61') {
+if (localStorage.getItem('receipts_version') !== 'v62') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v61');
+    localStorage.setItem('receipts_version', 'v62');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1822,60 +1822,68 @@ function loadAdminFreeEdu() {
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
-        .header-table {
+        .header-box {
             width: 100%;
             border-collapse: collapse;
-            border: 3.5px double #b30000;
-            background-color: #fffdeb;
-            margin-bottom: 2px;
+            border: 2.5px solid #b30000;
+            border-radius: 12px;
+            background-color: #fffde8;
+            margin-bottom: 6px;
         }
-        .header-table td {
-            padding: 3px 4px;
+        .header-photo-cell {
+            width: 80px;
+            text-align: center;
+            padding: 6px 4px 6px 12px;
             vertical-align: middle;
         }
-        .header-photo {
-            width: 65px;
-            height: 65px;
+        .patron-photo {
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             border: 2px solid #b30000;
             object-fit: cover;
-            display: block;
-            margin: 0 auto;
+        }
+        .header-logo-cell {
+            width: 80px;
+            text-align: center;
+            padding: 6px 12px 6px 4px;
+            vertical-align: middle;
         }
         .header-logo {
-            width: 65px;
-            height: 65px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             border: 2px solid #b30000;
             object-fit: cover;
-            display: block;
-            margin: 0 auto;
         }
-        .header-text {
+        .header-text-cell {
             text-align: center;
-        }
-        .header-text h1 {
+            vertical-align: middle;
+            padding: 6px 0;
             color: #b30000;
-            font-size: 18px;
-            margin: 0;
+        }
+        .kannada-title {
+            font-size: 23px;
             font-weight: bold;
+            margin-bottom: 2px;
             white-space: nowrap;
         }
-        .header-text p {
-            margin: 0;
-            font-size: 8.5px;
-            color: #b30000;
+        .reg-no {
+            font-size: 10.5px;
             font-weight: bold;
+            margin-bottom: 2px;
+            color: #444;
         }
-        .header-text .reg-no {
-            font-size: 9px;
-            color: #b30000;
-        }
-        .header-text .en-title {
-            font-size: 10px;
-            color: #b30000;
-            margin-top: 1px;
+        .english-title {
+            font-size: 12.5px;
             font-weight: bold;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+        .office-address, .office-location {
+            font-size: 10.5px;
+            font-weight: bold;
+            color: #333;
         }
         .grid-table {
             width: 100%;
@@ -1917,12 +1925,21 @@ function loadAdminFreeEdu() {
             .header-text p {
                 font-size: 7.5px !important;
             }
-            .header-text .en-title {
-                font-size: 9px !important;
+            .kannada-title {
+                font-size: 14px !important;
             }
-            .header-photo, .logo-photo {
-                width: 35px !important;
-                height: 35px !important;
+            .english-title {
+                font-size: 10px !important;
+            }
+            .reg-no, .office-address, .office-location {
+                font-size: 8px !important;
+            }
+            .patron-photo, .header-logo {
+                width: 45px !important;
+                height: 45px !important;
+            }
+            .header-photo-cell, .header-logo-cell {
+                width: 50px !important;
             }
             .grid-table td {
                 font-size: 10px !important;
@@ -1959,20 +1976,20 @@ function loadAdminFreeEdu() {
 </head>
 <body>
     <div class="receipt-container">
-        <table class="header-table">
+        <table class="header-box">
             <tr>
-                <td style="width: 15%; text-align: center; vertical-align: middle;">
-                    <img src="images/president.png" class="header-photo" alt="President" onerror="this.src='images/president.jpeg'">
+                <td class="header-photo-cell">
+                    <img src="images/president.png" class="patron-photo" onerror="this.src='images/president.jpeg'">
                 </td>
-                <td style="width: 70%;" class="header-text">
-                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
-                    <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
-                    <p class="en-title">KARNATAKA RAJYA NADAF / PINJAR SANGHA &reg;</p>
-                    <p>ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</p>
-                    <p>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
+                <td class="header-text-cell">
+                    <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
+                    <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
+                    <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
+                    <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                 </td>
-                <td style="width: 15%; text-align: center; vertical-align: middle;">
-                    <img src="images/logo-786.png" class="header-logo" alt="Logo">
+                <td class="header-logo-cell">
+                    <img src="images/logo-786.png" class="header-logo">
                 </td>
             </tr>
         </table>
@@ -2739,56 +2756,68 @@ function loadAdminCensus() {
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
-        .header-table {
+        .header-box {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 2px;
+            border: 2.5px solid #b30000;
+            border-radius: 12px;
+            background-color: #fffde8;
+            margin-bottom: 6px;
         }
-        .header-table td {
-            padding: 1px 4px;
+        .header-photo-cell {
+            width: 80px;
+            text-align: center;
+            padding: 6px 4px 6px 12px;
             vertical-align: middle;
         }
-        .header-photo {
-            width: 55px;
-            height: 55px;
+        .patron-photo {
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            border: 1.5px solid #b30000;
+            border: 2px solid #b30000;
             object-fit: cover;
-            margin-left: 5px;
+        }
+        .header-logo-cell {
+            width: 80px;
+            text-align: center;
+            padding: 6px 12px 6px 4px;
+            vertical-align: middle;
         }
         .header-logo {
-            width: 55px;
-            height: 55px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            border: 1.5px solid #b30000;
+            border: 2px solid #b30000;
             object-fit: cover;
-            margin-right: 5px;
         }
-        .header-text {
+        .header-text-cell {
             text-align: center;
-        }
-        .header-text h1 {
+            vertical-align: middle;
+            padding: 6px 0;
             color: #b30000;
-            font-size: 21px;
-            margin: 0;
+        }
+        .kannada-title {
+            font-size: 23px;
             font-weight: bold;
+            margin-bottom: 2px;
             white-space: nowrap;
         }
-        .header-text p {
-            margin: 0;
-            font-size: 10px;
-            color: #444;
-            font-weight: bold;
-        }
-        .header-text .reg-no {
+        .reg-no {
             font-size: 10.5px;
-            color: #000;
-        }
-        .header-text .en-title {
-            font-size: 12px;
-            color: #b30000;
-            margin-top: 1px;
             font-weight: bold;
+            margin-bottom: 2px;
+            color: #444;
+        }
+        .english-title {
+            font-size: 12.5px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+        .office-address, .office-location {
+            font-size: 10.5px;
+            font-weight: bold;
+            color: #333;
         }
         .grid-table {
             width: 100%;
@@ -2908,18 +2937,21 @@ function loadAdminCensus() {
                 margin: 5px auto !important;
                 padding: 4px 6px !important;
             }
-            .header-text h1 {
-                font-size: 13px !important;
+            .kannada-title {
+                font-size: 14px !important;
             }
-            .header-text p {
-                font-size: 7.5px !important;
+            .english-title {
+                font-size: 10px !important;
             }
-            .header-text .en-title {
-                font-size: 9px !important;
+            .reg-no, .office-address, .office-location {
+                font-size: 8px !important;
             }
-            .header-photo, .logo-photo {
-                width: 35px !important;
-                height: 35px !important;
+            .patron-photo, .header-logo {
+                width: 45px !important;
+                height: 45px !important;
+            }
+            .header-photo-cell, .header-logo-cell {
+                width: 50px !important;
             }
             .grid-table td {
                 font-size: 10px !important;
@@ -2972,20 +3004,20 @@ function loadAdminCensus() {
 </head>
 <body>
     <div class="receipt-container">
-        <table class="header-table">
+        <table class="header-box">
             <tr>
-                <td style="width: 15%; text-align: left;">
-                    <img src="images/president.png" class="header-photo" alt="President" onerror="this.src='images/president.jpeg'">
+                <td class="header-photo-cell">
+                    <img src="images/president.png" class="patron-photo" onerror="this.src='images/president.jpeg'">
                 </td>
-                <td style="width: 70%;" class="header-text">
-                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
-                    <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
-                    <p class="en-title">KARNATAKA RAJYA NADAF / PINJAR SANGHA &reg;</p>
-                    <p>ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</p>
-                    <p>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
+                <td class="header-text-cell">
+                    <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
+                    <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
+                    <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
+                    <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                 </td>
-                <td style="width: 15%; text-align: right;">
-                    <img src="images/logo-786.png" class="header-logo" alt="Logo">
+                <td class="header-logo-cell">
+                    <img src="images/logo-786.png" class="header-logo">
                 </td>
             </tr>
         </table>
@@ -3336,55 +3368,68 @@ function loadAdminEmployees() {
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
-        .header-table {
+        .header-box {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 4px;
+            border: 2.5px solid #b30000;
+            border-radius: 12px;
+            background-color: #fffde8;
+            margin-bottom: 6px;
         }
-        .header-table td {
-            padding: 2px;
+        .header-photo-cell {
+            width: 80px;
+            text-align: center;
+            padding: 6px 4px 6px 12px;
             vertical-align: middle;
         }
-        .header-photo {
-            width: 105px;
-            height: 105px;
+        .patron-photo {
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            border: 1.5px solid #b30000;
+            border: 2px solid #b30000;
             object-fit: cover;
-            margin-left: 20px;
+        }
+        .header-logo-cell {
+            width: 80px;
+            text-align: center;
+            padding: 6px 12px 6px 4px;
+            vertical-align: middle;
         }
         .header-logo {
-            width: 105px;
-            height: 105px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            border: 1.5px solid #b30000;
+            border: 2px solid #b30000;
             object-fit: cover;
-            margin-right: 20px;
         }
-        .header-text {
+        .header-text-cell {
             text-align: center;
-        }
-        .header-text h1 {
+            vertical-align: middle;
+            padding: 6px 0;
             color: #b30000;
-            font-size: 21px;
-            margin: 0 0 2px 0;
+        }
+        .kannada-title {
+            font-size: 23px;
             font-weight: bold;
+            margin-bottom: 2px;
             white-space: nowrap;
         }
-        .header-text p {
-            margin: 1px 0;
-            font-size: 10px;
-            color: #444;
+        .reg-no {
+            font-size: 10.5px;
             font-weight: bold;
+            margin-bottom: 2px;
+            color: #444;
         }
-        .header-text .reg-no {
-            font-size: 10px;
-            color: #000;
+        .english-title {
+            font-size: 12.5px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
         }
-        .header-text .en-title {
-            font-size: 11px;
-            color: #b30000;
-            margin-top: 1px;
+        .office-address, .office-location {
+            font-size: 10.5px;
+            font-weight: bold;
+            color: #333;
         }
         .title-banner {
             border-top: 1.5px solid #b30000;
@@ -3496,18 +3541,21 @@ function loadAdminEmployees() {
                 margin: 5px auto !important;
                 padding: 4px 6px !important;
             }
-            .header-text h1 {
-                font-size: 13px !important;
+            .kannada-title {
+                font-size: 14px !important;
             }
-            .header-text p {
-                font-size: 7.5px !important;
+            .english-title {
+                font-size: 10px !important;
             }
-            .header-text .en-title {
-                font-size: 9px !important;
+            .reg-no, .office-address, .office-location {
+                font-size: 8px !important;
             }
-            .header-photo, .logo-photo {
-                width: 35px !important;
-                height: 35px !important;
+            .patron-photo, .header-logo {
+                width: 45px !important;
+                height: 45px !important;
+            }
+            .header-photo-cell, .header-logo-cell {
+                width: 50px !important;
             }
             .grid-table td {
                 font-size: 10px !important;
