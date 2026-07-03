@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v54') {
+if (localStorage.getItem('receipts_version') !== 'v55') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v54');
+    localStorage.setItem('receipts_version', 'v55');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -2753,7 +2753,7 @@ function loadAdminCensus() {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 2px;
-            font-size: 14.5px;
+            font-size: 17.5px;
         }
         .members-table th {
             border: 1.2px solid #b30000;
@@ -2761,13 +2761,13 @@ function loadAdminCensus() {
             color: #b30000;
             padding: 1.5px 3px;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 17.5px;
         }
         .members-table td {
             border: 1.2px solid #b30000;
             padding: 1.5px 3px;
             font-weight: bold;
-            font-size: 14.5px;
+            font-size: 17.5px;
             line-height: 1.1;
         }
         .approval-section {
