@@ -1452,7 +1452,7 @@
                         doc.head.appendChild(script);
                     } else {
                         const dynStyle = doc.createElement('style');
-                        dynStyle.textContent = `@media print { @page { size: a4 portrait; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 4mm auto !important; width: 202mm !important; height: 289mm !important; box-sizing: border-box; } }`;
+                        dynStyle.textContent = `@media print { @page { size: a4 portrait; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 4mm auto !important; width: 194mm !important; height: 280mm !important; box-sizing: border-box; } }`;
                         doc.head.appendChild(dynStyle);
 
                         iframe.style.width = '0';
