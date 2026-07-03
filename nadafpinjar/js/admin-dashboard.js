@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v47') {
+if (localStorage.getItem('receipts_version') !== 'v48') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v47');
+    localStorage.setItem('receipts_version', 'v48');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -2682,16 +2682,16 @@ function loadAdminCensus() {
             vertical-align: middle;
         }
         .header-photo {
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
             margin-left: 5px;
         }
         .header-logo {
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
@@ -2702,23 +2702,23 @@ function loadAdminCensus() {
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 22px;
+            font-size: 21px;
             margin: 0;
             font-weight: bold;
             white-space: nowrap;
         }
         .header-text p {
             margin: 0;
-            font-size: 10.5px;
+            font-size: 10px;
             color: #444;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 11px;
+            font-size: 10.5px;
             color: #000;
         }
         .header-text .en-title {
-            font-size: 12.5px;
+            font-size: 12px;
             color: #b30000;
             margin-top: 1px;
             font-weight: bold;
@@ -2730,21 +2730,21 @@ function loadAdminCensus() {
         }
         .grid-table td {
             border: 1.2px solid #b30000;
-            padding: 2.5px 6px;
+            padding: 1.5px 5px;
             font-size: 14.5px;
             vertical-align: middle;
-            line-height: 1.15;
+            line-height: 1.1;
         }
         .grid-label {
             background: #fffcf5;
             color: #b30000;
             font-weight: bold;
-            width: 22%;
+            width: 18%;
             font-size: 14.5px;
         }
         .grid-value {
             color: #000;
-            width: 28%;
+            width: 32%;
             font-weight: bold;
             font-size: 14.5px;
         }
@@ -2758,13 +2758,13 @@ function loadAdminCensus() {
             border: 1.2px solid #b30000;
             background: #fffcf5;
             color: #b30000;
-            padding: 2px 3px;
+            padding: 1.5px 3px;
             font-weight: bold;
             font-size: 13px;
         }
         .members-table td {
             border: 1.2px solid #b30000;
-            padding: 2px 3px;
+            padding: 1.5px 3px;
             font-weight: bold;
             font-size: 12.5px;
             line-height: 1.1;
@@ -2940,14 +2940,14 @@ function loadAdminCensus() {
             <thead>
                 <tr>
                     <th style="width: 4%;">Sl No.</th>
-                    <th style="width: 16%;">ಸದಸ್ಯರ ಹೆಸರು</th>
-                    <th style="width: 9%;">ಸಂಬಂಧ</th>
+                    <th style="width: 15%;">ಸದಸ್ಯರ ಹೆಸರು</th>
+                    <th style="width: 8%;">ಸಂಬಂಧ</th>
                     <th style="width: 10%;">ಮೊಬೈಲ್</th>
-                    <th style="width: 12%;">ಆಧಾರ್</th>
+                    <th style="width: 11%;">ಆಧಾರ್</th>
                     <th style="width: 10%;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
-                    <th style="width: 12%;">ಸಾಕ್ಷರಹಾ</th>
-                    <th style="width: 12%;">ವೃತ್ತಿ</th>
-                    <th style="width: 15%;">ರಾಜಕೀಯ</th>
+                    <th style="width: 15%;">ಸಾಕ್ಷರಹಾ</th>
+                    <th style="width: 13%;">ವೃತ್ತಿ</th>
+                    <th style="width: 14%;">ರಾಜಕೀಯ</th>
                 </tr>
             </thead>
             <tbody>
