@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v43') {
+if (localStorage.getItem('receipts_version') !== 'v44') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v43');
+    localStorage.setItem('receipts_version', 'v44');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1853,10 +1853,10 @@ function loadAdminFreeEdu() {
         }
         .grid-table td {
             border: 1.4px solid #b30000;
-            padding: 11px 14px;
+            padding: 4px 10px;
             font-size: 17.5px;
             vertical-align: middle;
-            line-height: 1.35;
+            line-height: 1.2;
         }
         .grid-label {
             color: #b30000;
@@ -1910,11 +1910,11 @@ function loadAdminFreeEdu() {
             </tr>
         </table>
         
-        <div style="text-align: center; color: #b30000; font-weight: bold; font-size: 21px; margin: 12px 0; text-decoration: underline;">
+        <div style="text-align: center; color: #b30000; font-weight: bold; font-size: 21px; margin: 4px 0; text-decoration: underline;">
             ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27
         </div>
 
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 15.5px; font-weight: bold; color: #b30000;">
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 4px; font-size: 15.5px; font-weight: bold; color: #b30000;">
             <tr>
                 <td style="width: 33%; text-align: left;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color: #000;">${appNumber}</span></td>
                 <td style="width: 34%; text-align: center;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color: #000;">${found.date}</span></td>
@@ -2005,13 +2005,13 @@ function loadAdminFreeEdu() {
         <div style="text-align: center; font-size: 8.5px; color: #666; margin: 0 0 2px 0;">00000</div>
 
         <!-- Signatures & Recommendation Section -->
-        <div style="border: 1.4px solid #b30000; background: #fff; padding: 16px 20px; font-weight: bold; color: #b30000; font-size: 16px; box-sizing: border-box; margin-top: 10px;">
+        <div style="border: 1.4px solid #b30000; background: #fff; padding: 8px 14px; font-weight: bold; color: #b30000; font-size: 16px; box-sizing: border-box; margin-top: 4px;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div style="width: 35%; display: flex; flex-direction: column; gap: 36px;">
+                <div style="width: 35%; display: flex; flex-direction: column; gap: 18px;">
                     <div>ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ :</div>
                     <div>ಪಾಲಕರ ಸಹಿ :</div>
                 </div>
-                <div style="width: 45%; display: flex; flex-direction: column; gap: 14px;">
+                <div style="width: 45%; display: flex; flex-direction: column; gap: 6px;">
                     <div style="display: flex; align-items: center; justify-content: space-between; width: 240px;">
                         <span>ತಾಲ್ಲೂಕು ಘಟಕ</span>
                         <span style="border: 1.8px solid #b30000; width: 20px; height: 20px; display: inline-block; background: #fff;"></span>
@@ -2031,9 +2031,9 @@ function loadAdminFreeEdu() {
             </div>
         </div>
 
-        <div style="font-weight: bold; color: #b30000; font-size: 17.5px; margin-top: 30px; padding: 2px 6px;">
-            <div style="margin-bottom: 75px;">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
-            <div style="margin-bottom: 50px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
+        <div style="font-weight: bold; color: #b30000; font-size: 17.5px; margin-top: 14px; padding: 2px 6px;">
+            <div style="margin-bottom: 35px;">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
+            <div style="margin-bottom: 10px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
     </div>
 </body>
