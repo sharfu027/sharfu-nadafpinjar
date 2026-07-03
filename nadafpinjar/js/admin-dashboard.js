@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v48') {
+if (localStorage.getItem('receipts_version') !== 'v49') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v48');
+    localStorage.setItem('receipts_version', 'v49');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -2731,7 +2731,7 @@ function loadAdminCensus() {
         .grid-table td {
             border: 1.2px solid #b30000;
             padding: 1.5px 5px;
-            font-size: 14.5px;
+            font-size: 12px;
             vertical-align: middle;
             line-height: 1.1;
         }
@@ -2740,19 +2740,19 @@ function loadAdminCensus() {
             color: #b30000;
             font-weight: bold;
             width: 18%;
-            font-size: 14.5px;
+            font-size: 12px;
         }
         .grid-value {
             color: #000;
             width: 32%;
             font-weight: bold;
-            font-size: 14.5px;
+            font-size: 12px;
         }
         .members-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 2px;
-            font-size: 12.5px;
+            font-size: 11px;
         }
         .members-table th {
             border: 1.2px solid #b30000;
@@ -2760,18 +2760,18 @@ function loadAdminCensus() {
             color: #b30000;
             padding: 1.5px 3px;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 11.5px;
         }
         .members-table td {
             border: 1.2px solid #b30000;
             padding: 1.5px 3px;
             font-weight: bold;
-            font-size: 12.5px;
+            font-size: 11px;
             line-height: 1.1;
         }
         .recommend-text {
             text-align: right;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
             color: #b30000;
             border-top: 1px dashed #b30000;
@@ -2782,7 +2782,7 @@ function loadAdminCensus() {
             display: flex;
             justify-content: space-between;
             margin-top: 4px;
-            font-size: 12.5px;
+            font-size: 11.5px;
         }
         .sig-col {
             width: 40%;
@@ -2800,7 +2800,7 @@ function loadAdminCensus() {
         .sig-label {
             font-weight: bold;
             color: #b30000;
-            font-size: 13px;
+            font-size: 12px;
         }
         .official-col {
             width: 55%;
@@ -2819,7 +2819,7 @@ function loadAdminCensus() {
             font-weight: bold;
             color: #b30000;
             vertical-align: middle;
-            font-size: 13px;
+            font-size: 12px;
         }
         .official-check {
             width: 10%;
