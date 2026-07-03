@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v44') {
+if (localStorage.getItem('receipts_version') !== 'v45') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v44');
+    localStorage.setItem('receipts_version', 'v45');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -2666,7 +2666,7 @@ function loadAdminCensus() {
             height: auto;
             margin: 0 auto;
             border: 2px double #b30000;
-            padding: 4px;
+            padding: 6px 12px;
             background: #fff;
             box-sizing: border-box;
             display: flex;
@@ -2684,57 +2684,58 @@ function loadAdminCensus() {
             vertical-align: middle;
         }
         .header-photo {
-            width: 75px;
-            height: 75px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
-            margin-left: 20px;
+            margin-left: 10px;
         }
         .header-logo {
-            width: 75px;
-            height: 75px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
-            margin-right: 20px;
+            margin-right: 10px;
         }
         .header-text {
             text-align: center;
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 18px;
+            font-size: 24px;
             margin: 0 0 1px 0;
             font-weight: bold;
             white-space: nowrap;
         }
         .header-text p {
             margin: 0.5px 0;
-            font-size: 9px;
+            font-size: 11px;
             color: #444;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 9px;
+            font-size: 11.5px;
             color: #000;
         }
         .header-text .en-title {
-            font-size: 9.5px;
+            font-size: 13px;
             color: #b30000;
             margin-top: 1px;
+            font-weight: bold;
         }
         .title-banner {
             border-top: 1.5px solid #b30000;
             border-bottom: 1.5px solid #b30000;
-            padding: 2.5px;
+            padding: 3px 6px;
             margin: 3px 0;
             background: #fffcf5;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            font-size: 10px;
+            font-size: 14.5px;
             color: #b30000;
         }
         .grid-table {
@@ -2743,43 +2744,49 @@ function loadAdminCensus() {
             margin-bottom: 4px;
         }
         .grid-table td {
-            border: 1px solid #b30000;
-            padding: 2.5px 4px;
-            font-size: 9.5px;
+            border: 1.2px solid #b30000;
+            padding: 3.5px 8px;
+            font-size: 17.5px;
             vertical-align: middle;
-            line-height: 1.1;
+            line-height: 1.2;
         }
         .grid-label {
             background: #fffcf5;
             color: #b30000;
             font-weight: bold;
             width: 25%;
+            font-size: 17.5px;
         }
         .grid-value {
             color: #000;
             width: 25%;
             font-weight: bold;
+            font-size: 17.5px;
         }
         .members-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 4px;
-            font-size: 9px;
+            font-size: 13px;
         }
         .members-table th {
-            border: 1px solid #b30000;
+            border: 1.2px solid #b30000;
             background: #fffcf5;
             color: #b30000;
-            padding: 2px 3px;
+            padding: 3px 4px;
             font-weight: bold;
+            font-size: 13.5px;
         }
         .members-table td {
-            border: 1px solid #b30000;
-            padding: 2px 3px;
+            border: 1.2px solid #b30000;
+            padding: 3px 4px;
+            font-weight: bold;
+            font-size: 13px;
+            line-height: 1.15;
         }
         .recommend-text {
             text-align: right;
-            font-size: 10px;
+            font-size: 13.5px;
             font-weight: bold;
             color: #b30000;
             border-top: 1px dashed #b30000;
@@ -2790,7 +2797,7 @@ function loadAdminCensus() {
             display: flex;
             justify-content: space-between;
             margin-top: auto;
-            font-size: 10px;
+            font-size: 13px;
         }
         .sig-col {
             width: 40%;
@@ -2803,12 +2810,12 @@ function loadAdminCensus() {
             padding-bottom: 1px;
         }
         .sig-space {
-            height: 12px;
+            height: 14px;
         }
         .sig-label {
             font-weight: bold;
             color: #b30000;
-            font-size: 10px;
+            font-size: 13.5px;
         }
         .official-col {
             width: 55%;
@@ -2820,14 +2827,14 @@ function loadAdminCensus() {
             border-collapse: collapse;
         }
         .official-row {
-            height: 13px;
+            height: 16px;
         }
         .official-title {
             width: 45%;
             font-weight: bold;
             color: #b30000;
             vertical-align: middle;
-            font-size: 9.5px;
+            font-size: 13.5px;
         }
         .official-check {
             width: 10%;
@@ -2836,8 +2843,8 @@ function loadAdminCensus() {
         }
         .official-box {
             border: 1.5px solid #b30000;
-            width: 9px;
-            height: 9px;
+            width: 14px;
+            height: 14px;
             display: inline-block;
         }
         .official-empty-space {
@@ -2863,11 +2870,11 @@ function loadAdminCensus() {
                 margin: 0;
             }
             .receipt-container {
-                border: 2px double #b30000;
+                border: 2.5px solid #b30000;
                 width: 100%;
                 max-width: 100%;
                 height: auto;
-                padding: 4px;
+                padding: 6px 12px;
                 page-break-after: avoid;
                 page-break-inside: avoid;
                 box-sizing: border-box;
