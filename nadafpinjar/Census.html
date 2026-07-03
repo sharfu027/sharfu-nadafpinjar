@@ -1413,6 +1413,11 @@
                 }
                 const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                 if (isMobile) {
+                    const contentH = container ? container.offsetHeight : 600;
+                    const pageHmm = Math.ceil(contentH * 0.2646) + 4;
+                    const contentW = container ? container.offsetWidth : 750;
+                    const pageWmm = Math.ceil(contentW * 0.2646) + 4;
+
                     const script = doc.createElement('script');
                     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
                     script.onload = () => {
@@ -1420,8 +1425,8 @@
                             margin: 0,
                             filename: 'Census-' + (appNumber || 'Receipt') + '.pdf',
                             image: { type: 'jpeg', quality: 0.98 },
-                            html2canvas: { scale: 2, useCORS: true, letterRendering: false },
-                            jsPDF: { unit: 'mm', format: [210, pageHmm], orientation: 'portrait' }
+                            html2canvas: { scale: 2, useCORS: true, letterRendering: false, scrollX: 0, scrollY: 0 },
+                            jsPDF: { unit: 'mm', format: [pageWmm, pageHmm], orientation: 'portrait' }
                         };
                         iframe.contentWindow.html2pdf().from(container).set(opt).save();
                     };
