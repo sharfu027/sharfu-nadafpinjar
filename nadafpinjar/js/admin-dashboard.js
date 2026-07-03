@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v76') {
+if (localStorage.getItem('receipts_version') !== 'v77') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v76');
+    localStorage.setItem('receipts_version', 'v77');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1444,11 +1444,15 @@ window.downloadReceiptPdf = function(receiptId) {
 
             <tr class="bottom-serial-row">
                 <td class="grid-cell" colspan="2" style="border-top: none !important; border-bottom: 2.5px solid ${themeColor} !important; padding: 4px 8px 6px 8px;">
-                    <span class="field-label" style="font-size: 14px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
-                    <span class="field-value" style="font-size: 14px; color: #000; white-space: nowrap;">KRNPS-2026-27-${serialNoVal}</span>
+                    <div style="border-bottom: 2.5px solid ${themeColor}; padding-bottom: 4px; width: 100%;">
+                        <span class="field-label" style="font-size: 14px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
+                        <span class="field-value" style="font-size: 14px; color: #000; white-space: nowrap;">KRNPS-2026-27-${serialNoVal}</span>
+                    </div>
                 </td>
                 <td class="grid-cell right-align" style="border-top: none !important; border-bottom: 2.5px solid ${themeColor} !important; padding: 4px 12px 6px 8px; font-weight: bold; color: ${themeColor}; font-size: 14px; white-space: nowrap;">
-                    ಅಧಿಕೃತ ಸಹಿ
+                    <div style="border-bottom: 2.5px solid ${themeColor}; padding-bottom: 4px; width: 100%;">
+                        ಅಧಿಕೃತ ಸಹಿ
+                    </div>
                 </td>
             </tr>
         </table>
