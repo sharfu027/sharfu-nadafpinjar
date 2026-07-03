@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v71') {
+if (localStorage.getItem('receipts_version') !== 'v72') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v71');
+    localStorage.setItem('receipts_version', 'v72');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1182,8 +1182,8 @@ window.downloadReceiptPdf = function(receiptId) {
             width: 100%;
             max-width: 200mm;
             margin: 5mm auto;
-            border: none;
-            padding: 4px 6px;
+            border: 1.5px solid ${themeColor};
+            padding: 6px 8px;
             background: #fff;
             box-sizing: border-box;
         }
@@ -1348,7 +1348,7 @@ window.downloadReceiptPdf = function(receiptId) {
                 height: 138mm !important;
                 margin: 5mm auto !important;
                 padding: 6px 8px !important;
-                border: none !important;
+                border: 1.5px solid ${themeColor} !important;
                 box-sizing: border-box !important;
                 page-break-inside: avoid !important;
                 page-break-after: avoid !important;
