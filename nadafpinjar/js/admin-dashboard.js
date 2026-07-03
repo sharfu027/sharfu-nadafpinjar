@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v63') {
+if (localStorage.getItem('receipts_version') !== 'v64') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v63');
+    localStorage.setItem('receipts_version', 'v64');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1176,8 +1176,8 @@ window.downloadReceiptPdf = function(receiptId) {
         .grid-cell {
             border: none;
             border-bottom: 1px solid ${themeColor};
-            padding: 4px 8px;
-            font-size: 17.5px;
+            padding: 3px 6px;
+            font-size: 14px;
             vertical-align: middle;
             color: #1e293b;
             line-height: 1.25;
@@ -1202,14 +1202,14 @@ window.downloadReceiptPdf = function(receiptId) {
             font-weight: bold;
         }
         .payment-line {
-            font-size: 17.5px;
+            font-size: 14px;
         }
         .seal-img {
-            height: 70px;
+            height: 55px;
             width: auto;
         }
         .sig-img {
-            height: 50px;
+            height: 40px;
             width: auto;
             margin-bottom: 2px;
         }
@@ -1262,7 +1262,7 @@ window.downloadReceiptPdf = function(receiptId) {
                 width: 200mm !important;
                 height: 138mm !important;
                 margin: 5mm auto !important;
-                padding: 10px 12px !important;
+                padding: 8px 10px !important;
                 border: 2px solid ${themeColor} !important;
                 box-sizing: border-box !important;
                 page-break-inside: avoid !important;
@@ -1277,7 +1277,7 @@ window.downloadReceiptPdf = function(receiptId) {
         <table class="header-box">
             <tr>
                 <td colspan="3" style="text-align: center; padding: 6px 10px 2px 10px;">
-                    <div class="kannada-title" style="font-size: 26px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                    <div class="kannada-title" style="font-size: 24px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                 </td>
             </tr>
             <tr>
@@ -1298,67 +1298,67 @@ window.downloadReceiptPdf = function(receiptId) {
 
         <table class="receipt-grid">
             <tr class="subheader-row">
-                <td class="grid-cell" style="width: 33%; border-bottom: 2px solid ${themeColor};">
+                <td class="grid-cell" style="width: 35%; border-bottom: 2px solid ${themeColor};">
                     <span class="field-label">ರಶೀದಿ ಸಂಖ್ಯೆ:</span>
-                    <span class="field-value" style="color: #000;">${found.id}</span>
+                    <span class="field-value" style="color: #000; white-space: nowrap;">${found.id}</span>
                 </td>
-                <td class="grid-cell center-align" style="width: 34%; border-bottom: 2px solid ${themeColor};">
-                    <div style="font-size: 16px; font-weight: bold; color: ${themeColor};">ಪಾವತಿಸಿದ ರಶೀದಿ</div>
-                    <div style="font-size: 14px; font-weight: bold; margin-top: 2px; color: ${themeColor};">${subheaderTitle}</div>
+                <td class="grid-cell center-align" style="width: 33%; border-bottom: 2px solid ${themeColor};">
+                    <div style="font-size: 15px; font-weight: bold; color: ${themeColor};">ಪಾವತಿಸಿದ ರಶೀದಿ</div>
+                    <div style="font-size: 13px; font-weight: bold; margin-top: 2px; color: ${themeColor};">${subheaderTitle}</div>
                 </td>
-                <td class="grid-cell right-align" style="width: 33%; border-bottom: 2px solid ${themeColor};">
+                <td class="grid-cell right-align" style="width: 32%; border-bottom: 2px solid ${themeColor};">
                     <span class="field-label">ದಿನಾಂಕ :</span>
-                    <span class="field-value" style="color: #000;">${formatDateDashes(found.date)}</span>
+                    <span class="field-value" style="color: #000; white-space: nowrap;">${formatDateDashes(found.date)}</span>
                 </td>
             </tr>
 
             ${fieldsHTML}
 
             <tr style="border-top: 2px solid ${themeColor};">
-                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 10px 12px;">
-                    <div class="payment-line" style="margin-top: 4px;">
+                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
+                    <div class="payment-line" style="margin-top: 2px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
-                        <span class="field-value" style="font-size: 17.5px; font-weight: bold; color: #000;">${formatCurrencyRaw(found.amount)}</span>
+                        <span class="field-value" style="font-size: 14px; font-weight: bold; color: #000; white-space: nowrap;">${formatCurrencyRaw(found.amount)}</span>
                     </div>
-                    <div class="payment-line" style="margin-top: 8px;">
+                    <div class="payment-line" style="margin-top: 6px;">
                         <span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span>
-                        <span class="field-value" style="color: #000;">${formatDateDashes(found.date)}</span>
+                        <span class="field-value" style="color: #000; white-space: nowrap;">${formatDateDashes(found.date)}</span>
                     </div>
-                    <div class="payment-line" style="margin-top: 8px;">
+                    <div class="payment-line" style="margin-top: 6px;">
                         <span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span>
                         <span class="field-value" style="color: #000;">${details.purpose || found.from}</span>
                     </div>
-                    <div class="payment-line" style="margin-top: 8px;">
+                    <div class="payment-line" style="margin-top: 6px;">
                         <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
                         <span class="field-value" style="color: #000;">${details.purposeDetails || ""}</span>
                     </div>
                 </td>
-                <td class="grid-cell center-align" style="width: 30%; border-bottom: none !important; vertical-align: top; padding: 10px 12px;">
-                    <div class="payment-line" style="margin-top: 4px;">
+                <td class="grid-cell center-align" style="width: 30%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
+                    <div class="payment-line" style="margin-top: 2px;">
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
                         <span class="field-value" style="color: #000;">${details.mode || found.mode}</span>
                     </div>
-                    <div style="margin-top: 20px; text-align: center;">
+                    <div style="margin-top: 12px; text-align: center;">
                         <img src="images/seal.jpg" class="seal-img">
                     </div>
                 </td>
-                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 10px 12px;">
-                    <div style="text-align: center; width: 260px; margin: 4px auto 0 auto;">
-                        <div style="font-size: 17.5px; font-weight: bold; color: ${themeColor}; margin-bottom: 4px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
+                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
+                    <div style="text-align: center; width: 230px; margin: 2px auto 0 auto;">
+                        <div style="font-size: 14px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
                         <img src="images/sig.jpg" class="sig-img" style="margin-bottom: 2px;">
-                        <div style="font-size: 17.5px; font-weight: bold; color: #4f1971; margin-top: 2px; line-height: 1.3; white-space: nowrap;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
-                        <div style="font-size: 15.5px; font-weight: bold; color: #4f1971; line-height: 1.3; white-space: nowrap;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
-                        <div style="font-size: 13.5px; font-weight: bold; color: #4f1971; line-height: 1.3; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                        <div style="font-size: 14px; font-weight: bold; color: #4f1971; margin-top: 2px; line-height: 1.2; white-space: nowrap;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
+                        <div style="font-size: 12.5px; font-weight: bold; color: #4f1971; line-height: 1.2; white-space: nowrap;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
+                        <div style="font-size: 11px; font-weight: bold; color: #4f1971; line-height: 1.2; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     </div>
                 </td>
             </tr>
 
             <tr class="bottom-serial-row">
-                <td class="grid-cell" colspan="2" style="border-top: none !important; padding: 5px 10px;">
-                    <span class="field-label" style="font-size: 17.5px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
-                    <span class="field-value" style="font-size: 17.5px; color: #000;">KRNPS-2026-27-${serialNoVal}</span>
+                <td class="grid-cell" colspan="2" style="border-top: none !important; padding: 4px 8px;">
+                    <span class="field-label" style="font-size: 14px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
+                    <span class="field-value" style="font-size: 14px; color: #000; white-space: nowrap;">KRNPS-2026-27-${serialNoVal}</span>
                 </td>
-                <td class="grid-cell right-align" style="border-top: none !important; padding: 5px 20px 5px 10px; font-weight: bold; color: ${themeColor}; font-size: 17.5px;">
+                <td class="grid-cell right-align" style="border-top: none !important; padding: 4px 12px 4px 8px; font-weight: bold; color: ${themeColor}; font-size: 14px; white-space: nowrap;">
                     ಅಧಿಕೃತ ಸಹಿ
                 </td>
             </tr>
@@ -1897,8 +1897,8 @@ function loadAdminFreeEdu() {
         }
         .grid-table td {
             border: 1.4px solid #b30000;
-            padding: 4px 10px;
-            font-size: 17.5px;
+            padding: 3px 8px;
+            font-size: 14px;
             vertical-align: middle;
             line-height: 1.2;
         }
@@ -1906,7 +1906,7 @@ function loadAdminFreeEdu() {
             color: #b30000;
             font-weight: bold;
             width: 25%;
-            font-size: 17.5px;
+            font-size: 14px;
         }
         .grid-value {
             color: #000;
