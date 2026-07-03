@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v70') {
+if (localStorage.getItem('receipts_version') !== 'v71') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v70');
+    localStorage.setItem('receipts_version', 'v71');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1287,11 +1287,11 @@ window.downloadReceiptPdf = function(receiptId) {
             font-size: 14px;
         }
         .seal-img {
-            height: 55px;
+            height: 75px;
             width: auto;
         }
         .sig-img {
-            height: 40px;
+            height: 55px;
             width: auto;
             margin-bottom: 2px;
         }
@@ -1322,7 +1322,10 @@ window.downloadReceiptPdf = function(receiptId) {
                 padding: 3px 6px !important;
             }
             .seal-img {
-                height: 35px !important;
+                height: 50px !important;
+            }
+            .sig-img {
+                height: 40px !important;
             }
         }
         @media print {
@@ -1428,9 +1431,9 @@ window.downloadReceiptPdf = function(receiptId) {
                     <div style="text-align: center; width: 230px; margin: 2px auto 0 auto;">
                         <div style="font-size: 14px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
                         <img src="images/sig.jpg" class="sig-img" style="margin-bottom: 2px;">
-                        <div style="font-size: 14px; font-weight: bold; color: #4f1971; margin-top: 2px; line-height: 1.2; white-space: nowrap;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
-                        <div style="font-size: 12.5px; font-weight: bold; color: #4f1971; line-height: 1.2; white-space: nowrap;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
-                        <div style="font-size: 11px; font-weight: bold; color: #4f1971; line-height: 1.2; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                        <div style="font-size: 15px; font-weight: bold; color: #4f1971; margin-top: 2px; line-height: 1.2; white-space: nowrap;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
+                        <div style="font-size: 13.5px; font-weight: bold; color: #4f1971; line-height: 1.2; white-space: nowrap;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
+                        <div style="font-size: 12px; font-weight: bold; color: #4f1971; line-height: 1.2; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     </div>
                 </td>
             </tr>
