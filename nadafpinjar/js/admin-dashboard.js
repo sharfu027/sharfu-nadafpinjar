@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v62') {
+if (localStorage.getItem('receipts_version') !== 'v63') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v62');
+    localStorage.setItem('receipts_version', 'v63');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1045,30 +1045,30 @@ window.downloadReceiptPdf = function(receiptId) {
         <tr>
             <td class="grid-cell" style="width: 33%;">
                 <span class="field-label">ಹೆಸರು:</span>
-                <span class="field-value" style="font-weight: bold; color: ${themeColor};">${details.fullName || ""}</span>
+                <span class="field-value" style="font-weight: bold; color: #000;">${details.fullName || ""}</span>
             </td>
             <td class="grid-cell" style="width: 33%;">
                 <div style="margin-bottom: 8px;">
                     <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
-                    <span class="field-value">${details.village || ""}</span>
+                    <span class="field-value" style="color: #000;">${details.village || ""}</span>
                 </div>
                 <div>
                     <span class="field-label">ವಿಳಾಸ:</span>
-                    <span class="field-value">${details.address || ""}</span>
+                    <span class="field-value" style="color: #000;">${details.address || ""}</span>
                 </div>
             </td>
             <td class="grid-cell" style="width: 34%;">
                 <div style="margin-bottom: 4px;">
                     <span class="field-label">ಮೊಬೈಲ್:</span>
-                    <span class="field-value">${details.mobile || ""}</span>
+                    <span class="field-value" style="color: #000;">${details.mobile || ""}</span>
                 </div>
                 <div style="margin-bottom: 4px;">
                     <span class="field-label">ತಾಲೂಕು:</span>
-                    <span class="field-value">${details.taluk || ""}</span>
+                    <span class="field-value" style="color: #000;">${details.taluk || ""}</span>
                 </div>
                 <div>
                     <span class="field-label">ಜಿಲ್ಲೆ:</span>
-                    <span class="field-value">${details.district || ""}</span>
+                    <span class="field-value" style="color: #000;">${details.district || ""}</span>
                 </div>
             </td>
         </tr>
@@ -1276,17 +1276,21 @@ window.downloadReceiptPdf = function(receiptId) {
     <div class="receipt-container">
         <table class="header-box">
             <tr>
-                <td class="header-photo-cell">
+                <td colspan="3" style="text-align: center; padding: 6px 10px 2px 10px;">
+                    <div class="kannada-title" style="font-size: 26px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="header-photo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 4px 6px 12px;">
                     <img src="images/president.png" class="patron-photo" onerror="this.src='images/president.jpeg'">
                 </td>
-                <td class="header-text-cell">
-                    <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                <td class="header-text-cell" style="width: 60%; text-align: center; vertical-align: middle; padding: 0 0 6px 0;">
                     <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
                     <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
                     <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
                     <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                 </td>
-                <td class="header-logo-cell">
+                <td class="header-logo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 12px 6px 4px;">
                     <img src="images/logo-786.png" class="header-logo">
                 </td>
             </tr>
@@ -1296,15 +1300,15 @@ window.downloadReceiptPdf = function(receiptId) {
             <tr class="subheader-row">
                 <td class="grid-cell" style="width: 33%; border-bottom: 2px solid ${themeColor};">
                     <span class="field-label">ರಶೀದಿ ಸಂಖ್ಯೆ:</span>
-                    <span class="field-value">${found.id}</span>
+                    <span class="field-value" style="color: #000;">${found.id}</span>
                 </td>
                 <td class="grid-cell center-align" style="width: 34%; border-bottom: 2px solid ${themeColor};">
-                    <div style="font-size: 16px; font-weight: bold;">ಪಾವತಿಸಿದ ರಶೀದಿ</div>
-                    <div style="font-size: 14px; font-weight: bold; margin-top: 2px;">${subheaderTitle}</div>
+                    <div style="font-size: 16px; font-weight: bold; color: ${themeColor};">ಪಾವತಿಸಿದ ರಶೀದಿ</div>
+                    <div style="font-size: 14px; font-weight: bold; margin-top: 2px; color: ${themeColor};">${subheaderTitle}</div>
                 </td>
                 <td class="grid-cell right-align" style="width: 33%; border-bottom: 2px solid ${themeColor};">
-                    <span class="field-label">ದಿನಾಂಕ:</span>
-                    <span class="field-value">${formatDateDashes(found.date)}</span>
+                    <span class="field-label">ದಿನಾಂಕ :</span>
+                    <span class="field-value" style="color: #000;">${formatDateDashes(found.date)}</span>
                 </td>
             </tr>
 
@@ -1314,25 +1318,25 @@ window.downloadReceiptPdf = function(receiptId) {
                 <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 10px 12px;">
                     <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
-                        <span class="field-value" style="font-size: 15px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(found.amount)}</span>
+                        <span class="field-value" style="font-size: 17.5px; font-weight: bold; color: #000;">${formatCurrencyRaw(found.amount)}</span>
                     </div>
                     <div class="payment-line" style="margin-top: 8px;">
                         <span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span>
-                        <span class="field-value">${formatDateDashes(found.date)}</span>
+                        <span class="field-value" style="color: #000;">${formatDateDashes(found.date)}</span>
                     </div>
                     <div class="payment-line" style="margin-top: 8px;">
                         <span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span>
-                        <span class="field-value">${details.purpose || found.from}</span>
+                        <span class="field-value" style="color: #000;">${details.purpose || found.from}</span>
                     </div>
                     <div class="payment-line" style="margin-top: 8px;">
                         <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
-                        <span class="field-value">${details.purposeDetails || ""}</span>
+                        <span class="field-value" style="color: #000;">${details.purposeDetails || ""}</span>
                     </div>
                 </td>
                 <td class="grid-cell center-align" style="width: 30%; border-bottom: none !important; vertical-align: top; padding: 10px 12px;">
                     <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
-                        <span class="field-value">${details.mode || found.mode}</span>
+                        <span class="field-value" style="color: #000;">${details.mode || found.mode}</span>
                     </div>
                     <div style="margin-top: 20px; text-align: center;">
                         <img src="images/seal.jpg" class="seal-img">
@@ -1352,7 +1356,7 @@ window.downloadReceiptPdf = function(receiptId) {
             <tr class="bottom-serial-row">
                 <td class="grid-cell" colspan="2" style="border-top: none !important; padding: 5px 10px;">
                     <span class="field-label" style="font-size: 17.5px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
-                    <span class="field-value" style="font-size: 17.5px; color: ${themeColor};">KRNPS-2026-27-${serialNoVal}</span>
+                    <span class="field-value" style="font-size: 17.5px; color: #000;">KRNPS-2026-27-${serialNoVal}</span>
                 </td>
                 <td class="grid-cell right-align" style="border-top: none !important; padding: 5px 20px 5px 10px; font-weight: bold; color: ${themeColor}; font-size: 17.5px;">
                     ಅಧಿಕೃತ ಸಹಿ
@@ -3006,17 +3010,21 @@ function loadAdminCensus() {
     <div class="receipt-container">
         <table class="header-box">
             <tr>
-                <td class="header-photo-cell">
+                <td colspan="3" style="text-align: center; padding: 6px 10px 2px 10px;">
+                    <div class="kannada-title" style="font-size: 26px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="header-photo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 4px 6px 12px;">
                     <img src="images/president.png" class="patron-photo" onerror="this.src='images/president.jpeg'">
                 </td>
-                <td class="header-text-cell">
-                    <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                <td class="header-text-cell" style="width: 60%; text-align: center; vertical-align: middle; padding: 0 0 6px 0;">
                     <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
                     <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
                     <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
                     <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                 </td>
-                <td class="header-logo-cell">
+                <td class="header-logo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 12px 6px 4px;">
                     <img src="images/logo-786.png" class="header-logo">
                 </td>
             </tr>
@@ -3600,20 +3608,24 @@ function loadAdminEmployees() {
 </head>
 <body>
     <div class="receipt-container">
-        <table class="header-table">
+        <table class="header-box">
             <tr>
-                <td style="width: 15%; text-align: left;">
-                    <img src="images/president.png" class="header-photo" alt="President" onerror="this.src='images/president.jpeg'">
+                <td colspan="3" style="text-align: center; padding: 6px 10px 2px 10px;">
+                    <div class="kannada-title" style="font-size: 26px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                 </td>
-                <td style="width: 70%;" class="header-text">
-                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
-                    <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
-                    <p class="en-title">KARNATAKA RAJYA NADAF / PINJAR SANGHA &reg;</p>
-                    <p>ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</p>
-                    <p>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
+            </tr>
+            <tr>
+                <td class="header-photo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 4px 6px 12px;">
+                    <img src="images/president.png" class="patron-photo" onerror="this.src='images/president.jpeg'">
                 </td>
-                <td style="width: 15%; text-align: right;">
-                    <img src="images/logo-786.png" class="header-logo" alt="Logo">
+                <td class="header-text-cell" style="width: 60%; text-align: center; vertical-align: middle; padding: 0 0 6px 0;">
+                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
+                    <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
+                    <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
+                    <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
+                </td>
+                <td class="header-logo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 12px 6px 4px;">
+                    <img src="images/logo-786.png" class="header-logo">
                 </td>
             </tr>
         </table>

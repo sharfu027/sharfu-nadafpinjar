@@ -1108,17 +1108,21 @@
     <div class="receipt-container">
         <table class="header-box">
             <tr>
-                <td class="header-photo-cell">
+                <td colspan="3" style="text-align: center; padding: 6px 10px 2px 10px;">
+                    <div class="kannada-title" style="font-size: 26px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="header-photo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 4px 6px 12px;">
                     <img src="images/president.png" class="patron-photo" onerror="this.src='images/president.jpeg'">
                 </td>
-                <td class="header-text-cell">
-                    <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                <td class="header-text-cell" style="width: 60%; text-align: center; vertical-align: middle; padding: 0 0 6px 0;">
                     <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
                     <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
                     <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
                     <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                 </td>
-                <td class="header-logo-cell">
+                <td class="header-logo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 12px 6px 4px;">
                     <img src="images/logo-786.png" class="header-logo">
                 </td>
             </tr>
@@ -1128,45 +1132,45 @@
             <tr class="subheader-row">
                 <td class="grid-cell" style="width: 33%; border-bottom: 2px solid ${themeColor};">
                     <span class="field-label">ರಶೀದಿ ಸಂಖ್ಯೆ:</span>
-                    <span class="field-value">${paymentId || 'Offline / Cash'}</span>
+                    <span class="field-value" style="color: #000;">${paymentId || 'Offline / Cash'}</span>
                 </td>
                 <td class="grid-cell center-align" style="width: 34%; border-bottom: 2px solid ${themeColor};">
-                    <div style="font-size: 16px; font-weight: bold;">ಪಾವತಿಸಿದ ರಶೀದಿ</div>
-                    <div style="font-size: 14px; font-weight: bold; margin-top: 2px;">${subheaderTitle}</div>
+                    <div style="font-size: 16px; font-weight: bold; color: ${themeColor};">ಪಾವತಿಸಿದ ರಶೀದಿ</div>
+                    <div style="font-size: 14px; font-weight: bold; margin-top: 2px; color: ${themeColor};">${subheaderTitle}</div>
                 </td>
                 <td class="grid-cell right-align" style="width: 33%; border-bottom: 2px solid ${themeColor};">
-                    <span class="field-label">ದಿನಾಂಕ:</span>
-                    <span class="field-value">${formattedDate}</span>
+                    <span class="field-label">ದಿನಾಂಕ :</span>
+                    <span class="field-value" style="color: #000;">${formattedDate}</span>
                 </td>
             </tr>
 
             <tr>
                 <td class="grid-cell" style="width: 33%;">
                     <span class="field-label">ಹೆಸರು:</span>
-                    <span class="field-value" style="font-weight: bold; color: ${themeColor};">${data.donorName || ""}</span>
+                    <span class="field-value" style="font-weight: bold; color: #000;">${data.donorName || ""}</span>
                 </td>
                 <td class="grid-cell" style="width: 33%;">
                     <div style="margin-bottom: 8px;">
                         <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
-                        <span class="field-value">${data.donorVillage || ""}</span>
+                        <span class="field-value" style="color: #000;">${data.donorVillage || ""}</span>
                     </div>
                     <div>
                         <span class="field-label">ವಿಳಾಸ:</span>
-                        <span class="field-value">${data.donorAddress || ""}</span>
+                        <span class="field-value" style="color: #000;">${data.donorAddress || ""}</span>
                     </div>
                 </td>
                 <td class="grid-cell" style="width: 34%;">
                     <div style="margin-bottom: 4px;">
                         <span class="field-label">ಮೊಬೈಲ್:</span>
-                        <span class="field-value">${data.donorMobile || ""}</span>
+                        <span class="field-value" style="color: #000;">${data.donorMobile || ""}</span>
                     </div>
                     <div style="margin-bottom: 4px;">
                         <span class="field-label">ತಾಲೂಕು:</span>
-                        <span class="field-value">${data.donorTaluk || ""}</span>
+                        <span class="field-value" style="color: #000;">${data.donorTaluk || ""}</span>
                     </div>
                     <div>
                         <span class="field-label">ಜಿಲ್ಲೆ:</span>
-                        <span class="field-value">${data.donorDistrict || ""}</span>
+                        <span class="field-value" style="color: #000;">${data.donorDistrict || ""}</span>
                     </div>
                 </td>
             </tr>
@@ -1175,25 +1179,25 @@
                 <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 10px 12px;">
                     <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
-                        <span class="field-value" style="font-size: 15px; font-weight: bold; color: ${themeColor};">${formatCurrencyRaw(data.amount)}</span>
+                        <span class="field-value" style="font-size: 17.5px; font-weight: bold; color: #000;">${formatCurrencyRaw(data.amount)}</span>
                     </div>
                     <div class="payment-line" style="margin-top: 8px;">
                         <span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span>
-                        <span class="field-value">${formattedDate}</span>
+                        <span class="field-value" style="color: #000;">${formattedDate}</span>
                     </div>
                     <div class="payment-line" style="margin-top: 8px;">
                         <span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span>
-                        <span class="field-value">${data.account || "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ"}</span>
+                        <span class="field-value" style="color: #000;">${data.account || "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ"}</span>
                     </div>
                     <div class="payment-line" style="margin-top: 8px;">
                         <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
-                        <span class="field-value">${data.purposeDetails || ""}</span>
+                        <span class="field-value" style="color: #000;">${data.purposeDetails || ""}</span>
                     </div>
                 </td>
                 <td class="grid-cell center-align" style="width: 30%; border-bottom: none !important; vertical-align: top; padding: 10px 12px;">
                     <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
-                        <span class="field-value">${data.paymentMode || "Cash"}</span>
+                        <span class="field-value" style="color: #000;">${data.paymentMode || "Cash"}</span>
                     </div>
                     <div style="margin-top: 20px; text-align: center;">
                         <img src="images/seal.jpg" class="seal-img">
@@ -1213,7 +1217,7 @@
             <tr class="bottom-serial-row">
                 <td class="grid-cell" colspan="2" style="border-top: none !important; padding: 5px 10px;">
                     <span class="field-label" style="font-size: 17.5px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
-                    <span class="field-value" style="font-size: 17.5px; color: ${themeColor};">KRNPS-2026-27-${paymentId ? paymentId.slice(-4).toUpperCase() : 'PENDING'}</span>
+                    <span class="field-value" style="font-size: 17.5px; color: #000;">KRNPS-2026-27-${paymentId ? paymentId.slice(-4).toUpperCase() : 'PENDING'}</span>
                 </td>
                 <td class="grid-cell right-align" style="border-top: none !important; padding: 5px 20px 5px 10px; font-weight: bold; color: ${themeColor}; font-size: 17.5px;">
                     ಅಧಿಕೃತ ಸಹಿ
