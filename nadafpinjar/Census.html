@@ -1407,14 +1407,22 @@
             
             setTimeout(() => {
                 iframe.style.width = '794px';
-                iframe.style.height = '1123px';
+                iframe.style.height = 'auto';
                 
                 setTimeout(() => {
                     const container = doc.querySelector('.receipt-container');
                     const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                     if (container) {
-                        container.style.margin = '2mm auto';
+                        container.style.margin = '0 auto';
                     }
+
+                    const rect = container ? container.getBoundingClientRect() : { width: 750, height: 600 };
+                    const contentH = Math.ceil(rect.height || (container ? container.offsetHeight : 600));
+                    const contentW = Math.ceil(rect.width || (container ? container.offsetWidth : 750));
+
+                    const pdfWmm = contentW * 0.264583;
+                    const pdfHmm = contentH * 0.264583;
+                    const isLandscape = pdfWmm >= pdfHmm;
 
                     if (isMobile) {
                         const script = doc.createElement('script');
@@ -1423,10 +1431,6 @@
                             const win = iframe.contentWindow;
                             const h2c = win.html2canvas || window.html2canvas;
                             const jsPdfClass = win.jsPDF || (win.jspdf && win.jspdf.jsPDF) || window.jsPDF || (window.jspdf && window.jspdf.jsPDF);
-
-                            const pdfWmm = contentW * 0.264583;
-                            const pdfHmm = contentH * 0.264583;
-                            const isLandscape = pdfWmm >= pdfHmm;
 
                             if (h2c && jsPdfClass) {
                                 h2c(container, {
@@ -1463,7 +1467,7 @@
                         doc.head.appendChild(script);
                     } else {
                         const dynStyle = doc.createElement('style');
-                        dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 0 auto !important; } }`;
+                        dynStyle.textContent = `@media print { @page { size: ${pdfWmm}mm ${pdfHmm}mm; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 0 auto !important; } }`;
                         doc.head.appendChild(dynStyle);
 
                         iframe.style.width = '0';
