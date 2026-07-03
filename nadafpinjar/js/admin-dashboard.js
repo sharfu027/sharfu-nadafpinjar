@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v52') {
+if (localStorage.getItem('receipts_version') !== 'v53') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v52');
+    localStorage.setItem('receipts_version', 'v53');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -2945,18 +2945,7 @@ function loadAdminCensus() {
                 ${membersRows}
             </tbody>
         </table>
-        <div class="approval-section" style="margin-top: 15px;">
-            <div class="sig-col" style="width: 100%;">
-                <div class="sig-item" style="border-bottom: 1.5px dashed #b30000; padding-bottom: 2px; width: 45%; margin-bottom: 15px;">
-                    <div class="sig-space" style="height: 25px;"></div>
-                    <div class="sig-label" style="font-weight: bold; color: #b30000; font-size: 15px;">ಅರ್ಜಿದಾರರ ಸಹಿ :</div>
-                </div>
-                <div class="sig-item" style="border-bottom: 1.5px dashed #b30000; padding-bottom: 2px; width: 45%;">
-                    <div class="sig-space" style="height: 25px;"></div>
-                    <div class="sig-label" style="font-weight: bold; color: #b30000; font-size: 15px;">ಅಧ್ಯಕ್ಷರ/ಕಾರ್ಯದರ್ಶಿಗಳ ಸಹಿ :</div>
-                </div>
-            </div>
-        </div>
+
     </div>
 </body>
 </html>`;
