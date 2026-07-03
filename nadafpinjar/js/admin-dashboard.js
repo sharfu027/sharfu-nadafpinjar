@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v45') {
+if (localStorage.getItem('receipts_version') !== 'v46') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v45');
+    localStorage.setItem('receipts_version', 'v46');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -2624,20 +2624,20 @@ function loadAdminCensus() {
             data.members.forEach((m, idx) => {
                 membersRows += `
                     <tr>
-                        <td style="text-align: center; border: 1px solid #b30000; padding: 6px;">${idx + 1}</td>
-                        <td style="border: 1px solid #b30000; padding: 6px;">${m.name || '-'}</td>
-                        <td style="border: 1px solid #b30000; padding: 6px;">${m.relation || '-'}</td>
-                        <td style="border: 1px solid #b30000; padding: 6px;">${m.mobile || '-'}</td>
-                        <td style="border: 1px solid #b30000; padding: 6px;">${m.aadhar || '-'}</td>
-                        <td style="border: 1px solid #b30000; padding: 6px;">${m.dob || '-'}</td>
-                        <td style="border: 1px solid #b30000; padding: 6px;">${m.literate || '-'}</td>
-                        <td style="border: 1px solid #b30000; padding: 6px;">${m.occupation || '-'}</td>
-                        <td style="border: 1px solid #b30000; padding: 6px;">${m.political || '-'}</td>
+                        <td style="text-align: center; border: 1px solid #b30000; padding: 2px;">${idx + 1}</td>
+                        <td style="border: 1px solid #b30000; padding: 2px;">${m.name || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 2px;">${m.relation || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 2px;">${m.mobile || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 2px;">${m.aadhar || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 2px;">${m.dob || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 2px;">${m.literate || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 2px;">${m.occupation || '-'}</td>
+                        <td style="border: 1px solid #b30000; padding: 2px;">${m.political || '-'}</td>
                     </tr>
                 `;
             });
         } else {
-            membersRows = '<tr><td colspan="9" style="text-align: center; border: 1px solid #b30000; padding: 10px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
+            membersRows = '<tr><td colspan="9" style="text-align: center; border: 1px solid #b30000; padding: 4px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
         }
 
         const printHTML = `<!DOCTYPE html>
@@ -2665,65 +2665,237 @@ function loadAdminCensus() {
             max-width: 100%;
             height: auto;
             margin: 0 auto;
-            border: 2px double #b30000;
-            padding: 6px 12px;
+            border: 2px solid #b30000;
+            padding: 4px 8px;
             background: #fff;
             box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
         .header-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         .header-table td {
-            padding: 1.5px;
+            padding: 1px 4px;
             vertical-align: middle;
         }
         .header-photo {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
-            margin-left: 10px;
+            margin-left: 5px;
         }
         .header-logo {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 1.5px solid #b30000;
             object-fit: cover;
-            margin-right: 10px;
+            margin-right: 5px;
         }
         .header-text {
             text-align: center;
         }
         .header-text h1 {
             color: #b30000;
-            font-size: 24px;
-            margin: 0 0 1px 0;
+            font-size: 22px;
+            margin: 0;
             font-weight: bold;
             white-space: nowrap;
         }
         .header-text p {
-            margin: 0.5px 0;
-            font-size: 11px;
+            margin: 0;
+            font-size: 10.5px;
             color: #444;
             font-weight: bold;
         }
         .header-text .reg-no {
-            font-size: 11.5px;
+            font-size: 11px;
             color: #000;
         }
         .header-text .en-title {
-            font-size: 13px;
+            font-size: 12.5px;
             color: #b30000;
             margin-top: 1px;
             font-weight: bold;
+        }
+        .grid-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2px;
+        }
+        .grid-table td {
+            border: 1.2px solid #b30000;
+            padding: 2px 6px;
+            font-size: 17.5px;
+            vertical-align: middle;
+            line-height: 1.15;
+        }
+        .grid-label {
+            background: #fffcf5;
+            color: #b30000;
+            font-weight: bold;
+            width: 22%;
+            font-size: 17.5px;
+        }
+        .grid-value {
+            color: #000;
+            width: 28%;
+            font-weight: bold;
+            font-size: 17.5px;
+        }
+        .members-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2px;
+            font-size: 12.5px;
+        }
+        .members-table th {
+            border: 1.2px solid #b30000;
+            background: #fffcf5;
+            color: #b30000;
+            padding: 2px 3px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .members-table td {
+            border: 1.2px solid #b30000;
+            padding: 2px 3px;
+            font-weight: bold;
+            font-size: 12.5px;
+            line-height: 1.1;
+        }
+        .recommend-text {
+            text-align: right;
+            font-size: 13px;
+            font-weight: bold;
+            color: #b30000;
+            border-top: 1px dashed #b30000;
+            padding: 1px 15px 1px 0;
+            margin-top: 2px;
+        }
+        .approval-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4px;
+            font-size: 12.5px;
+        }
+        .sig-col {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .sig-item {
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 1px;
+        }
+        .sig-space {
+            height: 10px;
+        }
+        .sig-label {
+            font-weight: bold;
+            color: #b30000;
+            font-size: 13px;
+        }
+        .official-col {
+            width: 55%;
+            border-left: 1.5px solid #b30000;
+            padding-left: 10px;
+        }
+        .official-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .official-row {
+            height: 14px;
+        }
+        .official-title {
+            width: 45%;
+            font-weight: bold;
+            color: #b30000;
+            vertical-align: middle;
+            font-size: 13px;
+        }
+        .official-check {
+            width: 10%;
+            text-align: left;
+            vertical-align: middle;
+        }
+        .official-box {
+            border: 1.5px solid #b30000;
+            width: 13px;
+            height: 13px;
+            display: inline-block;
+        }
+        .official-empty-space {
+            width: 45%;
+        }
+        .official-sig-line {
+            width: 50%;
+            border-bottom: 1px dashed #b30000;
+        }
+        @media print {
+            @page {
+                margin: 0;
+            }
+            html, body {
+                width: 100%;
+                height: auto !important;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            .receipt-container {
+                border: 2.5px solid #b30000;
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                padding: 4px 8px;
+                page-break-after: avoid;
+                page-break-inside: avoid;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <table class="header-table">
+            <tr>
+                <td style="width: 15%; text-align: left;">
+                    <img src="images/president.png" class="header-photo" alt="President" onerror="this.src='images/president.jpeg'">
+                </td>
+                <td style="width: 70%;" class="header-text">
+                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
+                    <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
+                    <p class="en-title">KARNATAKA RAJYA NADAF / PINJAR SANGHA &reg;</p>
+                    <p>ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</p>
+                    <p>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
+                </td>
+                <td style="width: 15%; text-align: right;">
+                    <img src="images/logo-786.png" class="header-logo" alt="Logo">
+                </td>
+            </tr>
+        </table>
+        
+        <table style="width: 100%; border-collapse: collapse; margin: 2px 0; border-top: 1.5px solid #b30000; border-bottom: 1.5px solid #b30000; background: #fffcf5; font-size: 13.5px; font-weight: bold; color: #b30000;">
+            <tr>
+                <td style="width: 32%; text-align: left; padding: 2px 4px; white-space: nowrap;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : ${appNumber}</td>
+                <td style="width: 38%; text-align: center; padding: 2px 4px; font-size: 14.5px; white-space: nowrap;">ನಡಾಫ್/ ಪಿಂಜಾರ್ ಜನಗಣತಿ (ಕರ್ನಾಟಕ) 2026- 27</td>
+                <td style="width: 30%; text-align: right; padding: 2px 4px; white-space: nowrap;">ಅರ್ಜಿ ದಿನಾಂಕ : ${found.date}</td>
+            </tr>
+        </table>
+
+        <h3 style="color: #b30000; font-size: 13.5px; margin: 3px 0 2px 0; border-bottom: 1px solid #b30000; padding-bottom: 1px;">I. ಕುಟುಂಬದ ವಿವರ (Family Details)</h3>         font-weight: bold;
         }
         .title-banner {
             border-top: 1.5px solid #b30000;
