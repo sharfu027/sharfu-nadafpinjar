@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v51') {
+if (localStorage.getItem('receipts_version') !== 'v52') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v51');
+    localStorage.setItem('receipts_version', 'v52');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -2731,7 +2731,7 @@ function loadAdminCensus() {
         .grid-table td {
             border: 1.2px solid #b30000;
             padding: 1.5px 5px;
-            font-size: 14px;
+            font-size: 16px;
             vertical-align: middle;
             line-height: 1.1;
         }
@@ -2740,19 +2740,19 @@ function loadAdminCensus() {
             color: #b30000;
             font-weight: bold;
             width: 18%;
-            font-size: 14px;
+            font-size: 16px;
         }
         .grid-value {
             color: #000;
             width: 32%;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 16px;
         }
         .members-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 2px;
-            font-size: 13px;
+            font-size: 14px;
         }
         .members-table th {
             border: 1.2px solid #b30000;
@@ -2760,20 +2760,20 @@ function loadAdminCensus() {
             color: #b30000;
             padding: 1.5px 3px;
             font-weight: bold;
-            font-size: 13.5px;
+            font-size: 14.5px;
         }
         .members-table td {
             border: 1.2px solid #b30000;
             padding: 1.5px 3px;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 14px;
             line-height: 1.1;
         }
         .approval-section {
             display: flex;
             justify-content: space-between;
             margin-top: 4px;
-            font-size: 13px;
+            font-size: 14px;
         }
         .sig-col {
             width: 40%;
@@ -2791,7 +2791,7 @@ function loadAdminCensus() {
         .sig-label {
             font-weight: bold;
             color: #b30000;
-            font-size: 13px;
+            font-size: 15px;
         }
         .official-col {
             width: 55%;
@@ -2945,34 +2945,16 @@ function loadAdminCensus() {
                 ${membersRows}
             </tbody>
         </table>
-        <div class="approval-section">
-            <div class="sig-col">
-                <div class="sig-item">
-                    <div class="sig-space"></div>
-                    <div class="sig-label">ಅರ್ಜಿದಾರರ ಸಹಿ :</div>
+        <div class="approval-section" style="margin-top: 15px;">
+            <div class="sig-col" style="width: 100%;">
+                <div class="sig-item" style="border-bottom: 1.5px dashed #b30000; padding-bottom: 2px; width: 45%; margin-bottom: 15px;">
+                    <div class="sig-space" style="height: 25px;"></div>
+                    <div class="sig-label" style="font-weight: bold; color: #b30000; font-size: 15px;">ಅರ್ಜಿದಾರರ ಸಹಿ :</div>
                 </div>
-                <div class="sig-item">
-                    <div class="sig-space"></div>
-                    <div class="sig-label">ಅಧ್ಯಕ್ಷರ/ಕಾರ್ಯದರ್ಶಿಗಳ ಸಹಿ :</div>
+                <div class="sig-item" style="border-bottom: 1.5px dashed #b30000; padding-bottom: 2px; width: 45%;">
+                    <div class="sig-space" style="height: 25px;"></div>
+                    <div class="sig-label" style="font-weight: bold; color: #b30000; font-size: 15px;">ಅಧ್ಯಕ್ಷರ/ಕಾರ್ಯದರ್ಶಿಗಳ ಸಹಿ :</div>
                 </div>
-            </div>
-            <div class="official-col">
-                <table class="official-table">
-                    <tr class="official-row">
-                        <td class="official-title">ತಾಲ್ಲೂಕು ಘಟಕ</td>
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-empty-space"></td>
-                    </tr>
-                    <tr class="official-row">
-                        <td class="official-title">ಜಿಲ್ಲಾ ಘಟಕ</td>
-                        <td class="official-check"><span class="official-box"></span></td>
-                        <td class="official-empty-space"></td>
-                    </tr>
-                    <tr class="official-row">
-                        <td class="official-title">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</td>
-                        <td class="official-sig-line" colspan="2"></td>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>
