@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v68') {
+if (localStorage.getItem('receipts_version') !== 'v69') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v68');
+    localStorage.setItem('receipts_version', 'v69');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1029,48 +1029,132 @@ window.downloadReceiptPdf = function(receiptId) {
     }
 
     // Determine colors, subheader titles and layout fields based on the source category
-    let themeColor = "#b30000"; // Maroon/Red for all receipts as per reference design
+    let themeColor = "#b30000"; // Red for State Direct
     let subheaderTitle = "ನೇರವಾಗಿ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
 
     const fromStr = (found.from || "").toLowerCase();
-    if (fromStr.includes("district")) {
+    let isDistrict = fromStr.includes("district");
+    let isTaluk = fromStr.includes("taluk");
+
+    if (isDistrict) {
+        themeColor = "#0033cc"; // Blue for District
         subheaderTitle = "ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
-    } else if (fromStr.includes("taluk")) {
+    } else if (isTaluk) {
+        themeColor = "#006600"; // Green for Taluk
         subheaderTitle = "ತಾಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
     }
 
-    let fieldsHTML = `
-        <tr>
-            <td class="grid-cell" style="width: 33%;">
-                <span class="field-label">ಹೆಸರು:</span>
-                <span class="field-value" style="font-weight: bold; color: #000;">${details.fullName || ""}</span>
-            </td>
-            <td class="grid-cell" style="width: 33%;">
-                <div style="margin-bottom: 8px;">
-                    <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
-                    <span class="field-value" style="color: #000;">${details.village || ""}</span>
-                </div>
-                <div>
-                    <span class="field-label">ವಿಳಾಸ:</span>
-                    <span class="field-value" style="color: #000;">${details.address || ""}</span>
-                </div>
-            </td>
-            <td class="grid-cell" style="width: 34%;">
-                <div style="margin-bottom: 4px;">
-                    <span class="field-label">ಮೊಬೈಲ್:</span>
-                    <span class="field-value" style="color: #000;">${details.mobile || ""}</span>
-                </div>
-                <div style="margin-bottom: 4px;">
-                    <span class="field-label">ತಾಲೂಕು:</span>
-                    <span class="field-value" style="color: #000;">${details.taluk || ""}</span>
-                </div>
-                <div>
-                    <span class="field-label">ಜಿಲ್ಲೆ:</span>
-                    <span class="field-value" style="color: #000;">${details.district || ""}</span>
-                </div>
-            </td>
-        </tr>
-    `;
+    let fieldsHTML = "";
+    if (isDistrict || isTaluk) {
+        const presTitle = isDistrict ? "ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ" : "ತಾಲೂಕು ಅಧ್ಯಕ್ಷರ";
+        fieldsHTML = `
+            <!-- SECTION 1: PRESIDENT DETAILS -->
+            <tr>
+                <td class="grid-cell" style="width: 35%; vertical-align: top;">
+                    <div style="margin-bottom: 3px;"><u style="color: ${themeColor}; font-weight: bold;">${presTitle}</u></div>
+                    <div>
+                        <span class="field-label">ಹೆಸರು:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentName || details.districtPresidentName || details.talukPresidentName || ""}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 33%; vertical-align: top;">
+                    <div style="margin-bottom: 3px; margin-top: 18px;">
+                        <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentVillage || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ವಿಳಾಸ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentAddress || ""}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 32%; vertical-align: top;">
+                    <div style="margin-bottom: 3px; margin-top: 18px;">
+                        <span class="field-label">ಮೊಬೈಲ್:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000; white-space: nowrap;">${details.presidentMobile || ""}</span>
+                    </div>
+                    <div style="margin-bottom: 3px;">
+                        <span class="field-label">ತಾಲೂಕು:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentTaluk || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentDistrict || ""}</span>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- SECTION 2: DONOR DETAILS (YARA PARAVAGI) -->
+            <tr>
+                <td class="grid-cell" style="width: 35%; vertical-align: top;">
+                    <div style="margin-bottom: 3px;"><u style="color: ${themeColor}; font-weight: bold;">ಯಾರ ಪರವಾಗಿ:</u></div>
+                    <div>
+                        <span class="field-label">ಹೆಸರು:</span>
+                        <span class="field-value" style="font-weight: 600; color: #000;">${details.fullName || details.donorName || ""}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 33%; vertical-align: top;">
+                    <div style="margin-bottom: 3px; margin-top: 18px;">
+                        <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.village || details.donorVillage || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ವಿಳಾಸ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.address || details.donorAddress || ""}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 32%; vertical-align: top;">
+                    <div style="margin-bottom: 3px; margin-top: 18px;">
+                        <span class="field-label">ಮೊಬೈಲ್:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000; white-space: nowrap;">${details.mobile || details.donorMobile || ""}</span>
+                    </div>
+                    <div style="margin-bottom: 3px;">
+                        <span class="field-label">ತಾಲೂಕು:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.taluk || details.donorTaluk || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.district || details.donorDistrict || ""}</span>
+                    </div>
+                </td>
+            </tr>
+        `;
+    } else {
+        fieldsHTML = `
+            <tr>
+                <td class="grid-cell" style="width: 35%; vertical-align: top;">
+                    <div style="margin-bottom: 3px;"><u style="color: ${themeColor}; font-weight: bold;">ಯಾರ ಪರವಾಗಿ:</u></div>
+                    <div>
+                        <span class="field-label">ಹೆಸರು:</span>
+                        <span class="field-value" style="font-weight: 600; color: #000;">${details.fullName || details.donorName || ""}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 33%; vertical-align: top;">
+                    <div style="margin-bottom: 3px; margin-top: 18px;">
+                        <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.village || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ವಿಳಾಸ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.address || ""}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 32%; vertical-align: top;">
+                    <div style="margin-bottom: 3px; margin-top: 18px;">
+                        <span class="field-label">ಮೊಬೈಲ್:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000; white-space: nowrap;">${details.mobile || ""}</span>
+                    </div>
+                    <div style="margin-bottom: 3px;">
+                        <span class="field-label">ತಾಲೂಕು:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.taluk || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.district || ""}</span>
+                    </div>
+                </td>
+            </tr>
+        `;
+    }
 
     const printHTML = `<!DOCTYPE html>
 <html>

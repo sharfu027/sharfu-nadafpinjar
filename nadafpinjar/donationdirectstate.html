@@ -1078,32 +1078,35 @@
             </tr>
 
             <tr>
-                <td class="grid-cell" style="width: 35%;">
-                    <span class="field-label">ಹೆಸರು:</span>
-                    <span class="field-value" style="font-weight: bold; color: #000;">${data.donorName || ""}</span>
+                <td class="grid-cell" style="width: 35%; vertical-align: top;">
+                    <div style="margin-bottom: 4px;"><u style="color: ${themeColor}; font-weight: bold;">ಯಾರ ಪರವಾಗಿ:</u></div>
+                    <div>
+                        <span class="field-label">ಹೆಸರು:</span>
+                        <span class="field-value" style="font-weight: 600; color: #000;">${data.donorName || ""}</span>
+                    </div>
                 </td>
-                <td class="grid-cell" style="width: 33%;">
-                    <div style="margin-bottom: 6px;">
+                <td class="grid-cell" style="width: 33%; vertical-align: top;">
+                    <div style="margin-bottom: 6px; margin-top: 20px;">
                         <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
-                        <span class="field-value" style="color: #000;">${data.village || ""}</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${data.village || ""}</span>
                     </div>
                     <div>
                         <span class="field-label">ವಿಳಾಸ:</span>
-                        <span class="field-value" style="color: #000;">${data.address || ""}</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${data.address || ""}</span>
                     </div>
                 </td>
-                <td class="grid-cell" style="width: 32%;">
-                    <div style="margin-bottom: 3px;">
+                <td class="grid-cell" style="width: 32%; vertical-align: top;">
+                    <div style="margin-bottom: 3px; margin-top: 20px;">
                         <span class="field-label">ಮೊಬೈಲ್:</span>
-                        <span class="field-value" style="color: #000; white-space: nowrap;">${data.mobile || ""}</span>
+                        <span class="field-value" style="font-weight: 500; color: #000; white-space: nowrap;">${data.mobile || ""}</span>
                     </div>
                     <div style="margin-bottom: 3px;">
                         <span class="field-label">ತಾಲೂಕು:</span>
-                        <span class="field-value" style="color: #000;">${data.taluk || ""}</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${data.taluk || ""}</span>
                     </div>
                     <div>
                         <span class="field-label">ಜಿಲ್ಲೆ:</span>
-                        <span class="field-value" style="color: #000;">${data.district || ""}</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${data.district || ""}</span>
                     </div>
                 </td>
             </tr>
