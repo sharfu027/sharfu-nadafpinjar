@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v33') {
+if (localStorage.getItem('receipts_version') !== 'v34') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v33');
+    localStorage.setItem('receipts_version', 'v34');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -2032,6 +2032,13 @@ function loadAdminFreeEdu() {
                 <span>ರಾಜ್ಯ ಘಟಕ</span>
                 <span style="border: 1.5px solid #000; width: 14px; height: 14px; display: inline-block; margin-left: 10px; background: #fff;"></span>
             </div>
+        </div>
+
+        <div style="font-weight: bold; color: #b30000; font-size: 10px; margin-top: 10px; padding-left: 2px;">
+            ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :
+        </div>
+        <div style="font-weight: bold; color: #b30000; font-size: 10px; margin-top: 25px; margin-bottom: 6px; padding-left: 2px;">
+            ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :
         </div>
     </div>
 </body>
