@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v50') {
+if (localStorage.getItem('receipts_version') !== 'v51') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v50');
+    localStorage.setItem('receipts_version', 'v51');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -2731,7 +2731,7 @@ function loadAdminCensus() {
         .grid-table td {
             border: 1.2px solid #b30000;
             padding: 1.5px 5px;
-            font-size: 12px;
+            font-size: 14px;
             vertical-align: middle;
             line-height: 1.1;
         }
@@ -2740,19 +2740,19 @@ function loadAdminCensus() {
             color: #b30000;
             font-weight: bold;
             width: 18%;
-            font-size: 12px;
+            font-size: 14px;
         }
         .grid-value {
             color: #000;
             width: 32%;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 14px;
         }
         .members-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 2px;
-            font-size: 11px;
+            font-size: 13px;
         }
         .members-table th {
             border: 1.2px solid #b30000;
@@ -2760,29 +2760,20 @@ function loadAdminCensus() {
             color: #b30000;
             padding: 1.5px 3px;
             font-weight: bold;
-            font-size: 11.5px;
+            font-size: 13.5px;
         }
         .members-table td {
             border: 1.2px solid #b30000;
             padding: 1.5px 3px;
             font-weight: bold;
-            font-size: 11px;
+            font-size: 13px;
             line-height: 1.1;
-        }
-        .recommend-text {
-            text-align: right;
-            font-size: 12px;
-            font-weight: bold;
-            color: #b30000;
-            border-top: 1px dashed #b30000;
-            padding: 1px 15px 1px 0;
-            margin-top: 2px;
         }
         .approval-section {
             display: flex;
             justify-content: space-between;
             margin-top: 4px;
-            font-size: 11.5px;
+            font-size: 13px;
         }
         .sig-col {
             width: 40%;
@@ -2800,7 +2791,7 @@ function loadAdminCensus() {
         .sig-label {
             font-weight: bold;
             color: #b30000;
-            font-size: 12px;
+            font-size: 13px;
         }
         .official-col {
             width: 55%;
@@ -2954,9 +2945,6 @@ function loadAdminCensus() {
                 ${membersRows}
             </tbody>
         </table>
-
-        <div class="recommend-text">ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ</div>
-
         <div class="approval-section">
             <div class="sig-col">
                 <div class="sig-item">
