@@ -862,10 +862,10 @@
             color: #333;
         }
         .receipt-container {
-            width: 190mm;
+            width: 200mm;
             margin: 5mm auto;
             border: 2px solid ${themeColor};
-            padding: 12px;
+            padding: 10px 12px;
             background: #fff;
             box-sizing: border-box;
         }
@@ -875,30 +875,30 @@
             border: 2.5px solid #b30000;
             border-radius: 12px;
             background-color: #fffde8;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .header-photo-cell {
-            width: 90px;
+            width: 80px;
             text-align: center;
-            padding: 8px 4px 8px 14px;
+            padding: 6px 4px 6px 12px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             border: 2px solid #b30000;
             object-fit: cover;
         }
         .header-logo-cell {
-            width: 90px;
+            width: 80px;
             text-align: center;
-            padding: 8px 14px 8px 4px;
+            padding: 6px 12px 6px 4px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             border: 2px solid #b30000;
             object-fit: cover;
@@ -906,29 +906,29 @@
         .header-text-cell {
             text-align: center;
             vertical-align: middle;
-            padding: 8px 0;
+            padding: 6px 0;
             color: #b30000;
         }
         .kannada-title {
-            font-size: 26px;
+            font-size: 23px;
             font-weight: bold;
             margin-bottom: 2px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: bold;
             margin-bottom: 2px;
             color: #444;
         }
         .english-title {
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: bold;
             letter-spacing: 0.5px;
             margin-bottom: 2px;
         }
         .office-address, .office-location {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: bold;
             color: #333;
         }
@@ -940,11 +940,11 @@
         .grid-cell {
             border: none;
             border-bottom: 1px solid ${themeColor};
-            padding: 6px 10px;
-            font-size: 13px;
-            vertical-align: top;
+            padding: 4px 8px;
+            font-size: 17.5px;
+            vertical-align: middle;
             color: #1e293b;
-            line-height: 1.4;
+            line-height: 1.25;
         }
         .center-align {
             text-align: center;
@@ -966,24 +966,25 @@
             font-weight: bold;
         }
         .payment-line {
-            font-size: 13px;
+            font-size: 17.5px;
         }
         .seal-img {
-            height: 60px;
+            height: 50px;
             width: auto;
         }
         .sig-img {
-            height: 40px;
+            height: 35px;
             width: auto;
             margin-bottom: 2px;
         }
         @media print {
             @page {
+                size: A5 landscape;
                 margin: 0;
             }
             html, body {
                 width: 210mm;
-                height: auto;
+                height: 148mm;
                 margin: 0;
                 padding: 0;
                 overflow: hidden;
@@ -992,14 +993,14 @@
                 padding: 0;
             }
             .receipt-container {
-                width: 196mm;
-                height: auto;
-                margin: 2mm auto;
-                padding: 12px;
+                width: 200mm !important;
+                height: 138mm !important;
+                margin: 5mm auto !important;
+                padding: 10px 12px !important;
                 border: 2px solid ${themeColor} !important;
-                box-sizing: border-box;
-                page-break-inside: avoid;
-                page-break-after: avoid;
+                box-sizing: border-box !important;
+                page-break-inside: avoid !important;
+                page-break-after: avoid !important;
                 background: #fff !important;
             }
         }
@@ -1210,7 +1211,7 @@
                         doc.head.appendChild(script);
                     } else {
                         const dynStyle = doc.createElement('style');
-                        dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 0 auto !important; } }`;
+                        dynStyle.textContent = `@media print { @page { size: A5 landscape; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 5mm auto !important; width: 200mm !important; height: 138mm !important; box-sizing: border-box !important; } }`;
                         doc.head.appendChild(dynStyle);
 
                         iframe.style.width = '0';
