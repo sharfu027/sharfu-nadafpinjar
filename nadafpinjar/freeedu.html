@@ -773,7 +773,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <base href="${window.location.origin}/">
+    <base href="${(window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null') ? window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) : window.location.origin + '/'}">
     <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
     <style>
         html, body {
@@ -790,7 +790,8 @@
             color: #333;
         }
         .receipt-container {
-            width: 196mm;
+            width: 100%;
+            max-width: 196mm;
             min-height: 280mm;
             margin: 0 auto;
             border: 2.5px solid #b30000;
@@ -889,6 +890,41 @@
                 padding: 15px;
                 margin: 20px auto;
                 max-width: 95%;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            .receipt-container {
+                width: 98% !important;
+                margin: 5px auto !important;
+                padding: 4px 6px !important;
+            }
+            .header-text h1 {
+                font-size: 13px !important;
+            }
+            .header-text p {
+                font-size: 7.5px !important;
+            }
+            .header-text .en-title {
+                font-size: 9px !important;
+            }
+            .header-photo, .logo-photo {
+                width: 35px !important;
+                height: 35px !important;
+            }
+            .grid-table td {
+                font-size: 10px !important;
+                padding: 1px 3px !important;
+            }
+            .grid-label {
+                font-size: 10px !important;
+                width: 25% !important;
+            }
+            .grid-value {
+                font-size: 10px !important;
+                width: 25% !important;
+            }
+            .declaration-section {
+                font-size: 9px !important;
             }
         }
         @page {

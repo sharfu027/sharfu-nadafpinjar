@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v58') {
+if (localStorage.getItem('receipts_version') !== 'v59') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v58');
+    localStorage.setItem('receipts_version', 'v59');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1079,7 +1079,7 @@ window.downloadReceiptPdf = function(receiptId) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="${window.location.origin}/">
+    <base href="${(window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null') ? window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) : window.location.origin + '/'}">
     <title>Donation Receipt - ${found.id}</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap');
@@ -1097,7 +1097,8 @@ window.downloadReceiptPdf = function(receiptId) {
             color: #333;
         }
         .receipt-container {
-            width: 200mm;
+            width: 100%;
+            max-width: 200mm;
             margin: 5mm auto;
             border: 2px solid ${themeColor};
             padding: 10px 12px;
@@ -1211,6 +1212,36 @@ window.downloadReceiptPdf = function(receiptId) {
             height: 35px;
             width: auto;
             margin-bottom: 2px;
+        }
+        @media screen and (max-width: 768px) {
+            .receipt-container {
+                width: 98% !important;
+                margin: 5px auto !important;
+                padding: 6px !important;
+            }
+            .kannada-title {
+                font-size: 14px !important;
+            }
+            .english-title {
+                font-size: 10px !important;
+            }
+            .reg-no, .office-address {
+                font-size: 8px !important;
+            }
+            .patron-photo, .header-logo {
+                width: 45px !important;
+                height: 45px !important;
+            }
+            .header-photo-cell, .header-logo-cell {
+                width: 50px !important;
+            }
+            .grid-cell, .payment-line {
+                font-size: 11px !important;
+                padding: 3px 6px !important;
+            }
+            .seal-img {
+                height: 35px !important;
+            }
         }
         @media print {
             @page {
@@ -1764,7 +1795,7 @@ function loadAdminFreeEdu() {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="${window.location.origin}/">
+    <base href="${(window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null') ? window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) : window.location.origin + '/'}">
     <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
     <style>
         html, body {
@@ -1873,6 +1904,41 @@ function loadAdminFreeEdu() {
         }
         @page {
             margin: 0;
+        }
+        @media screen and (max-width: 768px) {
+            .receipt-container {
+                width: 98% !important;
+                margin: 5px auto !important;
+                padding: 4px 6px !important;
+            }
+            .header-text h1 {
+                font-size: 13px !important;
+            }
+            .header-text p {
+                font-size: 7.5px !important;
+            }
+            .header-text .en-title {
+                font-size: 9px !important;
+            }
+            .header-photo, .logo-photo {
+                width: 35px !important;
+                height: 35px !important;
+            }
+            .grid-table td {
+                font-size: 10px !important;
+                padding: 1px 3px !important;
+            }
+            .grid-label {
+                font-size: 10px !important;
+                width: 25% !important;
+            }
+            .grid-value {
+                font-size: 10px !important;
+                width: 25% !important;
+            }
+            .declaration-section {
+                font-size: 9px !important;
+            }
         }
         @media print {
             html, body {
@@ -2646,7 +2712,7 @@ function loadAdminCensus() {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="${window.location.origin}/">
+    <base href="${(window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null') ? window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) : window.location.origin + '/'}">
     <title>ಜನಗಣತಿ (Census) - ರಶೀದಿ</title>
     <style>
         html, body {
@@ -2835,6 +2901,46 @@ function loadAdminCensus() {
         .official-sig-line {
             width: 50%;
             border-bottom: 1px dashed #b30000;
+        }
+        @media screen and (max-width: 768px) {
+            .receipt-container {
+                width: 98% !important;
+                margin: 5px auto !important;
+                padding: 4px 6px !important;
+            }
+            .header-text h1 {
+                font-size: 13px !important;
+            }
+            .header-text p {
+                font-size: 7.5px !important;
+            }
+            .header-text .en-title {
+                font-size: 9px !important;
+            }
+            .header-photo, .logo-photo {
+                width: 35px !important;
+                height: 35px !important;
+            }
+            .grid-table td {
+                font-size: 10px !important;
+                padding: 1px 3px !important;
+            }
+            .grid-label {
+                font-size: 10px !important;
+            }
+            .grid-value {
+                font-size: 10px !important;
+            }
+            .members-table {
+                font-size: 9.5px !important;
+            }
+            .members-table th, .members-table td {
+                font-size: 9.5px !important;
+                padding: 1px 2px !important;
+            }
+            .approval-section {
+                font-size: 10px !important;
+            }
         }
         @media print {
             @page {
@@ -3201,7 +3307,7 @@ function loadAdminEmployees() {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="${window.location.origin}/">
+    <base href="${(window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null') ? window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) : window.location.origin + '/'}">
     <title>ನೌಕರರ ನೋಂದಣಿ ಪತ್ರ - ರಶೀದಿ</title>
     <style>
         html, body {
@@ -3383,6 +3489,38 @@ function loadAdminEmployees() {
         .official-sig-line {
             width: 50%;
             border-bottom: 1px dashed #b30000;
+        }
+        @media screen and (max-width: 768px) {
+            .receipt-container {
+                width: 98% !important;
+                margin: 5px auto !important;
+                padding: 4px 6px !important;
+            }
+            .header-text h1 {
+                font-size: 13px !important;
+            }
+            .header-text p {
+                font-size: 7.5px !important;
+            }
+            .header-text .en-title {
+                font-size: 9px !important;
+            }
+            .header-photo, .logo-photo {
+                width: 35px !important;
+                height: 35px !important;
+            }
+            .grid-table td {
+                font-size: 10px !important;
+                padding: 1px 3px !important;
+            }
+            .grid-label {
+                font-size: 10px !important;
+                width: 25% !important;
+            }
+            .grid-value {
+                font-size: 10px !important;
+                width: 25% !important;
+            }
         }
         @media print {
             @page {

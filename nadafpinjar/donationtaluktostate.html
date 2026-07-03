@@ -911,7 +911,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="${window.location.origin}/">
+    <base href="${(window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null') ? window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) : window.location.origin + '/'}">
     <title>Donation Receipt</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap');
@@ -929,7 +929,8 @@
             color: #333;
         }
         .receipt-container {
-            width: 200mm;
+            width: 100%;
+            max-width: 200mm;
             margin: 5mm auto;
             border: 2px solid ${themeColor};
             padding: 10px 12px;
@@ -1043,6 +1044,36 @@
             height: 35px;
             width: auto;
             margin-bottom: 2px;
+        }
+        @media screen and (max-width: 768px) {
+            .receipt-container {
+                width: 98% !important;
+                margin: 5px auto !important;
+                padding: 6px !important;
+            }
+            .kannada-title {
+                font-size: 14px !important;
+            }
+            .english-title {
+                font-size: 10px !important;
+            }
+            .reg-no, .office-address {
+                font-size: 8px !important;
+            }
+            .patron-photo, .header-logo {
+                width: 45px !important;
+                height: 45px !important;
+            }
+            .header-photo-cell, .header-logo-cell {
+                width: 50px !important;
+            }
+            .grid-cell, .payment-line {
+                font-size: 11px !important;
+                padding: 3px 6px !important;
+            }
+            .seal-img {
+                height: 35px !important;
+            }
         }
         @media print {
             @page {
