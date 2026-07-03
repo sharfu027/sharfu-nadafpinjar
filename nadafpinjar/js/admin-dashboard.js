@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v46') {
+if (localStorage.getItem('receipts_version') !== 'v47') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v46');
+    localStorage.setItem('receipts_version', 'v47');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -2730,8 +2730,8 @@ function loadAdminCensus() {
         }
         .grid-table td {
             border: 1.2px solid #b30000;
-            padding: 2px 6px;
-            font-size: 17.5px;
+            padding: 2.5px 6px;
+            font-size: 14.5px;
             vertical-align: middle;
             line-height: 1.15;
         }
@@ -2740,13 +2740,13 @@ function loadAdminCensus() {
             color: #b30000;
             font-weight: bold;
             width: 22%;
-            font-size: 17.5px;
+            font-size: 14.5px;
         }
         .grid-value {
             color: #000;
             width: 28%;
             font-weight: bold;
-            font-size: 17.5px;
+            font-size: 14.5px;
         }
         .members-table {
             width: 100%;
@@ -2895,192 +2895,7 @@ function loadAdminCensus() {
             </tr>
         </table>
 
-        <h3 style="color: #b30000; font-size: 13.5px; margin: 3px 0 2px 0; border-bottom: 1px solid #b30000; padding-bottom: 1px;">I. ಕುಟುಂಬದ ವಿವರ (Family Details)</h3>         font-weight: bold;
-        }
-        .title-banner {
-            border-top: 1.5px solid #b30000;
-            border-bottom: 1.5px solid #b30000;
-            padding: 3px 6px;
-            margin: 3px 0;
-            background: #fffcf5;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            font-size: 14.5px;
-            color: #b30000;
-        }
-        .grid-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 4px;
-        }
-        .grid-table td {
-            border: 1.2px solid #b30000;
-            padding: 3.5px 8px;
-            font-size: 17.5px;
-            vertical-align: middle;
-            line-height: 1.2;
-        }
-        .grid-label {
-            background: #fffcf5;
-            color: #b30000;
-            font-weight: bold;
-            width: 25%;
-            font-size: 17.5px;
-        }
-        .grid-value {
-            color: #000;
-            width: 25%;
-            font-weight: bold;
-            font-size: 17.5px;
-        }
-        .members-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 4px;
-            font-size: 13px;
-        }
-        .members-table th {
-            border: 1.2px solid #b30000;
-            background: #fffcf5;
-            color: #b30000;
-            padding: 3px 4px;
-            font-weight: bold;
-            font-size: 13.5px;
-        }
-        .members-table td {
-            border: 1.2px solid #b30000;
-            padding: 3px 4px;
-            font-weight: bold;
-            font-size: 13px;
-            line-height: 1.15;
-        }
-        .recommend-text {
-            text-align: right;
-            font-size: 13.5px;
-            font-weight: bold;
-            color: #b30000;
-            border-top: 1px dashed #b30000;
-            padding: 2px 15px 2px 0;
-            margin-top: 2px;
-        }
-        .approval-section {
-            display: flex;
-            justify-content: space-between;
-            margin-top: auto;
-            font-size: 13px;
-        }
-        .sig-col {
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .sig-item {
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 1px;
-        }
-        .sig-space {
-            height: 14px;
-        }
-        .sig-label {
-            font-weight: bold;
-            color: #b30000;
-            font-size: 13.5px;
-        }
-        .official-col {
-            width: 55%;
-            border-left: 1.5px solid #b30000;
-            padding-left: 12px;
-        }
-        .official-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .official-row {
-            height: 16px;
-        }
-        .official-title {
-            width: 45%;
-            font-weight: bold;
-            color: #b30000;
-            vertical-align: middle;
-            font-size: 13.5px;
-        }
-        .official-check {
-            width: 10%;
-            text-align: left;
-            vertical-align: middle;
-        }
-        .official-box {
-            border: 1.5px solid #b30000;
-            width: 14px;
-            height: 14px;
-            display: inline-block;
-        }
-        .official-empty-space {
-            width: 45%;
-        }
-        .official-sig-line {
-            width: 50%;
-            border-bottom: 1px dashed #b30000;
-        }
-        @media print {
-            @page {
-                margin: 0;
-            }
-            html, body {
-                width: 100%;
-                height: auto !important;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-            }
-            body {
-                padding: 0;
-                margin: 0;
-            }
-            .receipt-container {
-                border: 2.5px solid #b30000;
-                width: 100%;
-                max-width: 100%;
-                height: auto;
-                padding: 6px 12px;
-                page-break-after: avoid;
-                page-break-inside: avoid;
-                box-sizing: border-box;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="receipt-container">
-        <table class="header-table">
-            <tr>
-                <td style="width: 15%; text-align: left;">
-                    <img src="images/president.png" class="header-photo" alt="President" onerror="this.src='images/president.jpeg'">
-                </td>
-                <td style="width: 70%;" class="header-text">
-                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
-                    <p class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಓ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</p>
-                    <p class="en-title">KARNATAKA RAJYA NADAF / PINJAR SANGHA &reg;</p>
-                    <p>ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</p>
-                    <p>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</p>
-                </td>
-                <td style="width: 15%; text-align: right;">
-                    <img src="images/logo-786.png" class="header-logo" alt="Logo">
-                </td>
-            </tr>
-        </table>
-        
-        <div class="title-banner">
-            <div>ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
-            <div style="font-size: 15px;">ನದಾಫ್/ ಪಿಂಜಾರ್ ಜನಗಣತಿ (ಕರ್ನಾಟಕ) 2026- 27</div>
-            <div>ಅರ್ಜಿ ದಿನಾಂಕ : ${found.date}</div>
-        </div>
-
-        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">I. ಕುಟುಂಬದ ವಿವರ (Family Details)</h3>
+        <h3 style="color: #b30000; font-size: 13.5px; margin: 3px 0 2px 0; border-bottom: 1px solid #b30000; padding-bottom: 1px;">I. ಕುಟುಂಬದ ವಿವರ (Family Details)</h3>
         <table class="grid-table">
             <tr>
                 <td class="grid-label">ಮುಖ್ಯಸ್ಥರ ಹೆಸರು</td>
@@ -3120,7 +2935,7 @@ function loadAdminCensus() {
             </tr>
         </table>
 
-        <h3 style="color: #b30000; font-size: 14px; margin: 10px 0 5px 0; border-bottom: 1px solid #b30000; padding-bottom: 3px;">II. ಕುಟುಂಬದ ಸದಸ್ಯರ ವಿವರಗಳು (Family Members)</h3>
+        <h3 style="color: #b30000; font-size: 13.5px; margin: 3px 0 2px 0; border-bottom: 1px solid #b30000; padding-bottom: 1px;">II. ಕುಟುಂಬದ ಸದಸ್ಯರ ವಿವರಗಳು (Family Members)</h3>
         <table class="members-table">
             <thead>
                 <tr>
@@ -3140,7 +2955,38 @@ function loadAdminCensus() {
             </tbody>
         </table>
 
+        <div class="recommend-text">ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ</div>
 
+        <div class="approval-section">
+            <div class="sig-col">
+                <div class="sig-item">
+                    <div class="sig-space"></div>
+                    <div class="sig-label">ಅರ್ಜಿದಾರರ ಸಹಿ :</div>
+                </div>
+                <div class="sig-item">
+                    <div class="sig-space"></div>
+                    <div class="sig-label">ಅಧ್ಯಕ್ಷರ/ಕಾರ್ಯದರ್ಶಿಗಳ ಸಹಿ :</div>
+                </div>
+            </div>
+            <div class="official-col">
+                <table class="official-table">
+                    <tr class="official-row">
+                        <td class="official-title">ತಾಲ್ಲೂಕು ಘಟಕ</td>
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-empty-space"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-title">ಜಿಲ್ಲಾ ಘಟಕ</td>
+                        <td class="official-check"><span class="official-box"></span></td>
+                        <td class="official-empty-space"></td>
+                    </tr>
+                    <tr class="official-row">
+                        <td class="official-title">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</td>
+                        <td class="official-sig-line" colspan="2"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 </html>`;
