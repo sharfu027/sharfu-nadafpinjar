@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v60') {
+if (localStorage.getItem('receipts_version') !== 'v61') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v60');
+    localStorage.setItem('receipts_version', 'v61');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1079,7 +1079,7 @@ window.downloadReceiptPdf = function(receiptId) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="${(window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null') ? window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) : window.location.origin + '/'}">
+    <base href="${window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1)}">
     <title>Donation Receipt - ${found.id}</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap');
@@ -1795,7 +1795,7 @@ function loadAdminFreeEdu() {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="${(window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null') ? window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) : window.location.origin + '/'}">
+    <base href="${window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1)}">
     <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
     <style>
         html, body {
@@ -2712,7 +2712,7 @@ function loadAdminCensus() {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="${(window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null') ? window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) : window.location.origin + '/'}">
+    <base href="${window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1)}">
     <title>ಜನಗಣತಿ (Census) - ರಶೀದಿ</title>
     <style>
         html, body {
@@ -3307,7 +3307,7 @@ function loadAdminEmployees() {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="${(window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null') ? window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) : window.location.origin + '/'}">
+    <base href="${window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1)}">
     <title>ನೌಕರರ ನೋಂದಣಿ ಪತ್ರ - ರಶೀದಿ</title>
     <style>
         html, body {

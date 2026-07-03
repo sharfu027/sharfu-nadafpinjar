@@ -844,7 +844,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="${(window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null') ? window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) : window.location.origin + '/'}">
+    <base href="${window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1)}">
     <title>Donation Receipt</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap');
