@@ -263,9 +263,9 @@ if (!localStorage.getItem('beneficiaries')) {
 }
 
 // Force migrate/reset database schemas for receipts and security to newer schema version
-if (localStorage.getItem('receipts_version') !== 'v42') {
+if (localStorage.getItem('receipts_version') !== 'v43') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
-    localStorage.setItem('receipts_version', 'v42');
+    localStorage.setItem('receipts_version', 'v43');
 }
 if (localStorage.getItem('security_version') !== 'v3') {
     localStorage.setItem('security', JSON.stringify(defaultSecurity));
@@ -1852,21 +1852,23 @@ function loadAdminFreeEdu() {
             background: #fff;
         }
         .grid-table td {
-            border: 1.2px solid #b30000;
-            padding: 4.5px 6px;
-            font-size: 10px;
+            border: 1.4px solid #b30000;
+            padding: 11px 14px;
+            font-size: 17.5px;
             vertical-align: middle;
-            line-height: 1.25;
+            line-height: 1.35;
         }
         .grid-label {
             color: #b30000;
             font-weight: bold;
             width: 25%;
+            font-size: 17.5px;
         }
         .grid-value {
             color: #000;
             width: 25%;
             font-weight: bold;
+            font-size: 17.5px;
         }
         @page {
             margin: 0;
@@ -1908,11 +1910,11 @@ function loadAdminFreeEdu() {
             </tr>
         </table>
         
-        <div style="text-align: center; color: #b30000; font-weight: bold; font-size: 18px; margin: 10px 0; text-decoration: underline;">
+        <div style="text-align: center; color: #b30000; font-weight: bold; font-size: 21px; margin: 12px 0; text-decoration: underline;">
             ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27
         </div>
 
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: 13.5px; font-weight: bold; color: #b30000;">
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 15.5px; font-weight: bold; color: #b30000;">
             <tr>
                 <td style="width: 33%; text-align: left;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color: #000;">${appNumber}</span></td>
                 <td style="width: 34%; text-align: center;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color: #000;">${found.date}</span></td>
@@ -2000,36 +2002,36 @@ function loadAdminFreeEdu() {
                 <td class="grid-value">${data.bankAccount || '-'}</td>
             </tr>
         </table>
-        <div style="text-align: center; font-size: 8px; color: #666; margin: 0 0 2px 0;">00000</div>
+        <div style="text-align: center; font-size: 8.5px; color: #666; margin: 0 0 2px 0;">00000</div>
 
         <!-- Signatures & Recommendation Section -->
-        <div style="border: 1.3px solid #b30000; background: #fff; padding: 14px 18px; font-weight: bold; color: #b30000; font-size: 14.5px; box-sizing: border-box; margin-top: 8px;">
+        <div style="border: 1.4px solid #b30000; background: #fff; padding: 16px 20px; font-weight: bold; color: #b30000; font-size: 16px; box-sizing: border-box; margin-top: 10px;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div style="width: 35%; display: flex; flex-direction: column; gap: 32px;">
+                <div style="width: 35%; display: flex; flex-direction: column; gap: 36px;">
                     <div>ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ :</div>
                     <div>ಪಾಲಕರ ಸಹಿ :</div>
                 </div>
-                <div style="width: 45%; display: flex; flex-direction: column; gap: 12px;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; width: 220px;">
+                <div style="width: 45%; display: flex; flex-direction: column; gap: 14px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 240px;">
                         <span>ತಾಲ್ಲೂಕು ಘಟಕ</span>
-                        <span style="border: 1.5px solid #b30000; width: 18px; height: 18px; display: inline-block; background: #fff;"></span>
+                        <span style="border: 1.8px solid #b30000; width: 20px; height: 20px; display: inline-block; background: #fff;"></span>
                     </div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; width: 220px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 240px;">
                         <span>ಜಿಲ್ಲಾ ಘಟಕ</span>
-                        <span style="border: 1.5px solid #b30000; width: 18px; height: 18px; display: inline-block; background: #fff;"></span>
+                        <span style="border: 1.8px solid #b30000; width: 20px; height: 20px; display: inline-block; background: #fff;"></span>
                     </div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; width: 220px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 240px;">
                         <span>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರ</span>
-                        <span style="border: 1.5px solid #b30000; width: 18px; height: 18px; display: inline-block; background: #fff;"></span>
+                        <span style="border: 1.8px solid #b30000; width: 20px; height: 20px; display: inline-block; background: #fff;"></span>
                     </div>
                 </div>
-                <div style="width: 20%; text-align: right; font-size: 15px; font-weight: bold; color: #b30000; padding-top: 2px;">
+                <div style="width: 20%; text-align: right; font-size: 16.5px; font-weight: bold; color: #b30000; padding-top: 2px;">
                     ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ
                 </div>
             </div>
         </div>
 
-        <div style="font-weight: bold; color: #b30000; font-size: 16px; margin-top: 28px; padding: 2px 6px;">
+        <div style="font-weight: bold; color: #b30000; font-size: 17.5px; margin-top: 30px; padding: 2px 6px;">
             <div style="margin-bottom: 75px;">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
             <div style="margin-bottom: 50px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
