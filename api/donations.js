@@ -1,7 +1,28 @@
-const https = require('https');
+const mongoose = require('mongoose');
+
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://rakesh_rk:Rakesh2005@faceauth.jvni6bv.mongodb.net/nadaf_census?appName=faceauth';
+
+let cachedDb = null;
+
+async function connectToDatabase() {
+  if (cachedDb && mongoose.connection.readyState === 1) {
+    return cachedDb;
+  }
+  cachedDb = await mongoose.connect(MONGO_URI);
+  return cachedDb;
+}
+
+const donationSchema = new mongoose.Schema({
+  paymentId: String,
+  formType: String,
+  amount: Number,
+  formData: mongoose.Schema.Types.Mixed,
+  date: { type: Date, default: Date.now }
+});
+
+const Donation = mongoose.models.Donation || mongoose.model('Donation', donationSchema);
 
 module.exports = async (req, res) => {
-  // CORS Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -10,43 +31,24 @@ module.exports = async (req, res) => {
     return res.status(200).end();
   }
 
-  return new Promise((resolve) => {
-    let bodyData = '';
-    if (req.method === 'POST') {
-      bodyData = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
+  try {
+    await connectToDatabase();
+
+    if (req.method === 'GET') {
+      const donations = await Donation.find({}).sort({ date: -1 });
+      return res.status(200).json({ success: true, donations });
     }
 
-    const headers = {
-      'Content-Type': 'application/json'
-    };
-    
     if (req.method === 'POST') {
-      headers['Content-Length'] = Buffer.byteLength(bodyData);
+      const bodyData = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
+      const newDonation = new Donation(bodyData);
+      await newDonation.save();
+      return res.status(201).json({ success: true, message: 'Donation saved', id: newDonation._id });
     }
 
-    const options = {
-      hostname: 'nadafpinjar-production.up.railway.app',
-      port: 443,
-      path: '/api/donations',
-      method: req.method,
-      headers: headers
-    };
-
-    const proxyReq = https.request(options, (proxyRes) => {
-      res.writeHead(proxyRes.statusCode, proxyRes.headers);
-      proxyRes.pipe(res);
-      resolve();
-    });
-
-    proxyReq.on('error', (err) => {
-      console.error('HTTPS Proxy Error:', err);
-      res.status(500).json({ success: false, error: err.message });
-      resolve();
-    });
-
-    if (req.method === 'POST') {
-      proxyReq.write(bodyData);
-    }
-    proxyReq.end();
-  });
+    return res.status(405).json({ success: false, error: 'Method Not Allowed' });
+  } catch (err) {
+    console.error('API Error:', err);
+    return res.status(500).json({ success: false, error: err.message });
+  }
 };
