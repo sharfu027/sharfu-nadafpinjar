@@ -1199,11 +1199,11 @@ window.downloadReceiptPdf = function(receiptId) {
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=794">
     <base href="${window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1)}">
     <title>Donation Receipt - ${found.id}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap');
         html, body {
             height: auto;
             margin: 0;
@@ -1216,12 +1216,15 @@ window.downloadReceiptPdf = function(receiptId) {
             font-family: 'Noto Sans Kannada', 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             color: #333;
-            min-width: 820px !important;
+            width: 794px !important;
+            max-width: 794px !important;
+            margin: 0 auto !important;
+            box-sizing: border-box;
         }
         .receipt-container {
-            width: 100%;
-            max-width: 200mm;
-            margin: 5mm auto;
+            width: 794px !important;
+            max-width: 794px !important;
+            margin: 0 !important;
             border: none;
             padding: 4px 6px;
             background: #fff;
@@ -1918,7 +1921,7 @@ function loadAdminFreeEdu() {
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=794">
     <base href="${window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1)}">
     <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
     <style>
@@ -1931,15 +1934,19 @@ function loadAdminFreeEdu() {
             print-color-adjust: exact;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Noto Sans Kannada', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             color: #333;
-            min-width: 820px !important;
+            width: 794px !important;
+            max-width: 794px !important;
+            margin: 0 auto !important;
+            box-sizing: border-box;
         }
         .receipt-container {
-            max-width: 100%;
+            width: 794px !important;
+            max-width: 794px !important;
             height: auto;
-            margin: 0 auto;
+            margin: 0 !important;
             border: 2px solid #b30000;
             padding: 5px;
             background: #fffdeb;
@@ -2817,7 +2824,7 @@ function loadAdminCensus() {
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=794">
     <title>ಜನಗಣತಿ (Census) - ರಶೀದಿ</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap">
     <style>
@@ -2837,12 +2844,16 @@ function loadAdminCensus() {
             font-family: 'Noto Sans Kannada', 'Kannada MN', 'Kannada Sangam MN', 'Tunga', 'Lohit Kannada', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             color: #333;
-            min-width: 820px !important;
+            width: 794px !important;
+            max-width: 794px !important;
+            margin: 0 auto !important;
+            box-sizing: border-box;
         }
         .receipt-container {
-            max-width: 100%;
+            width: 794px !important;
+            max-width: 794px !important;
             height: auto;
-            margin: 0 auto;
+            margin: 0 !important;
             border: 2px solid #a00000;
             padding: 4px 8px;
             background: #fff;
@@ -3353,7 +3364,7 @@ function loadAdminEmployees() {
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=794">
     <base href="${window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1)}">
     <title>ನೌಕರರ ನೋಂದಣಿ ಪತ್ರ - ರಶೀದಿ</title>
     <style>
