@@ -1202,18 +1202,20 @@
         }
         .receipt-grid {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: collapse !important;
+            border-spacing: 0 !important;
             border: 2.5px solid ${themeColor} !important;
             box-sizing: border-box;
         }
         .grid-cell {
             border: none;
-            border-bottom: 1px solid ${themeColor};
+            border-bottom: 1.5px solid ${themeColor};
             padding: 1.5px 5px;
             font-size: 13px;
             vertical-align: middle;
             color: #1e293b;
             line-height: 1.2;
+            box-sizing: border-box;
         }
         .center-align {
             text-align: center;
@@ -1356,13 +1358,13 @@
             </tr>
 
             <tr class="bottom-serial-row">
-                <td class="grid-cell" colspan="2" style="border-top: none !important; border-bottom: 2.5px solid ${themeColor} !important; padding: 6px 8px;">
+                <td class="grid-cell" colspan="2" style="border-bottom: none !important; padding: 6px 8px;">
                     <div>
                         <span class="field-label" style="font-size: 14px; font-weight: bold;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
                         <span class="field-value" style="font-size: 14px; font-weight: bold; color: #000; white-space: nowrap;">KRNPS-2026-27-${paymentId ? paymentId.slice(-4).toUpperCase() : 'PENDING'}</span>
                     </div>
                 </td>
-                <td class="grid-cell right-align" style="border-top: none !important; border-bottom: 2.5px solid ${themeColor} !important; padding: 6px 12px; font-weight: bold; color: ${themeColor}; font-size: 14px; white-space: nowrap;">
+                <td class="grid-cell right-align" style="border-bottom: none !important; padding: 6px 12px; font-weight: bold; color: ${themeColor}; font-size: 14px; white-space: nowrap;">
                     <div>
                         ಅಧಿಕೃತ ಸಹಿ
                     </div>

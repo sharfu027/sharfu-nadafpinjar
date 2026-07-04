@@ -1295,18 +1295,20 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         .receipt-grid {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: collapse !important;
+            border-spacing: 0 !important;
             border: 2.5px solid ${themeColor} !important;
             box-sizing: border-box;
         }
         .grid-cell {
             border: none;
-            border-bottom: 1px solid ${themeColor};
+            border-bottom: 1.5px solid ${themeColor};
             padding: 1.5px 5px;
             font-size: 13px;
             vertical-align: middle;
             color: #1e293b;
             line-height: 1.2;
+            box-sizing: border-box;
         }
         .center-align {
             text-align: center;
@@ -1432,15 +1434,15 @@ window.downloadReceiptPdf = function(receiptId) {
 
         <table class="receipt-grid">
             <tr class="subheader-row">
-                <td class="grid-cell" style="width: 35%; border-bottom: 2px solid ${themeColor};">
+                <td class="grid-cell" style="width: 35%;">
                     <span class="field-label">ರಶೀದಿ ಸಂಖ್ಯೆ:</span>
                     <span class="field-value" style="color: #000; white-space: nowrap;">${found.id}</span>
                 </td>
-                <td class="grid-cell center-align" style="width: 33%; border-bottom: 2px solid ${themeColor};">
+                <td class="grid-cell center-align" style="width: 33%;">
                     <div style="font-size: 15px; font-weight: bold; color: ${themeColor};">ಪಾವತಿಸಿದ ರಶೀದಿ</div>
                     <div style="font-size: 13px; font-weight: bold; margin-top: 2px; color: ${themeColor};">${subheaderTitle}</div>
                 </td>
-                <td class="grid-cell right-align" style="width: 32%; border-bottom: 2px solid ${themeColor};">
+                <td class="grid-cell right-align" style="width: 32%;">
                     <span class="field-label">ದಿನಾಂಕ :</span>
                     <span class="field-value" style="color: #000; white-space: nowrap;">${formatDateDashes(found.date)}</span>
                 </td>
@@ -1448,8 +1450,8 @@ window.downloadReceiptPdf = function(receiptId) {
 
             ${fieldsHTML}
 
-            <tr style="border-top: 2px solid ${themeColor};">
-                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
+            <tr>
+                <td class="grid-cell" style="width: 35%; vertical-align: top; padding: 6px 8px;">
                     <div class="payment-line" style="margin-top: 2px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
                         <span class="field-value" style="font-size: 14px; font-weight: bold; color: #000; white-space: nowrap;">${formatCurrencyRaw(found.amount)}</span>
@@ -1464,19 +1466,19 @@ window.downloadReceiptPdf = function(receiptId) {
                     </div>
                     <div class="payment-line" style="margin-top: 6px;">
                         <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
-                        <span class="field-value" style="color: #000;">${details.purposeDetails || ""}</span>
+                        <span class="field-value" style="color: #000;">${details.purposeDetails || details.notes || ""}</span>
                     </div>
                 </td>
-                <td class="grid-cell center-align" style="width: 30%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
+                <td class="grid-cell center-align" style="width: 30%; vertical-align: top; padding: 6px 8px;">
                     <div class="payment-line" style="margin-top: 2px;">
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
-                        <span class="field-value" style="color: #000;">${details.mode || found.mode}</span>
+                        <span class="field-value" style="color: #000;">${details.paymentMode || found.paymentMode || "Cash"}</span>
                     </div>
                     <div style="margin-top: 12px; text-align: center;">
                         <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.seal) ? RECEIPT_ASSETS.seal : 'images/seal.jpg'}" class="seal-img">
                     </div>
                 </td>
-                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
+                <td class="grid-cell" style="width: 35%; vertical-align: top; padding: 6px 8px;">
                     <div style="text-align: center; width: 230px; margin: 2px auto 0 auto;">
                         <div style="font-size: 14px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
                         <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.sig) ? RECEIPT_ASSETS.sig : 'images/sig.jpg'}" class="sig-img" style="margin-bottom: 2px;">
