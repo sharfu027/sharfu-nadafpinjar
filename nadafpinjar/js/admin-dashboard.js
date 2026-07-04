@@ -1123,36 +1123,72 @@ window.downloadReceiptPdf = function(receiptId) {
         `;
     } else {
         fieldsHTML = `
+            <!-- SECTION 1: PRESIDENT DETAILS -->
             <tr>
                 <td class="grid-cell" style="width: 35%; vertical-align: top;">
-                    <div style="margin-bottom: 3px;"><u style="color: ${themeColor}; font-weight: bold;">ಯಾರ ಪರವಾಗಿ:</u></div>
+                    <div style="margin-bottom: 2px;"><u style="color: ${themeColor}; font-weight: bold;">ರಾಜ್ಯ ಅಧ್ಯಕ್ಷರ:</u></div>
+                    <div>
+                        <span class="field-label">ಹೆಸರು:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentName || "ರಾಜ್ಯ ಸಮಿತಿ"}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 33%; vertical-align: top;">
+                    <div style="margin-bottom: 2px; margin-top: 14px;">
+                        <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentVillage || "ಚಿತ್ರದುರ್ಗ"}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ವಿಳಾಸ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentAddress || "ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ"}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 32%; vertical-align: top;">
+                    <div style="margin-bottom: 2px; margin-top: 14px;">
+                        <span class="field-label">ಮೊಬೈಲ್:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000; white-space: nowrap;">${details.presidentMobile || "-"}</span>
+                    </div>
+                    <div style="margin-bottom: 2px;">
+                        <span class="field-label">ತಾಲೂಕು:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentTaluk || "ಚಿತ್ರದುರ್ಗ"}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentDistrict || "ಚಿತ್ರದುರ್ಗ"}</span>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- SECTION 2: DONOR DETAILS (YARA PARAVAGI) -->
+            <tr>
+                <td class="grid-cell" style="width: 35%; vertical-align: top;">
+                    <div style="margin-bottom: 2px;"><u style="color: ${themeColor}; font-weight: bold;">ಯಾರ ಪರವಾಗಿ:</u></div>
                     <div>
                         <span class="field-label">ಹೆಸರು:</span>
                         <span class="field-value" style="font-weight: 600; color: #000;">${details.fullName || details.donorName || ""}</span>
                     </div>
                 </td>
                 <td class="grid-cell" style="width: 33%; vertical-align: top;">
-                    <div style="margin-bottom: 3px; margin-top: 18px;">
+                    <div style="margin-bottom: 2px; margin-top: 14px;">
                         <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000;">${details.village || ""}</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.village || details.donorVillage || ""}</span>
                     </div>
                     <div>
                         <span class="field-label">ವಿಳಾಸ:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000;">${details.address || ""}</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.address || details.donorAddress || ""}</span>
                     </div>
                 </td>
                 <td class="grid-cell" style="width: 32%; vertical-align: top;">
-                    <div style="margin-bottom: 3px; margin-top: 18px;">
+                    <div style="margin-bottom: 2px; margin-top: 14px;">
                         <span class="field-label">ಮೊಬೈಲ್:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000; white-space: nowrap;">${details.mobile || ""}</span>
+                        <span class="field-value" style="font-weight: 500; color: #000; white-space: nowrap;">${details.mobile || details.donorMobile || ""}</span>
                     </div>
-                    <div style="margin-bottom: 3px;">
+                    <div style="margin-bottom: 2px;">
                         <span class="field-label">ತಾಲೂಕು:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000;">${details.taluk || ""}</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.taluk || details.donorTaluk || ""}</span>
                     </div>
                     <div>
                         <span class="field-label">ಜಿಲ್ಲೆ:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000;">${details.district || ""}</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.district || details.donorDistrict || ""}</span>
                     </div>
                 </td>
             </tr>
@@ -1193,57 +1229,59 @@ window.downloadReceiptPdf = function(receiptId) {
         .header-box {
             width: 100%;
             border-collapse: collapse;
-            border: 2.5px solid #b30000;
+            border: 2.5px solid ${themeColor};
             border-radius: 12px;
             background-color: #fffde8;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         .header-photo-cell {
-            width: 95px;
+            width: 150px;
             text-align: center;
-            padding: 2px 4px 4px 8px;
+            padding: 2px 4px 4px 6px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 88px;
-            height: 88px;
+            width: 135px;
+            height: 135px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 2.5px solid ${themeColor};
             object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.12);
         }
         .header-logo-cell {
-            width: 95px;
+            width: 150px;
             text-align: center;
-            padding: 2px 8px 4px 4px;
+            padding: 2px 6px 4px 4px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 88px;
-            height: 88px;
+            width: 135px;
+            height: 135px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 2.5px solid ${themeColor};
             object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.12);
         }
         .header-text-cell {
             text-align: center;
             vertical-align: middle;
-            padding: 4px 0;
+            padding: 2px 0;
             color: #b30000;
         }
         .kannada-title {
-            font-size: 23px;
+            font-size: 24px;
             font-weight: bold;
             margin-bottom: 2px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: bold;
             margin-bottom: 2px;
             color: #444;
         }
         .english-title {
-            font-size: 12.5px;
+            font-size: 13px;
             font-weight: bold;
             letter-spacing: 0.5px;
             margin-bottom: 2px;
@@ -1256,20 +1294,17 @@ window.downloadReceiptPdf = function(receiptId) {
         .receipt-grid {
             width: 100%;
             border-collapse: collapse;
-            border: 2.5px solid ${themeColor};
-        }
-        .bottom-serial-row td {
-            border-top: none !important;
-            border-bottom: 2.5px solid ${themeColor} !important;
+            border: 2.5px solid ${themeColor} !important;
+            box-sizing: border-box;
         }
         .grid-cell {
             border: none;
             border-bottom: 1px solid ${themeColor};
-            padding: 3px 6px;
-            font-size: 14px;
+            padding: 1.5px 5px;
+            font-size: 13px;
             vertical-align: middle;
             color: #1e293b;
-            line-height: 1.25;
+            line-height: 1.2;
         }
         .center-align {
             text-align: center;
@@ -1284,23 +1319,23 @@ window.downloadReceiptPdf = function(receiptId) {
         .field-label {
             font-weight: 600;
             color: ${themeColor};
-            margin-right: 6px;
+            margin-right: 4px;
         }
         .field-value {
             color: #000;
             font-weight: 500;
         }
         .payment-line {
-            font-size: 14px;
+            font-size: 13px;
         }
         .seal-img {
-            height: 75px;
+            height: 48px;
             width: auto;
         }
         .sig-img {
-            height: 55px;
+            height: 36px;
             width: auto;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
         @media screen and (max-width: 768px) {
             .receipt-container {
@@ -1309,30 +1344,30 @@ window.downloadReceiptPdf = function(receiptId) {
                 padding: 4px !important;
             }
             .kannada-title {
-                font-size: 14px !important;
+                font-size: 18px !important;
             }
             .english-title {
-                font-size: 10px !important;
+                font-size: 12px !important;
             }
             .reg-no, .office-address {
-                font-size: 8px !important;
+                font-size: 10px !important;
             }
             .patron-photo, .header-logo {
-                width: 55px !important;
-                height: 55px !important;
+                width: 85px !important;
+                height: 85px !important;
             }
             .header-photo-cell, .header-logo-cell {
-                width: 60px !important;
+                width: 90px !important;
             }
             .grid-cell, .payment-line {
                 font-size: 11px !important;
-                padding: 3px 6px !important;
+                padding: 2px 4px !important;
             }
             .seal-img {
-                height: 50px !important;
+                height: 40px !important;
             }
             .sig-img {
-                height: 40px !important;
+                height: 30px !important;
             }
         }
         @media print {
@@ -1341,24 +1376,29 @@ window.downloadReceiptPdf = function(receiptId) {
                 margin: 0;
             }
             html, body {
-                width: 210mm;
-                height: 148mm;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
+                width: 210mm !important;
+                height: 148mm !important;
+                max-height: 148mm !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow: hidden !important;
             }
             body {
-                padding: 0;
+                padding: 0 !important;
             }
             .receipt-container {
-                width: 200mm !important;
-                height: 138mm !important;
-                margin: 5mm auto !important;
-                padding: 6px 8px !important;
+                width: 198mm !important;
+                height: 144mm !important;
+                max-height: 144mm !important;
+                margin: 0 auto !important;
+                padding: 2px 4px !important;
                 border: none !important;
                 box-sizing: border-box !important;
+                overflow: hidden !important;
                 page-break-inside: avoid !important;
+                break-inside: avoid !important;
                 page-break-after: avoid !important;
+                break-after: avoid !important;
                 background: #fff !important;
             }
         }
