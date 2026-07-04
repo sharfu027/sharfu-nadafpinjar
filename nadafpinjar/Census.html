@@ -1040,15 +1040,15 @@
                 data.members.forEach((m, idx) => {
                     membersRows += `
                         <tr>
-                            <td style="text-align: center; border: 1px solid #b30000; padding: 6px;">${idx + 1}</td>
-                            <td style="border: 1px solid #b30000; padding: 6px;">${m.name || '-'}</td>
-                            <td style="border: 1px solid #b30000; padding: 6px;">${m.relation || '-'}</td>
-                            <td style="border: 1px solid #b30000; padding: 6px;">${m.mobile || '-'}</td>
-                            <td style="border: 1px solid #b30000; padding: 6px;">${m.aadhar || '-'}</td>
-                            <td style="border: 1px solid #b30000; padding: 6px;">${m.dob || '-'}</td>
-                            <td style="border: 1px solid #b30000; padding: 6px;">${(m.literate || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                            <td style="border: 1px solid #b30000; padding: 6px;">${(m.occupation || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                            <td style="border: 1px solid #b30000; padding: 6px;">${m.political || '-'}</td>
+                            <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px;">${idx + 1}</td>
+                            <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${m.name || '-'}</td>
+                            <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.relation || '-'}</td>
+                            <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.mobile || '-'}</td>
+                            <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.aadhar || '-'}</td>
+                            <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.dob || '-'}</td>
+                            <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${(m.literate || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                            <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${(m.occupation || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                            <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px;">${m.political || '-'}</td>
                         </tr>
                     `;
                 });
@@ -1063,8 +1063,9 @@
     <base href="${window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1)}">
     <title>ಜನಗಣತಿ (Census) - ರಶೀದಿ</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap');
         html, body { height: auto; margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #fff; color: #333; min-width: 820px !important; }
+        body { font-family: 'Noto Sans Kannada', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #fff; color: #333; min-width: 820px !important; }
         .receipt-container { max-width: 100%; height: auto; margin: 0 auto; border: 2px solid #a00000; padding: 4px 8px; background: #fff; box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         .header-box { width: 100%; border-collapse: collapse; border: 2.5px solid #a00000; border-radius: 8px; background-color: #ffedc2; margin-bottom: 4px; }
         .patron-photo { width: 100px; height: 100px; border-radius: 50%; border: 2px solid #a00000; object-fit: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
@@ -1077,7 +1078,7 @@
         .grid-value { color: #000; width: 32%; font-weight: bold; font-size: 13.5px; }
         .members-table { width: 100%; border-collapse: collapse; margin-bottom: 4px; font-size: 12px; table-layout: fixed; }
         .members-table th { border: 1.2px solid #a00000; background: #ffedc2; color: #990000; padding: 4px 2px; font-weight: bold; font-size: 12px; line-height: 1.35; text-align: center; vertical-align: middle; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .members-table td { border: 1.2px solid #a00000; padding: 4px 3px; font-weight: bold; font-size: 12px; line-height: 1.35; color: #000; vertical-align: middle; word-wrap: break-word; overflow: hidden; }
+        .members-table td { border: 1.2px solid #a00000; padding: 4px 3px; font-weight: bold; font-size: 11.5px; line-height: 1.35; color: #000; vertical-align: middle; word-wrap: break-word; overflow: hidden; font-family: 'Noto Sans Kannada', sans-serif; }
         .approval-section { display: flex; justify-content: space-between; margin-top: 4px; font-size: 14px; }
         .sig-label { font-weight: bold; color: #990000; font-size: 15px; }
         .official-col { width: 55%; border-left: 1.5px solid #a00000; padding-left: 10px; }
@@ -1169,15 +1170,15 @@
         <table class="members-table">
             <thead>
                 <tr>
-                    <th style="width: 5%; text-align: center;">Sl No.</th>
-                    <th style="width: 19%; text-align: left;">ಸದಸ್ಯರ ಹೆಸರು</th>
-                    <th style="width: 10%; text-align: center;">ಸಂಬಂಧ</th>
-                    <th style="width: 12%; text-align: center;">ಮೊಬೈಲ್</th>
-                    <th style="width: 15%; text-align: center;">ಆಧಾರ್</th>
-                    <th style="width: 12%; text-align: center;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
-                    <th style="width: 13%; text-align: left;">ಸಾಕ್ಷರತಾ</th>
-                    <th style="width: 9%; text-align: left;">ವೃತ್ತಿ</th>
-                    <th style="width: 5%; text-align: center;">ರಾಜಕೀಯ</th>
+                    <th style="width: 4%; text-align: center;">Sl No.</th>
+                    <th style="width: 16%; text-align: left;">ಸದಸ್ಯರ ಹೆಸರು</th>
+                    <th style="width: 8%; text-align: center;">ಸಂಬಂಧ</th>
+                    <th style="width: 11%; text-align: center;">ಮೊಬೈಲ್</th>
+                    <th style="width: 14%; text-align: center;">ಆಧಾರ್</th>
+                    <th style="width: 11%; text-align: center;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
+                    <th style="width: 18%; text-align: left;">ಸಾಕ್ಷರತಾ</th>
+                    <th style="width: 14%; text-align: left;">ವೃತ್ತಿ</th>
+                    <th style="width: 4%; text-align: center;">ರಾಜಕೀಯ</th>
                 </tr>
             </thead>
             <tbody>

@@ -2872,15 +2872,15 @@ function loadAdminCensus() {
             data.members.forEach((m, idx) => {
                 membersRows += `
                     <tr>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px;">${idx + 1}</td>
-                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; word-wrap: break-word;">${m.name || '-'}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; white-space: nowrap;">${m.relation || '-'}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; white-space: nowrap;">${m.mobile || '-'}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; white-space: nowrap;">${m.aadhar || '-'}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; white-space: nowrap;">${m.dob || '-'}</td>
-                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; word-wrap: break-word;">${(m.literate || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; word-wrap: break-word;">${(m.occupation || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px;">${m.political || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px;">${idx + 1}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${m.name || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.relation || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.mobile || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.aadhar || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.dob || '-'}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${(m.literate || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${(m.occupation || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px;">${m.political || '-'}</td>
                     </tr>
                 `;
             });
@@ -2895,6 +2895,7 @@ function loadAdminCensus() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ಜನಗಣತಿ (Census) - ರಶೀದಿ</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap');
         html, body {
             height: auto;
             margin: 0;
@@ -2904,7 +2905,7 @@ function loadAdminCensus() {
             print-color-adjust: exact;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Noto Sans Kannada', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             color: #333;
             min-width: 820px !important;
@@ -3037,12 +3038,13 @@ function loadAdminCensus() {
             border: 1.2px solid #a00000;
             padding: 4px 3px;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 11.5px;
             line-height: 1.35;
             color: #000;
             vertical-align: middle;
             word-wrap: break-word;
             overflow: hidden;
+            font-family: 'Noto Sans Kannada', sans-serif;
         }
         @media screen and (max-width: 768px) {
             .receipt-container {
@@ -3180,15 +3182,15 @@ function loadAdminCensus() {
         <table class="members-table">
             <thead>
                 <tr>
-                    <th style="width: 5%; text-align: center;">Sl No.</th>
-                    <th style="width: 19%; text-align: left;">ಸದಸ್ಯರ ಹೆಸರು</th>
-                    <th style="width: 10%; text-align: center;">ಸಂಬಂಧ</th>
-                    <th style="width: 12%; text-align: center;">ಮೊಬೈಲ್</th>
-                    <th style="width: 15%; text-align: center;">ಆಧಾರ್</th>
-                    <th style="width: 12%; text-align: center;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
-                    <th style="width: 13%; text-align: left;">ಸಾಕ್ಷರತಾ</th>
-                    <th style="width: 9%; text-align: left;">ವೃತ್ತಿ</th>
-                    <th style="width: 5%; text-align: center;">ರಾಜಕೀಯ</th>
+                    <th style="width: 4%; text-align: center;">Sl No.</th>
+                    <th style="width: 16%; text-align: left;">ಸದಸ್ಯರ ಹೆಸರು</th>
+                    <th style="width: 8%; text-align: center;">ಸಂಬಂಧ</th>
+                    <th style="width: 11%; text-align: center;">ಮೊಬೈಲ್</th>
+                    <th style="width: 14%; text-align: center;">ಆಧಾರ್</th>
+                    <th style="width: 11%; text-align: center;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
+                    <th style="width: 18%; text-align: left;">ಸಾಕ್ಷರತಾ</th>
+                    <th style="width: 14%; text-align: left;">ವೃತ್ತಿ</th>
+                    <th style="width: 4%; text-align: center;">ರಾಜಕೀಯ</th>
                 </tr>
             </thead>
             <tbody>
