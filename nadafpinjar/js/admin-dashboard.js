@@ -3028,10 +3028,10 @@ function loadAdminCensus() {
             border: 1.2px solid #a00000;
             background: #ffedc2;
             color: #990000;
-            padding: 4px 2px;
+            padding: 3px 2px;
             font-weight: bold;
-            font-size: 12px;
-            line-height: 1.35;
+            font-size: 11px;
+            line-height: 1.3;
             text-align: center;
             vertical-align: middle;
             white-space: nowrap;
@@ -3040,10 +3040,10 @@ function loadAdminCensus() {
         }
         .members-table td {
             border: 1.2px solid #a00000;
-            padding: 4px 3px;
+            padding: 3px 4px;
             font-weight: bold;
-            font-size: 11.5px;
-            line-height: 1.35;
+            font-size: 10.5px;
+            line-height: 1.25;
             color: #000;
             vertical-align: middle;
             word-wrap: break-word;
@@ -3077,7 +3077,7 @@ function loadAdminCensus() {
                 padding: 2px 4px !important;
             }
             .members-table th, .members-table td {
-                font-size: 10px !important;
+                font-size: 9.5px !important;
                 padding: 2px 2px !important;
             }
         }
@@ -3186,15 +3186,15 @@ function loadAdminCensus() {
         <table class="members-table">
             <thead>
                 <tr>
-                    <th style="width: 4%; text-align: center;">Sl No.</th>
-                    <th style="width: 16%; text-align: left;">ಸದಸ್ಯರ ಹೆಸರು</th>
-                    <th style="width: 8%; text-align: center;">ಸಂಬಂಧ</th>
+                    <th style="width: 3%; text-align: center;">Sl No.</th>
+                    <th style="width: 15%; text-align: left;">ಸದಸ್ಯರ ಹೆಸರು</th>
+                    <th style="width: 9%; text-align: center;">ಸಂಬಂಧ</th>
                     <th style="width: 11%; text-align: center;">ಮೊಬೈಲ್</th>
-                    <th style="width: 14%; text-align: center;">ಆಧಾರ್</th>
+                    <th style="width: 13%; text-align: center;">ಆಧಾರ್</th>
                     <th style="width: 11%; text-align: center;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
-                    <th style="width: 18%; text-align: left;">ಸಾಕ್ಷರತಾ</th>
-                    <th style="width: 14%; text-align: left;">ವೃತ್ತಿ</th>
-                    <th style="width: 4%; text-align: center;">ರಾಜಕೀಯ</th>
+                    <th style="width: 11%; text-align: left;">ಸಾಕ್ಷರತಾ</th>
+                    <th style="width: 19%; text-align: left;">ವೃತ್ತಿ</th>
+                    <th style="width: 8%; text-align: center;">ರಾಜಕೀಯ</th>
                 </tr>
             </thead>
             <tbody>
