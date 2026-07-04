@@ -1229,67 +1229,69 @@ window.downloadReceiptPdf = function(receiptId) {
         .header-box {
             width: 100%;
             border-collapse: collapse;
-            border: 2.5px solid ${themeColor};
-            border-radius: 12px;
-            background-color: #fffde8;
+            border: 2.5px solid #a00000;
+            border-radius: 8px;
+            background-color: #ffedc2;
             margin-bottom: 4px;
         }
         .header-photo-cell {
-            width: 150px;
+            width: 115px;
             text-align: center;
             padding: 2px 4px 4px 6px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 135px;
-            height: 135px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 2.5px solid ${themeColor};
+            border: 2px solid #a00000;
             object-fit: cover;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
         .header-logo-cell {
-            width: 150px;
+            width: 115px;
             text-align: center;
             padding: 2px 6px 4px 4px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 135px;
-            height: 135px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 2.5px solid ${themeColor};
+            border: 2px solid #a00000;
             object-fit: cover;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
         .header-text-cell {
             text-align: center;
             vertical-align: middle;
             padding: 2px 0;
-            color: #b30000;
+            color: #990000;
         }
         .kannada-title {
             font-size: 24px;
             font-weight: bold;
+            color: #990000;
             margin-bottom: 2px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 11px;
+            font-size: 11.5px;
             font-weight: bold;
             margin-bottom: 2px;
-            color: #444;
+            color: #990000;
         }
         .english-title {
-            font-size: 13px;
+            font-size: 13.5px;
             font-weight: bold;
             letter-spacing: 0.5px;
             margin-bottom: 2px;
+            color: #990000;
         }
         .office-address, .office-location {
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: bold;
-            color: #333;
+            color: #990000;
         }
         .receipt-grid {
             width: 100%;
@@ -1353,11 +1355,11 @@ window.downloadReceiptPdf = function(receiptId) {
                 font-size: 10px !important;
             }
             .patron-photo, .header-logo {
-                width: 85px !important;
-                height: 85px !important;
+                width: 70px !important;
+                height: 70px !important;
             }
             .header-photo-cell, .header-logo-cell {
-                width: 90px !important;
+                width: 75px !important;
             }
             .grid-cell, .payment-line {
                 font-size: 11px !important;
@@ -1408,21 +1410,21 @@ window.downloadReceiptPdf = function(receiptId) {
     <div class="receipt-container">
         <table class="header-box">
             <tr>
-                <td colspan="3" style="text-align: center; padding: 6px 10px 2px 10px;">
-                    <div class="kannada-title" style="font-size: 24px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                <td colspan="3" style="text-align: center; padding: 4px 8px 1px 8px;">
+                    <div class="kannada-title" style="font-size: 24px; font-weight: bold; color: #990000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                 </td>
             </tr>
             <tr>
-                <td class="header-photo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 4px 6px 12px;">
+                <td class="header-photo-cell" style="width: 115px; text-align: center; vertical-align: middle; padding: 0 4px 4px 6px;">
                     <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.president) ? RECEIPT_ASSETS.president : 'images/president.jpeg'}" class="patron-photo" onerror="this.src='images/president.png'">
                 </td>
-                <td class="header-text-cell" style="width: 60%; text-align: center; vertical-align: middle; padding: 0 0 6px 0;">
-                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
-                    <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
-                    <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
-                    <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
+                <td class="header-text-cell" style="text-align: center; vertical-align: middle; padding: 0 0 4px 0;">
+                    <div class="reg-no" style="color: #990000;">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
+                    <div class="english-title" style="color: #990000;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
+                    <div class="office-address" style="color: #990000;">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
+                    <div class="office-location" style="color: #990000;">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                 </td>
-                <td class="header-logo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 12px 6px 4px;">
+                <td class="header-logo-cell" style="width: 115px; text-align: center; vertical-align: middle; padding: 0 6px 4px 4px;">
                     <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.logo) ? RECEIPT_ASSETS.logo : 'images/logo-786.png'}" class="header-logo">
                 </td>
             </tr>
