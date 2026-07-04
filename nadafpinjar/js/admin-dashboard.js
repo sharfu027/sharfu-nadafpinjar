@@ -1451,7 +1451,7 @@ window.downloadReceiptPdf = function(receiptId) {
             ${fieldsHTML}
 
             <tr>
-                <td class="grid-cell" style="width: 35%; vertical-align: top; padding: 6px 8px;">
+                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
                     <div class="payment-line" style="margin-top: 2px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
                         <span class="field-value" style="font-size: 14px; font-weight: bold; color: #000; white-space: nowrap;">${formatCurrencyRaw(found.amount)}</span>
@@ -1469,7 +1469,7 @@ window.downloadReceiptPdf = function(receiptId) {
                         <span class="field-value" style="color: #000;">${details.purposeDetails || details.notes || ""}</span>
                     </div>
                 </td>
-                <td class="grid-cell center-align" style="width: 30%; vertical-align: top; padding: 6px 8px;">
+                <td class="grid-cell center-align" style="width: 30%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
                     <div class="payment-line" style="margin-top: 2px;">
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
                         <span class="field-value" style="color: #000;">${details.paymentMode || found.paymentMode || "Cash"}</span>
@@ -1478,7 +1478,7 @@ window.downloadReceiptPdf = function(receiptId) {
                         <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.seal) ? RECEIPT_ASSETS.seal : 'images/seal.jpg'}" class="seal-img">
                     </div>
                 </td>
-                <td class="grid-cell" style="width: 35%; vertical-align: top; padding: 6px 8px;">
+                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
                     <div style="text-align: center; width: 230px; margin: 2px auto 0 auto;">
                         <div style="font-size: 14px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
                         <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.sig) ? RECEIPT_ASSETS.sig : 'images/sig.jpg'}" class="sig-img" style="margin-bottom: 2px;">
@@ -1490,13 +1490,13 @@ window.downloadReceiptPdf = function(receiptId) {
             </tr>
 
             <tr class="bottom-serial-row">
-                <td class="grid-cell" colspan="2" style="border-bottom: none !important; padding: 4px 8px 6px 8px;">
+                <td class="grid-cell" colspan="2" style="border-top: none !important; border-bottom: none !important; padding: 4px 8px 6px 8px;">
                     <div>
                         <span class="field-label" style="font-size: 14px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
                         <span class="field-value" style="font-size: 14px; color: #000; white-space: nowrap;">KRNPS-2026-27-${serialNoVal}</span>
                     </div>
                 </td>
-                <td class="grid-cell right-align" style="border-bottom: none !important; padding: 4px 12px 6px 8px; font-weight: bold; color: ${themeColor}; font-size: 14px; white-space: nowrap;">
+                <td class="grid-cell right-align" style="border-top: none !important; border-bottom: none !important; padding: 4px 12px 6px 8px; font-weight: bold; color: ${themeColor}; font-size: 14px; white-space: nowrap;">
                     <div>
                         ಅಧಿಕೃತ ಸಹಿ
                     </div>
