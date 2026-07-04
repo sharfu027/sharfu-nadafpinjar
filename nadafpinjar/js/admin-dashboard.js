@@ -1490,14 +1490,14 @@ window.downloadReceiptPdf = function(receiptId) {
             </tr>
 
             <tr class="bottom-serial-row">
-                <td class="grid-cell" colspan="2" style="border-top: none !important; border-bottom: 2.5px solid ${themeColor} !important; padding: 4px 8px 6px 8px;">
-                    <div style="border-bottom: 2.5px solid ${themeColor}; padding-bottom: 4px; width: 100%;">
+                <td class="grid-cell" colspan="2" style="border-bottom: none !important; padding: 4px 8px 6px 8px;">
+                    <div>
                         <span class="field-label" style="font-size: 14px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
                         <span class="field-value" style="font-size: 14px; color: #000; white-space: nowrap;">KRNPS-2026-27-${serialNoVal}</span>
                     </div>
                 </td>
-                <td class="grid-cell right-align" style="border-top: none !important; border-bottom: 2.5px solid ${themeColor} !important; padding: 4px 12px 6px 8px; font-weight: bold; color: ${themeColor}; font-size: 14px; white-space: nowrap;">
-                    <div style="border-bottom: 2.5px solid ${themeColor}; padding-bottom: 4px; width: 100%;">
+                <td class="grid-cell right-align" style="border-bottom: none !important; padding: 4px 12px 6px 8px; font-weight: bold; color: ${themeColor}; font-size: 14px; white-space: nowrap;">
+                    <div>
                         ಅಧಿಕೃತ ಸಹಿ
                     </div>
                 </td>
