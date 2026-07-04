@@ -469,38 +469,37 @@
             color: #990000;
         }
         .kannada-title {
-            font-size: 24px;
+            font-size: 25px;
             font-weight: bold;
             color: #990000;
             margin-bottom: 2px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 11.5px;
+            font-size: 13.5px;
             font-weight: bold;
             margin-bottom: 2px;
             color: #990000;
         }
         .english-title {
-            font-size: 13.5px;
+            font-size: 15.5px;
             font-weight: bold;
             letter-spacing: 0.5px;
             margin-bottom: 2px;
             color: #990000;
         }
         .office-address, .office-location {
-            font-size: 11px;
+            font-size: 12.5px;
             font-weight: bold;
             color: #990000;
         }
         .receipt-grid {
             width: 100%;
             border-collapse: collapse;
-            border: 2.5px solid #0056b3 !important;
+            border: 2.5px solid #0056b3;
             box-sizing: border-box;
         }
         .grid-cell {
-            border: none;
             border-bottom: 1px solid #0056b3;
             padding: 1.5px 5px;
             font-size: 13px;
@@ -531,11 +530,11 @@
             font-size: 13px;
         }
         .seal-img {
-            height: 48px;
+            height: 68px;
             width: auto;
         }
         .sig-img {
-            height: 36px;
+            height: 52px;
             width: auto;
             margin-bottom: 1px;
         }
@@ -549,10 +548,10 @@
                 font-size: 18px !important;
             }
             .english-title {
-                font-size: 12px !important;
+                font-size: 13px !important;
             }
             .reg-no, .office-address {
-                font-size: 10px !important;
+                font-size: 11px !important;
             }
             .patron-photo, .header-logo {
                 width: 70px !important;
@@ -566,10 +565,10 @@
                 padding: 2px 4px !important;
             }
             .seal-img {
-                height: 40px !important;
+                height: 50px !important;
             }
             .sig-img {
-                height: 30px !important;
+                height: 40px !important;
             }
         }
         @media print {
@@ -611,7 +610,7 @@
         <table class="header-box">
             <tr>
                 <td colspan="3" style="text-align: center; padding: 4px 8px 1px 8px;">
-                    <div class="kannada-title" style="font-size: 24px; font-weight: bold; color: #990000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                    <div class="kannada-title" style="font-size: 25px; font-weight: bold; color: #990000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                 </td>
             </tr>
             <tr>
@@ -619,10 +618,10 @@
                     <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.president) ? RECEIPT_ASSETS.president : 'images/president.jpeg'}" class="patron-photo" onerror="this.src='images/president.png'">
                 </td>
                 <td class="header-text-cell" style="text-align: center; vertical-align: middle; padding: 0 0 4px 0;">
-                    <div class="reg-no" style="color: #990000;">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
-                    <div class="english-title" style="color: #990000;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
-                    <div class="office-address" style="color: #990000;">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
-                    <div class="office-location" style="color: #990000;">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
+                    <div class="reg-no" style="font-size: 13.5px; color: #990000;">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
+                    <div class="english-title" style="font-size: 15.5px; color: #990000;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
+                    <div class="office-address" style="font-size: 12.5px; color: #990000;">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
+                    <div class="office-location" style="font-size: 12.5px; color: #990000;">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                 </td>
                 <td class="header-logo-cell" style="width: 115px; text-align: center; vertical-align: middle; padding: 0 6px 4px 4px;">
                     <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.logo) ? RECEIPT_ASSETS.logo : 'images/logo-786.png'}" class="header-logo">
@@ -632,15 +631,15 @@
 
         <table class="receipt-grid">
             <tr class="subheader-row">
-                <td class="grid-cell" style="width: 35%; border-bottom: 2px solid #0056b3;">
+                <td class="grid-cell" style="width: 35%;">
                     <span class="field-label">ರಶೀದಿ ಸಂಖ್ಯೆ:</span>
                     <span class="field-value" style="color: #000; white-space: nowrap;">${paymentId || 'Offline / Cash'}</span>
                 </td>
-                <td class="grid-cell center-align" style="width: 33%; border-bottom: 2px solid #0056b3;">
+                <td class="grid-cell center-align" style="width: 33%;">
                     <div style="font-size: 14px; font-weight: bold; color: #0056b3;">ಪಾವತಿಸಿದ ರಶೀದಿ</div>
                     <div style="font-size: 12.5px; font-weight: bold; margin-top: 1px; color: #0056b3;">${subheaderTitle}</div>
                 </td>
-                <td class="grid-cell right-align" style="width: 32%; border-bottom: 2px solid #0056b3;">
+                <td class="grid-cell right-align" style="width: 32%;">
                     <span class="field-label">ದಿನಾಂಕ :</span>
                     <span class="field-value" style="color: #000; white-space: nowrap;">${formattedDate}</span>
                 </td>
@@ -687,7 +686,7 @@
                     <div style="margin-bottom: 2px;"><u style="color: #0056b3; font-weight: bold;">ಯಾರ ಪರವಾಗಿ:</u></div>
                     <div>
                         <span class="field-label">ಹೆಸರು:</span>
-                        <span class="field-value" style="font-weight: 600; color: #000;">${data.donorName || ""}</span>
+                        <span class="field-value" style="font-weight: 600; color: #000;">${data.fullName || data.donorName || ""}</span>
                     </div>
                 </td>
                 <td class="grid-cell" style="width: 33%; vertical-align: top;">
@@ -716,7 +715,7 @@
                 </td>
             </tr>
 
-            <tr style="border-top: 2px solid #0056b3;">
+            <tr>
                 <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 4px 6px;">
                     <div class="payment-line" style="margin-top: 1px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
