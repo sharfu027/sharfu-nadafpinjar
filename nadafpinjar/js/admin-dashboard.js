@@ -1979,90 +1979,94 @@ function loadAdminFreeEdu() {
         .header-box {
             width: 100%;
             border-collapse: collapse;
-            border: 2.5px solid #b30000;
-            border-radius: 12px;
-            background-color: #fffde8;
-            margin-bottom: 6px;
+            border: 2.5px solid #a00000;
+            border-radius: 8px;
+            background-color: #ffedc2;
+            margin-bottom: 4px;
         }
         .header-photo-cell {
-            width: 80px;
+            width: 115px;
             text-align: center;
-            padding: 6px 4px 6px 12px;
+            padding: 2px 4px 4px 6px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 70px;
-            height: 70px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 2px solid #a00000;
             object-fit: cover;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
         .header-logo-cell {
-            width: 80px;
+            width: 115px;
             text-align: center;
-            padding: 6px 12px 6px 4px;
+            padding: 2px 6px 4px 4px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 70px;
-            height: 70px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 2px solid #a00000;
             object-fit: cover;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
         .header-text-cell {
             text-align: center;
             vertical-align: middle;
-            padding: 6px 0;
-            color: #b30000;
+            padding: 2px 0;
+            color: #990000;
         }
         .kannada-title {
-            font-size: 23px;
+            font-size: 25px;
             font-weight: bold;
+            color: #990000;
             margin-bottom: 2px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 10.5px;
+            font-size: 13.5px;
             font-weight: bold;
             margin-bottom: 2px;
-            color: #444;
+            color: #990000;
         }
         .english-title {
-            font-size: 12.5px;
+            font-size: 15.5px;
             font-weight: bold;
             letter-spacing: 0.5px;
             margin-bottom: 2px;
+            color: #990000;
         }
         .office-address, .office-location {
-            font-size: 10.5px;
+            font-size: 12.5px;
             font-weight: bold;
-            color: #333;
+            color: #990000;
         }
         .grid-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 0;
+            margin-bottom: 4px;
             background: #fff;
         }
         .grid-table td {
-            border: 1.4px solid #b30000;
-            padding: 3px 8px;
-            font-size: 14px;
+            border: 1px solid #b30000;
+            padding: 5px 8px;
+            font-size: 15.5px;
             vertical-align: middle;
-            line-height: 1.2;
+            line-height: 1.35;
         }
         .grid-label {
             color: #b30000;
             font-weight: bold;
             width: 25%;
-            font-size: 14px;
+            font-size: 15.5px;
         }
         .grid-value {
             color: #000;
             width: 25%;
             font-weight: bold;
-            font-size: 17.5px;
+            font-size: 15.5px;
         }
         @page {
             margin: 0;
@@ -2270,7 +2274,7 @@ function loadAdminFreeEdu() {
         </div>
 
         <div style="font-weight: bold; color: #b30000; font-size: 17.5px; margin-top: 14px; padding: 2px 6px;">
-            <div style="margin-bottom: 35px;">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
+            <div style="margin-bottom: 80px;">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
             <div style="margin-bottom: 10px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
     </div>
