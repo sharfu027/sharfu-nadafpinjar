@@ -1247,39 +1247,7 @@
             width: auto;
             margin-bottom: 1px;
         }
-        @media screen and (max-width: 768px) {
-            .receipt-container {
-                width: 98% !important;
-                margin: 5px auto !important;
-                padding: 4px !important;
-            }
-            .kannada-title {
-                font-size: 18px !important;
-            }
-            .english-title {
-                font-size: 12px !important;
-            }
-            .reg-no, .office-address {
-                font-size: 10px !important;
-            }
-            .patron-photo, .header-logo {
-                width: 70px !important;
-                height: 70px !important;
-            }
-            .header-photo-cell, .header-logo-cell {
-                width: 75px !important;
-            }
-            .grid-cell, .payment-line {
-                font-size: 11px !important;
-                padding: 2px 4px !important;
-            }
-            .seal-img {
-                height: 40px !important;
-            }
-            .sig-img {
-                height: 30px !important;
-            }
-        }
+
         @media print {
             @page {
                 size: A5 landscape;
@@ -1404,7 +1372,7 @@
                     const container = doc.querySelector('.receipt-container');
                     const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                     if (container) {
-                        container.style.margin = '0 auto';
+                        container.style.margin = isMobile ? '0' : '0 auto';
                     }
                     const rect = container ? container.getBoundingClientRect() : { width: 750, height: 450 };
                     const contentH = Math.ceil(rect.height || (container ? container.offsetHeight : 450));

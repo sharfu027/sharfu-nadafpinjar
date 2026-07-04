@@ -1342,39 +1342,7 @@ window.downloadReceiptPdf = function(receiptId) {
             width: auto;
             margin-bottom: 1px;
         }
-        @media screen and (max-width: 768px) {
-            .receipt-container {
-                width: 98% !important;
-                margin: 5px auto !important;
-                padding: 4px !important;
-            }
-            .kannada-title {
-                font-size: 18px !important;
-            }
-            .english-title {
-                font-size: 12px !important;
-            }
-            .reg-no, .office-address {
-                font-size: 10px !important;
-            }
-            .patron-photo, .header-logo {
-                width: 70px !important;
-                height: 70px !important;
-            }
-            .header-photo-cell, .header-logo-cell {
-                width: 75px !important;
-            }
-            .grid-cell, .payment-line {
-                font-size: 11px !important;
-                padding: 2px 4px !important;
-            }
-            .seal-img {
-                height: 40px !important;
-            }
-            .sig-img {
-                height: 30px !important;
-            }
-        }
+
         @media print {
             @page {
                 size: A5 landscape;
@@ -1537,7 +1505,7 @@ window.downloadReceiptPdf = function(receiptId) {
             const container = doc.querySelector('.receipt-container');
             const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
             if (container) {
-                container.style.margin = '0 auto';
+                container.style.margin = isMobile ? '0' : '0 auto';
             }
             const rect = container ? container.getBoundingClientRect() : { width: 750, height: 450 };
             const contentH = Math.ceil(rect.height || (container ? container.offsetHeight : 450));
@@ -2074,50 +2042,7 @@ function loadAdminFreeEdu() {
         @page {
             margin: 0;
         }
-        @media screen and (max-width: 768px) {
-            .receipt-container {
-                width: 98% !important;
-                margin: 5px auto !important;
-                padding: 4px 6px !important;
-            }
-            .header-text h1 {
-                font-size: 13px !important;
-            }
-            .header-text p {
-                font-size: 7.5px !important;
-            }
-            .kannada-title {
-                font-size: 14px !important;
-            }
-            .english-title {
-                font-size: 10px !important;
-            }
-            .reg-no, .office-address, .office-location {
-                font-size: 8px !important;
-            }
-            .patron-photo, .header-logo {
-                width: 45px !important;
-                height: 45px !important;
-            }
-            .header-photo-cell, .header-logo-cell {
-                width: 50px !important;
-            }
-            .grid-table td {
-                font-size: 10px !important;
-                padding: 1px 3px !important;
-            }
-            .grid-label {
-                font-size: 10px !important;
-                width: 25% !important;
-            }
-            .grid-value {
-                font-size: 10px !important;
-                width: 25% !important;
-            }
-            .declaration-section {
-                font-size: 9px !important;
-            }
-        }
+
         @media print {
             html, body {
                 height: auto;
@@ -2315,7 +2240,7 @@ function loadAdminFreeEdu() {
                 const container = doc.querySelector('.receipt-container');
                 const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                 if (container) {
-                    container.style.margin = '0 auto';
+                    container.style.margin = isMobile ? '0' : '0 auto';
                 }
                 const rect = container ? container.getBoundingClientRect() : { width: 794, height: 1123 };
                 const contentH = Math.ceil(rect.height || (container ? container.offsetHeight : 1123));
@@ -3050,37 +2975,7 @@ function loadAdminCensus() {
             overflow: hidden;
             font-family: 'Noto Sans Kannada', 'Kannada MN', 'Kannada Sangam MN', 'Tunga', 'Lohit Kannada', sans-serif;
         }
-        @media screen and (max-width: 768px) {
-            .receipt-container {
-                width: 98% !important;
-                margin: 5px auto !important;
-                padding: 4px 6px !important;
-            }
-            .kannada-title {
-                font-size: 18px !important;
-            }
-            .english-title {
-                font-size: 12px !important;
-            }
-            .reg-no, .office-address, .office-location {
-                font-size: 10px !important;
-            }
-            .patron-photo, .header-logo {
-                width: 70px !important;
-                height: 70px !important;
-            }
-            .header-photo-cell, .header-logo-cell {
-                width: 75px !important;
-            }
-            .grid-table td, .grid-label, .grid-value {
-                font-size: 11px !important;
-                padding: 2px 4px !important;
-            }
-            .members-table th, .members-table td {
-                font-size: 9.5px !important;
-                padding: 2px 2px !important;
-            }
-        }
+
         @page {
             size: A4 portrait;
             margin: 0;
@@ -3234,7 +3129,7 @@ function loadAdminCensus() {
                 const container = doc.querySelector('.receipt-container');
                 const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                 if (container) {
-                    container.style.margin = '0 auto';
+                    container.style.margin = isMobile ? '0' : '0 auto';
                 }
 
                 const rect = container ? container.getBoundingClientRect() : { width: 750, height: 600 };
@@ -3655,41 +3550,7 @@ function loadAdminEmployees() {
             width: 50%;
             border-bottom: 1px dashed #b30000;
         }
-        @media screen and (max-width: 768px) {
-            .receipt-container {
-                width: 98% !important;
-                margin: 5px auto !important;
-                padding: 4px 6px !important;
-            }
-            .kannada-title {
-                font-size: 14px !important;
-            }
-            .english-title {
-                font-size: 10px !important;
-            }
-            .reg-no, .office-address, .office-location {
-                font-size: 8px !important;
-            }
-            .patron-photo, .header-logo {
-                width: 45px !important;
-                height: 45px !important;
-            }
-            .header-photo-cell, .header-logo-cell {
-                width: 50px !important;
-            }
-            .grid-table td {
-                font-size: 10px !important;
-                padding: 1px 3px !important;
-            }
-            .grid-label {
-                font-size: 10px !important;
-                width: 25% !important;
-            }
-            .grid-value {
-                font-size: 10px !important;
-                width: 25% !important;
-            }
-        }
+
         @media print {
             @page {
                 margin: 0;
@@ -3812,6 +3673,9 @@ function loadAdminEmployees() {
             const container = doc.querySelector('.receipt-container');
             const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
             if (isMobile) {
+                if (container) {
+                    container.style.margin = '0';
+                }
                 iframe.style.width = '794px';
                 iframe.style.height = 'auto';
                 setTimeout(() => {
