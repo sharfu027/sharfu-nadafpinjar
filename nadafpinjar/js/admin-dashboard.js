@@ -2839,33 +2839,33 @@ function loadAdminCensus() {
         }
     };
 
-    // Download PDF handler
     window.downloadCensusPdf = function(id) {
         const found = submissions.find(app => app.id === id);
         if (!found) return;
 
         const data = found.formData || {};
         const appNumber = found.id;
+        const formattedDate = formatDateDashes(found.date || new Date());
 
         let membersRows = '';
         if (data.members && data.members.length > 0) {
             data.members.forEach((m, idx) => {
                 membersRows += `
                     <tr>
-                        <td style="text-align: center; border: 1px solid #b30000; padding: 2px;">${idx + 1}</td>
-                        <td style="border: 1px solid #b30000; padding: 2px;">${m.name || '-'}</td>
-                        <td style="border: 1px solid #b30000; padding: 2px;">${m.relation || '-'}</td>
-                        <td style="border: 1px solid #b30000; padding: 2px;">${m.mobile || '-'}</td>
-                        <td style="border: 1px solid #b30000; padding: 2px;">${m.aadhar || '-'}</td>
-                        <td style="border: 1px solid #b30000; padding: 2px;">${m.dob || '-'}</td>
-                        <td style="border: 1px solid #b30000; padding: 2px;">${(m.literate || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                        <td style="border: 1px solid #b30000; padding: 2px;">${(m.occupation || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                        <td style="border: 1px solid #b30000; padding: 2px;">${m.political || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px;">${idx + 1}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; word-wrap: break-word;">${m.name || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; white-space: nowrap;">${m.relation || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; white-space: nowrap;">${m.mobile || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; white-space: nowrap;">${m.aadhar || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; white-space: nowrap;">${m.dob || '-'}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; word-wrap: break-word;">${(m.literate || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; word-wrap: break-word;">${(m.occupation || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px;">${m.political || '-'}</td>
                     </tr>
                 `;
             });
         } else {
-            membersRows = '<tr><td colspan="9" style="text-align: center; border: 1px solid #b30000; padding: 4px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
+            membersRows = '<tr><td colspan="9" style="text-align: center; border: 1.2px solid #a00000; padding: 8px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
         }
 
         const printHTML = `<!DOCTYPE html>
@@ -2873,7 +2873,6 @@ function loadAdminCensus() {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="${window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1)}">
     <title>ಜನಗಣತಿ (Census) - ರಶೀದಿ</title>
     <style>
         html, body {
@@ -2893,7 +2892,7 @@ function loadAdminCensus() {
             max-width: 100%;
             height: auto;
             margin: 0 auto;
-            border: 2px solid #b30000;
+            border: 2px solid #a00000;
             padding: 4px 8px;
             background: #fff;
             box-sizing: border-box;
@@ -2903,177 +2902,126 @@ function loadAdminCensus() {
         .header-box {
             width: 100%;
             border-collapse: collapse;
-            border: 2.5px solid #b30000;
-            border-radius: 12px;
-            background-color: #fffde8;
-            margin-bottom: 6px;
+            border: 2.5px solid #a00000;
+            border-radius: 8px;
+            background-color: #ffedc2;
+            margin-bottom: 4px;
         }
         .header-photo-cell {
-            width: 80px;
+            width: 115px;
             text-align: center;
-            padding: 6px 4px 6px 12px;
+            padding: 2px 4px 4px 6px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 70px;
-            height: 70px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 2px solid #a00000;
             object-fit: cover;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
         .header-logo-cell {
-            width: 80px;
+            width: 115px;
             text-align: center;
-            padding: 6px 12px 6px 4px;
+            padding: 2px 6px 4px 4px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 70px;
-            height: 70px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 2px solid #a00000;
             object-fit: cover;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
         .header-text-cell {
             text-align: center;
             vertical-align: middle;
-            padding: 6px 0;
-            color: #b30000;
+            padding: 2px 0;
+            color: #990000;
         }
         .kannada-title {
-            font-size: 23px;
+            font-size: 25px;
             font-weight: bold;
+            color: #990000;
             margin-bottom: 2px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 10.5px;
+            font-size: 13.5px;
             font-weight: bold;
             margin-bottom: 2px;
-            color: #444;
+            color: #990000;
         }
         .english-title {
-            font-size: 12.5px;
+            font-size: 15.5px;
             font-weight: bold;
             letter-spacing: 0.5px;
             margin-bottom: 2px;
+            color: #990000;
         }
         .office-address, .office-location {
-            font-size: 10.5px;
+            font-size: 12.5px;
             font-weight: bold;
-            color: #333;
+            color: #990000;
         }
         .grid-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
         .grid-table td {
-            border: 1.2px solid #b30000;
-            padding: 1.5px 5px;
-            font-size: 14px;
+            border: 1.2px solid #a00000;
+            padding: 2px 5px;
+            font-size: 13.5px;
             vertical-align: middle;
-            line-height: 1.1;
+            line-height: 1.2;
         }
         .grid-label {
             background: #fffcf5;
-            color: #b30000;
+            color: #990000;
             font-weight: bold;
             width: 18%;
-            font-size: 14px;
+            font-size: 13.5px;
         }
         .grid-value {
             color: #000;
             width: 32%;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13.5px;
         }
         .members-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 2px;
-            font-size: 13px;
+            margin-bottom: 4px;
+            font-size: 12px;
             table-layout: fixed;
         }
         .members-table th {
-            border: 1.2px solid #b30000;
-            background: #fffcf5;
-            color: #b30000;
-            padding: 1.5px 3px;
+            border: 1.2px solid #a00000;
+            background: #ffedc2;
+            color: #990000;
+            padding: 4px 2px;
             font-weight: bold;
-            font-size: 13.5px;
-            word-wrap: break-word;
+            font-size: 12px;
+            line-height: 1.35;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
             overflow: hidden;
+            text-overflow: ellipsis;
         }
         .members-table td {
-            border: 1.2px solid #b30000;
-            padding: 1.5px 3px;
+            border: 1.2px solid #a00000;
+            padding: 4px 3px;
             font-weight: bold;
-            font-size: 13px;
-            line-height: 1.1;
+            font-size: 12px;
+            line-height: 1.35;
+            color: #000;
+            vertical-align: middle;
             word-wrap: break-word;
             overflow: hidden;
-        }
-        .approval-section {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 4px;
-            font-size: 14px;
-        }
-        .sig-col {
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .sig-item {
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 1px;
-        }
-        .sig-space {
-            height: 10px;
-        }
-        .sig-label {
-            font-weight: bold;
-            color: #b30000;
-            font-size: 15px;
-        }
-        .official-col {
-            width: 55%;
-            border-left: 1.5px solid #b30000;
-            padding-left: 10px;
-        }
-        .official-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .official-row {
-            height: 14px;
-        }
-        .official-title {
-            width: 45%;
-            font-weight: bold;
-            color: #b30000;
-            vertical-align: middle;
-            font-size: 12px;
-        }
-        .official-check {
-            width: 10%;
-            text-align: left;
-            vertical-align: middle;
-        }
-        .official-box {
-            border: 1.5px solid #b30000;
-            width: 13px;
-            height: 13px;
-            display: inline-block;
-        }
-        .official-empty-space {
-            width: 45%;
-        }
-        .official-sig-line {
-            width: 50%;
-            border-bottom: 1px dashed #b30000;
         }
         @media screen and (max-width: 768px) {
             .receipt-container {
@@ -3082,66 +3030,48 @@ function loadAdminCensus() {
                 padding: 4px 6px !important;
             }
             .kannada-title {
-                font-size: 14px !important;
+                font-size: 18px !important;
             }
             .english-title {
-                font-size: 10px !important;
+                font-size: 12px !important;
             }
             .reg-no, .office-address, .office-location {
-                font-size: 8px !important;
+                font-size: 10px !important;
             }
             .patron-photo, .header-logo {
-                width: 45px !important;
-                height: 45px !important;
+                width: 70px !important;
+                height: 70px !important;
             }
             .header-photo-cell, .header-logo-cell {
-                width: 50px !important;
+                width: 75px !important;
             }
-            .grid-table td {
-                font-size: 10px !important;
-                padding: 1px 3px !important;
-            }
-            .grid-label {
-                font-size: 10px !important;
-            }
-            .grid-value {
-                font-size: 10px !important;
-            }
-            .members-table {
-                font-size: 9.5px !important;
+            .grid-table td, .grid-label, .grid-value {
+                font-size: 11px !important;
+                padding: 2px 4px !important;
             }
             .members-table th, .members-table td {
-                font-size: 9.5px !important;
-                padding: 1px 2px !important;
-            }
-            .approval-section {
                 font-size: 10px !important;
+                padding: 2px 2px !important;
             }
         }
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
         @media print {
-            @page {
-                margin: 0;
-            }
             html, body {
-                width: 100%;
-                height: auto !important;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
+                height: auto;
             }
             body {
                 padding: 0;
                 margin: 0;
             }
             .receipt-container {
-                border: 2.5px solid #b30000;
-                width: 100%;
-                max-width: 100%;
-                height: auto;
-                padding: 4px 8px;
-                page-break-after: avoid;
-                page-break-inside: avoid;
+                border: 2.5px solid #a00000 !important;
+                width: 196mm !important;
+                margin: 0 auto !important;
                 box-sizing: border-box;
+                padding: 4px 8px;
             }
         }
     </style>
@@ -3150,35 +3080,41 @@ function loadAdminCensus() {
     <div class="receipt-container">
         <table class="header-box">
             <tr>
-                <td colspan="3" style="text-align: center; padding: 6px 10px 2px 10px;">
-                    <div class="kannada-title" style="font-size: 26px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                <td colspan="3" style="text-align: center; padding: 4px 8px 1px 8px;">
+                    <div class="kannada-title" style="font-size: 25px; font-weight: bold; color: #990000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                 </td>
             </tr>
             <tr>
-                <td class="header-photo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 4px 6px 12px;">
+                <td class="header-photo-cell" style="width: 115px; text-align: center; vertical-align: middle; padding: 0 4px 4px 6px;">
                     <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.president) ? RECEIPT_ASSETS.president : 'images/president.jpeg'}" class="patron-photo" onerror="this.src='images/president.png'">
                 </td>
-                <td class="header-text-cell" style="width: 60%; text-align: center; vertical-align: middle; padding: 0 0 6px 0;">
-                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
-                    <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
-                    <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
-                    <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
+                <td class="header-text-cell" style="text-align: center; vertical-align: middle; padding: 0 0 4px 0;">
+                    <div class="reg-no" style="font-size: 13.5px; color: #990000;">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
+                    <div class="english-title" style="font-size: 15.5px; color: #990000;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
+                    <div class="office-address" style="font-size: 12.5px; color: #990000;">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
+                    <div class="office-location" style="font-size: 12.5px; color: #990000;">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                 </td>
-                <td class="header-logo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 12px 6px 4px;">
+                <td class="header-logo-cell" style="width: 115px; text-align: center; vertical-align: middle; padding: 0 6px 4px 4px;">
                     <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.logo) ? RECEIPT_ASSETS.logo : 'images/logo-786.png'}" class="header-logo">
                 </td>
             </tr>
         </table>
         
-        <table style="width: 100%; border-collapse: collapse; margin: 2px 0; border-top: 1.5px solid #b30000; border-bottom: 1.5px solid #b30000; background: #fffcf5; font-size: 13.5px; font-weight: bold; color: #b30000;">
+        <table style="width: 100%; border-collapse: collapse; margin: 4px 0; border-top: 1.5px solid #a00000; border-bottom: 1.5px solid #a00000; background: #fffcf5; font-size: 13px; font-weight: bold; color: #990000; table-layout: fixed;">
             <tr>
-                <td style="width: 32%; text-align: left; padding: 2px 4px; white-space: nowrap;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : ${appNumber}</td>
-                <td style="width: 38%; text-align: center; padding: 2px 4px; font-size: 14.5px; white-space: nowrap;">ನಡಾಫ್/ ಪಿಂಜಾರ್ ಜನಗಣತಿ (ಕರ್ನಾಟಕ) 2026- 27</td>
-                <td style="width: 30%; text-align: right; padding: 2px 4px; white-space: nowrap;">ಅರ್ಜಿ ದಿನಾಂಕ : ${found.date}</td>
+                <td style="width: 32%; text-align: left; padding: 3px 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color: #000;">${appNumber}</span>
+                </td>
+                <td style="width: 44%; text-align: center; padding: 3px 4px; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    ನಡಾಫ್ / ಪಿಂಜಾರ್ ಜನಗಣತಿ (ಕರ್ನಾಟಕ) 2026-27
+                </td>
+                <td style="width: 24%; text-align: right; padding: 3px 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color: #000;">${formattedDate}</span>
+                </td>
             </tr>
         </table>
 
-        <h3 style="color: #b30000; font-size: 13.5px; margin: 3px 0 2px 0; border-bottom: 1px solid #b30000; padding-bottom: 1px;">I. ಕುಟುಂಬದ ವಿವರ (Family Details)</h3>
+        <h3 style="color: #990000; font-size: 13.5px; margin: 4px 0 3px 0; border-bottom: 1px solid #a00000; padding-bottom: 1px;">I. ಕುಟುಂಬದ ವಿವರ (Family Details)</h3>
         <table class="grid-table">
             <tr>
                 <td class="grid-label">ಮುಖ್ಯಸ್ಥರ ಹೆಸರು</td>
@@ -3218,19 +3154,19 @@ function loadAdminCensus() {
             </tr>
         </table>
 
-        <h3 style="color: #b30000; font-size: 13.5px; margin: 3px 0 2px 0; border-bottom: 1px solid #b30000; padding-bottom: 1px;">II. ಕುಟುಂಬದ ಸದಸ್ಯರ ವಿವರಗಳು (Family Members)</h3>
+        <h3 style="color: #990000; font-size: 13.5px; margin: 4px 0 3px 0; border-bottom: 1px solid #a00000; padding-bottom: 1px;">II. ಕುಟುಂಬದ ಸದಸ್ಯರ ವಿವರಗಳು (Family Members)</h3>
         <table class="members-table">
             <thead>
                 <tr>
-                    <th style="width: 4%;">Sl No.</th>
-                    <th style="width: 17%;">ಸದಸ್ಯರ ಹೆಸರು</th>
-                    <th style="width: 7%;">ಸಂಬಂಧ</th>
-                    <th style="width: 12%;">ಮೊಬೈಲ್</th>
-                    <th style="width: 15%;">ಆಧಾರ್</th>
-                    <th style="width: 12%;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
-                    <th style="width: 17%;">ಸಾಕ್ಷರಹಾ</th>
-                    <th style="width: 10%;">ವೃತ್ತಿ</th>
-                    <th style="width: 6%;">ರಾಜಕೀಯ</th>
+                    <th style="width: 5%; text-align: center;">Sl No.</th>
+                    <th style="width: 19%; text-align: left;">ಸದಸ್ಯರ ಹೆಸರು</th>
+                    <th style="width: 10%; text-align: center;">ಸಂಬಂಧ</th>
+                    <th style="width: 12%; text-align: center;">ಮೊಬೈಲ್</th>
+                    <th style="width: 15%; text-align: center;">ಆಧಾರ್</th>
+                    <th style="width: 12%; text-align: center;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
+                    <th style="width: 13%; text-align: left;">ಸಾಕ್ಷರತಾ</th>
+                    <th style="width: 9%; text-align: left;">ವೃತ್ತಿ</th>
+                    <th style="width: 5%; text-align: center;">ರಾಜಕೀಯ</th>
                 </tr>
             </thead>
             <tbody>
