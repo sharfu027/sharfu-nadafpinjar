@@ -3206,120 +3206,87 @@ function loadAdminCensus() {
 </body>
 </html>`;
 
-        const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        // Create invisible iframe off-screen
+        let iframe = document.getElementById('receiptPrintIframe');
+        if (!iframe) {
+            iframe = document.createElement('iframe');
+            iframe.id = 'receiptPrintIframe';
+            iframe.style.position = 'fixed';
+            iframe.style.left = '-9999px';
+            iframe.style.top = '-9999px';
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.style.border = '0';
+            document.body.appendChild(iframe);
+        }
+        iframe.style.width = '210mm';
+        iframe.style.height = '800px';
+        const doc = iframe.contentWindow.document;
+        doc.open();
+        doc.write(printHTML);
+        doc.close();
         
-        if (isMobile) {
-            // Render directly in the main document to ensure loaded Google Fonts are inherited and CORS/iframe policies don't block them
-            const tempDiv = document.createElement('div');
-            tempDiv.id = 'tempMobileReceiptWrapper';
-            tempDiv.style.position = 'absolute';
-            tempDiv.style.left = '-9999px';
-            tempDiv.style.top = '-9999px';
-            tempDiv.style.width = '794px';
-            tempDiv.style.height = 'auto';
-            tempDiv.style.background = '#fff';
-            tempDiv.innerHTML = printHTML;
-            document.body.appendChild(tempDiv);
-
-            const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-            script.onload = () => {
-                const runMainCapture = () => {
-                    const container = tempDiv.querySelector('.receipt-container');
-                    if (container) {
-                        container.style.margin = '0 auto';
-                    }
-
-                    const rect = container ? container.getBoundingClientRect() : { width: 750, height: 600 };
-                    const contentH = Math.ceil(rect.height || (container ? container.offsetHeight : 600));
-                    const contentW = Math.ceil(rect.width || (container ? container.offsetWidth : 750));
-
-                    const pdfWmm = contentW * 0.264583;
-                    const pdfHmm = contentH * 0.264583;
-                    const isLandscape = pdfWmm >= pdfHmm;
-
-                    const h2c = window.html2canvas;
-                    const jsPdfClass = window.jsPDF || (window.jspdf && window.jspdf.jsPDF);
-
-                    if (h2c && jsPdfClass) {
-                        h2c(container, {
-                            scale: 2,
-                            useCORS: true,
-                            letterRendering: false,
-                            scrollX: 0,
-                            scrollY: 0,
-                            width: contentW,
-                            height: contentH,
-                            windowWidth: contentW,
-                            windowHeight: contentH
-                        }).then(canvas => {
-                            const imgData = canvas.toDataURL('image/jpeg', 0.98);
-                            const pdf = new jsPdfClass({
-                                orientation: isLandscape ? 'landscape' : 'portrait',
-                                unit: 'mm',
-                                format: [Math.min(pdfWmm, pdfHmm), Math.max(pdfWmm, pdfHmm)]
-                            });
-                            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWmm, pdfHmm);
-                            pdf.save('Census-' + (id || 'Receipt') + '.pdf');
-                            document.body.removeChild(tempDiv);
-                        }).catch(err => {
-                            console.error("html2canvas error:", err);
-                            document.body.removeChild(tempDiv);
-                        });
-                    } else {
-                        const opt = {
-                            margin: 0,
-                            filename: 'Census-' + (id || 'Receipt') + '.pdf',
-                            image: { type: 'jpeg', quality: 0.98 },
-                            html2canvas: { scale: 2, useCORS: true, letterRendering: false, scrollX: 0, scrollY: 0, width: contentW, height: contentH, windowWidth: contentW, windowHeight: contentH },
-                            jsPDF: { unit: 'mm', format: [Math.min(pdfWmm, pdfHmm), Math.max(pdfWmm, pdfHmm)], orientation: isLandscape ? 'landscape' : 'portrait' }
-                        };
-                        window.html2pdf().from(container).set(opt).save().then(() => {
-                            document.body.removeChild(tempDiv);
-                        }).catch(err => {
-                            console.error("html2pdf error:", err);
-                            document.body.removeChild(tempDiv);
-                        });
-                    }
-                };
-
-                if (document.fonts && document.fonts.ready) {
-                    document.fonts.ready.then(() => {
-                        setTimeout(runMainCapture, 300);
-                    });
-                } else {
-                    setTimeout(runMainCapture, 500);
+        setTimeout(() => {
+            iframe.style.width = '794px';
+            iframe.style.height = 'auto';
+            
+            const runCapture = () => {
+                const container = doc.querySelector('.receipt-container');
+                const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                if (container) {
+                    container.style.margin = '0 auto';
                 }
-            };
-            document.head.appendChild(script);
-        } else {
-            // Laptop/Desktop print flow
-            let iframe = document.getElementById('receiptPrintIframe');
-            if (!iframe) {
-                iframe = document.createElement('iframe');
-                iframe.id = 'receiptPrintIframe';
-                iframe.style.position = 'fixed';
-                iframe.style.left = '-9999px';
-                iframe.style.top = '-9999px';
-                iframe.style.width = '0';
-                iframe.style.height = '0';
-                iframe.style.border = '0';
-                document.body.appendChild(iframe);
-            }
-            
-            iframe.style.width = '210mm';
-            iframe.style.height = '800px';
-            const doc = iframe.contentWindow.document;
-            doc.open();
-            doc.write(printHTML);
-            doc.close();
-            
-            setTimeout(() => {
-                iframe.style.width = '794px';
-                iframe.style.height = 'auto';
-                
-                const runCapture = () => {
-                    const container = doc.querySelector('.receipt-container');
+
+                const rect = container ? container.getBoundingClientRect() : { width: 750, height: 600 };
+                const contentH = Math.ceil(rect.height || (container ? container.offsetHeight : 600));
+                const contentW = Math.ceil(rect.width || (container ? container.offsetWidth : 750));
+
+                const pdfWmm = contentW * 0.264583;
+                const pdfHmm = contentH * 0.264583;
+                const isLandscape = pdfWmm >= pdfHmm;
+
+                if (isMobile) {
+                    const script = doc.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+                    script.onload = () => {
+                        const win = iframe.contentWindow;
+                        const h2c = win.html2canvas || window.html2canvas;
+                        const jsPdfClass = win.jsPDF || (win.jspdf && win.jspdf.jsPDF) || window.jsPDF || (window.jspdf && window.jspdf.jsPDF);
+
+                        if (h2c && jsPdfClass) {
+                            h2c(container, {
+                                scale: 2,
+                                useCORS: true,
+                                letterRendering: false,
+                                scrollX: 0,
+                                scrollY: 0,
+                                width: contentW,
+                                height: contentH,
+                                windowWidth: contentW,
+                                windowHeight: contentH
+                            }).then(canvas => {
+                                const imgData = canvas.toDataURL('image/jpeg', 0.98);
+                                const pdf = new jsPdfClass({
+                                    orientation: isLandscape ? 'landscape' : 'portrait',
+                                    unit: 'mm',
+                                    format: [Math.min(pdfWmm, pdfHmm), Math.max(pdfWmm, pdfHmm)]
+                                });
+                                pdf.addImage(imgData, 'JPEG', 0, 0, pdfWmm, pdfHmm);
+                                pdf.save('Census-' + (id || 'Receipt') + '.pdf');
+                            });
+                        } else {
+                            const opt = {
+                                margin: 0,
+                                filename: 'Census-' + (id || 'Receipt') + '.pdf',
+                                image: { type: 'jpeg', quality: 0.98 },
+                                html2canvas: { scale: 2, useCORS: true, letterRendering: false, scrollX: 0, scrollY: 0, width: contentW, height: contentH, windowWidth: contentW, windowHeight: contentH },
+                                jsPDF: { unit: 'mm', format: [Math.min(pdfWmm, pdfHmm), Math.max(pdfWmm, pdfHmm)], orientation: isLandscape ? 'landscape' : 'portrait' }
+                            };
+                            win.html2pdf().from(container).set(opt).save();
+                        }
+                    };
+                    doc.head.appendChild(script);
+                } else {
                     const dynStyle = doc.createElement('style');
                     dynStyle.textContent = `@media print { @page { size: a4 portrait; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 4mm auto !important; width: 194mm !important; height: 280mm !important; box-sizing: border-box; } }`;
                     doc.head.appendChild(dynStyle);
@@ -3327,17 +3294,17 @@ function loadAdminCensus() {
                     iframe.contentWindow.focus();
                     iframe.contentWindow.print();
                     setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
-                };
-
-                if (doc.fonts && doc.fonts.ready) {
-                    doc.fonts.ready.then(() => {
-                        setTimeout(runCapture, 300);
-                    });
-                } else {
-                    setTimeout(runCapture, 500);
                 }
-            }, 300);
-        }
+            };
+
+            if (doc.fonts && doc.fonts.ready) {
+                doc.fonts.ready.then(() => {
+                    setTimeout(runCapture, 300);
+                });
+            } else {
+                setTimeout(runCapture, 500);
+            }
+        }, 300);
     };
 }
 
