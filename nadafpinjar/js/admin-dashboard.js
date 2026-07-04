@@ -1296,7 +1296,7 @@ window.downloadReceiptPdf = function(receiptId) {
         }
         .receipt-grid {
             width: 100%;
-            border-collapse: separate !important;
+            border-collapse: collapse !important;
             border-spacing: 0 !important;
             border: 2.5px solid ${themeColor} !important;
             box-sizing: border-box;
@@ -1304,11 +1304,11 @@ window.downloadReceiptPdf = function(receiptId) {
         .grid-cell {
             border: none;
             border-bottom: 1.5px solid ${themeColor};
-            padding: 4px 10px;
-            font-size: 13.5px;
+            padding: 1.5px 5px;
+            font-size: 13px;
             vertical-align: middle;
             color: #1e293b;
-            line-height: 1.35;
+            line-height: 1.2;
             box-sizing: border-box;
         }
         .center-align {
@@ -1341,6 +1341,39 @@ window.downloadReceiptPdf = function(receiptId) {
             height: 52px;
             width: auto;
             margin-bottom: 1px;
+        }
+        @media screen and (max-width: 768px) {
+            .receipt-container {
+                width: 98% !important;
+                margin: 5px auto !important;
+                padding: 4px !important;
+            }
+            .kannada-title {
+                font-size: 18px !important;
+            }
+            .english-title {
+                font-size: 12px !important;
+            }
+            .reg-no, .office-address {
+                font-size: 10px !important;
+            }
+            .patron-photo, .header-logo {
+                width: 70px !important;
+                height: 70px !important;
+            }
+            .header-photo-cell, .header-logo-cell {
+                width: 75px !important;
+            }
+            .grid-cell, .payment-line {
+                font-size: 11px !important;
+                padding: 2px 4px !important;
+            }
+            .seal-img {
+                height: 40px !important;
+            }
+            .sig-img {
+                height: 30px !important;
+            }
         }
         @media print {
             @page {
