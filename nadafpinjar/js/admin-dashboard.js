@@ -2873,13 +2873,13 @@ function loadAdminCensus() {
                 membersRows += `
                     <tr>
                         <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px;">${idx + 1}</td>
-                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${m.name || '-'}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.relation || '-'}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${(m.name || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${(m.relation || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
                         <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.mobile || '-'}</td>
                         <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.aadhar || '-'}</td>
                         <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.dob || '-'}</td>
-                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${(m.literate || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${(m.occupation || '-').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${(m.literate || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${(m.occupation || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
                         <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px;">${m.political || '-'}</td>
                     </tr>
                 `;
@@ -3226,7 +3226,7 @@ function loadAdminCensus() {
             iframe.style.width = '794px';
             iframe.style.height = 'auto';
             
-            setTimeout(() => {
+            const runCapture = () => {
                 const container = doc.querySelector('.receipt-container');
                 const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                 if (container) {
@@ -3291,7 +3291,15 @@ function loadAdminCensus() {
                     iframe.contentWindow.print();
                     setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
                 }
-            }, 200);
+            };
+
+            if (doc.fonts && doc.fonts.ready) {
+                doc.fonts.ready.then(() => {
+                    setTimeout(runCapture, 300);
+                });
+            } else {
+                setTimeout(runCapture, 500);
+            }
         }, 300);
     };
 }
