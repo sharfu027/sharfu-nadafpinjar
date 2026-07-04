@@ -801,7 +801,7 @@ function loadReceipts() {
                 <td>${r.from || ''}</td>
                 <td><span style="color: green; font-weight: bold;">${statusText}</span></td>
                 <td>${r.mode || ''}</td>
-                <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${narrationText}</td>
+                <td style="max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${narrationText}">${narrationText}</td>
                 <td>
                     <button class="btn-view" onclick="window.location.href='viewReceipt?id=' + encodeURIComponent('${r.id}')"><i class="fa fa-eye"></i> View</button>
                 </td>
@@ -1140,6 +1140,200 @@ window.downloadReceiptPdf = function(receiptId) {
                 </td>
                 <td class="grid-cell" style="width: 32%; vertical-align: top;">
                     <div style="margin-bottom: 3px; margin-top: 18px;">
+    if (viewTxDate) viewTxDate.value = details.transactionDate || formatDate(found.date);
+    if (viewFullName) viewFullName.value = details.fullName || "";
+    if (viewAddress) viewAddress.value = details.address || "";
+    if (viewMobile) viewMobile.value = details.mobile || "";
+    if (viewVillage) viewVillage.value = details.village || "";
+    if (viewDistrict) viewDistrict.value = details.district || "";
+    if (viewTaluk) viewTaluk.value = details.taluk || "";
+    if (viewPurpose) viewPurpose.value = details.purpose || found.from;
+    if (viewPurposeDetails) viewPurposeDetails.value = details.purposeDetails || found.narration;
+    if (viewAmount) viewAmount.value = details.amount || found.amount;
+    if (viewMode) viewMode.value = details.mode || found.mode;
+
+    const rejectBtn = document.getElementById("rejectReceiptBtn");
+    if (rejectBtn) {
+        rejectBtn.addEventListener("click", () => {
+            const updatedReceipts = receipts.filter(r => r.id !== receiptId);
+            localStorage.setItem('receipts', JSON.stringify(updatedReceipts));
+            alert("The Receipt Has Been Rejected Successfully");
+            window.location.href = "Receipts";
+        });
+    }
+
+    const backBtn = document.getElementById("backReceiptBtn");
+    if (backBtn) {
+        backBtn.addEventListener("click", () => {
+            window.location.href = "Receipts";
+        });
+    }
+};
+
+// Print/Download high-fidelity Donation Receipt PDF via hidden Iframe
+window.downloadReceiptPdf = function(receiptId) {
+    if (!receiptId || !receiptId.startsWith("2026")) {
+        alert("Please click 'Generate Receipt' first to generate the receipt number before downloading.");
+        return;
+    }
+    const receipts = JSON.parse(localStorage.getItem('receipts')) || [];
+    const found = receipts.find(r => r.id === receiptId);
+    if (!found) {
+        alert("Receipt not found.");
+        return;
+    }
+    const details = found.details || {};
+
+    // Helper functions for Kannada styling
+    const formatDateDashes = (dateStr) => {
+        if (!dateStr) return "";
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return dateStr;
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const year = d.getFullYear();
+        return `${day}-${month}-${year}`;
+    };
+
+    const formatCurrencyRaw = (amount) => {
+        return Number(amount).toLocaleString('en-IN', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    };
+
+    // Calculate/Assign bottom serial number dynamically if missing
+    let serialNoVal = found.serialNo;
+    if (!serialNoVal) {
+        let maxSerial = 0;
+        receipts.forEach(r => {
+            if (r.serialNo && !isNaN(r.serialNo)) {
+                if (r.serialNo > maxSerial) {
+                    maxSerial = r.serialNo;
+                }
+            }
+        });
+        serialNoVal = maxSerial + 1;
+        // Save back to database
+        const index = receipts.findIndex(r => r.id === receiptId);
+        if (index > -1) {
+            receipts[index].serialNo = serialNoVal;
+            localStorage.setItem('receipts', JSON.stringify(receipts));
+        }
+    }
+
+    // Determine colors, subheader titles and layout fields based on the source category
+    let themeColor = "#b30000"; // Red for State Direct
+    let subheaderTitle = "ನೇರವಾಗಿ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
+
+    const fromStr = (found.from || "").toLowerCase();
+    let isDistrict = fromStr.includes("district");
+    let isTaluk = fromStr.includes("taluk");
+
+    if (isDistrict) {
+        themeColor = "#0033cc"; // Blue for District
+        subheaderTitle = "ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
+    } else if (isTaluk) {
+        themeColor = "#006600"; // Green for Taluk
+        subheaderTitle = "ತಾಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
+    }
+
+    let fieldsHTML = "";
+    if (isDistrict || isTaluk) {
+        const presTitle = isDistrict ? "ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ" : "ತಾಲೂಕು ಅಧ್ಯಕ್ಷರ";
+        fieldsHTML = `
+            <!-- SECTION 1: PRESIDENT DETAILS -->
+            <tr>
+                <td class="grid-cell" style="width: 35%; vertical-align: top;">
+                    <div style="margin-bottom: 3px;"><u style="color: ${themeColor}; font-weight: bold;">${presTitle}</u></div>
+                    <div>
+                        <span class="field-label">ಹೆಸರು:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentName || details.districtPresidentName || details.talukPresidentName || ""}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 33%; vertical-align: top;">
+                    <div style="margin-bottom: 3px; margin-top: 18px;">
+                        <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentVillage || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ವಿಳಾಸ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentAddress || ""}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 32%; vertical-align: top;">
+                    <div style="margin-bottom: 3px; margin-top: 18px;">
+                        <span class="field-label">ಮೊಬೈಲ್:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000; white-space: nowrap;">${details.presidentMobile || ""}</span>
+                    </div>
+                    <div style="margin-bottom: 3px;">
+                        <span class="field-label">ತಾಲೂಕು:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentTaluk || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.presidentDistrict || ""}</span>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- SECTION 2: DONOR DETAILS (YARA PARAVAGI) -->
+            <tr>
+                <td class="grid-cell" style="width: 35%; vertical-align: top;">
+                    <div style="margin-bottom: 3px;"><u style="color: ${themeColor}; font-weight: bold;">ಯಾರ ಪರವಾಗಿ:</u></div>
+                    <div>
+                        <span class="field-label">ಹೆಸರು:</span>
+                        <span class="field-value" style="font-weight: 600; color: #000;">${details.fullName || details.donorName || ""}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 33%; vertical-align: top;">
+                    <div style="margin-bottom: 3px; margin-top: 18px;">
+                        <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.village || details.donorVillage || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ವಿಳಾಸ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.address || details.donorAddress || ""}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 32%; vertical-align: top;">
+                    <div style="margin-bottom: 3px; margin-top: 18px;">
+                        <span class="field-label">ಮೊಬೈಲ್:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000; white-space: nowrap;">${details.mobile || details.donorMobile || ""}</span>
+                    </div>
+                    <div style="margin-bottom: 3px;">
+                        <span class="field-label">ತಾಲೂಕು:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.taluk || details.donorTaluk || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.district || details.donorDistrict || ""}</span>
+                    </div>
+                </td>
+            </tr>
+        `;
+    } else {
+        fieldsHTML = `
+            <tr>
+                <td class="grid-cell" style="width: 35%; vertical-align: top;">
+                    <div style="margin-bottom: 3px;"><u style="color: ${themeColor}; font-weight: bold;">ಯಾರ ಪರವಾಗಿ:</u></div>
+                    <div>
+                        <span class="field-label">ಹೆಸರು:</span>
+                        <span class="field-value" style="font-weight: 600; color: #000;">${details.fullName || details.donorName || ""}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 33%; vertical-align: top;">
+                    <div style="margin-bottom: 3px; margin-top: 18px;">
+                        <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.village || ""}</span>
+                    </div>
+                    <div>
+                        <span class="field-label">ವಿಳಾಸ:</span>
+                        <span class="field-value" style="font-weight: 500; color: #000;">${details.address || ""}</span>
+                    </div>
+                </td>
+                <td class="grid-cell" style="width: 32%; vertical-align: top;">
+                    <div style="margin-bottom: 3px; margin-top: 18px;">
                         <span class="field-label">ಮೊಬೈಲ್:</span>
                         <span class="field-value" style="font-weight: 500; color: #000; white-space: nowrap;">${details.mobile || ""}</span>
                     </div>
@@ -1161,65 +1355,74 @@ window.downloadReceiptPdf = function(receiptId) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="${window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1)}">
-    <title>Donation Receipt - ${found.id}</title>
+    <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap');
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
         html, body {
-            height: auto;
+            width: 210mm;
+            height: 297mm;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            background: #fff;
+            font-family: 'Noto Sans Kannada', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
         body {
-            font-family: 'Noto Sans Kannada', 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #fff;
-            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 4mm;
+            box-sizing: border-box;
         }
         .receipt-container {
-            width: 100%;
-            max-width: 200mm;
-            margin: 5mm auto;
-            border: none;
-            padding: 4px 6px;
-            background: #fff;
+            width: 198mm;
+            min-height: auto;
+            margin: 0 auto;
+            border: 2.5px solid ${themeColor};
+            border-bottom: none !important;
+            padding: 8px 12px;
+            background: #ffffff;
             box-sizing: border-box;
         }
         .header-box {
             width: 100%;
             border-collapse: collapse;
-            border: 2.5px solid #b30000;
+            border: 2.5px solid ${themeColor};
             border-radius: 12px;
             background-color: #fffde8;
             margin-bottom: 6px;
         }
         .header-photo-cell {
-            width: 95px;
+            width: 125px;
             text-align: center;
-            padding: 2px 4px 4px 8px;
+            padding: 4px 4px 6px 10px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 88px;
-            height: 88px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 2.5px solid ${themeColor};
             object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.12);
         }
         .header-logo-cell {
-            width: 95px;
+            width: 125px;
             text-align: center;
-            padding: 2px 8px 4px 4px;
+            padding: 4px 10px 6px 4px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 88px;
-            height: 88px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 2.5px solid ${themeColor};
             object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.12);
         }
         .header-text-cell {
             text-align: center;
@@ -1228,135 +1431,156 @@ window.downloadReceiptPdf = function(receiptId) {
             color: #b30000;
         }
         .kannada-title {
-            font-size: 23px;
+            font-size: 24px;
             font-weight: bold;
             margin-bottom: 2px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: bold;
             margin-bottom: 2px;
             color: #444;
         }
         .english-title {
-            font-size: 12.5px;
+            font-size: 13px;
             font-weight: bold;
             letter-spacing: 0.5px;
             margin-bottom: 2px;
         }
         .office-address, .office-location {
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: bold;
             color: #333;
         }
-        .receipt-grid {
+        .app-title-bar {
+            text-align: center;
+            color: #b30000;
+            font-weight: bold;
+            font-size: 20px;
+            margin: 6px 0 4px 0;
+            text-decoration: underline;
+        }
+        .sub-header-table {
             width: 100%;
             border-collapse: collapse;
-            border: 2.5px solid ${themeColor};
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #b30000;
         }
-        .bottom-serial-row td {
-            border-top: none !important;
-            border-bottom: 2.5px solid ${themeColor} !important;
+        .grid-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 4px;
+            background: #fff;
         }
-        .grid-cell {
-            border: none;
-            border-bottom: 1px solid ${themeColor};
-            padding: 3px 6px;
+        .grid-table td {
+            border: 1px solid #b30000;
+            padding: 4px 6px;
             font-size: 14px;
             vertical-align: middle;
-            color: #1e293b;
             line-height: 1.25;
         }
-        .center-align {
-            text-align: center;
-        }
-        .right-align {
-            text-align: right;
-        }
-        .subheader-row {
-            color: ${themeColor};
+        .grid-label {
+            color: #b30000;
             font-weight: bold;
-        }
-        .field-label {
-            font-weight: 600;
-            color: ${themeColor};
-            margin-right: 6px;
-        }
-        .field-value {
-            color: #000;
-            font-weight: 500;
-        }
-        .payment-line {
+            width: 25%;
             font-size: 14px;
         }
-        .seal-img {
-            height: 75px;
-            width: auto;
+        .grid-value {
+            color: #000;
+            width: 25%;
+            font-weight: bold;
+            font-size: 14px;
         }
-        .sig-img {
-            height: 55px;
-            width: auto;
-            margin-bottom: 2px;
+        .serial-footer {
+            text-align: center;
+            font-size: 9px;
+            color: #555;
+            margin: 2px 0 6px 0;
         }
-        @media screen and (max-width: 768px) {
-            .receipt-container {
-                width: 98% !important;
-                margin: 5px auto !important;
-                padding: 4px !important;
-            }
-            .kannada-title {
-                font-size: 14px !important;
-            }
-            .english-title {
-                font-size: 10px !important;
-            }
-            .reg-no, .office-address {
-                font-size: 8px !important;
-            }
-            .patron-photo, .header-logo {
-                width: 55px !important;
-                height: 55px !important;
-            }
-            .header-photo-cell, .header-logo-cell {
-                width: 60px !important;
-            }
-            .grid-cell, .payment-line {
-                font-size: 11px !important;
-                padding: 3px 6px !important;
-            }
-            .seal-img {
-                height: 50px !important;
-            }
-            .sig-img {
-                height: 40px !important;
-            }
+        .recommendation-box {
+            border: 1px solid #b30000;
+            background: #fff;
+            padding: 8px 10px;
+            font-weight: bold;
+            color: #b30000;
+            font-size: 14px;
+            box-sizing: border-box;
+            margin-top: 4px;
+        }
+        .rec-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .rec-left {
+            width: 32%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            font-size: 14px;
+        }
+        .rec-center {
+            width: 44%;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 14px;
+        }
+        .rec-center-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 220px;
+        }
+        .checkbox-sq {
+            border: 1.5px solid #b30000;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            background: #fff;
+        }
+        .rec-right {
+            width: 24%;
+            text-align: right;
+            font-size: 15px;
+            font-weight: bold;
+            color: #b30000;
+            padding-top: 2px;
+        }
+        .bottom-signatures-section {
+            font-weight: bold;
+            color: #b30000;
+            font-size: 15px;
+            margin-top: 18px;
+            padding: 4px 6px;
+        }
+        .bottom-signatures-section .report-line {
+            margin-bottom: 40px;
+        }
+        .bottom-signatures-section .approval-line {
+            margin-bottom: 15px;
         }
         @media print {
             @page {
-                size: A5 landscape;
+                size: A4 portrait;
                 margin: 0;
             }
             html, body {
                 width: 210mm;
-                height: 148mm;
+                height: 297mm;
                 margin: 0;
-                padding: 0;
-                overflow: hidden;
-            }
-            body {
                 padding: 0;
             }
             .receipt-container {
-                width: 200mm !important;
-                height: 138mm !important;
-                margin: 5mm auto !important;
-                padding: 6px 8px !important;
-                border: none !important;
-                box-sizing: border-box !important;
-                page-break-inside: avoid !important;
-                page-break-after: avoid !important;
-                background: #fff !important;
+                width: 198mm !important;
+                min-height: 285mm !important;
+                margin: 0 auto !important;
+                border: 2.5px solid #b30000 !important;
+                padding: 8px 12px !important;
+                background: #ffffff !important;
             }
         }
     </style>
@@ -1365,97 +1589,147 @@ window.downloadReceiptPdf = function(receiptId) {
     <div class="receipt-container">
         <table class="header-box">
             <tr>
-                <td colspan="3" style="text-align: center; padding: 6px 10px 2px 10px;">
-                    <div class="kannada-title" style="font-size: 24px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="header-photo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 4px 6px 12px;">
+                <td class="header-photo-cell">
                     <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.president) ? RECEIPT_ASSETS.president : 'images/president.jpeg'}" class="patron-photo" onerror="this.src='images/president.png'">
                 </td>
-                <td class="header-text-cell" style="width: 60%; text-align: center; vertical-align: middle; padding: 0 0 6px 0;">
+                <td class="header-text-cell">
+                    <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
                     <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
                     <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
                     <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                 </td>
-                <td class="header-logo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 12px 6px 4px;">
+                <td class="header-logo-cell">
                     <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.logo) ? RECEIPT_ASSETS.logo : 'images/logo-786.png'}" class="header-logo">
                 </td>
             </tr>
         </table>
+        
+        <div class="app-title-bar">
+            ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27
+        </div>
 
-        <table class="receipt-grid">
-            <tr class="subheader-row">
-                <td class="grid-cell" style="width: 35%; border-bottom: 2px solid ${themeColor};">
-                    <span class="field-label">ರಶೀದಿ ಸಂಖ್ಯೆ:</span>
-                    <span class="field-value" style="color: #000; white-space: nowrap;">${found.id}</span>
-                </td>
-                <td class="grid-cell center-align" style="width: 33%; border-bottom: 2px solid ${themeColor};">
-                    <div style="font-size: 15px; font-weight: bold; color: ${themeColor};">ಪಾವತಿಸಿದ ರಶೀದಿ</div>
-                    <div style="font-size: 13px; font-weight: bold; margin-top: 2px; color: ${themeColor};">${subheaderTitle}</div>
-                </td>
-                <td class="grid-cell right-align" style="width: 32%; border-bottom: 2px solid ${themeColor};">
-                    <span class="field-label">ದಿನಾಂಕ :</span>
-                    <span class="field-value" style="color: #000; white-space: nowrap;">${formatDateDashes(found.date)}</span>
-                </td>
-            </tr>
-
-            ${fieldsHTML}
-
-            <tr style="border-top: 2px solid ${themeColor};">
-                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
-                    <div class="payment-line" style="margin-top: 2px;">
-                        <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
-                        <span class="field-value" style="font-size: 14px; font-weight: bold; color: #000; white-space: nowrap;">${formatCurrencyRaw(found.amount)}</span>
-                    </div>
-                    <div class="payment-line" style="margin-top: 6px;">
-                        <span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span>
-                        <span class="field-value" style="color: #000; white-space: nowrap;">${formatDateDashes(found.date)}</span>
-                    </div>
-                    <div class="payment-line" style="margin-top: 6px;">
-                        <span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span>
-                        <span class="field-value" style="color: #000;">${details.purpose || found.from}</span>
-                    </div>
-                    <div class="payment-line" style="margin-top: 6px;">
-                        <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
-                        <span class="field-value" style="color: #000;">${details.purposeDetails || ""}</span>
-                    </div>
-                </td>
-                <td class="grid-cell center-align" style="width: 30%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
-                    <div class="payment-line" style="margin-top: 2px;">
-                        <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
-                        <span class="field-value" style="color: #000;">${details.mode || found.mode}</span>
-                    </div>
-                    <div style="margin-top: 12px; text-align: center;">
-                        <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.seal) ? RECEIPT_ASSETS.seal : 'images/seal.jpg'}" class="seal-img">
-                    </div>
-                </td>
-                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
-                    <div style="text-align: center; width: 230px; margin: 2px auto 0 auto;">
-                        <div style="font-size: 14px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
-                        <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.sig) ? RECEIPT_ASSETS.sig : 'images/sig.jpg'}" class="sig-img" style="margin-bottom: 2px;">
-                        <div style="font-size: 15px; font-weight: bold; color: #4f1971; margin-top: 2px; line-height: 1.2; white-space: nowrap;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
-                        <div style="font-size: 13.5px; font-weight: bold; color: #4f1971; line-height: 1.2; white-space: nowrap;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
-                        <div style="font-size: 12px; font-weight: bold; color: #4f1971; line-height: 1.2; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
-                    </div>
-                </td>
-            </tr>
-
-            <tr class="bottom-serial-row">
-                <td class="grid-cell" colspan="2" style="border-top: none !important; border-bottom: 2.5px solid ${themeColor} !important; padding: 4px 8px 6px 8px;">
-                    <div style="border-bottom: 2.5px solid ${themeColor}; padding-bottom: 4px; width: 100%;">
-                        <span class="field-label" style="font-size: 14px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
-                        <span class="field-value" style="font-size: 14px; color: #000; white-space: nowrap;">KRNPS-2026-27-${serialNoVal}</span>
-                    </div>
-                </td>
-                <td class="grid-cell right-align" style="border-top: none !important; border-bottom: 2.5px solid ${themeColor} !important; padding: 4px 12px 6px 8px; font-weight: bold; color: ${themeColor}; font-size: 14px; white-space: nowrap;">
-                    <div style="border-bottom: 2.5px solid ${themeColor}; padding-bottom: 4px; width: 100%;">
-                        ಅಧಿಕೃತ ಸಹಿ
-                    </div>
-                </td>
+        <table class="sub-header-table">
+            <tr>
+                <td style="width: 33%; text-align: left;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color: #000; font-weight: bold;">${appNumber}</span></td>
+                <td style="width: 34%; text-align: center;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color: #000; font-weight: bold;">${appDate}</span></td>
+                <td style="width: 33%; text-align: right;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ : <span style="color: #000; font-weight: bold;">${data.mobile || '-'}</span></td>
             </tr>
         </table>
+
+        <table class="grid-table">
+            <tr>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
+                <td class="grid-value">${data.studentName || data.name || '-'}</td>
+                <td class="grid-label">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು :</td>
+                <td class="grid-value">${data.fatherName || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ತಾಯಿಯ ಹೆಸರು</td>
+                <td class="grid-value">${data.motherName || '-'}</td>
+                <td class="grid-label">ವಿಳಾಸ :</td>
+                <td class="grid-value">${data.address || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ನಗರಿ/ಗ್ರಾಮ</td>
+                <td class="grid-value">${data.village || '-'}</td>
+                <td class="grid-label">ಜಿಲ್ಲೆ :</td>
+                <td class="grid-value">${data.district || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಉದ್ಯೋಗ :</td>
+                <td class="grid-value">${data.occupation || '-'}</td>
+                <td class="grid-label">ತಾಲೂಕು:</td>
+                <td class="grid-value">${data.taluk || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಅಂದಾಜು ಆದಾಯ</td>
+                <td class="grid-value">${formatIncome(data.income)}</td>
+                <td class="grid-label">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
+                <td class="grid-value">${data.membership || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಮನೆಯ ವಿವರ</td>
+                <td class="grid-value">${data.housingInfo || data.houseDetails || '-'}</td>
+                <td class="grid-label">ವಸತಿ ವಿವರ</td>
+                <td class="grid-value">${data.houseType || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಜಮೀನು</td>
+                <td class="grid-value">${data.landInfo || '0'} ಎಕರೆ ${data.gunte || '0'} ಗುಂಟೆ</td>
+                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
+                <td class="grid-value">${data.mobile || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಆಧಾರ್ ನಂ</td>
+                <td class="grid-value" style="color: #b30000; font-weight: bold;">${data.aadhar || '-'}</td>
+                <td class="grid-label">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
+                <td class="grid-value">${data.rationType || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ಶಾಲೆ/ಕಾಲೇಜು</td>
+                <td class="grid-value">${data.currentSchool || '-'}</td>
+                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
+                <td class="grid-value">${data.currentClass || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಹಿಂದಿನ ತರಗತಿಯಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳು</td>
+                <td class="grid-value">${data.previousMarks || '-'}</td>
+                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
+                <td class="grid-value">${data.joiningClass || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು</td>
+                <td class="grid-value">${data.classSubjects || '-'}</td>
+                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್</td>
+                <td class="grid-value">${data.coaching || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                <td class="grid-value">${data.bankName || '-'}</td>
+                <td class="grid-label">ಶಾಖೆಯ ಹೆಸರು</td>
+                <td class="grid-value">${data.branchName || data.taluk || '-'}</td>
+            </tr>
+            <tr>
+                <td class="grid-label">IFSC ಕೋಡ್</td>
+                <td class="grid-value" style="font-weight: bold; color: #b30000;">${data.ifsc || '-'}</td>
+                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
+                <td class="grid-value">${data.bankAccount || '-'}</td>
+            </tr>
+        </table>
+        <div class="serial-footer">00000</div>
+
+        <!-- Signatures & Recommendation Section -->
+        <div class="recommendation-box">
+            <div class="rec-flex">
+                <div class="rec-left">
+                    <div>ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ :</div>
+                    <div>ಪಾಲಕರ ಸಹಿ :</div>
+                </div>
+                <div class="rec-center">
+                    <div class="rec-center-row">
+                        <span>ತಾಲ್ಲೂಕು ಘಟಕ</span>
+                        <span class="checkbox-sq"></span>
+                    </div>
+                    <div class="rec-center-row">
+                        <span>ಜಿಲ್ಲಾ ಘಟಕ</span>
+                        <span class="checkbox-sq"></span>
+                    </div>
+                    <div class="rec-center-row">
+                        <span>ವಿಧಾನಸಭಾ ರವಾನಿಸಲಾಗಿದೆ</span>
+                        <span class="checkbox-sq"></span>
+                    </div>
+                </div>
+                <div class="rec-right">
+                    ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-signatures-section">
+            <div class="report-line">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
+            <div class="approval-line">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
+        </div>
     </div>
 </body>
 </html>`;
@@ -1544,7 +1818,35 @@ window.downloadReceiptPdf = function(receiptId) {
                 doc.head.appendChild(script);
             } else {
                 const dynStyle = doc.createElement('style');
-                dynStyle.textContent = `@media print { @page { size: A5 landscape; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 5mm auto !important; width: 200mm !important; height: 138mm !important; box-sizing: border-box !important; } }`;
+                dynStyle.textContent = `@media print {
+            @page {
+                size: A5 landscape;
+                margin: 0;
+            }
+            html, body {
+                width: 210mm;
+                height: 148mm;
+                margin: 0;
+                padding: 0;
+                overflow: hidden !important;
+            }
+            body {
+                padding: 0;
+            }
+            .receipt-container {
+                width: 198mm !important;
+                max-height: 140mm !important;
+                margin: 2mm auto !important;
+                padding: 3px 5px !important;
+                border: none !important;
+                box-sizing: border-box !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+                background: #fff !important;
+            }
+        }`;
                 doc.head.appendChild(dynStyle);
 
                 iframe.style.width = '0';
@@ -1928,27 +2230,27 @@ function loadAdminFreeEdu() {
             margin-bottom: 6px;
         }
         .header-photo-cell {
-            width: 80px;
+            width: 100px;
             text-align: center;
             padding: 6px 4px 6px 12px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 70px;
-            height: 70px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 2px solid #b30000;
             object-fit: cover;
         }
         .header-logo-cell {
-            width: 80px;
+            width: 100px;
             text-align: center;
             padding: 6px 12px 6px 4px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 70px;
-            height: 70px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 2px solid #b30000;
             object-fit: cover;
@@ -1960,25 +2262,25 @@ function loadAdminFreeEdu() {
             color: #b30000;
         }
         .kannada-title {
-            font-size: 23px;
+            font-size: 25px;
             font-weight: bold;
             margin-bottom: 2px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 10.5px;
+            font-size: 11.5px;
             font-weight: bold;
             margin-bottom: 2px;
             color: #444;
         }
         .english-title {
-            font-size: 12.5px;
+            font-size: 13.5px;
             font-weight: bold;
             letter-spacing: 0.5px;
             margin-bottom: 2px;
         }
         .office-address, .office-location {
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: bold;
             color: #333;
         }
@@ -2055,18 +2357,32 @@ function loadAdminFreeEdu() {
             }
         }
         @media print {
-            html, body {
-                height: auto;
+            @page {
+                size: A5 landscape;
                 margin: 0;
+            }
+            html, body {
+                width: 210mm;
+                height: 148mm;
+                margin: 0;
+                padding: 0;
+                overflow: hidden !important;
+            }
+            body {
                 padding: 0;
             }
             .receipt-container {
-                border: 2px solid #b30000 !important;
-                max-width: 100%;
-                height: auto !important;
-                box-sizing: border-box;
-                padding: 5px;
-                background-color: #fffdeb !important;
+                width: 198mm !important;
+                max-height: 140mm !important;
+                margin: 2mm auto !important;
+                padding: 3px 5px !important;
+                border: none !important;
+                box-sizing: border-box !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+                background: #fff !important;
             }
         }
     </style>
@@ -2303,7 +2619,35 @@ function loadAdminFreeEdu() {
                     doc.head.appendChild(script);
                 } else {
                     const dynStyle = doc.createElement('style');
-                    dynStyle.textContent = `@media print { @page { size: a4 portrait; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 0 auto !important; width: 210mm !important; height: 297mm !important; } }`;
+                    dynStyle.textContent = `@media print {
+            @page {
+                size: A5 landscape;
+                margin: 0;
+            }
+            html, body {
+                width: 210mm;
+                height: 148mm;
+                margin: 0;
+                padding: 0;
+                overflow: hidden !important;
+            }
+            body {
+                padding: 0;
+            }
+            .receipt-container {
+                width: 198mm !important;
+                max-height: 140mm !important;
+                margin: 2mm auto !important;
+                padding: 3px 5px !important;
+                border: none !important;
+                box-sizing: border-box !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+                background: #fff !important;
+            }
+        }`;
                     doc.head.appendChild(dynStyle);
 
                     iframe.contentWindow.focus();
@@ -2862,27 +3206,27 @@ function loadAdminCensus() {
             margin-bottom: 6px;
         }
         .header-photo-cell {
-            width: 80px;
+            width: 100px;
             text-align: center;
             padding: 6px 4px 6px 12px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 70px;
-            height: 70px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 2px solid #b30000;
             object-fit: cover;
         }
         .header-logo-cell {
-            width: 80px;
+            width: 100px;
             text-align: center;
             padding: 6px 12px 6px 4px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 70px;
-            height: 70px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 2px solid #b30000;
             object-fit: cover;
@@ -2894,25 +3238,25 @@ function loadAdminCensus() {
             color: #b30000;
         }
         .kannada-title {
-            font-size: 23px;
+            font-size: 25px;
             font-weight: bold;
             margin-bottom: 2px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 10.5px;
+            font-size: 11.5px;
             font-weight: bold;
             margin-bottom: 2px;
             color: #444;
         }
         .english-title {
-            font-size: 12.5px;
+            font-size: 13.5px;
             font-weight: bold;
             letter-spacing: 0.5px;
             margin-bottom: 2px;
         }
         .office-address, .office-location {
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: bold;
             color: #333;
         }
@@ -2956,7 +3300,7 @@ function loadAdminCensus() {
             font-weight: bold;
             font-size: 13.5px;
             word-wrap: break-word;
-            overflow: hidden;
+            overflow: visible;
         }
         .members-table td {
             border: 1.2px solid #b30000;
@@ -2965,7 +3309,7 @@ function loadAdminCensus() {
             font-size: 13px;
             line-height: 1.1;
             word-wrap: break-word;
-            overflow: hidden;
+            overflow: visible;
         }
         .approval-section {
             display: flex;
@@ -3073,28 +3417,31 @@ function loadAdminCensus() {
         }
         @media print {
             @page {
+                size: A5 landscape;
                 margin: 0;
             }
             html, body {
-                width: 100%;
-                height: auto !important;
+                width: 210mm;
+                height: 148mm;
                 margin: 0;
                 padding: 0;
-                overflow: hidden;
+                overflow: hidden !important;
             }
             body {
                 padding: 0;
-                margin: 0;
             }
             .receipt-container {
-                border: 2.5px solid #b30000;
-                width: 100%;
-                max-width: 100%;
-                height: auto;
-                padding: 4px 8px;
-                page-break-after: avoid;
-                page-break-inside: avoid;
-                box-sizing: border-box;
+                width: 198mm !important;
+                max-height: 140mm !important;
+                margin: 2mm auto !important;
+                padding: 3px 5px !important;
+                border: none !important;
+                box-sizing: border-box !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+                background: #fff !important;
             }
         }
     </style>
@@ -3104,11 +3451,11 @@ function loadAdminCensus() {
         <table class="header-box">
             <tr>
                 <td colspan="3" style="text-align: center; padding: 6px 10px 2px 10px;">
-                    <div class="kannada-title" style="font-size: 26px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                    <div class="kannada-title" style="font-size: 25px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                 </td>
             </tr>
             <tr>
-                <td class="header-photo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 4px 6px 12px;">
+                <td class="header-photo-cell" style="width: 100px; text-align: center; vertical-align: middle; padding: 0 4px 6px 12px;">
                     <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.president) ? RECEIPT_ASSETS.president : 'images/president.jpeg'}" class="patron-photo" onerror="this.src='images/president.png'">
                 </td>
                 <td class="header-text-cell" style="width: 60%; text-align: center; vertical-align: middle; padding: 0 0 6px 0;">
@@ -3117,7 +3464,7 @@ function loadAdminCensus() {
                     <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
                     <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                 </td>
-                <td class="header-logo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 12px 6px 4px;">
+                <td class="header-logo-cell" style="width: 100px; text-align: center; vertical-align: middle; padding: 0 12px 6px 4px;">
                     <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.logo) ? RECEIPT_ASSETS.logo : 'images/logo-786.png'}" class="header-logo">
                 </td>
             </tr>
@@ -3277,7 +3624,35 @@ function loadAdminCensus() {
                     doc.head.appendChild(script);
                 } else {
                     const dynStyle = doc.createElement('style');
-                    dynStyle.textContent = `@media print { @page { size: a4 portrait; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 4mm auto !important; width: 194mm !important; height: 280mm !important; box-sizing: border-box; } }`;
+                    dynStyle.textContent = `@media print {
+            @page {
+                size: A5 landscape;
+                margin: 0;
+            }
+            html, body {
+                width: 210mm;
+                height: 148mm;
+                margin: 0;
+                padding: 0;
+                overflow: hidden !important;
+            }
+            body {
+                padding: 0;
+            }
+            .receipt-container {
+                width: 198mm !important;
+                max-height: 140mm !important;
+                margin: 2mm auto !important;
+                padding: 3px 5px !important;
+                border: none !important;
+                box-sizing: border-box !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+                background: #fff !important;
+            }
+        }`;
                     doc.head.appendChild(dynStyle);
 
                     iframe.contentWindow.focus();
@@ -3478,27 +3853,27 @@ function loadAdminEmployees() {
             margin-bottom: 6px;
         }
         .header-photo-cell {
-            width: 80px;
+            width: 100px;
             text-align: center;
             padding: 6px 4px 6px 12px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 70px;
-            height: 70px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 2px solid #b30000;
             object-fit: cover;
         }
         .header-logo-cell {
-            width: 80px;
+            width: 100px;
             text-align: center;
             padding: 6px 12px 6px 4px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 70px;
-            height: 70px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 2px solid #b30000;
             object-fit: cover;
@@ -3510,135 +3885,30 @@ function loadAdminEmployees() {
             color: #b30000;
         }
         .kannada-title {
-            font-size: 23px;
+            font-size: 25px;
             font-weight: bold;
             margin-bottom: 2px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 10.5px;
+            font-size: 11.5px;
             font-weight: bold;
             margin-bottom: 2px;
             color: #444;
         }
         .english-title {
-            font-size: 12.5px;
+            font-size: 13.5px;
             font-weight: bold;
             letter-spacing: 0.5px;
             margin-bottom: 2px;
         }
         .office-address, .office-location {
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: bold;
             color: #333;
         }
         .title-banner {
-            border-top: 1.5px solid #b30000;
-            border-bottom: 1.5px solid #b30000;
-            padding: 4px;
-            margin: 4px 0;
-            background: #fffcf5;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            font-size: 13px;
-            color: #b30000;
-        }
-        .grid-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 4px;
-        }
-        .grid-table td {
-            border: 1px solid #b30000;
-            padding: 3px 5px;
-            font-size: 13px;
-            vertical-align: middle;
-            line-height: 1.2;
-        }
-        .grid-label {
-            background: #fffcf5;
-            color: #b30000;
-            font-weight: bold;
-            width: 25%;
-        }
-        .grid-value {
-            color: #000;
-            width: 25%;
-            font-weight: bold;
-        }
-        .recommend-text {
-            text-align: center;
-            font-size: 13px;
-            font-weight: bold;
-            color: #b30000;
-            border-top: 1px dashed #b30000;
-            padding: 3px 0;
-            margin-top: 4px;
-        }
-        .approval-section {
-            display: flex;
-            justify-content: space-between;
-            margin-top: auto;
-            font-size: 13px;
-        }
-        .sig-col {
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .sig-item {
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 2px;
-        }
-        .sig-space {
-            height: 10px;
-        }
-        .sig-label {
-            font-weight: bold;
-            color: #b30000;
-            font-size: 13px;
-        }
-        .official-col {
-            width: 55%;
-            border-left: 1.5px solid #b30000;
-            padding-left: 8px;
-        }
-        .official-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .official-row {
-            height: 13px;
-        }
-        .official-check {
-            width: 10%;
-            text-align: center;
-            vertical-align: middle;
-        }
-        .official-box {
-            border: 1.5px solid #b30000;
-            width: 9px;
-            height: 9px;
-            display: inline-block;
-        }
-        .official-title {
-            width: 40%;
-            font-weight: bold;
-            color: #b30000;
-            padding-left: 4px;
-            vertical-align: middle;
-            font-size: 13px;
-        }
-        .official-sig-line {
-            width: 50%;
-            border-bottom: 1px dashed #b30000;
-        }
-        @media screen and (max-width: 768px) {
-            .receipt-container {
-                width: 98% !important;
+            border-top: none !important;
                 margin: 5px auto !important;
                 padding: 4px 6px !important;
             }
@@ -3673,28 +3943,31 @@ function loadAdminEmployees() {
         }
         @media print {
             @page {
+                size: A5 landscape;
                 margin: 0;
             }
             html, body {
-                width: 100%;
-                height: auto !important;
+                width: 210mm;
+                height: 148mm;
                 margin: 0;
                 padding: 0;
-                overflow: hidden;
+                overflow: hidden !important;
             }
             body {
                 padding: 0;
-                margin: 0;
             }
             .receipt-container {
-                border: 2px double #b30000;
-                width: 100%;
-                max-width: 100%;
-                height: auto;
-                padding: 10px;
-                box-sizing: border-box;
-                page-break-after: avoid;
-                page-break-inside: avoid;
+                width: 198mm !important;
+                max-height: 140mm !important;
+                margin: 2mm auto !important;
+                padding: 3px 5px !important;
+                border: none !important;
+                box-sizing: border-box !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+                background: #fff !important;
             }
         }
     </style>
@@ -3704,11 +3977,11 @@ function loadAdminEmployees() {
         <table class="header-box">
             <tr>
                 <td colspan="3" style="text-align: center; padding: 6px 10px 2px 10px;">
-                    <div class="kannada-title" style="font-size: 26px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                    <div class="kannada-title" style="font-size: 25px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                 </td>
             </tr>
             <tr>
-                <td class="header-photo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 4px 6px 12px;">
+                <td class="header-photo-cell" style="width: 100px; text-align: center; vertical-align: middle; padding: 0 4px 6px 12px;">
                     <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.president) ? RECEIPT_ASSETS.president : 'images/president.jpeg'}" class="patron-photo" onerror="this.src='images/president.png'">
                 </td>
                 <td class="header-text-cell" style="width: 60%; text-align: center; vertical-align: middle; padding: 0 0 6px 0;">
@@ -3717,7 +3990,7 @@ function loadAdminEmployees() {
                     <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
                     <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                 </td>
-                <td class="header-logo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 12px 6px 4px;">
+                <td class="header-logo-cell" style="width: 100px; text-align: center; vertical-align: middle; padding: 0 12px 6px 4px;">
                     <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.logo) ? RECEIPT_ASSETS.logo : 'images/logo-786.png'}" class="header-logo">
                 </td>
             </tr>
@@ -3822,7 +4095,35 @@ function loadAdminEmployees() {
                     const contentH = container.scrollHeight;
                     pageHmm = Math.ceil(contentH * 0.2646 + 15);
                     const dynStyle = doc.createElement('style');
-                    dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 6mm 10mm; } }`;
+                    dynStyle.textContent = `@media print {
+            @page {
+                size: A5 landscape;
+                margin: 0;
+            }
+            html, body {
+                width: 210mm;
+                height: 148mm;
+                margin: 0;
+                padding: 0;
+                overflow: hidden !important;
+            }
+            body {
+                padding: 0;
+            }
+            .receipt-container {
+                width: 198mm !important;
+                max-height: 140mm !important;
+                margin: 2mm auto !important;
+                padding: 3px 5px !important;
+                border: none !important;
+                box-sizing: border-box !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+                background: #fff !important;
+            }
+        }`;
                     doc.head.appendChild(dynStyle);
                 }
                 iframe.style.width = '0';

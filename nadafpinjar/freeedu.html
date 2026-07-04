@@ -773,33 +773,38 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <base href="${window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1)}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
     <style>
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
         html, body {
-            height: auto;
+            width: 210mm;
+            height: 297mm;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            background: #fff;
+            font-family: 'Noto Sans Kannada', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #fff;
-            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 4mm;
+            box-sizing: border-box;
         }
         .receipt-container {
-            width: 100%;
-            max-width: 196mm;
-            min-height: 280mm;
+            width: 198mm;
+            min-height: 285mm;
             margin: 0 auto;
             border: 2.5px solid #b30000;
-            padding: 8px 14px;
-            background: #fffdeb;
+            padding: 8px 12px;
+            background: #ffffff;
             box-sizing: border-box;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
         }
         .header-box {
             width: 100%;
@@ -810,72 +815,90 @@
             margin-bottom: 6px;
         }
         .header-photo-cell {
-            width: 80px;
+            width: 125px;
             text-align: center;
-            padding: 6px 4px 6px 12px;
+            padding: 4px 4px 6px 10px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 70px;
-            height: 70px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 2.5px solid #b30000;
             object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.12);
         }
         .header-logo-cell {
-            width: 80px;
+            width: 125px;
             text-align: center;
-            padding: 6px 12px 6px 4px;
+            padding: 4px 10px 6px 4px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 70px;
-            height: 70px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 2.5px solid #b30000;
             object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.12);
         }
         .header-text-cell {
             text-align: center;
             vertical-align: middle;
-            padding: 6px 0;
+            padding: 4px 0;
             color: #b30000;
         }
         .kannada-title {
-            font-size: 23px;
+            font-size: 24px;
             font-weight: bold;
             margin-bottom: 2px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: bold;
             margin-bottom: 2px;
             color: #444;
         }
         .english-title {
-            font-size: 12.5px;
+            font-size: 13px;
             font-weight: bold;
             letter-spacing: 0.5px;
             margin-bottom: 2px;
         }
         .office-address, .office-location {
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: bold;
             color: #333;
+        }
+        .app-title-bar {
+            text-align: center;
+            color: #b30000;
+            font-weight: bold;
+            font-size: 20px;
+            margin: 6px 0 4px 0;
+            text-decoration: underline;
+        }
+        .sub-header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #b30000;
         }
         .grid-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 0;
+            margin-bottom: 4px;
             background: #fff;
         }
         .grid-table td {
-            border: 1.4px solid #b30000;
-            padding: 3px 8px;
+            border: 1px solid #b30000;
+            padding: 4px 6px;
             font-size: 14px;
             vertical-align: middle;
-            line-height: 1.2;
+            line-height: 1.25;
         }
         .grid-label {
             color: #b30000;
@@ -887,75 +910,95 @@
             color: #000;
             width: 25%;
             font-weight: bold;
-            font-size: 17.5px;
+            font-size: 14px;
         }
-        @media (max-width: 768px) {
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-            .form-container {
-                padding: 15px;
-                margin: 20px auto;
-                max-width: 95%;
-            }
+        .serial-footer {
+            text-align: center;
+            font-size: 9px;
+            color: #555;
+            margin: 2px 0 6px 0;
         }
-        @media screen and (max-width: 768px) {
-            .receipt-container {
-                width: 98% !important;
-                margin: 5px auto !important;
-                padding: 4px 6px !important;
-            }
-            .kannada-title {
-                font-size: 14px !important;
-            }
-            .english-title {
-                font-size: 10px !important;
-            }
-            .reg-no, .office-address, .office-location {
-                font-size: 8px !important;
-            }
-            .patron-photo, .header-logo {
-                width: 45px !important;
-                height: 45px !important;
-            }
-            .header-photo-cell, .header-logo-cell {
-                width: 50px !important;
-            }
-            .grid-table td {
-                font-size: 10px !important;
-                padding: 1px 3px !important;
-            }
-            .grid-label {
-                font-size: 10px !important;
-                width: 25% !important;
-            }
-            .grid-value {
-                font-size: 10px !important;
-                width: 25% !important;
-            }
-            .declaration-section {
-                font-size: 9px !important;
-            }
+        .recommendation-box {
+            border: 1px solid #b30000;
+            background: #fff;
+            padding: 8px 10px;
+            font-weight: bold;
+            color: #b30000;
+            font-size: 14px;
+            box-sizing: border-box;
+            margin-top: 4px;
         }
-        @page {
-            size: A4 portrait;
-            margin: 0;
+        .rec-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .rec-left {
+            width: 32%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            font-size: 14px;
+        }
+        .rec-center {
+            width: 44%;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 14px;
+        }
+        .rec-center-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 220px;
+        }
+        .checkbox-sq {
+            border: 1.5px solid #b30000;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            background: #fff;
+        }
+        .rec-right {
+            width: 24%;
+            text-align: right;
+            font-size: 15px;
+            font-weight: bold;
+            color: #b30000;
+            padding-top: 2px;
+        }
+        .bottom-signatures-section {
+            font-weight: bold;
+            color: #b30000;
+            font-size: 15px;
+            margin-top: 18px;
+            padding: 4px 6px;
+        }
+        .bottom-signatures-section .report-line {
+            margin-bottom: 40px;
+        }
+        .bottom-signatures-section .approval-line {
+            margin-bottom: 15px;
         }
         @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
             html, body {
-                height: auto;
+                width: 210mm;
+                height: 297mm;
                 margin: 0;
                 padding: 0;
             }
             .receipt-container {
-                border: 2.5px solid #b30000 !important;
-                width: 196mm !important;
-                min-height: 280mm !important;
+                width: 198mm !important;
+                min-height: 285mm !important;
                 margin: 0 auto !important;
-                box-sizing: border-box;
-                padding: 8px 14px;
-                background-color: #fffdeb !important;
+                border: 2.5px solid #b30000 !important;
+                padding: 8px 12px !important;
+                background: #ffffff !important;
             }
         }
     </style>
@@ -964,42 +1007,38 @@
     <div class="receipt-container">
         <table class="header-box">
             <tr>
-                <td colspan="3" style="text-align: center; padding: 6px 10px 2px 10px;">
-                    <div class="kannada-title" style="font-size: 26px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="header-photo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 4px 6px 12px;">
+                <td class="header-photo-cell">
                     <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.president) ? RECEIPT_ASSETS.president : 'images/president.jpeg'}" class="patron-photo" onerror="this.src='images/president.png'">
                 </td>
-                <td class="header-text-cell" style="width: 60%; text-align: center; vertical-align: middle; padding: 0 0 6px 0;">
+                <td class="header-text-cell">
+                    <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
                     <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
                     <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
                     <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                 </td>
-                <td class="header-logo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 12px 6px 4px;">
+                <td class="header-logo-cell">
                     <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.logo) ? RECEIPT_ASSETS.logo : 'images/logo-786.png'}" class="header-logo">
                 </td>
             </tr>
         </table>
         
-        <div style="text-align: center; color: #b30000; font-weight: bold; font-size: 21px; margin: 4px 0; text-decoration: underline;">
+        <div class="app-title-bar">
             ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27
         </div>
 
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 4px; font-size: 15.5px; font-weight: bold; color: #b30000;">
+        <table class="sub-header-table">
             <tr>
-                <td style="width: 33%; text-align: left;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color: #000;">${appNumber}</span></td>
-                <td style="width: 34%; text-align: center;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color: #000;">${new Date().toLocaleDateString('en-GB').replace(/\//g, '-')}</span></td>
-                <td style="width: 33%; text-align: right;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ : <span style="color: #000;">${data.mobile || '-'}</span></td>
+                <td style="width: 33%; text-align: left;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color: #000; font-weight: bold;">${appNumber}</span></td>
+                <td style="width: 34%; text-align: center;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color: #000; font-weight: bold;">${appDate}</span></td>
+                <td style="width: 33%; text-align: right;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ : <span style="color: #000; font-weight: bold;">${data.mobile || '-'}</span></td>
             </tr>
         </table>
 
         <table class="grid-table">
             <tr>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
-                <td class="grid-value">${data.studentName || '-'}</td>
+                <td class="grid-value">${data.studentName || data.name || '-'}</td>
                 <td class="grid-label">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು :</td>
                 <td class="grid-value">${data.fatherName || '-'}</td>
             </tr>
@@ -1029,7 +1068,7 @@
             </tr>
             <tr>
                 <td class="grid-label">ಮನೆಯ ವಿವರ</td>
-                <td class="grid-value">${data.housingInfo || '-'}</td>
+                <td class="grid-value">${data.housingInfo || data.houseDetails || '-'}</td>
                 <td class="grid-label">ವಸತಿ ವಿವರ</td>
                 <td class="grid-value">${data.houseType || '-'}</td>
             </tr>
@@ -1067,7 +1106,7 @@
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
                 <td class="grid-value">${data.bankName || '-'}</td>
                 <td class="grid-label">ಶಾಖೆಯ ಹೆಸರು</td>
-                <td class="grid-value">${data.branchName || '-'}</td>
+                <td class="grid-value">${data.branchName || data.taluk || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">IFSC ಕೋಡ್</td>
@@ -1076,42 +1115,39 @@
                 <td class="grid-value">${data.bankAccount || '-'}</td>
             </tr>
         </table>
-        <div style="text-align: center; font-size: 8.5px; color: #666; margin: 0 0 2px 0;">00000</div>
+        <div class="serial-footer">00000</div>
 
         <!-- Signatures & Recommendation Section -->
-        <div style="border: 1.4px solid #b30000; background: #fff; padding: 8px 14px; font-weight: bold; color: #b30000; font-size: 16px; box-sizing: border-box; margin-top: 4px;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div style="width: 35%; display: flex; flex-direction: column; gap: 18px;">
+        <div class="recommendation-box">
+            <div class="rec-flex">
+                <div class="rec-left">
                     <div>ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ :</div>
                     <div>ಪಾಲಕರ ಸಹಿ :</div>
                 </div>
-                <div style="width: 45%; display: flex; flex-direction: column; gap: 6px;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; width: 240px;">
+                <div class="rec-center">
+                    <div class="rec-center-row">
                         <span>ತಾಲ್ಲೂಕು ಘಟಕ</span>
-                        <span style="border: 1.8px solid #b30000; width: 20px; height: 20px; display: inline-block; background: #fff;"></span>
+                        <span class="checkbox-sq"></span>
                     </div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; width: 240px;">
+                    <div class="rec-center-row">
                         <span>ಜಿಲ್ಲಾ ಘಟಕ</span>
-                        <span style="border: 1.8px solid #b30000; width: 20px; height: 20px; display: inline-block; background: #fff;"></span>
+                        <span class="checkbox-sq"></span>
                     </div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; width: 240px;">
-                        <span>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರ</span>
-                        <span style="border: 1.8px solid #b30000; width: 20px; height: 20px; display: inline-block; background: #fff;"></span>
+                    <div class="rec-center-row">
+                        <span>ವಿಧಾನಸಭಾ ರವಾನಿಸಲಾಗಿದೆ</span>
+                        <span class="checkbox-sq"></span>
                     </div>
                 </div>
-                <div style="width: 20%; text-align: right; font-size: 16.5px; font-weight: bold; color: #b30000; padding-top: 2px;">
+                <div class="rec-right">
                     ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ
                 </div>
             </div>
         </div>
 
-        <div style="font-weight: bold; color: #b30000; font-size: 17.5px; margin-top: 14px; padding: 2px 6px;">
-            <div style="margin-bottom: 35px;">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
-            <div style="margin-bottom: 10px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
+        <div class="bottom-signatures-section">
+            <div class="report-line">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
+            <div class="approval-line">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
-    </div>
-</body>
-</html>`;
     </div>
 </body>
 </html>`;

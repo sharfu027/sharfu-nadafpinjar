@@ -869,6 +869,201 @@
             tableHTML += `<tr><td style="width: 35%; background: #2b709c; color: white; font-weight: bold; padding: 10px; border: 1px solid #dee2e6;">ಜಿಲ್ಲಾಧ್ಯಕ್ಷರ ಹೆಸರು</td><td style="padding: 10px; border: 1px solid #dee2e6; font-weight: bold;">${data.presidentName || '-'}</td></tr>`;
             tableHTML += `<tr><td style="background: #2b709c; color: white; font-weight: bold; padding: 10px; border: 1px solid #dee2e6;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td><td style="padding: 10px; border: 1px solid #dee2e6;">${data.presidentMobile || '-'}</td></tr>`;
             tableHTML += `<tr><td style="background: #2b709c; color: white; font-weight: bold; padding: 10px; border: 1px solid #dee2e6;">ಯಾರ ಪರವಾಗಿ ಪೂರ್ಣ ಹೆಸರು</td><td style="padding: 10px; border: 1px solid #dee2e6; font-weight: bold;">${data.donorName || '-'}</td></tr>`;
+'presidentMobile': 'span-4',
+                'presidentVillage': 'span-4',
+                'district': 'span-4',
+                'taluk': 'span-4',
+                'donorName': 'span-6',
+                'donorAddress': 'span-6',
+                'donorVillage': 'span-4',
+                'donorDistrict': 'span-4',
+                'donorTaluk': 'span-4',
+                'donorMobile': 'span-4',
+                'account': 'span-6',
+                'purposeDetails': 'span-6',
+                'paymentMode': 'span-12'
+            };
+
+            // Group fields by sections for clear structure
+            const presidentFields = ['presidentName', 'presidentAddress', 'presidentMobile', 'presidentVillage', 'district', 'taluk'];
+            const donorFields = ['donorName', 'donorAddress', 'donorVillage', 'donorDistrict', 'donorTaluk', 'donorMobile'];
+            const purposeFields = ['account', 'purposeDetails', 'paymentMode'];
+
+            function buildGrid(fields) {
+                let html = '';
+                fields.forEach(key => {
+                    if (formData[key] !== undefined) {
+                        let label = labelMap[key] || key;
+                        let spanClass = spanMap[key] || 'span-6';
+                        let val = formData[key] || '-';
+                        html += `
+                            <div class="preview-card ${spanClass}">
+                                <span class="preview-card-label">${label}</span>
+                                <p class="preview-card-value">${val}</p>
+                            </div>
+                        `;
+                    }
+                });
+                return html;
+            }
+
+            let previewHTML = '';
+            
+            // District President Section
+            previewHTML += `<div class="preview-section-header">ಜಿಲ್ಲಾಧ್ಯಕ್ಷರ ವಿವರ</div>`;
+            previewHTML += `<div class="preview-grid">${buildGrid(presidentFields)}</div>`;
+            
+            // On Behalf of Section
+            previewHTML += `<div class="preview-section-header">ಯಾರ ಪರವಾಗಿ</div>`;
+            previewHTML += `<div class="preview-grid">${buildGrid(donorFields)}</div>`;
+            
+            // Purpose Section
+            previewHTML += `<div class="preview-section-header">ಉದ್ದೇಶಗಳು</div>`;
+            previewHTML += `<div class="preview-grid">${buildGrid(purposeFields)}</div>`;
+
+            document.getElementById('previewContent').innerHTML = previewHTML;
+            if(document.getElementById('displayAmount')) {
+                document.getElementById('displayAmount').textContent = formData.amount || 0;
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        function editForm() {
+            document.getElementById('formContainer').style.display = 'block';
+            document.getElementById('previewContainer').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        function initiatePayment() {
+            if (formData.paymentMode === 'Cash/Offline') {
+                submitToMongoDB(null);
+                return;
+            }
+
+            const amount = parseInt(formData.amount || 0) * 100;
+            
+            if (!amount) {
+                submitToMongoDB();
+                return;
+            }
+
+            const options = {
+                key: RAZORPAY_KEY,
+                amount: amount,
+                currency: "INR",
+                name: "Karnataka State Nadaf / Pinjar Sangha",
+                description: "ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆಯಾದ ಮೊತ್ತ",
+                image: "images/header-nadaf.png",
+                handler: function (response) {
+                    submitToMongoDB(response.razorpay_payment_id);
+                },
+                prefill: {
+                    name: formData.donorName || formData.presidentName || formData.studentName || '',
+                    contact: formData.donorMobile || formData.presidentMobile || formData.mobile || ''
+                },
+                notes: Object.assign({}, formData),
+                theme: {
+                    color: "#0066cc"
+                },
+                modal: {
+                    ondismiss: function() {
+                        alert('Payment cancelled. You can try again.');
+                    }
+                }
+            };
+
+            const rzp = new Razorpay(options);
+            
+            rzp.on('payment.failed', function (response) {
+                alert('Payment Failed!\n\nError: ' + response.error.description);
+            });
+
+            rzp.open();
+        }
+
+        function submitToMongoDB(paymentId = null) {
+            // Save to localStorage receipts database for Admin Dashboard compatibility
+            try {
+                const receipts = JSON.parse(localStorage.getItem('receipts')) || [];
+                const tempId = `GENERATE-${Date.now()}`;
+                
+                const newReceipt = {
+                    id: tempId,
+                    date: new Date().toISOString().split('T')[0],
+                    amount: parseFloat(formData.amount || 0),
+                    from: "Amount Transfer from District to State",
+                    status: "",
+                    mode: formData.paymentMode || "Cash",
+                    narration: `Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :${formData.donorName || 'Donor'}`,
+                    details: {
+                        transactionDate: new Date().toISOString().replace('T', ' ').substring(0, 19),
+                        fullName: formData.donorName || "",
+                        address: formData.donorAddress || "",
+                        mobile: formData.donorMobile || "",
+                        village: formData.donorVillage || "",
+                        district: formData.donorDistrict || "",
+                        taluk: formData.donorTaluk || "",
+                        presidentName: formData.presidentName || "",
+                        presidentAddress: formData.presidentAddress || "",
+                        presidentMobile: formData.presidentMobile || "",
+                        presidentVillage: formData.presidentVillage || "",
+                        presidentDistrict: formData.district || "",
+                        presidentTaluk: formData.taluk || "",
+                        purpose: formData.account || "",
+                        purposeDetails: formData.purposeDetails || "",
+                        amount: String(formData.amount || 0),
+                        mode: formData.paymentMode || "Cash"
+                    }
+                };
+                receipts.unshift(newReceipt);
+                localStorage.setItem('receipts', JSON.stringify(receipts));
+            } catch (e) {
+                console.error("Failed to save receipt to localStorage:", e);
+            }
+
+            const dataToSave = {
+                formType: "ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆಯಾದ ಮೊತ್ತ",
+                amount: parseInt(formData.amount || 0),
+                paymentId: paymentId,
+                formData: formData
+            };
+
+            fetch('https://nadafpinjar-production.up.railway.app/api/donations', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dataToSave)
+            })
+            .then(res => res.json())
+            .then(data => {
+                showReceipt(formData, paymentId);
+            })
+            .catch(err => {
+                console.error(err);
+                showReceipt(formData, paymentId);
+            });
+        }
+
+        function showReceipt(data, paymentId) {
+            document.getElementById('formContainer').style.display = 'none';
+            document.getElementById('previewContainer').style.display = 'none';
+            
+            const receiptContainer = document.getElementById('receiptContainer');
+            receiptContainer.style.display = 'block';
+
+            // Populate Metadata
+            document.getElementById('recFrom').textContent = "ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆಯಾದ ಮೊತ್ತ";
+            document.getElementById('recPayId').textContent = paymentId || 'Offline / Cash';
+            document.getElementById('recMethod').textContent = data.paymentMode || 'Online';
+            document.getElementById('recBank').textContent = data.bankDetails || '-';
+            document.getElementById('recDate').textContent = new Date().toLocaleDateString('en-GB').replace(/\//g, '-');
+            document.getElementById('recDepositDate').textContent = data.depositDate || '-';
+            document.getElementById('recAmount').textContent = data.amount || '0';
+
+            let tableHTML = '';
+            tableHTML += `<tr><td style="width: 35%; background: #2b709c; color: white; font-weight: bold; padding: 10px; border: 1px solid #dee2e6;">ಜಿಲ್ಲಾಧ್ಯಕ್ಷರ ಹೆಸರು</td><td style="padding: 10px; border: 1px solid #dee2e6; font-weight: bold;">${data.presidentName || '-'}</td></tr>`;
+            tableHTML += `<tr><td style="background: #2b709c; color: white; font-weight: bold; padding: 10px; border: 1px solid #dee2e6;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td><td style="padding: 10px; border: 1px solid #dee2e6;">${data.presidentMobile || '-'}</td></tr>`;
+            tableHTML += `<tr><td style="background: #2b709c; color: white; font-weight: bold; padding: 10px; border: 1px solid #dee2e6;">ಯಾರ ಪರವಾಗಿ ಪೂರ್ಣ ಹೆಸರು</td><td style="padding: 10px; border: 1px solid #dee2e6; font-weight: bold;">${data.donorName || '-'}</td></tr>`;
             tableHTML += `<tr><td style="background: #2b709c; color: white; font-weight: bold; padding: 10px; border: 1px solid #dee2e6;">ವಿಳಾಸ</td><td style="padding: 10px; border: 1px solid #dee2e6;">${data.donorAddress || '-'}</td></tr>`;
             tableHTML += `<tr><td style="background: #2b709c; color: white; font-weight: bold; padding: 10px; border: 1px solid #dee2e6;">ಗ್ರಾಮ / ನಗರ</td><td style="padding: 10px; border: 1px solid #dee2e6;">${data.donorVillage || '-'}</td></tr>`;
             tableHTML += `<tr><td style="background: #2b709c; color: white; font-weight: bold; padding: 10px; border: 1px solid #dee2e6;">ಜಿಲ್ಲೆ / ತಾಲೂಕು</td><td style="padding: 10px; border: 1px solid #dee2e6;">${data.donorDistrict || '-'} - ${data.donorTaluk || '-'}</td></tr>`;
@@ -913,7 +1108,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="${window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1)}">
-    <script src="js/receipt-assets.js"></script>
+    <script src="js/receipt-assets.js"><\/script>
     <title>Donation Receipt - District to State Transfer</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap');
@@ -942,36 +1137,38 @@
         .header-box {
             width: 100%;
             border-collapse: collapse;
-            border: 2.5px solid #b30000;
+            border: 2.5px solid ${themeColor};
             border-radius: 12px;
             background-color: #fffde8;
             margin-bottom: 6px;
         }
         .header-photo-cell {
-            width: 95px;
+            width: 125px;
             text-align: center;
-            padding: 2px 4px 4px 8px;
+            padding: 3px 4px 5px 10px;
             vertical-align: middle;
         }
         .patron-photo {
-            width: 88px;
-            height: 88px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 2.5px solid ${themeColor};
             object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.12);
         }
         .header-logo-cell {
-            width: 95px;
+            width: 125px;
             text-align: center;
-            padding: 2px 8px 4px 4px;
+            padding: 3px 10px 5px 4px;
             vertical-align: middle;
         }
         .header-logo {
-            width: 88px;
-            height: 88px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
-            border: 2px solid #b30000;
+            border: 2.5px solid ${themeColor};
             object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.12);
         }
         .header-text-cell {
             text-align: center;
@@ -980,41 +1177,45 @@
             color: #b30000;
         }
         .kannada-title {
-            font-size: 23px;
+            font-size: 25px;
             font-weight: bold;
             margin-bottom: 2px;
             white-space: nowrap;
         }
         .reg-no {
-            font-size: 10.5px;
+            font-size: 11.5px;
             font-weight: bold;
             margin-bottom: 2px;
             color: #444;
         }
         .english-title {
-            font-size: 12.5px;
+            font-size: 13.5px;
             font-weight: bold;
             letter-spacing: 0.5px;
             margin-bottom: 2px;
         }
         .office-address, .office-location {
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: bold;
             color: #333;
         }
         .receipt-grid {
             width: 100%;
             border-collapse: collapse;
-            border: 2.5px solid ${themeColor};
+            border-top: 2.5px solid ${themeColor};
+            border-left: 2.5px solid ${themeColor};
+            border-right: 2.5px solid ${themeColor};
+            border-bottom: none !important;
         }
         .bottom-serial-row td {
             border-top: none !important;
-            border-bottom: 2.5px solid ${themeColor} !important;
+            border-bottom: none !important;
         }
         .grid-cell {
             border: none;
             border-bottom: 1px solid ${themeColor};
-            padding: 3px 6px;
+            padding: 2.5px 5px;
+            font-size: 13.5px;
             font-size: 14px;
             vertical-align: middle;
             color: #1e293b;
@@ -1043,11 +1244,11 @@
             font-size: 14px;
         }
         .seal-img {
-            height: 75px;
+            height: 58px;
             width: auto;
         }
         .sig-img {
-            height: 55px;
+            height: 42px;
             width: auto;
             margin-bottom: 2px;
         }
@@ -1067,11 +1268,11 @@
                 font-size: 8px !important;
             }
             .patron-photo, .header-logo {
-                width: 55px !important;
-                height: 55px !important;
+                width: 65px !important;
+                height: 65px !important;
             }
             .header-photo-cell, .header-logo-cell {
-                width: 60px !important;
+                width: 70px !important;
             }
             .grid-cell, .payment-line {
                 font-size: 11px !important;
@@ -1094,154 +1295,13 @@
                 height: 148mm;
                 margin: 0;
                 padding: 0;
-                overflow: hidden;
+                overflow: hidden !important;
             }
             body {
                 padding: 0;
             }
             .receipt-container {
-                width: 200mm !important;
-                height: 138mm !important;
-                margin: 5mm auto !important;
-                padding: 6px 8px !important;
-                border: none !important;
-                box-sizing: border-box !important;
-                page-break-inside: avoid !important;
-                page-break-after: avoid !important;
-                background: #fff !important;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="receipt-container">
-        <table class="header-box">
-            <tr>
-                <td colspan="3" style="text-align: center; padding: 6px 10px 2px 10px;">
-                    <div class="kannada-title" style="font-size: 24px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="header-photo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 4px 6px 12px;">
-                    <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.president) ? RECEIPT_ASSETS.president : 'images/president.jpeg'}" class="patron-photo" onerror="this.src='images/president.png'">
-                </td>
-                <td class="header-text-cell" style="width: 60%; text-align: center; vertical-align: middle; padding: 0 0 6px 0;">
-                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
-                    <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
-                    <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
-                    <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
-                </td>
-                <td class="header-logo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 12px 6px 4px;">
-                    <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.logo) ? RECEIPT_ASSETS.logo : 'images/logo-786.png'}" class="header-logo">
-                </td>
-            </tr>
-        </table>
-
-        <table class="receipt-grid">
-            <tr class="subheader-row">
-                <td class="grid-cell" style="width: 35%; border-bottom: 2px solid ${themeColor};">
-                    <span class="field-label">ರಶೀದಿ ಸಂಖ್ಯೆ:</span>
-                    <span class="field-value" style="color: #000; white-space: nowrap;">${paymentId || 'Offline / Cash'}</span>
-                </td>
-                <td class="grid-cell center-align" style="width: 33%; border-bottom: 2px solid ${themeColor};">
-                    <div style="font-size: 15px; font-weight: bold; color: ${themeColor};">ಪಾವತಿಸಿದ ರಶೀದಿ</div>
-                    <div style="font-size: 13px; font-weight: bold; margin-top: 2px; color: ${themeColor};">${subheaderTitle}</div>
-                </td>
-                <td class="grid-cell right-align" style="width: 32%; border-bottom: 2px solid ${themeColor};">
-                    <span class="field-label">ದಿನಾಂಕ :</span>
-                    <span class="field-value" style="color: #000; white-space: nowrap;">${formattedDate}</span>
-                </td>
-            </tr>
-
-            <!-- SECTION 1: DISTRICT PRESIDENT DETAILS -->
-            <tr>
-                <td class="grid-cell" style="width: 35%; vertical-align: top;">
-                    <div style="margin-bottom: 3px;"><u style="color: ${themeColor}; font-weight: bold;">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ</u></div>
-                    <div>
-                        <span class="field-label">ಹೆಸರು:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000;">${data.presidentName || data.districtPresidentName || ""}</span>
-                    </div>
-                </td>
-                <td class="grid-cell" style="width: 33%; vertical-align: top;">
-                    <div style="margin-bottom: 3px; margin-top: 18px;">
-                        <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000;">${data.presidentVillage || ""}</span>
-                    </div>
-                    <div>
-                        <span class="field-label">ವಿಳಾಸ:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000;">${data.presidentAddress || ""}</span>
-                    </div>
-                </td>
-                <td class="grid-cell" style="width: 32%; vertical-align: top;">
-                    <div style="margin-bottom: 3px; margin-top: 18px;">
-                        <span class="field-label">ಮೊಬೈಲ್:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000; white-space: nowrap;">${data.presidentMobile || ""}</span>
-                    </div>
-                    <div style="margin-bottom: 3px;">
-                        <span class="field-label">ತಾಲೂಕು:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000;">${data.presidentTaluk || ""}</span>
-                    </div>
-                    <div>
-                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000;">${data.presidentDistrict || ""}</span>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- SECTION 2: DONOR DETAILS (YARA PARAVAGI) -->
-            <tr>
-                <td class="grid-cell" style="width: 35%; vertical-align: top;">
-                    <div style="margin-bottom: 3px;"><u style="color: ${themeColor}; font-weight: bold;">ಯಾರ ಪರವಾಗಿ:</u></div>
-                    <div>
-                        <span class="field-label">ಹೆಸರು:</span>
-                        <span class="field-value" style="font-weight: 600; color: #000;">${data.donorName || ""}</span>
-                    </div>
-                </td>
-                <td class="grid-cell" style="width: 33%; vertical-align: top;">
-                    <div style="margin-bottom: 3px; margin-top: 18px;">
-                        <span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000;">${data.donorVillage || data.village || ""}</span>
-                    </div>
-                    <div>
-                        <span class="field-label">ವಿಳಾಸ:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000;">${data.donorAddress || data.address || ""}</span>
-                    </div>
-                </td>
-                <td class="grid-cell" style="width: 32%; vertical-align: top;">
-                    <div style="margin-bottom: 3px; margin-top: 18px;">
-                        <span class="field-label">ಮೊಬೈಲ್:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000; white-space: nowrap;">${data.donorMobile || data.mobile || ""}</span>
-                    </div>
-                    <div style="margin-bottom: 3px;">
-                        <span class="field-label">ತಾಲೂಕು:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000;">${data.donorTaluk || data.taluk || ""}</span>
-                    </div>
-                    <div>
-                        <span class="field-label">ಜಿಲ್ಲೆ:</span>
-                        <span class="field-value" style="font-weight: 500; color: #000;">${data.donorDistrict || data.district || ""}</span>
-                    </div>
-                </td>
-            </tr>
-
-            <tr style="border-top: 2px solid ${themeColor};">
-                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
-                    <div class="payment-line" style="margin-top: 2px;">
-                        <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
-                        <span class="field-value" style="font-size: 14px; font-weight: bold; color: #000; white-space: nowrap;">${formatCurrencyRaw(data.amount)}</span>
-                    </div>
-                    <div class="payment-line" style="margin-top: 6px;">
-                        <span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span>
-                        <span class="field-value" style="color: #000; white-space: nowrap;">${formattedDate}</span>
-                    </div>
-                    <div class="payment-line" style="margin-top: 6px;">
-                        <span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span>
-                        <span class="field-value" style="color: #000;">${data.account || "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ"}</span>
-                    </div>
-                    <div class="payment-line" style="margin-top: 6px;">
-                        <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
-                        <span class="field-value" style="color: #000;">${data.purposeDetails || ""}</span>
-                    </div>
-                </td>
+                width: 198mm !important;
                 <td class="grid-cell center-align" style="width: 30%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
                     <div class="payment-line" style="margin-top: 2px;">
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
@@ -1263,14 +1323,14 @@
             </tr>
 
             <tr class="bottom-serial-row">
-                <td class="grid-cell" colspan="2" style="border-top: none !important; border-bottom: 2.5px solid ${themeColor} !important; padding: 4px 8px 6px 8px;">
-                    <div style="border-bottom: 2.5px solid ${themeColor}; padding-bottom: 4px; width: 100%;">
-                        <span class="field-label" style="font-size: 14px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
-                        <span class="field-value" style="font-size: 14px; color: #000; white-space: nowrap;">KRNPS-2026-27-${paymentId ? paymentId.slice(-4).toUpperCase() : 'PENDING'}</span>
+                <td class="grid-cell" colspan="2" style="border-top: none !important; border-bottom: 2.5px solid ${themeColor} !important; padding: 6px 8px;">
+                    <div>
+                        <span class="field-label" style="font-size: 14px; font-weight: bold;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
+                        <span class="field-value" style="font-size: 14px; font-weight: bold; color: #000; white-space: nowrap;">KRNPS-2026-27-${paymentId ? paymentId.slice(-4).toUpperCase() : 'PENDING'}</span>
                     </div>
                 </td>
-                <td class="grid-cell right-align" style="border-top: none !important; border-bottom: 2.5px solid ${themeColor} !important; padding: 4px 12px 6px 8px; font-weight: bold; color: ${themeColor}; font-size: 14px; white-space: nowrap;">
-                    <div style="border-bottom: 2.5px solid ${themeColor}; padding-bottom: 4px; width: 100%;">
+                <td class="grid-cell right-align" style="border-top: none !important; border-bottom: 2.5px solid ${themeColor} !important; padding: 6px 12px; font-weight: bold; color: ${themeColor}; font-size: 14px; white-space: nowrap;">
+                    <div>
                         ಅಧಿಕೃತ ಸಹಿ
                     </div>
                 </td>
@@ -1365,7 +1425,35 @@
                         doc.head.appendChild(script);
                     } else {
                         const dynStyle = doc.createElement('style');
-                        dynStyle.textContent = `@media print { @page { size: A5 landscape; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 5mm auto !important; width: 200mm !important; height: 138mm !important; box-sizing: border-box !important; } }`;
+                        dynStyle.textContent = `@media print {
+            @page {
+                size: A5 landscape;
+                margin: 0;
+            }
+            html, body {
+                width: 210mm;
+                height: 148mm;
+                margin: 0;
+                padding: 0;
+                overflow: hidden !important;
+            }
+            body {
+                padding: 0;
+            }
+            .receipt-container {
+                width: 198mm !important;
+                max-height: 140mm !important;
+                margin: 2mm auto !important;
+                padding: 3px 5px !important;
+                border: none !important;
+                box-sizing: border-box !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+                background: #fff !important;
+            }
+        }`;
                         doc.head.appendChild(dynStyle);
 
                         iframe.style.width = '0';
