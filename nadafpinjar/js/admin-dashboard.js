@@ -2894,8 +2894,8 @@ function loadAdminCensus() {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ಜನಗಣತಿ (Census) - ರಶೀದಿ</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap');
         html, body {
             height: auto;
             margin: 0;
@@ -2909,7 +2909,7 @@ function loadAdminCensus() {
             text-size-adjust: 100% !important;
         }
         body {
-            font-family: 'Noto Sans Kannada', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Noto Sans Kannada', 'Kannada MN', 'Kannada Sangam MN', 'Tunga', 'Lohit Kannada', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             color: #333;
             min-width: 820px !important;
@@ -3048,7 +3048,7 @@ function loadAdminCensus() {
             vertical-align: middle;
             word-wrap: break-word;
             overflow: hidden;
-            font-family: 'Noto Sans Kannada', sans-serif;
+            font-family: 'Noto Sans Kannada', 'Kannada MN', 'Kannada Sangam MN', 'Tunga', 'Lohit Kannada', sans-serif;
         }
         @media screen and (max-width: 768px) {
             .receipt-container {
