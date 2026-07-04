@@ -1216,6 +1216,7 @@ window.downloadReceiptPdf = function(receiptId) {
             font-family: 'Noto Sans Kannada', 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             color: #333;
+            min-width: 820px !important;
         }
         .receipt-container {
             width: 100%;
@@ -1389,6 +1390,7 @@ window.downloadReceiptPdf = function(receiptId) {
             }
             body {
                 padding: 0 !important;
+                min-width: unset !important;
             }
             .receipt-container {
                 width: 198mm !important;
@@ -1964,6 +1966,7 @@ function loadAdminFreeEdu() {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             color: #333;
+            min-width: 820px !important;
         }
         .receipt-container {
             max-width: 100%;
@@ -2120,6 +2123,9 @@ function loadAdminFreeEdu() {
                 height: auto;
                 margin: 0;
                 padding: 0;
+            }
+            body {
+                min-width: unset !important;
             }
             .receipt-container {
                 border: 2px solid #b30000 !important;
@@ -2901,6 +2907,7 @@ function loadAdminCensus() {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #fff;
             color: #333;
+            min-width: 820px !important;
         }
         .receipt-container {
             max-width: 100%;
@@ -3079,6 +3086,7 @@ function loadAdminCensus() {
             body {
                 padding: 0;
                 margin: 0;
+                min-width: unset !important;
             }
             .receipt-container {
                 border: 2.5px solid #a00000 !important;
