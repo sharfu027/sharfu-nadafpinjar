@@ -2903,6 +2903,10 @@ function loadAdminCensus() {
             box-sizing: border-box;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
+            -webkit-text-size-adjust: 100% !important;
+            -moz-text-size-adjust: 100% !important;
+            -ms-text-size-adjust: 100% !important;
+            text-size-adjust: 100% !important;
         }
         body {
             font-family: 'Noto Sans Kannada', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
