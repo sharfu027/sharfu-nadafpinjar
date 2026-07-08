@@ -3894,7 +3894,7 @@ function loadAdminPratibha() {
 
             // Sync update to Server Database
             try {
-                const res = await fetch("/api/donations/update", {
+                let res = await fetch("/api/donations/update", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -3902,9 +3902,21 @@ function loadAdminPratibha() {
                         status: status,
                         remarks: remarks
                     })
-                });
+                }).catch(() => null);
+
+                if (!res || !res.ok) {
+                    res = await fetch("https://nadafpinjar-production.up.railway.app/api/donations/update", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            paymentId: id,
+                            status: status,
+                            remarks: remarks
+                        })
+                    }).catch(() => null);
+                }
                 
-                if (res.ok) {
+                if (res && res.ok) {
                     alert("Evaluation saved successfully!");
                 } else {
                     alert("Locally saved. Database sync failed.");

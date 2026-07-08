@@ -601,9 +601,36 @@
     </div>
 
     <!-- Footer -->
-    <footer style="background-color:#990000; color:#ffedc2; text-align:center; padding: 15px 0; font-weight: 600; margin-top: 50px;">
-        © 2026 Karnataka State Nadaf / Pinjar Sangha (R) All rights reserved.
+    <footer class="wrapper footer-wrapper">
+        <div class="footer-top-wrapper">
+            <div class="container common-container four_content footer-top-container">
+                <ul>
+                    <li><a href="privacypolicy.html">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="termsconditions.html">Terms and Conditions</a></li>
+                    <li><a href="Disclaimer.html">Disclaimer</a></li>
+                    <li><a href="login.html">Admin Login</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-wrapper">
+            <div class="container common-container four_content footer-bottom-container">
+                <div class="footer-content clearfix">
+                    <div class="copyright-content">
+                        <strong>
+                            <p>© 2026 Karnataka State Nadaf / Pinjar Sangha (R). All Rights Reserved.</p>
+                        </strong>
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery-accessibleMegaMenu.js"></script>
+    <script src="js/framework.js"></script>
+    <script src="js/megamenu.js"></script>
+    <script src="js/dropdowns.js"></script>
 
     <script>
         let allStudents = [];
@@ -618,8 +645,11 @@
 
         async function fetchMarqueeSetting() {
             try {
-                const res = await fetch("/api/settings");
-                if (res.ok) {
+                let res = await fetch("/api/settings").catch(() => null);
+                if (!res || !res.ok) {
+                    res = await fetch("https://nadafpinjar-production.up.railway.app/api/settings").catch(() => null);
+                }
+                if (res && res.ok) {
                     const data = await res.json();
                     if (data.success && data.enabled) {
                         document.getElementById("marqueeBanner").style.display = "block";
@@ -633,8 +663,11 @@
         async function loadApprovedShowcase() {
             const grid = document.getElementById("studentsGrid");
             try {
-                const res = await fetch("/api/donations");
-                if (!res.ok) throw new Error("API call failed");
+                let res = await fetch("/api/donations").catch(() => null);
+                if (!res || !res.ok) {
+                    res = await fetch("https://nadafpinjar-production.up.railway.app/api/donations").catch(() => null);
+                }
+                if (!res || !res.ok) throw new Error("API call failed");
                 const data = await res.json();
                 
                 if (data.success && data.donations) {
@@ -802,13 +835,21 @@
             };
 
             try {
-                const res = await fetch("/api/donations", {
+                let res = await fetch("/api/donations", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
-                });
+                }).catch(() => null);
+
+                if (!res || !res.ok) {
+                    res = await fetch("https://nadafpinjar-production.up.railway.app/api/donations", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    }).catch(() => null);
+                }
                 
-                if (res.ok) {
+                if (res && res.ok) {
                     document.getElementById("modalAppNumber").textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}`;
                     document.getElementById("applyModal").style.display = "none";
                     document.getElementById("successModal").style.display = "flex";
