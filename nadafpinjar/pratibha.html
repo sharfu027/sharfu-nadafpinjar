@@ -313,6 +313,48 @@
             word-break: break-all;
             word-wrap: break-word;
         }
+        /* Showcase Table Grid Custom Styles */
+        .showcase-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        .showcase-table th {
+            background-color: #990000;
+            color: #ffedc2;
+            padding: 12px 15px;
+            font-weight: bold;
+            font-size: 14.5px;
+            border-bottom: 2px solid #ffedc2;
+            border-right: 1px solid rgba(255, 237, 194, 0.2);
+        }
+        .showcase-table th:last-child {
+            border-right: none;
+        }
+        .showcase-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+            color: #2d3748;
+            border-right: 1px solid #e2e8f0;
+        }
+        .showcase-table td:last-child {
+            border-right: none;
+        }
+        .showcase-table tr:hover {
+            background-color: #fffaf0;
+        }
+        .student-clickable-link {
+            color: #990000;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .student-clickable-link:hover {
+            color: #e53e3e;
+            text-decoration: underline;
+        }
         /* Modal Styles */
         .modal-overlay {
             display: none;
@@ -542,12 +584,12 @@
     </div>
 
     <div class="container" style="margin-top: 30px; margin-bottom: 50px;">
-        <h1 class="showcase-header" style="text-align: center; margin: 40px 0 20px 0; padding-bottom: 10px; border-bottom: 3px solid #990000; color: #990000; font-size: 32px; font-weight: bold;">ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ (Talent Reward)</h1>
-        
-        <!-- Filter Toggle Button -->
-        <button class="btn-filter-toggle" onclick="toggleFilterPanel()">
-            <i class="fa fa-filter"></i> ವಿದ್ಯಾರ್ಥಿಗಳನ್ನು ಹುಡುಕಿ / Search Approved Students
-        </button>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 40px 0 20px 0; border-bottom: 3px solid #990000; padding-bottom: 12px; flex-wrap: wrap; gap: 15px;">
+            <h1 style="color: #990000; font-size: 30px; font-weight: bold; margin: 0;">ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ (Talent Reward)</h1>
+            <button class="btn-filter-toggle" onclick="toggleFilterPanel()" style="margin: 0; padding: 8px 20px; font-size: 14px;">
+                <i class="fa fa-filter"></i> ಶೋಧಕಗಳು / Filter
+            </button>
+        </div>
 
         <!-- Filter Card -->
         <div class="filter-panel" id="filterPanel">
@@ -583,13 +625,28 @@
             </div>
         </div>
 
-        <!-- Showcase Grid -->
-        <div class="students-grid" id="studentsGrid">
-            <!-- Dynamically populated approved list -->
-            <div style="grid-column: 1/-1; text-align: center; color: #777; padding: 40px 0;">
-                <i class="fa fa-spinner fa-spin" style="font-size: 32px; color: #990000; margin-bottom: 10px;"></i>
-                <p>ಅನುಮೋದಿತ ವಿದ್ಯಾರ್ಥಿಗಳ ವಿವರಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...</p>
-            </div>
+        <!-- Showcase Table Grid -->
+        <div class="table-responsive" style="margin-top: 20px;" id="studentsTableContainer">
+            <table class="showcase-table">
+                <thead>
+                    <tr>
+                        <th style="width: 8%; text-align: center;">ಕ್ರ.ಸಂ (Sl.No)</th>
+                        <th>ವಿದ್ಯಾರ್ಥಿ ಹೆಸರು (Student Name)</th>
+                        <th>ವರ್ಗ (Class)</th>
+                        <th>ಕ್ಷೇತ್ರ (Field)</th>
+                        <th>ಪಟ್ಟಣ/ನಗರ (Town/City)</th>
+                        <th style="width: 15%; text-align: center;">ವರ್ಷ (Year)</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsTableBody">
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: #777; padding: 45px 0;">
+                            <i class="fa fa-spinner fa-spin" style="font-size: 32px; color: #990000; margin-bottom: 10px; display: block; margin: 0 auto 10px auto;"></i>
+                            ಅನುಮೋದಿತ ವಿದ್ಯಾರ್ಥಿಗಳ ವಿವರಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -874,7 +931,7 @@
         }
 
         async function loadApprovedShowcase() {
-            const grid = document.getElementById("studentsGrid");
+            const tableBody = document.getElementById("studentsTableBody");
             try {
                 let res = await fetch("/api/donations").catch(() => null);
                 if (!res || !res.ok) {
@@ -909,50 +966,43 @@
 
                     renderShowcase(allStudents);
                 } else {
-                    grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:#ef4444;">ಯಾವುದೇ ದತ್ತಾಂಶಗಳು ಲಭ್ಯವಿಲ್ಲ / No data available</div>`;
+                    tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:#ef4444;">ಯಾವುದೇ ದತ್ತಾಂಶಗಳು ಲಭ್ಯವಿಲ್ಲ / No data available</td></tr>`;
                 }
             } catch (err) {
                 console.error(err);
-                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:#ef4444;">ದತ್ತಾಂಶ ಲೋಡ್ ಮಾಡುವಲ್ಲಿ ದೋಷ ಕಂಡುಬಂದಿದೆ / Error loading showcase</div>`;
+                tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:#ef4444;">ದತ್ತಾಂಶ ಲೋಡ್ ಮಾಡುವಲ್ಲಿ ದೋಷ ಕಂಡುಬಂದಿದೆ / Error loading showcase</td></tr>`;
             }
         }
 
         function renderShowcase(list) {
-            const grid = document.getElementById("studentsGrid");
-            grid.innerHTML = "";
+            const tableBody = document.getElementById("studentsTableBody");
+            tableBody.innerHTML = "";
             
             if (list.length === 0) {
-                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:#777; font-size:16px;">
-                    <i class="fa fa-info-circle" style="font-size:32px; margin-bottom:10px;"></i>
-                    <p>ಹುಡುಕಲಾದ ವಿವರಗಳಿಗೆ ಯಾವುದೇ ಫಲಿತಾಂಶಗಳು ಕಂಡುಬಂದಿಲ್ಲ / No approved students match the search filters.</p>
-                </div>`;
+                tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:40px; color:#777; font-size:16px;">
+                    <i class="fa fa-info-circle" style="font-size:32px; margin-bottom:10px; display:block; margin:0 auto 10px auto;"></i>
+                    ಹುಡುಕಲಾದ ವಿವರಗಳಿಗೆ ಯಾವುದೇ ಫಲಿತಾಂಶಗಳು ಕಂಡುಬಂದಿಲ್ಲ / No approved students match the search filters.
+                </td></tr>`;
                 return;
             }
 
-            list.forEach(student => {
-                const card = document.createElement("div");
-                card.className = "student-card";
-                card.setAttribute("onclick", `viewStudentDetails('${student.id}')`);
+            list.forEach((student, index) => {
+                const tr = document.createElement("tr");
                 
-                const photoSrc = student.photo ? student.photo : "";
-                const imageHTML = photoSrc 
-                    ? `<img src="${photoSrc}" class="student-photo" alt="${student.studentName}">`
-                    : `<i class="fa fa-user student-photo-placeholder"></i>`;
-
-                card.innerHTML = `
-                    <div class="student-photo-container">
-                        ${imageHTML}
-                        <span class="student-badge">${student.year}</span>
-                    </div>
-                    <div class="student-details">
-                        <div class="student-name">${student.studentName}</div>
-                        <div class="student-meta">${student.category} &bull; ${student.field}</div>
-                        <div class="student-city"><i class="fa fa-map-marker"></i> ${student.city}</div>
-                        ${student.remarks ? `<div class="remarks-box"><strong>ಷರಾ:</strong> ${student.remarks}</div>` : ''}
-                        <button class="btn-card-details"><i class="fa fa-eye"></i> ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ / View Details</button>
-                    </div>
+                tr.innerHTML = `
+                    <td style="text-align: center; font-weight: bold; color: #4a5568;">${index + 1}</td>
+                    <td>
+                        <span class="student-clickable-link" onclick="viewStudentDetails('${student.id}')">
+                            <i class="fa fa-user-circle" style="margin-right: 6px; color: #990000;"></i>
+                            ${student.studentName}
+                        </span>
+                    </td>
+                    <td>${student.category}</td>
+                    <td>${student.field}</td>
+                    <td>${student.city}</td>
+                    <td style="text-align: center; font-weight: 600; color: #2d3748;">${student.year}</td>
                 `;
-                grid.appendChild(card);
+                tableBody.appendChild(tr);
             });
         }
 
