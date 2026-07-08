@@ -21,7 +21,7 @@
             font-size: 16px;
             font-weight: bold;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            display: none;
+            display: block;
             overflow: hidden;
             white-space: nowrap;
             box-sizing: border-box;
@@ -922,12 +922,12 @@
                 }
                 if (res && res.ok) {
                     const data = await res.json().catch(() => null);
-                    if (data && data.success && data.enabled) {
-                        document.getElementById("marqueeBanner").style.display = "block";
+                    if (data && data.success && data.enabled === false) {
+                        document.getElementById("marqueeBanner").style.display = "none";
                     }
                 }
             } catch (err) {
-                console.error("Marquee loading error:", err);
+                // If API fails, banner stays visible (default)
             }
         }
 
