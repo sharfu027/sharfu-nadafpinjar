@@ -364,6 +364,7 @@ async function syncSubmissionsFromDatabase() {
         let censusList = JSON.parse(localStorage.getItem('admin_census_submissions')) || [];
         let employeesList = JSON.parse(localStorage.getItem('admin_employees_submissions')) || [];
         let pratibhaList = JSON.parse(localStorage.getItem('admin_pratibha_submissions')) || [];
+        let sadhakaList = JSON.parse(localStorage.getItem('admin_sadhaka_submissions')) || [];
         let receiptsList = JSON.parse(localStorage.getItem('receipts')) || [];
         
         data.donations.forEach(doc => {
@@ -371,7 +372,36 @@ async function syncSubmissionsFromDatabase() {
             if (!formType) return;
             
             // Map by formType
-            if (formType === "ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ") {
+            if (formType === "ಸಾಧಕ ಪ್ರಶಸ್ತಿ") {
+                const appNum = doc.paymentId || `SADHAKA-2025-26-${parseInt((doc._id || '').slice(-4), 16) % 1000 || 555}`;
+                if (deletedIds.includes(appNum)) return;
+                
+                const exists = sadhakaList.some(item => item.id === appNum);
+                if (!exists) {
+                    sadhakaList.unshift({
+                        id: appNum,
+                        date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
+                        formData: doc.formData || {}
+                    });
+                    hasChanges = true;
+                } else {
+                    const existingItem = sadhakaList.find(item => item.id === appNum);
+                    if (existingItem && doc.formData) {
+                        let localUpdated = false;
+                        if (existingItem.formData.status !== doc.formData.status) {
+                            existingItem.formData.status = doc.formData.status;
+                            localUpdated = true;
+                        }
+                        if (existingItem.formData.remarks !== doc.formData.remarks) {
+                            existingItem.formData.remarks = doc.formData.remarks;
+                            localUpdated = true;
+                        }
+                        if (localUpdated) {
+                            hasChanges = true;
+                        }
+                    }
+                }
+            } else if (formType === "ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ") {
                 const appNum = doc.paymentId || `PRATIBHA-2025-26-${parseInt((doc._id || '').slice(-4), 16) % 1000 || 555}`;
                 if (deletedIds.includes(appNum)) return;
                 
@@ -578,6 +608,7 @@ async function syncSubmissionsFromDatabase() {
             localStorage.setItem('admin_census_submissions', JSON.stringify(censusList));
             localStorage.setItem('admin_employees_submissions', JSON.stringify(employeesList));
             localStorage.setItem('admin_pratibha_submissions', JSON.stringify(pratibhaList));
+            localStorage.setItem('admin_sadhaka_submissions', JSON.stringify(sadhakaList));
             localStorage.setItem('receipts', JSON.stringify(receiptsList));
         }
         
@@ -611,6 +642,8 @@ function initPageModules() {
         loadAdminFreeEdu();
     } else if (currentPath.includes("admin-pratibha")) {
         loadAdminPratibha();
+    } else if (currentPath.includes("admin-sadhaka")) {
+        loadAdminSadhaka();
     } else if (currentPath.includes("admin-census")) {
         loadAdminCensus();
     } else if (currentPath.includes("admin-employees")) {
@@ -3937,6 +3970,187 @@ function loadAdminPratibha() {
             trackDeletedId(id);
             submissions = submissions.filter(app => app.id !== id);
             localStorage.setItem('admin_pratibha_submissions', JSON.stringify(submissions));
+            render(submissions);
+        }
+    };
+}
+
+// -------------------------------------------------------------
+// 13. Admin Sadhaka Award Module
+// -------------------------------------------------------------
+function loadAdminSadhaka() {
+    const tableBody = document.getElementById("sadhakaTableBody");
+    if (!tableBody) return;
+
+    function render(list) {
+        tableBody.innerHTML = "";
+        if (list.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:#999;">No applications found.</td></tr>`;
+            return;
+        }
+
+        list.forEach((app, index) => {
+            const row = document.createElement("tr");
+            const fd = app.formData || {};
+            const statusClass = fd.status === "Approved" ? "status-approved" : (fd.status === "Rejected" ? "status-rejected" : "status-pending");
+            
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td><span style="font-weight: 600; color: #4f1971;">${app.id}</span></td>
+                <td>${app.date}</td>
+                <td><strong>${fd.studentName || '-'}</strong></td>
+                <td>${fd.fatherName || fd.parentName || '-'}</td>
+                <td>${fd.parentMobile || fd.mobile || '-'}</td>
+                <td>${fd.category || '-'}</td>
+                <td><span class="status-badge ${statusClass}">${fd.status || 'Pending'}</span></td>
+                <td>
+                    <button class="btn-edit" onclick="reviewSadhaka('${app.id}')" title="Review"><i class="fa fa-eye"></i></button>
+                    <button class="btn-delete" onclick="deleteSadhaka('${app.id}')" title="Delete"><i class="fa fa-trash"></i></button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    let submissions = JSON.parse(localStorage.getItem('admin_sadhaka_submissions')) || [];
+    render(submissions);
+
+    // Filter
+    const form = document.getElementById("pratibhaFilterForm");
+    if (form) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const search = document.getElementById("filterSearch").value.toLowerCase();
+            const status = document.getElementById("filterStatus").value;
+
+            let filtered = submissions.filter(app => {
+                const fd = app.formData || {};
+                const keywordMatch = !search || 
+                                     (fd.studentName || '').toLowerCase().includes(search) || 
+                                     (fd.fatherName || '').toLowerCase().includes(search) ||
+                                     (fd.parentMobile || '').toLowerCase().includes(search) ||
+                                     (fd.aadhar || '').toLowerCase().includes(search);
+                const statusMatch = !status || fd.status === status;
+                return keywordMatch && statusMatch;
+            });
+            render(filtered);
+        });
+    }
+
+    const clearBtn = document.getElementById("btnClearFilter");
+    if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+            document.getElementById("pratibhaFilterForm").reset();
+            render(submissions);
+        });
+    }
+
+    // Review Modal Open
+    window.reviewSadhaka = function(id) {
+        const app = submissions.find(item => item.id === id);
+        if (!app) return;
+
+        const fd = app.formData || {};
+        document.getElementById("reviewAppId").value = id;
+        document.getElementById("viewStudentName").textContent = fd.studentName || '-';
+        document.getElementById("viewFatherName").textContent = fd.fatherName || '-';
+        document.getElementById("viewGuardianName").textContent = fd.guardianName || '-';
+        document.getElementById("viewOccupationIncome").textContent = fd.parentOccupationIncome || '-';
+        document.getElementById("viewAddress").textContent = fd.completeAddress || '-';
+        document.getElementById("viewAadhar").textContent = fd.aadhar || '-';
+        document.getElementById("viewMembership").textContent = fd.lifeMembership || '-';
+        document.getElementById("viewMarksDetails").textContent = fd.marksDetails || '-';
+        document.getElementById("viewMobile").textContent = fd.parentMobile || '-';
+        document.getElementById("viewBankDetails").textContent = fd.bankDetails || '-';
+        document.getElementById("viewCity").textContent = fd.city || '-';
+        document.getElementById("viewYear").textContent = fd.year || '-';
+        document.getElementById("viewCategory").textContent = fd.category || '-';
+        document.getElementById("viewField").textContent = fd.field || '-';
+
+        const photoImg = document.getElementById("viewPhoto");
+        const placeholder = document.getElementById("photoPlaceholder");
+        if (fd.photo) {
+            photoImg.src = fd.photo;
+            photoImg.style.display = "block";
+            placeholder.style.display = "none";
+        } else {
+            photoImg.style.display = "none";
+            placeholder.style.display = "block";
+        }
+
+        document.getElementById("reviewStatus").value = fd.status || 'Pending';
+        document.getElementById("reviewRemarks").value = fd.remarks || '';
+
+        document.getElementById("reviewSadhakaModal").style.display = "flex";
+    };
+
+    // Review Modal Close
+    window.closeReviewModal = function() {
+        document.getElementById("reviewSadhakaModal").style.display = "none";
+    };
+
+    // Review Form Save
+    const reviewForm = document.getElementById("reviewSadhakaForm");
+    if (reviewForm) {
+        reviewForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const id = document.getElementById("reviewAppId").value;
+            const status = document.getElementById("reviewStatus").value;
+            const remarks = document.getElementById("reviewRemarks").value;
+
+            const idx = submissions.findIndex(item => item.id === id);
+            if (idx === -1) return;
+
+            // Update local storage
+            submissions[idx].formData.status = status;
+            submissions[idx].formData.remarks = remarks;
+            localStorage.setItem('admin_sadhaka_submissions', JSON.stringify(submissions));
+
+            // Sync update to Server Database
+            try {
+                let res = await fetch("/api/donations/update", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        paymentId: id,
+                        status: status,
+                        remarks: remarks
+                    })
+                }).catch(() => null);
+
+                if (!res || !res.ok) {
+                    res = await fetch("https://nadafpinjar-production.up.railway.app/api/donations/update", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            paymentId: id,
+                            status: status,
+                            remarks: remarks
+                        })
+                    }).catch(() => null);
+                }
+                
+                if (res && res.ok) {
+                    alert("Evaluation saved successfully!");
+                } else {
+                    alert("Locally saved. Database sync failed.");
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Locally saved. Network sync failed.");
+            }
+
+            closeReviewModal();
+            render(submissions);
+        });
+    }
+
+    // Delete Handler
+    window.deleteSadhaka = function(id) {
+        if (confirm("Are you sure you want to delete this application?")) {
+            trackDeletedId(id);
+            submissions = submissions.filter(app => app.id !== id);
+            localStorage.setItem('admin_sadhaka_submissions', JSON.stringify(submissions));
             render(submissions);
         }
     };

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pratibha Puraskar Applications - Admin Dashboard</title>
+    <title>Sadhaka Award Applications - Admin Dashboard</title>
     <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="css/admin-dashboard.css" rel="stylesheet" media="all">
     <style>
@@ -81,7 +81,7 @@
             flex-direction: column !important;
             margin: 30px auto !important;
         }
-        #reviewPratibhaModal .modal-body {
+        #reviewSadhakaModal .modal-body {
             overflow-y: auto !important;
             flex: 1 !important;
             padding: 20px !important;
@@ -144,8 +144,8 @@
                 <li><a href="Statements"><i class="fa fa-list-alt"></i> Statements</a></li>
                 <li><a href="Security"><i class="fa fa-lock"></i> Security</a></li>
                 <li><a href="admin-freeedu"><i class="fa fa-graduation-cap"></i> Free Education</a></li>
-                <li class="active"><a href="admin-pratibha"><i class="fa fa-trophy"></i> Pratibha Puraskar</a></li>
-                <li><a href="admin-sadhaka"><i class="fa fa-trophy"></i> Sadhaka Award</a></li>
+                <li><a href="admin-pratibha"><i class="fa fa-trophy"></i> Pratibha Puraskar</a></li>
+                <li class="active"><a href="admin-sadhaka"><i class="fa fa-trophy"></i> Sadhaka Award</a></li>
                 <li><a href="admin-census"><i class="fa fa-users"></i> Census</a></li>
                 <li><a href="admin-employees"><i class="fa fa-briefcase"></i> Employees</a></li>
                 <li><a href="admin-committee"><i class="fa fa-list-ul"></i> Committees</a></li>
@@ -155,7 +155,7 @@
 
         <main class="admin-content">
             <div class="page-title-bar">
-                <span>Pratibha Puraskar (ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ) Applications</span>
+                <span>Sadhaka Award (ಸಾಧಕ ಪ್ರಶಸ್ತಿ) Applications</span>
             </div>
 
             <!-- Toggle Marquee Banner Setting -->
@@ -164,7 +164,7 @@
                     <input type="checkbox" id="marqueeToggle" onchange="toggleMarqueeSetting(this)">
                     <span class="slider"></span>
                 </label>
-                <span class="switch-label">Enable "ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ" Marquee Banner on Public Page</span>
+                <span class="switch-label">Enable "ಸಾಧಕ ಪ್ರಶಸ್ತಿ" Marquee Banner on Public Page</span>
             </div>
 
             <!-- Filters Card -->
@@ -208,15 +208,15 @@
                                     <th>Sl.No</th>
                                     <th>Application ID</th>
                                     <th>Date</th>
-                                    <th>Student Name</th>
-                                    <th>Parent Name</th>
+                                    <th>Sadhaka Name</th>
+                                    <th>Parent/Husband Name</th>
                                     <th>Mobile</th>
                                     <th>Category</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="pratibhaTableBody">
+                            <tbody id="sadhakaTableBody">
                                 <!-- Loaded dynamically via JS -->
                             </tbody>
                         </table>
@@ -227,25 +227,25 @@
     </div>
 
     <!-- Review Application Modal -->
-    <div id="reviewPratibhaModal" class="admin-modal" style="display:none;">
+    <div id="reviewSadhakaModal" class="admin-modal" style="display:none;">
         <div class="modal-content modal-large">
             <div class="modal-header">
-                <span>Review Pratibha Puraskar Application</span>
+                <span>Review Sadhaka Award Application</span>
                 <button class="modal-close" onclick="closeReviewModal()">&times;</button>
             </div>
             <div class="modal-body">
-                <form id="reviewPratibhaForm">
+                <form id="reviewSadhakaForm">
                     <input type="hidden" id="reviewAppId">
                     
                     <div class="review-grid">
                         <div>
                             <table class="review-details-table">
                                 <tr>
-                                    <td style="width: 35%;"><strong>Student Name</strong></td>
+                                    <td style="width: 35%;"><strong>Sadhaka Name</strong></td>
                                     <td class="val-cell" id="viewStudentName"></td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Father Name</strong></td>
+                                    <td><strong>Father/Husband Name</strong></td>
                                     <td class="val-cell" id="viewFatherName"></td>
                                 </tr>
                                 <tr>
@@ -253,7 +253,7 @@
                                     <td class="val-cell" id="viewGuardianName"></td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Occupation & Income</strong></td>
+                                    <td><strong>Occupation</strong></td>
                                     <td class="val-cell" id="viewOccupationIncome"></td>
                                 </tr>
                                 <tr>
@@ -269,11 +269,11 @@
                                     <td class="val-cell" id="viewMembership"></td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Marks & Docs details</strong></td>
+                                    <td><strong>Achievements details</strong></td>
                                     <td class="val-cell" id="viewMarksDetails"></td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Parent Mobile</strong></td>
+                                    <td><strong>Mobile Number</strong></td>
                                     <td class="val-cell" id="viewMobile"></td>
                                 </tr>
                                 <tr>
@@ -347,7 +347,7 @@
                 if (res.ok) {
                     const data = await res.json();
                     if (data.success) {
-                        document.getElementById("marqueeToggle").checked = !!data.enabled;
+                        document.getElementById("marqueeToggle").checked = !!data.sadhakaMarqueeEnabled;
                     }
                 }
             } catch (err) {
@@ -360,7 +360,7 @@
                 const res = await fetch("/api/settings", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ enabled: checkbox.checked })
+                    body: JSON.stringify({ sadhakaMarqueeEnabled: checkbox.checked })
                 });
                 if (res.ok) {
                     const data = await res.json();
