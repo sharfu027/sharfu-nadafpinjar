@@ -36,23 +36,47 @@ module.exports = async (req, res) => {
 
     if (req.method === 'GET') {
       const setting = await Donation.findOne({ paymentId: "settings_pratibha_marquee" });
-      return res.status(200).json({ success: true, enabled: setting ? setting.formData.enabled : true });
+      const sadhakaSetting = await Donation.findOne({ paymentId: "settings_sadhaka_marquee" });
+      return res.status(200).json({ 
+        success: true, 
+        enabled: setting ? setting.formData.enabled : true,
+        sadhakaMarqueeEnabled: sadhakaSetting ? sadhakaSetting.formData.sadhakaMarqueeEnabled : true
+      });
     }
 
     if (req.method === 'POST') {
       const data = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
-      let setting = await Donation.findOne({ paymentId: "settings_pratibha_marquee" });
-      if (!setting) {
-        setting = new Donation({
-          paymentId: "settings_pratibha_marquee",
-          formType: "settings",
-          formData: { enabled: data.enabled }
-        });
-      } else {
-        setting.formData = { enabled: data.enabled };
-        setting.markModified('formData');
+      
+      if (data.enabled !== undefined) {
+        let setting = await Donation.findOne({ paymentId: "settings_pratibha_marquee" });
+        if (!setting) {
+          setting = new Donation({
+            paymentId: "settings_pratibha_marquee",
+            formType: "settings",
+            formData: { enabled: data.enabled }
+          });
+        } else {
+          setting.formData = { enabled: data.enabled };
+          setting.markModified('formData');
+        }
+        await setting.save();
       }
-      await setting.save();
+
+      if (data.sadhakaMarqueeEnabled !== undefined) {
+        let sadhakaSetting = await Donation.findOne({ paymentId: "settings_sadhaka_marquee" });
+        if (!sadhakaSetting) {
+          sadhakaSetting = new Donation({
+            paymentId: "settings_sadhaka_marquee",
+            formType: "settings",
+            formData: { sadhakaMarqueeEnabled: data.sadhakaMarqueeEnabled }
+          });
+        } else {
+          sadhakaSetting.formData = { sadhakaMarqueeEnabled: data.sadhakaMarqueeEnabled };
+          sadhakaSetting.markModified('formData');
+        }
+        await sadhakaSetting.save();
+      }
+
       return res.status(200).json({ success: true, message: 'Settings saved' });
     }
 

@@ -792,12 +792,12 @@
         async function fetchMarqueeSetting() {
             try {
                 let res = await fetch("/api/settings").catch(() => null);
-                if (!res || !res.ok) {
+                if (!res || !res.ok || !res.headers.get("content-type") || !res.headers.get("content-type").includes("application/json")) {
                     res = await fetch("https://nadafpinjar-production.up.railway.app/api/settings").catch(() => null);
                 }
                 if (res && res.ok) {
-                    const data = await res.json();
-                    if (data.success && data.sadhakaMarqueeEnabled) {
+                    const data = await res.json().catch(() => null);
+                    if (data && data.success && data.sadhakaMarqueeEnabled) {
                         document.getElementById("marqueeBanner").style.display = "block";
                     }
                 }

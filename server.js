@@ -117,8 +117,13 @@ const server = http.createServer(async (req, res) => {
         await mongoose.connect(MONGO_URI);
       }
       const setting = await Donation.findOne({ paymentId: "settings_pratibha_marquee" });
+      const sadhakaSetting = await Donation.findOne({ paymentId: "settings_sadhaka_marquee" });
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: true, enabled: setting ? setting.formData.enabled : true }));
+      res.end(JSON.stringify({ 
+        success: true, 
+        enabled: setting ? setting.formData.enabled : true,
+        sadhakaMarqueeEnabled: sadhakaSetting ? sadhakaSetting.formData.sadhakaMarqueeEnabled : true
+      }));
     } catch (err) {
       res.writeHead(500, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ success: false, error: err.message }));
@@ -135,18 +140,37 @@ const server = http.createServer(async (req, res) => {
           await mongoose.connect(MONGO_URI);
         }
         const data = JSON.parse(body);
-        let setting = await Donation.findOne({ paymentId: "settings_pratibha_marquee" });
-        if (!setting) {
-          setting = new Donation({
-            paymentId: "settings_pratibha_marquee",
-            formType: "settings",
-            formData: { enabled: data.enabled }
-          });
-        } else {
-          setting.formData = { enabled: data.enabled };
-          setting.markModified('formData');
+        
+        if (data.enabled !== undefined) {
+          let setting = await Donation.findOne({ paymentId: "settings_pratibha_marquee" });
+          if (!setting) {
+            setting = new Donation({
+              paymentId: "settings_pratibha_marquee",
+              formType: "settings",
+              formData: { enabled: data.enabled }
+            });
+          } else {
+            setting.formData = { enabled: data.enabled };
+            setting.markModified('formData');
+          }
+          await setting.save();
         }
-        await setting.save();
+
+        if (data.sadhakaMarqueeEnabled !== undefined) {
+          let sadhakaSetting = await Donation.findOne({ paymentId: "settings_sadhaka_marquee" });
+          if (!sadhakaSetting) {
+            sadhakaSetting = new Donation({
+              paymentId: "settings_sadhaka_marquee",
+              formType: "settings",
+              formData: { sadhakaMarqueeEnabled: data.sadhakaMarqueeEnabled }
+            });
+          } else {
+            sadhakaSetting.formData = { sadhakaMarqueeEnabled: data.sadhakaMarqueeEnabled };
+            sadhakaSetting.markModified('formData');
+          }
+          await sadhakaSetting.save();
+        }
+
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, message: 'Settings saved' }));
       } catch (err) {
