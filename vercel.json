@@ -2,6 +2,14 @@
   "cleanUrls": true,
   "routes": [
     {
+      "src": "/api/donations/update",
+      "dest": "/api/donations-update.js"
+    },
+    {
+      "src": "/api/settings",
+      "dest": "/api/settings.js"
+    },
+    {
       "src": "/api/donations",
       "dest": "/api/donations.js"
     },

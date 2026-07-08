@@ -75,6 +75,88 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (req.method === 'POST' && req.url === '/api/donations/update') {
+    let body = '';
+    req.on('data', chunk => body += chunk.toString());
+    req.on('end', async () => {
+      try {
+        if (!mongoose.connection || mongoose.connection.readyState !== 1) {
+          console.log('Reconnecting to MongoDB...');
+          await mongoose.connect(MONGO_URI);
+        }
+        const data = JSON.parse(body);
+        const { paymentId, status, remarks, formData } = data;
+        const donation = await Donation.findOne({ paymentId });
+        if (donation) {
+          if (!donation.formData) donation.formData = {};
+          if (status !== undefined) donation.formData.status = status;
+          if (remarks !== undefined) donation.formData.remarks = remarks;
+          if (formData !== undefined) {
+            donation.formData = { ...donation.formData, ...formData };
+          }
+          donation.markModified('formData');
+          await donation.save();
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, message: 'Donation updated' }));
+        } else {
+          res.writeHead(404, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Donation not found' }));
+        }
+      } catch (err) {
+        console.error('Error updating donation:', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
+  if (req.method === 'GET' && req.url === '/api/settings') {
+    try {
+      if (!mongoose.connection || mongoose.connection.readyState !== 1) {
+        await mongoose.connect(MONGO_URI);
+      }
+      const setting = await Donation.findOne({ paymentId: "settings_pratibha_marquee" });
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, enabled: setting ? setting.formData.enabled : true }));
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+    return;
+  }
+
+  if (req.method === 'POST' && req.url === '/api/settings') {
+    let body = '';
+    req.on('data', chunk => body += chunk.toString());
+    req.on('end', async () => {
+      try {
+        if (!mongoose.connection || mongoose.connection.readyState !== 1) {
+          await mongoose.connect(MONGO_URI);
+        }
+        const data = JSON.parse(body);
+        let setting = await Donation.findOne({ paymentId: "settings_pratibha_marquee" });
+        if (!setting) {
+          setting = new Donation({
+            paymentId: "settings_pratibha_marquee",
+            formType: "settings",
+            formData: { enabled: data.enabled }
+          });
+        } else {
+          setting.formData = { enabled: data.enabled };
+          setting.markModified('formData');
+        }
+        await setting.save();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, message: 'Settings saved' }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
   if (req.method === 'POST' && req.url === '/api/donations') {
     let body = '';
     req.on('data', chunk => body += chunk.toString());

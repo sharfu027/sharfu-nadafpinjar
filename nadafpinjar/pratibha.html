@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="kn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ - Karnataka State Nadaf / Pinjar Sangha</title>
+    <link href="css/base.css?v=2" rel="stylesheet" media="all">
+    <link href="css/base-responsive.css?v=2" rel="stylesheet" media="all">
+    <link href="css/grid.css?v=2" rel="stylesheet" media="all">
+    <link href="css/font.css?v=2" rel="stylesheet" media="all">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/megamenu.css" rel="stylesheet" media="all">
+    <link href="css/site.css" rel="stylesheet" media="all">
+    <link href="css/site-responsive.css" rel="stylesheet" media="all">
+    <style>
+        .pratibha-marquee-container {
+            background: linear-gradient(90deg, #990000 0%, #cc0000 100%);
+            color: #ffedc2;
+            padding: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: none;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .marquee-inner {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 25s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+        .btn-apply-now {
+            background-color: #ffedc2;
+            color: #990000;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 13px;
+            margin-left: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-decoration: none;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .btn-apply-now:hover {
+            background-color: #ffffff;
+            transform: scale(1.05);
+            color: #cc0000;
+        }
+        .showcase-header {
+            text-align: center;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #990000;
+            color: #990000;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        /* Filter Styles */
+        .filter-panel {
+            background: #fff;
+            border: 2px solid #ffedc2;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .filter-input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .filter-input-group label {
+            font-weight: bold;
+            font-size: 13.5px;
+            color: #555;
+            margin-bottom: 6px;
+        }
+        .filter-input-group input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .filter-input-group input:focus {
+            border-color: #990000;
+            outline: none;
+            box-shadow: 0 0 5px rgba(153,0,0,0.2);
+        }
+        /* Grid Showcase */
+        .students-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .student-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .student-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(153,0,0,0.12);
+            border-color: #ffedc2;
+        }
+        .student-photo-container {
+            width: 100%;
+            height: 200px;
+            background-color: #f7fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 2px solid #ffedc2;
+            position: relative;
+        }
+        .student-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .student-photo-placeholder {
+            font-size: 64px;
+            color: #cbd5e0;
+        }
+        .student-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #990000;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .student-details {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .student-name {
+            font-size: 19px;
+            font-weight: bold;
+            color: #990000;
+            margin-bottom: 4px;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13.5px;
+            border-bottom: 1px dashed #f0f0f0;
+            padding-bottom: 4px;
+        }
+        .detail-label {
+            color: #718096;
+            font-weight: 500;
+        }
+        .detail-val {
+            color: #2d3748;
+            font-weight: 600;
+        }
+        .remarks-box {
+            margin-top: 10px;
+            background: rgba(153,0,0,0.04);
+            border-left: 3px solid #990000;
+            padding: 8px 12px;
+            border-radius: 0 6px 6px 0;
+            font-size: 12.5px;
+            color: #555;
+            font-style: italic;
+        }
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .modal-wrapper {
+            background: #fff;
+            width: 100%;
+            max-width: 850px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+            border: 3px solid #990000;
+        }
+        .modal-header-bar {
+            background: #990000;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header-bar h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #fff;
+            font-weight: bold;
+        }
+        .btn-modal-close {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .modal-body-scroll {
+            padding: 25px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        /* Form Table Layout matching PDF structure */
+        .pdf-form-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .pdf-form-table th, .pdf-form-table td {
+            border: 1.5px solid #a00000;
+            padding: 10px;
+            vertical-align: middle;
+        }
+        .pdf-form-table td.sl-no {
+            text-align: center;
+            font-weight: bold;
+            width: 5%;
+            background: #ffedc2;
+            color: #990000;
+        }
+        .pdf-form-table td.field-label {
+            font-weight: bold;
+            width: 45%;
+            color: #333;
+            font-size: 14px;
+        }
+        .pdf-form-table td.field-input {
+            width: 50%;
+            padding: 6px 10px;
+        }
+        .pdf-form-table input[type="text"], 
+        .pdf-form-table input[type="number"],
+        .pdf-form-table select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .pdf-form-table input:focus, .pdf-form-table select:focus {
+            border-color: #990000;
+            outline: none;
+        }
+        .photo-upload-box {
+            border: 2px dashed #cbd5e0;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .photo-upload-box:hover {
+            border-color: #990000;
+            background: #fffdf9;
+        }
+        .photo-preview-img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            display: none;
+            object-fit: cover;
+        }
+        .form-info-line {
+            font-size: 12.5px;
+            color: #666;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+        /* Structured Form Info Cards */
+        .structured-cards-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            background: #fff8eb;
+            border: 1.5px solid #ffedc2;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            box-sizing: border-box;
+        }
+        .structured-cards-container .form-group {
+            margin-bottom: 0 !important;
+        }
+        .structured-cards-container label {
+            font-weight: bold;
+            font-size: 13px;
+            color: #990000;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .structured-cards-container input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 13.5px;
+            box-sizing: border-box;
+        }
+        .structured-cards-container input:focus {
+            border-color: #990000;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <img src="images/header-nadaf.png" alt="Karnataka Rajya Nadaf Pinjar Sangha" class="header-image">
+        </div>
+    </header>
+
+    <section class="wrapper megamenu-wraper">
+        <div class="container common-container four_content">
+            <p class="showhide"><em></em><em></em><em></em></p>
+            <nav class="main-menu clearfix" id="main_menu">
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="default.html">HOME</a></li>
+                    <li class="nav-item"><a href="#">ABOUT</a>
+                        <div class="sub-nav">
+                            <ul class="sub-nav-group">
+                                <li><a href="#">ESTABLISHMENT </a></li>
+                                <li><a href="committee.html?type=working">STATE WORKING COMMITTEE LIST </a></li>
+                                <li><a href="committee.html?type=general">STATE GENERAL COMMITTEE LIST</a></li>
+                                <li><a href="aims-objectives.html">AIMS AND OBJECTIVES</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="#">SCHEMES </a></li>
+                    <li class="nav-item"><a href="#">ಅರ್ಜಿಗಳು</a>
+                        <div class="sub-nav">
+                            <ul class="sub-nav-group">
+                                <li><a href="freeedu.html">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ</a></li>
+                                <li><a href="pratibha.html">ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ</a></li>
+                                <li><a href="Census.html">ಜನಗಣತಿ (Census) </a></li>
+                                <li><a href="employees.html">ನೌಕರರ ವಿವರ</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="#">FINANCE</a></li>
+                    <li class="nav-item"><a href="#">ರಸೀದಿಗಳು</a>
+                        <div class="sub-nav">
+                            <ul class="sub-nav-group">
+                                <li><a href="donationdirectstate.html">ರಾಜ್ಯಕ್ಕೆ ನೇರವಾಗಿ</a></li>
+                                <li><a href="donationtaluktostate.html">ತಾಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                <li><a href="donationdistricttostate.html">ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="gallery.html">GALLERY</a></li>
+                    <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Marquee Banner Section -->
+    <div class="pratibha-marquee-container" id="marqueeBanner">
+        <div class="marquee-inner">
+            <span>ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳು ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</span>
+            <a href="javascript:void(0)" onclick="openApplyModal()" class="btn-apply-now">ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ / Click Here</a>
+        </div>
+    </div>
+
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="default.html">Home</a> » <span>ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ</span>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 30px; margin-bottom: 50px;">
+        <h1 class="showcase-header">ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ (Talent Reward)</h1>
+        
+        <!-- Filter Card -->
+        <div class="filter-panel">
+            <div style="font-weight: bold; font-size: 16px; color: #990000; margin-bottom: 15px; border-bottom: 1.5px solid #ffedc2; padding-bottom: 8px;">
+                <i class="fa fa-filter"></i> ವಿದ್ಯಾರ್ಥಿಗಳನ್ನು ಹುಡುಕಿ / Search Approved Students
+            </div>
+            <div class="filter-grid">
+                <div class="filter-input-group">
+                    <label>ಹೆಸರು (Name)</label>
+                    <input type="text" id="filterStudentName" oninput="filterShowcase()" placeholder="Type student name...">
+                </div>
+                <div class="filter-input-group">
+                    <label>ಪೋಷಕರ ಹೆಸರು (Parent Name)</label>
+                    <input type="text" id="filterParentName" oninput="filterShowcase()" placeholder="Type parent name...">
+                </div>
+                <div class="filter-input-group">
+                    <label>ಪಟ್ಟಣ ಅಥವಾ ನಗರ (Town/City)</label>
+                    <input type="text" id="filterCity" oninput="filterShowcase()" placeholder="Type town/city...">
+                </div>
+                <div class="filter-input-group">
+                    <label>ವರ್ಷ (Year)</label>
+                    <input type="text" id="filterYear" oninput="filterShowcase()" placeholder="e.g. 2025-26">
+                </div>
+                <div class="filter-input-group">
+                    <label>ವರ್ಗ (Class/Category)</label>
+                    <input type="text" id="filterCategory" oninput="filterShowcase()" placeholder="e.g. 10ನೇ ತರಗತಿ">
+                </div>
+                <div class="filter-input-group">
+                    <label>ಕ್ಷೇತ್ರ (Field/Area)</label>
+                    <input type="text" id="filterField" oninput="filterShowcase()" placeholder="e.g. ಶಿಕ್ಷಣ, ಕ್ರೀಡೆ">
+                </div>
+            </div>
+        </div>
+
+        <!-- Showcase Grid -->
+        <div class="students-grid" id="studentsGrid">
+            <!-- Dynamically populated approved list -->
+            <div style="grid-column: 1/-1; text-align: center; color: #777; padding: 40px 0;">
+                <i class="fa fa-spinner fa-spin" style="font-size: 32px; color: #990000; margin-bottom: 10px;"></i>
+                <p>ಅನುಮೋದಿತ ವಿದ್ಯಾರ್ಥಿಗಳ ವಿವರಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Form Modal -->
+    <div class="modal-overlay" id="applyModal">
+        <div class="modal-wrapper">
+            <div class="modal-header-bar">
+                <h2>ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳು ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h2>
+                <button class="btn-modal-close" onclick="closeApplyModal()">&times;</button>
+            </div>
+            <div class="modal-body-scroll">
+                <form id="pratibhaForm" onsubmit="submitApplication(event)">
+                    <table class="pdf-form-table">
+                        <tr>
+                            <td class="sl-no">1</td>
+                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಹೆಸರು (Student Name)</td>
+                            <td class="field-input"><input type="text" id="studentName" required></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">2</td>
+                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ತಂದೆಯ ಹೆಸರು (Father Name)</td>
+                            <td class="field-input"><input type="text" id="fatherName" required></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">3</td>
+                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಪೋಷಕರಿದ್ದಲ್ಲಿ ಹೆಸರು (Guardian Name, if applicable)</td>
+                            <td class="field-input"><input type="text" id="guardianName"></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">4</td>
+                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಪಾಲಕರ/ಪೋಷಕರ ಉದ್ಯೋಗ ಮತ್ತು ಆದಾಯ (Parent Occupation & Income)</td>
+                            <td class="field-input"><input type="text" id="parentOccupationIncome" required></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">5</td>
+                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಪಾಲಕರ/ಪೋಷಕರ ಸಂಪೂರ್ಣ ವಿಳಾಸ (Complete Address)</td>
+                            <td class="field-input"><input type="text" id="completeAddress" required></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">6</td>
+                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಆಧಾರ ಸಂಖ್ಯೆ (Student Aadhar Number)</td>
+                            <td class="field-input"><input type="text" id="aadhar" required></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">7</td>
+                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಕುಟುಂಬದ ಅಜೀವ ಸದಸ್ಯತ್ವ ಕುರಿತು ಮಾಹಿತಿ (Details of Life Membership)</td>
+                            <td class="field-input">
+                                <select id="lifeMembership" required>
+                                    <option value="">-ಆಯ್ಕೆ ಮಾಡಿ / Select-</option>
+                                    <option value="ಹೌದು">ಹೌದು (Yes)</option>
+                                    <option value="ಇಲ್ಲ">ಇಲ್ಲ (No)</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">8</td>
+                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿ/ನಿಯು 2025-26 ರಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳ ವಿವರ ಮತ್ತು ದಾಖಲೆಗಳು (Marks Obtained & Docs)</td>
+                            <td class="field-input"><input type="text" id="marksDetails" required placeholder="ಅಂಕಗಳ ವಿವರ / Marks detail"></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">9</td>
+                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಪಾಲಕರ ಮೊ. ನಂ. (Parent Mobile Number)</td>
+                            <td class="field-input"><input type="text" id="parentMobile" required></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">10</td>
+                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಅಥವಾ ಪಾಲಕರ ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (ಕಡ್ಡಾಯ) (Mandatory Bank Details)</td>
+                            <td class="field-input"><input type="text" id="bankDetails" required placeholder="Bank, Acc No, Branch, IFSC"></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">📷</td>
+                            <td class="field-label">ಪಾಸ್ಪೋರ್ಟ್ ಸೈಜ್ ಫೋಟೋ (Passport Size Photo)</td>
+                            <td class="field-input">
+                                <div class="photo-upload-box" onclick="document.getElementById('photoInput').click()">
+                                    <i class="fa fa-camera" style="font-size: 24px; color: #990000;"></i>
+                                    <span style="font-size: 13px; color: #555;">ಫೋಟೋ ಆಯ್ಕೆಮಾಡಿ / Select Photo</span>
+                                    <input type="file" id="photoInput" style="display:none" accept="image/*" onchange="previewPhoto(this)" required>
+                                    <img src="" id="photoPreview" class="photo-preview-img">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="font-weight: bold; font-size: 15px; color: #990000; margin-top: 25px;">
+                        📌 ಸೂಚ್ಯಂಕ ಕ್ಷೇತ್ರಗಳು (Indexing / Filtering Information)
+                    </div>
+                    <div class="structured-cards-container">
+                        <div class="form-group">
+                            <label>ಪಟ್ಟಣ ಅಥವಾ ನಗರ (Town/City)</label>
+                            <input type="text" id="city" required placeholder="e.g. ಶಿವಮೊಗ್ಗ">
+                        </div>
+                        <div class="form-group">
+                            <label>ವರ್ಷ (Year)</label>
+                            <input type="text" id="year" required value="2025-26">
+                        </div>
+                        <div class="form-group">
+                            <label>ವರ್ಗ (Class/Category)</label>
+                            <input type="text" id="category" required placeholder="e.g. 10ನೇ ತರಗತಿ, PUC, ಪದವಿ">
+                        </div>
+                        <div class="form-group">
+                            <label>ಕ್ಷೇತ್ರ (Field/Area)</label>
+                            <input type="text" id="field" required placeholder="e.g. ಶಿಕ್ಷಣ (Education), ಕ್ರೀಡೆ (Sports)">
+                        </div>
+                    </div>
+
+                    <div class="form-info-line">
+                        ⚠️ <strong>ಘೋಷಣೆ (Declaration):</strong> ಮೇಲಿನ ಎಲ್ಲಾ ಮಾಹಿತಿಯು ನನ್ನ ಜ್ಞಾನಕ್ಕೆ ತಿಳಿದಿರುವಂತೆ ಸರಿಯಾಗಿದೆ. ಯಾವುದೇ ತಪ್ಪು ಮಾಹಿತಿ ನೀಡಿದ್ದಲ್ಲಿ ಅರ್ಜಿಯನ್ನು ತಿರಸ್ಕರಿಸುವ ಅಧಿಕಾರ ಸಂಘಕ್ಕಿರುತ್ತದೆ.<br>
+                        <strong>ಶಿಫಾರಸು:</strong> ತಾಲೂಕು ಅಧ್ಯಕ್ಷರು ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ ಶಿಫಾರಸ್ಸಿನ ನಂತರ ರಾಜ್ಯ ಸ್ಕ್ರೀನಿಂಗ್ ಕಮಿಟಿ ಅಂತಿಮ ತೀರ್ಮಾನ ಕೈಗೊಳ್ಳುತ್ತದೆ.
+                    </div>
+
+                    <div style="text-align: center; margin-top: 25px;">
+                        <button type="submit" class="btn-submit" style="background-color: #990000 !important; color: white; padding: 12px 35px; border-radius: 6px; font-size: 15px; font-weight: bold; border: none; cursor: pointer;">ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Submit Application</button>
+                        <button type="button" onclick="closeApplyModal()" class="btn-cancel" style="background-color: #64748b !important; color: white; padding: 12px 35px; border-radius: 6px; font-size: 15px; font-weight: bold; border: none; cursor: pointer; margin-left: 10px;">ರದ್ದುಮಾಡಿ / Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Confirmation Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-wrapper" style="max-width: 450px;">
+            <div class="modal-header-bar" style="background-color: #28a745;">
+                <h2 style="text-align:center; width:100%;"><i class="fa fa-check-circle"></i> ಅರ್ಜಿ ಸಲ್ಲಿಕೆ ಯಶಸ್ವಿಯಾಗಿದೆ!</h2>
+            </div>
+            <div style="padding: 25px; text-align: center;">
+                <p style="font-size: 15px; color: #333; font-weight: 500; margin-bottom: 20px;">ನಿಮ್ಮ ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ ಅರ್ಜಿಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಸ್ವೀಕರಿಸಲಾಗಿದೆ.</p>
+                <div id="modalAppNumber" style="font-size: 18px; font-weight: bold; color: #28a745; background-color: #e8f5e9; padding: 12px; border-radius: 6px; border: 1.5px dashed #28a745; margin-bottom: 20px;">
+                    ಅರ್ಜಿ ಸಂಖ್ಯೆ: -
+                </div>
+                <button onclick="window.location.reload()" class="btn-submit" style="background-color: #28a745 !important; border:none; color:white; padding: 10px 25px; border-radius: 4px; font-weight: bold; cursor: pointer;">ಮುಚ್ಚಿ / Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background-color:#990000; color:#ffedc2; text-align:center; padding: 15px 0; font-weight: 600; margin-top: 50px;">
+        © 2026 Karnataka State Nadaf / Pinjar Sangha (R) All rights reserved.
+    </footer>
+
+    <script>
+        let allStudents = [];
+        let base64Photo = "";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Load marquee setting
+            fetchMarqueeSetting();
+            // Load approved list
+            loadApprovedShowcase();
+        });
+
+        async function fetchMarqueeSetting() {
+            try {
+                const res = await fetch("/api/settings");
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.success && data.enabled) {
+                        document.getElementById("marqueeBanner").style.display = "block";
+                    }
+                }
+            } catch (err) {
+                console.error("Marquee loading error:", err);
+            }
+        }
+
+        async function loadApprovedShowcase() {
+            const grid = document.getElementById("studentsGrid");
+            try {
+                const res = await fetch("/api/donations");
+                if (!res.ok) throw new Error("API call failed");
+                const data = await res.json();
+                
+                if (data.success && data.donations) {
+                    // Filter for approved Pratibha Puraskar submissions
+                    allStudents = data.donations
+                        .filter(doc => doc.formType === "ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ" && doc.formData && doc.formData.status === "Approved")
+                        .map(doc => ({
+                            id: doc.paymentId,
+                            studentName: doc.formData.studentName,
+                            parentName: doc.formData.fatherName || doc.formData.parentName,
+                            city: doc.formData.city,
+                            year: doc.formData.year,
+                            category: doc.formData.category,
+                            field: doc.formData.field,
+                            photo: doc.formData.photo,
+                            remarks: doc.formData.remarks
+                        }));
+
+                    renderShowcase(allStudents);
+                } else {
+                    grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:#ef4444;">ಯಾವುದೇ ದತ್ತಾಂಶಗಳು ಲಭ್ಯವಿಲ್ಲ / No data available</div>`;
+                }
+            } catch (err) {
+                console.error(err);
+                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:#ef4444;">ದತ್ತಾಂಶ ಲೋಡ್ ಮಾಡುವಲ್ಲಿ ದೋಷ ಕಂಡುಬಂದಿದೆ / Error loading showcase</div>`;
+            }
+        }
+
+        function renderShowcase(list) {
+            const grid = document.getElementById("studentsGrid");
+            grid.innerHTML = "";
+            
+            if (list.length === 0) {
+                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:#777; font-size:16px;">
+                    <i class="fa fa-info-circle" style="font-size:32px; margin-bottom:10px;"></i>
+                    <p>ಹುಡುಕಲಾದ ವಿವರಗಳಿಗೆ ಯಾವುದೇ ಫಲಿತಾಂಶಗಳು ಕಂಡುಬಂದಿಲ್ಲ / No approved students match the search filters.</p>
+                </div>`;
+                return;
+            }
+
+            list.forEach(student => {
+                const card = document.createElement("div");
+                card.className = "student-card";
+                
+                const photoSrc = student.photo ? student.photo : "";
+                const imageHTML = photoSrc 
+                    ? `<img src="${photoSrc}" class="student-photo" alt="${student.studentName}">`
+                    : `<i class="fa fa-user student-photo-placeholder"></i>`;
+
+                card.innerHTML = `
+                    <div class="student-photo-container">
+                        ${imageHTML}
+                        <span class="student-badge">${student.year}</span>
+                    </div>
+                    <div class="student-details">
+                        <div class="student-name">${student.studentName}</div>
+                        <div class="detail-row">
+                            <span class="detail-label">ಪೋಷಕರ ಹೆಸರು</span>
+                            <span class="detail-val">${student.parentName || '-'}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">ಪಟ್ಟಣ/ನಗರ</span>
+                            <span class="detail-val">${student.city || '-'}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">ವರ್ಗ (Class)</span>
+                            <span class="detail-val">${student.category || '-'}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">ಕ್ಷೇತ್ರ (Field)</span>
+                            <span class="detail-val">${student.field || '-'}</span>
+                        </div>
+                        ${student.remarks ? `<div class="remarks-box"><strong>ಷರಾ:</strong> ${student.remarks}</div>` : ''}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterShowcase() {
+            const nameVal = document.getElementById("filterStudentName").value.toLowerCase();
+            const parentVal = document.getElementById("filterParentName").value.toLowerCase();
+            const cityVal = document.getElementById("filterCity").value.toLowerCase();
+            const yearVal = document.getElementById("filterYear").value.toLowerCase();
+            const catVal = document.getElementById("filterCategory").value.toLowerCase();
+            const fieldVal = document.getElementById("filterField").value.toLowerCase();
+
+            const filtered = allStudents.filter(student => {
+                const nameMatch = (student.studentName || '').toLowerCase().includes(nameVal);
+                const parentMatch = (student.parentName || '').toLowerCase().includes(parentVal);
+                const cityMatch = (student.city || '').toLowerCase().includes(cityVal);
+                const yearMatch = (student.year || '').toLowerCase().includes(yearVal);
+                const catMatch = (student.category || '').toLowerCase().includes(catVal);
+                const fieldMatch = (student.field || '').toLowerCase().includes(fieldVal);
+                return nameMatch && parentMatch && cityMatch && yearMatch && catMatch && fieldMatch;
+            });
+
+            renderShowcase(filtered);
+        }
+
+        function openApplyModal() {
+            document.getElementById("applyModal").style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeApplyModal() {
+            document.getElementById("applyModal").style.display = "none";
+            document.body.style.overflow = "auto";
+            document.getElementById("pratibhaForm").reset();
+            document.getElementById("photoPreview").style.display = "none";
+            base64Photo = "";
+        }
+
+        function previewPhoto(input) {
+            const file = input.files[0];
+            if (file) {
+                if (file.size > 300 * 1024) {
+                    alert("Photo size should be less than 300KB!");
+                    input.value = "";
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    base64Photo = e.target.result;
+                    const preview = document.getElementById("photoPreview");
+                    preview.src = base64Photo;
+                    preview.style.display = "block";
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        async function submitApplication(e) {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = "ಸಲ್ಲಿಸಲಾಗುತ್ತಿದೆ / Submitting...";
+
+            const appNumber = `PRATIBHA-2025-26-${Math.floor(Math.random() * 9000) + 1000}`;
+            
+            const payload = {
+                formType: "ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ",
+                amount: 0,
+                paymentId: appNumber,
+                formData: {
+                    studentName: document.getElementById("studentName").value,
+                    fatherName: document.getElementById("fatherName").value,
+                    guardianName: document.getElementById("guardianName").value,
+                    parentOccupationIncome: document.getElementById("parentOccupationIncome").value,
+                    completeAddress: document.getElementById("completeAddress").value,
+                    aadhar: document.getElementById("aadhar").value,
+                    lifeMembership: document.getElementById("lifeMembership").value,
+                    marksDetails: document.getElementById("marksDetails").value,
+                    parentMobile: document.getElementById("parentMobile").value,
+                    bankDetails: document.getElementById("bankDetails").value,
+                    photo: base64Photo,
+                    city: document.getElementById("city").value,
+                    year: document.getElementById("year").value,
+                    category: document.getElementById("category").value,
+                    field: document.getElementById("field").value,
+                    status: "Pending",
+                    remarks: ""
+                }
+            };
+
+            try {
+                const res = await fetch("/api/donations", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (res.ok) {
+                    document.getElementById("modalAppNumber").textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}`;
+                    document.getElementById("applyModal").style.display = "none";
+                    document.getElementById("successModal").style.display = "flex";
+                } else {
+                    alert("ಅರ್ಜಿ ಸಲ್ಲಿಕೆ ವಿಫಲವಾಗಿದೆ / Submission failed. Please try again.");
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Submit Application";
+                }
+            } catch (err) {
+                console.error(err);
+                alert("ನೆಟ್‌ವರ್ಕ್ ದೋಷ ಕಂಡುಬಂದಿದೆ / Network error. Please try again.");
+                submitBtn.disabled = false;
+                submitBtn.textContent = "ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Submit Application";
+            }
+        }
+    </script>
+</body>
+</html>
