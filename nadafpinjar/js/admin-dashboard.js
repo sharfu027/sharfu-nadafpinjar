@@ -347,9 +347,9 @@ function trackDeletedId(id) {
 
 async function syncSubmissionsFromDatabase() {
     try {
-        let response = await fetch('/api/donations').catch(() => null);
+        let response = await fetch('/api/donations?_=' + Date.now()).catch(() => null);
         if (!response || !response.ok) {
-            response = await fetch('https://nadafpinjar-production.up.railway.app/api/donations').catch(() => null);
+            response = await fetch('https://nadafpinjar-production.up.railway.app/api/donations?_=' + Date.now()).catch(() => null);
         }
         if (!response || !response.ok) return false;
         

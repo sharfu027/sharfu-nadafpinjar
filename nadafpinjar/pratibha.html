@@ -934,9 +934,9 @@
         async function loadApprovedShowcase() {
             const tableBody = document.getElementById("studentsTableBody");
             try {
-                let res = await fetch("/api/donations").catch(() => null);
+                let res = await fetch("/api/donations?_=" + Date.now()).catch(() => null);
                 if (!res || !res.ok) {
-                    res = await fetch("https://nadafpinjar-production.up.railway.app/api/donations").catch(() => null);
+                    res = await fetch("https://nadafpinjar-production.up.railway.app/api/donations?_=" + Date.now()).catch(() => null);
                 }
                 if (!res || !res.ok) throw new Error("API call failed");
                 const data = await res.json();
