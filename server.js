@@ -204,19 +204,27 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // DELETE donation by paymentId
+  // DELETE donation by paymentId or dbId
   if (req.method === 'DELETE' && (req.url.startsWith('/api/donations/') || req.url.startsWith('/api/donations'))) {
     let paymentId = '';
+    let dbId = '';
+    
     if (req.url.startsWith('/api/donations/')) {
-      paymentId = decodeURIComponent(req.url.replace('/api/donations/', ''));
+      const parts = req.url.replace('/api/donations/', '').split('?');
+      paymentId = decodeURIComponent(parts[0]);
+      if (parts[1]) {
+        const queryParams = new URLSearchParams(parts[1]);
+        dbId = queryParams.get('dbId');
+      }
     } else {
       const parsedUrl = new URL(req.url, 'http://localhost');
       paymentId = parsedUrl.searchParams.get('paymentId');
+      dbId = parsedUrl.searchParams.get('dbId');
     }
 
-    if (!paymentId) {
+    if (!paymentId && !dbId) {
       res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, error: 'paymentId is required' }));
+      res.end(JSON.stringify({ success: false, error: 'paymentId or dbId is required' }));
       return;
     }
 
@@ -224,7 +232,15 @@ const server = http.createServer(async (req, res) => {
       if (!mongoose.connection || mongoose.connection.readyState !== 1) {
         await mongoose.connect(MONGO_URI);
       }
-      const result = await Donation.findOneAndDelete({ paymentId: paymentId });
+      
+      let result = null;
+      if (dbId && mongoose.Types.ObjectId.isValid(dbId)) {
+        result = await Donation.findByIdAndDelete(dbId);
+      }
+      if (!result && paymentId) {
+        result = await Donation.findOneAndDelete({ paymentId: paymentId });
+      }
+
       if (result) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, message: 'Donation deleted' }));

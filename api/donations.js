@@ -48,18 +48,28 @@ module.exports = async (req, res) => {
 
     if (req.method === 'DELETE') {
       let paymentId = req.query.paymentId;
-      if (!paymentId) {
+      let dbId = req.query.dbId;
+      if (!paymentId && !dbId) {
         try {
           const bodyData = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
           paymentId = bodyData.paymentId;
+          dbId = bodyData.dbId;
         } catch (e) {
           // ignore
         }
       }
-      if (!paymentId) {
-        return res.status(400).json({ success: false, error: 'paymentId is required' });
+      if (!paymentId && !dbId) {
+        return res.status(400).json({ success: false, error: 'paymentId or dbId is required' });
       }
-      const result = await Donation.findOneAndDelete({ paymentId: paymentId });
+
+      let result = null;
+      if (dbId && mongoose.Types.ObjectId.isValid(dbId)) {
+        result = await Donation.findByIdAndDelete(dbId);
+      }
+      if (!result && paymentId) {
+        result = await Donation.findOneAndDelete({ paymentId: paymentId });
+      }
+
       if (result) {
         return res.status(200).json({ success: true, message: 'Donation deleted' });
       } else {

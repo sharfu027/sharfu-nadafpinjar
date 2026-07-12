@@ -380,12 +380,17 @@ async function syncSubmissionsFromDatabase() {
                 if (!exists) {
                     sadhakaList.unshift({
                         id: appNum,
+                        dbId: doc._id,
                         date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
                         formData: doc.formData || {}
                     });
                     hasChanges = true;
                 } else {
                     const existingItem = sadhakaList.find(item => item.id === appNum);
+                    if (existingItem && !existingItem.dbId) {
+                        existingItem.dbId = doc._id;
+                        hasChanges = true;
+                    }
                     if (existingItem && doc.formData) {
                         let localUpdated = false;
                         if (existingItem.formData.status !== doc.formData.status) {
@@ -409,12 +414,17 @@ async function syncSubmissionsFromDatabase() {
                 if (!exists) {
                     pratibhaList.unshift({
                         id: appNum,
+                        dbId: doc._id,
                         date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
                         formData: doc.formData || {}
                     });
                     hasChanges = true;
                 } else {
                     const existingItem = pratibhaList.find(item => item.id === appNum);
+                    if (existingItem && !existingItem.dbId) {
+                        existingItem.dbId = doc._id;
+                        hasChanges = true;
+                    }
                     if (existingItem && doc.formData) {
                         let localUpdated = false;
                         if (existingItem.formData.status !== doc.formData.status) {
@@ -3824,7 +3834,7 @@ function loadAdminPratibha() {
                 <td><span class="status-badge ${statusClass}">${fd.status || 'Pending'}</span></td>
                 <td>
                     <button class="btn-edit" onclick="reviewPratibha('${app.id}')" title="Review"><i class="fa fa-eye"></i></button>
-                    <button class="btn-delete" onclick="deletePratibha('${app.id}')" title="Delete"><i class="fa fa-trash"></i></button>
+                    <button class="btn-delete" onclick="deletePratibha('${app.id}', '${app.dbId || ''}')" title="Delete"><i class="fa fa-trash"></i></button>
                 </td>
             `;
             tableBody.appendChild(row);
@@ -3965,23 +3975,24 @@ function loadAdminPratibha() {
     }
 
     // Delete Handler
-    window.deletePratibha = async function(id) {
+    window.deletePratibha = async function(id, dbId) {
         if (confirm("Are you sure you want to delete this application? This will permanently remove it from the database.")) {
             try {
                 // Delete from database
-                let res = await fetch('/api/donations/' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                const q = (dbId ? `dbId=${encodeURIComponent(dbId)}&` : '') + `paymentId=${encodeURIComponent(id)}`;
+                let res = await fetch('/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
                 if (!res || !res.ok) {
-                    res = await fetch('/api/donations?paymentId=' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                    res = await fetch('/api/donations/' + encodeURIComponent(id) + (dbId ? '?dbId=' + encodeURIComponent(dbId) : ''), { method: 'DELETE' }).catch(() => null);
                 }
                 if (!res || !res.ok) {
-                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations/' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
                 }
                 if (!res || !res.ok) {
-                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations?paymentId=' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations/' + encodeURIComponent(id) + (dbId ? '?dbId=' + encodeURIComponent(dbId) : ''), { method: 'DELETE' }).catch(() => null);
                 }
                 if (!res || !res.ok) {
                     // Try alternate method with body for Vercel
-                    res = await fetch('/api/donations', { method: 'DELETE', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ paymentId: id }) }).catch(() => null);
+                    res = await fetch('/api/donations', { method: 'DELETE', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ paymentId: id, dbId: dbId }) }).catch(() => null);
                 }
             } catch (err) {
                 console.error('Error deleting from database:', err);
@@ -4026,7 +4037,7 @@ function loadAdminSadhaka() {
                 <td><span class="status-badge ${statusClass}">${fd.status || 'Pending'}</span></td>
                 <td>
                     <button class="btn-edit" onclick="reviewSadhaka('${app.id}')" title="Review"><i class="fa fa-eye"></i></button>
-                    <button class="btn-delete" onclick="deleteSadhaka('${app.id}')" title="Delete"><i class="fa fa-trash"></i></button>
+                    <button class="btn-delete" onclick="deleteSadhaka('${app.id}', '${app.dbId || ''}')" title="Delete"><i class="fa fa-trash"></i></button>
                 </td>
             `;
             tableBody.appendChild(row);
@@ -4167,23 +4178,24 @@ function loadAdminSadhaka() {
     }
 
     // Delete Handler
-    window.deleteSadhaka = async function(id) {
+    window.deleteSadhaka = async function(id, dbId) {
         if (confirm("Are you sure you want to delete this application? This will permanently remove it from the database.")) {
             try {
                 // Delete from database
-                let res = await fetch('/api/donations/' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                const q = (dbId ? `dbId=${encodeURIComponent(dbId)}&` : '') + `paymentId=${encodeURIComponent(id)}`;
+                let res = await fetch('/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
                 if (!res || !res.ok) {
-                    res = await fetch('/api/donations?paymentId=' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                    res = await fetch('/api/donations/' + encodeURIComponent(id) + (dbId ? '?dbId=' + encodeURIComponent(dbId) : ''), { method: 'DELETE' }).catch(() => null);
                 }
                 if (!res || !res.ok) {
-                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations/' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
                 }
                 if (!res || !res.ok) {
-                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations?paymentId=' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations/' + encodeURIComponent(id) + (dbId ? '?dbId=' + encodeURIComponent(dbId) : ''), { method: 'DELETE' }).catch(() => null);
                 }
                 if (!res || !res.ok) {
                     // Try alternate method with body for Vercel
-                    res = await fetch('/api/donations', { method: 'DELETE', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ paymentId: id }) }).catch(() => null);
+                    res = await fetch('/api/donations', { method: 'DELETE', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ paymentId: id, dbId: dbId }) }).catch(() => null);
                 }
             } catch (err) {
                 console.error('Error deleting from database:', err);
