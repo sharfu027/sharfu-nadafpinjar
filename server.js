@@ -61,7 +61,11 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  if (req.method === 'GET' && req.url === '/api/donations') {
+  // Parse path to support query parameters in route matches
+  const parsedUrl = new URL(req.url, 'http://localhost');
+  const reqPath = parsedUrl.pathname;
+
+  if (req.method === 'GET' && reqPath === '/api/donations') {
     try {
       if (!mongoose.connection || mongoose.connection.readyState !== 1) {
         console.log('Reconnecting to MongoDB...');
@@ -78,7 +82,7 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  if (req.method === 'POST' && req.url === '/api/donations/update') {
+  if (req.method === 'POST' && reqPath === '/api/donations/update') {
     let body = '';
     req.on('data', chunk => body += chunk.toString());
     req.on('end', async () => {
@@ -114,7 +118,7 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  if (req.method === 'GET' && req.url === '/api/settings') {
+  if (req.method === 'GET' && reqPath === '/api/settings') {
     try {
       if (!mongoose.connection || mongoose.connection.readyState !== 1) {
         await mongoose.connect(MONGO_URI);
@@ -134,7 +138,7 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  if (req.method === 'POST' && req.url === '/api/settings') {
+  if (req.method === 'POST' && reqPath === '/api/settings') {
     let body = '';
     req.on('data', chunk => body += chunk.toString());
     req.on('end', async () => {
@@ -184,7 +188,7 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  if (req.method === 'POST' && req.url === '/api/donations') {
+  if (req.method === 'POST' && reqPath === '/api/donations') {
     let body = '';
     req.on('data', chunk => body += chunk.toString());
     req.on('end', async () => {
@@ -208,21 +212,14 @@ const server = http.createServer(async (req, res) => {
   }
 
   // DELETE donation by paymentId or dbId
-  if (req.method === 'DELETE' && (req.url.startsWith('/api/donations/') || req.url.startsWith('/api/donations'))) {
+  if (req.method === 'DELETE' && (reqPath.startsWith('/api/donations/') || reqPath === '/api/donations')) {
     let paymentId = '';
-    let dbId = '';
+    let dbId = parsedUrl.searchParams.get('dbId');
     
-    if (req.url.startsWith('/api/donations/')) {
-      const parts = req.url.replace('/api/donations/', '').split('?');
-      paymentId = decodeURIComponent(parts[0]);
-      if (parts[1]) {
-        const queryParams = new URLSearchParams(parts[1]);
-        dbId = queryParams.get('dbId');
-      }
+    if (reqPath.startsWith('/api/donations/')) {
+      paymentId = decodeURIComponent(reqPath.replace('/api/donations/', ''));
     } else {
-      const parsedUrl = new URL(req.url, 'http://localhost');
       paymentId = parsedUrl.searchParams.get('paymentId');
-      dbId = parsedUrl.searchParams.get('dbId');
     }
 
     if (!paymentId && !dbId) {
@@ -259,8 +256,7 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  let filePath = req.url === '/' ? '/default.html' : req.url;
-  filePath = filePath.split('?')[0];
+  let filePath = reqPath === '/' ? '/default.html' : reqPath;
   let fullPath = path.join(BASE_DIR, filePath);
 
   // Support clean URLs by checking if .html file exists
