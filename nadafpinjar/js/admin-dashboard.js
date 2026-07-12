@@ -3965,12 +3965,30 @@ function loadAdminPratibha() {
     }
 
     // Delete Handler
-    window.deletePratibha = function(id) {
-        if (confirm("Are you sure you want to delete this application?")) {
+    window.deletePratibha = async function(id) {
+        if (confirm("Are you sure you want to delete this application? This will permanently remove it from the database.")) {
+            try {
+                // Delete from database
+                let res = await fetch('/api/donations/' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                if (!res || !res.ok) {
+                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations/' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                }
+                if (!res || !res.ok) {
+                    // Try alternate method with body for Vercel
+                    res = await fetch('/api/donations', { method: 'DELETE', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ paymentId: id }) }).catch(() => null);
+                    if (!res || !res.ok) {
+                        res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations', { method: 'DELETE', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ paymentId: id }) }).catch(() => null);
+                    }
+                }
+            } catch (err) {
+                console.error('Error deleting from database:', err);
+            }
+            // Also remove from localStorage
             trackDeletedId(id);
             submissions = submissions.filter(app => app.id !== id);
             localStorage.setItem('admin_pratibha_submissions', JSON.stringify(submissions));
             render(submissions);
+            alert('Application deleted successfully!');
         }
     };
 }
@@ -4146,12 +4164,30 @@ function loadAdminSadhaka() {
     }
 
     // Delete Handler
-    window.deleteSadhaka = function(id) {
-        if (confirm("Are you sure you want to delete this application?")) {
+    window.deleteSadhaka = async function(id) {
+        if (confirm("Are you sure you want to delete this application? This will permanently remove it from the database.")) {
+            try {
+                // Delete from database
+                let res = await fetch('/api/donations/' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                if (!res || !res.ok) {
+                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations/' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                }
+                if (!res || !res.ok) {
+                    // Try alternate method with body for Vercel
+                    res = await fetch('/api/donations', { method: 'DELETE', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ paymentId: id }) }).catch(() => null);
+                    if (!res || !res.ok) {
+                        res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations', { method: 'DELETE', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ paymentId: id }) }).catch(() => null);
+                    }
+                }
+            } catch (err) {
+                console.error('Error deleting from database:', err);
+            }
+            // Also remove from localStorage
             trackDeletedId(id);
             submissions = submissions.filter(app => app.id !== id);
             localStorage.setItem('admin_sadhaka_submissions', JSON.stringify(submissions));
             render(submissions);
+            alert('Application deleted successfully!');
         }
     };
 }

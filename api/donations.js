@@ -24,7 +24,7 @@ const Donation = mongoose.models.Donation || mongoose.model('Donation', donation
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
@@ -44,6 +44,20 @@ module.exports = async (req, res) => {
       const newDonation = new Donation(bodyData);
       await newDonation.save();
       return res.status(201).json({ success: true, message: 'Donation saved', id: newDonation._id });
+    }
+
+    if (req.method === 'DELETE') {
+      const bodyData = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
+      const paymentId = bodyData.paymentId || req.query.paymentId;
+      if (!paymentId) {
+        return res.status(400).json({ success: false, error: 'paymentId is required' });
+      }
+      const result = await Donation.findOneAndDelete({ paymentId: paymentId });
+      if (result) {
+        return res.status(200).json({ success: true, message: 'Donation deleted' });
+      } else {
+        return res.status(404).json({ success: false, error: 'Donation not found' });
+      }
     }
 
     return res.status(405).json({ success: false, error: 'Method Not Allowed' });

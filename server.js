@@ -204,6 +204,29 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // DELETE donation by paymentId
+  if (req.method === 'DELETE' && req.url.startsWith('/api/donations/')) {
+    const paymentId = decodeURIComponent(req.url.replace('/api/donations/', ''));
+    try {
+      if (!mongoose.connection || mongoose.connection.readyState !== 1) {
+        await mongoose.connect(MONGO_URI);
+      }
+      const result = await Donation.findOneAndDelete({ paymentId: paymentId });
+      if (result) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, message: 'Donation deleted' }));
+      } else {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Donation not found' }));
+      }
+    } catch (err) {
+      console.error('Error deleting donation:', err);
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+    return;
+  }
+
   let filePath = req.url === '/' ? '/default.html' : req.url;
   filePath = filePath.split('?')[0];
   let fullPath = path.join(BASE_DIR, filePath);
