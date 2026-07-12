@@ -374,7 +374,12 @@ async function syncSubmissionsFromDatabase() {
             // Map by formType
             if (formType === "ಸಾಧಕ ಪ್ರಶಸ್ತಿ") {
                 const appNum = doc.paymentId || `SADHAKA-2025-26-${parseInt((doc._id || '').slice(-4), 16) % 1000 || 555}`;
-                if (deletedIds.includes(appNum)) return;
+                if (deletedIds.includes(appNum)) {
+                    const q = (doc._id ? `dbId=${encodeURIComponent(doc._id)}&` : '') + `paymentId=${encodeURIComponent(appNum)}`;
+                    fetch('/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
+                    fetch('https://nadafpinjar-production.up.railway.app/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
+                    return;
+                }
                 
                 const exists = sadhakaList.some(item => item.id === appNum);
                 if (!exists) {
@@ -408,7 +413,12 @@ async function syncSubmissionsFromDatabase() {
                 }
             } else if (formType === "ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ") {
                 const appNum = doc.paymentId || `PRATIBHA-2025-26-${parseInt((doc._id || '').slice(-4), 16) % 1000 || 555}`;
-                if (deletedIds.includes(appNum)) return;
+                if (deletedIds.includes(appNum)) {
+                    const q = (doc._id ? `dbId=${encodeURIComponent(doc._id)}&` : '') + `paymentId=${encodeURIComponent(appNum)}`;
+                    fetch('/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
+                    fetch('https://nadafpinjar-production.up.railway.app/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
+                    return;
+                }
                 
                 const exists = pratibhaList.some(item => item.id === appNum);
                 if (!exists) {
