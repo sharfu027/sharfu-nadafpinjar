@@ -47,8 +47,15 @@ module.exports = async (req, res) => {
     }
 
     if (req.method === 'DELETE') {
-      const bodyData = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
-      const paymentId = bodyData.paymentId || req.query.paymentId;
+      let paymentId = req.query.paymentId;
+      if (!paymentId) {
+        try {
+          const bodyData = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
+          paymentId = bodyData.paymentId;
+        } catch (e) {
+          // ignore
+        }
+      }
       if (!paymentId) {
         return res.status(400).json({ success: false, error: 'paymentId is required' });
       }

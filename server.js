@@ -205,8 +205,21 @@ const server = http.createServer(async (req, res) => {
   }
 
   // DELETE donation by paymentId
-  if (req.method === 'DELETE' && req.url.startsWith('/api/donations/')) {
-    const paymentId = decodeURIComponent(req.url.replace('/api/donations/', ''));
+  if (req.method === 'DELETE' && (req.url.startsWith('/api/donations/') || req.url.startsWith('/api/donations'))) {
+    let paymentId = '';
+    if (req.url.startsWith('/api/donations/')) {
+      paymentId = decodeURIComponent(req.url.replace('/api/donations/', ''));
+    } else {
+      const parsedUrl = new URL(req.url, 'http://localhost');
+      paymentId = parsedUrl.searchParams.get('paymentId');
+    }
+
+    if (!paymentId) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'paymentId is required' }));
+      return;
+    }
+
     try {
       if (!mongoose.connection || mongoose.connection.readyState !== 1) {
         await mongoose.connect(MONGO_URI);

@@ -3971,14 +3971,17 @@ function loadAdminPratibha() {
                 // Delete from database
                 let res = await fetch('/api/donations/' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
                 if (!res || !res.ok) {
+                    res = await fetch('/api/donations?paymentId=' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                }
+                if (!res || !res.ok) {
                     res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations/' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                }
+                if (!res || !res.ok) {
+                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations?paymentId=' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
                 }
                 if (!res || !res.ok) {
                     // Try alternate method with body for Vercel
                     res = await fetch('/api/donations', { method: 'DELETE', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ paymentId: id }) }).catch(() => null);
-                    if (!res || !res.ok) {
-                        res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations', { method: 'DELETE', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ paymentId: id }) }).catch(() => null);
-                    }
                 }
             } catch (err) {
                 console.error('Error deleting from database:', err);
@@ -4170,14 +4173,17 @@ function loadAdminSadhaka() {
                 // Delete from database
                 let res = await fetch('/api/donations/' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
                 if (!res || !res.ok) {
+                    res = await fetch('/api/donations?paymentId=' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                }
+                if (!res || !res.ok) {
                     res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations/' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                }
+                if (!res || !res.ok) {
+                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations?paymentId=' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
                 }
                 if (!res || !res.ok) {
                     // Try alternate method with body for Vercel
                     res = await fetch('/api/donations', { method: 'DELETE', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ paymentId: id }) }).catch(() => null);
-                    if (!res || !res.ok) {
-                        res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations', { method: 'DELETE', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ paymentId: id }) }).catch(() => null);
-                    }
                 }
             } catch (err) {
                 console.error('Error deleting from database:', err);
