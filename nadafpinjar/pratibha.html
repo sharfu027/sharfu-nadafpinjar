@@ -769,7 +769,7 @@
 
     <!-- Success Confirmation Modal -->
     <div class="modal-overlay" id="successModal">
-        <div class="modal-wrapper" style="max-width: 450px;">
+        <div class="modal-wrapper" style="max-width: 500px;">
             <div class="modal-header-bar" style="background-color: #28a745;">
                 <h2 style="text-align:center; width:100%;"><i class="fa fa-check-circle"></i> ಅರ್ಜಿ ಸಲ್ಲಿಕೆ ಯಶಸ್ವಿಯಾಗಿದೆ!</h2>
             </div>
@@ -778,7 +778,10 @@
                 <div id="modalAppNumber" style="font-size: 18px; font-weight: bold; color: #28a745; background-color: #e8f5e9; padding: 12px; border-radius: 6px; border: 1.5px dashed #28a745; margin-bottom: 20px;">
                     ಅರ್ಜಿ ಸಂಖ್ಯೆ: -
                 </div>
-                <button onclick="window.location.reload()" class="btn-submit" style="background-color: #28a745 !important; border:none; color:white; padding: 10px 25px; border-radius: 4px; font-weight: bold; cursor: pointer;">ಮುಚ್ಚಿ / Close</button>
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="downloadSubmittedForm()" class="btn-submit" style="background-color: #007bff !important; border:none; color:white; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;"><i class="fa fa-download"></i> ಡೌನ್‌ಲೋಡ್ / Download</button>
+                    <button onclick="window.location.reload()" class="btn-submit" style="background-color: #6c757d !important; border:none; color:white; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer;">ಮುಚ್ಚಿ / Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1179,6 +1182,7 @@
                 }
                 
                 if (res && res.ok) {
+                    window.lastSubmittedData = payload;
                     document.getElementById("modalAppNumber").textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}`;
                     document.getElementById("applyModal").style.display = "none";
                     document.getElementById("successModal").style.display = "flex";
@@ -1193,6 +1197,135 @@
                 submitBtn.disabled = false;
                 submitBtn.textContent = "ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Submit Application";
             }
+        }
+
+        function downloadSubmittedForm() {
+            if (!window.lastSubmittedData) return;
+            const data = window.lastSubmittedData;
+            const fd = data.formData;
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>ಅರ್ಜಿ ವಿವರಗಳು - ${data.paymentId}</title>
+                    <style>
+                        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; color: #333; line-height: 1.6; }
+                        .header { text-align: center; border-bottom: 2px solid #990000; padding-bottom: 20px; margin-bottom: 30px; }
+                        .header h1 { margin: 0; color: #990000; font-size: 24px; }
+                        .header h2 { margin: 5px 0 0 0; font-size: 16px; color: #666; }
+                        .photo-box { float: right; width: 120px; height: 150px; border: 1px solid #ccc; text-align: center; line-height: 150px; font-size: 12px; margin-bottom: 20px; }
+                        .photo-box img { width: 100%; height: 100%; object-fit: cover; }
+                        .details-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        .details-table th, .details-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+                        .details-table th { background-color: #f5f5f5; width: 40%; font-weight: bold; }
+                        .footer { margin-top: 50px; border-top: 1px solid #ccc; padding-top: 20px; display: flex; justify-content: space-between; }
+                        .footer-sign { text-align: center; width: 200px; }
+                        .footer-sign p { margin-top: 50px; border-top: 1px dashed #333; padding-top: 5px; font-weight: bold; }
+                        @media print {
+                            body { padding: 20px; }
+                            .no-print { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ / ಪಿಂಜಾರ್ ಸಂಘ</h1>
+                        <h2>ಅರ್ಜಿ ವಿವರಗಳು - ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ (Talent Reward Application)</h2>
+                    </div>
+                    
+                    <div style="overflow: hidden;">
+                        <div class="photo-box">
+                            ${fd.photo ? `<img src="${fd.photo}">` : 'ಫೋಟೋ / Photo'}
+                        </div>
+                        <div style="margin-right: 140px;">
+                            <h3>ಅರ್ಜಿ ಸಂಖ್ಯೆ (Application Number): <span style="color:#990000;">${data.paymentId}</span></h3>
+                            <p>ಅರ್ಜಿ ಸಲ್ಲಿಸಿದ ದಿನಾಂಕ (Date): ${new Date().toLocaleDateString('en-GB')}</p>
+                        </div>
+                    </div>
+                    
+                    <table class="details-table">
+                        <tr>
+                            <th>ವಿದ್ಯಾರ್ಥಿ ಹೆಸರು (Student Name)</th>
+                            <td>${fd.studentName || '-'}</td>
+                        </tr>
+                        <tr>
+                            <th>ತಂದೆ/ಪೋಷಕರ ಹೆಸರು (Father/Parent Name)</th>
+                            <td>${fd.fatherName || '-'}</td>
+                        </tr>
+                        <tr>
+                            <th>ಪೋಷಕರು/ರಕ್ಷಕರ ಹೆಸರು (Guardian Name)</th>
+                            <td>${fd.guardianName || '-'}</td>
+                        </tr>
+                        <tr>
+                            <th>ಪೋಷಕರ ವೃತ್ತಿ ಮತ್ತು ಆದಾಯ (Occupation & Income)</th>
+                            <td>${fd.parentOccupationIncome || '-'}</td>
+                        </tr>
+                        <tr>
+                            <th>ಪೂರ್ಣ ವಿಳಾಸ (Complete Address)</th>
+                            <td>${fd.completeAddress || '-'}</td>
+                        </tr>
+                        <tr>
+                            <th>ಆಧಾರ್ ಸಂಖ್ಯೆ (Aadhar Number)</th>
+                            <td>${fd.aadhar || '-'}</td>
+                        </tr>
+                        <tr>
+                            <th>ಆಜೀವ ಸದಸ್ಯತ್ವ ಹೊಂದಿರುವರೇ? (Life Membership Status)</th>
+                            <td>${fd.lifeMembership || '-'}</td>
+                        </tr>
+                        <tr>
+                            <th>ಪಡೆದ ಅಂಕಗಳು / ಫಲಿತಾಂಶದ ವಿವರ (Marks Details)</th>
+                            <td>${fd.marksDetails || '-'}</td>
+                        </tr>
+                        <tr>
+                            <th>ಪೋಷಕರು/ವಿದ್ಯಾರ್ಥಿ ಮೊಬೈಲ್ (Mobile)</th>
+                            <td>${fd.parentMobile || '-'}</td>
+                        </tr>
+                        <tr>
+                            <th>ಬ್ಯಾಂಕ್ ವಿವರಗಳು (Bank Details)</th>
+                            <td>${fd.bankDetails || '-'}</td>
+                        </tr>
+                        <tr>
+                            <th>ಜಿಲ್ಲೆ (District)</th>
+                            <td>${fd.city || '-'}</td>
+                        </tr>
+                        <tr>
+                            <th>ವರ್ಷ (Year)</th>
+                            <td>${fd.year || '-'}</td>
+                        </tr>
+                        <tr>
+                            <th>ವರ್ಗ (Class)</th>
+                            <td>${fd.category || '-'}</td>
+                        </tr>
+                        <tr>
+                            <th>ಕ್ಷೇತ್ರ (Field)</th>
+                            <td>${fd.field || '-'}</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="footer">
+                        <div class="footer-sign">
+                            <p>ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ<br>Student Signature</p>
+                        </div>
+                        <div class="footer-sign">
+                            <p>ತಂದೆ/ಪೋಷಕರ ಸಹಿ<br>Parent Signature</p>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        window.onload = function() {
+                            window.print();
+                        }
+                    </script>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            
+            setTimeout(() => {
+                alert("ವರದಿಯನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಿದ ನಂತರ ಆ ವರದಿಯನ್ನು ತೆಗೆದುಕೊಂಡು ನಿಮ್ಮ ರಾಜ್ಯ, ಜಿಲ್ಲೆ ಅಥವಾ ತಾಲ್ಲೂಕು ತಹಶೀಲ್ದಾರ್ ಕಚೇರಿಗೆ ಸಲ್ಲಿಸಿ.");
+            }, 1000);
         }
     </script>
 </body>
