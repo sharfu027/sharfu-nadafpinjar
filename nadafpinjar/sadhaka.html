@@ -1300,7 +1300,7 @@
                     margin: [10, 12, 10, 12],
                     filename: `Sadhaka_Award_${fd.studentName || 'Application'}.pdf`,
                     image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2, useCORS: true },
+                    html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0 },
                     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
                     pagebreak: { mode: 'avoid-all' }
                 };
@@ -1759,7 +1759,7 @@
                     margin:       [10, 12, 10, 12],
                     filename:     `Sadhaka_Award_${fd.studentName || 'Application'}.pdf`,
                     image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, useCORS: true },
+                    html2canvas:  { scale: 2, useCORS: true, scrollY: 0, scrollX: 0 },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
                     pagebreak:    { mode: 'avoid-all' }
                 };
