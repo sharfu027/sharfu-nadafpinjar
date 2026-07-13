@@ -1130,6 +1130,7 @@
                             font-size: 9.5px;
                             line-height: 1.25;
                             color: #000;
+                            page-break-inside: avoid !important;
                         }
                         .header-table {
                             width: 100%;
@@ -1422,7 +1423,8 @@
                     filename: `Pratibha_Puraskar_${fd.studentName || 'Application'}.pdf`,
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2, useCORS: true },
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                    pagebreak: { mode: 'avoid-all' }
                 };
                 await html2pdf().set(opt).from(element).save();
                 document.body.removeChild(element);
@@ -1580,6 +1582,7 @@
                             font-size: 9.5px;
                             line-height: 1.25;
                             color: #000;
+                            page-break-inside: avoid !important;
                         }
                         .header-table {
                             width: 100%;
@@ -1876,7 +1879,8 @@
                     filename:     `Pratibha_Puraskar_${fd.studentName || 'Application'}.pdf`,
                     image:        { type: 'jpeg', quality: 0.98 },
                     html2canvas:  { scale: 2, useCORS: true },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                    pagebreak:    { mode: 'avoid-all' }
                 };
 
                 await html2pdf().set(opt).from(element).save();
