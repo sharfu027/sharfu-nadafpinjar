@@ -1074,34 +1074,52 @@
             }
         }
 
-        function downloadSubmittedForm() {
+        function loadHtml2Pdf() {
+            return new Promise((resolve, reject) => {
+                if (window.html2pdf) {
+                    resolve(window.html2pdf);
+                    return;
+                }
+                const script = document.createElement('script');
+                script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+                script.onload = () => resolve(window.html2pdf);
+                script.onerror = () => reject(new Error("Failed to load html2pdf"));
+                document.head.appendChild(script);
+            });
+        }
+
+        async function downloadSubmittedForm() {
             if (!window.lastSubmittedData) return;
             const data = window.lastSubmittedData;
             const fd = data.formData;
             
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>ಅರ್ಜಿ ವಿವರಗಳು - ${data.paymentId}</title>
+            const downloadBtn = document.querySelector('button[onclick="downloadSubmittedForm()"]');
+            const originalText = downloadBtn ? downloadBtn.innerHTML : '';
+            if (downloadBtn) {
+                downloadBtn.disabled = true;
+                downloadBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> ಡೌನ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ...';
+            }
+
+            try {
+                const html2pdf = await loadHtml2Pdf();
+                
+                const element = document.createElement('div');
+                element.style.position = 'absolute';
+                element.style.left = '-9999px';
+                element.style.top = '0';
+                element.style.width = '790px'; // A4 width in pixels (~210mm)
+                element.style.backgroundColor = '#ffffff';
+                element.style.color = '#000000';
+                element.style.padding = '15px 25px';
+                element.style.boxSizing = 'border-box';
+                
+                element.innerHTML = `
                     <style>
-                        @page {
-                            size: A4 portrait;
-                            margin: 6mm 8mm 6mm 8mm;
-                        }
-                        body {
+                        .pdf-container {
                             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                            margin: 0;
-                            padding: 0;
-                            color: #000;
                             font-size: 11px;
                             line-height: 1.25;
-                        }
-                        .container {
-                            width: 100%;
-                            max-width: 100%;
-                            margin: 0 auto;
+                            color: #000;
                         }
                         .header-table {
                             width: 100%;
@@ -1267,19 +1285,8 @@
                             text-indent: -12px;
                             text-align: justify;
                         }
-                        @media print {
-                            body {
-                                -webkit-print-color-adjust: exact;
-                                print-color-adjust: exact;
-                            }
-                            .no-print {
-                                display: none;
-                            }
-                        }
                     </style>
-                </head>
-                <body>
-                    <div class="container">
+                    <div class="pdf-container">
                         <table class="header-table">
                             <tr>
                                 <td class="header-logo-left">
@@ -1393,32 +1400,42 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <script>
-                        window.onload = function() {
-                            const images = Array.from(document.images);
-                            const promises = images.map(img => {
-                                if (img.complete) return Promise.resolve();
-                                return new Promise(resolve => {
-                                    img.onload = resolve;
-                                    img.onerror = resolve;
-                                });
-                            });
-                            Promise.all(promises).then(() => {
-                                setTimeout(() => {
-                                    window.print();
-                                }, 500);
-                            });
-                        }
-                    <\/script>
-                </body>
-                </html>
-            `);
-            printWindow.document.close();
-            
-            setTimeout(() => {
-                alert("ವರದಿಯನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಿದ ನಂತರ ಆ ವರದಿಯನ್ನು ತೆಗೆದುಕೊಂಡು ನಿಮ್ಮ ರಾಜ್ಯ, ಜಿಲ್ಲೆ ಅಥವಾ ತಾಲ್ಲೂಕು ತಹಶೀಲ್ದಾರ್ ಕಚೇರಿಗೆ ಸಲ್ಲಿಸಿ.");
-            }, 1000);
+                `;
+
+                document.body.appendChild(element);
+
+                const images = Array.from(element.querySelectorAll('img'));
+                await Promise.all(images.map(img => {
+                    if (img.complete) return Promise.resolve();
+                    return new Promise(resolve => {
+                        img.onload = resolve;
+                        img.onerror = resolve;
+                    });
+                }));
+
+                const opt = {
+                    margin:       [6, 8, 6, 8],
+                    filename:     `Sadhaka_Award_${fd.studentName || 'Application'}.pdf`,
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, useCORS: true },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                await html2pdf().set(opt).from(element).save();
+                document.body.removeChild(element);
+
+                setTimeout(() => {
+                    alert("ವರದಿಯನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿದ ನಂತರ ಆ ವರದಿಯನ್ನು ತೆಗೆದುಕೊಂಡು ನಿಮ್ಮ ರಾಜ್ಯ, ಜಿಲ್ಲೆ ಅಥವಾ ತಾಲ್ಲೂಕು ತಹಶೀಲ್ದಾರ್ ಕಚೇರಿಗೆ ಸಲ್ಲಿಸಿ.");
+                }, 1000);
+            } catch (error) {
+                console.error("PDF generation error:", error);
+                alert("ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.");
+            } finally {
+                if (downloadBtn) {
+                    downloadBtn.disabled = false;
+                    downloadBtn.innerHTML = originalText;
+                }
+            }
         }
     </script>
 </body>
