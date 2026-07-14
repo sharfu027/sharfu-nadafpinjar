@@ -394,6 +394,64 @@
             border-color: #990000;
             outline: none;
         }
+
+        /* Mobile Responsiveness Styles */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        @media (max-width: 768px) {
+            .modal-wrapper {
+                max-height: 95vh !important;
+                margin: 10px !important;
+            }
+            .modal-body-scroll {
+                padding: 15px !important;
+            }
+        }
+        @media (max-width: 600px) {
+            .filter-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .filter-actions {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+            .filter-actions button {
+                width: 100% !important;
+            }
+            .structured-cards-container {
+                grid-template-columns: 1fr !important;
+            }
+            .pdf-form-table, .pdf-form-table tbody, .pdf-form-table tr, .pdf-form-table td {
+                display: block !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .pdf-form-table td.sl-no {
+                display: none !important;
+            }
+            .pdf-form-table td.field-label {
+                background: #fdf2e2 !important;
+                border-bottom: none !important;
+                padding-top: 10px !important;
+                padding-bottom: 5px !important;
+            }
+            .pdf-form-table td.field-input {
+                border-top: none !important;
+                padding-top: 5px !important;
+                padding-bottom: 12px !important;
+            }
+        }
+        @media (max-width: 500px) {
+            .header-text h1 {
+                font-size: 15px !important;
+            }
+            .header-text h2, .header-text h3 {
+                font-size: 12px !important;
+            }
+        }
     </style>
 </head>
 <body>
