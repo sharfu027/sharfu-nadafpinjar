@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="kn">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ - Karnataka State Nadaf / Pinjar Sangha</title>
@@ -1126,16 +1129,16 @@
                 element.innerHTML = `
                     <style>
                         .pdf-container {
-                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                            font-size: 8.5px;
-                            line-height: 1.2;
+                            font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
+                            font-size: 11px;
+                            line-height: 1.35;
                             color: #000;
                             page-break-inside: avoid !important;
                         }
                         .header-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-bottom: 3px;
+                            margin-bottom: 8px;
                         }
                         .header-table td {
                             border: none !important;
@@ -1147,8 +1150,8 @@
                             text-align: left;
                         }
                         .header-logo-left img {
-                            width: 44px;
-                            height: 44px;
+                            width: 55px;
+                            height: 55px;
                             object-fit: contain;
                         }
                         .header-logo-right {
@@ -1156,8 +1159,8 @@
                             text-align: right;
                         }
                         .header-logo-right img {
-                            width: 44px;
-                            height: 44px;
+                            width: 55px;
+                            height: 55px;
                             object-fit: contain;
                         }
                         .header-text {
@@ -1165,29 +1168,29 @@
                         }
                         .header-text h1 {
                             margin: 0;
-                            font-size: 11.5px;
+                            font-size: 15px;
                             font-weight: bold;
                             color: #000;
                         }
                         .header-text h2 {
-                            margin: 1px 0 0 0;
-                            font-size: 8.5px;
+                            margin: 2px 0 0 0;
+                            font-size: 11px;
                             font-weight: bold;
                         }
                         .header-text h3 {
-                            margin: 2px 0 0 0;
-                            font-size: 9px;
+                            margin: 3px 0 0 0;
+                            font-size: 12px;
                             font-weight: bold;
                             text-decoration: underline;
                         }
                         .details-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-top: 2px;
+                            margin-top: 5px;
                         }
                         .details-table th, .details-table td {
                             border: 1px solid #000 !important;
-                            padding: 1.5px 3.5px !important;
+                            padding: 4px 7px !important;
                             text-align: left;
                             vertical-align: middle;
                         }
@@ -1197,46 +1200,46 @@
                             font-weight: bold;
                         }
                         .details-table .label-col {
-                            width: 35%;
+                            width: 33%;
                             font-weight: bold;
                         }
                         .details-table .value-col {
-                            width: 60%;
+                            width: 62%;
                         }
                         .details-table .value-col-split {
-                            width: 45%;
+                            width: 47%;
                         }
                         .photo-cell {
                             text-align: center;
                             vertical-align: middle;
-                            padding: 1px !important;
+                            padding: 2px !important;
                             width: 15%;
-                            height: 60px;
+                            height: 90px;
                         }
                         .photo-cell img {
-                            width: 60px;
-                            height: 66px;
+                            width: 80px;
+                            height: 95px;
                             object-fit: cover;
                             display: block;
                             margin: 0 auto;
                             border: 1px solid #000;
                         }
                         .photo-placeholder {
-                            font-size: 6.5px;
+                            font-size: 8.5px;
                             border: 1px dashed #555;
-                            width: 60px;
-                            height: 66px;
+                            width: 80px;
+                            height: 95px;
                             display: flex;
                             align-items: center;
                             justify-content: center;
                             margin: 0 auto;
                             background: #fafafa;
-                            line-height: 1.1;
+                            line-height: 1.2;
                         }
                         .signature-section {
                             width: 100%;
-                            margin-top: 8px;
-                            margin-bottom: 3px;
+                            margin-top: 15px;
+                            margin-bottom: 12px;
                         }
                         .signature-table {
                             width: 100%;
@@ -1244,33 +1247,33 @@
                         }
                         .signature-table td {
                             border: none !important;
-                            padding: 1px 0 !important;
-                            font-size: 8.5px;
+                            padding: 2px 0 !important;
+                            font-size: 11px;
                             white-space: nowrap;
                         }
                         .recommendation-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-top: 2px;
-                            margin-bottom: 3px;
+                            margin-top: 5px;
+                            margin-bottom: 8px;
                         }
                         .recommendation-table td {
                             border: 1px solid #000 !important;
-                            padding: 3px 5px !important;
+                            padding: 6px 8px !important;
                             width: 50%;
                             vertical-align: top;
-                            height: 75px;
+                            height: 110px;
                         }
                         .recommendation-title {
                             font-weight: bold;
                             text-align: center;
-                            margin-bottom: 1px;
-                            font-size: 8.5px;
+                            margin-bottom: 3px;
+                            font-size: 11px;
                         }
                         .recommendation-subtitle {
-                            font-size: 7.5px;
+                            font-size: 9.5px;
                             text-align: center;
-                            margin-bottom: 2px;
+                            margin-bottom: 4px;
                             color: #333;
                         }
                         .committee-section {
@@ -1281,18 +1284,18 @@
                         .committee-title {
                             text-align: center;
                             font-weight: bold;
-                            font-size: 9px;
-                            margin-bottom: 1px;
+                            font-size: 12px;
+                            margin-bottom: 4px;
                             text-decoration: underline;
                         }
                         .committee-text {
-                            font-size: 8.5px;
-                            line-height: 1.2;
+                            font-size: 11.5px;
+                            line-height: 1.35;
                         }
                         .committee-bullet {
-                            margin-top: 2px;
-                            padding-left: 10px;
-                            text-indent: -10px;
+                            margin-top: 4px;
+                            padding-left: 12px;
+                            text-indent: -12px;
                             text-align: justify;
                         }
                     </style>
@@ -1373,11 +1376,11 @@
                             <table class="signature-table">
                                 <tr>
                                     <td style="width: 33%; text-align: left; vertical-align: top;"><strong>ದಿನಾಂಕ :</strong> _________________</td>
-                                    <td style="width: 34%; text-align: center; height: 22px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ ರುಜು</td>
-                                    <td style="width: 33%; text-align: right; height: 22px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ರುಜು</td>
+                                    <td style="width: 34%; text-align: center; height: 30px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ ರುಜು</td>
+                                    <td style="width: 33%; text-align: right; height: 30px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ರುಜು</td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> _________________</td>
+                                    <td style="text-align: left; vertical-align: top; padding-top: 6px;"><strong>ಸ್ಥಳ :</strong> _________________</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -1576,16 +1579,16 @@
                 element.innerHTML = `
                     <style>
                         .pdf-container {
-                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                            font-size: 8.5px;
-                            line-height: 1.2;
+                            font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
+                            font-size: 11px;
+                            line-height: 1.35;
                             color: #000;
                             page-break-inside: avoid !important;
                         }
                         .header-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-bottom: 3px;
+                            margin-bottom: 8px;
                         }
                         .header-table td {
                             border: none !important;
@@ -1597,8 +1600,8 @@
                             text-align: left;
                         }
                         .header-logo-left img {
-                            width: 44px;
-                            height: 44px;
+                            width: 55px;
+                            height: 55px;
                             object-fit: contain;
                         }
                         .header-logo-right {
@@ -1606,8 +1609,8 @@
                             text-align: right;
                         }
                         .header-logo-right img {
-                            width: 44px;
-                            height: 44px;
+                            width: 55px;
+                            height: 55px;
                             object-fit: contain;
                         }
                         .header-text {
@@ -1615,29 +1618,29 @@
                         }
                         .header-text h1 {
                             margin: 0;
-                            font-size: 11.5px;
+                            font-size: 15px;
                             font-weight: bold;
                             color: #000;
                         }
                         .header-text h2 {
-                            margin: 1px 0 0 0;
-                            font-size: 8.5px;
+                            margin: 2px 0 0 0;
+                            font-size: 11px;
                             font-weight: bold;
                         }
                         .header-text h3 {
-                            margin: 2px 0 0 0;
-                            font-size: 9px;
+                            margin: 3px 0 0 0;
+                            font-size: 12px;
                             font-weight: bold;
                             text-decoration: underline;
                         }
                         .details-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-top: 2px;
+                            margin-top: 5px;
                         }
                         .details-table th, .details-table td {
                             border: 1px solid #000 !important;
-                            padding: 1.5px 3.5px !important;
+                            padding: 4px 7px !important;
                             text-align: left;
                             vertical-align: middle;
                         }
@@ -1647,46 +1650,46 @@
                             font-weight: bold;
                         }
                         .details-table .label-col {
-                            width: 35%;
+                            width: 33%;
                             font-weight: bold;
                         }
                         .details-table .value-col {
-                            width: 60%;
+                            width: 62%;
                         }
                         .details-table .value-col-split {
-                            width: 45%;
+                            width: 47%;
                         }
                         .photo-cell {
                             text-align: center;
                             vertical-align: middle;
-                            padding: 1px !important;
+                            padding: 2px !important;
                             width: 15%;
-                            height: 60px;
+                            height: 90px;
                         }
                         .photo-cell img {
-                            width: 60px;
-                            height: 66px;
+                            width: 80px;
+                            height: 95px;
                             object-fit: cover;
                             display: block;
                             margin: 0 auto;
                             border: 1px solid #000;
                         }
                         .photo-placeholder {
-                            font-size: 6.5px;
+                            font-size: 8.5px;
                             border: 1px dashed #555;
-                            width: 60px;
-                            height: 66px;
+                            width: 80px;
+                            height: 95px;
                             display: flex;
                             align-items: center;
                             justify-content: center;
                             margin: 0 auto;
                             background: #fafafa;
-                            line-height: 1.1;
+                            line-height: 1.2;
                         }
                         .signature-section {
                             width: 100%;
-                            margin-top: 8px;
-                            margin-bottom: 3px;
+                            margin-top: 15px;
+                            margin-bottom: 12px;
                         }
                         .signature-table {
                             width: 100%;
@@ -1694,33 +1697,33 @@
                         }
                         .signature-table td {
                             border: none !important;
-                            padding: 1px 0 !important;
-                            font-size: 8.5px;
+                            padding: 2px 0 !important;
+                            font-size: 11px;
                             white-space: nowrap;
                         }
                         .recommendation-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-top: 2px;
-                            margin-bottom: 3px;
+                            margin-top: 5px;
+                            margin-bottom: 8px;
                         }
                         .recommendation-table td {
                             border: 1px solid #000 !important;
-                            padding: 3px 5px !important;
+                            padding: 6px 8px !important;
                             width: 50%;
                             vertical-align: top;
-                            height: 75px;
+                            height: 110px;
                         }
                         .recommendation-title {
                             font-weight: bold;
                             text-align: center;
-                            margin-bottom: 1px;
-                            font-size: 8.5px;
+                            margin-bottom: 3px;
+                            font-size: 11px;
                         }
                         .recommendation-subtitle {
-                            font-size: 7.5px;
+                            font-size: 9.5px;
                             text-align: center;
-                            margin-bottom: 2px;
+                            margin-bottom: 4px;
                             color: #333;
                         }
                         .committee-section {
@@ -1731,18 +1734,18 @@
                         .committee-title {
                             text-align: center;
                             font-weight: bold;
-                            font-size: 9px;
-                            margin-bottom: 1px;
+                            font-size: 12px;
+                            margin-bottom: 4px;
                             text-decoration: underline;
                         }
                         .committee-text {
-                            font-size: 8.5px;
-                            line-height: 1.2;
+                            font-size: 11.5px;
+                            line-height: 1.35;
                         }
                         .committee-bullet {
-                            margin-top: 2px;
-                            padding-left: 10px;
-                            text-indent: -10px;
+                            margin-top: 4px;
+                            padding-left: 12px;
+                            text-indent: -12px;
                             text-align: justify;
                         }
                     </style>
@@ -1823,11 +1826,11 @@
                             <table class="signature-table">
                                 <tr>
                                     <td style="width: 33%; text-align: left; vertical-align: top;"><strong>ದಿನಾಂಕ :</strong> _________________</td>
-                                    <td style="width: 34%; text-align: center; height: 22px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ ರುಜು</td>
-                                    <td style="width: 33%; text-align: right; height: 22px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ರುಜು</td>
+                                    <td style="width: 34%; text-align: center; height: 30px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ ರುಜು</td>
+                                    <td style="width: 33%; text-align: right; height: 30px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ರುಜು</td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> _________________</td>
+                                    <td style="text-align: left; vertical-align: top; padding-top: 6px;"><strong>ಸ್ಥಳ :</strong> _________________</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
