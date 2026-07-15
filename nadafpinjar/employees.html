@@ -551,12 +551,24 @@
                 localStorage.setItem('admin_employees_submissions', JSON.stringify(submissions));
             };
 
-            fetch('https://nadafpinjar-production.up.railway.app/api/donations', {
+            let apiPromise = fetch('/api/donations', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dataToSave)
             })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error("Local save failed");
+                return res.json();
+            })
+            .catch(() => {
+                return fetch('https://nadafpinjar-production.up.railway.app/api/donations', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dataToSave)
+                }).then(res => res.json());
+            });
+
+            apiPromise
             .then(data => {
                 if (data.success) {
                     saveLocally(appNumber);
