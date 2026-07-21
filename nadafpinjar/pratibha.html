@@ -979,6 +979,89 @@
         let allStudents = [];
         let base64Photo = "";
 
+        function translateToKannada(str, fieldType = 'general') {
+            if (!str || typeof str !== 'string') return str || '';
+            let val = str.trim();
+            if (!val) return '';
+
+            // Status / Remarks
+            if (fieldType === 'status' || /^(approved|rejected|pending|ಅನುಮೋದಿಸಲಾಗಿದೆ|ತಿರಸ್ಕರಿಸಲಾಗಿದೆ|ನಿರೀಕ್ಷೆಯಲ್ಲಿದೆ)$/i.test(val)) {
+                if (/^(approved|ಅನುಮೋದಿಸಲಾಗಿದೆ)$/i.test(val)) return 'ಅನುಮೋದಿಸಲಾಗಿದೆ';
+                if (/^(rejected|ತಿರಸ್ಕರಿಸಲಾಗಿದೆ)$/i.test(val)) return 'ತಿರಸ್ಕರಿಸಲಾಗಿದೆ';
+                if (/^(pending|ನಿರೀಕ್ಷೆಯಲ್ಲಿದೆ)$/i.test(val)) return 'ನಿರೀಕ್ಷೆಯಲ್ಲಿದೆ';
+            }
+
+            // Life Membership / Yes-No
+            if (fieldType === 'membership' || /^(yes|no|y|n|true|false|ಹೌದು|ಇಲ್ಲ)$/i.test(val)) {
+                if (/^(yes|y|true|ಹೌದು)$/i.test(val)) return 'ಹೌದು';
+                if (/^(no|n|false|ಇಲ್ಲ)$/i.test(val)) return 'ಇಲ್ಲ';
+            }
+
+            // Category
+            if (fieldType === 'category') {
+                const lower = val.toLowerCase();
+                if (lower.includes('sslc') || lower.includes('10th')) return '೧೦ ನೇ ತರಗತಿ (SSLC)';
+                if (lower.includes('puc') || lower.includes('12th')) return 'ದ್ವಿತೀಯ ಪಿಯುಸಿ (PUC)';
+                if (lower.includes('degree') || lower.includes('graduate') || lower.includes('ba') || lower.includes('bsc') || lower.includes('bcom') || lower.includes('be') || lower.includes('btech')) return 'ಪದವಿ';
+                if (lower.includes('pg') || lower.includes('post graduate') || lower.includes('ma') || lower.includes('msc') || lower.includes('mcom')) return 'ಸ್ನಾತಕೋತ್ತರ ಪದವಿ';
+                if (lower.includes('diploma')) return 'ಡಿಪ್ಲೊಮಾ';
+                if (lower.includes('sports')) return 'ಕ್ರೀಡೆ';
+                if (lower.includes('art') || lower.includes('culture')) return 'ಕಲೆ ಮತ್ತು ಸಾಂಸ್ಕೃತಿಕ';
+                if (lower.includes('literature')) return 'ಸಾಹಿತ್ಯ';
+                if (lower.includes('agri')) return 'ಕೃಷಿ';
+                if (lower.includes('social')) return 'ಸಮಾಜ ಸೇವೆ';
+                if (lower.includes('edu')) return 'ಶಿಕ್ಷಣ';
+                if (lower.includes('science') || lower.includes('tech')) return 'ವಿಜ್ಞಾನ ಮತ್ತು ತಂತ್ರಜ್ಞಾನ';
+                if (lower.includes('other')) return 'ಇತರ';
+            }
+
+            // Field
+            if (fieldType === 'field') {
+                const lower = val.toLowerCase();
+                if (lower.includes('sports')) return 'ಕ್ರೀಡಾ ಕ್ಷೇತ್ರ';
+                if (lower.includes('art') || lower.includes('culture')) return 'ಕಲಾ ಕ್ಷೇತ್ರ';
+                if (lower.includes('literature')) return 'ಸಾಹಿತ್ಯ ಕ್ಷೇತ್ರ';
+                if (lower.includes('agri')) return 'ಕೃಷಿ ಕ್ಷೇತ್ರ';
+                if (lower.includes('social')) return 'ಸಮಾಜ ಸೇವಾ ಕ್ಷೇತ್ರ';
+                if (lower.includes('edu')) return 'ಶಿಕ್ಷಣ ಕ್ಷೇತ್ರ';
+                if (lower.includes('science') || lower.includes('tech')) return 'ವಿಜ್ಞಾನ ಮತ್ತು ತಂತ್ರಜ್ಞಾನ ಕ್ಷೇತ್ರ';
+                if (lower.includes('other')) return 'ಇತರ ಕ್ಷೇತ್ರ';
+            }
+
+            // Dictionary replacements for common English words
+            const dict = [
+                { en: /\b(Yes)\b/gi, kn: 'ಹೌದು' },
+                { en: /\b(No)\b/gi, kn: 'ಇಲ್ಲ' },
+                { en: /\b(Approved)\b/gi, kn: 'ಅನುಮೋದಿಸಲಾಗಿದೆ' },
+                { en: /\b(Rejected)\b/gi, kn: 'ತಿರಸ್ಕರಿಸಲಾಗಿದೆ' },
+                { en: /\b(Pending)\b/gi, kn: 'ನಿರೀಕ್ಷೆಯಲ್ಲಿದೆ' },
+                { en: /\b(Sports)\b/gi, kn: 'ಕ್ರೀಡೆ' },
+                { en: /\b(Arts?|Culture)\b/gi, kn: 'ಕಲೆ' },
+                { en: /\b(Literature)\b/gi, kn: 'ಸಾಹಿತ್ಯ' },
+                { en: /\b(Agriculture)\b/gi, kn: 'ಕೃಷಿ' },
+                { en: /\b(Social Service|Social Work)\b/gi, kn: 'ಸಮಾಜ ಸೇವೆ' },
+                { en: /\b(Education)\b/gi, kn: 'ಶಿಕ್ಷಣ' },
+                { en: /\b(Science)\b/gi, kn: 'ವಿಜ್ಞಾನ' },
+                { en: /\b(Technology)\b/gi, kn: 'ತಂತ್ರಜ್ಞಾನ' },
+                { en: /\b(Teacher)\b/gi, kn: 'ಶಿಕ್ಷಕ' },
+                { en: /\b(Student)\b/gi, kn: 'ವಿದ್ಯಾರ್ಥಿ' },
+                { en: /\b(Farmer)\b/gi, kn: 'ರೈತ' },
+                { en: /\b(Housewife)\b/gi, kn: 'ಗೃಹಿಣಿ' },
+                { en: /\b(Business)\b/gi, kn: 'ವ್ಯಾಪಾರ' },
+                { en: /\b(Doctor)\b/gi, kn: 'ವೈದ್ಯ' },
+                { en: /\b(Engineer)\b/gi, kn: 'ಎಂಜಿನಿಯರ್' },
+                { en: /\b(Lawyer|Advocate)\b/gi, kn: 'ವಕೀಲ' },
+                { en: /\b(Others?)\b/gi, kn: 'ಇತರ' }
+            ];
+
+            let result = val;
+            dict.forEach(item => {
+                result = result.replace(item.en, item.kn);
+            });
+
+            return result;
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             // Load marquee setting
             fetchMarqueeSetting();
@@ -1016,25 +1099,25 @@
                 if (data.success && data.donations) {
                     // Filter for approved Pratibha Puraskar submissions
                     allStudents = data.donations
-                        .filter(doc => doc.formType === "ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ" && doc.formData && doc.formData.status === "Approved")
+                        .filter(doc => doc.formType === "ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ" && doc.formData && (doc.formData.status === "Approved" || doc.formData.status === "ಅನುಮೋದಿಸಲಾಗಿದೆ"))
                         .map(doc => ({
                             id: doc.paymentId,
                             studentName: doc.formData.studentName,
                             fatherName: doc.formData.fatherName,
                             guardianName: doc.formData.guardianName || "-",
-                            parentOccupationIncome: doc.formData.parentOccupationIncome || doc.formData.occupationIncome || "-",
+                            parentOccupationIncome: translateToKannada(doc.formData.parentOccupationIncome || doc.formData.occupationIncome || "-"),
                             completeAddress: doc.formData.completeAddress || doc.formData.address || "-",
                             aadhar: doc.formData.aadhar || "-",
-                            lifeMembership: doc.formData.lifeMembership || "-",
+                            lifeMembership: translateToKannada(doc.formData.lifeMembership || "-", 'membership'),
                             marksDetails: doc.formData.marksDetails || doc.formData.marksDocs || "-",
                             parentMobile: doc.formData.parentMobile || doc.formData.mobile || "-",
                             bankDetails: doc.formData.bankDetails || "-",
                             city: doc.formData.city,
                             year: doc.formData.year,
-                            category: doc.formData.category,
-                            field: doc.formData.field,
+                            category: translateToKannada(doc.formData.category, 'category'),
+                            field: translateToKannada(doc.formData.field, 'field'),
                             photo: doc.formData.photo,
-                            remarks: doc.formData.remarks || ""
+                            remarks: translateToKannada(doc.formData.remarks || doc.formData.status || "ಅನುಮೋದಿಸಲಾಗಿದೆ", 'status')
                         }));
 
                     renderShowcase(allStudents);
@@ -1126,31 +1209,30 @@
             document.getElementById("detName").textContent = student.studentName || "-";
             document.getElementById("detFather").textContent = student.fatherName || "-";
             document.getElementById("detGuardian").textContent = student.guardianName || "-";
-            document.getElementById("detIncome").textContent = student.parentOccupationIncome || "-";
+            document.getElementById("detIncome").textContent = translateToKannada(student.parentOccupationIncome) || "-";
             document.getElementById("detAddress").textContent = student.completeAddress || "-";
             document.getElementById("detAadhar").textContent = student.aadhar || "-";
-            document.getElementById("detMembership").textContent = student.lifeMembership || "-";
+            document.getElementById("detMembership").textContent = translateToKannada(student.lifeMembership, 'membership') || "-";
             document.getElementById("detMarks").textContent = student.marksDetails || "-";
             document.getElementById("detMobile").textContent = student.parentMobile || "-";
             document.getElementById("detBank").textContent = student.bankDetails || "-";
             document.getElementById("detCity").textContent = student.city || "-";
             document.getElementById("detYear").textContent = student.year || "-";
-            document.getElementById("detCategory").textContent = student.category || "-";
-            document.getElementById("detField").textContent = student.field || "-";
+            document.getElementById("detCategory").textContent = translateToKannada(student.category, 'category') || "-";
+            document.getElementById("detField").textContent = translateToKannada(student.field, 'field') || "-";
             
             const remarksSpan = document.getElementById("detRemarks");
             const remarksBox = document.getElementById("detRemarksBox");
-            const remarksVal = student.remarks || student.status || "Approved";
+            const remarksVal = translateToKannada(student.remarks || student.status || "ಅನುಮೋದಿಸಲಾಗಿದೆ", 'status');
             if (remarksVal) {
                 remarksSpan.textContent = remarksVal;
                 remarksBox.style.display = "block";
-                const textLower = remarksVal.trim().toLowerCase();
-                if (textLower.includes("approved") || textLower.includes("ಅನುಮೋದಿಸಲಾಗಿದೆ")) {
+                if (remarksVal.includes("ಅನುಮೋದಿಸಲಾಗಿದೆ") || remarksVal.toLowerCase().includes("approved")) {
                     remarksSpan.style.color = "#155724";
                     remarksSpan.style.fontWeight = "bold";
                     remarksBox.style.borderLeftColor = "#28a745";
                     remarksBox.style.backgroundColor = "#e8f5e9";
-                } else if (textLower.includes("rejected")) {
+                } else if (remarksVal.includes("ತಿರಸ್ಕರಿಸಲಾಗಿದೆ") || remarksVal.toLowerCase().includes("rejected")) {
                     remarksSpan.style.color = "#721c24";
                     remarksSpan.style.fontWeight = "bold";
                     remarksBox.style.borderLeftColor = "#dc3545";
@@ -1599,18 +1681,18 @@
                     studentName: document.getElementById("studentName").value,
                     fatherName: document.getElementById("fatherName").value,
                     guardianName: document.getElementById("guardianName").value,
-                    parentOccupationIncome: document.getElementById("parentOccupationIncome").value,
+                    parentOccupationIncome: translateToKannada(document.getElementById("parentOccupationIncome").value),
                     completeAddress: document.getElementById("completeAddress").value,
                     aadhar: document.getElementById("aadhar").value,
-                    lifeMembership: document.getElementById("lifeMembership").value,
+                    lifeMembership: translateToKannada(document.getElementById("lifeMembership").value, 'membership'),
                     marksDetails: document.getElementById("marksDetails").value,
                     parentMobile: document.getElementById("parentMobile").value,
                     bankDetails: document.getElementById("bankDetails").value,
                     photo: base64Photo,
                     city: document.getElementById("city").value,
                     year: document.getElementById("year").value,
-                    category: document.getElementById("category").value,
-                    field: document.getElementById("field").value,
+                    category: translateToKannada(document.getElementById("category").value, 'category'),
+                    field: translateToKannada(document.getElementById("field").value, 'field'),
                     status: "Pending",
                     remarks: ""
                 }
