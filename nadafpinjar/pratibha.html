@@ -1514,7 +1514,10 @@
                 await html2pdf().set(opt).from(element).save();
                 document.body.removeChild(element);
 
-                if (shouldShowDownloadAlert("showcase", window.currentViewedStudent ? window.currentViewedStudent.id : "showcase")) {
+                const studentId = (window.currentViewedStudent && window.currentViewedStudent.id) 
+                    ? window.currentViewedStudent.id 
+                    : (window.currentViewedStudent && window.currentViewedStudent.studentName ? window.currentViewedStudent.studentName : "showcase");
+                if (shouldShowDownloadAlert("showcase", studentId)) {
                     setTimeout(() => {
                         alert("ವರದಿಯನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಿದ ನಂತರ, ಆ ವರದಿಯನ್ನು ತೆಗೆದುಕೊಂಡು ನಿಮ್ಮ ರಾಜ್ಯ, ಜಿಲ್ಲೆ ಅಥವಾ ತಾಲ್ಲೂಕು ಘಟಕದ ಕಚೇರಿಗೆ ಸಲ್ಲಿಸಿ.");
                     }, 1000);
@@ -1529,12 +1532,16 @@
 
         function shouldShowDownloadAlert(type, id) {
             try {
-                const key = "dl_count_" + type + "_" + (id || "default");
-                let count = parseInt(localStorage.getItem(key) || "0", 10) + 1;
-                localStorage.setItem(key, count.toString());
-                return count <= 2;
-            } catch (e) {
+                const cleanId = String(id || "gen").replace(/[^a-zA-Z0-9_-]/g, "_");
+                const key = "dl_cnt_" + type + "_" + cleanId;
+                let count = parseInt(localStorage.getItem(key) || "0", 10);
+                if (count >= 2) {
+                    return false;
+                }
+                localStorage.setItem(key, (count + 1).toString());
                 return true;
+            } catch (e) {
+                return false;
             }
         }
 
