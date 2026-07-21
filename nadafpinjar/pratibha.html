@@ -1514,14 +1514,27 @@
                 await html2pdf().set(opt).from(element).save();
                 document.body.removeChild(element);
 
-                setTimeout(() => {
-                    alert("ವರದಿಯನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಿದ ನಂತರ, ಆ ವರದಿಯನ್ನು ತೆಗೆದುಕೊಂಡು ನಿಮ್ಮ ರಾಜ್ಯ, ಜಿಲ್ಲೆ ಅಥವಾ ತಾಲ್ಲೂಕು ಘಟಕದ ಕಚೇರಿಗೆ ಸಲ್ಲಿಸಿ.");
-                }, 1000);
+                if (shouldShowDownloadAlert("showcase", window.currentViewedStudent ? window.currentViewedStudent.id : "showcase")) {
+                    setTimeout(() => {
+                        alert("ವರದಿಯನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಿದ ನಂತರ, ಆ ವರದಿಯನ್ನು ತೆಗೆದುಕೊಂಡು ನಿಮ್ಮ ರಾಜ್ಯ, ಜಿಲ್ಲೆ ಅಥವಾ ತಾಲ್ಲೂಕು ಘಟಕದ ಕಚೇರಿಗೆ ಸಲ್ಲಿಸಿ.");
+                    }, 1000);
+                }
             } catch (error) {
                 console.error("PDF generation error:", error);
                 alert("ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.");
             } finally {
                 if (downloadBtn) { downloadBtn.disabled = false; downloadBtn.innerHTML = originalText; }
+            }
+        }
+
+        function shouldShowDownloadAlert(type, id) {
+            try {
+                const key = "dl_count_" + type + "_" + (id || "default");
+                let count = parseInt(localStorage.getItem(key) || "0", 10) + 1;
+                localStorage.setItem(key, count.toString());
+                return count <= 2;
+            } catch (e) {
+                return true;
             }
         }
 
@@ -1975,9 +1988,12 @@
                 await html2pdf().set(opt).from(element).save();
                 document.body.removeChild(element);
 
-                setTimeout(() => {
-                    alert("ವರದಿಯನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಿದ ನಂತರ, ಆ ವರದಿಯನ್ನು ತೆಗೆದುಕೊಂಡು ನಿಮ್ಮ ರಾಜ್ಯ, ಜಿಲ್ಲೆ ಅಥವಾ ತಾಲ್ಲೂಕು ಘಟಕದ ಕಚೇರಿಗೆ ಸಲ್ಲಿಸಿ.");
-                }, 1000);
+                const subId = data.paymentId || (fd ? fd.studentName : "submitted");
+                if (shouldShowDownloadAlert("submitted", subId)) {
+                    setTimeout(() => {
+                        alert("ವರದಿಯನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಿದ ನಂತರ, ಆ ವರದಿಯನ್ನು ತೆಗೆದುಕೊಂಡು ನಿಮ್ಮ ರಾಜ್ಯ, ಜಿಲ್ಲೆ ಅಥವಾ ತಾಲ್ಲೂಕು ಘಟಕದ ಕಚೇರಿಗೆ ಸಲ್ಲಿಸಿ.");
+                    }, 1000);
+                }
             } catch (error) {
                 console.error("PDF generation error:", error);
                 alert("ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.");
