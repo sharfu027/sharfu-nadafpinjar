@@ -499,7 +499,7 @@
                 margin: [5, 8, 5, 8],
                 filename: `Higher_Education_Aid_${fd.studentName || 'Application'}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, logging: false },
+                html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, logging: false },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
