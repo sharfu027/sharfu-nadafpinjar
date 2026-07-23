@@ -148,7 +148,7 @@
 
         <main class="admin-content">
             <div class="page-title-bar">
-                <span>Life Membership Applications (ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿಗಳು)</span>
+                <span><i class="fa fa-id-card" style="margin-right:8px; color:#990000;"></i> Life Membership Applications (ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿಗಳು)</span>
             </div>
 
             <!-- Toggle Marquee Banner Setting -->
@@ -157,13 +157,13 @@
                     <input type="checkbox" id="marqueeToggle" onchange="toggleMarqueeSetting(this)">
                     <span class="slider"></span>
                 </label>
-                <span class="switch-label">Enable "ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿ" Marquee Banner on Public Page</span>
+                <span class="switch-label"><i class="fa fa-id-card" style="margin-right:6px; color:#990000;"></i> Enable "ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿ" Marquee Banner on Public Page</span>
             </div>
 
             <!-- Filters Card -->
             <div class="admin-card">
                 <div class="card-header">
-                    <span>Search and Filter Applications</span>
+                    <span><i class="fa fa-filter"></i> Search and Filter Applications</span>
                 </div>
                 <div class="card-body">
                     <form id="filterForm" class="filter-bar" style="border:none; padding:0; margin:0;">
@@ -191,7 +191,7 @@
             <!-- Table Card -->
             <div class="admin-card" style="margin-top: 20px;">
                 <div class="card-header">
-                    <span>Submitted Applications</span>
+                    <span><i class="fa fa-id-card"></i> Submitted Applications</span>
                 </div>
                 <div class="card-body" style="padding:0;">
                     <div class="table-responsive">
@@ -457,13 +457,19 @@
 
                 if (validApps.length === 0 && deletedIds.length === 0) {
                     validApps = getDemoData();
+                } else if (validApps.length === 0) {
+                    validApps = getDemoData().filter(d => !deletedIds.includes(d.id));
                 }
 
                 allApplications = validApps;
                 renderTable(allApplications);
             } catch(e) {
                 console.error("Error loading:", e);
-                allApplications = getDemoData();
+                let deletedIds = [];
+                try {
+                    deletedIds = JSON.parse(localStorage.getItem("nadaf_deleted_lifemembership_ids") || "[]");
+                } catch(err) {}
+                allApplications = getDemoData().filter(d => !deletedIds.includes(d.id));
                 renderTable(allApplications);
             }
         }

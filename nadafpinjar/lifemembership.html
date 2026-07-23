@@ -830,16 +830,28 @@
                     return !isDeleted && !isRejected;
                 });
 
+                let finalApps = validApps;
+                if (validApps.length === 0 && deletedIds.length === 0) {
+                    finalApps = getDemoData();
+                } else if (validApps.length === 0) {
+                    finalApps = getDemoData().filter(d => !deletedIds.includes(d.id));
+                }
+
                 // Update local storage to stay in sync
                 try {
-                    localStorage.setItem("nadaf_lifemembership_applications", JSON.stringify(validApps));
+                    localStorage.setItem("nadaf_lifemembership_applications", JSON.stringify(finalApps));
                 } catch(e) {}
 
-                allApplications = validApps.length > 0 ? validApps : getDemoData();
+                allApplications = finalApps;
                 renderShowcaseTable(allApplications);
             } catch(e) {
                 console.error("Error loading applications:", e);
-                allApplications = getDemoData();
+                let deletedIds = [];
+                try {
+                    deletedIds = JSON.parse(localStorage.getItem("nadaf_deleted_lifemembership_ids") || "[]");
+                } catch(err) {}
+                const demo = getDemoData().filter(d => !deletedIds.includes(d.id));
+                allApplications = demo;
                 renderShowcaseTable(allApplications);
             }
         }
