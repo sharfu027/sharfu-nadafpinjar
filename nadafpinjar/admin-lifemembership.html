@@ -743,103 +743,103 @@
                             <td style="padding:0!important; border:none!important; vertical-align:top;" colspan="3">
                                 <table style="width:100%; border-collapse:collapse;">
                                     <tr>
-                                        <td class="sl-col" style="width:6%; border:1px solid #333!important;">1</td>
-                                        <td class="label-col" style="width:34%; border:1px solid #333!important;">ಅರ್ಜಿದಾರರ ಹೆಸರು</td>
-                                        <td class="value-col" style="border:1px solid #333!important;">${fd.applicantName || fd.studentName || '-'}</td>
+                                        <td class="sl-col" style="width:6%; border:1px solid #333!important; padding:4px!important;">1</td>
+                                        <td class="label-col" style="width:34%; border:1px solid #333!important; padding:4px 6px!important;">ಅರ್ಜಿದಾರರ ಹೆಸರು</td>
+                                        <td class="value-col" style="border:1px solid #333!important; padding:4px 6px!important;">${fd.applicantName || fd.studentName || '-'}</td>
                                     </tr>
                                     <tr>
-                                        <td class="sl-col" style="border:1px solid #333!important;">2</td>
-                                        <td class="label-col" style="border:1px solid #333!important;">ತಂದೆ/ಗಂಡನ ಹೆಸರು</td>
-                                        <td class="value-col" style="border:1px solid #333!important;">${fd.fatherHusbandName || fd.fatherName || '-'}</td>
+                                        <td class="sl-col" style="border:1px solid #333!important; padding:4px!important;">2</td>
+                                        <td class="label-col" style="border:1px solid #333!important; padding:4px 6px!important;">ತಂದೆ/ಗಂಡನ ಹೆಸರು</td>
+                                        <td class="value-col" style="border:1px solid #333!important; padding:4px 6px!important;">${fd.fatherHusbandName || fd.fatherName || '-'}</td>
                                     </tr>
                                     <tr>
-                                        <td class="sl-col" style="border:1px solid #333!important;">3</td>
-                                        <td class="label-col" style="border:1px solid #333!important;">ತಾಯಿಯ ಹೆಸರು</td>
-                                        <td class="value-col" style="border:1px solid #333!important;">${fd.motherName || fd.guardianName || '-'}</td>
+                                        <td class="sl-col" style="border:1px solid #333!important; padding:4px!important;">3</td>
+                                        <td class="label-col" style="border:1px solid #333!important; padding:4px 6px!important;">ತಾಯಿಯ ಹೆಸರು</td>
+                                        <td class="value-col" style="border:1px solid #333!important; padding:4px 6px!important;">${fd.motherName || fd.guardianName || '-'}</td>
                                     </tr>
                                 </table>
                             </td>
-                            <td class="photo-cell" style="width:110px; border:1px solid #333!important; text-align:center; vertical-align:middle; padding:2px!important; background:#ffffff;">
+                            <td class="photo-cell" style="width:110px; border:1px solid #333!important; text-align:center; vertical-align:middle; padding:3px!important; background:#ffffff;">
                                 ${fd.photo ? '<img src="' + fd.photo + '" style="width:95px; height:110px; object-fit:cover; display:block; margin:0 auto; border:1px solid #000;">' : '<div class="photo-placeholder"><span style="color:#c01535; font-size:11px; font-weight:bold;">ಇತ್ತೀಚಿನ</span><br><span style="color:#c01535; font-size:11px; font-weight:bold;">ಭಾವ ಚಿತ್ರ</span></div>'}
                             </td>
                         </tr>
                         <tr>
-                            <td class="sl-col">4</td>
-                            <td class="label-col">ಖಾಯಂ ವಾಸ ಸ್ಥಳ</td>
-                            <td class="value-col" colspan="2"><span style="color:#0b3c5d;">ಗ್ರಾಮ/ನಗರ :</span> &nbsp;&nbsp;<span style="color:#c01535;">${fd.city || fd.taluk || fd.district || '-'}</span></td>
+                            <td class="sl-col" style="padding:4px!important;">4</td>
+                            <td class="label-col" style="padding:4px 6px!important;">ಖಾಯಂ ವಾಸ ಸ್ಥಳ</td>
+                            <td class="value-col" colspan="2" style="padding:4px 6px!important;"><span style="color:#0b3c5d;">ಗ್ರಾಮ/ನಗರ :</span> &nbsp;&nbsp;<span style="color:#c01535;">${fd.city || fd.taluk || fd.district || '-'}</span></td>
                         </tr>
                         <tr>
-                            <td class="sl-col">5</td>
-                            <td class="label-col">ಅಂಚೆ ವಿಳಾಸ</td>
-                            <td class="value-col" colspan="2">${fd.permanentAddress || fd.completeAddress || '-'}</td>
+                            <td class="sl-col" style="padding:4px!important;">5</td>
+                            <td class="label-col" style="padding:4px 6px!important;">ಅಂಚೆ ವಿಳಾಸ</td>
+                            <td class="value-col" colspan="2" style="padding:4px 6px!important; line-height:1.4;">${fd.permanentAddress || fd.completeAddress || '-'}</td>
                         </tr>
                         <tr>
-                            <td class="sl-col">6</td>
-                            <td class="label-col">ಹುಟ್ಟಿದ ದಿನಾಂಕ</td>
+                            <td class="sl-col" style="padding:4px!important;">6</td>
+                            <td class="label-col" style="padding:4px 6px!important;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</td>
                             <td class="value-col" colspan="2" style="padding:0!important;">
                                 <table style="width:100%; border-collapse:collapse; text-align:center;">
                                     <tr>
-                                        <td style="border:none!important; border-right:1px solid #333!important; width:28%; color:#c01535; font-weight:bold; font-size:12px; padding:2px 4px!important; vertical-align:middle;">
+                                        <td style="border:none!important; border-right:1px solid #333!important; width:28%; color:#c01535; font-weight:bold; font-size:12px; padding:6px 4px!important; vertical-align:middle;">
                                             ${fd.dob || '-'}
                                         </td>
-                                        <td style="border:none!important; border-right:1px solid #333!important; width:15%; padding:1px 2px!important;">
-                                            <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; text-decoration:underline;">ಅಂಗ</div>
-                                            <div style="font-size:11px; font-weight:bold; color:#c01535; margin-top:1px;">${fd.gender || 'ಗಂಡು'}</div>
+                                        <td style="border:none!important; border-right:1px solid #333!important; width:15%; padding:4px 2px!important; vertical-align:middle;">
+                                            <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; margin-bottom:3px;">ಅಂಗ</div>
+                                            <div style="font-size:11px; font-weight:bold; color:#c01535;">${fd.gender || 'ಗಂಡು'}</div>
                                         </td>
-                                        <td style="border:none!important; border-right:1px solid #333!important; width:18%; padding:1px 2px!important;">
-                                            <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; text-decoration:underline;">ರಾಷ್ಟ್ರೀಯತೆ</div>
-                                            <div style="font-size:11px; font-weight:bold; color:#c01535; margin-top:1px;">ಭಾರತೀಯ</div>
+                                        <td style="border:none!important; border-right:1px solid #333!important; width:18%; padding:4px 2px!important; vertical-align:middle;">
+                                            <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; margin-bottom:3px;">ರಾಷ್ಟ್ರೀಯತೆ</div>
+                                            <div style="font-size:11px; font-weight:bold; color:#c01535;">ಭಾರತೀಯ</div>
                                         </td>
-                                        <td style="border:none!important; border-right:1px solid #333!important; width:16%; padding:1px 2px!important;">
-                                            <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; text-decoration:underline;">ಧರ್ಮ</div>
-                                            <div style="font-size:11px; font-weight:bold; color:#c01535; margin-top:1px;">ಇಸ್ಲಾಂ</div>
+                                        <td style="border:none!important; border-right:1px solid #333!important; width:16%; padding:4px 2px!important; vertical-align:middle;">
+                                            <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; margin-bottom:3px;">ಧರ್ಮ</div>
+                                            <div style="font-size:11px; font-weight:bold; color:#c01535;">ಇಸ್ಲಾಂ</div>
                                         </td>
-                                        <td style="border:none!important; width:23%; padding:1px 2px!important;">
-                                            <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; text-decoration:underline;">ಜಾತಿ</div>
-                                            <div style="font-size:11px; font-weight:bold; color:#c01535; margin-top:1px;">${fd.subCaste || 'ನದಾಫ್/ಪಿಂಜಾರ'}</div>
+                                        <td style="border:none!important; width:23%; padding:4px 2px!important; vertical-align:middle;">
+                                            <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; margin-bottom:3px;">ಜಾತಿ</div>
+                                            <div style="font-size:11px; font-weight:bold; color:#c01535;">${fd.subCaste || 'ನದಾಫ್/ಪಿಂಜಾರ'}</div>
                                         </td>
                                     </tr>
                                 </table>
                             </td>
                         </tr>
                         <tr>
-                            <td class="sl-col">7</td>
-                            <td class="label-col" style="text-align:center;">
-                                <div style="text-decoration:underline; color:#0b3c5d; font-weight:bold;">ಶಿಕ್ಷಣ</div>
-                                <div style="color:#c01535; font-weight:bold; margin-top:2px;">${fd.education || '-'}</div>
+                            <td class="sl-col" style="padding:4px!important;">7</td>
+                            <td class="label-col" style="text-align:center; padding:5px 4px!important; vertical-align:middle;">
+                                <div style="color:#0b3c5d; font-weight:bold; margin-bottom:3px;">ಶಿಕ್ಷಣ</div>
+                                <div style="color:#c01535; font-weight:bold;">${fd.education || '-'}</div>
                             </td>
                             <td class="value-col" colspan="2" style="padding:0!important;">
                                 <table style="width:100%; border-collapse:collapse; text-align:center;">
                                     <tr>
-                                        <td style="border:none!important; border-right:1px solid #333!important; width:50%; padding:3px 4px!important;">
-                                            <div style="font-size:11px; font-weight:bold; color:#0b3c5d; text-decoration:underline;">ಅರ್ಜಿದಾರರ ಆಧಾರ್ ಸಂಖ್ಯೆ</div>
-                                            <div style="font-size:12px; font-weight:bold; color:#c01535; margin-top:2px; text-decoration:underline;">${fd.aadhar || '-'}</div>
+                                        <td style="border:none!important; border-right:1px solid #333!important; width:50%; padding:5px 6px!important; vertical-align:middle;">
+                                            <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; margin-bottom:3px;">ಅರ್ಜಿದಾರರ ಆಧಾರ್ ಸಂಖ್ಯೆ</div>
+                                            <div style="font-size:11.5px; font-weight:bold; color:#c01535;">${fd.aadhar || '-'}</div>
                                         </td>
-                                        <td style="border:none!important; width:50%; padding:3px 4px!important;">
-                                            <div style="font-size:11px; font-weight:bold; color:#0b3c5d; text-decoration:underline;">ಅರ್ಜಿದಾರರ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</div>
-                                            <div style="font-size:12px; font-weight:bold; color:#c01535; margin-top:2px; text-decoration:underline;">${fd.mobile || fd.parentMobile || '-'}</div>
+                                        <td style="border:none!important; width:50%; padding:5px 6px!important; vertical-align:middle;">
+                                            <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; margin-bottom:3px;">ಅರ್ಜಿದಾರರ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</div>
+                                            <div style="font-size:11.5px; font-weight:bold; color:#c01535;">${fd.mobile || fd.parentMobile || '-'}</div>
                                         </td>
                                     </tr>
                                 </table>
                             </td>
                         </tr>
                         <tr>
-                            <td class="sl-col">8</td>
-                            <td class="label-col" style="text-align:center;">
-                                <div style="text-decoration:underline; color:#0b3c5d; font-weight:bold;">ಉದ್ಯೋಗ</div>
-                                <div style="color:#c01535; font-weight:bold; margin-top:2px;">${fd.occupation || fd.parentOccupationIncome || '-'}</div>
+                            <td class="sl-col" style="padding:4px!important;">8</td>
+                            <td class="label-col" style="text-align:center; padding:5px 4px!important; vertical-align:middle;">
+                                <div style="color:#0b3c5d; font-weight:bold; margin-bottom:3px;">ಉದ್ಯೋಗ</div>
+                                <div style="color:#c01535; font-weight:bold;">${fd.occupation || fd.parentOccupationIncome || '-'}</div>
                             </td>
-                            <td class="value-col" style="width:50%; padding:3px 5px!important; text-align:center;">
-                                <div style="color:#0b3c5d; font-size:10.5px; font-weight:bold; line-height:1.2;">
+                            <td class="value-col" style="width:50%; padding:5px 6px!important; text-align:center; vertical-align:middle;">
+                                <div style="color:#0b3c5d; font-size:10.5px; font-weight:bold; line-height:1.3; margin-bottom:3px;">
                                     ಆಜೀವ ಸದಸ್ಯತ್ವ / ಪೋಷಕ ಸದಸ್ಯತ್ವ<br>ಮಹಾಪೋಷಕ ಸದಸ್ಯತ್ವ / ಶುಲ್ಕ ರೂ.
                                 </div>
-                                <div style="color:#c01535; font-size:11.5px; font-weight:bold; margin-top:2px;">${fd.membershipType || 'ಆಜೀವ ಸದಸ್ಯತ್ವ'}</div>
+                                <div style="color:#c01535; font-size:11.5px; font-weight:bold;">${fd.membershipType || 'ಆಜೀವ ಸದಸ್ಯತ್ವ'}</div>
                             </td>
-                            <td class="value-col" style="width:25%; padding:3px 5px!important; text-align:center;">
-                                <div style="color:#0b3c5d; font-size:10.5px; font-weight:bold; text-decoration:underline;">
-                                    ನಗದು/ RTGS/ ಚೆಕ್/ಡಿಡಿ/ಇತರ
+                            <td class="value-col" style="width:25%; padding:5px 6px!important; text-align:center; vertical-align:middle;">
+                                <div style="color:#0b3c5d; font-size:10.5px; font-weight:bold; margin-bottom:3px;">
+                                    ನಗದು / RTGS / ಚೆಕ್ / ಡಿಡಿ / ಇತರ
                                 </div>
-                                <div style="color:#c01535; font-size:11.5px; font-weight:bold; margin-top:4px;">${fd.paymentMode || 'ಆನ್‌ಲೈನ್'}</div>
+                                <div style="color:#c01535; font-size:11.5px; font-weight:bold;">${fd.paymentMode || 'ಆನ್‌ಲೈನ್'}</div>
                             </td>
                         </tr>
                     </table>
