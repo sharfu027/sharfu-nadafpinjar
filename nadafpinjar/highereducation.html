@@ -1073,14 +1073,6 @@
                 window.scrollTo(0, currentScrollY);
             }
         }
-;
-
-            try {
-                await window.html2pdf().set(opt).from(element).save();
-            } finally {
-                if (element.parentNode) element.parentNode.removeChild(element);
-            }
-        }
 
         window.onload = function() {
             populateDobDropdowns();
