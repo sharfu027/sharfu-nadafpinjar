@@ -708,7 +708,26 @@
         document.addEventListener("DOMContentLoaded", function() {
             populateDistricts();
             loadApplications();
+            fetchMarqueeSetting();
         });
+
+        async function fetchMarqueeSetting() {
+            try {
+                let res = await fetch("/api/settings").catch(() => null);
+                if (!res || !res.ok || !res.headers.get("content-type") || !res.headers.get("content-type").includes("application/json")) {
+                    res = await fetch("https://nadafpinjar-production.up.railway.app/api/settings").catch(() => null);
+                }
+                if (res && res.ok) {
+                    const data = await res.json().catch(() => null);
+                    if (data && data.success && data.lifemembershipMarqueeEnabled === false) {
+                        const marquee = document.getElementById("marqueeBanner");
+                        if (marquee) marquee.style.display = "none";
+                    }
+                }
+            } catch (err) {
+                // If API fails, banner stays visible (default)
+            }
+        }
 
         function populateDistricts() {
             const districtSelect = document.getElementById("district");
