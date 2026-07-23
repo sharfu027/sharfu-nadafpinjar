@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Membership Applications - Admin Dashboard</title>
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/admin-dashboard.css" rel="stylesheet" media="all">
+    <style>
+        .switch-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fff8eb;
+            border: 1.5px solid #ffedc2;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 46px;
+            height: 24px;
+        }
+        .switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e0;
+            transition: .3s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #28a745;
+        }
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+        .switch-label {
+            font-weight: bold;
+            font-size: 14.5px;
+            color: #990000;
+        }
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .status-pending { background: #ffeebb; color: #856404; }
+        .status-approved { background: #d4edda; color: #155724; }
+        .status-rejected { background: #f8d7da; color: #721c24; }
+
+        .modal-content.modal-large {
+            max-width: 900px !important;
+            width: 95% !important;
+            max-height: 90vh !important;
+            display: flex !important;
+            flex-direction: column !important;
+            margin: 30px auto !important;
+        }
+        #reviewLifeModal .modal-body {
+            overflow-y: auto !important;
+            flex: 1 !important;
+            padding: 20px !important;
+        }
+        .review-grid {
+            display: grid;
+            grid-template-columns: 2.2fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            .review-grid { grid-template-columns: 1fr; }
+            .modal-content.modal-large { max-height: 95vh !important; margin: 10px auto !important; }
+        }
+        .review-details-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .review-details-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13.5px;
+            line-height: 1.4;
+        }
+        .review-details-table td strong { color: #4a5568; }
+        .review-details-table td.val-cell {
+            color: #1a202c;
+            font-weight: 500;
+            word-break: break-all;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <header class="admin-header">
+        <div class="admin-header-container">
+            <button class="sidebar-toggle"><i class="fa fa-bars"></i></button>
+            <img src="images/header-nadaf.png" alt="Karnataka Rajya Nadaf Pinjar Sangha" class="admin-header-image">
+            <div class="header-right">
+                <span style="margin-right: 15px;"><i class="fa fa-user-circle"></i> Admin</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="accountsummary"><i class="fa fa-dashboard"></i> Account Summary</a></li>
+                <li><a href="Beneficiaries"><i class="fa fa-users"></i> Beneficiaries</a></li>
+                <li><a href="Paymentsandtransfers"><i class="fa fa-credit-card"></i> Make Payments</a></li>
+                <li><a href="Receipts"><i class="fa fa-file-text-o"></i> Receipts</a></li>
+                <li><a href="associatedtransfers"><i class="fa fa-exchange"></i> Associated Transfers</a></li>
+                <li><a href="Statements"><i class="fa fa-list-alt"></i> Statements</a></li>
+                <li><a href="Security"><i class="fa fa-lock"></i> Security</a></li>
+                <li><a href="admin-freeedu"><i class="fa fa-graduation-cap"></i> Free Education</a></li>
+                <li><a href="admin-pratibha"><i class="fa fa-trophy"></i> Pratibha Puraskar</a></li>
+                <li><a href="admin-sadhaka"><i class="fa fa-trophy"></i> Sadhaka Award</a></li>
+                <li class="active"><a href="admin-lifemembership"><i class="fa fa-id-card"></i> Life Membership</a></li>
+                <li><a href="admin-census"><i class="fa fa-users"></i> Census</a></li>
+                <li><a href="admin-employees"><i class="fa fa-briefcase"></i> Employees</a></li>
+                <li><a href="admin-committee"><i class="fa fa-list-ul"></i> Committees</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <div class="page-title-bar">
+                <span>Life Membership Applications (ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿಗಳು)</span>
+            </div>
+
+            <!-- Filters Card -->
+            <div class="admin-card">
+                <div class="card-header">
+                    <span>Search and Filter Applications</span>
+                </div>
+                <div class="card-body">
+                    <form id="filterForm" class="filter-bar" style="border:none; padding:0; margin:0;">
+                        <div class="filter-group">
+                            <label for="filterSearch">Search Keyword</label>
+                            <input type="text" id="filterSearch" placeholder="Name, parent, aadhar, mobile...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterStatus">Status</label>
+                            <select id="filterStatus">
+                                <option value="">All Statuses</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Rejected">Rejected</option>
+                            </select>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <button type="submit" class="btn-submit" style="height:40px;">Search</button>
+                            <button type="button" id="btnClearFilter" class="btn-view" style="height:40px; margin-left: 10px; background-color: #64748b;">Clear</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Table Card -->
+            <div class="admin-card" style="margin-top: 20px;">
+                <div class="card-header">
+                    <span>Submitted Applications</span>
+                </div>
+                <div class="card-body" style="padding:0;">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Sl.No</th>
+                                    <th>Application ID</th>
+                                    <th>Date</th>
+                                    <th>Applicant Name</th>
+                                    <th>Father/Husband Name</th>
+                                    <th>District</th>
+                                    <th>Mobile</th>
+                                    <th>Membership Type</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Review Application Modal -->
+    <div id="reviewLifeModal" class="admin-modal" style="display:none;">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <span>Review Life Membership Application</span>
+                <button class="modal-close" onclick="closeReviewModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="reviewForm">
+                    <input type="hidden" id="reviewAppId">
+                    
+                    <div class="review-grid">
+                        <div>
+                            <table class="review-details-table">
+                                <tr>
+                                    <td style="width: 35%;"><strong>Applicant Name</strong></td>
+                                    <td class="val-cell" id="viewApplicantName"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Father/Husband Name</strong></td>
+                                    <td class="val-cell" id="viewFatherHusband"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mother Name</strong></td>
+                                    <td class="val-cell" id="viewMother"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Occupation & Income</strong></td>
+                                    <td class="val-cell" id="viewOccupation"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Permanent Address</strong></td>
+                                    <td class="val-cell" id="viewAddress"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>DOB, Age, Gender</strong></td>
+                                    <td class="val-cell" id="viewDobDetails"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Education, Aadhar, Mobile</strong></td>
+                                    <td class="val-cell" id="viewEduDetails"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Membership & Payment</strong></td>
+                                    <td class="val-cell" id="viewMembership"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Taluk & District</strong></td>
+                                    <td class="val-cell" id="viewLocation"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="border: 2px solid #ffedc2; border-radius: 8px; padding: 12px; background: #fff8eb; max-width: 200px; margin: 0 auto 15px auto;">
+                                <div style="width: 100%; height: 200px; background: #cbd5e0; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 6px; border: 1px solid #a0aec0;">
+                                    <img id="viewPhoto" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                    <span id="viewPhotoPlaceholder" style="color: #4a5568; font-size: 12px;">No Photo Uploaded</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <div class="form-group">
+                            <label for="reviewStatus" style="font-weight:bold;">Application Status</label>
+                            <select id="reviewStatus" required style="width:100%; padding:8px; border-radius:4px; border:1px solid #ccc;">
+                                <option value="Approved">Approved (ಅನುಮೋದಿಸಲಾಗಿದೆ)</option>
+                                <option value="Pending">Pending (ಬಾಕಿ ಇದೆ)</option>
+                                <option value="Rejected">Rejected (ತಿರಸ್ಕರಿಸಲಾಗಿದೆ)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px;">
+                            <label for="reviewRemarks" style="font-weight:bold;">Remarks / Notes (ಷರಾ)</label>
+                            <input type="text" id="reviewRemarks" placeholder="Enter remarks..." style="width:100%; padding:8px; border-radius:4px; border:1px solid #ccc;">
+                        </div>
+                    </div>
+
+                    <div style="text-align: right; margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
+                        <button type="button" class="btn-view" onclick="downloadApplicationPDF()" style="background-color: #007bff; color: white;">
+                            <i class="fa fa-download"></i> Download PDF
+                        </button>
+                        <button type="submit" class="btn-submit">Save Status</button>
+                        <button type="button" class="btn-view" onclick="closeReviewModal()" style="background-color: #64748b; color: white;">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        let allApplications = [];
+        let currentReviewApp = null;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            loadApplications();
+
+            document.getElementById("filterForm").addEventListener("submit", function(e) {
+                e.preventDefault();
+                applyFilters();
+            });
+
+            document.getElementById("btnClearFilter").addEventListener("click", function() {
+                document.getElementById("filterSearch").value = "";
+                document.getElementById("filterStatus").value = "";
+                renderTable(allApplications);
+            });
+
+            document.getElementById("reviewForm").addEventListener("submit", async function(e) {
+                e.preventDefault();
+                await saveReviewStatus();
+            });
+        });
+
+        async function loadApplications() {
+            try {
+                let res = await fetch("/api/donations?_=" + Date.now()).catch(() => null);
+                if (!res || !res.ok) {
+                    res = await fetch("https://nadafpinjar-production.up.railway.app/api/donations?_=" + Date.now()).catch(() => null);
+                }
+                
+                let remoteData = [];
+                if (res && res.ok) {
+                    const data = await res.json();
+                    remoteData = Array.isArray(data) ? data : (data.donations || []);
+                }
+
+                let localData = [];
+                try {
+                    localData = JSON.parse(localStorage.getItem("nadaf_lifemembership_applications") || "[]");
+                } catch(e) {}
+
+                const remoteLife = remoteData.filter(item => item.formType === "lifemembership");
+                const merged = [...remoteLife];
+                localData.forEach(loc => {
+                    if (!merged.some(m => m.id === loc.id)) {
+                        merged.push(loc);
+                    }
+                });
+
+                allApplications = merged;
+                renderTable(allApplications);
+            } catch(e) {
+                console.error("Error loading:", e);
+            }
+        }
+
+        function renderTable(apps) {
+            const tbody = document.getElementById("tableBody");
+            if (!apps || apps.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:20px;">No applications found.</td></tr>';
+                return;
+            }
+
+            let html = "";
+            apps.forEach((app, idx) => {
+                const status = app.status || "Approved";
+                let statusClass = "status-approved";
+                if (status === "Pending") statusClass = "status-pending";
+                if (status === "Rejected") statusClass = "status-rejected";
+
+                html += `
+                    <tr>
+                        <td>${idx + 1}</td>
+                        <td><strong>${app.id || '-'}</strong></td>
+                        <td>${app.date || '-'}</td>
+                        <td><strong>${app.applicantName || app.studentName || '-'}</strong></td>
+                        <td>${app.fatherHusbandName || app.fatherName || '-'}</td>
+                        <td>${app.district || '-'}</td>
+                        <td>${app.mobile || app.parentMobile || '-'}</td>
+                        <td>${app.membershipType || 'ಆಜೀವ ಸದಸ್ಯತ್ವ'}</td>
+                        <td><span class="status-badge ${statusClass}">${status}</span></td>
+                        <td>
+                            <button class="btn-view" onclick="openReviewModal('${app.id}')" style="background:#007bff; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">
+                                <i class="fa fa-edit"></i> Review
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function applyFilters() {
+            const search = document.getElementById("filterSearch").value.toLowerCase().trim();
+            const status = document.getElementById("filterStatus").value;
+
+            const filtered = allApplications.filter(app => {
+                const text = JSON.stringify(app).toLowerCase();
+                const appStatus = app.status || "Approved";
+
+                const matchSearch = !search || text.includes(search);
+                const matchStatus = !status || appStatus === status;
+
+                return matchSearch && matchStatus;
+            });
+
+            renderTable(filtered);
+        }
+
+        function openReviewModal(id) {
+            const app = allApplications.find(a => a.id === id);
+            if (!app) return;
+
+            currentReviewApp = app;
+            document.getElementById("reviewAppId").value = app.id;
+
+            document.getElementById("viewApplicantName").innerText = app.applicantName || app.studentName || '-';
+            document.getElementById("viewFatherHusband").innerText = app.fatherHusbandName || app.fatherName || '-';
+            document.getElementById("viewMother").innerText = app.motherName || app.guardianName || '-';
+            document.getElementById("viewOccupation").innerText = (app.occupation || '-') + " | " + (app.annualIncome || '-');
+            document.getElementById("viewAddress").innerText = app.permanentAddress || app.completeAddress || '-';
+            document.getElementById("viewDobDetails").innerText = (app.dob || '-') + " | Age: " + (app.age || '-') + " | Gender: " + (app.gender || '-');
+            document.getElementById("viewEduDetails").innerText = (app.education || '-') + " | Aadhar: " + (app.aadhar || '-') + " | Mobile: " + (app.mobile || app.parentMobile || '-');
+            document.getElementById("viewMembership").innerText = (app.membershipType || 'ಆಜೀವ ಸದಸ್ಯತ್ವ') + " (" + (app.paymentMode || 'ಆನ್‌ಲೈನ್') + ")";
+            document.getElementById("viewLocation").innerText = (app.taluk || app.city || '-') + ", " + (app.district || '-');
+
+            const imgEl = document.getElementById("viewPhoto");
+            const phEl = document.getElementById("viewPhotoPlaceholder");
+            if (app.photo) {
+                imgEl.src = app.photo;
+                imgEl.style.display = "block";
+                phEl.style.display = "none";
+            } else {
+                imgEl.style.display = "none";
+                phEl.style.display = "block";
+            }
+
+            document.getElementById("reviewStatus").value = app.status || "Approved";
+            document.getElementById("reviewRemarks").value = app.remarks || "";
+
+            document.getElementById("reviewLifeModal").style.display = "flex";
+        }
+
+        function closeReviewModal() {
+            document.getElementById("reviewLifeModal").style.display = "none";
+        }
+
+        async function saveReviewStatus() {
+            if (!currentReviewApp) return;
+
+            currentReviewApp.status = document.getElementById("reviewStatus").value;
+            currentReviewApp.remarks = document.getElementById("reviewRemarks").value;
+
+            try {
+                let local = JSON.parse(localStorage.getItem("nadaf_lifemembership_applications") || "[]");
+                const idx = local.findIndex(l => l.id === currentReviewApp.id);
+                if (idx !== -1) {
+                    local[idx] = currentReviewApp;
+                } else {
+                    local.unshift(currentReviewApp);
+                }
+                localStorage.setItem("nadaf_lifemembership_applications", JSON.stringify(local));
+            } catch(e) {}
+
+            closeReviewModal();
+            renderTable(allApplications);
+            alert("Status saved successfully!");
+        }
+
+        async function downloadApplicationPDF() {
+            if (!currentReviewApp) return;
+            const fd = currentReviewApp;
+
+            const element = document.createElement('div');
+            element.style.width = '700px';
+            element.style.backgroundColor = '#ffffff';
+            element.style.color = '#000000';
+            element.style.padding = '15px 25px';
+            element.style.boxSizing = 'border-box';
+
+            element.innerHTML = `
+                <style>
+                    .pdf-container {
+                        font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
+                        font-size: 13.5px;
+                        line-height: 1.3;
+                        color: #000;
+                    }
+                    .header-table { width: 100%; border-collapse: collapse; margin-bottom: 2px; }
+                    .header-table td { border: none !important; padding: 0 !important; vertical-align: middle; }
+                    .header-logo-left img { width: 95px; height: 95px; border-radius: 50%; object-fit: cover; }
+                    .header-logo-right img { width: 95px; height: 95px; border-radius: 50%; object-fit: contain; }
+                    .header-text { text-align: center; }
+                    .header-text h1 { margin: 0; font-size: 23px; font-weight: bold; color: #b80024; }
+                    .header-text h2 { margin: 2px 0 0 0; font-size: 13px; font-weight: bold; color: #b80024; }
+                    .header-text h3 { margin: 2px 0 0 0; font-size: 12.5px; font-weight: bold; color: #b80024; }
+                    .header-text h4 { margin: 2px 0 0 0; font-size: 12.5px; font-weight: bold; color: #b80024; }
+                    .header-line { border-top: 2px solid #000; margin: 6px 0 4px 0; }
+                    .title-box { border: 2px solid #f6cf57; background-color: #fff8eb; border-radius: 12px; text-align: center; padding: 6px 15px; margin: 0 auto 10px auto; max-width: 380px; }
+                    .title-box h2 { margin: 0; font-size: 18px; font-weight: bold; color: #b80024; }
+                    .title-box p { margin: 2px 0 0 0; font-size: 12.5px; font-weight: bold; color: #b80024; }
+                    .details-table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+                    .details-table td { border: 1px solid #000 !important; padding: 4px 6px !important; text-align: left; vertical-align: middle; font-size: 13px !important; }
+                    .details-table .sl-col { width: 5%; text-align: center; font-weight: bold; }
+                    .details-table .label-col { width: 32%; font-weight: bold; color: #b80024; }
+                    .details-table .value-col { color: #b80024; font-weight: 500; }
+                    .photo-cell img { width: 110px; height: 130px; object-fit: cover; display: block; margin: 0 auto; border: 1px solid #000; }
+                    .photo-placeholder { font-size: 11px; border: 1px dashed #555; width: 110px; height: 130px; display: flex; align-items: center; justify-content: center; margin: 0 auto; background: #fafafa; line-height: 1.3; color: #b80024; text-align: center; }
+                    .declaration-text { margin-top: 10px; font-size: 13px; line-height: 1.4; text-align: justify; color: #b80024; }
+                    .signature-table td { border: none !important; padding: 2px 0 !important; font-size: 13.5px; white-space: nowrap; color: #b80024; }
+                    .section-header-center { text-align: center; font-weight: bold; font-size: 14px; margin: 10px 0 8px 0; color: #b80024; }
+                    .approval-boxes-table td { border: none !important; padding: 0 10px !important; width: 50%; vertical-align: top; }
+                    .approval-box-title { font-weight: bold; font-size: 13px; margin-bottom: 4px; color: #b80024; }
+                    .approval-box { border: 1.5px solid #000; height: 40px; width: 45px; display: inline-block; }
+                    .dashed-divider { border-top: 1.5px dashed #b80024; text-align: center; margin: 15px 0 10px 0; padding-top: 4px; font-size: 12.5px; font-weight: bold; color: #b80024; }
+                    .state-unit-section { margin-top: 5px; font-size: 13px; color: #b80024; }
+                    .membership-no-box { border: 1.5px solid #0066cc; border-radius: 10px; padding: 6px 15px; display: inline-block; margin-top: 10px; font-weight: bold; font-size: 13.5px; color: #b80024; }
+                    .bottom-note { font-size: 12px; font-weight: bold; margin-top: 12px; color: #b80024; }
+                </style>
+                <div class="pdf-container">
+                    <table class="header-table">
+                        <tr>
+                            <td class="header-logo-left">
+                                <img src="${window.location.origin}/images/president_circular.png" onerror="this.src='${window.location.origin}/images/president.jpeg'">
+                            </td>
+                            <td class="header-text">
+                                <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
+                                <h2>ನಂ. 151/ಎಸ್‌ಒ & ೪೦/ಎಸ್‍ಡಬ್ಲ್ಯೂ ಸಂಖ್ಯೆ ಎಸ್‌/93-94</h2>
+                                <h3>ನೊಂದಾಯಿತ ಕಚೇರಿ : ಕೆ.ಜಿ. ಹಳ್ಳಿ ಕ್ರಾಸ್, ಅರೇಬಿಕ್ ಕಾಲೇಜು ಪೋಸ್ಟ್, ಬಿ.ಆರ್. ಅಂಬೇಡ್ಕರ್ ನಗರ, ಶಿವಮೊಗ್ಗ</h3>
+                                <h4>ಮುಖ್ಯಾಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ರಾಷ್ಟ್ರೀಯ ಹೆದ್ದಾರಿ 13, ಸೀಬಾರ ಸಮೀಪ, ಚಿತ್ರದುರ್ಗ – 577502</h4>
+                            </td>
+                            <td class="header-logo-right">
+                                <img src="${window.location.origin}/images/logo-786_circular.png" onerror="this.src='${window.location.origin}/images/logo-786.png'">
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="header-line"></div>
+                    
+                    <table style="width:100%; border-collapse:collapse; margin-bottom:6px; color:#b80024; font-weight:bold; font-size:14px;">
+                        <tr>
+                            <td style="border:none!important; text-align:left;">ತಾಲ್ಲೂಕು : ${fd.taluk || fd.city || '.........................'}</td>
+                            <td style="border:none!important; text-align:right;">ಜಿಲ್ಲೆ : ${fd.district || '.........................'}</td>
+                        </tr>
+                    </table>
+
+                    <div class="title-box">
+                        <h2>ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿ</h2>
+                        <p>(ನಿಯಮ 3,4 ಹಾಗೂ 5 ರಂತೆ)</p>
+                    </div>
+                    
+                    <table class="details-table">
+                        <tr>
+                            <td class="sl-col">1</td>
+                            <td class="label-col">ಅರ್ಜಿದಾರರ ಹೆಸರು</td>
+                            <td class="value-col">${fd.applicantName || fd.studentName || '-'}</td>
+                            <td class="photo-cell" rowspan="4" style="text-align:center;">
+                                ${fd.photo ? '<img src="' + fd.photo + '">' : '<div class="photo-placeholder">ಅಳತೆ:<br>3.5 x 4.5<br><br>ಭಾವಚಿತ್ರ</div>'}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sl-col">2</td>
+                            <td class="label-col">ತಂದೆ/ಗಂಡನ ಹೆಸರು</td>
+                            <td class="value-col">${fd.fatherHusbandName || fd.fatherName || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td class="sl-col">3</td>
+                            <td class="label-col">ತಾಯಿಯ ಹೆಸರು</td>
+                            <td class="value-col">${fd.motherName || fd.guardianName || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td class="sl-col">4</td>
+                            <td class="label-col">ಉದ್ಯೋಗ ಹಾಗೂ ವಾರ್ಷಿಕ ವರಮಾನ</td>
+                            <td class="value-col">
+                                ಹುದ್ದೆ/ವೃತ್ತಿ : ${fd.occupation || fd.parentOccupationIncome || '-'} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ವಾರ್ಷಿಕ ವರಮಾನ : ${fd.annualIncome || '-'}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sl-col">5</td>
+                            <td class="label-col">ಖಾಯಂ ವಿಳಾಸ</td>
+                            <td class="value-col" colspan="2">${fd.permanentAddress || fd.completeAddress || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td class="sl-col">6</td>
+                            <td class="label-col">ಜನ್ಮ ದಿನಾಂಕ</td>
+                            <td class="value-col" colspan="2" style="padding:0!important;">
+                                <table style="width:100%; border-collapse:collapse; color:#b80024;">
+                                    <tr>
+                                        <td style="border:none!important; border-right:1px solid #000!important; width:30%;">ದಿನಾಂಕ: ${fd.dob || '-'}</td>
+                                        <td style="border:none!important; border-right:1px solid #000!important; width:20%;">ವಯಸ್ಸು: ${fd.age || '-'}</td>
+                                        <td style="border:none!important; border-right:1px solid #000!important; width:22%;">ಲಿಂಗ: ${fd.gender || '-'}</td>
+                                        <td style="border:none!important; width:28%;">ಉಪ ಪಂಗಡ: ${fd.subCaste || 'ನದಾಫ್ / ಪಿಂಜಾರ'}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sl-col">7</td>
+                            <td class="label-col">ಶಿಕ್ಷಣ & ವಿವರ</td>
+                            <td class="value-col" colspan="2" style="padding:0!important;">
+                                <table style="width:100%; border-collapse:collapse; color:#b80024;">
+                                    <tr>
+                                        <td style="border:none!important; border-right:1px solid #000!important; width:50%;">ಅರ್ಜಿದಾರರ ಆಧಾರ ಸಂಖ್ಯೆ: ${fd.aadhar || '-'}</td>
+                                        <td style="border:none!important; width:50%;">ಅರ್ಜಿದಾರರ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ: ${fd.mobile || fd.parentMobile || '-'}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sl-col">8</td>
+                            <td class="label-col">ವಿವರವಾಗಿ ಬರೆಯಬೇಕಾದ ಕಡೆಗಳಲ್ಲಿ</td>
+                            <td class="value-col" style="width:45%;">
+                                ಆಜೀವ ಸದಸ್ಯತ್ವ / ಪೋಷಕ ಸದಸ್ಯತ್ವ / ಮಹಾಪೋಷಕ ಸದಸ್ಯತ್ವ / ಇತ್ಯಾದಿ: <br><strong>${fd.membershipType || 'ಆಜೀವ ಸದಸ್ಯತ್ವ'}</strong>
+                            </td>
+                            <td class="value-col" style="width:25%;">
+                                ನಗದು / RTGS/ ಚೆಕ್/ ಡಿಡಿ / ಪಾವತಿ: <br><strong>${fd.paymentMode || 'ಆನ್‌ಲೈನ್'}</strong>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="declaration-text">
+                        ಕರ್ನಾಟಕ ಸಂಘಗಳ ನೋಂದಣಿ ಕಾಯ್ದೆ 1960 ರ ಅಡಿಯಲ್ಲಿ ನೋಂದಾಯಿತ ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘದ ಬೈಲಾ ನಿಯಮಾವಳಿಗಳನ್ನು ಪೂರ್ತಿಯಾಗಿ ತಿಳಿದುಕೊಂಡು, ಉಲ್ಲೇಖಿತ ಸಂಘಕ್ಕೆ ಯಾವುದೇ ರೀತಿಯ ಹಾನಿಯುಂಟಾಗದಂತೆ, ಶ್ರದ್ಧೆ ಹಾಗೂ ಪ್ರಾಮಾಣಿಕತೆಯಿಂದ ನಡೆದುಕೊಳ್ಳುತ್ತೇನೆಂದು ಪ್ರಮಾಣೀಕರಿಸುತ್ತೇನೆ. ನನ್ನ ಅರ್ಜಿಯನ್ನು ಪರಿಶೀಲಿಸಿ ಸಂಘದ ಆಜೀವ ಸದಸ್ಯತ್ವವನ್ನು ನೀಡಬೇಕಾಗಿ ವಿನಂತಿಸಿಕೊಳ್ಳುತ್ತೇನೆ.
+                    </div>
+
+                    <div class="signature-section">
+                        <table style="width:100%; border-collapse:collapse;">
+                            <tr>
+                                <td style="width: 50%; text-align: left; border:none!important; color:#b80024;"><strong>ಅರ್ಜಿ ದಿನಾಂಕ :</strong> ${fd.date || new Date().toLocaleDateString('kn-IN')}</td>
+                                <td style="width: 50%; text-align: right; font-weight: bold; border:none!important; color:#b80024;">ಅರ್ಜಿದಾರರ ಸಹಿ</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="section-header-center">ಸಂಘದ ಉಪಯೋಗಕ್ಕಾಗಿ ಮಾತ್ರ</div>
+
+                    <table class="approval-boxes-table">
+                        <tr>
+                            <td style="text-align: left;">
+                                <span class="approval-box-title">ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರು</span> &nbsp;&nbsp;
+                                <span class="approval-box"></span>
+                            </td>
+                            <td style="text-align: right;">
+                                <span class="approval-box-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು</span> &nbsp;&nbsp;
+                                <span class="approval-box"></span>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="dashed-divider">
+                        -o-o-o-o-o-o-o-o-o-o- o-o-o-o-o-o ರಾಜ್ಯ ಘಟಕದ ಉಪಯೋಗಕ್ಕಾಗಿ. -o-o-o-o-o-o-o-o-o-o-
+                    </div>
+
+                    <div class="state-unit-section">
+                        <table style="width:100%; border-collapse:collapse; color:#b80024;">
+                            <tr>
+                                <td style="border:none!important; text-align:left; vertical-align:top;">
+                                    ಮೇಲ್ಕಂಡ ಅರ್ಜಿದಾರರನ್ನು ರಾಜ್ಯ ಘಟಕದಿಂದ<br>
+                                    ಸಂಘದ ಆಜೀವ ಸದಸ್ಯತ್ವ ನೀಡಲು ತೀರ್ಮಾನಿಸಲಾಗಿದೆ.
+                                </td>
+                                <td style="border:none!important; text-align:right; vertical-align:bottom; font-weight:bold;">
+                                    ಅಧ್ಯಕ್ಷರು/ ಪ್ರಧಾನ ಕಾರ್ಯದರ್ಶಿ/ ಸಹಿ,
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="membership-no-box">
+                            : ಆಜೀವ ಸದಸ್ಯತ್ವ ಸಂಖ್ಯೆ : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                    </div>
+
+                    <div class="bottom-note">
+                        ಅರ್ಜಿದಾರರ ಭಾವಚಿತ್ರವನ್ನು ತಾಲ್ಲೂಕು ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು ಹಾಗೂ ರಾಜ್ಯ ಪದಾಧಿಕಾರಿಗಳು ಕಡ್ಡಾಯವಾಗಿ ದೃಢೀಕರಿಸುವುದು.
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(element);
+            const opt = {
+                margin: [8, 12, 8, 12],
+                filename: `Life_Membership_${fd.applicantName || fd.studentName || 'Application'}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            await window.html2pdf().set(opt).from(element).save();
+            document.body.removeChild(element);
+        }
+    </script>
+</body>
+</html>

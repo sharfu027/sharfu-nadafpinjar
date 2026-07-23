@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="kn">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿ - Karnataka State Nadaf / Pinjar Sangha</title>
+    <link href="css/base.css?v=2" rel="stylesheet" media="all">
+    <link href="css/base-responsive.css?v=2" rel="stylesheet" media="all">
+    <link href="css/grid.css?v=2" rel="stylesheet" media="all">
+    <link href="css/font.css?v=2" rel="stylesheet" media="all">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/megamenu.css" rel="stylesheet" media="all">
+    <link href="css/site.css" rel="stylesheet" media="all">
+    <link href="css/site-responsive.css" rel="stylesheet" media="all">
+    <style>
+        .marquee-container {
+            background: linear-gradient(90deg, #990000 0%, #cc0000 100%);
+            color: #ffedc2;
+            padding: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+        }
+        .marquee-container:hover .marquee-inner,
+        .marquee-container.is-paused .marquee-inner {
+            animation-play-state: paused !important;
+        }
+        .marquee-inner {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 25s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+        .btn-apply-now {
+            background-color: #ffedc2;
+            color: #990000;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 13px;
+            margin-left: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-decoration: none;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .btn-apply-now:hover {
+            background-color: #ffffff;
+            transform: scale(1.05);
+            color: #cc0000;
+        }
+        .btn-filter-toggle {
+            background-color: #990000;
+            color: #ffedc2;
+            border: 2px solid #ffedc2;
+            padding: 10px 24px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 auto 25px auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .btn-filter-toggle:hover {
+            background-color: #ffedc2;
+            color: #990000;
+            transform: scale(1.03);
+        }
+        .filter-panel {
+            display: none;
+            background: #fff;
+            border: 2px solid #ffedc2;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .filter-group label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #990000;
+        }
+        .filter-group select, .filter-group input {
+            padding: 8px 12px;
+            border: 1.5px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .showcase-table-container {
+            width: 100%;
+            overflow-x: auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 30px;
+        }
+        .showcase-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+        .showcase-table th {
+            background-color: #990000;
+            color: #ffedc2;
+            padding: 12px 15px;
+            font-weight: bold;
+            border-bottom: 2px solid #770000;
+            white-space: nowrap;
+        }
+        .showcase-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+        .showcase-table tr:hover {
+            background-color: #fff8eb;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 99999;
+            overflow-y: auto;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .modal-wrapper {
+            background: #ffffff;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 900px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 3px solid #990000;
+            overflow: hidden;
+            margin: auto;
+        }
+        .modal-header-bar {
+            background-color: #990000;
+            color: #ffedc2;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header-bar h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffedc2;
+        }
+        .btn-modal-close {
+            background: none;
+            border: none;
+            color: #ffedc2;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .modal-body-scroll {
+            padding: 25px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .application-form-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .application-form-table th, .application-form-table td {
+            border: 1px solid #cbd5e0;
+            padding: 10px;
+            vertical-align: middle;
+        }
+        .application-form-table .sl-no {
+            width: 40px;
+            text-align: center;
+            font-weight: bold;
+            background: #fff8eb;
+            color: #990000;
+        }
+        .application-form-table .field-label {
+            width: 32%;
+            font-weight: bold;
+            color: #333;
+            font-size: 13.5px;
+        }
+        .application-form-table .field-input input,
+        .application-form-table .field-input select,
+        .application-form-table .field-input textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1.5px solid #cbd5e0;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        .structured-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin-top: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            color: #990000;
+            margin-bottom: 5px;
+        }
+        .photo-upload-box {
+            border: 2px dashed #990000;
+            padding: 15px;
+            text-align: center;
+            background: #fff8eb;
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+        }
+        .photo-preview-img {
+            max-width: 120px;
+            max-height: 140px;
+            object-fit: cover;
+            display: none;
+            margin: 10px auto 0 auto;
+            border-radius: 6px;
+            border: 1px solid #990000;
+        }
+        .form-info-line {
+            background: #fff8eb;
+            border-left: 4px solid #990000;
+            padding: 12px 15px;
+            font-size: 13px;
+            color: #333;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+        .review-details-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .review-details-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13.5px;
+        }
+        .review-details-table td.val-cell {
+            font-weight: 500;
+            color: #1a202c;
+        }
+        .review-grid {
+            display: grid;
+            grid-template-columns: 2.2fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .review-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <img src="images/header-nadaf.png" alt="Karnataka Rajya Nadaf Pinjar Sangha" class="header-image">
+        </div>
+    </header>
+
+    <section class="wrapper megamenu-wraper">
+        <div class="container common-container four_content">
+            <p class="showhide"><em></em><em></em><em></em></p>
+            <nav class="main-menu clearfix" id="main_menu">
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="default.html">HOME</a></li>
+                    <li class="nav-item"><a href="#">ABOUT</a>
+                        <div class="sub-nav">
+                            <ul class="sub-nav-group">
+                                <li><a href="#">ESTABLISHMENT </a></li>
+                                <li><a href="committee.html?type=working">STATE WORKING COMMITTEE LIST </a></li>
+                                <li><a href="committee.html?type=general">STATE GENERAL COMMITTEE LIST</a></li>
+                                <li><a href="aims-objectives.html">AIMS AND OBJECTIVES</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="#">ಅರ್ಜಿಗಳು</a>
+                        <div class="sub-nav">
+                            <ul class="sub-nav-group">
+                                <li><a href="freeedu.html">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ</a></li>
+                                <li><a href="pratibha.html">ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ</a></li>
+                                <li><a href="sadhaka.html">ಸಾಧಕ ಪ್ರಶಸ್ತಿ</a></li>
+                                <li><a href="lifemembership.html">ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿ</a></li>
+                                <li><a href="Census.html">ಜನಗಣತಿ (Census) </a></li>
+                                <li><a href="employees.html">ನೌಕರರ ವಿವರ</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="#">ರಸೀದಿಗಳು</a>
+                        <div class="sub-nav">
+                            <ul class="sub-nav-group">
+                                <li><a href="donationdirectstate.html">ರಾಜ್ಯಕ್ಕೆ ನೇರವಾಗಿ</a></li>
+                                <li><a href="donationtaluktostate.html">ತಾಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                <li><a href="donationdistricttostate.html">ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="gallery.html">GALLERY</a></li>
+                    <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Marquee Banner Section -->
+    <div class="marquee-container" id="marqueeBanner" onclick="toggleMarqueePause(event, this)">
+        <div class="marquee-inner">
+            <span>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ) ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿ 2025-26</span>
+            <a href="javascript:void(0)" onclick="openApplyModal()" class="btn-apply-now">ಅರ್ಜಿ ಸಲ್ಲಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ / Click Here to Apply</a>
+        </div>
+    </div>
+
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="default.html">Home</a> » <span>ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿ</span>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 30px; margin-bottom: 50px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 40px 0 20px 0; border-bottom: 3px solid #990000; padding-bottom: 12px; flex-wrap: wrap; gap: 15px;">
+            <h1 style="color: #990000; font-size: 28px; font-weight: bold; margin: 0;">ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿ (Life Membership Application)</h1>
+            <button class="btn-filter-toggle" onclick="toggleFilterPanel()" style="margin: 0; padding: 8px 20px; font-size: 14px;">
+                <i class="fa fa-filter"></i> ಶೋಧಕಗಳು / Filter
+            </button>
+        </div>
+
+        <div class="filter-panel" id="filterPanel">
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label>ಹೆಸರು ಶೋಧಿಸಿ (Search Name)</label>
+                    <input type="text" id="filterName" placeholder="ಅರ್ಜಿದಾರರ ಹೆಸರು..." onkeyup="applyFilters()">
+                </div>
+                <div class="filter-group">
+                    <label>ಜಿಲ್ಲೆ (District)</label>
+                    <select id="filterDistrict" onchange="applyFilters()">
+                        <option value="">ಎಲ್ಲಾ ಜಿಲ್ಲೆಗಳು (All Districts)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>ತಾಲೂಕು (Taluk)</label>
+                    <input type="text" id="filterTaluk" placeholder="ತಾಲೂಕು..." onkeyup="applyFilters()">
+                </div>
+                <div class="filter-group">
+                    <label>ಸದಸ್ಯತ್ವ ಪ್ರಕಾರ (Type)</label>
+                    <select id="filterType" onchange="applyFilters()">
+                        <option value="">ಎಲ್ಲಾ (All Types)</option>
+                        <option value="ಆಜೀವ ಸದಸ್ಯತ್ವ">ಆಜೀವ ಸದಸ್ಯತ್ವ</option>
+                        <option value="ಪೋಷಕ ಸದಸ್ಯತ್ವ">ಪೋಷಕ ಸದಸ್ಯತ್ವ</option>
+                        <option value="ಮಹಾಪೋಷಕ ಸದಸ್ಯತ್ವ">ಮಹಾಪೋಷಕ ಸದಸ್ಯತ್ವ</option>
+                    </select>
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <button onclick="resetFilters()" style="background: #64748b; color: white; border: none; padding: 6px 16px; border-radius: 4px; font-size: 13px; cursor: pointer;">ಮರುಹೊಂದಿಸಿ / Reset</button>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 25px;">
+            <button onclick="openApplyModal()" style="background-color: #990000; color: #ffedc2; border: none; padding: 14px 35px; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(153, 0, 0, 0.3); transition: all 0.3s ease;">
+                <i class="fa fa-plus-circle"></i> ಹೊಸ ಆಜೀವ ಸದಸ್ಯತ್ವ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Apply for Life Membership
+            </button>
+        </div>
+
+        <div class="showcase-table-container">
+            <table class="showcase-table">
+                <thead>
+                    <tr>
+                        <th>ಕ್ರಮ ಸಂಖ್ಯೆ</th>
+                        <th>ಅರ್ಜಿದಾರರ ಹೆಸರು</th>
+                        <th>ತಂದೆ/ಗಂಡನ ಹೆಸರು</th>
+                        <th>ಜಿಲ್ಲೆ</th>
+                        <th>ತಾಲೂಕು</th>
+                        <th>ಮೊಬೈಲ್</th>
+                        <th>ಸದಸ್ಯತ್ವ ಪ್ರಕಾರ</th>
+                        <th>ಕ್ರಿಯೆ (Action)</th>
+                    </tr>
+                </thead>
+                <tbody id="showcaseTableBody">
+                    <tr><td colspan="8" style="text-align:center; padding: 25px;">ಲೋಡ್ ಆಗುತ್ತಿದೆ...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Application Form Modal -->
+    <div class="modal-overlay" id="applyModal">
+        <div class="modal-wrapper">
+            <div class="modal-header-bar">
+                <h2>ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿ 2025-26</h2>
+                <button class="btn-modal-close" onclick="closeApplyModal()">&times;</button>
+            </div>
+            <div class="modal-body-scroll">
+                <form id="lifeMembershipForm" onsubmit="handleFormSubmit(event)">
+                    <div style="display:flex; gap:15px; margin-bottom:15px; flex-wrap:wrap;">
+                        <div style="flex:1; min-width:200px;">
+                            <label style="font-weight:bold; color:#990000; font-size:13px;">ತಾಲ್ಲೂಕು (Taluk)</label>
+                            <input type="text" id="taluk" required style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;" placeholder="ತಾಲೂಕು ನಮೂದಿಸಿ">
+                        </div>
+                        <div style="flex:1; min-width:200px;">
+                            <label style="font-weight:bold; color:#990000; font-size:13px;">ಜಿಲ್ಲೆ (District)</label>
+                            <select id="district" required style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                                <option value="">-ಜಿಲ್ಲೆ ಆಯ್ಕೆಮಾಡಿ-</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <table class="application-form-table">
+                        <tr>
+                            <td class="sl-no">1</td>
+                            <td class="field-label">1. ಅರ್ಜಿದಾರರ ಹೆಸರು (Applicant Name)</td>
+                            <td class="field-input"><input type="text" id="applicantName" required placeholder="ಅರ್ಜಿದಾರರ ಪೂರ್ಣ ಹೆಸರು"></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">2</td>
+                            <td class="field-label">2. ತಂದೆ/ಗಂಡನ ಹೆಸರು (Father/Husband Name)</td>
+                            <td class="field-input"><input type="text" id="fatherHusbandName" required placeholder="ತಂದೆ ಅಥವಾ ಗಂಡನ ಹೆಸರು"></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">3</td>
+                            <td class="field-label">3. ತಾಯಿಯ ಹೆಸರು (Mother Name)</td>
+                            <td class="field-input"><input type="text" id="motherName" required placeholder="ತಾಯಿಯ ಹೆಸರು"></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">4</td>
+                            <td class="field-label">4. ಉದ್ಯೋಗ ಹಾಗೂ ವಾರ್ಷಿಕ ವರಮಾನ (Occupation & Income)</td>
+                            <td class="field-input">
+                                <div style="display:flex; gap:10px;">
+                                    <input type="text" id="occupation" placeholder="ಹುದ್ದೆ/ವೃತ್ತಿ (e.g. ವ್ಯಾಪಾರ, ಕೃಷಿ, ನೌಕರಿ)" required>
+                                    <input type="text" id="annualIncome" placeholder="ವಾರ್ಷಿಕ ವರಮಾನ (e.g. ₹1,00,000/-)" required>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">5</td>
+                            <td class="field-label">5. ಖಾಯಂ ವಿಳಾಸ (Permanent Address)</td>
+                            <td class="field-input"><textarea id="permanentAddress" rows="2" required placeholder="ಮನೆ ಸಂಖ್ಯೆ, ಬೀದಿ, ಗ್ರಾಮ, ಅಂಚೆ, ಪಿನ್ ಕೋಡ್"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">6</td>
+                            <td class="field-label">6. ಜನ್ಮ ದಿನಾಂಕ, ವಯಸ್ಸು, ಲಿಂಗ & ಉಪ ಪಂಗಡ</td>
+                            <td class="field-input">
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                                    <input type="text" id="dob" placeholder="ಜನ್ಮ ದಿನಾಂಕ (DD-MM-YYYY)" required>
+                                    <input type="text" id="age" placeholder="ವಯಸ್ಸು (Age)" required>
+                                    <select id="gender" required>
+                                        <option value="">-ಲಿಂಗ ಆಯ್ಕೆಮಾಡಿ-</option>
+                                        <option value="ಗಂಡು">ಗಂಡು (Male)</option>
+                                        <option value="ಹೆಣ್ಣು">ಹೆಣ್ಣು (Female)</option>
+                                        <option value="ಇತರೆ">ಇತರೆ (Other)</option>
+                                    </select>
+                                    <input type="text" id="subCaste" placeholder="ಉಪ ಪಂಗಡ (e.g. ನದಾಫ್ / ಪಿಂಜಾರ)" value="ನದಾಫ್ / ಪಿಂಜಾರ" required>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">7</td>
+                            <td class="field-label">7. ಶೈಕ್ಷಣಿಕ ಅರ್ಹತೆ, ಆಧಾರ್ & ಮೊಬೈಲ್</td>
+                            <td class="field-input">
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                                    <input type="text" id="education" placeholder="ಶಿಕ್ಷಣ / ಶೈಕ್ಷಣಿಕ ಅರ್ಹತೆ" required>
+                                    <input type="text" id="aadhar" placeholder="ಆಧಾರ್ ಸಂಖ್ಯೆ (12 Digits)" maxlength="14" required>
+                                    <input type="text" id="mobile" placeholder="ಮೊಬೈಲ್ ಸಂಖ್ಯೆ (10 Digits)" maxlength="10" required>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">8</td>
+                            <td class="field-label">8. ಸದಸ್ಯತ್ವ ಕೋರಿಕೆ ವಿವರ & ಪಾವತಿ ವಿಧಾನ</td>
+                            <td class="field-input">
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                                    <select id="membershipType" required>
+                                        <option value="ಆಜೀವ ಸದಸ್ಯತ್ವ">ಆಜೀವ ಸದಸ್ಯತ್ವ (Life Membership)</option>
+                                        <option value="ಪೋಷಕ ಸದಸ್ಯತ್ವ">ಪೋಷಕ ಸದಸ್ಯತ್ವ (Patron Membership)</option>
+                                        <option value="ಮಹಾಪೋಷಕ ಸದಸ್ಯತ್ವ">ಮಹಾಪೋಷಕ ಸದಸ್ಯತ್ವ (Grand Patron)</option>
+                                    </select>
+                                    <select id="paymentMode" required>
+                                        <option value="ಆನ್‌ಲೈನ್ ಪಾವತಿ">ಆನ್‌ಲೈನ್ ಪಾವತಿ (Online)</option>
+                                        <option value="ನಗದು">ನಗದು (Cash)</option>
+                                        <option value="RTGS/NEFT">RTGS/NEFT</option>
+                                        <option value="ಚೆಕ್ / ಡಿಡಿ">ಚೆಕ್ / ಡಿಡಿ (Cheque/DD)</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">📷</td>
+                            <td class="field-label">ಪಾಸ್ಪೋರ್ಟ್ ಫೋಟೋ (Passport Size Photo)</td>
+                            <td class="field-input">
+                                <div class="photo-upload-box" onclick="document.getElementById('photoInput').click()">
+                                    <i class="fa fa-camera" style="font-size: 24px; color: #990000;"></i>
+                                    <span style="font-size: 13px; color: #555;">ಫೋಟೋ ಆಯ್ಕೆಮಾಡಿ / Select Photo</span>
+                                    <input type="file" id="photoInput" style="display:none" accept="image/*" onchange="previewPhoto(this)" required>
+                                    <img src="" id="photoPreview" class="photo-preview-img">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="form-info-line">
+                        ⚠️ <strong>ಪ್ರಮಾಣೀಕರಣ (Declaration):</strong> ಕರ್ನಾಟಕ ಸಂಘಗಳ ನೋಂದಣಿ ಕಾಯ್ದೆ 1960 ರ ಅಡಿಯಲ್ಲಿ ನೋಂದಾಯಿತ ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘದ ಬೈಲಾ ನಿಯಮಾವಳಿಗಳನ್ನು ಪೂರ್ತಿಯಾಗಿ ತಿಳಿದುಕೊಂಡು, ಉಲ್ಲೇಖಿತ ಸಂಘಕ್ಕೆ ಯಾವುದೇ ರೀತಿಯ ಹಾನಿಯುಂಟಾಗದಂತೆ, ಶ್ರದ್ಧೆ ಹಾಗೂ ಪ್ರಾಮಾಣಿಕತೆಯಿಂದ ನಡೆದುಕೊಳ್ಳುತ್ತೇನೆಂದು ಪ್ರಮಾಣೀಕರಿಸುತ್ತೇನೆ. ನನ್ನ ಅರ್ಜಿಯನ್ನು ಪರಿಶೀಲಿಸಿ ಸಂಘದ ಆಜೀವ ಸದಸ್ಯತ್ವವನ್ನು ನೀಡಬೇಕಾಗಿ ವಿನಂತಿಸಿಕೊಳ್ಳುತ್ತೇನೆ.
+                    </div>
+
+                    <div style="text-align: center; margin-top: 25px;">
+                        <button type="submit" class="btn-submit" style="background-color: #990000 !important; color: white; padding: 12px 35px; border-radius: 6px; font-size: 15px; font-weight: bold; border: none; cursor: pointer;">ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Submit Application</button>
+                        <button type="button" onclick="closeApplyModal()" class="btn-cancel" style="background-color: #64748b !important; color: white; padding: 12px 35px; border-radius: 6px; font-size: 15px; font-weight: bold; border: none; cursor: pointer; margin-left: 10px;">ರದ್ದುಮಾಡಿ / Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Confirmation Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-wrapper" style="max-width: 500px;">
+            <div class="modal-header-bar" style="background-color: #28a745;">
+                <h2 style="text-align:center; width:100%;"><i class="fa fa-check-circle"></i> ಅರ್ಜಿ ಸಲ್ಲಿಕೆ ಯಶಸ್ವಿಯಾಗಿದೆ!</h2>
+            </div>
+            <div style="padding: 25px; text-align: center;">
+                <p style="font-size: 15px; color: #333; font-weight: 500; margin-bottom: 20px;">ನಿಮ್ಮ ಆಜೀವ ಸದಸ್ಯತ್ವ ಅರ್ಜಿಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಸ್ವೀಕರಿಸಲಾಗಿದೆ.</p>
+                <div id="modalAppNumber" style="font-size: 18px; font-weight: bold; color: #28a745; background-color: #e8f5e9; padding: 12px; border-radius: 6px; border: 1.5px dashed #28a745; margin-bottom: 20px;">
+                    ಅರ್ಜಿ ಸಂಖ್ಯೆ: -
+                </div>
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="downloadSubmittedForm()" class="btn-submit" style="background-color: #007bff !important; border:none; color:white; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;"><i class="fa fa-download"></i> ಡೌನ್‌ಲೋಡ್ / Download PDF</button>
+                    <button onclick="window.location.reload()" class="btn-submit" style="background-color: #6c757d !important; border:none; color:white; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer;">ಮುಚ್ಚಿ / Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student/Applicant Details Modal -->
+    <div class="modal-overlay" id="studentDetailsModal">
+        <div class="modal-wrapper" style="max-width: 800px; border-color: #990000;">
+            <div class="modal-header-bar" style="background-color: #990000; color: #ffedc2;">
+                <h2 id="modalStudentTitle" style="color: #ffedc2; text-align: left; width: 100%;">ಅರ್ಜಿದಾರರ ವಿವರ / Applicant Details</h2>
+                <button class="btn-modal-close" onclick="closeStudentDetailsModal()">&times;</button>
+            </div>
+            <div class="modal-body-scroll" style="padding: 25px;">
+                <div class="review-grid">
+                    <div>
+                        <table class="review-details-table">
+                            <tr>
+                                <td style="width: 40%;"><strong>ಅರ್ಜಿದಾರರ ಹೆಸರು</strong></td>
+                                <td class="val-cell" id="detName"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ತಂದೆ/ಗಂಡನ ಹೆಸರು</strong></td>
+                                <td class="val-cell" id="detFather"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ತಾಯಿಯ ಹೆಸರು</strong></td>
+                                <td class="val-cell" id="detMother"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ಉದ್ಯೋಗ & ಆದಾಯ</strong></td>
+                                <td class="val-cell" id="detIncome"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ಖಾಯಂ ವಿಳಾಸ</strong></td>
+                                <td class="val-cell" id="detAddress"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ಜನ್ಮ ದಿನಾಂಕ & ವಯಸ್ಸು</strong></td>
+                                <td class="val-cell" id="detDob"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ಲಿಂಗ & ಉಪ ಪಂಗಡ</strong></td>
+                                <td class="val-cell" id="detGender"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ಶಿಕ್ಷಣ</strong></td>
+                                <td class="val-cell" id="detEducation"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ಆಧಾರ್ ಸಂಖ್ಯೆ</strong></td>
+                                <td class="val-cell" id="detAadhar"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</strong></td>
+                                <td class="val-cell" id="detMobile"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ಸದಸ್ಯತ್ವ ಪ್ರಕಾರ</strong></td>
+                                <td class="val-cell" id="detMembership"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ತಾಲೂಕು & ಜಿಲ್ಲೆ</strong></td>
+                                <td class="val-cell" id="detLocation"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="border: 2px solid #ffedc2; border-radius: 8px; padding: 12px; background: #fff8eb; max-width: 200px; margin: 0 auto 15px auto; width: 100%;">
+                            <div style="width: 100%; height: 200px; background: #cbd5e0; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 6px; border: 1px solid #a0aec0;">
+                                <img id="detPhoto" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                <span id="detPhotoPlaceholder" style="color: #4a5568; font-size: 12px; font-weight: 500;">No Photo</span>
+                            </div>
+                        </div>
+                        <div id="detRemarksBox" style="background: #e8f5e9; border-left: 3px solid #28a745; padding: 12px; border-radius: 0 6px 6px 0; font-size: 13px; color: #155724; text-align: left; box-sizing: border-box; width: 100%;">
+                            <strong>ಷರಾ (Remarks):</strong> <span id="detRemarks" style="color: #155724; font-weight: bold;">ಅನುಮೋದಿಸಲಾಗಿದೆ</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 25px; border-top: 1px solid #e2e8f0; padding-top: 15px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="downloadShowcaseForm()" class="btn-submit" style="background-color: #007bff !important; color: white; border:none; padding: 10px 25px; border-radius: 6px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;"><i class="fa fa-download"></i> ಡೌನ್‌ಲೋಡ್ / Download PDF</button>
+                    <button onclick="closeStudentDetailsModal()" class="btn-submit" style="background-color: #990000 !important; color: #ffedc2; border:none; padding: 10px 25px; border-radius: 6px; font-weight: bold; cursor: pointer;">ಮುಚ್ಚಿ / Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="wrapper footer-wrapper">
+        <div class="footer-top-wrapper">
+            <div class="container common-container four_content footer-top-container">
+                <ul>
+                    <li><a href="privacypolicy.html">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="termsconditions.html">Terms and Conditions</a></li>
+                    <li><a href="Disclaimer.html">Disclaimer</a></li>
+                    <li><a href="login.html">Admin Login</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-wrapper">
+            <div class="container common-container four_content footer-bottom-container">
+                <div class="footer-content clearfix">
+                    <div class="copyright-content">
+                        <strong>
+                            <p>© 2026 Karnataka State Nadaf / Pinjar Sangha (R). All Rights Reserved.</p>
+                        </strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery-accessibleMegaMenu.js"></script>
+    <script src="js/framework.js"></script>
+    <script src="js/megamenu.js"></script>
+    <script src="js/dropdowns.js"></script>
+
+    <script>
+        const KARNATAKA_DISTRICTS = [
+            "ಬಾಗಲಕೋಟೆ", "ಬಳ್ಳಾರಿ", "ಬೆಳಗಾವಿ", "ಬೆಂಗಳೂರು ಗ್ರಾಮಾಂತರ", "ಬೆಂಗಳೂರು ನಗರ",
+            "ಬೀದರ್", "ಚಾಮರಾಜನಗರ", "ಚಿಕ್ಕಬಳ್ಳಾಪುರ", "ಚಿಕ್ಕಮಗಳೂರು", "ಚಿತ್ರದುರ್ಗ",
+            "ದಕ್ಷಿಣ ಕನ್ನಡ", "ದಾವಣಗೆರೆ", "ಧಾರವಾಡ", "ಗದಗ", "ಹಾಸನ",
+            "ಹಾವೇರಿ", "ಕಲಬುರಗಿ", "ಕೊಡಗು", "ಕೋಲಾರ", "ಕೊಪ್ಪಳ",
+            "ಮಂಡ್ಯ", "ಮೈಸೂರು", "ರಾಯಚೂರು", "ರಾಮನಗರ", "ಶಿವಮೊಗ್ಗ",
+            "ತುಮಕೂರು", "ಉಡುಪಿ", "ಉತ್ತರ ಕನ್ನಡ", "ವಿಜಯಪುರ", "ಯಾದಗಿರಿ", "ವಿಜಯನಗರ"
+        ];
+
+        let allApplications = [];
+        let uploadedPhotoBase64 = "";
+
+        document.addEventListener("DOMContentLoaded", function() {
+            populateDistricts();
+            loadApplications();
+        });
+
+        function populateDistricts() {
+            const districtSelect = document.getElementById("district");
+            const filterDistrictSelect = document.getElementById("filterDistrict");
+            
+            KARNATAKA_DISTRICTS.forEach(dist => {
+                const opt1 = document.createElement("option");
+                opt1.value = dist;
+                opt1.textContent = dist;
+                districtSelect.appendChild(opt1);
+
+                const opt2 = document.createElement("option");
+                opt2.value = dist;
+                opt2.textContent = dist;
+                filterDistrictSelect.appendChild(opt2);
+            });
+        }
+
+        function toggleMarqueePause(e, el) {
+            if (e.target.tagName.toLowerCase() === 'a' || e.target.closest('a')) return;
+            el.classList.toggle('is-paused');
+        }
+
+        function toggleFilterPanel() {
+            const panel = document.getElementById("filterPanel");
+            panel.style.display = panel.style.display === "block" ? "none" : "block";
+        }
+
+        function openApplyModal() {
+            document.getElementById("applyModal").style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeApplyModal() {
+            document.getElementById("applyModal").style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        function previewPhoto(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedPhotoBase64 = e.target.result;
+                    const imgEl = document.getElementById("photoPreview");
+                    imgEl.src = uploadedPhotoBase64;
+                    imgEl.style.display = "block";
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        async function loadApplications() {
+            try {
+                let res = await fetch("/api/donations?_=" + Date.now()).catch(() => null);
+                if (!res || !res.ok) {
+                    res = await fetch("https://nadafpinjar-production.up.railway.app/api/donations?_=" + Date.now()).catch(() => null);
+                }
+                
+                let remoteData = [];
+                if (res && res.ok) {
+                    const data = await res.json();
+                    remoteData = Array.isArray(data) ? data : (data.donations || []);
+                }
+
+                let localData = [];
+                try {
+                    localData = JSON.parse(localStorage.getItem("nadaf_lifemembership_applications") || "[]");
+                } catch(e) {}
+
+                const remoteLifemembership = remoteData.filter(item => item.formType === "lifemembership");
+                const merged = [...remoteLifemembership];
+                localData.forEach(loc => {
+                    if (!merged.some(m => m.id === loc.id)) {
+                        merged.push(loc);
+                    }
+                });
+
+                allApplications = merged.length > 0 ? merged : getDemoData();
+                renderShowcaseTable(allApplications);
+            } catch(e) {
+                console.error("Error loading applications:", e);
+                allApplications = getDemoData();
+                renderShowcaseTable(allApplications);
+            }
+        }
+
+        function getDemoData() {
+            return [
+                {
+                    id: "LM-2025-001",
+                    applicantName: "ಮಹಾಲಿಂಗಪ್ಪ ನದಾಫ",
+                    fatherHusbandName: "ಖಾಸಿಂ ನದಾಫ",
+                    motherName: "ಫಾತಿಮಾ ಬಿ",
+                    occupation: "ವ್ಯಾಪಾರ",
+                    annualIncome: "₹ 1,50,000/-",
+                    permanentAddress: "ನಂ. 30, ರೈಲ್ವೆ ಸ್ಟೇಷನ್ ರಸ್ತೆ, ಶಿವಮೊಗ್ಗ - 577201",
+                    dob: "15-06-1980",
+                    age: "45",
+                    gender: "ಗಂಡು",
+                    subCaste: "ನದಾಫ್ / ಪಿಂಜಾರ",
+                    education: "ಎಸ್.ಎಸ್.ಎಲ್.ಸಿ (SSLC)",
+                    aadhar: "4589 1234 5678",
+                    mobile: "9876543210",
+                    membershipType: "ಆಜೀವ ಸದಸ್ಯತ್ವ",
+                    paymentMode: "ಆನ್‌ಲೈನ್ ಪಾವತಿ",
+                    district: "ಶಿವಮೊಗ್ಗ",
+                    taluk: "ಶಿವಮೊಗ್ಗ",
+                    photo: "images/president_circular.png",
+                    remarks: "ಅನುಮೋದಿಸಲಾಗಿದೆ",
+                    date: "12-01-2026"
+                }
+            ];
+        }
+
+        function renderShowcaseTable(apps) {
+            const tbody = document.getElementById("showcaseTableBody");
+            if (!apps || apps.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 25px; color: #718096;">ಯಾವುದೇ ಅರ್ಜಿಗಳು ಕಂಡುಬಂದಿಲ್ಲ.</td></tr>';
+                return;
+            }
+
+            let html = "";
+            apps.forEach((app, idx) => {
+                html += `
+                    <tr>
+                        <td><strong>${idx + 1}</strong></td>
+                        <td style="font-weight: bold; color: #990000;">${app.applicantName || app.studentName || '-'}</td>
+                        <td>${app.fatherHusbandName || app.fatherName || '-'}</td>
+                        <td>${app.district || '-'}</td>
+                        <td>${app.taluk || app.city || '-'}</td>
+                        <td>${app.mobile || app.parentMobile || '-'}</td>
+                        <td><span style="background: #fff8eb; border: 1.5px solid #f6cf57; color: #990000; padding: 3px 8px; border-radius: 12px; font-weight: bold; font-size: 12px;">${app.membershipType || 'ಆಜೀವ ಸದಸ್ಯತ್ವ'}</span></td>
+                        <td>
+                            <button onclick="viewApplicationDetails('${app.id}')" style="background-color: #007bff; color: white; border: none; padding: 6px 14px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer;">
+                                <i class="fa fa-eye"></i> ವಿವರ ನೋಡಿ
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function applyFilters() {
+            const searchName = document.getElementById("filterName").value.toLowerCase().trim();
+            const dist = document.getElementById("filterDistrict").value;
+            const taluk = document.getElementById("filterTaluk").value.toLowerCase().trim();
+            const type = document.getElementById("filterType").value;
+
+            const filtered = allApplications.filter(app => {
+                const name = (app.applicantName || app.studentName || "").toLowerCase();
+                const d = app.district || "";
+                const t = (app.taluk || app.city || "").toLowerCase();
+                const mType = app.membershipType || "ಆಜೀವ ಸದಸ್ಯತ್ವ";
+
+                const matchName = !searchName || name.includes(searchName);
+                const matchDist = !dist || d === dist;
+                const matchTaluk = !taluk || t.includes(taluk);
+                const matchType = !type || mType === type;
+
+                return matchName && matchDist && matchTaluk && matchType;
+            });
+
+            renderShowcaseTable(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById("filterName").value = "";
+            document.getElementById("filterDistrict").value = "";
+            document.getElementById("filterTaluk").value = "";
+            document.getElementById("filterType").value = "";
+            renderShowcaseTable(allApplications);
+        }
+
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const appData = {
+                id: "LM-" + Date.now().toString().slice(-6),
+                formType: "lifemembership",
+                applicantName: document.getElementById("applicantName").value,
+                fatherHusbandName: document.getElementById("fatherHusbandName").value,
+                motherName: document.getElementById("motherName").value,
+                occupation: document.getElementById("occupation").value,
+                annualIncome: document.getElementById("annualIncome").value,
+                permanentAddress: document.getElementById("permanentAddress").value,
+                dob: document.getElementById("dob").value,
+                age: document.getElementById("age").value,
+                gender: document.getElementById("gender").value,
+                subCaste: document.getElementById("subCaste").value,
+                education: document.getElementById("education").value,
+                aadhar: document.getElementById("aadhar").value,
+                mobile: document.getElementById("mobile").value,
+                membershipType: document.getElementById("membershipType").value,
+                paymentMode: document.getElementById("paymentMode").value,
+                taluk: document.getElementById("taluk").value,
+                district: document.getElementById("district").value,
+                photo: uploadedPhotoBase64,
+                date: new Date().toLocaleDateString('kn-IN'),
+                remarks: "ಅನುಮೋದಿಸಲಾಗಿದೆ"
+            };
+
+            window.currentViewedStudent = appData;
+
+            // Store locally
+            try {
+                let local = JSON.parse(localStorage.getItem("nadaf_lifemembership_applications") || "[]");
+                local.unshift(appData);
+                localStorage.setItem("nadaf_lifemembership_applications", JSON.stringify(local));
+            } catch(err) {}
+
+            // Send to server
+            try {
+                let res = await fetch("/api/donations", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(appData)
+                }).catch(() => null);
+
+                if (!res || !res.ok) {
+                    await fetch("https://nadafpinjar-production.up.railway.app/api/donations", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(appData)
+                    }).catch(() => null);
+                }
+            } catch(err) {}
+
+            closeApplyModal();
+
+            document.getElementById("modalAppNumber").innerText = "ಅರ್ಜಿ ಸಂಖ್ಯೆ: " + appData.id;
+            document.getElementById("successModal").style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+
+        function viewApplicationDetails(id) {
+            const app = allApplications.find(a => a.id === id);
+            if (!app) return;
+
+            window.currentViewedStudent = app;
+
+            document.getElementById("detName").innerText = app.applicantName || app.studentName || '-';
+            document.getElementById("detFather").innerText = app.fatherHusbandName || app.fatherName || '-';
+            document.getElementById("detMother").innerText = app.motherName || app.guardianName || '-';
+            document.getElementById("detIncome").innerText = (app.occupation || '-') + " | " + (app.annualIncome || '-');
+            document.getElementById("detAddress").innerText = app.permanentAddress || app.completeAddress || '-';
+            document.getElementById("detDob").innerText = (app.dob || '-') + " (ವಯಸ್ಸು: " + (app.age || '-') + ")";
+            document.getElementById("detGender").innerText = (app.gender || '-') + " | ಉಪ ಪಂಗಡ: " + (app.subCaste || '-');
+            document.getElementById("detEducation").innerText = app.education || '-';
+            document.getElementById("detAadhar").innerText = app.aadhar || '-';
+            document.getElementById("detMobile").innerText = app.mobile || app.parentMobile || '-';
+            document.getElementById("detMembership").innerText = (app.membershipType || 'ಆಜೀವ ಸದಸ್ಯತ್ವ') + " (" + (app.paymentMode || 'ಆನ್‌ಲೈನ್') + ")";
+            document.getElementById("detLocation").innerText = (app.taluk || app.city || '-') + ", " + (app.district || '-');
+
+            const imgEl = document.getElementById("detPhoto");
+            const phEl = document.getElementById("detPhotoPlaceholder");
+            if (app.photo) {
+                imgEl.src = app.photo;
+                imgEl.style.display = "block";
+                phEl.style.display = "none";
+            } else {
+                imgEl.style.display = "none";
+                phEl.style.display = "block";
+            }
+
+            document.getElementById("studentDetailsModal").style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeStudentDetailsModal() {
+            document.getElementById("studentDetailsModal").style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        function loadHtml2Pdf() {
+            return new Promise((resolve, reject) => {
+                if (window.html2pdf) {
+                    resolve(window.html2pdf);
+                    return;
+                }
+                const script = document.createElement("script");
+                script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+                script.onload = () => resolve(window.html2pdf);
+                script.onerror = () => reject(new Error("Failed to load html2pdf"));
+                document.head.appendChild(script);
+            });
+        }
+
+        async function downloadShowcaseForm() {
+            await generatePDF(window.currentViewedStudent);
+        }
+
+        async function downloadSubmittedForm() {
+            await generatePDF(window.currentViewedStudent);
+        }
+
+        async function generatePDF(fd) {
+            if (!fd) { alert("ದಯವಿಟ್ಟು ಮೊದಲು ವಿವರಗಳನ್ನು ತೆರೆಯಿರಿ."); return; }
+
+            try {
+                const html2pdf = await loadHtml2Pdf();
+
+                const element = document.createElement('div');
+                element.style.width = '700px';
+                element.style.backgroundColor = '#ffffff';
+                element.style.color = '#000000';
+                element.style.padding = '15px 25px';
+                element.style.boxSizing = 'border-box';
+
+                element.innerHTML = `
+                    <style>
+                        .pdf-container {
+                            font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
+                            font-size: 13.5px;
+                            line-height: 1.3;
+                            color: #000;
+                            page-break-inside: avoid !important;
+                        }
+                        .header-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-bottom: 2px;
+                        }
+                        .header-table td {
+                            border: none !important;
+                            padding: 0 !important;
+                            vertical-align: middle;
+                        }
+                        .header-logo-left {
+                            width: 95px;
+                            text-align: left;
+                        }
+                        .header-logo-left img {
+                            width: 95px;
+                            height: 95px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+                        .header-logo-right {
+                            width: 95px;
+                            text-align: right;
+                        }
+                        .header-logo-right img {
+                            width: 95px;
+                            height: 95px;
+                            border-radius: 50%;
+                            object-fit: contain;
+                        }
+                        .header-text {
+                            text-align: center;
+                        }
+                        .header-text h1 {
+                            margin: 0;
+                            font-size: 23px;
+                            font-weight: bold;
+                            color: #b80024;
+                        }
+                        .header-text h2 {
+                            margin: 2px 0 0 0;
+                            font-size: 13px;
+                            font-weight: bold;
+                            color: #b80024;
+                        }
+                        .header-text h3 {
+                            margin: 2px 0 0 0;
+                            font-size: 12.5px;
+                            font-weight: bold;
+                            color: #b80024;
+                        }
+                        .header-text h4 {
+                            margin: 2px 0 0 0;
+                            font-size: 12.5px;
+                            font-weight: bold;
+                            color: #b80024;
+                        }
+                        .header-line {
+                            border-top: 2px solid #000;
+                            margin: 6px 0 4px 0;
+                        }
+                        .title-box {
+                            border: 2px solid #f6cf57;
+                            background-color: #fff8eb;
+                            border-radius: 12px;
+                            text-align: center;
+                            padding: 6px 15px;
+                            margin: 0 auto 10px auto;
+                            max-width: 380px;
+                        }
+                        .title-box h2 {
+                            margin: 0;
+                            font-size: 18px;
+                            font-weight: bold;
+                            color: #b80024;
+                        }
+                        .title-box p {
+                            margin: 2px 0 0 0;
+                            font-size: 12.5px;
+                            font-weight: bold;
+                            color: #b80024;
+                        }
+                        .details-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 4px;
+                        }
+                        .details-table th, .details-table td {
+                            border: 1px solid #000 !important;
+                            padding: 4px 6px !important;
+                            text-align: left;
+                            vertical-align: middle;
+                            font-size: 13px !important;
+                        }
+                        .details-table .sl-col {
+                            width: 5%;
+                            text-align: center;
+                            font-weight: bold;
+                        }
+                        .details-table .label-col {
+                            width: 32%;
+                            font-weight: bold;
+                            color: #b80024;
+                        }
+                        .details-table .value-col {
+                            color: #b80024;
+                            font-weight: 500;
+                        }
+                        .photo-cell {
+                            text-align: center;
+                            vertical-align: middle;
+                            padding: 2px !important;
+                            width: 20%;
+                            height: 140px;
+                        }
+                        .photo-cell img {
+                            width: 110px;
+                            height: 130px;
+                            object-fit: cover;
+                            display: block;
+                            margin: 0 auto;
+                            border: 1px solid #000;
+                        }
+                        .photo-placeholder {
+                            font-size: 11px;
+                            border: 1px dashed #555;
+                            width: 110px;
+                            height: 130px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto;
+                            background: #fafafa;
+                            line-height: 1.3;
+                            color: #b80024;
+                            text-align: center;
+                        }
+                        .declaration-text {
+                            margin-top: 10px;
+                            font-size: 13px;
+                            line-height: 1.4;
+                            text-align: justify;
+                            color: #b80024;
+                        }
+                        .signature-section {
+                            width: 100%;
+                            margin-top: 12px;
+                            margin-bottom: 12px;
+                        }
+                        .signature-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        .signature-table td {
+                            border: none !important;
+                            padding: 2px 0 !important;
+                            font-size: 13.5px;
+                            white-space: nowrap;
+                            color: #b80024;
+                        }
+                        .section-header-center {
+                            text-align: center;
+                            font-weight: bold;
+                            font-size: 14px;
+                            margin: 10px 0 8px 0;
+                            color: #b80024;
+                        }
+                        .approval-boxes-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-bottom: 12px;
+                        }
+                        .approval-boxes-table td {
+                            border: none !important;
+                            padding: 0 10px !important;
+                            width: 50%;
+                            vertical-align: top;
+                        }
+                        .approval-box-title {
+                            font-weight: bold;
+                            font-size: 13px;
+                            margin-bottom: 4px;
+                            color: #b80024;
+                        }
+                        .approval-box {
+                            border: 1.5px solid #000;
+                            height: 40px;
+                            width: 45px;
+                            display: inline-block;
+                        }
+                        .dashed-divider {
+                            border-top: 1.5px dashed #b80024;
+                            text-align: center;
+                            margin: 15px 0 10px 0;
+                            padding-top: 4px;
+                            font-size: 12.5px;
+                            font-weight: bold;
+                            color: #b80024;
+                        }
+                        .state-unit-section {
+                            margin-top: 5px;
+                            font-size: 13px;
+                            color: #b80024;
+                        }
+                        .membership-no-box {
+                            border: 1.5px solid #0066cc;
+                            border-radius: 10px;
+                            padding: 6px 15px;
+                            display: inline-block;
+                            margin-top: 10px;
+                            font-weight: bold;
+                            font-size: 13.5px;
+                            color: #b80024;
+                        }
+                        .bottom-note {
+                            font-size: 12px;
+                            font-weight: bold;
+                            margin-top: 12px;
+                            color: #b80024;
+                        }
+                    </style>
+                    <div class="pdf-container">
+                        <table class="header-table">
+                            <tr>
+                                <td class="header-logo-left">
+                                    <img src="${window.location.origin}/images/president_circular.png" onerror="this.src='${window.location.origin}/images/president.jpeg'">
+                                </td>
+                                <td class="header-text">
+                                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
+                                    <h2>ನಂ. 151/ಎಸ್‌ಒ & ೪೦/ಎಸ್‍ಡಬ್ಲ್ಯೂ ಸಂಖ್ಯೆ ಎಸ್‌/93-94</h2>
+                                    <h3>ನೊಂದಾಯಿತ ಕಚೇರಿ : ಕೆ.ಜಿ. ಹಳ್ಳಿ ಕ್ರಾಸ್, ಅರೇಬಿಕ್ ಕಾಲೇಜು ಪೋಸ್ಟ್, ಬಿ.ಆರ್. ಅಂಬೇಡ್ಕರ್ ನಗರ, ಶಿವಮೊಗ್ಗ</h3>
+                                    <h4>ಮುಖ್ಯಾಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ರಾಷ್ಟ್ರೀಯ ಹೆದ್ದಾರಿ 13, ಸೀಬಾರ ಸಮೀಪ, ಚಿತ್ರದುರ್ಗ – 577502</h4>
+                                </td>
+                                <td class="header-logo-right">
+                                    <img src="${window.location.origin}/images/logo-786_circular.png" onerror="this.src='${window.location.origin}/images/logo-786.png'">
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="header-line"></div>
+                        
+                        <table style="width:100%; border-collapse:collapse; margin-bottom:6px; color:#b80024; font-weight:bold; font-size:14px;">
+                            <tr>
+                                <td style="border:none!important; text-align:left;">ತಾಲ್ಲೂಕು : ${fd.taluk || fd.city || '.........................'}</td>
+                                <td style="border:none!important; text-align:right;">ಜಿಲ್ಲೆ : ${fd.district || '.........................'}</td>
+                            </tr>
+                        </table>
+
+                        <div class="title-box">
+                            <h2>ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿ</h2>
+                            <p>(ನಿಯಮ 3,4 ಹಾಗೂ 5 ರಂತೆ)</p>
+                        </div>
+                        
+                        <table class="details-table">
+                            <tr>
+                                <td class="sl-col">1</td>
+                                <td class="label-col">ಅರ್ಜಿದಾರರ ಹೆಸರು</td>
+                                <td class="value-col">${fd.applicantName || fd.studentName || '-'}</td>
+                                <td class="photo-cell" rowspan="4">
+                                    ${fd.photo ? '<img src="' + fd.photo + '">' : '<div class="photo-placeholder">ಅಳತೆ:<br>3.5 x 4.5<br><br>ಭಾವಚಿತ್ರ</div>'}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">2</td>
+                                <td class="label-col">ತಂದೆ/ಗಂಡನ ಹೆಸರು</td>
+                                <td class="value-col">${fd.fatherHusbandName || fd.fatherName || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">3</td>
+                                <td class="label-col">ತಾಯಿಯ ಹೆಸರು</td>
+                                <td class="value-col">${fd.motherName || fd.guardianName || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">4</td>
+                                <td class="label-col">ಉದ್ಯೋಗ ಹಾಗೂ ವಾರ್ಷಿಕ ವರಮಾನ</td>
+                                <td class="value-col">
+                                    ಹುದ್ದೆ/ವೃತ್ತಿ : ${fd.occupation || fd.parentOccupationIncome || '-'} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ವಾರ್ಷಿಕ ವರಮಾನ : ${fd.annualIncome || '-'}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">5</td>
+                                <td class="label-col">ಖಾಯಂ ವಿಳಾಸ</td>
+                                <td class="value-col" colspan="2">${fd.permanentAddress || fd.completeAddress || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">6</td>
+                                <td class="label-col">ಜನ್ಮ ದಿನಾಂಕ</td>
+                                <td class="value-col" colspan="2" style="padding:0!important;">
+                                    <table style="width:100%; border-collapse:collapse; color:#b80024;">
+                                        <tr>
+                                            <td style="border:none!important; border-right:1px solid #000!important; width:30%;">ದಿನಾಂಕ: ${fd.dob || '-'}</td>
+                                            <td style="border:none!important; border-right:1px solid #000!important; width:20%;">ವಯಸ್ಸು: ${fd.age || '-'}</td>
+                                            <td style="border:none!important; border-right:1px solid #000!important; width:22%;">ಲಿಂಗ: ${fd.gender || '-'}</td>
+                                            <td style="border:none!important; width:28%;">ಉಪ ಪಂಗಡ: ${fd.subCaste || 'ನದಾಫ್ / ಪಿಂಜಾರ'}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">7</td>
+                                <td class="label-col">ಶಿಕ್ಷಣ & ವಿವರ</td>
+                                <td class="value-col" colspan="2" style="padding:0!important;">
+                                    <table style="width:100%; border-collapse:collapse; color:#b80024;">
+                                        <tr>
+                                            <td style="border:none!important; border-right:1px solid #000!important; width:50%;">ಅರ್ಜಿದಾರರ ಆಧಾರ ಸಂಖ್ಯೆ: ${fd.aadhar || '-'}</td>
+                                            <td style="border:none!important; width:50%;">ಅರ್ಜಿದಾರರ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ: ${fd.mobile || fd.parentMobile || '-'}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">8</td>
+                                <td class="label-col">ವಿವರವಾಗಿ ಬರೆಯಬೇಕಾದ ಕಡೆಗಳಲ್ಲಿ</td>
+                                <td class="value-col" style="width:45%;">
+                                    ಆಜೀವ ಸದಸ್ಯತ್ವ / ಪೋಷಕ ಸದಸ್ಯತ್ವ / ಮಹಾಪೋಷಕ ಸದಸ್ಯತ್ವ / ಇತ್ಯಾದಿ: <br><strong>${fd.membershipType || 'ಆಜೀವ ಸದಸ್ಯತ್ವ'}</strong>
+                                </td>
+                                <td class="value-col" style="width:25%;">
+                                    ನಗದು / RTGS/ ಚೆಕ್/ ಡಿಡಿ / ಪಾವತಿ: <br><strong>${fd.paymentMode || 'ಆನ್‌ಲೈನ್'}</strong>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="declaration-text">
+                            ಕರ್ನಾಟಕ ಸಂಘಗಳ ನೋಂದಣಿ ಕಾಯ್ದೆ 1960 ರ ಅಡಿಯಲ್ಲಿ ನೋಂದಾಯಿತ ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘದ ಬೈಲಾ ನಿಯಮಾವಳಿಗಳನ್ನು ಪೂರ್ತಿಯಾಗಿ ತಿಳಿದುಕೊಂಡು, ಉಲ್ಲೇಖಿತ ಸಂಘಕ್ಕೆ ಯಾವುದೇ ರೀತಿಯ ಹಾನಿಯುಂಟಾಗದಂತೆ, ಶ್ರದ್ಧೆ ಹಾಗೂ ಪ್ರಾಮಾಣಿಕತೆಯಿಂದ ನಡೆದುಕೊಳ್ಳುತ್ತೇನೆಂದು ಪ್ರಮಾಣೀಕರಿಸುತ್ತೇನೆ. ನನ್ನ ಅರ್ಜಿಯನ್ನು ಪರಿಶೀಲಿಸಿ ಸಂಘದ ಆಜೀವ ಸದಸ್ಯತ್ವವನ್ನು ನೀಡಬೇಕಾಗಿ ವಿನಂತಿಸಿಕೊಳ್ಳುತ್ತೇನೆ.
+                        </div>
+
+                        <div class="signature-section">
+                            <table class="signature-table">
+                                <tr>
+                                    <td style="width: 50%; text-align: left;"><strong>ಅರ್ಜಿ ದಿನಾಂಕ :</strong> ${fd.date || new Date().toLocaleDateString('kn-IN')}</td>
+                                    <td style="width: 50%; text-align: right; font-weight: bold;">ಅರ್ಜಿದಾರರ ಸಹಿ</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="section-header-center">ಸಂಘದ ಉಪಯೋಗಕ್ಕಾಗಿ ಮಾತ್ರ</div>
+
+                        <table class="approval-boxes-table">
+                            <tr>
+                                <td style="text-align: left;">
+                                    <span class="approval-box-title">ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರು</span> &nbsp;&nbsp;
+                                    <span class="approval-box"></span>
+                                </td>
+                                <td style="text-align: right;">
+                                    <span class="approval-box-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು</span> &nbsp;&nbsp;
+                                    <span class="approval-box"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="dashed-divider">
+                            -o-o-o-o-o-o-o-o-o-o- o-o-o-o-o-o ರಾಜ್ಯ ಘಟಕದ ಉಪಯೋಗಕ್ಕಾಗಿ. -o-o-o-o-o-o-o-o-o-o-
+                        </div>
+
+                        <div class="state-unit-section">
+                            <table style="width:100%; border-collapse:collapse; color:#b80024;">
+                                <tr>
+                                    <td style="border:none!important; text-align:left; vertical-align:top;">
+                                        ಮೇಲ್ಕಂಡ ಅರ್ಜಿದಾರರನ್ನು ರಾಜ್ಯ ಘಟಕದಿಂದ<br>
+                                        ಸಂಘದ ಆಜೀವ ಸದಸ್ಯತ್ವ ನೀಡಲು ತೀರ್ಮಾನಿಸಲಾಗಿದೆ.
+                                    </td>
+                                    <td style="border:none!important; text-align:right; vertical-align:bottom; font-weight:bold;">
+                                        ಅಧ್ಯಕ್ಷರು/ ಪ್ರಧಾನ ಕಾರ್ಯದರ್ಶಿ/ ಸಹಿ,
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div class="membership-no-box">
+                                : ಆಜೀವ ಸದಸ್ಯತ್ವ ಸಂಖ್ಯೆ : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+
+                        <div class="bottom-note">
+                            ಅರ್ಜಿದಾರರ ಭಾವಚಿತ್ರವನ್ನು ತಾಲ್ಲೂಕು ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು ಹಾಗೂ ರಾಜ್ಯ ಪದಾಧಿಕಾರಿಗಳು ಕಡ್ಡಾಯವಾಗಿ ದೃಢೀಕರಿಸುವುದು.
+                        </div>
+                    </div>
+                `;
+
+                document.body.appendChild(element);
+                const images = Array.from(element.querySelectorAll('img'));
+                await Promise.all(images.map(img => {
+                    if (img.complete) return Promise.resolve();
+                    return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
+                }));
+
+                const opt = {
+                    margin: [8, 12, 8, 12],
+                    filename: `Life_Membership_${fd.applicantName || fd.studentName || 'Application'}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0 },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                    pagebreak: { mode: 'avoid-all' }
+                };
+                await html2pdf().set(opt).from(element).save();
+                document.body.removeChild(element);
+            } catch (err) {
+                console.error("PDF Download error:", err);
+                alert("PDF ಡೌನ್‌ಲೋಡ್ ಮಾಡುವಲ್ಲಿ ದೋಷ ಸಂಭವಿಸಿದೆ.");
+            }
+        }
+    </script>
+</body>
+</html>
