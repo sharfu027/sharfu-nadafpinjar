@@ -1297,28 +1297,34 @@
                         
                         <table class="details-table">
                             <tr>
-                                <td class="sl-col">1</td>
-                                <td class="label-col">ಅರ್ಜಿದಾರರ ಹೆಸರು</td>
-                                <td class="value-col">${fd.applicantName || fd.studentName || '-'}</td>
-                                <td class="photo-cell" rowspan="4">
-                                    ${fd.photo ? '<img src="' + fd.photo + '">' : '<div class="photo-placeholder"><span>ಅಳತೆ</span><span>3.5 x 4.5</span><br><span>ಭಾವಚಿತ್ರ</span></div>'}
+                                <td style="padding:0!important; border:none!important; vertical-align:top;" colspan="3">
+                                    <table style="width:100%; border-collapse:collapse;">
+                                        <tr>
+                                            <td class="sl-col" style="width:6%; border:1px solid #333!important;">1</td>
+                                            <td class="label-col" style="width:38%; border:1px solid #333!important;">ಅರ್ಜಿದಾರರ ಹೆಸರು</td>
+                                            <td class="value-col" style="border:1px solid #333!important;">${fd.applicantName || fd.studentName || '-'}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="sl-col" style="border:1px solid #333!important;">2</td>
+                                            <td class="label-col" style="border:1px solid #333!important;">ತಂದೆ/ಗಂಡನ ಹೆಸರು</td>
+                                            <td class="value-col" style="border:1px solid #333!important;">${fd.fatherHusbandName || fd.fatherName || '-'}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="sl-col" style="border:1px solid #333!important;">3</td>
+                                            <td class="label-col" style="border:1px solid #333!important;">ತಾಯಿಯ ಹೆಸರು</td>
+                                            <td class="value-col" style="border:1px solid #333!important;">${fd.motherName || fd.guardianName || '-'}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="sl-col" style="border:1px solid #333!important;">4</td>
+                                            <td class="label-col" style="border:1px solid #333!important;">ಉದ್ಯೋಗ ಹಾಗೂ ವಾರ್ಷಿಕ ವರಮಾನ</td>
+                                            <td class="value-col" style="border:1px solid #333!important;">
+                                                <span style="color:#0b3c5d;">ಹುದ್ದೆ/ವೃತ್ತಿ :</span> <span style="color:#c01535;">${fd.occupation || fd.parentOccupationIncome || '-'}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:#0b3c5d;">ವಾರ್ಷಿಕ ವರಮಾನ :</span> <span style="color:#c01535;">${fd.annualIncome || '-'}</span>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">2</td>
-                                <td class="label-col">ತಂದೆ/ಗಂಡನ ಹೆಸರು</td>
-                                <td class="value-col">${fd.fatherHusbandName || fd.fatherName || '-'}</td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">3</td>
-                                <td class="label-col">ತಾಯಿಯ ಹೆಸರು</td>
-                                <td class="value-col">${fd.motherName || fd.guardianName || '-'}</td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">4</td>
-                                <td class="label-col">ಉದ್ಯೋಗ ಹಾಗೂ ವಾರ್ಷಿಕ ವರಮಾನ</td>
-                                <td class="value-col">
-                                    <span style="color:#0b3c5d;">ಹುದ್ದೆ/ವೃತ್ತಿ :</span> <span style="color:#c01535;">${fd.occupation || fd.parentOccupationIncome || '-'}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:#0b3c5d;">ವಾರ್ಷಿಕ ವರಮಾನ :</span> <span style="color:#c01535;">${fd.annualIncome || '-'}</span>
+                                <td class="photo-cell" style="width:110px; border:1px solid #333!important; text-align:center; vertical-align:middle; padding:2px!important; background:#ffffff;">
+                                    ${fd.photo ? '<img src="' + fd.photo + '" style="width:95px; height:110px; object-fit:cover; display:block; margin:0 auto; border:1px solid #000;">' : '<div class="photo-placeholder"><span>ಅಳತೆ</span><span>3.5 x 4.5</span><br><span>ಭಾವಚಿತ್ರ</span></div>'}
                                 </td>
                             </tr>
                             <tr>
