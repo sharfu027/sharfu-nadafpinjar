@@ -791,15 +791,32 @@
                     localData = JSON.parse(localStorage.getItem("nadaf_lifemembership_applications") || "[]");
                 } catch(e) {}
 
+                let deletedIds = [];
+                try {
+                    deletedIds = JSON.parse(localStorage.getItem("nadaf_deleted_lifemembership_ids") || "[]");
+                } catch(e) {}
+
                 const remoteLifemembership = remoteData.filter(item => item.formType === "lifemembership");
                 const merged = [...remoteLifemembership];
                 localData.forEach(loc => {
-                    if (!merged.some(m => m.id === loc.id)) {
+                    if (!merged.some(m => m.id === loc.id || (m._id && loc._id && m._id === loc._id))) {
                         merged.push(loc);
                     }
                 });
 
-                allApplications = merged.length > 0 ? merged : getDemoData();
+                // Exclude deleted items and rejected items
+                const validApps = merged.filter(app => {
+                    const isDeleted = deletedIds.includes(app.id) || (app._id && deletedIds.includes(app._id));
+                    const isRejected = app.status === "Rejected";
+                    return !isDeleted && !isRejected;
+                });
+
+                // Update local storage to stay in sync
+                try {
+                    localStorage.setItem("nadaf_lifemembership_applications", JSON.stringify(validApps));
+                } catch(e) {}
+
+                allApplications = validApps.length > 0 ? validApps : getDemoData();
                 renderShowcaseTable(allApplications);
             } catch(e) {
                 console.error("Error loading applications:", e);

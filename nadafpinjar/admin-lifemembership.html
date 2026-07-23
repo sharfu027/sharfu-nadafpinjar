@@ -292,6 +292,9 @@
                         <button type="button" class="btn-view" onclick="downloadApplicationPDF()" style="background-color: #007bff; color: white;">
                             <i class="fa fa-download"></i> Download PDF
                         </button>
+                        <button type="button" class="btn-view" onclick="deleteCurrentApplication()" style="background-color: #dc3545; color: white;">
+                            <i class="fa fa-trash"></i> Delete Application
+                        </button>
                         <button type="submit" class="btn-submit">Save Status</button>
                         <button type="button" class="btn-view" onclick="closeReviewModal()" style="background-color: #64748b; color: white;">Close</button>
                     </div>
@@ -345,15 +348,22 @@
                     localData = JSON.parse(localStorage.getItem("nadaf_lifemembership_applications") || "[]");
                 } catch(e) {}
 
+                let deletedIds = [];
+                try {
+                    deletedIds = JSON.parse(localStorage.getItem("nadaf_deleted_lifemembership_ids") || "[]");
+                } catch(e) {}
+
                 const remoteLife = remoteData.filter(item => item.formType === "lifemembership");
                 const merged = [...remoteLife];
                 localData.forEach(loc => {
-                    if (!merged.some(m => m.id === loc.id)) {
+                    if (!merged.some(m => m.id === loc.id || (m._id && loc._id && m._id === loc._id))) {
                         merged.push(loc);
                     }
                 });
 
-                allApplications = merged;
+                allApplications = merged.filter(app => {
+                    return !deletedIds.includes(app.id) && (!app._id || !deletedIds.includes(app._id));
+                });
                 renderTable(allApplications);
             } catch(e) {
                 console.error("Error loading:", e);
@@ -386,8 +396,11 @@
                         <td>${app.membershipType || 'ಆಜೀವ ಸದಸ್ಯತ್ವ'}</td>
                         <td><span class="status-badge ${statusClass}">${status}</span></td>
                         <td>
-                            <button class="btn-view" onclick="openReviewModal('${app.id}')" style="background:#007bff; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">
+                            <button class="btn-view" onclick="openReviewModal('${app.id}')" style="background:#007bff; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer; margin-right:4px;">
                                 <i class="fa fa-edit"></i> Review
+                            </button>
+                            <button class="btn-view" onclick="deleteApplication('${app.id}', '${app._id || ''}')" style="background:#dc3545; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">
+                                <i class="fa fa-trash"></i> Delete
                             </button>
                         </td>
                     </tr>
@@ -414,11 +427,11 @@
         }
 
         function openReviewModal(id) {
-            const app = allApplications.find(a => a.id === id);
+            const app = allApplications.find(a => a.id === id || a._id === id);
             if (!app) return;
 
             currentReviewApp = app;
-            document.getElementById("reviewAppId").value = app.id;
+            document.getElementById("reviewAppId").value = app.id || app._id;
 
             document.getElementById("viewApplicantName").innerText = app.applicantName || app.studentName || '-';
             document.getElementById("viewFatherHusband").innerText = app.fatherHusbandName || app.fatherName || '-';
@@ -457,9 +470,10 @@
             currentReviewApp.status = document.getElementById("reviewStatus").value;
             currentReviewApp.remarks = document.getElementById("reviewRemarks").value;
 
+            // Sync to localStorage
             try {
                 let local = JSON.parse(localStorage.getItem("nadaf_lifemembership_applications") || "[]");
-                const idx = local.findIndex(l => l.id === currentReviewApp.id);
+                const idx = local.findIndex(l => l.id === currentReviewApp.id || (l._id && l._id === currentReviewApp._id));
                 if (idx !== -1) {
                     local[idx] = currentReviewApp;
                 } else {
@@ -468,9 +482,75 @@
                 localStorage.setItem("nadaf_lifemembership_applications", JSON.stringify(local));
             } catch(e) {}
 
+            // Sync to backend Server MongoDB Database
+            try {
+                let res = await fetch("/api/donations/update", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(currentReviewApp)
+                }).catch(() => null);
+
+                if (!res || !res.ok) {
+                    await fetch("https://nadafpinjar-production.up.railway.app/api/donations/update", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(currentReviewApp)
+                    }).catch(() => null);
+                }
+            } catch(e) {}
+
             closeReviewModal();
             renderTable(allApplications);
             alert("Status saved successfully!");
+        }
+
+        function deleteCurrentApplication() {
+            if (currentReviewApp) {
+                deleteApplication(currentReviewApp.id, currentReviewApp._id);
+            }
+        }
+
+        async function deleteApplication(id, dbId) {
+            if (!id && !dbId) return;
+            if (!confirm("ನಿಜವಾಗಿಯೂ ಈ ಆಜೀವ ಸದಸ್ಯತ್ವ ಅರ್ಜಿಯನ್ನು ಅಳಿಸಲು ಬಯಸುವಿರಾ?\n(Are you sure you want to delete this application? It will be removed from database and main page.)")) {
+                return;
+            }
+
+            const targetId = id || dbId;
+
+            // Delete from Database backend
+            try {
+                const q = (dbId ? `dbId=${encodeURIComponent(dbId)}&` : '') + `paymentId=${encodeURIComponent(targetId)}`;
+                let res = await fetch('/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
+                if (!res || !res.ok) {
+                    res = await fetch('/api/donations/' + encodeURIComponent(targetId) + (dbId ? '?dbId=' + encodeURIComponent(dbId) : ''), { method: 'DELETE' }).catch(() => null);
+                }
+                if (!res || !res.ok) {
+                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
+                }
+                if (!res || !res.ok) {
+                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations/' + encodeURIComponent(targetId) + (dbId ? '?dbId=' + encodeURIComponent(dbId) : ''), { method: 'DELETE' }).catch(() => null);
+                }
+            } catch(err) {
+                console.error("Error deleting from database:", err);
+            }
+
+            // Track deleted ID so main page excludes it immediately
+            try {
+                let deletedIds = JSON.parse(localStorage.getItem("nadaf_deleted_lifemembership_ids") || "[]");
+                if (!deletedIds.includes(targetId)) deletedIds.push(targetId);
+                if (dbId && !deletedIds.includes(dbId)) deletedIds.push(dbId);
+                localStorage.setItem("nadaf_deleted_lifemembership_ids", JSON.stringify(deletedIds));
+
+                let local = JSON.parse(localStorage.getItem("nadaf_lifemembership_applications") || "[]");
+                local = local.filter(l => l.id !== targetId && l._id !== targetId && l._id !== dbId);
+                localStorage.setItem("nadaf_lifemembership_applications", JSON.stringify(local));
+            } catch(e) {}
+
+            allApplications = allApplications.filter(a => a.id !== targetId && a._id !== targetId && a._id !== dbId);
+            closeReviewModal();
+            renderTable(allApplications);
+            alert("ಅರ್ಜಿಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಅಳಿಸಲಾಗಿದೆ (Application deleted successfully).");
         }
 
         async function downloadApplicationPDF() {
