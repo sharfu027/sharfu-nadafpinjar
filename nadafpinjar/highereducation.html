@@ -688,22 +688,7 @@
                 const localApps = JSON.parse(localStorage.getItem('nadaf_highereducation_applications') || '[]');
                 allApps = allApps.concat(localApps);
 
-                // 2. Railway API
-                try {
-                    const r = await fetch('https://nadafpinjar-production.up.railway.app/api/donations?formType=highereducation');
-                    if (r.ok) {
-                        const data = await r.json();
-                        const arr = Array.isArray(data) ? data : (data.donations || data.data || []);
-                        arr.forEach(d => {
-                            const fd = d.formData || d;
-                            fd._id = d._id || fd._id;
-                            fd.id = d.paymentId || fd.id || fd._id;
-                            allApps.push(fd);
-                        });
-                    }
-                } catch(e) { console.warn('Railway API fetch failed', e); }
-
-                // 3. Local API
+                // Fetch from API (same-origin, no CORS issues)
                 try {
                     const r2 = await fetch('/api/donations?formType=highereducation');
                     if (r2.ok) {
@@ -716,7 +701,7 @@
                             allApps.push(fd);
                         });
                     }
-                } catch(e) { console.warn('Local API fetch failed', e); }
+                } catch(e) { console.warn('API fetch failed', e); }
 
                 // Deduplicate by ID
                 const uniqueApps = {};
