@@ -71,9 +71,11 @@ const server = http.createServer(async (req, res) => {
         console.log('Reconnecting to MongoDB...');
         await mongoose.connect(MONGO_URI);
       }
-      const donations = await Donation.find({}).sort({ date: -1 });
+      const formType = parsedUrl.searchParams.get('formType');
+      const query = formType ? { formType: formType } : {};
+      const donations = await Donation.find(query).sort({ date: -1 });
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: true, donations }));
+      res.end(JSON.stringify(donations));
     } catch (err) {
       console.error('Error fetching donations:', err);
       res.writeHead(500, { 'Content-Type': 'application/json' });

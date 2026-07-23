@@ -693,7 +693,13 @@
                     const r = await fetch('https://nadafpinjar-production.up.railway.app/api/donations?formType=highereducation');
                     if (r.ok) {
                         const data = await r.json();
-                        if (data && data.data) allApps = allApps.concat(data.data);
+                        const arr = Array.isArray(data) ? data : (data.donations || data.data || []);
+                        arr.forEach(d => {
+                            const fd = d.formData || d;
+                            fd._id = d._id || fd._id;
+                            fd.id = d.paymentId || fd.id || fd._id;
+                            allApps.push(fd);
+                        });
                     }
                 } catch(e) { console.warn('Railway API fetch failed', e); }
 
@@ -702,7 +708,13 @@
                     const r2 = await fetch('/api/donations?formType=highereducation');
                     if (r2.ok) {
                         const data2 = await r2.json();
-                        if (data2 && data2.data) allApps = allApps.concat(data2.data);
+                        const arr2 = Array.isArray(data2) ? data2 : (data2.donations || data2.data || []);
+                        arr2.forEach(d => {
+                            const fd = d.formData || d;
+                            fd._id = d._id || fd._id;
+                            fd.id = d.paymentId || fd.id || fd._id;
+                            allApps.push(fd);
+                        });
                     }
                 } catch(e) { console.warn('Local API fetch failed', e); }
 
