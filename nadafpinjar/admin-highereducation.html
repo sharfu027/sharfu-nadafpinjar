@@ -203,6 +203,36 @@
 
     <script>
 
+        function formatCurrency(val, includePrefix) {
+            if (!val || val === '-') return '-';
+            let numStr = val.toString().replace(/[^d]/g, '');
+            if (!numStr) return val;
+            let num = parseInt(numStr, 10);
+            let formatted = num.toLocaleString('en-IN');
+            if (includePrefix) {
+                return 'ರೂ. ' + formatted + '-00';
+            } else {
+                return formatted + '-00';
+            }
+        }
+
+        function formatPercentage(val) {
+            if (!val || val === '-') return '-';
+            let clean = val.toString().replace(/[^d.]/g, '');
+            if (!clean) return val;
+            return 'ಶೇಕಡ ' + clean;
+        }
+
+        function maskAadhar(val) {
+            if (!val || val === '-') return '-';
+            let clean = val.toString().replace(/[^d]/g, '');
+            if (clean.length >= 4) {
+                return 'XXXX XXXX ' + clean.slice(-4);
+            }
+            return val;
+        }
+
+
         function loadHtml2Pdf() {
             return new Promise((resolve, reject) => {
                 if (window.html2pdf) {
@@ -263,10 +293,17 @@
         }
 
         async function generatePDF(data) {
-            const html2pdf = await loadHtml2Pdf();
+            const html2pdf = window.html2pdf;
             const fd = normalizeAppData(data);
 
+            const annualIncomeFormatted = formatCurrency(fd.annualIncome, false);
+            const collegeFeesFormatted = formatCurrency(fd.collegeFees, true);
+            const aidAmountFormatted = formatCurrency(fd.aidAmount, true);
+            const previousMarksFormatted = formatPercentage(fd.previousMarks);
+            const aadharMasked = maskAadhar(fd.aadhar || fd.aadharNo);
+
             const container = document.createElement('div');
+            container.className = 'pdf-page-container';
             container.style.width = '700px';
             container.style.backgroundColor = '#ffffff';
             container.style.color = '#000000';
@@ -315,7 +352,7 @@
                     <tr>
                         <td style="width:20%; border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000; font-size:11px;">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
                         <td style="width:30%; border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${fd.studentName}</td>
-                        <td style="width:20%; border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000; font-size:11px;">ತಂದೆಯ/ ಪೋಷಕರ ಹೆಸರು</td>
+                        <td style="width:20%; border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000; font-size:11px;">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು</td>
                         <td style="width:30%; border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${fd.fatherName}</td>
                     </tr>
                     <tr>
@@ -332,7 +369,7 @@
                     </tr>
                     <tr>
                         <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000; font-size:11px;">ಅಂದಾಜು ಆದಾಯ</td>
-                        <td style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${fd.annualIncome}</td>
+                        <td style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${annualIncomeFormatted}</td>
                         <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000; font-size:11px;">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
                         <td style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${fd.membershipNo}</td>
                     </tr>
@@ -350,7 +387,7 @@
                     </tr>
                     <tr>
                         <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000; font-size:11px;">ಆಧಾರ್ ನಂ</td>
-                        <td style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${fd.aadhar}</td>
+                        <td style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${aadharMasked}</td>
                         <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000; font-size:11px;">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
                         <td style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${fd.rationCard}</td>
                     </tr>
@@ -362,13 +399,13 @@
                     </tr>
                     <tr>
                         <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000; font-size:11px;">ಹಿಂದಿನ ಪರೀಕ್ಷೆ ಅಂಕ ಹಾಗೂ ಫಲಿತಾಂಶದ ಮಾರ್ಕ್ಸ್ ಕಾರ್ಡ್ ಲಗತ್ತಿಸಿದೆ</td>
-                        <td style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${fd.previousMarks}</td>
+                        <td style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${previousMarksFormatted}</td>
                         <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000; font-size:11px;">ಕಾಲೇಜು ಶುಲ್ಕದ ಅಂದಾಜು ಪ್ರತಿ (ಲಗತ್ತಿಸಿದೆ)</td>
-                        <td style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${fd.collegeFees}</td>
+                        <td style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${collegeFeesFormatted}</td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000; font-size:11px;">ಸಹಾಯಧನ ಮೊತ್ತ</td>
-                        <td style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${fd.aidAmount}</td>
+                        <td style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${aidAmountFormatted}</td>
                         <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000; font-size:11px;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು, (ಅಥವಾ) ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
                         <td style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold; font-size:11px;">${fd.bankName}</td>
                     </tr>
@@ -424,28 +461,28 @@
                     ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ) ರಿಂದ ಪ್ರತಿ ವರ್ಷ ಸಮಾಜದ ಬಡ ಹಿಂದುಳಿದ ಬಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಉಚಿತ ಶಿಕ್ಷಣ ಪ್ರೋತ್ಸಾಹಧನ ಆರ್ಥಿಕ ಸಹಾಯ ನೀಡಲಾಗುತ್ತಿದೆ. ಮೇಲೆ ತಿಳಿಸಿದ ವಿದ್ಯಾರ್ಥಿಯ ಶೈಕ್ಷಣಿಕ ಪ್ರಗತಿ ವರದಿಯನ್ನು ಪರಿಶೀಲಿಸಿ, ಅವರಲ್ಲಿ ತಿಳಿಸಿದ ಎಲ್ಲಾ ದಾಖಲೆಗಳು ನಿಜ ಮತ್ತು ಸರಿಯಾಗಿದೆ. ಆದ್ದರಿಂದ ಮುಂದುವರಿದ ಉನ್ನತ ಶಿಕ್ಷಣಕ್ಕಾಗಿ ಆರ್ಥಿಕ ಸಹಾಯ ಧನವನ್ನು ನಿರೀಕ್ಷಿಸುತ್ತ ಸ್ವಂತ ಸಂಘದ ಕಛೇರಿ ಅಥವಾ ತಾಲೂಕ ಉನ್ನತ ಶಿಕ್ಷಣ ಶಿಕ್ಷಣ ಆರ್ಥಿಕ ಸಹಾಯ ಧನದ ಮೂಲಕ ಒಬ್ಬೊಬ್ಬ ಸಮುದಾಯ ಬಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಪ್ರೋತ್ಸಾಹಿಸಲು ಸಂಘಕ್ಕೆ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ನೀಡಬೇಕೆಂದು ಪ್ರಾರ್ಥಿಸುವ ಮೂಲಕ ಈ ಮೂಲಕ ಪ್ರಾರ್ಥಿಸಲಾಗುತ್ತಿದೆ. ಮತ್ತು ಸಂಘಕ್ಕೆ ಬಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಂದ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ಹಣಕ್ಕೆ ತಾಲೂಕು ಬದ್ಧವಾಗಿ ಸಮಿತಿಗೆ ವರದಿಮಾಡತಕ್ಕದ್ದು.
                 </div>
 
-                <div style="font-weight:bold; color:#c01535; font-size:11px; margin-bottom:15px;">
-                    ದಿನಾಂಕ : <br><br>
-                    1) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2)
+                <div style="font-weight:bold; color:#c01535; font-size:11px; margin-bottom:15px; display: flex; justify-content: space-between;">
+                    <span>ದಾಖಲೆ ಸಹಿ :</span>
+                    <span style="margin-right: 150px;">1) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2)</span>
                 </div>
 
                 <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
                     <tr>
                         <td style="border:1px solid #c01535!important; width:33.3%; height:90px; vertical-align:top; padding:4px!important; font-weight:bold; color:#c01535; font-size:11px;">
-                            ತಾಲೂಕ ಪದಾಧಿಕಾರಿ ಸಹಿ/ಮೊಹರು
+                            ತಾಲೂಕ ಘಟಕದ ಅಧ್ಯಕ್ಷರು~
                         </td>
                         <td style="border:1px solid #c01535!important; width:33.3%; height:90px; vertical-align:top; padding:4px!important; font-weight:bold; color:#c01535; font-size:11px;">
-                            ಜಿಲ್ಲಾ ಪದಾಧಿಕಾರಿ ಸಹಿ/ಮೊಹರು
+                            ಜಿಲ್ಲಾ ಘಟಕದ ಅಧ್ಯಕ್ಷರು~
                         </td>
                         <td style="border:1px solid #c01535!important; width:33.3%; height:90px; vertical-align:top; padding:4px!important; font-weight:bold; color:#c01535; font-size:11px;">
-                            ವಿಧಾನಸಭಾ ಮತಕ್ಷೇತ್ರದ ಸಹಿ/ಮೊಹರು
+                            ವಿಧಾನಸಭಾ ಉಸ್ತುವಾರಿಗಳು~
                         </td>
                     </tr>
                 </table>
 
                 <div style="font-weight:bold; color:#c01535; font-size:11px; line-height:1.6;">
                     ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ಸಹಿ : <br><br><br>
-                    ರಾಜ್ಯ ಪ್ರಧಾನ ಕಾರ್ಯದರ್ಶಿ : <br><br><br>
+                    ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದಿಸಿದೆ : <br><br><br>
                     ರಾಜ್ಯ ಉಸ್ತುವಾರಿ ನಂತರ ಸಮಿತಿಗೆ ತಾಲೂಕ ಮತ್ತು ಜಿಲ್ಲಾ ಉನ್ನತ ಶಿಕ್ಷಣ ಹಾಗೂ ವಿಧಾನಸಭಾ ಉಸ್ತುವಾರಿ ತಿಳಿಸಲಾಗುವುದು.
                 </div>
             `;
@@ -462,12 +499,12 @@
                 margin: [5, 8, 5, 8],
                 filename: `Higher_Education_Aid_${fd.studentName || 'Application'}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0, logging: false },
+                html2canvas: { scale: 2, useCORS: true, logging: false },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
             try {
-                await html2pdf().set(opt).from(container).save();
+                await window.html2pdf().set(opt).from(container).save();
             } catch(err) {
                 console.error("PDF generation failed:", err);
             } finally {
