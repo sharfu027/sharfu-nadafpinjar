@@ -346,7 +346,7 @@
             try {
                 let res = await fetch("/api/settings").catch(() => null);
                 if (!res || !res.ok || !res.headers.get("content-type") || !res.headers.get("content-type").includes("application/json")) {
-                    res = await fetch("https://nadafpinjar-production.up.railway.app/api/settings").catch(() => null);
+                    res = await fetch("/api/settings").catch(() => null);
                 }
                 if (res && res.ok) {
                     const data = await res.json().catch(() => null);
@@ -369,7 +369,7 @@
                 }).catch(() => null);
 
                 if (!res || !res.ok) {
-                    res = await fetch("https://nadafpinjar-production.up.railway.app/api/settings", {
+                    res = await fetch("/api/settings", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ lifemembershipMarqueeEnabled: checkbox.checked })
@@ -423,7 +423,7 @@
             try {
                 let res = await fetch("/api/donations?_=" + Date.now()).catch(() => null);
                 if (!res || !res.ok) {
-                    res = await fetch("https://nadafpinjar-production.up.railway.app/api/donations?_=" + Date.now()).catch(() => null);
+                    res = await fetch("/api/donations?_=" + Date.now()).catch(() => null);
                 }
                 
                 let remoteData = [];
@@ -596,7 +596,7 @@
                 }).catch(() => null);
 
                 if (!res || !res.ok) {
-                    await fetch("https://nadafpinjar-production.up.railway.app/api/donations/update", {
+                    await fetch("/api/donations/update", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(currentReviewApp)
@@ -631,10 +631,10 @@
                     res = await fetch('/api/donations/' + encodeURIComponent(targetId) + (dbId ? '?dbId=' + encodeURIComponent(dbId) : ''), { method: 'DELETE' }).catch(() => null);
                 }
                 if (!res || !res.ok) {
-                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
+                    res = await fetch('/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
                 }
                 if (!res || !res.ok) {
-                    res = await fetch('https://nadafpinjar-production.up.railway.app/api/donations/' + encodeURIComponent(targetId) + (dbId ? '?dbId=' + encodeURIComponent(dbId) : ''), { method: 'DELETE' }).catch(() => null);
+                    res = await fetch('/api/donations/' + encodeURIComponent(targetId) + (dbId ? '?dbId=' + encodeURIComponent(dbId) : ''), { method: 'DELETE' }).catch(() => null);
                 }
             } catch(err) {
                 console.error("Error deleting from database:", err);

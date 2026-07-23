@@ -672,7 +672,7 @@
                 return res.json();
             })
             .catch(() => {
-                return fetch('https://nadafpinjar-production.up.railway.app/api/donations', {
+                return fetch('/api/donations', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(dataToSave)
