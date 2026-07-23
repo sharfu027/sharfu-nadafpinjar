@@ -813,50 +813,212 @@
             document.getElementById('formSection').style.display = 'none';
         }
 
-        function generatePDF(data) {
-            document.getElementById('pdfAppNo').innerText = 'App No: ' + (data.appId || '-');
-            document.getElementById('pdfDate').innerText = 'Date: ' + (data.appDate || new Date().toLocaleDateString());
-            document.getElementById('pdfCity').innerText = 'City: ' + (data.cityVillage || '-');
-            document.getElementById('pdfTaluk').innerText = 'Taluk: ' + (data.taluk || '-');
-            document.getElementById('pdfDistrict').innerText = 'District: ' + (data.district || '-');
+                async function generatePDF(data) {
+            const fd = data || {};
+            const element = document.createElement('div');
+            element.className = 'pdf-page-container';
+            element.style.position = 'fixed';
+            element.style.top = '0';
+            element.style.left = '0';
+            element.style.zIndex = '-9999';
+            element.style.opacity = '1';
+            element.style.pointerEvents = 'none';
+            element.style.background = '#ffffff';
+            element.style.width = '680px';
+            element.style.boxSizing = 'border-box';
+            element.style.padding = '10px 16px';
+            element.style.fontFamily = "'Noto Serif Kannada', Tunga, 'Times New Roman', serif";
 
-            const grid = document.getElementById('pdfGrid');
-            grid.innerHTML = `
-                <tr><td><strong>ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</strong></td><td>${data.studentName || '-'}</td>
-                    <td><strong>ಪಾಲಕರ ಹೆಸರು</strong></td><td>${data.fatherName || '-'}</td></tr>
-                <tr><td><strong>ತಾಯಿಯ ಹೆಸರು</strong></td><td>${data.motherName || '-'}</td>
-                    <td><strong>DOB & ವಯಸ್ಸು</strong></td><td>${data.dob || '-'} (${data.age || '-'})</td></tr>
-                <tr><td><strong>ಲಿಂಗ & ಉದ್ಯೋಗ</strong></td><td>${data.gender || '-'} / ${data.occupation || '-'}</td>
-                    <td><strong>ಆದಾಯ & ಸದಸ್ಯತ್ವ</strong></td><td>${data.annualIncome || '-'} / ${data.membershipNo || '-'}</td></tr>
-                <tr><td><strong>ವಿಳಾಸ</strong></td><td colspan="3">${data.address || '-'}</td></tr>
-                <tr><td><strong>ಮನೆ ಪ್ರಕಾರ</strong></td><td>${data.houseType || '-'} / ${data.houseShape || '-'}</td>
-                    <td><strong>ಜಮೀನು</strong></td><td>${data.landDetails || '-'}</td></tr>
-                <tr><td><strong>ಆಧಾರ್ & ರೇಷನ್</strong></td><td>${data.aadharNo || '-'} / ${data.rationCard || '-'}</td>
-                    <td><strong>ಮೊಬೈಲ್</strong></td><td>${data.mobile || '-'} / ${data.parentMobile || '-'}</td></tr>
-                <tr><td><strong>ಕಾಲೇಜು</strong></td><td>${data.collegeName || '-'}</td>
-                    <td><strong>ಕೋರ್ಸ್</strong></td><td>${data.courseClass || '-'}</td></tr>
-                <tr><td><strong>ಹಿಂದಿನ ಅಂಕ & ಶುಲ್ಕ</strong></td><td>${data.previousMarks || '-'}% / ${data.collegeFees || '-'}</td>
-                    <td><strong>ಕೋರಿದ ಸಹಾಯಧನ</strong></td><td>${data.aidAmount || '-'}</td></tr>
-                <tr><td><strong>ಬ್ಯಾಂಕ್ ಖಾತೆ</strong></td><td>${data.bankName || '-'} - ${data.accountNo || '-'}</td>
-                    <td><strong>IFSC ಕೋಡ್</strong></td><td>${data.ifscCode || '-'}</td></tr>
+            const baseUrl = window.location.origin;
+
+            element.innerHTML = `
+                <!-- PAGE 1 -->
+                <table class="pdf-header-table" style="width:100%; border-collapse:collapse; margin-bottom:4px;">
+                    <tr>
+                        <td class="pdf-logo-left" style="width:90px; text-align:left; border:none!important;">
+                            <img src="${baseUrl}/images/president.jpeg" style="width:85px; height:85px; border-radius:50%; object-fit:cover;">
+                        </td>
+                        <td class="pdf-header-text" style="text-align:center; border:none!important;">
+                            <h1 style="margin:0; font-size:21px; font-weight:bold; color:#c01535;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
+                            <h2 style="margin:1px 0 0 0; font-size:11.5px; font-weight:bold; color:#000;">ನೋಂ ಸಂಖ್ಯೆ : 151/ ಎಸ್ ಓ ಆರ್ / ಎಸ್ ಎಂ ಜಿ /1993–94</h2>
+                            <h3 style="margin:1px 0 0 0; font-size:12px; font-weight:bold; color:#000;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</h3>
+                            <h4 style="margin:1px 0 0 0; font-size:11px; font-weight:bold; color:#000;">ಆಡಳಿತ ಕಛೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ, ಸೀಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</h4>
+                        </td>
+                        <td class="pdf-logo-right" style="width:90px; text-align:right; border:none!important;">
+                            <img src="${baseUrl}/images/logo-786.png" style="width:85px; height:85px; border-radius:50%; object-fit:contain;">
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="pdf-title-banner" style="background:#ffffff; text-align:center; margin:4px 0; border:1.5px solid #c01535; padding:3px; border-radius:4px;">
+                    <h2 style="margin:0; font-size:15px; font-weight:bold; color:#c01535;">ಉನ್ನತ ಶಿಕ್ಷಣ ಸಹಾಯಧನ ಕೋರಿಕೆ ಅರ್ಜಿ 2026-27</h2>
+                </div>
+
+                <table class="pdf-info-bar" style="width:100%; border-collapse:collapse; margin-bottom:4px; font-weight:bold; font-size:11.5px;">
+                    <tr>
+                        <td style="color:#c01535; width:33%; border:none!important; padding:1px 0!important;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color:#c01535;">${fd.appNo || fd.appId || 'HEH 2026-27- 01'}</span></td>
+                        <td style="text-align:right; color:#c01535; border:none!important; padding:1px 0!important;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color:#000;">${fd.date || fd.appDate || new Date().toLocaleDateString('kn-IN')}</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="color:#c01535; padding-top:2px!important; border:none!important;">
+                            ನಗರ/ಗ್ರಾಮ : <span style="color:#000;">${fd.city || fd.cityVillage || fd.taluk || '-'}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            ತಾಲ್ಲೂಕು : <span style="color:#000;">${fd.taluk || '-'}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            ಜಿಲ್ಲೆ : <span style="color:#000;">${fd.district || '-'}</span>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="pdf-grid-table" style="width:100%; border-collapse:collapse; margin-top:2px;">
+                    <tr>
+                        <td class="lbl" style="width:20%; border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
+                        <td class="val" style="width:30%; border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.studentName || '-'}</td>
+                        <td class="lbl" style="width:20%; border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ತಂದೆಯ/ ಪೋಷಕರ ಹೆಸರು</td>
+                        <td class="val" style="width:30%; border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.fatherHusbandName || fd.fatherName || '-'}</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ತಾಯಿಯ ಹೆಸರು</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.motherName || '-'}</td>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ವಿಳಾಸ</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.completeAddress || fd.address || '-'}</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ಉದ್ಯೋಗ</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.occupation || '-'}</td>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.mobile || '-'}</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ಅಂದಾಜು ಆದಾಯ</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.annualIncome || '-'}</td>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.membershipNo || 'KPL0025655'}</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ಮನೆಯ ವಿವರ</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.houseType || 'ಸ್ವಂತ ಮನೆ, ಬಾಡಿಗೆ ಮನೆ, ಲೀಸ್ ಮನೆ, ಇತರೆ'}</td>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ಮನೆಯ ಆಕಾರ</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.houseShape || 'ಗುಡಿಸಲು, ಷೆಡ್ ಮನೆ, ಆರ್ ಸಿ ಸಿ, ಮಣ್ಣಿನ ಮನೆ ಇತರೆ'}</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ಜಮೀನು</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.landDetails || '2 ಎಕರೆ 10 ಗುಂಟೆ'}</td>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.parentMobile || fd.mobile || '-'}</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ಆಧಾರ್ ನಂ</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.aadhar || fd.aadharNo || '-'}</td>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.rationCard || 'ಲಗತ್ತಿಸಿದೆ'}</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ಪ್ರವೇಶ ಪಡೆಯುವ ಕಾಲೇಜು</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.collegeName || '-'}</td>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ವ್ಯಾಸಂಗ ಮಾಡುವ ತರಗತಿ</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.courseClass || '-'}</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ಹಿಂದಿನ ಪರೀಕ್ಷೆ ಅಂಕ ಹಾಗೂ ಫಲಿತಾಂಶದ ಮಾರ್ಕ್ಸ್ ಕಾರ್ಡ್ ಲಗತ್ತಿಸಿದೆ</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.previousMarks || '-'}</td>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ಕಾಲೇಜು ಶುಲ್ಕದ ಅಂದಾಜು ಪ್ರತಿ (ಲಗತ್ತಿಸಿದೆ)</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.collegeFees || '-'}</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ಸಹಾಯಧನ ಮೊತ್ತ</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.aidAmount || '-'}</td>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು, (ಅಥವಾ) ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.bankName || '-'}</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ (ಅಥವಾ) ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.bankAccount || fd.accountNo || '-'}</td>
+                        <td class="lbl" style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#000;">IFSC ಕೋಡ್ ವಿದ್ಯಾರ್ಥಿ / ಕಾಲೇಜು</td>
+                        <td class="val" style="border:1px solid #000!important; padding:4px 5px!important; color:#c01535; font-weight:bold;">${fd.ifscCode || '-'}</td>
+                    </tr>
+                </table>
+
+                <div class="pdf-declaration-box" style="margin-top:8px; font-size:11px; line-height:1.35; text-align:justify; color:#c01535;">
+                    <div class="pdf-declaration-title" style="text-align:center; font-weight:bold; font-size:13px; color:#c01535; text-decoration:underline; margin-bottom:4px;">ಪ್ರಮಾಣ ಪತ್ರ</div>
+                    <p style="margin:0 0 4px 0;">ವಿದ್ಯಾರ್ಥಿಯಾದ ನಾನು ................................................................................................................................................................</p>
+                    <p style="margin:0 0 4px 0;">ಹಾಗೂ ನನ್ನ ಪಾಲಕರು ಈ ಮೂಲಕ ಘೋಷಿಸುವುದೇನೆಂದರೆ, ನನ್ನ ಕುಟುಂಬ ಬಡತನರೇಖೆ ಇದ್ದು, ನನ್ನ ಮುಂದಿನ ವಿದ್ಯಾಭ್ಯಾಸ ಮುಂದುವರೆಸಲು ಆರ್ಥಿಕವಾಗಿ ಸಧ್ಯಧ ಇರುವುದಿಲ್ಲ. ನನ್ನ ಪ್ರತಿಭೆಯಿಂದ ಶಿಕ್ಷಣ ಮುಂದುವರೆಸಲು ನನಗೆ ಆರ್ಥಿಕ ನೆರವು ಅಗತ್ಯ ಇದೆ. ನನ್ನ ಪ್ರತಿಭೆಯನ್ನು ಗುರುತಿಸಿ ಸಂಘದ ಪರವಾಗಿ ಪ್ರೋತ್ಸಾಹ ಧನವನ್ನು ನೀಡಿದಲ್ಲಿ ನಾನು ಸಮರ್ಥಕವಾಗಿ ಉಪಯೋಗಿಸಿಕೊಂಡು, ಬಹಳ ಶ್ರದ್ಧೆಯಿಂದ ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡಿ ಹೆಚ್ಚಿನ ಅಂಕಗಳನ್ನು ಪಡೆದುಕೊಳ್ಳಲು ಪ್ರಾಮಾಣಿಕವಾಗಿ ಪ್ರಯತ್ನಿಸುತ್ತೇನೆ.</p>
+                    <p style="margin:0 0 4px 0;">ಓದು ಮುಗಿದನಂತರ ಮುಂದಿನ ದಿನಗಳಲ್ಲಿ ನಾನು ಸರ್ಕಾರಿ/ ಅರೆಸರ್ಕಾರಿ/ ಉದ್ಯೋಗ/ಇತ್ಯಾದಿ ಯಾವುದೇ ರೀತಿಯ ಹುದ್ದೆಗಳಲ್ಲಿ ಮುಂದುವರೆದಾಗ ನನ್ನಂತೆ ಮುಂದಿನ ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೂ ಸಹ ಪ್ರೋತ್ಸಾಹಿಸಲು ನೆರವಾಗುವಂತೆ ಕಾಲ ಕಾಲಕ್ಕೆ ನನ್ನ ಶಕ್ತಿಗೆ ಅನುಗುಣವಾಗಿ, ಪ್ರಾಮಾಣಿಕವಾಗಿ ಮತ್ತು ನನ್ನ ಅಂತರಾತ್ಮ ಸಾಕ್ಷಿಯಾಗಿ, ಸ್ಥಳೀಯ ಸಾಕ್ಷಿಗಳ ಸಮ್ಮುಖದಲ್ಲಿ ಸಂಘಕ್ಕೆ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ನೀಡುತ್ತೇನೆಂದು ಘೋಷಿಸುತ್ತೇನೆ.</p>
+                    <p style="margin:0;">ಮೇಲೆ ತಿಳಿಸಿದಂತೆ ನಾವುಗಳು ಎಲ್ಲಾ ವಿಷಯಗಳಿಗೆ ಬದ್ಧರಿದ್ದೇವೆ ಎಂದು ತಿಳಿಸುತ್ತಾ, ಈ ಮೂಲಕ ಪ್ರಮಾಣೀಕರಿಸುತ್ತೇವೆ.</p>
+                </div>
+
+                <table class="pdf-sig-row" style="width:100%; margin-top:15px; font-weight:bold; color:#c01535; font-size:11.5px;">
+                    <tr>
+                        <td style="width:50%; text-align:left; border:none!important;">ವಿದ್ಯಾರ್ಥಿಯ ಪಾಲಕರ ರುಜು</td>
+                        <td style="width:50%; text-align:right; border:none!important;">ವಿದ್ಯಾರ್ಥಿಯ ರುಜು</td>
+                    </tr>
+                </table>
+
+                <!-- PAGE 2 BREAK -->
+                <div class="pdf-page-break" style="page-break-before:always!important; margin-top:10px;"></div>
+
+                <!-- PAGE 2 CONTENT -->
+                <div style="text-align:center; font-weight:bold; font-size:14px; margin-bottom:6px; color:#c01535;">2</div>
+                <div style="text-align:center; font-weight:bold; font-size:13px; margin-bottom:6px; color:#c01535; text-decoration:underline;">ಸಹಾಯ ಧನಗಳು</div>
+
+                <table style="width:100%; border-collapse:collapse; text-align:center; margin-bottom:12px;">
+                    <tr style="font-weight:bold; color:#c01535; font-size:11px;">
+                        <td style="border:1px solid #000!important; width:10%; padding:3px!important;">ಸಂ</td>
+                        <td style="border:1px solid #000!important; width:60%; padding:3px!important;">ವರ್ಷದ ವಿವರ</td>
+                        <td style="border:1px solid #000!important; width:30%; padding:3px!important;">ರೂ</td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #000!important; font-weight:bold; color:#c01535; padding:8px!important;">01</td>
+                        <td style="border:1px solid #000!important;"></td>
+                        <td style="border:1px solid #000!important;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #000!important; font-weight:bold; color:#c01535; padding:8px!important;">02</td>
+                        <td style="border:1px solid #000!important;"></td>
+                        <td style="border:1px solid #000!important;"></td>
+                    </tr>
+                </table>
+
+                <div style="font-size:11px; line-height:1.4; color:#c01535; text-align:justify; margin-bottom:15px;">
+                    ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ) ರಿಂದ ಪ್ರತಿ ವರ್ಷ ಸಮಾಜದ ಬಡ ಹಿಂದುಳಿದ ಬಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಉಚಿತ ಶಿಕ್ಷಣ ಪ್ರೋತ್ಸಾಹಧನ ಆರ್ಥಿಕ ಸಹಾಯ ನೀಡಲಾಗುತ್ತಿದೆ. ಮೇಲೆ ತಿಳಿಸಿದ ವಿದ್ಯಾರ್ಥಿಯ ಶೈಕ್ಷಣಿಕ ಪ್ರಗತಿ ವರದಿಯನ್ನು ಪರಿಶೀಲಿಸಿ, ಅವರಲ್ಲಿ ತಿಳಿಸಿದ ಎಲ್ಲಾ ದಾಖಲೆಗಳು ನಿಜ ಮತ್ತು ಸರಿಯಾಗಿದೆ. ಆದ್ದರಿಂದ ಮುಂದುವರಿದ ಉನ್ನತ ಶಿಕ್ಷಣಕ್ಕಾಗಿ ಆರ್ಥಿಕ ಸಹಾಯ ಧನವನ್ನು ನಿರೀಕ್ಷಿಸುತ್ತ ಸ್ವಂತ ಸಂಘದ ಕಛೇರಿ ಅಥವಾ ತಾಲೂಕ ಉನ್ನತ ಶಿಕ್ಷಣ ಶಿಕ್ಷಣ ಆರ್ಥಿಕ ಸಹಾಯ ಧನದ ಮೂಲಕ ಒಬ್ಬೊಬ್ಬ ಸಮುದಾಯ ಬಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಪ್ರೋತ್ಸಾಹಿಸಲು ಸಂಘಕ್ಕೆ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ನೀಡಬೇಕೆಂದು ಪ್ರಾರ್ಥಿಸುವ ಮೂಲಕ ಈ ಮೂಲಕ ಪ್ರಾರ್ಥಿಸಲಾಗುತ್ತಿದೆ. ಮತ್ತು ಸಂಘಕ್ಕೆ ಬಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಂದ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ಹಣಕ್ಕೆ ತಾಲೂಕು ಬದ್ಧವಾಗಿ ಸಮಿತಿಗೆ ವರದಿಮಾಡತಕ್ಕದ್ದು.
+                </div>
+
+                <div style="font-weight:bold; color:#c01535; font-size:11px; margin-bottom:15px;">
+                    ದಿನಾಂಕ : <br><br>
+                    1) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2)
+                </div>
+
+                <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+                    <tr>
+                        <td style="border:1px solid #c01535!important; width:33.3%; height:90px; vertical-align:top; padding:4px!important; font-weight:bold; color:#c01535; font-size:11px;">
+                            ತಾಲೂಕ ಪದಾಧಿಕಾರಿ ಸಹಿ/ಮೊಹರು
+                        </td>
+                        <td style="border:1px solid #c01535!important; width:33.3%; height:90px; vertical-align:top; padding:4px!important; font-weight:bold; color:#c01535; font-size:11px;">
+                            ಜಿಲ್ಲಾ ಪದಾಧಿಕಾರಿ ಸಹಿ/ಮೊಹರು
+                        </td>
+                        <td style="border:1px solid #c01535!important; width:33.3%; height:90px; vertical-align:top; padding:4px!important; font-weight:bold; color:#c01535; font-size:11px;">
+                            ವಿಧಾನಸಭಾ ಮತಕ್ಷೇತ್ರದ ಸಹಿ/ಮೊಹರು
+                        </td>
+                    </tr>
+                </table>
+
+                <div style="font-weight:bold; color:#c01535; font-size:11px; line-height:1.6;">
+                    ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ಸಹಿ : <br><br><br>
+                    ರಾಜ್ಯ ಪ್ರಧಾನ ಕಾರ್ಯದರ್ಶಿ : <br><br><br>
+                    ರಾಜ್ಯ ಉಸ್ತುವಾರಿ ನಂತರ ಸಮಿತಿಗೆ ತಾಲೂಕ ಮತ್ತು ಜಿಲ್ಲಾ ಉನ್ನತ ಶಿಕ್ಷಣ ಹಾಗೂ ವಿಧಾನಸಭಾ ಉಸ್ತುವಾರಿ ತಿಳಿಸಲಾಗುವುದು.
+                </div>
             `;
 
-            const element = document.getElementById('pdfOffscreenContainer');
+            document.body.appendChild(element);
+
             const opt = {
-                margin:       [0, 0, 0, 0],
-                filename:     'HigherEduApp_' + (data.appId || 'Download') + '.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
-                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+                margin: [4, 4, 4, 4],
+                filename: `Higher_Education_Aid_${fd.studentName || 'Application'}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, logging: false },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            html2pdf().set(opt).from(element).save();
-        }
-
-        function downloadPdfForApp(fd) {
-            if(typeof fd === 'string') fd = JSON.parse(fd);
-            fd.appId = fd.appId || fd.paymentId || '-';
-            generatePDF(fd);
+            await window.html2pdf().set(opt).from(element).save();
+            document.body.removeChild(element);
         }
 
         window.onload = function() {
