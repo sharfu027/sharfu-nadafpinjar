@@ -760,7 +760,11 @@
 
                 // Filter deleted and approved
                 const deletedIds = JSON.parse(localStorage.getItem('nadaf_deleted_highereducation_ids') || '[]');
-                finalApps = finalApps.filter(a => !deletedIds.includes(a.paymentId || a.id || a._id) && a.status === 'Approved');
+                finalApps = finalApps.filter(a => {
+                    const id = a.paymentId || a.id || a._id;
+                    const st = (a.status || (a.formData && a.formData.status) || 'Approved').toString().toLowerCase();
+                    return !deletedIds.includes(id) && (st === 'approved' || st === 'ಅನುಮೋದಿಸಲಾಗಿದೆ');
+                });
 
                 showcaseData = finalApps;
                 renderShowcaseTable();
@@ -769,13 +773,24 @@
             }
         }
 
+        function downloadPdfForApp(id) {
+            const app = (showcaseData || []).find(a => (a.paymentId || a.id || a._id) === id || a.appNo === id);
+            if (app) {
+                generatePDF(app);
+            } else {
+                generatePDF({ appId: id, paymentId: id });
+            }
+        }
+        window.downloadPdfForApp = downloadPdfForApp;
+
         function renderShowcaseTable() {
             const tbody = document.querySelector('#showcaseTable tbody');
+            if (!tbody) return;
             tbody.innerHTML = '';
             
-            const fName = document.getElementById('filterName').value.toLowerCase();
-            const fDistrict = document.getElementById('filterDistrict').value.toLowerCase();
-            const fTaluk = document.getElementById('filterTaluk').value.toLowerCase();
+            const fName = (document.getElementById('filterName')?.value || '').toLowerCase();
+            const fDistrict = (document.getElementById('filterDistrict')?.value || '').toLowerCase();
+            const fTaluk = (document.getElementById('filterTaluk')?.value || '').toLowerCase();
 
             let slNo = 1;
             showcaseData.forEach(app => {
@@ -785,16 +800,17 @@
                 const sTaluk = (fd.taluk || '').toLowerCase();
 
                 if (sName.includes(fName) && sDist.includes(fDistrict) && sTaluk.includes(fTaluk)) {
+                    const appId = app.paymentId || app.id || app._id || '-';
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td>${slNo++}</td>
-                        <td>${app.paymentId || app.id || '-'}</td>
+                        <td>${appId}</td>
                         <td>${fd.studentName || '-'}</td>
                         <td>${fd.courseClass || '-'}</td>
                         <td>${fd.collegeName || '-'}</td>
                         <td>${fd.district || '-'}/${fd.taluk || '-'}</td>
-                        <td><span class="status-badge">Approved</span></td>
-                        <td><button class="btn-download" onclick='downloadPdfForApp(${JSON.stringify(fd)})'>PDF</button></td>
+                        <td><span class="status-badge status-approved" style="background:#28a745; color:white; padding:4px 10px; border-radius:12px; font-weight:bold; font-size:12px;">Approved</span></td>
+                        <td><button class="btn-download" onclick="downloadPdfForApp('${appId}')">PDF</button></td>
                     `;
                     tbody.appendChild(tr);
                 }
