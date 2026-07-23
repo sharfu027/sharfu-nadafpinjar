@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="kn">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ಉನ್ನತ ಶಿಕ್ಷಣ ಸಹಾಯಧನ ಕೋರಿಕೆ ಅರ್ಜಿ - Karnataka State Nadaf / Pinjar Sangha</title>
+    <link href="css/base.css?v=2" rel="stylesheet" media="all">
+    <link href="css/base-responsive.css?v=2" rel="stylesheet" media="all">
+    <link href="css/grid.css?v=2" rel="stylesheet" media="all">
+    <link href="css/font.css?v=2" rel="stylesheet" media="all">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/megamenu.css" rel="stylesheet" media="all">
+    <link href="css/site.css" rel="stylesheet" media="all">
+    <link href="css/site-responsive.css" rel="stylesheet" media="all">
+    <style>
+        .pratibha-marquee-container {
+            background: linear-gradient(90deg, #990000 0%, #cc0000 100%);
+            color: #ffedc2;
+            padding: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .pratibha-marquee-container:hover .marquee-inner,
+        .pratibha-marquee-container.is-paused .marquee-inner {
+            animation-play-state: paused !important;
+        }
+        .marquee-inner {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 25s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+        .btn-apply-now {
+            background-color: #ffedc2;
+            color: #990000;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 13px;
+            margin-left: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-decoration: none;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .btn-apply-now:hover {
+            background-color: #ffffff;
+            transform: scale(1.05);
+            color: #cc0000;
+        }
+        .btn-filter-toggle {
+            background-color: #990000;
+            color: #ffedc2;
+            border: 2px solid #ffedc2;
+            padding: 10px 24px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 auto 25px auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .btn-filter-toggle:hover {
+            background-color: #ffedc2;
+            color: #990000;
+            transform: scale(1.03);
+        }
+        .filter-panel {
+            display: none;
+            background: #fff;
+            border: 2px solid #ffedc2;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .filter-panel.show { display: block; }
+        .filter-group { margin-bottom: 15px; }
+        .filter-group label {
+            font-weight: bold;
+            color: #990000;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .filter-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .form-section-title {
+            background: #990000;
+            color: #ffedc2;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            margin-top: 25px;
+            margin-bottom: 20px;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+        .form-col {
+            flex: 1;
+            min-width: 280px;
+            padding: 0 10px;
+            margin-bottom: 15px;
+        }
+        .form-col label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .form-col input, .form-col select, .form-col textarea {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .form-col input:focus, .form-col select:focus, .form-col textarea:focus {
+            border-color: #990000;
+            outline: none;
+        }
+        .dob-select-group {
+            display: flex;
+            gap: 8px;
+        }
+        .dob-select-group select {
+            flex: 1;
+        }
+        .showcase-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .showcase-table th {
+            background-color: #990000;
+            color: #ffedc2;
+            padding: 12px 10px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .showcase-table td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .showcase-table tr:hover {
+            background-color: #fff8eb;
+        }
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .status-approved { background: #d4edda; color: #155724; }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-rejected { background: #f8d7da; color: #721c24; }
+        .btn-pdf-download {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-pdf-download:hover {
+            background-color: #0056b3;
+        }
+        
+        /* 2-PAGE PDF STYLES */
+        .pdf-page-container {
+            font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
+            font-size: 11px;
+            line-height: 1.3;
+            color: #000000;
+            background-color: #ffffff !important;
+            width: 680px;
+            box-sizing: border-box;
+            padding: 10px 16px;
+        }
+        .pdf-header-table { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+        .pdf-header-table td { border: none !important; padding: 0 !important; vertical-align: middle; }
+        .pdf-logo-left { width: 90px; text-align: left; }
+        .pdf-logo-left img { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; }
+        .pdf-logo-right { width: 90px; text-align: right; }
+        .pdf-logo-right img { width: 85px; height: 85px; border-radius: 50%; object-fit: contain; }
+        .pdf-header-text { text-align: center; }
+        .pdf-header-text h1 { margin: 0; font-size: 21px; font-weight: bold; color: #c01535; }
+        .pdf-header-text h2 { margin: 1px 0 0 0; font-size: 11.5px; font-weight: bold; color: #000; }
+        .pdf-header-text h3 { margin: 1px 0 0 0; font-size: 12px; font-weight: bold; color: #000; }
+        .pdf-header-text h4 { margin: 1px 0 0 0; font-size: 11px; font-weight: bold; color: #000; }
+        .pdf-title-banner { background: #ffffff; text-align: center; margin: 4px 0; border: 1.5px solid #c01535; padding: 3px; border-radius: 4px; }
+        .pdf-title-banner h2 { margin: 0; font-size: 15px; font-weight: bold; color: #c01535; }
+        .pdf-info-bar { width: 100%; border-collapse: collapse; margin-bottom: 4px; font-weight: bold; font-size: 11.5px; }
+        .pdf-info-bar td { border: none !important; padding: 1px 0 !important; }
+        .pdf-grid-table { width: 100%; border-collapse: collapse; margin-top: 2px; }
+        .pdf-grid-table td { border: 1px solid #000 !important; padding: 4px 5px !important; font-size: 11px !important; vertical-align: middle; background-color: #ffffff !important; }
+        .pdf-grid-table .lbl { font-weight: bold; color: #000; width: 34%; }
+        .pdf-grid-table .val { color: #c01535; font-weight: bold; }
+        .pdf-declaration-box { margin-top: 8px; font-size: 11px; line-height: 1.35; text-align: justify; color: #c01535; }
+        .pdf-declaration-title { text-align: center; font-weight: bold; font-size: 13px; color: #c01535; text-decoration: underline; margin-bottom: 4px; }
+        .pdf-sig-row { width: 100%; margin-top: 15px; font-weight: bold; color: #c01535; font-size: 11.5px; }
+        .pdf-page-break { page-break-before: always !important; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <!-- Top Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-3 col-sm-4 text-left">
+                    <a href="default.html" class="logo">
+                        <img src="images/president.jpeg" alt="President Photo" style="max-height:80px; border-radius:50%;">
+                    </a>
+                </div>
+                <div class="col-md-6 col-sm-4 text-center">
+                    <h2 style="color:#990000; font-weight:bold; margin:0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h2>
+                    <p style="margin:2px 0; font-size:12px; color:#555;">ನೋಂ ಸಂಖ್ಯೆ : 151/ ಎಸ್ ಓ ಆರ್ / ಎಸ್ ಎಂ ಜಿ /1993–94</p>
+                </div>
+                <div class="col-md-3 col-sm-4 text-right">
+                    <img src="images/logo-786.png" alt="Sangha Logo" style="max-height:80px;">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <section class="main-nav-section">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-red">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a href="default.html" class="nav-link">HOME</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">ಅರ್ಜಿಗಳು</a>
+                        <div class="dropdown-menu">
+                            <a href="freeedu.html" class="dropdown-item">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ</a>
+                            <a href="highereducation.html" class="dropdown-item active">ಉನ್ನತ ಶಿಕ್ಷಣ ಸಹಾಯಧನ ಕೋರಿಕೆ ಅರ್ಜಿ</a>
+                            <a href="pratibha.html" class="dropdown-item">ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ</a>
+                            <a href="sadhaka.html" class="dropdown-item">ಸಾಧಕ ಪ್ರಶಸ್ತಿ</a>
+                            <a href="lifemembership.html" class="dropdown-item">ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿ</a>
+                            <a href="Census.html" class="dropdown-item">ಜನಗಣತಿ (Census)</a>
+                            <a href="employees.html" class="dropdown-item">ನೌಕರರ ವಿವರ</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Marquee Banner Section -->
+    <div class="pratibha-marquee-container" id="marqueeBanner" onclick="toggleMarqueePause(event, this)">
+        <div class="marquee-inner">
+            <span>🎉 ಉನ್ನತ ಶಿಕ್ಷಣ ಸಹಾಯಧನ ಕೋರಿಕೆ ಅರ್ಜಿ ೨೦೨೬-೨೭ - ಸಮಾಜದ ಉನ್ನತ ವ್ಯಾಸಂಗದ ವಿದ್ಯಾರ್ಥಿಗಳಿಂದ ಅರ್ಜಿ ಆಹ್ವಾನಿಸಲಾಗಿದೆ! 🎉</span>
+            <a href="#applySection" class="btn-apply-now" onclick="scrollToForm(event)">ಇಲ್ಲೇ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ (Apply Now)</a>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container" style="margin-top: 30px; margin-bottom: 50px;">
+        
+        <!-- Filter Toggle & Showcase Table -->
+        <button class="btn-filter-toggle" onclick="toggleFilterPanel()">
+            <i class="fa fa-filter"></i> ಅರ್ಜಿಗಳ ಹುಡುಕಾಟ / ಫಿಲ್ಟರ್ (Search & Filter)
+        </button>
+
+        <div class="filter-panel" id="filterPanel">
+            <h4 style="color:#990000; font-weight:bold; margin-bottom:20px;">ಅರ್ಜಿಗಳ ಹುಡುಕಾಟ (Search & Filter Applications)</h4>
+            <div class="row">
+                <div class="col-md-4 filter-group">
+                    <label>ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು (Student Name):</label>
+                    <input type="text" id="filterName" class="filter-control" placeholder="ಹೆಸರನ್ನು ನಮೂದಿಸಿ..." onkeyup="applyFilters()">
+                </div>
+                <div class="col-md-4 filter-group">
+                    <label>ಜಿಲ್ಲೆ (District):</label>
+                    <input type="text" id="filterDistrict" class="filter-control" placeholder="ಜಿಲ್ಲೆಯನ್ನು ನಮೂದಿಸಿ..." onkeyup="applyFilters()">
+                </div>
+                <div class="col-md-4 filter-group">
+                    <label>ತಾಲ್ಲೂಕು (Taluk):</label>
+                    <input type="text" id="filterTaluk" class="filter-control" placeholder="ತಾಲ್ಲೂಕನ್ನು ನಮೂದಿಸಿ..." onkeyup="applyFilters()">
+                </div>
+            </div>
+        </div>
+
+        <div style="background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.08); margin-bottom:40px;">
+            <h3 style="color:#990000; font-weight:bold; margin-bottom:15px; text-align:center;">
+                ಅನುಮೋದಿತ ಉನ್ನತ ಶಿಕ್ಷಣ ಸಹಾಯಧನ ಅರ್ಜಿಗಳ ಪಟ್ಟಿ
+            </h3>
+            <div class="table-responsive">
+                <table class="showcase-table">
+                    <thead>
+                        <tr>
+                            <th>ಕ್ರ.ಸಂ.</th>
+                            <th>ಅರ್ಜಿ ಸಂಖ್ಯೆ</th>
+                            <th>ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</th>
+                            <th>ತರಗತಿ / ಕೋರ್ಸ್</th>
+                            <th>ಕಾಲೇಜು</th>
+                            <th>ಜಿಲ್ಲೆ / ತಾಲೂಕು</th>
+                            <th>ಅರ್ಜಿ ಸ್ಥಿತಿ</th>
+                            <th>ಪಿಡಿಎಫ್</th>
+                        </tr>
+                    </thead>
+                    <tbody id="showcaseTableBody">
+                        <tr><td colspan="8" style="text-align:center;">ಮಾಹಿತಿ ಲೋಡ್ ಆಗುತ್ತಿದೆ...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Application Form Section -->
+        <div id="applySection" style="background:#fff; padding:30px; border-radius:12px; border:2px solid #990000; box-shadow:0 6px 20px rgba(0,0,0,0.1);">
+            <h2 style="color:#990000; font-weight:bold; text-align:center; margin-bottom:5px;">
+                ಉನ್ನತ ಶಿಕ್ಷಣ ಸಹಾಯಧನ ಕೋರಿಕೆ ಅರ್ಜಿ 2026-27
+            </h2>
+            <p style="text-align:center; color:#666; font-size:14px; margin-bottom:25px;">(ದಯವಿಟ್ಟು ಎಲ್ಲಾ ವಿವರಗಳನ್ನು ಕಡ್ಡಾಯವಾಗಿ ಭರ್ತಿ ಮಾಡಿ)</p>
+
+            <form id="higherEduForm" onsubmit="submitApplication(event)">
+                
+                <div class="form-section-title"><i class="fa fa-user"></i> 1. ವೈಯಕ್ತಿಕ ವಿವರಗಳು (Personal Details)</div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು (Student Name) *</label>
+                        <input type="text" id="studentName" required placeholder="ಪೂರ್ಣ ಹೆಸರು ನಮೂದಿಸಿ">
+                    </div>
+                    <div class="form-col">
+                        <label>ತಂದೆಯ / ಪೋಷಕರ ಹೆಸರು (Father/Guardian Name) *</label>
+                        <input type="text" id="fatherHusbandName" required placeholder="ತಂದೆ/ಪೋಷಕರ ಹೆಸರು">
+                    </div>
+                    <div class="form-col">
+                        <label>ತಾಯಿಯ ಹೆಸರು (Mother Name) *</label>
+                        <input type="text" id="motherName" required placeholder="ತಾಯಿಯ ಹೆಸರು">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>ಜನ್ಮ ದಿನಾಂಕ (DOB) *</label>
+                        <div class="dob-select-group">
+                            <select id="dobDay" onchange="calculateDobAndAge()"></select>
+                            <select id="dobMonth" onchange="calculateDobAndAge()"></select>
+                            <select id="dobYear" onchange="calculateDobAndAge()"></select>
+                        </div>
+                        <input type="hidden" id="dob" required>
+                    </div>
+                    <div class="form-col">
+                        <label>ವಯಸ್ಸು (Age) *</label>
+                        <input type="number" id="age" readonly placeholder="ಸ್ವಯಂಚಾಲಿತ ಲೆಕ್ಕಾಚಾರ" style="background:#f8f9fa;">
+                    </div>
+                    <div class="form-col">
+                        <label>ಲಿಂಗ (Gender) *</label>
+                        <select id="gender" required>
+                            <option value="ಗಂಡು">ಗಂಡು (Male)</option>
+                            <option value="ಹೆಣ್ಣು">ಹೆಣ್ಣು (Female)</option>
+                            <option value="ಇತರೆ">ಇತರೆ (Other)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>ಉದ್ಯೋಗ (Occupation) *</label>
+                        <input type="text" id="occupation" required placeholder="ಉದಾ. ಕೂಲಿ ಕೆಲಸ / ವ್ಯವಸಾಯ / ನೌಕರಿ">
+                    </div>
+                    <div class="form-col">
+                        <label>ಅಂದಾಜು ವಾರ್ಷಿಕ ಆದಾಯ (Annual Income) *</label>
+                        <input type="text" id="annualIncome" required placeholder="ಉದಾ. 15,000–00">
+                    </div>
+                    <div class="form-col">
+                        <label>ಸಂಘದ ಸದಸ್ಯತ್ವ ಸಂಖ್ಯೆ (Sangha Membership No)</label>
+                        <input type="text" id="membershipNo" placeholder="ಉದಾ. KPL0025655 (ಇದ್ದಲ್ಲಿ)">
+                    </div>
+                </div>
+
+                <div class="form-section-title"><i class="fa fa-home"></i> 2. ವಿಳಾಸ ಮತ್ತು ನಿವಾಸದ ವಿವರ (Address & Housing)</div>
+                <div class="form-row">
+                    <div class="form-col" style="flex: 2;">
+                        <label>ಪೂರ್ಣ ವಿಳಾಸ (Complete Address) *</label>
+                        <textarea id="completeAddress" rows="2" required placeholder="ಮನೆ ಸಂಖ್ಯೆ, ಬೀದಿ, ಗಲ್ಲಿ..."></textarea>
+                    </div>
+                    <div class="form-col">
+                        <label>ನಗರ / ಗ್ರಾಮ (City / Village) *</label>
+                        <input type="text" id="city" required placeholder="ನಗರ ಅಥವಾ ಗ್ರಾಮದ ಹೆಸರು">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>ತಾಲ್ಲೂಕು (Taluk) *</label>
+                        <input type="text" id="taluk" required placeholder="ತಾಲ್ಲೂಕು">
+                    </div>
+                    <div class="form-col">
+                        <label>ಜಿಲ್ಲೆ (District) *</label>
+                        <input type="text" id="district" required placeholder="ಜಿಲ್ಲೆ">
+                    </div>
+                    <div class="form-col">
+                        <label>ಮೊಬೈಲ್ ಸಂಖ್ಯೆ (Mobile Number) *</label>
+                        <input type="tel" id="mobile" maxlength="10" required placeholder="10 ಅಂಕಿಗಳ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>ಮನೆಯ ವಿವರ (House Details)</label>
+                        <select id="houseType">
+                            <option value="ಸ್ವಂತ ಮನೆ">ಸ್ವಂತ ಮನೆ (Own House)</option>
+                            <option value="ಬಾಡಿಗೆ ಮನೆ">ಬಾಡಿಗೆ ಮನೆ (Rented House)</option>
+                            <option value="ಲೀಸ್ ಮನೆ">ಲೀಸ್ ಮನೆ (Lease House)</option>
+                            <option value="ಇತರೆ">ಇತರೆ (Others)</option>
+                        </select>
+                    </div>
+                    <div class="form-col">
+                        <label>ಮನೆಯ ಆಕಾರ (House Shape/Structure)</label>
+                        <select id="houseShape">
+                            <option value="ಗುಡಿಸಲು">ಗುಡಿಸಲು (Hut)</option>
+                            <option value="ಷೆಡ್ ಮನೆ">ಷೆಡ್ ಮನೆ (Shed House)</option>
+                            <option value="ಆರ್ ಸಿ ಸಿ">ಆರ್ ಸಿ ಸಿ (RCC Building)</option>
+                            <option value="ಮಣ್ಣಿನ ಮನೆ">ಮಣ್ಣಿನ ಮನೆ (Mud House)</option>
+                            <option value="ಇತರೆ">ಇತರೆ (Others)</option>
+                        </select>
+                    </div>
+                    <div class="form-col">
+                        <label>ಜಮೀನು (Land Details)</label>
+                        <input type="text" id="landDetails" placeholder="ಉದಾ. 2 ಎಕರೆ 10 ಗುಂಟೆ / ಜಮೀನಿಲ್ಲ">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>ಆಧಾರ್ ಸಂಖ್ಯೆ (Aadhar No) *</label>
+                        <input type="text" id="aadhar" maxlength="14" required placeholder="XXXX XXXX XXXX">
+                    </div>
+                    <div class="form-col">
+                        <label>ಅಂತ್ಯೋದಯ / ಬಿಪಿಎಲ್ ಕಾರ್ಡ್ (Ration Card)</label>
+                        <select id="rationCard">
+                            <option value="ಲಗತ್ತಿಸಿದೆ">ಲಗತ್ತಿಸಿದೆ (Attached BPL/Antyodaya)</option>
+                            <option value="ಇಲ್ಲ">ಇಲ್ಲ (No)</option>
+                        </select>
+                    </div>
+                    <div class="form-col">
+                        <label>ಪರ್ಯಾಯ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ (Parent Mobile)</label>
+                        <input type="tel" id="parentMobile" maxlength="10" placeholder="ಪೋಷಕರ ಮೊಬೈಲ್">
+                    </div>
+                </div>
+
+                <div class="form-section-title"><i class="fa fa-graduation-cap"></i> 3. ಶೈಕ್ಷಣಿಕ & ಸಹಾಯಧನ ವಿವರ (Educational & Aid Details)</div>
+                <div class="form-row">
+                    <div class="form-col" style="flex: 2;">
+                        <label>ಪ್ರವೇಶ ಪಡೆಯುವ ಕಾಲೇಜು (College Name) *</label>
+                        <input type="text" id="collegeName" required placeholder="ಕಾಲೇಜಿನ ಹೆಸರು ಮತ್ತು ಸ್ಥಳ">
+                    </div>
+                    <div class="form-col">
+                        <label>ವ್ಯಾಸಂಗ ಮಾಡುವ ತರಗತಿ (Class / Course) *</label>
+                        <input type="text" id="courseClass" required placeholder="ಉದಾ. ಬಿ ಈ (ಇಂಜಿನಿಯರಿಂಗ್) / ಎಂ.ಬಿ.ಬಿ.ಎಸ್">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>ಹಿಂದಿನ ಪರೀಕ್ಷೆ ಅಂಕ ಶೇಕಡ (%) *</label>
+                        <input type="text" id="previousMarks" required placeholder="ಉದಾ. ಶೇಕಡ 82.45">
+                    </div>
+                    <div class="form-col">
+                        <label>ಕಾಲೇಜು ಶುಲ್ಕದ ಅಂದಾಜು (College Fees Approx) *</label>
+                        <input type="text" id="collegeFees" required placeholder="ಉದಾ. ರೂ. 2,50,000–00">
+                    </div>
+                    <div class="form-col">
+                        <label>ಕೋರುವ ಸಹಾಯಧನ ಮೊತ್ತ (Aid Amount Requested) *</label>
+                        <input type="text" id="aidAmount" required placeholder="ಉದಾ. ರೂ. 1,00,000–00">
+                    </div>
+                </div>
+
+                <div class="form-section-title"><i class="fa fa-university"></i> 4. ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (Bank Account Details)</div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>ಬ್ಯಾಂಕ್ ಹೆಸರು (Bank Name) *</label>
+                        <input type="text" id="bankName" required placeholder="ಉದಾ. ಕೆನರಾ ಬ್ಯಾಂಕ್">
+                    </div>
+                    <div class="form-col">
+                        <label>ಖಾತೆ ಸಂಖ್ಯೆ (Account No) *</label>
+                        <input type="text" id="bankAccount" required placeholder="ಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ">
+                    </div>
+                    <div class="form-col">
+                        <label>IFSC ಕೋಡ್ (IFSC Code) *</label>
+                        <input type="text" id="ifscCode" required placeholder="ಉದಾ. CNRB0001234">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>ವಿದ್ಯಾರ್ಥಿಯ ಭಾವಚಿತ್ರ (Student Photo)</label>
+                        <input type="file" id="photoInput" accept="image/*" onchange="previewPhoto(this)">
+                        <input type="hidden" id="photoBase64">
+                    </div>
+                    <div class="form-col" style="text-align:center;">
+                        <img id="photoPreview" src="" style="max-height:100px; display:none; margin:10px auto; border:1px solid #ccc; border-radius:4px;">
+                    </div>
+                </div>
+
+                <div style="text-align:center; margin-top:30px;">
+                    <button type="submit" class="btn btn-danger btn-lg" style="background:#990000; border:none; padding:12px 40px; font-weight:bold; font-size:16px;">
+                        <i class="fa fa-check-circle"></i> ಅರ್ಜಿ ಸಲ್ಲಿಸಿ & PDF ಡೌನ್‌ಲೋಡ್ (Submit & Download PDF)
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Hidden Container for Off-Screen PDF Generation -->
+    <div id="pdfOffscreenContainer" style="position: absolute; left: -9999px; top: -9999px;"></div>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        let showcaseApplications = [];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            populateDobDropdowns();
+            loadShowcaseApplications();
+        });
+
+        function populateDobDropdowns() {
+            const daySel = document.getElementById("dobDay");
+            const monthSel = document.getElementById("dobMonth");
+            const yearSel = document.getElementById("dobYear");
+
+            daySel.innerHTML = '<option value="">ದಿನ</option>';
+            for(let i=1; i<=31; i++) {
+                let d = i < 10 ? '0' + i : i;
+                daySel.innerHTML += `<option value="${d}">${d}</option>`;
+            }
+
+            const months = [
+                { val: '01', name: 'ಜನವರಿ (01)' },
+                { val: '02', name: 'ಫೆಬ್ರವರಿ (02)' },
+                { val: '03', name: 'ಮಾರ್ಚ್ (03)' },
+                { val: '04', name: 'ಏಪ್ರಿಲ್ (04)' },
+                { val: '05', name: 'ಮೇ (05)' },
+                { val: '06', name: 'ಜೂನ್ (06)' },
+                { val: '07', name: 'ಜುಲೈ (07)' },
+                { val: '08', name: 'ಆಗಸ್ಟ್ (08)' },
+                { val: '09', name: 'ಸೆಪ್ಟೆಂಬರ್ (09)' },
+                { val: '10', name: 'ಅಕ್ಟೋಬರ್ (10)' },
+                { val: '11', name: 'ನವೆಂಬರ್ (11)' },
+                { val: '12', name: 'ಡಿಸೆಂಬರ್ (12)' }
+            ];
+            monthSel.innerHTML = '<option value="">ತಿಂಗಳು</option>';
+            months.forEach(m => {
+                monthSel.innerHTML += `<option value="${m.val}">${m.name}</option>`;
+            });
+
+            yearSel.innerHTML = '<option value="">ವರ್ಷ</option>';
+            const currentYear = new Date().getFullYear();
+            for(let y = currentYear; y >= 1930; y--) {
+                yearSel.innerHTML += `<option value="${y}">${y}</option>`;
+            }
+        }
+
+        function calculateDobAndAge() {
+            const d = document.getElementById("dobDay").value;
+            const m = document.getElementById("dobMonth").value;
+            const y = document.getElementById("dobYear").value;
+
+            if (d && m && y) {
+                const dobStr = `${d}-${m}-${y}`;
+                document.getElementById("dob").value = dobStr;
+
+                const birthDate = new Date(y, parseInt(m) - 1, d);
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const monthDiff = today.getMonth() - birthDate.getMonth();
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                document.getElementById("age").value = age > 0 ? age : 0;
+            }
+        }
+
+        function previewPhoto(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("photoBase64").value = e.target.result;
+                    const img = document.getElementById("photoPreview");
+                    img.src = e.target.result;
+                    img.style.display = "block";
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function toggleFilterPanel() {
+            document.getElementById("filterPanel").classList.toggle("show");
+        }
+
+        function scrollToForm(e) {
+            e.preventDefault();
+            document.getElementById("applySection").scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleMarqueePause(e, el) {
+            el.classList.toggle("is-paused");
+        }
+
+        async function loadShowcaseApplications() {
+            let deletedIds = [];
+            try {
+                deletedIds = JSON.parse(localStorage.getItem("nadaf_deleted_highereducation_ids") || "[]");
+            } catch(e) {}
+
+            let apps = [];
+            try {
+                let local = JSON.parse(localStorage.getItem("nadaf_highereducation_applications") || "[]");
+                apps = local;
+            } catch(e) {}
+
+            try {
+                let res = await fetch("/api/donations?formType=highereducation").catch(() => null);
+                if (!res || !res.ok) {
+                    res = await fetch("https://nadafpinjar-production.up.railway.app/api/donations?formType=highereducation").catch(() => null);
+                }
+                if (res && res.ok) {
+                    let dbApps = await res.json();
+                    dbApps.forEach(dbApp => {
+                        const targetId = dbApp.paymentId || dbApp._id || dbApp.id;
+                        if (deletedIds.includes(targetId) || (dbApp._id && deletedIds.includes(dbApp._id))) return;
+                        
+                        let data = dbApp.formData || dbApp;
+                        data._id = dbApp._id;
+                        data.id = dbApp.paymentId || dbApp._id;
+                        if (!apps.some(a => a.id === data.id || a._id === data._id)) {
+                            apps.push(data);
+                        }
+                    });
+                }
+            } catch(e) {}
+
+            // Exclude permanently deleted applications
+            showcaseApplications = apps.filter(app => {
+                const id1 = app.id;
+                const id2 = app._id;
+                return !deletedIds.includes(id1) && !deletedIds.includes(id2);
+            });
+
+            renderShowcaseTable(showcaseApplications);
+        }
+
+        function renderShowcaseTable(apps) {
+            const tbody = document.getElementById("showcaseTableBody");
+            if (!apps || apps.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">ಯಾವುದೇ ಅರ್ಜಿಗಳು ಲಭ್ಯವಿಲ್ಲ</td></tr>';
+                return;
+            }
+
+            let html = '';
+            apps.forEach((app, idx) => {
+                const status = app.status || 'Approved';
+                let badgeClass = 'status-approved';
+                let statusKn = 'ಅನುಮೋದಿಸಲಾಗಿದೆ';
+                if (status === 'Pending') { badgeClass = 'status-pending'; statusKn = 'ವಿಲೇವಾರಿಯಲ್ಲಿದೆ'; }
+                if (status === 'Rejected') { badgeClass = 'status-rejected'; statusKn = 'ತಿರಸ್ಕರಿಸಲಾಗಿದೆ'; }
+
+                html += `
+                    <tr>
+                        <td>${idx + 1}</td>
+                        <td><strong>${app.appNo || 'HEH 2026-27-' + (idx + 1)}</strong></td>
+                        <td>${app.studentName || '-'}</td>
+                        <td>${app.courseClass || '-'}</td>
+                        <td>${app.collegeName || '-'}</td>
+                        <td>${app.district || '-'}${app.taluk ? ' / ' + app.taluk : ''}</td>
+                        <td><span class="status-badge ${badgeClass}">${statusKn}</span></td>
+                        <td>
+                            <button class="btn-pdf-download" onclick="downloadPdfForApp('${app.id || app._id}')">
+                                <i class="fa fa-download"></i> PDF
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function applyFilters() {
+            const nameQuery = document.getElementById("filterName").value.toLowerCase();
+            const distQuery = document.getElementById("filterDistrict").value.toLowerCase();
+            const talukQuery = document.getElementById("filterTaluk").value.toLowerCase();
+
+            const filtered = showcaseApplications.filter(app => {
+                const mName = !nameQuery || (app.studentName && app.studentName.toLowerCase().includes(nameQuery));
+                const mDist = !distQuery || (app.district && app.district.toLowerCase().includes(distQuery));
+                const mTaluk = !talukQuery || (app.taluk && app.taluk.toLowerCase().includes(talukQuery));
+                return mName && mDist && mTaluk;
+            });
+            renderShowcaseTable(filtered);
+        }
+
+        async function submitApplication(e) {
+            e.preventDefault();
+
+            const appNo = `HEH 2026-27-${Math.floor(Math.random() * 90) + 10}`;
+            const dateStr = new Date().toLocaleDateString('kn-IN');
+
+            const fd = {
+                id: 'HEH_' + Date.now(),
+                formType: 'highereducation',
+                appNo: appNo,
+                date: dateStr,
+                studentName: document.getElementById("studentName").value,
+                fatherHusbandName: document.getElementById("fatherHusbandName").value,
+                motherName: document.getElementById("motherName").value,
+                dob: document.getElementById("dob").value,
+                age: document.getElementById("age").value,
+                gender: document.getElementById("gender").value,
+                occupation: document.getElementById("occupation").value,
+                annualIncome: document.getElementById("annualIncome").value,
+                membershipNo: document.getElementById("membershipNo").value || 'KPL0025655',
+                completeAddress: document.getElementById("completeAddress").value,
+                city: document.getElementById("city").value,
+                taluk: document.getElementById("taluk").value,
+                district: document.getElementById("district").value,
+                mobile: document.getElementById("mobile").value,
+                houseType: document.getElementById("houseType").value,
+                houseShape: document.getElementById("houseShape").value,
+                landDetails: document.getElementById("landDetails").value || '2 ಎಕರೆ 10 ಗುಂಟೆ',
+                aadhar: document.getElementById("aadhar").value,
+                rationCard: document.getElementById("rationCard").value,
+                parentMobile: document.getElementById("parentMobile").value || document.getElementById("mobile").value,
+                collegeName: document.getElementById("collegeName").value,
+                courseClass: document.getElementById("courseClass").value,
+                previousMarks: document.getElementById("previousMarks").value,
+                collegeFees: document.getElementById("collegeFees").value,
+                aidAmount: document.getElementById("aidAmount").value,
+                bankName: document.getElementById("bankName").value,
+                bankAccount: document.getElementById("bankAccount").value,
+                ifscCode: document.getElementById("ifscCode").value,
+                photo: document.getElementById("photoBase64").value,
+                status: 'Approved',
+                createdAt: new Date().toISOString()
+            };
+
+            // Save to LocalStorage
+            try {
+                let local = JSON.parse(localStorage.getItem("nadaf_highereducation_applications") || "[]");
+                local.unshift(fd);
+                localStorage.setItem("nadaf_highereducation_applications", JSON.stringify(local));
+            } catch(err) {}
+
+            // Save to MongoDB Backend Database
+            try {
+                await fetch('/api/donations', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        paymentId: fd.id,
+                        formType: 'highereducation',
+                        amount: 0,
+                        formData: fd
+                    })
+                }).catch(() => null);
+
+                await fetch('https://nadafpinjar-production.up.railway.app/api/donations', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        paymentId: fd.id,
+                        formType: 'highereducation',
+                        amount: 0,
+                        formData: fd
+                    })
+                }).catch(() => null);
+            } catch(err) {}
+
+            alert("ಅರ್ಜಿಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಸಲ್ಲಿಸಲಾಗಿದೆ! ಪಿಡಿಎಫ್ ಡೌನ್‌ಲೋಡ್ ಪ್ರಕ್ರಿಯೆ ಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ...");
+            await generatePDF(fd);
+            document.getElementById("higherEduForm").reset();
+            loadShowcaseApplications();
+        }
+
+        async function downloadPdfForApp(id) {
+            const app = showcaseApplications.find(a => a.id === id || a._id === id);
+            if (app) {
+                await generatePDF(app);
+            }
+        }
+
+        async function generatePDF(fd) {
+            const container = document.getElementById("pdfOffscreenContainer");
+            container.innerHTML = `
+                <div class="pdf-page-container">
+                    <!-- PAGE 1 -->
+                    <table class="pdf-header-table">
+                        <tr>
+                            <td class="pdf-logo-left">
+                                <img src="${window.location.origin}/images/president.jpeg" onerror="this.src='images/president.jpeg'">
+                            </td>
+                            <td class="pdf-header-text">
+                                <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
+                                <h2>ನೋಂ ಸಂಖ್ಯೆ : 151/ ಎಸ್ ಓ ಆರ್ / ಎಸ್ ಎಂ ಜಿ /1993–94</h2>
+                                <h3>KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</h3>
+                                <h4>ಆಡಳಿತ ಕಛೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ, ಸೀಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</h4>
+                            </td>
+                            <td class="pdf-logo-right">
+                                <img src="${window.location.origin}/images/logo-786_circular.png" onerror="this.src='images/logo-786.png'">
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="pdf-title-banner">
+                        <h2>ಉನ್ನತ ಶಿಕ್ಷಣ ಸಹಾಯಧನ ಕೋರಿಕೆ ಅರ್ಜಿ 2026-27</h2>
+                    </div>
+
+                    <table class="pdf-info-bar">
+                        <tr>
+                            <td style="color:#c01535; width:33%;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color:#c01535;">${fd.appNo || 'HEH 2026-27- 01'}</span></td>
+                            <td style="text-align:right; color:#c01535;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color:#000;">${fd.date || new Date().toLocaleDateString('kn-IN')}</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="color:#c01535; padding-top:2px!important;">
+                                ನಗರ/ಗ್ರಾಮ : <span style="color:#000;">${fd.city || fd.taluk || '-'}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                ತಾಲ್ಲೂಕು : <span style="color:#000;">${fd.taluk || '-'}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                ಜಿಲ್ಲೆ : <span style="color:#000;">${fd.district || '-'}</span>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="pdf-grid-table">
+                        <tr>
+                            <td class="lbl" style="width:20%;">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
+                            <td class="val" style="width:30%;">${fd.studentName || '-'}</td>
+                            <td class="lbl" style="width:20%;">ತಂದೆಯ/ ಪೋಷಕರ ಹೆಸರು</td>
+                            <td class="val" style="width:30%;">${fd.fatherHusbandName || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td class="lbl">ತಾಯಿಯ ಹೆಸರು</td>
+                            <td class="val">${fd.motherName || '-'}</td>
+                            <td class="lbl">ವಿಳಾಸ</td>
+                            <td class="val">${fd.completeAddress || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td class="lbl">ಉದ್ಯೋಗ</td>
+                            <td class="val">${fd.occupation || '-'}</td>
+                            <td class="lbl">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
+                            <td class="val">${fd.mobile || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td class="lbl">ಅಂದಾಜು ಆದಾಯ</td>
+                            <td class="val">${fd.annualIncome || '-'}</td>
+                            <td class="lbl">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
+                            <td class="val">${fd.membershipNo || 'KPL0025655'}</td>
+                        </tr>
+                        <tr>
+                            <td class="lbl">ಮನೆಯ ವಿವರ</td>
+                            <td class="val">${fd.houseType || 'ಸ್ವಂತ ಮನೆ, ಬಾಡಿಗೆ ಮನೆ, ಲೀಸ್ ಮನೆ, ಇತರೆ'}</td>
+                            <td class="lbl">ಮನೆಯ ಆಕಾರ</td>
+                            <td class="val">${fd.houseShape || 'ಗುಡಿಸಲು, ಷೆಡ್ ಮನೆ, ಆರ್ ಸಿ ಸಿ, ಮಣ್ಣಿನ ಮನೆ ಇತರೆ'}</td>
+                        </tr>
+                        <tr>
+                            <td class="lbl">ಜಮೀನು</td>
+                            <td class="val">${fd.landDetails || '2 ಎಕರೆ 10 ಗುಂಟೆ'}</td>
+                            <td class="lbl">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
+                            <td class="val">${fd.parentMobile || fd.mobile || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td class="lbl">ಆಧಾರ್ ನಂ</td>
+                            <td class="val" style="color:#c01535; font-weight:bold;">${fd.aadhar || '-'}</td>
+                            <td class="lbl">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
+                            <td class="val">${fd.rationCard || 'ಲಗತ್ತಿಸಿದೆ'}</td>
+                        </tr>
+                        <tr>
+                            <td class="lbl">ಪ್ರವೇಶ ಪಡೆಯುವ ಕಾಲೇಜು</td>
+                            <td class="val">${fd.collegeName || '-'}</td>
+                            <td class="lbl">ವ್ಯಾಸಂಗ ಮಾಡುವ ತರಗತಿ</td>
+                            <td class="val">${fd.courseClass || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td class="lbl">ಹಿಂದಿನ ಪರೀಕ್ಷೆ ಅಂಕ ಹಾಗೂ ಫಲಿತಾಂಶದ ಮಾರ್ಕ್ಸ್ ಕಾರ್ಡ್ ಲಗತ್ತಿಸಿದೆ</td>
+                            <td class="val">${fd.previousMarks || '-'}</td>
+                            <td class="lbl">ಕಾಲೇಜು ಶುಲ್ಕದ ಅಂದಾಜು ಪ್ರತಿ (ಲಗತ್ತಿಸಿದೆ)</td>
+                            <td class="val">${fd.collegeFees || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td class="lbl">ಸಹಾಯಧನ ಮೊತ್ತ</td>
+                            <td class="val">${fd.aidAmount || '-'}</td>
+                            <td class="lbl">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು, (ಅಥವಾ) ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                            <td class="val">${fd.bankName || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td class="lbl">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ (ಅಥವಾ) ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
+                            <td class="val">${fd.bankAccount || '-'}</td>
+                            <td class="lbl">IFSC ಕೋಡ್ ವಿದ್ಯಾರ್ಥಿ / ಕಾಲೇಜು</td>
+                            <td class="val">${fd.ifscCode || '-'}</td>
+                        </tr>
+                    </table>
+
+                    <div class="pdf-declaration-box">
+                        <div class="pdf-declaration-title">ಪ್ರಮಾಣ ಪತ್ರ</div>
+                        <p style="margin:0 0 4px 0;">ವಿದ್ಯಾರ್ಥಿಯಾದ ನಾನು ................................................................................................................................................................</p>
+                        <p style="margin:0 0 4px 0;">ಹಾಗೂ ನನ್ನ ಪಾಲಕರು ಈ ಮೂಲಕ ಘೋಷಿಸುವುದೇನೆಂದರೆ, ನನ್ನ ಕುಟುಂಬ ಬಡತನರೇಖೆ ಇದ್ದು, ನನ್ನ ಮುಂದಿನ ವಿದ್ಯಾಭ್ಯಾಸ ಮುಂದುವರೆಸಲು ಆರ್ಥಿಕವಾಗಿ ಸಧ್ಯಧ ಇರುವುದಿಲ್ಲ. ನನ್ನ ಪ್ರತಿಭೆಯಿಂದ ಶಿಕ್ಷಣ ಮುಂದುವರೆಸಲು ನನಗೆ ಆರ್ಥಿಕ ನೆರವು ಅಗತ್ಯ ಇದೆ. ನನ್ನ ಪ್ರತಿಭೆಯನ್ನು ಗುರುತಿಸಿ ಸಂಘದ ಪರವಾಗಿ ಪ್ರೋತ್ಸಾಹ ಧನವನ್ನು ನೀಡಿದಲ್ಲಿ ನಾನು ಸಮರ್ಥಕವಾಗಿ ಉಪಯೋಗಿಸಿಕೊಂಡು, ಬಹಳ ಶ್ರದ್ಧೆಯಿಂದ ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡಿ ಹೆಚ್ಚಿನ ಅಂಕಗಳನ್ನು ಪಡೆದುಕೊಳ್ಳಲು ಪ್ರಾಮಾಣಿಕವಾಗಿ ಪ್ರಯತ್ನಿಸುತ್ತೇನೆ.</p>
+                        <p style="margin:0 0 4px 0;">ಓದು ಮುಗಿದನಂತರ ಮುಂದಿನ ದಿನಗಳಲ್ಲಿ ನಾನು ಸರ್ಕಾರಿ/ ಅರೆಸರ್ಕಾರಿ/ ಉದ್ಯೋಗ/ಇತ್ಯಾದಿ ಯಾವುದೇ ರೀತಿಯ ಹುದ್ದೆಗಳಲ್ಲಿ ಮುಂದುವರೆದಾಗ ನನ್ನಂತೆ ಮುಂದಿನ ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೂ ಸಹ ಪ್ರೋತ್ಸಾಹಿಸಲು ನೆರವಾಗುವಂತೆ ಕಾಲ ಕಾಲಕ್ಕೆ ನನ್ನ ಶಕ್ತಿಗೆ ಅನುಗುಣವಾಗಿ, ಪ್ರಾಮಾಣಿಕವಾಗಿ ಮತ್ತು ನನ್ನ ಅಂತರಾತ್ಮ ಸಾಕ್ಷಿಯಾಗಿ, ಸ್ಥಳೀಯ ಸಾಕ್ಷಿಗಳ ಸಮ್ಮುಖದಲ್ಲಿ ಸಂಘಕ್ಕೆ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ನೀಡುತ್ತೇನೆಂದು ಘೋಷಿಸುತ್ತೇನೆ.</p>
+                        <p style="margin:0;">ಮೇಲೆ ತಿಳಿಸಿದಂತೆ ನಾವುಗಳು ಎಲ್ಲಾ ವಿಷಯಗಳಿಗೆ ಬದ್ಧರಿದ್ದೇವೆ ಎಂದು ತಿಳಿಸುತ್ತಾ, ಈ ಮೂಲಕ ಪ್ರಮಾಣೀಕರಿಸುತ್ತೇವೆ.</p>
+                    </div>
+
+                    <table class="pdf-sig-row">
+                        <tr>
+                            <td style="width:50%; text-align:left;">ವಿದ್ಯಾರ್ಥಿಯ ಪಾಲಕರ ರುಜು</td>
+                            <td style="width:50%; text-align:right;">ವಿದ್ಯಾರ್ಥಿಯ ರುಜು</td>
+                        </tr>
+                    </table>
+
+                    <!-- PAGE 2 BREAK -->
+                    <div class="pdf-page-break"></div>
+
+                    <!-- PAGE 2 CONTENT -->
+                    <div style="text-align:center; font-weight:bold; font-size:14px; margin-bottom:6px; color:#c01535;">2</div>
+                    <div style="text-align:center; font-weight:bold; font-size:13px; margin-bottom:6px; color:#c01535; text-decoration:underline;">ಸಹಾಯ ಧನಗಳು</div>
+
+                    <table style="width:100%; border-collapse:collapse; text-align:center; margin-bottom:12px;">
+                        <tr style="font-weight:bold; color:#c01535; font-size:11px;">
+                            <td style="border:1px solid #000!important; width:10%; padding:3px!important;">ಸಂ</td>
+                            <td style="border:1px solid #000!important; width:60%; padding:3px!important;">ವರ್ಷದ ವಿವರ</td>
+                            <td style="border:1px solid #000!important; width:30%; padding:3px!important;">ರೂ</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #000!important; font-weight:bold; color:#c01535; padding:8px!important;">01</td>
+                            <td style="border:1px solid #000!important;"></td>
+                            <td style="border:1px solid #000!important;"></td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #000!important; font-weight:bold; color:#c01535; padding:8px!important;">02</td>
+                            <td style="border:1px solid #000!important;"></td>
+                            <td style="border:1px solid #000!important;"></td>
+                        </tr>
+                    </table>
+
+                    <div style="font-size:11px; line-height:1.4; color:#c01535; text-align:justify; margin-bottom:15px;">
+                        ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ) ರಿಂದ ಪ್ರತಿ ವರ್ಷ ಸಮಾಜದ ಬಡ ಹಿಂದುಳಿದ ಬಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಉಚಿತ ಶಿಕ್ಷಣ ಪ್ರೋತ್ಸಾಹಧನ ಆರ್ಥಿಕ ಸಹಾಯ ನೀಡಲಾಗುತ್ತಿದೆ. ಮೇಲೆ ತಿಳಿಸಿದ ವಿದ್ಯಾರ್ಥಿಯ ಶೈಕ್ಷಣಿಕ ಪ್ರಗತಿ ವರದಿಯನ್ನು ಪರಿಶೀಲಿಸಿ, ಅವರಲ್ಲಿ ತಿಳಿಸಿದ ಎಲ್ಲಾ ದಾಖಲೆಗಳು ನಿಜ ಮತ್ತು ಸರಿಯಾಗಿದೆ. ಆದ್ದರಿಂದ ಮುಂದುವರಿದ ಉನ್ನತ ಶಿಕ್ಷಣಕ್ಕಾಗಿ ಆರ್ಥಿಕ ಸಹಾಯ ಧನವನ್ನು ನಿರೀಕ್ಷಿಸುತ್ತ ಸ್ವಂತ ಸಂಘದ ಕಛೇರಿ ಅಥವಾ ತಾಲೂಕ ಉನ್ನತ ಶಿಕ್ಷಣ ಶಿಕ್ಷಣ ಆರ್ಥಿಕ ಸಹಾಯ ಧನದ ಮೂಲಕ ಒಬ್ಬೊಬ್ಬ ಸಮುದಾಯ ಬಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಪ್ರೋತ್ಸಾಹಿಸಲು ಸಂಘಕ್ಕೆ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ನೀಡಬೇಕೆಂದು ಪ್ರಾರ್ಥಿಸುವ ಮೂಲಕ ಈ ಮೂಲಕ ಪ್ರಾರ್ಥಿಸಲಾಗುತ್ತಿದೆ. ಮತ್ತು ಸಂಘಕ್ಕೆ ಬಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಂದ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ಹಣಕ್ಕೆ ತಾಲೂಕು ಬದ್ಧವಾಗಿ ಸಮಿತಿಗೆ ವರದಿಮಾಡತಕ್ಕದ್ದು.
+                    </div>
+
+                    <div style="font-weight:bold; color:#c01535; font-size:11px; margin-bottom:15px;">
+                        ದಿನಾಂಕ : <br><br>
+                        1) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2)
+                    </div>
+
+                    <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+                        <tr>
+                            <td style="border:1px solid #c01535!important; width:33.3%; height:90px; vertical-align:top; padding:4px!important; font-weight:bold; color:#c01535; font-size:11px;">
+                                ತಾಲೂಕ ಪದಾಧಿಕಾರಿ ಸಹಿ/ಮೊಹರು
+                            </td>
+                            <td style="border:1px solid #c01535!important; width:33.3%; height:90px; vertical-align:top; padding:4px!important; font-weight:bold; color:#c01535; font-size:11px;">
+                                ಜಿಲ್ಲಾ ಪದಾಧಿಕಾರಿ ಸಹಿ/ಮೊಹರು
+                            </td>
+                            <td style="border:1px solid #c01535!important; width:33.3%; height:90px; vertical-align:top; padding:4px!important; font-weight:bold; color:#c01535; font-size:11px;">
+                                ವಿಧಾನಸಭಾ ಮತಕ್ಷೇತ್ರದ ಸಹಿ/ಮೊಹರು
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="font-weight:bold; color:#c01535; font-size:11px; line-height:1.6;">
+                        ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ಸಹಿ : <br><br><br>
+                        ರಾಜ್ಯ ಪ್ರಧಾನ ಕಾರ್ಯದರ್ಶಿ : <br><br><br>
+                        ರಾಜ್ಯ ಉಸ್ತುವಾರಿ ನಂತರ ಸಮಿತಿಗೆ ತಾಲೂಕ ಮತ್ತು ಜಿಲ್ಲಾ ಉನ್ನತ ಶಿಕ್ಷಣ ಹಾಗೂ ವಿಧಾನಸಭಾ ಉಸ್ತುವಾರಿ ತಿಳಿಸಲಾಗುವುದು.
+                    </div>
+                </div>
+            `;
+
+            const opt = {
+                margin: [0, 0, 0, 0],
+                filename: `Higher_Education_Aid_${fd.studentName || 'Application'}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            await window.html2pdf().set(opt).from(container.firstElementChild).save();
+            container.innerHTML = "";
+        }
+    </script>
+</body>
+</html>
