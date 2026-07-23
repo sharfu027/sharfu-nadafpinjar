@@ -490,16 +490,58 @@
                             <td class="sl-no">6</td>
                             <td class="field-label">6. ಜನ್ಮ ದಿನಾಂಕ, ವಯಸ್ಸು, ಲಿಂಗ & ಉಪ ಪಂಗಡ</td>
                             <td class="field-input">
-                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                                    <input type="text" id="dob" placeholder="ಜನ್ಮ ದಿನಾಂಕ (DD-MM-YYYY)" required>
-                                    <input type="text" id="age" placeholder="ವಯಸ್ಸು (Age)" required>
-                                    <select id="gender" required>
-                                        <option value="">-ಲಿಂಗ ಆಯ್ಕೆಮಾಡಿ-</option>
-                                        <option value="ಗಂಡು">ಗಂಡು (Male)</option>
-                                        <option value="ಹೆಣ್ಣು">ಹೆಣ್ಣು (Female)</option>
-                                        <option value="ಇತರೆ">ಇತರೆ (Other)</option>
-                                    </select>
-                                    <input type="text" id="subCaste" placeholder="ಉಪ ಪಂಗಡ (e.g. ನದಾಫ್ / ಪಿಂಜಾರ)" value="ನದಾಫ್ / ಪಿಂಜಾರ" required>
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+                                    <!-- DOB Dropdowns (Day, Month, Year) -->
+                                    <div>
+                                        <label style="font-size:11.5px; font-weight:bold; color:#0b3c5d; display:block; margin-bottom:2px;">ಜನ್ಮ ದಿನಾಂಕ (Date of Birth)</label>
+                                        <div style="display:flex; gap:4px;">
+                                            <select id="dobDay" required onchange="calculateDobAndAge()" style="flex:1; padding:6px; font-size:12px;">
+                                                <option value="">ದಿನ (Day)</option>
+                                            </select>
+                                            <select id="dobMonth" required onchange="calculateDobAndAge()" style="flex:1.4; padding:6px; font-size:12px;">
+                                                <option value="">ತಿಂಗಳು (Month)</option>
+                                                <option value="01">01-ಜನವರಿ (Jan)</option>
+                                                <option value="02">02-ಫೆಬ್ರವರಿ (Feb)</option>
+                                                <option value="03">03-ಮಾರ್ಚ್ (Mar)</option>
+                                                <option value="04">04-ಏಪ್ರಿಲ್ (Apr)</option>
+                                                <option value="05">05-ಮೇ (May)</option>
+                                                <option value="06">06-ಜೂನ್ (Jun)</option>
+                                                <option value="07">07-ಜುಲೈ (Jul)</option>
+                                                <option value="08">08-ಆಗಸ್ಟ್ (Aug)</option>
+                                                <option value="09">09-ಸೆಪ್ಟೆಂಬರ್ (Sep)</option>
+                                                <option value="10">10-ಅಕ್ಟೋಬರ್ (Oct)</option>
+                                                <option value="11">11-ನವೆಂಬರ್ (Nov)</option>
+                                                <option value="12">12-ಡಿಸೆಂಬರ್ (Dec)</option>
+                                            </select>
+                                            <select id="dobYear" required onchange="calculateDobAndAge()" style="flex:1.2; padding:6px; font-size:12px;">
+                                                <option value="">ವರ್ಷ (Year)</option>
+                                            </select>
+                                        </div>
+                                        <input type="hidden" id="dob" required>
+                                    </div>
+
+                                    <!-- Age (Auto calculated) -->
+                                    <div>
+                                        <label style="font-size:11.5px; font-weight:bold; color:#0b3c5d; display:block; margin-bottom:2px;">ವಯಸ್ಸು (Age)</label>
+                                        <input type="text" id="age" placeholder="ವಯಸ್ಸು (Auto Calculated)" readonly style="background:#f1f5f9; font-weight:bold; color:#c01535;" required>
+                                    </div>
+
+                                    <!-- Gender -->
+                                    <div>
+                                        <label style="font-size:11.5px; font-weight:bold; color:#0b3c5d; display:block; margin-bottom:2px;">ಲಿಂಗ (Gender)</label>
+                                        <select id="gender" required>
+                                            <option value="">-ಲಿಂಗ ಆಯ್ಕೆಮಾಡಿ-</option>
+                                            <option value="ಗಂಡು">ಗಂಡು (Male)</option>
+                                            <option value="ಹೆಣ್ಣು">ಹೆಣ್ಣು (Female)</option>
+                                            <option value="ಇತರೆ">ಇತರೆ (Other)</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Sub Caste -->
+                                    <div>
+                                        <label style="font-size:11.5px; font-weight:bold; color:#0b3c5d; display:block; margin-bottom:2px;">ಉಪ ಪಂಗಡ (Sub Caste)</label>
+                                        <input type="text" id="subCaste" placeholder="ಉಪ ಪಂಗಡ (e.g. ನದಾಫ್ / ಪಿಂಜಾರ)" value="ನದಾಫ್ / ಪಿಂಜಾರ" required>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -707,9 +749,67 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             populateDistricts();
+            populateDobDropdowns();
             loadApplications();
             fetchMarqueeSetting();
         });
+
+        function populateDobDropdowns() {
+            const daySelect = document.getElementById("dobDay");
+            const yearSelect = document.getElementById("dobYear");
+
+            if (daySelect && daySelect.options.length <= 1) {
+                for (let d = 1; d <= 31; d++) {
+                    const val = String(d).padStart(2, '0');
+                    const opt = document.createElement("option");
+                    opt.value = val;
+                    opt.textContent = val;
+                    daySelect.appendChild(opt);
+                }
+            }
+
+            if (yearSelect && yearSelect.options.length <= 1) {
+                const currentYr = 2026;
+                for (let y = currentYr; y >= 1930; y--) {
+                    const opt = document.createElement("option");
+                    opt.value = String(y);
+                    opt.textContent = String(y);
+                    yearSelect.appendChild(opt);
+                }
+            }
+        }
+
+        function calculateDobAndAge() {
+            const daySelect = document.getElementById("dobDay");
+            const monthSelect = document.getElementById("dobMonth");
+            const yearSelect = document.getElementById("dobYear");
+            const dobInput = document.getElementById("dob");
+            const ageInput = document.getElementById("age");
+
+            if (!daySelect || !monthSelect || !yearSelect) return;
+
+            const day = daySelect.value;
+            const month = monthSelect.value;
+            const year = yearSelect.value;
+
+            if (day && month && year) {
+                const dobStr = `${day}-${month}-${year}`;
+                if (dobInput) dobInput.value = dobStr;
+
+                const today = new Date();
+                const birthDate = new Date(`${year}-${month}-${day}`);
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                if (age < 0) age = 0;
+                if (ageInput) ageInput.value = String(age);
+            } else {
+                if (dobInput) dobInput.value = "";
+                if (ageInput) ageInput.value = "";
+            }
+        }
 
         async function fetchMarqueeSetting() {
             try {
