@@ -1616,7 +1616,7 @@ window.downloadReceiptPdf = function(receiptId) {
         
         setTimeout(() => {
             const container = doc.querySelector('.receipt-container');
-            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            const isMobile = true;
             if (container) {
                 container.style.margin = isMobile ? '0' : '0 auto';
             }
@@ -2355,7 +2355,7 @@ function loadAdminFreeEdu() {
             
             setTimeout(() => {
                 const container = doc.querySelector('.receipt-container');
-                const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                const isMobile = true;
                 if (container) {
                     container.style.margin = isMobile ? '0' : '0 auto';
                 }
@@ -3252,7 +3252,7 @@ function loadAdminCensus() {
             iframe.style.height = 'auto';
             
             const container = doc.querySelector('.receipt-container');
-            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            const isMobile = true;
             if (isMobile) {
                 if (container) {
                     container.style.margin = '0';

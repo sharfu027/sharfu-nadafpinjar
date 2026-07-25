@@ -697,6 +697,49 @@
         }
 
         
+        
+        // Populate Census Member DOB dropdowns (Day, Month, Year)
+        function initCensusDobDropdowns() {
+            const daySelect = document.getElementById('mDob_day');
+            const monthSelect = document.getElementById('mDob_month');
+            const yearSelect = document.getElementById('mDob_year');
+            if (daySelect && monthSelect && yearSelect) {
+                daySelect.innerHTML = '<option value="">ದಿನ</option>';
+                for (let d = 1; d <= 31; d++) {
+                    const opt = document.createElement('option');
+                    opt.value = String(d);
+                    opt.textContent = String(d).padStart(2, '0');
+                    daySelect.appendChild(opt);
+                }
+                monthSelect.innerHTML = '<option value="">ತಿಂಗಳು</option>';
+                const months = [
+                    '01 - ಜನವರಿ', '02 - ಫೆಬ್ರವರಿ', '03 - ಮಾರ್ಚ್', '04 - ಏಪ್ರಿಲ್',
+                    '05 - ಮೇ', '06 - ಜೂನ್', '07 - ಜುಲೈ', '08 - ಆಗಸ್ಟ್',
+                    '09 - ಸೆಪ್ಟೆಂಬರ್', '10 - ಅಕ್ಟೋಬರ್', '11 - ನವೆಂಬರ್', '12 - ಡಿಸೆಂಬರ್'
+                ];
+                months.forEach(m => {
+                    const opt = document.createElement('option');
+                    opt.value = m.split(' - ')[0];
+                    opt.textContent = m;
+                    monthSelect.appendChild(opt);
+                });
+                yearSelect.innerHTML = '<option value="">ವರ್ಷ</option>';
+                const currentYear = new Date().getFullYear();
+                for (let y = currentYear; y >= 1920; y--) {
+                    const opt = document.createElement('option');
+                    opt.value = String(y);
+                    opt.textContent = String(y);
+                    yearSelect.appendChild(opt);
+                }
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCensusDobDropdowns);
+        } else {
+            initCensusDobDropdowns();
+        }
+
         function toggleDisabilityDetails() {
             const select = document.getElementById('mHandicapped');
             const container = document.getElementById('mDisabilityDetailsContainer');
@@ -1273,7 +1316,7 @@
                 iframe.style.height = 'auto';
                 
                 const container = doc.querySelector('.receipt-container');
-                const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                const isMobile = true;
                 if (container) {
                     container.style.margin = isMobile ? '0' : '0 auto';
                 }
@@ -1285,7 +1328,7 @@
                 const pdfWmm = contentW * 0.264583;
                 const pdfHmm = contentH * 0.264583;
 
-                if (isMobile) {
+                
                     const script = doc.createElement('script');
                     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
                     script.onload = () => {
@@ -1299,10 +1342,7 @@
                         iframe.contentWindow.html2pdf().from(container).set(opt).save();
                     };
                     doc.head.appendChild(script);
-                } else {
-                    iframe.contentWindow.focus();
-                    iframe.contentWindow.print();
-                }
+                
             }, 500);
         }
 
