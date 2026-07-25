@@ -341,96 +341,110 @@
                     </div>
 
                     <!-- APP NO & DATE -->
-                    <table style="width:100%; border-collapse:collapse; margin-bottom:2px; font-weight:bold; font-size:12px;">
+                    <table style="width:100%; border-collapse:collapse; margin-bottom:4px; font-weight:bold; font-size:12.5px;">
                         <tr>
-                            <td style="color:#c01535; width:40%; border:none!important; padding:1px 0!important;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color:#c01535;">${fd.appNo}</span></td>
-                            <td style="text-align:right; color:#c01535; border:none!important; padding:1px 0!important;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color:#000;">${fd.date}</span></td>
+                            <td style="color:#c01535; width:50%; text-align:left; border:none!important; padding:1px 0!important;">
+                                ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color:#c01535;">${fd.appNo}</span>
+                            </td>
+                            <td style="color:#c01535; width:50%; text-align:right; border:none!important; padding:1px 0!important;">
+                                ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color:#000;">${fd.date}</span>
+                            </td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="color:#c01535; padding-top:1px!important; border:none!important;">
-                                ನಗರ/ಗ್ರಾಮ : <span style="color:#000;">${fd.city}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                ತಾಲ್ಲೂಕು : <span style="color:#000;">${fd.taluk}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                ಜಿಲ್ಲೆ : <span style="color:#000;">${fd.district}</span>
+                            <td colspan="2" style="border:none!important; padding:2px 0 0 0!important;">
+                                <table style="width:100%; border-collapse:collapse; border:none!important; font-weight:bold; font-size:12.5px;">
+                                    <tr>
+                                        <td style="text-align:left; width:33.33%; border:none!important; padding:0!important; color:#c01535;">
+                                            ನಗರ/ಗ್ರಾಮ : <span style="color:#000;">${fd.city}</span>
+                                        </td>
+                                        <td style="text-align:center; width:33.33%; border:none!important; padding:0!important; color:#c01535;">
+                                            ತಾಲ್ಲೂಕು : <span style="color:#000;">${fd.taluk}</span>
+                                        </td>
+                                        <td style="text-align:right; width:33.33%; border:none!important; padding:0!important; color:#c01535;">
+                                            ಜಿಲ್ಲೆ : <span style="color:#000;">${fd.district}</span>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                     </table>
 
                     <!-- MAIN FORM GRID TABLE -->
-                    <table style="width:100%; border-collapse:collapse; margin-top:1px;">
+                    <table style="width:100%; border-collapse:collapse; margin-top:2px;">
                         <tr>
-                            <td style="width:20%; border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
-                            <td style="width:30%; border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.studentName}</td>
-                            <td style="width:20%; border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು</td>
-                            <td style="width:30%; border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.fatherName}</td>
+                            <td style="width:20%; border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
+                            <td style="width:30%; border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.studentName}</td>
+                            <td style="width:20%; border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು</td>
+                            <td style="width:30%; border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.fatherName}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ತಾಯಿಯ ಹೆಸರು</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.motherName}</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ವಿಳಾಸ</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.completeAddress}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ತಾಯಿಯ ಹೆಸರು</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.motherName}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ವಿಳಾಸ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.completeAddress}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ಉದ್ಯೋಗ</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.occupation}</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.mobile}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ಉದ್ಯೋಗ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.occupation}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000; font-weight:bold; font-size:11.5px;">${fd.mobile}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ಅಂದಾಜು ಆದಾಯ</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${annualIncomeFormatted}</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.membershipNo}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ಅಂದಾಜು ಆದಾಯ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000; font-weight:bold; font-size:11.5px;">${annualIncomeFormatted}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000; font-weight:bold; font-size:11.5px;">${fd.membershipNo}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ಮನೆಯ ವಿವರ</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.houseType}</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ಮನೆಯ ಆಕಾರ</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.houseShape}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ಮನೆಯ ವಿವರ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000; font-weight:bold; font-size:11.5px;">${fd.houseType}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ಮನೆಯ ಆಕಾರ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000; font-weight:bold; font-size:11.5px;">${fd.houseShape}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ಜಮೀನು</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.landDetails}</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.parentMobile}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ಜಮೀನು</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.landDetails}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000; font-weight:bold; font-size:11.5px;">${fd.parentMobile}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ಆಧಾರ್ ನಂ</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${aadharMasked}</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.rationCard}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ಆಧಾರ್ ನಂ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${aadharMasked}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.rationCard}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ಪ್ರವೇಶ ಪಡೆಯುವ ಕಾಲೇಜು</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.collegeName}</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ವ್ಯಾಸಂಗ ಮಾಡುವ ತರಗತಿ</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.courseClass}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ಪ್ರವೇಶ ಪಡೆಯುವ ಕಾಲೇಜು</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.collegeName}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ವ್ಯಾಸಂಗ ಮಾಡುವ ತರಗತಿ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.courseClass}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ಹಿಂದಿನ ಪರೀಕ್ಷೆ ಅಂಕ ಹಾಗೂ ಫಲಿತಾಂಶದ ಮಾರ್ಕ್ಸ್ ಕಾರ್ಡ್ ಲಗತ್ತಿಸಿದೆ</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${previousMarksFormatted}</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ಕಾಲೇಜು ಶುಲ್ಕದ ಅಂದಾಜು ಪ್ರತಿ (ಲಗತ್ತಿಸಿದೆ)</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${collegeFeesFormatted}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ಹಿಂದಿನ ಪರೀಕ್ಷೆ ಅಂಕ ಹಾಗೂ ಫಲಿತಾಂಶದ ಮಾರ್ಕ್ಸ್ ಕಾರ್ಡ್ ಲಗತ್ತಿಸಿದೆ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${previousMarksFormatted}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ಕಾಲೇಜು ಶುಲ್ಕದ ಅಂದಾಜು ಪ್ರತಿ (ಲಗತ್ತಿಸಿದೆ)</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000; font-weight:bold; font-size:11.5px;">${collegeFeesFormatted}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ಸಹಾಯಧನ ಮೊತ್ತ</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${aidAmountFormatted}</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು, (ಅಥವಾ) ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.bankName}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ಸಹಾಯಧನ ಮೊತ್ತ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${aidAmountFormatted}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು, (ಅಥವಾ) ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.bankName}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ (ಅಥವಾ) ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.bankAccount}</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; font-weight:bold; color:#000; font-size:11.5px;">IFSC ಕೋಡ್ ವಿದ್ಯಾರ್ಥಿ / ಕಾಲೇಜು</td>
-                            <td style="border:1px solid #000!important; padding:1.8px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.ifscCode}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ (ಅಥವಾ) ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.bankAccount}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px;">IFSC ಕೋಡ್ ವಿದ್ಯಾರ್ಥಿ / ಕಾಲೇಜು</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#c01535; font-weight:bold; font-size:11.5px;">${fd.ifscCode}</td>
                         </tr>
                     </table>
 
                     <!-- CERTIFICATE DECLARATION -->
-                    <div style="margin-top:3px; font-size:11px; line-height:1.2; text-align:justify; color:#c01535;">
-                        <div style="text-align:center; font-weight:bold; font-size:13px; color:#c01535; text-decoration:underline; margin-bottom:2px;">ಪ್ರಮಾಣ ಪತ್ರ</div>
-                        <p style="margin:0 0 2px 0;">ವಿದ್ಯಾರ್ಥಿಯಾದ ನಾನು ................................................................................................................................................................</p>
-                        <p style="margin:0 0 2px 0;">ಹಾಗೂ ನನ್ನ ಪಾಲಕರು ಈ ಮೂಲಕ ಘೋಷಿಸುವುದೇನೆಂದರೆ, ನನ್ನ ಕುಟುಂಬ ಬಡತನರೇಖೆ ಇದ್ದು, ನನ್ನ ಮುಂದಿನ ವಿದ್ಯಾಭ್ಯಾಸ ಮುಂದುವರೆಸಲು ಆರ್ಥಿಕವಾಗಿ ಸಧ್ಯಧ ಇರುವುದಿಲ್ಲ. ನನ್ನ ಪ್ರತಿಭೆಯಿಂದ ಶಿಕ್ಷಣ ಮುಂದುವರೆಸಲು ನನಗೆ ಆರ್ಥಿಕ ನೆರವು ಅಗತ್ಯ ಇದೆ. ನನ್ನ ಪ್ರತಿಭೆಯನ್ನು ಗುರುತಿಸಿ ಸಂಘದ ಪರವಾಗಿ ಪ್ರೋತ್ಸಾಹ ಧನವನ್ನು ನೀಡಿದಲ್ಲಿ ನಾನು ಸಮರ್ಥಕವಾಗಿ ಉಪಯೋಗಿಸಿಕೊಂಡು, ಬಹಳ ಶ್ರದ್ಧೆಯಿಂದ ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡಿ ಹೆಚ್ಚಿನ ಅಂಕಗಳನ್ನು ಪಡೆದುಕೊಳ್ಳಲು ಪ್ರಾಮಾಣಿಕವಾಗಿ ಪ್ರಯತ್ನಿಸುತ್ತೇನೆ.</p>
-                        <p style="margin:0 0 2px 0;">ಓದು ಮುಗಿದನಂತರ ಮುಂದಿನ ದಿನಗಳಲ್ಲಿ ನಾನು ಸರ್ಕಾರಿ/ ಅರೆಸರ್ಕಾರಿ/ ಉದ್ಯೋಗ/ಇತ್ಯಾದಿ ಯಾವುದೇ ರೀತಿಯ ಹುದ್ದೆಗಳಲ್ಲಿ ಮುಂದುವರೆದಾಗ ನನ್ನಂತೆ ಮುಂದಿನ ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೂ ಸಹ ಪ್ರೋತ್ಸಾಹಿಸಲು ನೆರವಾಗುವಂತೆ ಕಾಲ ಕಾಲಕ್ಕೆ ನನ್ನ ಶಕ್ತಿಗೆ ಅನುಗುಣವಾಗಿ, ಪ್ರಾಮಾಣಿಕವಾಗಿ ಮತ್ತು ನನ್ನ ಅಂತರಾತ್ಮ ಸಾಕ್ಷಿಯಾಗಿ, ಸ್ಥಳೀಯ ಸಾಕ್ಷಿಗಳ ಸಮ್ಮುಖದಲ್ಲಿ ಸಂಘಕ್ಕೆ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ನೀಡುತ್ತೇನೆಂದು ಘೋಷಿಸುತ್ತೇನೆ.</p>
+                    <div style="margin-top:4px; font-size:12.5px; line-height:1.35; text-align:justify; color:#c01535;">
+                        <div style="text-align:center; font-weight:bold; font-size:14.5px; color:#c01535; text-decoration:underline; margin-bottom:3px;">ಪ್ರಮಾಣ ಪತ್ರ</div>
+                        <p style="margin:0 0 3px 0;">ವಿದ್ಯಾರ್ಥಿಯಾದ ನಾನು ................................................................................................................................................................</p>
+                        <p style="margin:0 0 3px 0;">ಹಾಗೂ ನನ್ನ ಪಾಲಕರು ಈ ಮೂಲಕ ಘೋಷಿಸುವುದೇನೆಂದರೆ, ನನ್ನ ಕುಟುಂಬ ಬಡತನರೇಖೆ ಇದ್ದು, ನನ್ನ ಮುಂದಿನ ವಿದ್ಯಾಭ್ಯಾಸ ಮುಂದುವರೆಸಲು ಆರ್ಥಿಕವಾಗಿ ಸಧ್ಯಧ ಇರುವುದಿಲ್ಲ. ನನ್ನ ಪ್ರತಿಭೆಯಿಂದ ಶಿಕ್ಷಣ ಮುಂದುವರೆಸಲು ನನಗೆ ಆರ್ಥಿಕ ನೆರವು ಅಗತ್ಯ ಇದೆ. ನನ್ನ ಪ್ರತಿಭೆಯನ್ನು ಗುರುತಿಸಿ ಸಂಘದ ಪರವಾಗಿ ಪ್ರೋತ್ಸಾಹ ಧನವನ್ನು ನೀಡಿದಲ್ಲಿ ನಾನು ಸಮರ್ಥಕವಾಗಿ ಉಪಯೋಗಿಸಿಕೊಂಡು, ಬಹಳ ಶ್ರದ್ಧೆಯಿಂದ ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡಿ ಹೆಚ್ಚಿನ ಅಂಕಗಳನ್ನು ಪಡೆದುಕೊಳ್ಳಲು ಪ್ರಾಮಾಣಿಕವಾಗಿ ಪ್ರಯತ್ನಿಸುತ್ತೇನೆ.</p>
+                        <p style="margin:0 0 3px 0;">ಓದು ಮುಗಿದನಂತರ ಮುಂದಿನ ದಿನಗಳಲ್ಲಿ ನಾನು ಸರ್ಕಾರಿ/ ಅರೆಸರ್ಕಾರಿ/ ಉದ್ಯೋಗ/ಇತ್ಯಾದಿ ಯಾವುದೇ ರೀತಿಯ ಹುದ್ದೆಗಳಲ್ಲಿ ಮುಂದುವರೆದಾಗ ನನ್ನಂತೆ ಮುಂದಿನ ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೂ ಸಹ ಪ್ರೋತ್ಸಾಹಿಸಲು ನೆರವಾಗುವಂತೆ ಕಾಲ ಕಾಲಕ್ಕೆ ನನ್ನ ಶಕ್ತಿಗೆ ಅನುಗುಣವಾಗಿ, ಪ್ರಾಮಾಣಿಕವಾಗಿ ಮತ್ತು ನನ್ನ ಅಂತರಾತ್ಮ ಸಾಕ್ಷಿಯಾಗಿ, ಸ್ಥಳೀಯ ಸಾಕ್ಷಿಗಳ ಸಮ್ಮುಖದಲ್ಲಿ ಸಂಘಕ್ಕೆ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ನೀಡುತ್ತೇನೆಂದು ಘೋಷಿಸುತ್ತೇನೆ.</p>
                         <p style="margin:0;">ಮೇಲೆ ತಿಳಿಸಿದಂತೆ ನಾವುಗಳು ಎಲ್ಲಾ ವಿಷಯಗಳಿಗೆ ಬದ್ಧರಿದ್ದೇವೆ ಎಂದು ತಿಳಿಸುತ್ತಾ, ಈ ಮೂಲಕ ಪ್ರಮಾಣೀಕರಿಸುತ್ತೇವೆ.</p>
                     </div>
 
@@ -446,48 +460,48 @@
                 <!-- PAGE 2 CONTAINER -->
                 <div style="page-break-before:always!important; page-break-inside:avoid!important; margin-top:0; min-height:920px; display:flex; flex-direction:column; justify-content:space-between;">
                     <div>
-                        <div style="text-align:center; font-weight:bold; font-size:16px; margin-bottom:4px; color:#c01535;">2</div>
-                        <div style="text-align:center; font-weight:bold; font-size:15px; margin-bottom:12px; color:#c01535; text-decoration:underline;">ಸ್ಥಳೀಯರ ಸಾಕ್ಷಿಗಳು</div>
+                        <div style="text-align:center; font-weight:bold; font-size:17px; margin-bottom:4px; color:#c01535;">2</div>
+                        <div style="text-align:center; font-weight:bold; font-size:16px; margin-bottom:14px; color:#c01535; text-decoration:underline;">ಸ್ಥಳೀಯರ ಸಾಕ್ಷಿಗಳು</div>
 
-                        <table style="width:100%; border-collapse:collapse; text-align:center; margin-bottom:16px;">
-                            <tr style="font-weight:bold; color:#c01535; font-size:12px;">
-                                <td style="border:1px solid #000!important; width:10%; padding:5px!important;">ಸಂ</td>
-                                <td style="border:1px solid #000!important; width:60%; padding:5px!important;">ವರ್ಷದ ವಿವರ</td>
-                                <td style="border:1px solid #000!important; width:30%; padding:5px!important;">ರೂ</td>
+                        <table style="width:100%; border-collapse:collapse; text-align:center; margin-bottom:18px;">
+                            <tr style="font-weight:bold; color:#c01535; font-size:13px;">
+                                <td style="border:1px solid #000!important; width:10%; padding:6px!important;">ಸಂ</td>
+                                <td style="border:1px solid #000!important; width:60%; padding:6px!important;">ವರ್ಷದ ವಿವರ</td>
+                                <td style="border:1px solid #000!important; width:30%; padding:6px!important;">ರೂ</td>
                             </tr>
                             <tr>
-                                <td style="border:1px solid #000!important; font-weight:bold; color:#c01535; padding:12px!important;">01</td>
+                                <td style="border:1px solid #000!important; font-weight:bold; color:#c01535; padding:12px!important; font-size:14px;">01</td>
                                 <td style="border:1px solid #000!important;"></td>
                                 <td style="border:1px solid #000!important;"></td>
                             </tr>
                             <tr>
-                                <td style="border:1px solid #000!important; font-weight:bold; color:#c01535; padding:12px!important;">02</td>
+                                <td style="border:1px solid #000!important; font-weight:bold; color:#c01535; padding:12px!important; font-size:14px;">02</td>
                                 <td style="border:1px solid #000!important;"></td>
                                 <td style="border:1px solid #000!important;"></td>
                             </tr>
                         </table>
 
-                        <div style="font-size:12.5px; line-height:1.45; color:#c01535; text-align:justify; margin-bottom:18px;">
+                        <div style="font-size:13.5px; line-height:1.55; color:#c01535; text-align:justify; margin-bottom:22px;">
                             ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ) ದಿಂದ ಪ್ರತಿ ವರ್ಷ ಸಮಾಜದ ಅರ್ಹ ಪ್ರತಿಭಾನ್ವಿತ ಬಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಉನ್ನತ ಶಿಕ್ಷಣ ಪ್ರೋತ್ಸಾಹಕ್ಕಾಗಿ ಆರ್ಥಿಕ ಸಹಾಯ ನೀಡುತ್ತಲಿದೆ. ಮೇಲೆ ತಿಳಿಸಿರುವ ವಿದ್ಯಾರ್ಥಿಯು ಪ್ರತಿಭಾನ್ವಿತ ಬಡವಿದ್ಯಾರ್ಥಿ ಇದ್ದು, ಅರ್ಜಿಯಲ್ಲಿ ತಿಳಿಸಿರುವ ಎಲ್ಲಾ ಮಾಹಿತಿಗಳು ನಿಜ ಇರುತ್ತವೆಂದು ದೃಢೀಕರಿಸುತ್ತೇವೆ. ವ್ಯಾಸಂಗ ಮುಕ್ತಾಯದ ನಂತರ ಯಾವುದೇ ರೀತಿಯ ಉದ್ಯೋಗದ ಹುದ್ದೆ ಪಡೆದುಕೊಂಡ ತಕ್ಷಣ ಸಂಘದ ಕರಾರಿನ ಅನ್ವಯ ಮುಂದಿನ ಉನ್ನತ ಶಿಕ್ಷಣಕ್ಕಾಗಿ ಆರ್ಥಿಕ ಸಹಾಯ ಪಡೆಯ ಬಯಸುವ ನಮ್ಮ ಸಮಾಜದ ಬಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಪ್ರೋತ್ಸಾಹಿಸಲು ಸಂಘಕ್ಕೆ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ನೀಡುತ್ತಾರೆಂದು ಸಾಕ್ಷಿದಾರರಾದ ನಾವುಗಳು ಈ ಮೂಲಕ ದೃಢೀಕರಿಸುತ್ತೇವೆ. ಮತ್ತು ಸಂಘಕ್ಕೆ ಸದರಿ ವಿದ್ಯಾರ್ಥಿಯಿಂದ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ಪಾವತಿ ಮಾಡಿಸುವ ಜವಾಬ್ದಾರಿ ನಮ್ಮ ಮೇಲೆ ಇದೆಯೆಂದು ಪ್ರಮಾಣೀಕರಿಸುತ್ತೇವೆ.
                         </div>
 
-                        <div style="font-weight:bold; color:#c01535; font-size:12px; margin-bottom:20px; display: flex; justify-content: space-between; align-items: center;">
+                        <div style="font-weight:bold; color:#c01535; font-size:13.5px; margin-bottom:22px; display: flex; justify-content: space-between; align-items: center;">
                             <span>ಸಾಕ್ಷಿಗಳ ಸಹಿ :</span>
                             <span style="margin-right: 20px;">1) ................................................................................ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2) ................................................................................</span>
                         </div>
 
                         <table style="width:100%; border-collapse:collapse; margin-bottom:25px;">
                             <tr>
-                                <td style="border:1px solid #c01535!important; width:50%; height:135px; vertical-align:top; padding:6px!important; font-weight:bold; color:#c01535; font-size:12px;">
+                                <td style="border:1px solid #c01535!important; width:50%; height:135px; vertical-align:top; padding:6px!important; font-weight:bold; color:#c01535; font-size:13px;">
                                     ತಾಲೂಕ ಘಟಕದಿಂದ ಶಿಫಾರಸ್ಸು
                                 </td>
-                                <td style="border:1px solid #c01535!important; width:50%; height:135px; vertical-align:top; padding:6px!important; font-weight:bold; color:#c01535; font-size:12px;">
+                                <td style="border:1px solid #c01535!important; width:50%; height:135px; vertical-align:top; padding:6px!important; font-weight:bold; color:#c01535; font-size:13px;">
                                     ಜಿಲ್ಲಾ ಘಟಕದಿಂದ ಶಿಫಾರಸ್ಸು
                                 </td>
                             </tr>
                         </table>
 
-                        <div style="font-weight:bold; color:#c01535; font-size:12px; line-height:1.8;">
+                        <div style="font-weight:bold; color:#c01535; font-size:13.5px; line-height:1.8;">
                             ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ಸಹಿ : <br><br><br><br>
                             ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದಿಸಿದೆ : <br><br><br><br>
                         </div>
