@@ -643,6 +643,17 @@
     <script src="js/megamenu.js"></script>
     <script src="js/dropdowns.js"></script>
     <script>
+
+        function maskAadhar(val) {
+            if (!val || val === '-') return '-';
+            const digits = val.toString().replace(/\D/g, '');
+            if (digits.length >= 4) {
+                const last4 = digits.slice(-4);
+                return `XXXX XXXX ${last4}`;
+            }
+            return val;
+        }
+    
         let formData = {};
         let addedMembers = [];
 
@@ -685,6 +696,22 @@
             }
         }
 
+        
+        function toggleDisabilityDetails() {
+            const select = document.getElementById('mHandicapped');
+            const container = document.getElementById('mDisabilityDetailsContainer');
+            const input = document.getElementById('mDisabilityDetails');
+            if (!select || !container || !input) return;
+
+            const val = select.value;
+            if (val === 'ಹೌದು' || val === '__OTHER__') {
+                container.style.display = 'block';
+            } else {
+                container.style.display = 'none';
+                input.value = '';
+            }
+        }
+    
         function toggleLiteracyDetails() {
             const select = document.getElementById('mLiterate');
             const container = document.getElementById('mLiteracyDetailsContainer');
@@ -760,7 +787,9 @@
             const relation = document.getElementById('mRelation').value.trim();
 
             const married = getSelectValue('mMarried');
-            const handicapped = getSelectValue('mHandicapped');
+            const handicappedSelect = getSelectValue('mHandicapped');
+            const disabilityDetails = document.getElementById('mDisabilityDetails') ? document.getElementById('mDisabilityDetails').value.trim() : '';
+            const handicapped = (handicappedSelect === 'ಇಲ್ಲ' || !handicappedSelect) ? 'ಇಲ್ಲ' : (disabilityDetails ? `ಹೌದು (${disabilityDetails})` : handicappedSelect);
             // Handle dynamic political select
             const politicalSelect = document.getElementById('mPolitical').value;
             const politicalDetails = document.getElementById('mPoliticalDetails').value.trim();
@@ -816,6 +845,8 @@
             // Reset select options and dynamic literacy input
             document.getElementById('mLiterate').selectedIndex = 0;
             document.getElementById('mLiteracyDetails').value = '';
+            if (document.getElementById('mDisabilityDetails')) document.getElementById('mDisabilityDetails').value = '';
+            toggleDisabilityDetails();
             toggleLiteracyDetails();
 
             // Reset select options and dynamic occupation input
@@ -1163,7 +1194,7 @@
                 <td class="grid-label">ವಾರ್ಡ್ ಸಂಖ್ಯೆ</td>
                 <td class="grid-value">${data.ward || '-'}</td>
                 <td class="grid-label">ಆಧಾರ್ ಸಂಖ್ಯೆ :</td>
-                <td class="grid-value">${data.headAadhar || '-'}</td>
+                <td class="grid-value">${maskAadhar(data.headAadhar)}</td>
             </tr>
             <tr>
                 <td class="grid-label">ಧರ್ಮ / ಜಾತಿ</td>

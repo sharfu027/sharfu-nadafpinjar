@@ -1,3 +1,26 @@
+
+function maskAadhar(val) {
+    if (!val || val === '-') return '-';
+    const digits = val.toString().replace(/\D/g, '');
+    if (digits.length >= 4) {
+        return 'XXXX XXXX ' + digits.slice(-4);
+    }
+    return val;
+}
+
+function toggleAdminMemberDisability(selectEl) {
+    const container = selectEl.nextElementSibling;
+    if (container && container.classList.contains('mem-disability-details-container')) {
+        if (selectEl.value === 'ಹೌದು' || selectEl.value === '__OTHER__') {
+            container.style.display = 'block';
+        } else {
+            container.style.display = 'none';
+            const input = container.querySelector('input');
+            if (input) input.value = '';
+        }
+    }
+}
+
 /* admin-dashboard.js */
 
 // Enforce Session Authentication
@@ -2234,7 +2257,7 @@ function loadAdminFreeEdu() {
             </tr>
             <tr>
                 <td class="grid-label">ಆಧಾರ್ ನಂ</td>
-                <td class="grid-value" style="color: #b30000; font-weight: bold;">${data.aadhar || '-'}</td>
+                <td class="grid-value" style="color: #b30000; font-weight: bold;">${maskAadhar(data.aadhar)}</td>
                 <td class="grid-label">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
                 <td class="grid-value">${data.rationType || '-'}</td>
             </tr>
@@ -3159,7 +3182,7 @@ function loadAdminCensus() {
                 <td class="grid-label">ವಾರ್ಡ್ ಸಂಖ್ಯೆ</td>
                 <td class="grid-value">${data.ward || '-'}</td>
                 <td class="grid-label">ಆಧಾರ್ ಸಂಖ್ಯೆ :</td>
-                <td class="grid-value">${data.headAadhar || '-'}</td>
+                <td class="grid-value">${maskAadhar(data.headAadhar)}</td>
             </tr>
             <tr>
                 <td class="grid-label">ಧರ್ಮ / ಜಾತಿ</td>

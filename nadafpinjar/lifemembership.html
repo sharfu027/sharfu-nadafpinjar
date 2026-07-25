@@ -736,6 +736,15 @@
     <script src="js/dropdowns.js"></script>
 
     <script>
+function maskAadhar(val) {
+    if (!val || val === '-') return '-';
+    const digits = val.toString().replace(/\D/g, '');
+    if (digits.length >= 4) {
+        return 'XXXX XXXX ' + digits.slice(-4);
+    }
+    return val;
+}
+
         const KARNATAKA_DISTRICTS = [
             "ಬಾಗಲಕೋಟೆ", "ಬಳ್ಳಾರಿ", "ಬೆಳಗಾವಿ", "ಬೆಂಗಳೂರು ಗ್ರಾಮಾಂತರ", "ಬೆಂಗಳೂರು ನಗರ",
             "ಬೀದರ್", "ಚಾಮರಾಜನಗರ", "ಚಿಕ್ಕಬಳ್ಳಾಪುರ", "ಚಿಕ್ಕಮಗಳೂರು", "ಚಿತ್ರದುರ್ಗ",
@@ -1524,7 +1533,7 @@
                                     <tr>
                                         <td style="border:none!important; border-right:1px solid #333!important; width:50%; padding:5px 6px!important; vertical-align:middle;">
                                             <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; margin-bottom:3px;">ಅರ್ಜಿದಾರರ ಆಧಾರ್ ಸಂಖ್ಯೆ</div>
-                                            <div style="font-size:11.5px; font-weight:bold; color:#c01535;">${fd.aadhar || '-'}</div>
+                                            <div style="font-size:11.5px; font-weight:bold; color:#c01535;">${maskAadhar(fd.aadhar)}</div>
                                         </td>
                                         <td style="border:none!important; width:50%; padding:5px 6px!important; vertical-align:middle;">
                                             <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; margin-bottom:3px;">ಅರ್ಜಿದಾರರ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</div>
