@@ -2914,20 +2914,22 @@ function loadAdminCensus() {
             data.members.forEach((m, idx) => {
                 membersRows += `
                     <tr>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px;">${idx + 1}</td>
-                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${(m.name || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${(m.relation || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.mobile || '-'}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.aadhar || '-'}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px; white-space: nowrap;">${m.dob || '-'}</td>
-                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${(m.literate || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                        <td style="border: 1.2px solid #a00000; padding: 4px 4px; font-size: 11.5px; word-break: break-word; white-space: normal;">${(m.occupation || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 4px 2px; font-size: 11.5px;">${m.political || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 10.5px;">${idx + 1}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 3px 3px; font-size: 10.5px; word-break: break-word;">${(m.name || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 10.5px; white-space: nowrap;">${m.gender || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 10.5px; white-space: nowrap;">${m.dob || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 10.5px; white-space: nowrap;">${(m.relation || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 10.5px; white-space: nowrap;">${m.mobile || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 10.5px; white-space: nowrap;">${maskAadhar(m.aadhar)}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 3px 3px; font-size: 10.5px; word-break: break-word;">${(m.literate || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 3px 3px; font-size: 10.5px; word-break: break-word;">${(m.occupation || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 10.5px;">${m.political || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 10.5px;">${m.handicapped || 'ಇಲ್ಲ'}</td>
                     </tr>
                 `;
             });
         } else {
-            membersRows = '<tr><td colspan="9" style="text-align: center; border: 1.2px solid #a00000; padding: 8px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
+            membersRows = '<tr><td colspan="11" style="text-align: center; border: 1.2px solid #a00000; padding: 8px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
         }
 
         const printHTML = `<!DOCTYPE html>
@@ -3202,15 +3204,17 @@ function loadAdminCensus() {
         <table class="members-table">
             <thead>
                 <tr>
-                    <th style="width: 3%; text-align: center;">Sl No.</th>
-                    <th style="width: 15%; text-align: left;">ಸದಸ್ಯರ ಹೆಸರು</th>
-                    <th style="width: 9%; text-align: center;">ಸಂಬಂಧ</th>
-                    <th style="width: 11%; text-align: center;">ಮೊಬೈಲ್</th>
-                    <th style="width: 13%; text-align: center;">ಆಧಾರ್</th>
-                    <th style="width: 11%; text-align: center;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
-                    <th style="width: 11%; text-align: left;">ಸಾಕ್ಷರತಾ</th>
-                    <th style="width: 19%; text-align: left;">ವೃತ್ತಿ</th>
-                    <th style="width: 8%; text-align: center;">ರಾಜಕೀಯ</th>
+                    <th style="width: 3%; text-align: center;">ಕ್ರ.ಸಂ</th>
+                    <th style="width: 14%; text-align: left;">ಸದಸ್ಯರ ಹೆಸರು</th>
+                    <th style="width: 6%; text-align: center;">ಲಿಂಗ</th>
+                    <th style="width: 9%; text-align: center;">DOB</th>
+                    <th style="width: 8%; text-align: center;">ಸಂಬಂಧ</th>
+                    <th style="width: 10%; text-align: center;">ಮೊಬೈಲ್</th>
+                    <th style="width: 14%; text-align: center;">ಆಧಾರ್</th>
+                    <th style="width: 11%; text-align: left;">ಸಾಕ್ಷರಹಾ</th>
+                    <th style="width: 11%; text-align: left;">ವೃತ್ತಿ</th>
+                    <th style="width: 7%; text-align: center;">ರಾಜಕೀಯ</th>
+                    <th style="width: 7%; text-align: center;">ಅಂಗವಿಕಲ</th>
                 </tr>
             </thead>
             <tbody>
@@ -3235,8 +3239,9 @@ function loadAdminCensus() {
             iframe.style.border = '0';
             document.body.appendChild(iframe);
         }
+        
         iframe.style.width = '210mm';
-        iframe.style.height = '800px';
+        iframe.style.height = '297mm';
         const doc = iframe.contentWindow.document;
         doc.open();
         doc.write(printHTML);
@@ -3246,87 +3251,34 @@ function loadAdminCensus() {
             iframe.style.width = '794px';
             iframe.style.height = 'auto';
             
-            const runCapture = () => {
-                const container = doc.querySelector('.receipt-container');
-                const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            const container = doc.querySelector('.receipt-container');
+            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            if (isMobile) {
                 if (container) {
-                    container.style.margin = isMobile ? '0' : '0 auto';
+                    container.style.margin = '0';
                 }
-
-                const rect = container ? container.getBoundingClientRect() : { width: 750, height: 600 };
-                const contentH = Math.ceil(rect.height || (container ? container.offsetHeight : 600));
-                const contentW = Math.ceil(rect.width || (container ? container.offsetWidth : 750));
-
-                const pdfWmm = contentW * 0.264583;
-                const pdfHmm = contentH * 0.264583;
-                const isLandscape = pdfWmm >= pdfHmm;
-
-                if (isMobile) {
-                    const script = doc.createElement('script');
-                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-                    script.onload = () => {
-                        const win = iframe.contentWindow;
-                        const h2c = win.html2canvas || window.html2canvas;
-                        const jsPdfClass = win.jsPDF || (win.jspdf && win.jspdf.jsPDF) || window.jsPDF || (window.jspdf && window.jspdf.jsPDF);
-
-                        if (h2c && jsPdfClass) {
-                            h2c(container, {
-                                scale: 2,
-                                useCORS: true,
-                                letterRendering: false,
-                                scrollX: 0,
-                                scrollY: 0,
-                                width: contentW,
-                                height: contentH,
-                                windowWidth: contentW,
-                                windowHeight: contentH
-                            }).then(canvas => {
-                                const imgData = canvas.toDataURL('image/jpeg', 0.98);
-                                const pdf = new jsPdfClass({
-                                    orientation: isLandscape ? 'landscape' : 'portrait',
-                                    unit: 'mm',
-                                    format: [Math.min(pdfWmm, pdfHmm), Math.max(pdfWmm, pdfHmm)]
-                                });
-                                pdf.addImage(imgData, 'JPEG', 0, 0, pdfWmm, pdfHmm);
-                                pdf.save('Census-' + (id || 'Receipt') + '.pdf');
-                            });
-                        } else {
-                            const opt = {
-                                margin: 0,
-                                filename: 'Census-' + (id || 'Receipt') + '.pdf',
-                                image: { type: 'jpeg', quality: 0.98 },
-                                html2canvas: { scale: 2, useCORS: true, letterRendering: false, scrollX: 0, scrollY: 0, width: contentW, height: contentH, windowWidth: contentW, windowHeight: contentH },
-                                jsPDF: { unit: 'mm', format: [Math.min(pdfWmm, pdfHmm), Math.max(pdfWmm, pdfHmm)], orientation: isLandscape ? 'landscape' : 'portrait' }
-                            };
-                            win.html2pdf().from(container).set(opt).save();
-                        }
+                const script = doc.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+                script.onload = () => {
+                    const opt = {
+                        margin: 0,
+                        filename: 'Census_' + appNumber + '.pdf',
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2, useCORS: true, letterRendering: false, scrollX: 0, scrollY: 0, width: 794, windowWidth: 794 },
+                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                     };
-                    doc.head.appendChild(script);
-                } else {
-                    const dynStyle = doc.createElement('style');
-                    dynStyle.textContent = `@media print { @page { size: a4 portrait; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 4mm auto !important; width: 194mm !important; height: 280mm !important; box-sizing: border-box; } }`;
-                    doc.head.appendChild(dynStyle);
-
-                    iframe.contentWindow.focus();
-                    iframe.contentWindow.print();
-                    setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
-                }
-            };
-
-            if (doc.fonts && doc.fonts.ready) {
-                doc.fonts.ready.then(() => {
-                    setTimeout(runCapture, 300);
-                });
+                    iframe.contentWindow.html2pdf().from(container).set(opt).save();
+                };
+                doc.head.appendChild(script);
             } else {
-                setTimeout(runCapture, 500);
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
             }
-        }, 300);
+        }, 500);
     };
+
 }
 
-// -------------------------------------------------------------
-// 10. Admin Employees Module
-// -------------------------------------------------------------
 function loadAdminEmployees() {
     const tableBody = document.getElementById("employeesTableBody");
     if (!tableBody) return;
