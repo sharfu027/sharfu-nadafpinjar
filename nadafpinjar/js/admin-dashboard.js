@@ -3217,7 +3217,7 @@ function loadAdminCensus() {
                     <th style="width: 9.5%; text-align: center;">ಮೊಬೈಲ್</th>
                     <th style="width: 12.5%; text-align: center;">ಆಧಾರ್</th>
                     <th style="width: 9.5%; text-align: center;">ಸಾಕ್ಷರತಾ</th>
-                    <th style="width: 10.5%; text-align: left;">ವೃತ್ತಿ</th>
+                    <th style="width: 10.5%; text-align: center;">ವೃತ್ತಿ</th>
                     <th style="width: 5.5%; text-align: center;">ರಾಜಕೀಯ</th>
                     <th style="width: 5.5%; text-align: center;">ಅಂಗವಿಕಲ</th>
                 </tr>
