@@ -3444,381 +3444,136 @@ function loadAdminEmployees() {
 
         const data = found.formData || {};
         const appNumber = found.id;
+        const dateStr = found.date || new Date().toLocaleDateString('en-GB');
 
         const formattedDob = data.dob ? new Date(data.dob).toLocaleDateString('en-GB') : '-';
         const formattedRetirement = data.isRetired === 'ಹೌದು' && data.retirementDate ? new Date(data.retirementDate).toLocaleDateString('en-GB') : 'ಇಲ್ಲ (No)';
 
-        const printHTML = `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=794">
-    <base href="${window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1)}">
-    <title>ನೌಕರರ ನೋಂದಣಿ ಪತ್ರ - ರಶೀದಿ</title>
-    <style>
-        html, body {
-            height: auto;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #fff;
-            color: #333;
-        }
-        .receipt-container {
-            max-width: 100%;
-            height: auto;
-            margin: 0 auto;
-            border: 2px double #b30000;
-            padding: 5px;
-            background: #fff;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-        .header-box {
-            width: 100%;
-            border-collapse: collapse;
-            border: 2.5px solid #b30000;
-            border-radius: 12px;
-            background-color: #fffde8;
-            margin-bottom: 6px;
-        }
-        .header-photo-cell {
-            width: 80px;
-            text-align: center;
-            padding: 6px 4px 6px 12px;
-            vertical-align: middle;
-        }
-        .patron-photo {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: 2px solid #b30000;
-            object-fit: cover;
-        }
-        .header-logo-cell {
-            width: 80px;
-            text-align: center;
-            padding: 6px 12px 6px 4px;
-            vertical-align: middle;
-        }
-        .header-logo {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: 2px solid #b30000;
-            object-fit: cover;
-        }
-        .header-text-cell {
-            text-align: center;
-            vertical-align: middle;
-            padding: 6px 0;
-            color: #b30000;
-        }
-        .kannada-title {
-            font-size: 23px;
-            font-weight: bold;
-            margin-bottom: 2px;
-            white-space: nowrap;
-        }
-        .reg-no {
-            font-size: 10.5px;
-            font-weight: bold;
-            margin-bottom: 2px;
-            color: #444;
-        }
-        .english-title {
-            font-size: 12.5px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            margin-bottom: 2px;
-        }
-        .office-address, .office-location {
-            font-size: 10.5px;
-            font-weight: bold;
-            color: #333;
-        }
-        .title-banner {
-            border-top: 1.5px solid #b30000;
-            border-bottom: 1.5px solid #b30000;
-            padding: 4px;
-            margin: 4px 0;
-            background: #fffcf5;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            font-size: 13px;
-            color: #b30000;
-        }
-        .grid-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 4px;
-        }
-        .grid-table td {
-            border: 1px solid #b30000;
-            padding: 3px 5px;
-            font-size: 13px;
-            vertical-align: middle;
-            line-height: 1.2;
-        }
-        .grid-label {
-            background: #fffcf5;
-            color: #b30000;
-            font-weight: bold;
-            width: 25%;
-        }
-        .grid-value {
-            color: #000;
-            width: 25%;
-            font-weight: bold;
-        }
-        .recommend-text {
-            text-align: center;
-            font-size: 13px;
-            font-weight: bold;
-            color: #b30000;
-            border-top: 1px dashed #b30000;
-            padding: 3px 0;
-            margin-top: 4px;
-        }
-        .approval-section {
-            display: flex;
-            justify-content: space-between;
-            margin-top: auto;
-            font-size: 13px;
-        }
-        .sig-col {
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .sig-item {
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 2px;
-        }
-        .sig-space {
-            height: 10px;
-        }
-        .sig-label {
-            font-weight: bold;
-            color: #b30000;
-            font-size: 13px;
-        }
-        .official-col {
-            width: 55%;
-            border-left: 1.5px solid #b30000;
-            padding-left: 8px;
-        }
-        .official-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .official-row {
-            height: 13px;
-        }
-        .official-check {
-            width: 10%;
-            text-align: center;
-            vertical-align: middle;
-        }
-        .official-box {
-            border: 1.5px solid #b30000;
-            width: 9px;
-            height: 9px;
-            display: inline-block;
-        }
-        .official-title {
-            width: 40%;
-            font-weight: bold;
-            color: #b30000;
-            padding-left: 4px;
-            vertical-align: middle;
-            font-size: 13px;
-        }
-        .official-sig-line {
-            width: 50%;
-            border-bottom: 1px dashed #b30000;
+        let deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಇಲಾಖೆಯ ಹೆಸರು';
+        let locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳ';
+        if (data.employeeType === 'ಖಾಸಗಿ ನೌಕರರ ಮಾಹಿತಿ') {
+            deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಖಾಸಗಿ ಸಂಸ್ಥೆಯ ಹೆಸರು';
+            locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳ';
+        } else if (data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') {
+            deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಇಲಾಖೆಯ ಹೆಸರು';
+            locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಸ್ಥಳ';
         }
 
-        @media print {
-            @page {
-                margin: 0;
-            }
-            html, body {
-                width: 100%;
-                height: auto !important;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-            }
-            body {
-                padding: 0;
-                margin: 0;
-            }
-            .receipt-container {
-                border: 2px double #b30000;
-                width: 100%;
-                max-width: 100%;
-                height: auto;
-                padding: 10px;
-                box-sizing: border-box;
-                page-break-after: avoid;
-                page-break-inside: avoid;
-            }
+        const container = document.createElement('div');
+        container.style.width = '148mm';
+        container.style.height = '210mm';
+        container.style.boxSizing = 'border-box';
+        container.style.background = '#fff';
+
+        container.innerHTML = `
+            <div style="width:144mm; height:204mm; margin:2mm auto; border:1.5px double #b30000; padding:4px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; font-family:'Noto Sans Kannada', sans-serif;">
+                <div>
+                    <!-- HEADER BOX -->
+                    <table style="width:100%; border-collapse:collapse; border:2px solid #a00000; border-radius:6px; background-color:#ffedc2!important; margin-bottom:3px;">
+                        <tr>
+                            <td style="width:65px; text-align:center; padding:2px 2px 2px 4px; vertical-align:middle;">
+                                <img src="images/president.jpeg" style="width:55px; height:55px; border-radius:50%; border:1.5px solid #a00000; object-fit:cover;" onerror="this.src='images/president.png'">
+                            </td>
+                            <td style="text-align:center; vertical-align:middle; padding:2px 0; color:#990000;">
+                                <div style="font-size:16px; font-weight:bold; color:#990000; margin:0; line-height:1.1; white-space:nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                                <div style="font-size:9px; font-weight:bold; margin-top:1px; color:#990000;">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
+                                <div style="font-size:10.5px; font-weight:bold; letter-spacing:0.3px; margin-top:1px; color:#990000;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
+                                <div style="font-size:8.5px; font-weight:bold; color:#990000;">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
+                                <div style="font-size:8.5px; font-weight:bold; color:#990000;">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
+                            </td>
+                            <td style="width:65px; text-align:center; padding:2px 4px 2px 2px; vertical-align:middle;">
+                                <img src="images/logo-786.png" style="width:55px; height:55px; border-radius:50%; border:1.5px solid #a00000; object-fit:cover;">
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- TITLE BANNER -->
+                    <div style="border-top:1.2px solid #b30000; border-bottom:1.2px solid #b30000; padding:3px; margin:2px 0; background:#fffcf5; display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:10.5px; color:#b30000;">
+                        <div>ನೋಂದಣಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
+                        <div style="font-weight:bold; color:#b30000;">${data.employeeType || 'ನೌಕರರ ವಿವರ'}</div>
+                        <div>ದಿನಾಂಕ : ${dateStr}</div>
+                    </div>
+
+                    <!-- GRID TABLE -->
+                    <table style="width:100%; border-collapse:collapse; margin-bottom:2px;">
+                        <tr>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold; width:28%;">ಅರ್ಜಿಯ ವಿಧ :</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#b30000!important; font-weight:bold; width:72%;" colspan="3">${data.employeeType || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold; width:28%;">ನೌಕರರ ಹೆಸರು :</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold; width:22%;">${data.employeeName || '-'}</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold; width:28%;">ತಂದೆಯ ಹೆಸರು :</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold; width:22%;">${data.fatherName || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">ಕಾಯಂ ವಿಳಾಸ :</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;" colspan="3">${data.permanentAddress || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;">${data.contactNumber || '-'}</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">ವಿದ್ಯಾರ್ಹತೆ :</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;">${data.qualification || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">ಹುಟ್ಟಿದ ದಿನಾಂಕ :</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;">${formattedDob}</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">ವಯಸ್ಸು :</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;">${data.age || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">${deptLabel} :</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;">${data.departmentName || '-'}</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">${locLabel} :</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;">${data.workLocation || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">ಹುದ್ದೆಯ ಹೆಸರು :</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;">${data.designation || '-'}</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">${data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ' ? 'ನಿವೃತ್ತಿ ದಿನಾಂಕ :' : ''}</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;">${data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ' ? formattedRetirement : ''}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="text-align:center; font-size:9.5px; font-weight:bold; color:#b30000; border-top:1px dashed #b30000; padding-top:4px; margin-top:4px;">
+                    ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ / ಪಿಂಜಾರ ಸಂಘ (ರಿ) - ರಾಜ್ಯ ಆಡಳಿತ ನೋಂದಣಿ ಪತ್ರ (A5 Single Page)
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(container);
+
+        const opt = {
+            margin: 0,
+            filename: `Employee_${appNumber || 'Details'}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+            jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' }
+        };
+
+        if (window.html2pdf) {
+            window.html2pdf().set(opt).from(container).save().then(() => {
+                if (container.parentNode) container.parentNode.removeChild(container);
+            }).catch(err => {
+                console.error("PDF download error:", err);
+                if (container.parentNode) container.parentNode.removeChild(container);
+            });
+        } else {
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+            script.onload = () => {
+                window.html2pdf().set(opt).from(container).save().then(() => {
+                    if (container.parentNode) container.parentNode.removeChild(container);
+                });
+            };
+            document.head.appendChild(script);
         }
-    </style>
-</head>
-<body>
-    <div class="receipt-container">
-        <table class="header-box">
-            <tr>
-                <td colspan="3" style="text-align: center; padding: 6px 10px 2px 10px;">
-                    <div class="kannada-title" style="font-size: 26px; font-weight: bold; color: #b30000; margin: 0; line-height: 1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="header-photo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 4px 6px 12px;">
-                    <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.president) ? RECEIPT_ASSETS.president : 'images/president.jpeg'}" class="patron-photo" onerror="this.src='images/president.png'">
-                </td>
-                <td class="header-text-cell" style="width: 60%; text-align: center; vertical-align: middle; padding: 0 0 6px 0;">
-                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
-                    <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
-                    <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
-                    <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
-                </td>
-                <td class="header-logo-cell" style="width: 20%; text-align: center; vertical-align: middle; padding: 0 12px 6px 4px;">
-                    <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.logo) ? RECEIPT_ASSETS.logo : 'images/logo-786.png'}" class="header-logo">
-                </td>
-            </tr>
-        </table>
-        
-        <div class="title-banner">
-            <div>ನೋಂದಣಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
-            <div style="font-size: 15px;">${data.employeeType || 'ನೌಕರರ ಮಾಹಿತಿ 2026'}</div>
-            <div>ದಿನಾಂಕ : ${found.date}</div>
-        </div>
-
-        <table class="grid-table">
-            <tr>
-                <td class="grid-label">ನೌಕರರ ಹೆಸರು</td>
-                <td class="grid-value">${data.employeeName || '-'}</td>
-                <td class="grid-label">ತಂದೆಯ ಹೆಸರು :</td>
-                <td class="grid-value">${data.fatherName || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
-                <td class="grid-value">${data.contactNumber || '-'}</td>
-                <td class="grid-label">ವಿದ್ಯಾರ್ಹತೆ :</td>
-                <td class="grid-value">${data.qualification || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಹುಟ್ಟಿದ ದಿನಾಂಕ</td>
-                <td class="grid-value">${formattedDob}</td>
-                <td class="grid-label">ವಯಸ್ಸು :</td>
-                <td class="grid-value">${data.age || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಇಲಾಖೆಯ ಹೆಸರು</td>
-                <td class="grid-value">${data.departmentName || '-'}</td>
-                <td class="grid-label">ಹುದ್ದೆಯ ಹೆಸರು :</td>
-                <td class="grid-value">${data.designation || '-'}</td>
-            </tr>
-            ${data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ' ? `
-            <tr>
-                <td class="grid-label">ನಿವೃತ್ತಿ ದಿನಾಂಕ</td>
-                <td class="grid-value" colspan="3">${formattedRetirement}</td>
-            </tr>
-            ` : ''}
-            <tr>
-                <td class="grid-label">ಕಾಯಂ ವಿಳಾಸ</td>
-                <td class="grid-value" colspan="3">${data.permanentAddress || '-'}</td>
-            </tr>
-        </table>
-    </div>
-</body>
-</html>`;
-
-        // Create invisible iframe off-screen
-        let iframe = document.getElementById('receiptPrintIframe');
-        if (!iframe) {
-            iframe = document.createElement('iframe');
-            iframe.id = 'receiptPrintIframe';
-            iframe.style.position = 'fixed';
-            iframe.style.left = '-9999px';
-            iframe.style.top = '-9999px';
-            iframe.style.width = '0';
-            iframe.style.height = '0';
-            iframe.style.border = '0';
-            document.body.appendChild(iframe);
-        }
-        iframe.style.width = '210mm';
-        iframe.style.height = '800px';
-        const doc = iframe.contentWindow.document;
-        doc.open();
-        doc.write(printHTML);
-        doc.close();
-        
-        setTimeout(() => {
-            const container = doc.querySelector('.receipt-container');
-            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-            if (isMobile) {
-                if (container) {
-                    container.style.margin = '0';
-                }
-                iframe.style.width = '794px';
-                iframe.style.height = 'auto';
-                setTimeout(() => {
-                    const contentH = container ? container.scrollHeight : 600;
-                    const pageHmm = Math.ceil(contentH * 0.2646) + 2;
-                    const contentW = container ? container.scrollWidth : 794;
-                    let pageWmm = Math.ceil(contentW * 0.2646) + 2;
-                    if (pageWmm < 210) pageWmm = 210;
-
-                    const script = doc.createElement('script');
-                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-                    script.onload = () => {
-                        const opt = {
-                            margin: 0,
-                            filename: 'Employee-' + (id || 'Receipt') + '.pdf',
-                            image: { type: 'jpeg', quality: 0.98 },
-                            html2canvas: { scale: 2, useCORS: true, letterRendering: false, scrollX: 0, scrollY: 0, width: contentW, height: contentH, windowWidth: contentW },
-                            jsPDF: { unit: 'mm', format: [pageWmm, pageHmm], orientation: 'portrait' }
-                        };
-                        iframe.contentWindow.html2pdf().from(container).set(opt).save();
-                    };
-                    doc.head.appendChild(script);
-                }, 300);
-            } else {
-                let pageHmm = 297;
-                if (container) {
-                    const contentH = container.scrollHeight;
-                    pageHmm = Math.ceil(contentH * 0.2646 + 15);
-                    const dynStyle = doc.createElement('style');
-                    dynStyle.textContent = `@media print { @page { size: 210mm ${pageHmm}mm; margin: 6mm 10mm; } }`;
-                    doc.head.appendChild(dynStyle);
-                }
-                iframe.style.width = '0';
-                iframe.style.height = '0';
-                iframe.contentWindow.focus();
-                iframe.contentWindow.print();
-            }
-        }, 500);
     };
 }
 
-// -------------------------------------------------------------
-// 12. Admin Pratibha Puraskar Module
-// -------------------------------------------------------------
+
 function loadAdminPratibha() {
     const tableBody = document.getElementById("pratibhaTableBody");
     if (!tableBody) return;
