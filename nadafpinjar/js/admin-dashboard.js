@@ -3211,12 +3211,12 @@ function loadAdminCensus() {
                     <th style="width: 3%; text-align: center;">ಕ್ರ.ಸಂ</th>
                     <th style="width: 13%; text-align: left;">ಸದಸ್ಯರ ಹೆಸರು</th>
                     <th style="width: 7.5%; text-align: center;">ಲಿಂಗ</th>
-                    <th style="width: 8.5%; text-align: center;">DOB</th>
+                    <th style="width: 9%; text-align: center;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</th>
                     <th style="width: 7.5%; text-align: center;">ಸಂಬಂಧ</th>
                     <th style="width: 7.5%; text-align: center;">ವೈವಾಹಿಕ</th>
                     <th style="width: 9.5%; text-align: center;">ಮೊಬೈಲ್</th>
                     <th style="width: 12.5%; text-align: center;">ಆಧಾರ್</th>
-                    <th style="width: 9.5%; text-align: left;">ಸಾಕ್ಷರತಾ</th>
+                    <th style="width: 9.5%; text-align: center;">ಸಾಕ್ಷರತಾ</th>
                     <th style="width: 10.5%; text-align: left;">ವೃತ್ತಿ</th>
                     <th style="width: 5.5%; text-align: center;">ರಾಜಕೀಯ</th>
                     <th style="width: 5.5%; text-align: center;">ಅಂಗವಿಕಲ</th>
