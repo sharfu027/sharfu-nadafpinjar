@@ -3845,6 +3845,7 @@ function loadAdminPratibha() {
                 <td><span class="status-badge ${statusClass}">${fd.status || 'Pending'}</span></td>
                 <td>
                     <button class="btn-edit" onclick="reviewPratibha('${app.id}')" title="Review"><i class="fa fa-eye"></i></button>
+                    <button class="btn-view" onclick="downloadPratibhaPdfAdmin('${app.id}')" title="Download PDF" style="background-color: #007bff; color: white; margin-left: 3px;"><i class="fa fa-download"></i></button>
                     <button class="btn-delete" onclick="deletePratibha('${app.id}', '${app.dbId || ''}')" title="Delete"><i class="fa fa-trash"></i></button>
                 </td>
             `;
@@ -4050,6 +4051,7 @@ function loadAdminSadhaka() {
                 <td><span class="status-badge ${statusClass}">${fd.status || 'Pending'}</span></td>
                 <td>
                     <button class="btn-edit" onclick="reviewSadhaka('${app.id}')" title="Review"><i class="fa fa-eye"></i></button>
+                    <button class="btn-view" onclick="downloadSadhakaPdfAdmin('${app.id}')" title="Download PDF" style="background-color: #007bff; color: white; margin-left: 3px;"><i class="fa fa-download"></i></button>
                     <button class="btn-delete" onclick="deleteSadhaka('${app.id}', '${app.dbId || ''}')" title="Delete"><i class="fa fa-trash"></i></button>
                 </td>
             `;
@@ -4224,3 +4226,125 @@ function loadAdminSadhaka() {
         }
     };
 }
+
+
+// Download PDF for Pratibha Puraskar Admin
+window.downloadPratibhaPdfAdmin = async function(id) {
+    const list = JSON.parse(localStorage.getItem('admin_pratibha_submissions')) || [];
+    const app = list.find(item => item.id === id);
+    if (!app) { alert('Application not found'); return; }
+    const fd = app.formData || {};
+    
+    // Dynamically load html2pdf if needed
+    if (!window.html2pdf) {
+        await new Promise((resolve) => {
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+            script.onload = resolve;
+            document.head.appendChild(script);
+        });
+    }
+
+    const container = document.createElement('div');
+    container.style.width = '700px';
+    container.style.padding = '20px';
+    container.style.fontFamily = "'Noto Serif Kannada', Tunga, serif";
+    container.style.fontSize = '14px';
+    container.style.color = '#000';
+    container.innerHTML = `
+        <div style="text-align:center; border-bottom:2px solid #990000; padding-bottom:10px; margin-bottom:15px;">
+            <h2 style="color:#990000; margin:0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h2>
+            <h3 style="color:#333; margin:5px 0 0 0;">ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ ಅರ್ಜಿ - 2025-26</h3>
+            <p style="margin:5px 0 0 0; font-weight:bold; color:#28a745;">ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${id}</p>
+        </div>
+        <table style="width:100%; border-collapse:collapse; margin-bottom:15px;">
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold; width:40%;">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.studentName || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ತಂದೆಯ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.fatherName || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಪೋಷಕರ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.guardianName || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಉದ್ಯೋಗ ಮತ್ತು ಆದಾಯ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.parentOccupationIncome || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಸಂಪೂರ್ಣ ವಿಳಾಸ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.completeAddress || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಆಧಾರ ಸಂಖ್ಯೆ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.aadhar || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಅಜೀವ ಸದಸ್ಯತ್ವ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.lifeMembership || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಪಡೆದ ಅಂಕಗಳ ವಿವರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.marksDetails || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.parentMobile || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಬ್ಯಾಂಕ್ ವಿವರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.bankDetails || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಪಟ್ಟಣ/ನಗರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.city || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ವರ್ಷ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.year || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ವರ್ಗ / ತರಗತಿ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.category || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಕ್ಷೇತ್ರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.field || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಸ್ಥಿತಿ (Status):</td><td style="padding:6px; border:1px solid #ccc; font-weight:bold; color:#155724;">${fd.status || 'Pending'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಅಡ್ಮಿನ್ ಷರಾ (Remarks):</td><td style="padding:6px; border:1px solid #ccc;">${fd.remarks || '-'}</td></tr>
+        </table>
+    `;
+
+    document.body.appendChild(container);
+    const opt = {
+        margin: 8,
+        filename: `Pratibha_Puraskar_${fd.studentName || id}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    await window.html2pdf().from(container).set(opt).save();
+    document.body.removeChild(container);
+};
+
+// Download PDF for Sadhaka Award Admin
+window.downloadSadhakaPdfAdmin = async function(id) {
+    const list = JSON.parse(localStorage.getItem('admin_sadhaka_submissions')) || [];
+    const app = list.find(item => item.id === id);
+    if (!app) { alert('Application not found'); return; }
+    const fd = app.formData || {};
+    
+    if (!window.html2pdf) {
+        await new Promise((resolve) => {
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+            script.onload = resolve;
+            document.head.appendChild(script);
+        });
+    }
+
+    const container = document.createElement('div');
+    container.style.width = '700px';
+    container.style.padding = '20px';
+    container.style.fontFamily = "'Noto Serif Kannada', Tunga, serif";
+    container.style.fontSize = '14px';
+    container.style.color = '#000';
+    container.innerHTML = `
+        <div style="text-align:center; border-bottom:2px solid #990000; padding-bottom:10px; margin-bottom:15px;">
+            <h2 style="color:#990000; margin:0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h2>
+            <h3 style="color:#333; margin:5px 0 0 0;">ಸಾಧಕ ಪ್ರಶಸ್ತಿ ಅರ್ಜಿ - 2025-26</h3>
+            <p style="margin:5px 0 0 0; font-weight:bold; color:#28a745;">ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${id}</p>
+        </div>
+        <table style="width:100%; border-collapse:collapse; margin-bottom:15px;">
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold; width:40%;">ಸಾಧಕರ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.studentName || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ತಂದೆಯ/ಗಂಡನ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.fatherName || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಪೋಷಕರ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.guardianName || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಉದ್ಯೋಗ ಮತ್ತು ಆದಾಯ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.parentOccupationIncome || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಸಂಪೂರ್ಣ ವಿಳಾಸ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.completeAddress || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಆಧಾರ ಸಂಖ್ಯೆ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.aadhar || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಅಜೀವ ಸದಸ್ಯತ್ವ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.lifeMembership || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಸಾಧನೆಗಳ ವಿವರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.marksDetails || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.parentMobile || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಬ್ಯಾಂಕ್ ವಿವರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.bankDetails || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಪಟ್ಟಣ/ನಗರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.city || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ವರ್ಷ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.year || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ವರ್ಗ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.category || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಕ್ಷೇತ್ರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.field || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಸ್ಥಿತಿ (Status):</td><td style="padding:6px; border:1px solid #ccc; font-weight:bold; color:#155724;">${fd.status || 'Pending'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಅಡ್ಮಿನ್ ಷರಾ (Remarks):</td><td style="padding:6px; border:1px solid #ccc;">${fd.remarks || '-'}</td></tr>
+        </table>
+    `;
+
+    document.body.appendChild(container);
+    const opt = {
+        margin: 8,
+        filename: `Sadhaka_Award_${fd.studentName || id}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    await window.html2pdf().from(container).set(opt).save();
+    document.body.removeChild(container);
+};

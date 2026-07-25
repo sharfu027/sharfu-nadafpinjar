@@ -530,67 +530,20 @@
     <div class="container" style="margin-top: 30px; margin-bottom: 50px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin: 40px 0 20px 0; border-bottom: 3px solid #990000; padding-bottom: 12px; flex-wrap: wrap; gap: 15px;">
             <h1 style="color: #990000; font-size: 30px; font-weight: bold; margin: 0;">ಸಾಧಕ ಪ್ರಶಸ್ತಿ (Sadhaka Award)</h1>
-            <button class="btn-filter-toggle" onclick="toggleFilterPanel()" style="margin: 0; padding: 8px 20px; font-size: 14px;">
-                <i class="fa fa-filter"></i> ಶೋಧಕಗಳು / Filter
+            <button onclick="openApplyModal()" class="btn-submit" style="background-color: #990000 !important; color: #ffedc2; font-size: 16px; padding: 12px 25px; border-radius: 6px; font-weight: bold; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 10px;">
+                <i class="fa fa-pencil-square-o" style="font-size: 18px;"></i> ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Apply Now
             </button>
         </div>
 
-        <!-- Filter Card -->
-        <div class="filter-panel" id="filterPanel">
-            <div class="filter-grid">
-                <div class="filter-input-group">
-                    <label>ಸಾಧಕರ ಹೆಸರು (Name)</label>
-                    <input type="text" id="filterStudentName" placeholder="Type name...">
-                </div>
-                <div class="filter-input-group">
-                    <label>ತಂದೆಯ/ಗಂಡನ ಹೆಸರು (Parent/Husband Name)</label>
-                    <input type="text" id="filterParentName" placeholder="Type parent name...">
-                </div>
-                <div class="filter-input-group">
-                    <label>ಪಟ್ಟಣ ಅಥವಾ ನಗರ (Town/City)</label>
-                    <input type="text" id="filterCity" placeholder="Type town/city...">
-                </div>
-                <div class="filter-input-group">
-                    <label>ವರ್ಷ (Year)</label>
-                    <input type="text" id="filterYear" placeholder="e.g. 2025-26">
-                </div>
-                <div class="filter-input-group">
-                    <label>ವರ್ಗ (Class/Category)</label>
-                    <input type="text" id="filterCategory" placeholder="e.g. ಕ್ರೀಡೆ, ಸಾಹಿತ್ಯ">
-                </div>
-                <div class="filter-input-group">
-                    <label>ಕ್ಷೇತ್ರ (Field/Area)</label>
-                    <input type="text" id="filterField" placeholder="e.g. ಕೃಷಿ, ಸಮಾಜ ಸೇವೆ">
-                </div>
-            </div>
-            <div class="filter-actions">
-                <button class="btn-filter-reset" onclick="resetFilters()">Reset</button>
-                <button class="btn-filter-apply" onclick="applyFilters()">Apply Filters</button>
-            </div>
-        </div>
-
-        <!-- Showcase Table Grid -->
-        <div class="table-responsive" style="margin-top: 20px;" id="studentsTableContainer">
-            <table class="showcase-table">
-                <thead>
-                    <tr>
-                        <th style="width: 8%; text-align: center;">ಕ್ರ.ಸಂ (Sl.No)</th>
-                        <th>ಸಾಧಕರ ಹೆಸರು (Sadhaka Name)</th>
-                        <th>ವರ್ಗ (Class)</th>
-                        <th>ಕ್ಷೇತ್ರ (Field)</th>
-                        <th>ಪಟ್ಟಣ/ನಗರ (Town/City)</th>
-                        <th style="width: 15%; text-align: center;">ವರ್ಷ (Year)</th>
-                    </tr>
-                </thead>
-                <tbody id="studentsTableBody">
-                    <tr>
-                        <td colspan="6" style="text-align: center; color: #777; padding: 45px 0;">
-                            <i class="fa fa-spinner fa-spin" style="font-size: 32px; color: #990000; margin-bottom: 10px; display: block; margin: 0 auto 10px auto;"></i>
-                            ಅನುಮೋದಿತ ಸಾಧಕರ ವಿವರಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div style="background: #fff8eb; border: 2px dashed #990000; border-radius: 12px; padding: 40px 20px; text-align: center; margin-top: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <i class="fa fa-trophy" style="font-size: 48px; color: #990000; margin-bottom: 15px; display: block;"></i>
+            <h2 style="color: #990000; font-weight: bold; margin-bottom: 10px; font-size: 22px;">ಸಾಧಕ ಪ್ರಶಸ್ತಿ ಅರ್ಜಿ ಸಲ್ಲಿಕೆ 2025-26</h2>
+            <p style="color: #4a5568; font-size: 15px; max-width: 600px; margin: 0 auto 25px auto; line-height: 1.6;">
+                ವಿವಿಧ ಕ್ಷೇತ್ರಗಳಲ್ಲಿ ಸಾಧನೆಗೈದಿರುವ ನಮ್ಮ ಸಮಾಜದ ಸಾಧಕರನ್ನು ಗೌರವಿಸಲು ಸಾಧಕ ಪ್ರಶಸ್ತಿಗಾಗಿ ಅರ್ಜಿಗಳನ್ನು ಆಹ್ವಾನಿಸಲಾಗಿದೆ. ಸಾಧಕರು ಕೆಳಗಿನ ಬಟನ್ ಕ್ಲಿಕ್ ಮಾಡಿ ಆನ್‌ಲೈನ್ ಮೂಲಕ ಅರ್ಜಿ ಸಲ್ಲಿಸಬಹುದು.
+            </p>
+            <button onclick="openApplyModal()" class="btn-submit" style="background-color: #990000 !important; color: white; font-size: 17px; padding: 14px 35px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none; box-shadow: 0 4px 12px rgba(153, 0, 0, 0.3);">
+                <i class="fa fa-file-text-o"></i> ಅರ್ಜಿ ಸಲ್ಲಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ / Click Here to Apply
+            </button>
         </div>
     </div>
 
