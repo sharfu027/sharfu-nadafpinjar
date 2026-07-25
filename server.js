@@ -75,7 +75,7 @@ const server = http.createServer(async (req, res) => {
       const query = formType ? { formType: formType } : {};
       const donations = await Donation.find(query).sort({ date: -1 });
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify(donations));
+      res.end(JSON.stringify({ success: true, donations }));
     } catch (err) {
       console.error('Error fetching donations:', err);
       res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -94,8 +94,25 @@ const server = http.createServer(async (req, res) => {
           await mongoose.connect(MONGO_URI);
         }
         const data = JSON.parse(body);
-        const { paymentId, status, remarks, formData } = data;
-        const donation = await Donation.findOne({ paymentId });
+        const { paymentId, dbId, status, remarks, formData } = data;
+        const targetId = paymentId || data.id;
+
+        let donation = null;
+        if (dbId && mongoose.Types.ObjectId.isValid(dbId)) {
+          donation = await Donation.findById(dbId);
+        }
+        if (!donation && targetId) {
+          donation = await Donation.findOne({
+            $or: [
+              { paymentId: targetId },
+              { "formData.id": targetId },
+              { "formData.appNo": targetId },
+              { "formData.applicationNo": targetId },
+              ...(mongoose.Types.ObjectId.isValid(targetId) ? [{ _id: targetId }] : [])
+            ]
+          });
+        }
+
         if (donation) {
           if (!donation.formData) donation.formData = {};
           if (status !== undefined) donation.formData.status = status;

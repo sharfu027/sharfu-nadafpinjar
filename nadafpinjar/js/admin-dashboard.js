@@ -354,7 +354,8 @@ async function syncSubmissionsFromDatabase() {
         if (!response || !response.ok) return false;
         
         const data = await response.json();
-        if (!data.success || !data.donations) return false;
+        const donationItems = Array.isArray(data) ? data : (data && data.donations ? data.donations : []);
+        if (!Array.isArray(donationItems)) return false;
         
         let hasChanges = false;
         let deletedIds = JSON.parse(localStorage.getItem('admin_deleted_ids')) || [];
@@ -367,7 +368,7 @@ async function syncSubmissionsFromDatabase() {
         let sadhakaList = JSON.parse(localStorage.getItem('admin_sadhaka_submissions')) || [];
         let receiptsList = JSON.parse(localStorage.getItem('receipts')) || [];
         
-        data.donations.forEach(doc => {
+        donationItems.forEach(doc => {
             const formType = doc.formType;
             if (!formType) return;
             
@@ -3952,6 +3953,7 @@ function loadAdminPratibha() {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         paymentId: id,
+                        dbId: submissions[idx].dbId,
                         status: status,
                         remarks: remarks
                     })
@@ -3963,6 +3965,7 @@ function loadAdminPratibha() {
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
                             paymentId: id,
+                            dbId: submissions[idx].dbId,
                             status: status,
                             remarks: remarks
                         })
@@ -4155,6 +4158,7 @@ function loadAdminSadhaka() {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         paymentId: id,
+                        dbId: submissions[idx].dbId,
                         status: status,
                         remarks: remarks
                     })
@@ -4166,6 +4170,7 @@ function loadAdminSadhaka() {
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
                             paymentId: id,
+                            dbId: submissions[idx].dbId,
                             status: status,
                             remarks: remarks
                         })

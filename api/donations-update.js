@@ -38,9 +38,25 @@ module.exports = async (req, res) => {
   try {
     await connectToDatabase();
     const data = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
-    const { paymentId, status, remarks, formData } = data;
+    const { paymentId, dbId, status, remarks, formData } = data;
+    const targetId = paymentId || data.id;
 
-    const donation = await Donation.findOne({ paymentId });
+    let donation = null;
+    if (dbId && mongoose.Types.ObjectId.isValid(dbId)) {
+      donation = await Donation.findById(dbId);
+    }
+    if (!donation && targetId) {
+      donation = await Donation.findOne({
+        $or: [
+          { paymentId: targetId },
+          { "formData.id": targetId },
+          { "formData.appNo": targetId },
+          { "formData.applicationNo": targetId },
+          ...(mongoose.Types.ObjectId.isValid(targetId) ? [{ _id: targetId }] : [])
+        ]
+      });
+    }
+
     if (donation) {
       if (!donation.formData) donation.formData = {};
       if (status !== undefined) donation.formData.status = status;
