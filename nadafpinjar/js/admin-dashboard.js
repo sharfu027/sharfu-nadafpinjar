@@ -3391,6 +3391,7 @@ function loadAdminEmployees() {
             group.style.display = (empType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') ? 'flex' : 'none';
         }
 
+        if (typeof toggleRetirementDateEdit === 'function') toggleRetirementDateEdit();
         document.getElementById('editEmployeeModal').style.display = 'flex';
     };
 

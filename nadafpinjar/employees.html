@@ -615,6 +615,16 @@
             const formattedDob = data.dob ? new Date(data.dob).toLocaleDateString('en-GB') : '-';
             const formattedRetirement = data.isRetired === 'ಹೌದು' && data.retirementDate ? new Date(data.retirementDate).toLocaleDateString('en-GB') : 'ಇಲ್ಲ (No)';
             
+            let deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಇಲಾಖೆಯ ಹೆಸರು';
+            let locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳ';
+            if (data.employeeType === 'ಖಾಸಗಿ ನೌಕರರ ಮಾಹಿತಿ') {
+                deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಖಾಸಗಿ ಸಂಸ್ಥೆಯ ಹೆಸರು';
+                locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳ';
+            } else if (data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') {
+                deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಇಲಾಖೆಯ ಹೆಸರು';
+                locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಸ್ಥಳ';
+            }
+
             const printHTML = `<!DOCTYPE html>
 <html>
 <head>
