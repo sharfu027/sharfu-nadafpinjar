@@ -2751,7 +2751,7 @@ function loadAdminCensus() {
                 </select>
             </div>
             <div>
-                <label>ಸಾಕ್ಷರಹಾ (Literate?)</label>
+                <label>ಸಾಕ್ಷರತಾ (Literate?)</label>
                 <select class="mem-literate-select" onchange="toggleAdminMemberLiteracy(this)">
                     <option value="ವಿದ್ಯಾರ್ಥಿ" ${selectedLiteracy === 'ವಿದ್ಯಾರ್ಥಿ' ? 'selected' : ''}>ವಿದ್ಯಾರ್ಥಿ (Student)</option>
                     <option value="ಶಿಕ್ಷಿತರು" ${selectedLiteracy === 'ಶಿಕ್ಷಿತರು' ? 'selected' : ''}>ಶಿಕ್ಷಿತರು (Educated)</option>
@@ -2913,27 +2913,28 @@ function loadAdminCensus() {
         if (data.members && data.members.length > 0) {
             data.members.forEach((m, idx) => {
                 let genderDisplay = m.gender || '-';
-                if (genderDisplay.includes('Male')) genderDisplay = 'ಗಂಡು<br><span style="font-size:8.5px; font-weight:600; color:#444;">(Male)</span>';
-                else if (genderDisplay.includes('Female')) genderDisplay = 'ಹೆಣ್ಣು<br><span style="font-size:8.5px; font-weight:600; color:#444;">(Female)</span>';
+                if (genderDisplay.includes('Male')) genderDisplay = 'ಗಂಡು<br><span style="font-size:8px; font-weight:600; color:#444;">(Male)</span>';
+                else if (genderDisplay.includes('Female')) genderDisplay = 'ಹೆಣ್ಣು<br><span style="font-size:8px; font-weight:600; color:#444;">(Female)</span>';
 
                 membersRows += `
                     <tr>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 9.5px; line-height: 1.3;">${idx + 1}</td>
-                        <td style="border: 1.2px solid #a00000; padding: 3px 3px; font-size: 9.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${(m.name || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 9.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${genderDisplay}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 9.5px; line-height: 1.3; white-space: nowrap;">${m.dob || '-'}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 9.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${(m.relation || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 9.5px; line-height: 1.3; white-space: nowrap;">${m.mobile || '-'}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 9.5px; line-height: 1.3; white-space: nowrap;">${maskAadhar(m.aadhar)}</td>
-                        <td style="border: 1.2px solid #a00000; padding: 3px 3px; font-size: 9.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${(m.literate || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                        <td style="border: 1.2px solid #a00000; padding: 3px 3px; font-size: 9.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${(m.occupation || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 9.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${m.political || '-'}</td>
-                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 2px; font-size: 9.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${m.handicapped || 'ಇಲ್ಲ'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 1px; font-size: 8.5px; line-height: 1.3;">${idx + 1}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 3px 2px; font-size: 8.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${(m.name || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 1px; font-size: 8.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${genderDisplay}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 1px; font-size: 8.5px; line-height: 1.3; white-space: nowrap;">${m.dob || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 1px; font-size: 8.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${(m.relation || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 1px; font-size: 8.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${(m.married || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್')}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 1px; font-size: 8.5px; line-height: 1.3; white-space: nowrap;">${m.mobile || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 1px; font-size: 8.5px; line-height: 1.3; white-space: nowrap;">${maskAadhar(m.aadhar)}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 3px 2px; font-size: 8.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${(m.literate || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="border: 1.2px solid #a00000; padding: 3px 2px; font-size: 8.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${(m.occupation || '-').replace(/ನಡಾ\s+ಫ್/g, 'ನಡಾಫ್').replace(/ವಿದ್ಯಾ\s+ರ್ಥಿ/g, 'ವಿದ್ಯಾರ್ಥಿ')}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 1px; font-size: 8.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${m.political || '-'}</td>
+                        <td style="text-align: center; border: 1.2px solid #a00000; padding: 3px 1px; font-size: 8.5px; line-height: 1.3; word-break: break-word; white-space: normal;">${m.handicapped || 'ಇಲ್ಲ'}</td>
                     </tr>
                 `;
             });
         } else {
-            membersRows = '<tr><td colspan="11" style="text-align: center; border: 1.2px solid #a00000; padding: 8px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
+            membersRows = '<tr><td colspan="12" style="text-align: center; border: 1.2px solid #a00000; padding: 8px;">ಯಾವುದೇ ಸದಸ್ಯರ ವಿವರಗಳಿಲ್ಲ</td></tr>';
         }
 
         const printHTML = `<!DOCTYPE html>
@@ -3080,9 +3081,9 @@ function loadAdminCensus() {
             border: 1.2px solid #a00000;
             background: #ffedc2;
             color: #990000;
-            padding: 4px 2px;
+            padding: 4px 1px;
             font-weight: bold;
-            font-size: 10.5px;
+            font-size: 9.5px;
             line-height: 1.3;
             text-align: center;
             vertical-align: middle;
@@ -3091,10 +3092,10 @@ function loadAdminCensus() {
         }
         .members-table td {
             border: 1.2px solid #a00000;
-            padding: 3px 3px;
+            padding: 3px 2px;
             font-weight: bold;
-            font-size: 9.5px;
-            line-height: 1.35;
+            font-size: 8.5px;
+            line-height: 1.3;
             color: #000;
             vertical-align: middle;
             word-break: break-word;
@@ -3208,16 +3209,17 @@ function loadAdminCensus() {
             <thead>
                 <tr>
                     <th style="width: 3%; text-align: center;">ಕ್ರ.ಸಂ</th>
-                    <th style="width: 14%; text-align: left;">ಸದಸ್ಯರ ಹೆಸರು</th>
-                    <th style="width: 8%; text-align: center;">ಲಿಂಗ</th>
-                    <th style="width: 9%; text-align: center;">DOB</th>
-                    <th style="width: 8%; text-align: center;">ಸಂಬಂಧ</th>
-                    <th style="width: 10%; text-align: center;">ಮೊಬೈಲ್</th>
-                    <th style="width: 13%; text-align: center;">ಆಧಾರ್</th>
-                    <th style="width: 10%; text-align: left;">ಸಾಕ್ಷರಹಾ</th>
-                    <th style="width: 12%; text-align: left;">ವೃತ್ತಿ</th>
-                    <th style="width: 6.5%; text-align: center;">ರಾಜಕೀಯ</th>
-                    <th style="width: 6.5%; text-align: center;">ಅಂಗವಿಕಲ</th>
+                    <th style="width: 13%; text-align: left;">ಸದಸ್ಯರ ಹೆಸರು</th>
+                    <th style="width: 7.5%; text-align: center;">ಲಿಂಗ</th>
+                    <th style="width: 8.5%; text-align: center;">DOB</th>
+                    <th style="width: 7.5%; text-align: center;">ಸಂಬಂಧ</th>
+                    <th style="width: 7.5%; text-align: center;">ವೈವಾಹಿಕ</th>
+                    <th style="width: 9.5%; text-align: center;">ಮೊಬೈಲ್</th>
+                    <th style="width: 12.5%; text-align: center;">ಆಧಾರ್</th>
+                    <th style="width: 9.5%; text-align: left;">ಸಾಕ್ಷರತಾ</th>
+                    <th style="width: 10.5%; text-align: left;">ವೃತ್ತಿ</th>
+                    <th style="width: 5.5%; text-align: center;">ರಾಜಕೀಯ</th>
+                    <th style="width: 5.5%; text-align: center;">ಅಂಗವಿಕಲ</th>
                 </tr>
             </thead>
             <tbody>
@@ -3279,8 +3281,9 @@ function loadAdminCensus() {
             }
         }, 500);
     };
-
 }
+
+
 function loadAdminEmployees() {
     const tableBody = document.getElementById("employeesTableBody");
     if (!tableBody) return;
