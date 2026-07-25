@@ -971,10 +971,11 @@
                 if (!res || !res.ok) throw new Error("API call failed");
                 const data = await res.json();
                 
-                if (data.success && data.donations) {
+                const donations = Array.isArray(data) ? data : (data && data.donations ? data.donations : []);
+                if (donations.length >= 0) {
                     // Filter for approved Sadhaka Award submissions
-                    allStudents = data.donations
-                        .filter(doc => doc.formType === "ಸಾಧಕ ಪ್ರಶಸ್ತಿ" && doc.formData && (doc.formData.status === "Approved" || doc.formData.status === "ಅನುಮೋದಿಸಲಾಗಿದೆ"))
+                    allStudents = donations
+                        .filter(doc => doc.formType === "ಸಾಧಕ ಪ್ರಶಸ್ತಿ" && doc.formData && (doc.formData.status === "Approved" || doc.formData.status === "ಅನುಮೋದಿಸಲಾಗಿದೆ" || (doc.formData.status||'').toLowerCase() === "approved"))
                         .map(doc => ({
                             id: doc.paymentId,
                             studentName: doc.formData.studentName,

@@ -38,8 +38,8 @@ module.exports = async (req, res) => {
   try {
     await connectToDatabase();
     const data = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
-    const { paymentId, dbId, status, remarks, formData } = data;
-    const targetId = paymentId || data.id;
+    const { paymentId, dbId, status, remarks, formData, formType } = data;
+    const targetId = paymentId || data.id || dbId;
 
     let donation = null;
     if (dbId && mongoose.Types.ObjectId.isValid(dbId)) {
@@ -52,6 +52,7 @@ module.exports = async (req, res) => {
           { "formData.id": targetId },
           { "formData.appNo": targetId },
           { "formData.applicationNo": targetId },
+          { "formData.aadhar": targetId },
           ...(mongoose.Types.ObjectId.isValid(targetId) ? [{ _id: targetId }] : [])
         ]
       });
@@ -66,10 +67,23 @@ module.exports = async (req, res) => {
       }
       donation.markModified('formData');
       await donation.save();
-      return res.status(200).json({ success: true, message: 'Donation updated' });
     } else {
-      return res.status(404).json({ success: false, error: 'Donation not found' });
+      donation = new Donation({
+        paymentId: targetId || `APP-${Date.now()}`,
+        formType: formType || (formData && formData.formType) || "ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ",
+        amount: data.amount || 0,
+        formData: {
+          ...(formData || {}),
+          id: targetId,
+          status: status || "Approved",
+          remarks: remarks || ""
+        },
+        date: new Date()
+      });
+      await donation.save();
     }
+
+    return res.status(200).json({ success: true, message: 'Donation updated', id: donation._id });
   } catch (err) {
     console.error('API Error:', err);
     return res.status(500).json({ success: false, error: err.message });

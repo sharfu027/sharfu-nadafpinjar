@@ -94,8 +94,8 @@ const server = http.createServer(async (req, res) => {
           await mongoose.connect(MONGO_URI);
         }
         const data = JSON.parse(body);
-        const { paymentId, dbId, status, remarks, formData } = data;
-        const targetId = paymentId || data.id;
+        const { paymentId, dbId, status, remarks, formData, formType } = data;
+        const targetId = paymentId || data.id || dbId;
 
         let donation = null;
         if (dbId && mongoose.Types.ObjectId.isValid(dbId)) {
@@ -108,6 +108,7 @@ const server = http.createServer(async (req, res) => {
               { "formData.id": targetId },
               { "formData.appNo": targetId },
               { "formData.applicationNo": targetId },
+              { "formData.aadhar": targetId },
               ...(mongoose.Types.ObjectId.isValid(targetId) ? [{ _id: targetId }] : [])
             ]
           });
@@ -122,12 +123,23 @@ const server = http.createServer(async (req, res) => {
           }
           donation.markModified('formData');
           await donation.save();
-          res.writeHead(200, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ success: true, message: 'Donation updated' }));
         } else {
-          res.writeHead(404, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ success: false, error: 'Donation not found' }));
+          donation = new Donation({
+            paymentId: targetId || `APP-${Date.now()}`,
+            formType: formType || (formData && formData.formType) || "ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ",
+            amount: data.amount || 0,
+            formData: {
+              ...(formData || {}),
+              id: targetId,
+              status: status || "Approved",
+              remarks: remarks || ""
+            },
+            date: new Date()
+          });
+          await donation.save();
         }
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, message: 'Donation updated', id: donation._id }));
       } catch (err) {
         console.error('Error updating donation:', err);
         res.writeHead(500, { 'Content-Type': 'application/json' });
