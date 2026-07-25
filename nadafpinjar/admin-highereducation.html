@@ -337,101 +337,84 @@
                     </div>
 
                     <!-- APP NO & DATE (Red labels, Black information) -->
-                    <table style="width:100%; border-collapse:collapse; margin-bottom:2px; font-weight:bold; font-size:11.5px;">
-                        <tr>
-                            <td style="color:#c01535; width:50%; text-align:left; border:none!important; padding:1px 0!important;">
-                                ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color:#000000!important;">${fd.appNo}</span>
-                            </td>
-                            <td style="color:#c01535; width:50%; text-align:right; border:none!important; padding:1px 0!important;">
-                                ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color:#000000!important;">${fd.date}</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="border:none!important; padding:1px 0 0 0!important;">
-                                <table style="width:100%; border-collapse:collapse; border:none!important; font-weight:bold; font-size:11.5px;">
-                                    <tr>
-                                        <td style="text-align:left; width:33.33%; border:none!important; padding:0!important; color:#c01535;">
-                                            ನಗರ/ಗ್ರಾಮ : <span style="color:#000000!important;">${fd.city}</span>
-                                        </td>
-                                        <td style="text-align:center; width:33.33%; border:none!important; padding:0!important; color:#c01535;">
-                                            ತಾಲ್ಲೂಕು : <span style="color:#000000!important;">${fd.taluk}</span>
-                                        </td>
-                                        <td style="text-align:right; width:33.33%; border:none!important; padding:0!important; color:#c01535;">
-                                            ಜಿಲ್ಲೆ : <span style="color:#000000!important;">${fd.district}</span>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
+                    <!-- APP NO & DATE (Red labels, Black information) -->
+                    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:11.5px; color:#c01535; margin-top:3px; margin-bottom:2px;">
+                        <span>ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color:#000000!important;">${fd.appNo}</span></span>
+                        <span>ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color:#000000!important;">${fd.date}</span></span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:11.5px; color:#c01535; margin-bottom:4px;">
+                        <span style="width:33.33%; text-align:left;">ನಗರ/ಗ್ರಾಮ : <span style="color:#000000!important;">${fd.city}</span></span>
+                        <span style="width:33.33%; text-align:center;">ತಾಲ್ಲೂಕು : <span style="color:#000000!important;">${fd.taluk}</span></span>
+                        <span style="width:33.33%; text-align:right;">ಜಿಲ್ಲೆ : <span style="color:#000000!important;">${fd.district}</span></span>
+                    </div>
 
                     <!-- MAIN FORM GRID TABLE (Red labels, Black information) -->
-                    <table style="width:100%; border-collapse:collapse; margin-top:1px; line-height:1.15; table-layout:fixed; word-break:break-all;">
+                    <table style="width:100%; border-collapse:collapse; margin-top:1px; line-height:1.2; table-layout:fixed;">
                         <tr>
-                            <td style="width:22%; border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
-                            <td style="width:28%; border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.studentName}</td>
-                            <td style="width:22%; border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು</td>
-                            <td style="width:28%; border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.fatherName}</td>
+                            <td style="width:22%; border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
+                            <td style="width:28%; border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.studentName}</td>
+                            <td style="width:22%; border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು</td>
+                            <td style="width:28%; border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.fatherName}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ತಾಯಿಯ ಹೆಸರು</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.motherName}</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ವಿಳಾಸ</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.completeAddress}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ತಾಯಿಯ ಹೆಸರು</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.motherName}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ವಿಳಾಸ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.completeAddress}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ಉದ್ಯೋಗ</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.occupation}</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.mobile}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ಉದ್ಯೋಗ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.occupation}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.mobile}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ಅಂದಾಜು ಆದಾಯ</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${annualIncomeFormatted}</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.membershipNo}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ಅಂದಾಜು ಆದಾಯ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${annualIncomeFormatted}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.membershipNo}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ಮನೆಯ ವಿವರ</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.houseType}</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ಮನೆಯ ಆಕಾರ</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.houseShape}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ಮನೆಯ ವಿವರ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.houseType}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ಮನೆಯ ಆಕಾರ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.houseShape}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ಜಮೀನು</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.landDetails}</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.parentMobile}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ಜಮೀನು</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.landDetails}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.parentMobile}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ಆಧಾರ್ ನಂ</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${aadharMasked}</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.rationCard}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ಆಧಾರ್ ನಂ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${aadharMasked}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.rationCard}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ಪ್ರವೇಶ ಪಡೆಯುವ ಕಾಲೇಜು</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.collegeName}</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ವ್ಯಾಸಂಗ ಮಾಡುವ ತರಗತಿ</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.courseClass}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ಪ್ರವೇಶ ಪಡೆಯುವ ಕಾಲೇಜು</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.collegeName}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ವ್ಯಾಸಂಗ ಮಾಡುವ ತರಗತಿ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.courseClass}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ಹಿಂದಿನ ಪರೀಕ್ಷೆ ಅಂಕ ಹಾಗೂ ಫಲಿತಾಂಶದ ಮಾರ್ಕ್ಸ್ ಕಾರ್ಡ್ ಲಗತ್ತಿಸಿದೆ</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${previousMarksFormatted}</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ಕಾಲೇಜು ಶುಲ್ಕದ ಅಂದಾಜು ಪ್ರತಿ (ಲಗತ್ತಿಸಿದೆ)</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${collegeFeesFormatted}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ಹಿಂದಿನ ಪರೀಕ್ಷೆ ಅಂಕ ಹಾಗೂ ಫಲಿತಾಂಶದ ಮಾರ್ಕ್ಸ್ ಕಾರ್ಡ್ ಲಗತ್ತಿಸಿದೆ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${previousMarksFormatted}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ಕಾಲೇಜು ಶುಲ್ಕದ ಅಂದಾಜು ಪ್ರತಿ (ಲಗತ್ತಿಸಿದೆ)</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${collegeFeesFormatted}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ಸಹಾಯಧನ ಮೊತ್ತ</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${aidAmountFormatted}</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು, (ಅಥವಾ) ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.bankName}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ಸಹಾಯಧನ ಮೊತ್ತ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${aidAmountFormatted}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು, (ಅಥವಾ) ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.bankName}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ (ಅಥವಾ) ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.bankAccount}</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">IFSC ಕೋಡ್ ವಿದ್ಯಾರ್ಥಿ / ಕಾಲೇಜು</td>
-                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11.5px; word-break:break-all; overflow-wrap:anywhere; white-space:normal; vertical-align:middle; overflow:hidden;">${fd.ifscCode}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ (ಅಥವಾ) ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.bankAccount}</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; font-weight:bold; color:#c01535; font-size:11px; word-break:normal; overflow-wrap:break-word; white-space:normal; vertical-align:middle;">IFSC ಕೋಡ್ ವಿದ್ಯಾರ್ಥಿ / ಕಾಲೇಜು</td>
+                            <td style="border:1px solid #000!important; padding:2px 4px!important; color:#000000!important; font-weight:bold; font-size:11px; word-break:break-word; overflow-wrap:anywhere; white-space:normal; vertical-align:middle;">${fd.ifscCode}</td>
                         </tr>
                     </table>
 
