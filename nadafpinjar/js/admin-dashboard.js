@@ -2102,56 +2102,62 @@ function loadAdminFreeEdu() {
             <tr>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
                 <td class="grid-value">${data.studentName || '-'}</td>
-                <td class="grid-label">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು :</td>
+                <td class="grid-label">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು</td>
                 <td class="grid-value">${data.fatherName || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">ತಾಯಿಯ ಹೆಸರು</td>
                 <td class="grid-value">${data.motherName || '-'}</td>
-                <td class="grid-label">ವಿಳಾಸ :</td>
+                <td class="grid-label">ವಿಳಾಸ</td>
                 <td class="grid-value">${data.address || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ಉದ್ಯೋಗ :</td>
+                <td class="grid-label">ಉದ್ಯೋಗ</td>
                 <td class="grid-value">${data.occupation || '-'}</td>
+                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
+                <td class="grid-value">${data.mobile || '-'}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ಅಂದಾಜು ಆದಾಯ</td>
                 <td class="grid-value">${formatIncome(data.income)}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
                 <td class="grid-value">${data.membership || '-'}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ಮನೆಯ ವಿವರ</td>
                 <td class="grid-value">${data.housingInfo || '-'}</td>
+                <td class="grid-label">ಮನೆಯ ಆಕಾರ</td>
+                <td class="grid-value">${data.houseType || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ವಸತಿ ವಿವರ</td>
-                <td class="grid-value">${data.houseType || '-'}</td>
                 <td class="grid-label">ಜಮೀನು</td>
                 <td class="grid-value">${data.landInfo || '0'} ಎಕರೆ ${data.gunte || '0'} ಗುಂಟೆ</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
                 <td class="grid-value">${data.mobile || '-'}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ಆಧಾರ್ ನಂ</td>
                 <td class="grid-value" style="color: #b30000; font-weight: bold;">${maskAadhar(data.aadhar)}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
                 <td class="grid-value">${data.rationType || '-'}</td>
-                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ಶಾಲೆ/ಕಾಲೇಜು</td>
-                <td class="grid-value">${data.currentSchool || '-'}</td>
             </tr>
             <tr>
+                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ಶಾಲೆ/ಕಾಲೇಜು</td>
+                <td class="grid-value">${data.currentSchool || '-'}</td>
                 <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
                 <td class="grid-value">${data.currentClass || '-'}</td>
-                <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು</td>
+            </tr>
+            <tr>
+                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
+                <td class="grid-value">${data.coaching || '-'}</td>
+                <td class="grid-label">ತರಗತಿ/ ಕೋಚಿಂಗ್ ವಿಷಯಗಳು</td>
                 <td class="grid-value">${data.classSubjects || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್</td>
-                <td class="grid-value">${data.coaching || '-'}</td>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
                 <td class="grid-value">${data.bankName || '-'}</td>
+                <td class="grid-label">ಶಾಖೆಯ ಹೆಸರು</td>
+                <td class="grid-value">${data.branchName || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">IFSC ಕೋಡ್</td>
@@ -2165,13 +2171,13 @@ function loadAdminFreeEdu() {
         <!-- Three Signature/Recommendation Boxes (Enlarged) -->
         <table style="width: 100%; border-collapse: collapse; margin-top: 6px;">
             <tr>
-                <td style="width: 25%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 125px;">
+                <td style="width: 25%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 115px;">
                     <div style="font-weight: bold; color: #b30000; font-size: 14px;">ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ</div>
                 </td>
-                <td style="width: 25%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 125px;">
+                <td style="width: 25%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 115px;">
                     <div style="font-weight: bold; color: #b30000; font-size: 14px;">ಪಾಲಕರ ಸಹಿ</div>
                 </td>
-                <td style="width: 50%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 125px;">
+                <td style="width: 50%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 115px;">
                     <div style="font-weight: bold; color: #b30000; font-size: 13.5px; white-space: nowrap;">ತಾಲೂಕು ಘಟಕದಿಂದ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ</div>
                 </td>
             </tr>
