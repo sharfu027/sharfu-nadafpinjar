@@ -2142,22 +2142,20 @@ function loadAdminFreeEdu() {
                 <td class="grid-value">${data.currentSchool || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
-                <td class="grid-value">${data.currentClass || '-'}</td>
+                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
+                <td class="grid-value">${data.coaching || '-'}</td>
                 <td class="grid-label">ತರಗತಿ/ ಕೋಚಿಂಗ್ ವಿಷಯಗಳು</td>
                 <td class="grid-value">${data.classSubjects || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
-                <td class="grid-value">${data.coaching || '-'}</td>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
                 <td class="grid-value">${data.bankName || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">IFSC ಕೋಡ್</td>
                 <td class="grid-value" style="font-weight: bold; color: #b30000;">${data.ifsc || '-'}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
-                <td class="grid-value">${data.bankAccount || '-'}</td>
+                <td colspan="3" class="grid-value">${data.bankAccount || '-'}</td>
             </tr>
         </table>
         <div style="text-align: center; font-size: 8.5px; color: #666; margin: 0 0 2px 0;">00000</div>
@@ -2183,8 +2181,8 @@ function loadAdminFreeEdu() {
             <div style="margin-bottom: 30px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
 
-        <!-- Bottom Message (Font size 12px, bold, single line, no character overlap) -->
-        <div style="font-weight: bold; color: #b30000; font-size: 12px; padding: 2px 4px; margin-top: 18px; margin-bottom: 4px; white-space: nowrap; text-align: left; box-sizing: border-box;">
+        <!-- Bottom Message (Increased font size 14px with line-height 1.5 to fill bottom space cleanly) -->
+        <div style="font-weight: bold; color: #b30000; font-size: 14px; line-height: 1.5; padding: 2px 6px; margin-top: 30px; margin-bottom: 6px; text-align: left; box-sizing: border-box;">
             ರಾಜ್ಯದ ಅನುಮೋದನೆ ನಂತರ ಮಾಹಿತಿಗಾಗಿ ತಾಲೂಕ ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು ಹಾಗೂ ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರಿಗೆ ಕಳುಹಿಸಲಾಗಿದೆ.
         </div>
     </div>
