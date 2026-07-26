@@ -250,6 +250,31 @@
             flex: 1;
         }
     </style>
+
+    <style>
+        @media print {
+            body > *:not(.pdf-page-container):not(.receipt-container) {
+                display: none !important;
+            }
+            .modal, #successModal, .modal-backdrop {
+                display: none !important;
+            }
+            .pdf-page-container, .receipt-container {
+                display: block !important;
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                visibility: visible !important;
+            }
+            .pdf-page-container *, .receipt-container * {
+                visibility: visible !important;
+            }
+        }
+    </style>
+
 </head>
 <body>
     <header class="site-header">

@@ -1188,6 +1188,9 @@
         @page { size: A4 portrait; margin: 0; }
         @media print {
             body { min-width: unset !important; }
+        @media print {
+            .modal, #successModal, .modal-backdrop { display: none !important; }
+        }
             .receipt-container { border: 2.5px solid #a00000 !important; width: 196mm !important; margin: 0 auto !important; box-sizing: border-box; padding: 4px 8px; }
         }
     </style>
@@ -1332,38 +1335,13 @@
 
             try {
                 if (window.html2pdf) {
-                    const worker = window.html2pdf().set(opt).from(container);
-                    const pdfBlob = await worker.output('blob');
-                    const blobUrl = URL.createObjectURL(pdfBlob);
-                    
-                    const a = document.createElement('a');
-                    a.href = blobUrl;
-                    a.download = pdfFilename;
-                    a.style.display = 'none';
-                    document.body.appendChild(a);
-                    a.click();
-
-                    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-                    if (isMobile) {
-                        setTimeout(() => {
-                            window.open(blobUrl, '_blank');
-                        }, 300);
-                    }
-
-                    setTimeout(() => {
-                        if (document.body.contains(a)) document.body.removeChild(a);
-                        setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
-                    }, 1500);
+                    await window.html2pdf().set(opt).from(container).save();
                 } else {
                     window.print();
                 }
-            } catch(err) {
-                console.error("PDF generation error:", err);
-                try {
-                    await window.html2pdf().set(opt).from(container).save();
-                } catch(e) {
-                    window.print();
-                }
+            } catch (err) {
+                console.error("PDF download error:", err);
+                window.print();
             } finally {
                 if (tempDiv.parentNode) {
                     tempDiv.parentNode.removeChild(tempDiv);
