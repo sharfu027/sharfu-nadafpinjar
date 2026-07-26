@@ -2112,80 +2112,71 @@ function loadAdminFreeEdu() {
                 <td class="grid-value">${data.address || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ನಗರಿ/ಗ್ರಾಮ</td>
-                <td class="grid-value">${data.village || '-'}</td>
-                <td class="grid-label">ಜಿಲ್ಲೆ :</td>
-                <td class="grid-value">${data.district || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ಉದ್ಯೋಗ :</td>
                 <td class="grid-value">${data.occupation || '-'}</td>
-                <td class="grid-label">ತಾಲೂಕು:</td>
-                <td class="grid-value">${data.taluk || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ಅಂದಾಜು ಆದಾಯ</td>
                 <td class="grid-value">${formatIncome(data.income)}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
                 <td class="grid-value">${data.membership || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ಮನೆಯ ವಿವರ</td>
                 <td class="grid-value">${data.housingInfo || '-'}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ವಸತಿ ವಿವರ</td>
                 <td class="grid-value">${data.houseType || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ಜಮೀನು</td>
                 <td class="grid-value">${data.landInfo || '0'} ಎಕರೆ ${data.gunte || '0'} ಗುಂಟೆ</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
                 <td class="grid-value">${data.mobile || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ಆಧಾರ್ ನಂ</td>
                 <td class="grid-value" style="color: #b30000; font-weight: bold;">${maskAadhar(data.aadhar)}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
                 <td class="grid-value">${data.rationType || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ಶಾಲೆ/ಕಾಲೇಜು</td>
                 <td class="grid-value">${data.currentSchool || '-'}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
                 <td class="grid-value">${data.currentClass || '-'}</td>
-            </tr>
-            
-            <tr>
                 <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು</td>
                 <td class="grid-value">${data.classSubjects || '-'}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್</td>
                 <td class="grid-value">${data.coaching || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
                 <td class="grid-value">${data.bankName || '-'}</td>
-                <td class="grid-label">ಶಾಖೆಯ ಹೆಸರು</td>
-                <td class="grid-value">${data.branchName || '-'}</td>
             </tr>
             <tr>
+                <td class="grid-label">ಶಾಖೆಯ ಹೆಸರು</td>
+                <td class="grid-value">${data.branchName || '-'}</td>
                 <td class="grid-label">IFSC ಕೋಡ್</td>
                 <td class="grid-value" style="font-weight: bold; color: #b30000;">${data.ifsc || '-'}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
-                <td class="grid-value">${data.bankAccount || '-'}</td>
+                <td colspan="3" class="grid-value">${data.bankAccount || '-'}</td>
             </tr>
         </table>
         <div style="text-align: center; font-size: 8.5px; color: #666; margin: 0 0 2px 0;">00000</div>
 
-        <!-- Three Signature/Recommendation Boxes (Enlarged) -->
+        <!-- Three Signature/Recommendation Boxes (Enlarged to 140px height) -->
         <table style="width: 100%; border-collapse: collapse; margin-top: 6px;">
             <tr>
-                <td style="width: 25%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 105px;">
+                <td style="width: 25%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 140px;">
                     <div style="font-weight: bold; color: #b30000; font-size: 14px;">ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ</div>
                 </td>
-                <td style="width: 25%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 105px;">
+                <td style="width: 25%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 140px;">
                     <div style="font-weight: bold; color: #b30000; font-size: 14px;">ಪಾಲಕರ ಸಹಿ</div>
                 </td>
-                <td style="width: 50%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 105px;">
-                    <div style="font-weight: bold; color: #b30000; font-size: 14px;">ತಾಲೂಕು ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ<br>ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ</div>
+                <td style="width: 50%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 140px;">
+                    <div style="font-weight: bold; color: #b30000; font-size: 13.5px; white-space: nowrap;">ತಾಲೂಕು ಘಟಕದಿಂದ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ</div>
                 </td>
             </tr>
         </table>
