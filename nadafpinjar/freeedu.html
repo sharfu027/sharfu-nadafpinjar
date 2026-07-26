@@ -505,7 +505,7 @@
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="coaching">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್:</label>
+                    <label for="coaching">ತರಗತಿ/ ಕೋಚಿಂಗ್ ವಿಷಯಗಳು:</label>
                     <input type="text" id="coaching" name="coaching">
                 </div>
             </div>
@@ -665,7 +665,7 @@ function maskAadhar(val) {
                 { key: 'currentSchool', label: 'ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ಶಾಲೆ ಕಾಲೇಜು (Current School/College)' },
                 { key: 'joiningClass', label: 'ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ (Class Joining)' },
                 { key: 'classSubjects', label: 'ತರಗತಿಯ ವಿಷಯಗಳು (Subjects)' },
-                { key: 'coaching', label: 'ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್ (Coaching Required)' },
+                { key: 'coaching', label: 'ತರಗತಿ/ ಕೋಚಿಂಗ್ ವಿಷಯಗಳು (Coaching Required)' },
                 { key: 'bankName', label: 'ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು (Bank Name)' },
                 { key: 'branchName', label: 'ಶಾಖೆಯ ಹೆಸರು (Branch Name)' },
                 { key: 'ifsc', label: 'IFSC ಕೋಡ್ (IFSC Code)' },
@@ -873,6 +873,7 @@ function maskAadhar(val) {
             const school = data.currentSchool || data.collegeName || '-';
             const currentClass = data.joiningClass || data.currentClass || data.courseClass || '-';
             const subjects = data.classSubjects || '-';
+            const joiningClass = data.joiningClass || data.courseClass || '-';
             const coaching = data.coaching || '-';
             const bankName = data.bankName || '-';
             const branchName = data.branchName || '-';
@@ -1116,9 +1117,9 @@ function maskAadhar(val) {
             </tr>
             <tr>
                 <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
-                <td class="grid-value">${coaching}</td>
+                <td class="grid-value">${joiningClass}</td>
                 <td class="grid-label">ತರಗತಿ/ ಕೋಚಿಂಗ್ ವಿಷಯಗಳು</td>
-                <td class="grid-value">${subjects}</td>
+                <td class="grid-value">${coaching}</td>
             </tr>
             <tr>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
@@ -1154,8 +1155,8 @@ function maskAadhar(val) {
             <div style="margin-bottom: 30px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
 
-        <!-- Bottom Message (Increased font size 14px with line-height 1.5 to fill bottom space cleanly) -->
-        <div style="font-weight: bold; color: #b30000; font-size: 14px; line-height: 1.5; padding: 2px 6px; margin-top: 30px; margin-bottom: 6px; text-align: left; box-sizing: border-box;">
+        <!-- Bottom Message (Font size 16px, line-height 1.5, bold, 2 clean lines, fits inside A4 page) -->
+        <div style="font-weight: bold; color: #b30000; font-size: 16px; line-height: 1.5; padding: 2px 6px; margin-top: 25px; margin-bottom: 6px; text-align: left; box-sizing: border-box;">
             ರಾಜ್ಯದ ಅನುಮೋದನೆ ನಂತರ ಮಾಹಿತಿಗಾಗಿ ತಾಲೂಕ ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು ಹಾಗೂ ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರಿಗೆ ಕಳುಹಿಸಲಾಗಿದೆ.
         </div>
     </div>

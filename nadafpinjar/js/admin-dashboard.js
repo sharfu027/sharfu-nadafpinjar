@@ -2143,9 +2143,9 @@ function loadAdminFreeEdu() {
             </tr>
             <tr>
                 <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
-                <td class="grid-value">${data.coaching || '-'}</td>
+                <td class="grid-value">${data.joiningClass || data.currentClass || '-'}</td>
                 <td class="grid-label">ತರಗತಿ/ ಕೋಚಿಂಗ್ ವಿಷಯಗಳು</td>
-                <td class="grid-value">${data.classSubjects || '-'}</td>
+                <td class="grid-value">${data.coaching || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
@@ -2181,8 +2181,8 @@ function loadAdminFreeEdu() {
             <div style="margin-bottom: 30px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
 
-        <!-- Bottom Message (Increased font size 14px with line-height 1.5 to fill bottom space cleanly) -->
-        <div style="font-weight: bold; color: #b30000; font-size: 14px; line-height: 1.5; padding: 2px 6px; margin-top: 30px; margin-bottom: 6px; text-align: left; box-sizing: border-box;">
+        <!-- Bottom Message (Font size 16px, line-height 1.5, bold, 2 clean lines, fits inside A4 page) -->
+        <div style="font-weight: bold; color: #b30000; font-size: 16px; line-height: 1.5; padding: 2px 6px; margin-top: 25px; margin-bottom: 6px; text-align: left; box-sizing: border-box;">
             ರಾಜ್ಯದ ಅನುಮೋದನೆ ನಂತರ ಮಾಹಿತಿಗಾಗಿ ತಾಲೂಕ ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು ಹಾಗೂ ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರಿಗೆ ಕಳುಹಿಸಲಾಗಿದೆ.
         </div>
     </div>
