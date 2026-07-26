@@ -2170,36 +2170,30 @@ function loadAdminFreeEdu() {
         </table>
         <div style="text-align: center; font-size: 8.5px; color: #666; margin: 0 0 2px 0;">00000</div>
 
-        <!-- Signatures & Recommendation Section -->
-        <div style="border: 1.4px solid #b30000; background: #fff; padding: 8px 14px; font-weight: bold; color: #b30000; font-size: 16px; box-sizing: border-box; margin-top: 4px;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div style="width: 35%; display: flex; flex-direction: column; gap: 18px;">
-                    <div>ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ :</div>
-                    <div>ಪಾಲಕರ ಸಹಿ :</div>
-                </div>
-                <div style="width: 45%; display: flex; flex-direction: column; gap: 6px;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; width: 240px;">
-                        <span>ತಾಲ್ಲೂಕು ಘಟಕ</span>
-                        <span style="border: 1.8px solid #b30000; width: 20px; height: 20px; display: inline-block; background: #fff;"></span>
-                    </div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; width: 240px;">
-                        <span>ಜಿಲ್ಲಾ ಘಟಕ</span>
-                        <span style="border: 1.8px solid #b30000; width: 20px; height: 20px; display: inline-block; background: #fff;"></span>
-                    </div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; width: 240px;">
-                        <span>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರ</span>
-                        <span style="border: 1.8px solid #b30000; width: 20px; height: 20px; display: inline-block; background: #fff;"></span>
-                    </div>
-                </div>
-                <div style="width: 20%; text-align: right; font-size: 16.5px; font-weight: bold; color: #b30000; padding-top: 2px;">
-                    ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ
-                </div>
-            </div>
+        <!-- Three Signature/Recommendation Boxes -->
+        <table style="width: 100%; border-collapse: collapse; margin-top: 4px;">
+            <tr>
+                <td style="width: 25%; border: 1.5px solid #b30000; padding: 5px 8px; vertical-align: top; height: 65px;">
+                    <div style="font-weight: bold; color: #b30000; font-size: 14px;">ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ</div>
+                </td>
+                <td style="width: 25%; border: 1.5px solid #b30000; padding: 5px 8px; vertical-align: top; height: 65px;">
+                    <div style="font-weight: bold; color: #b30000; font-size: 14px;">ಪಾಲಕರ ಸಹಿ</div>
+                </td>
+                <td style="width: 50%; border: 1.5px solid #b30000; padding: 5px 8px; vertical-align: top; height: 65px;">
+                    <div style="font-weight: bold; color: #b30000; font-size: 14px;">ತಾಲೂಕು ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ<br>ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ</div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Report Lines -->
+        <div style="font-weight: bold; color: #b30000; font-size: 15px; margin-top: 10px; padding: 2px 6px;">
+            <div style="margin-bottom: 40px;">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
+            <div style="margin-bottom: 40px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
 
-        <div style="font-weight: bold; color: #b30000; font-size: 17.5px; margin-top: 14px; padding: 2px 6px;">
-            <div style="margin-bottom: 80px;">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
-            <div style="margin-bottom: 10px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
+        <!-- Bottom Message -->
+        <div style="font-weight: bold; color: #b30000; font-size: 13px; padding: 2px 6px; margin-top: 4px;">
+            ರಾಜ್ಯದ ಅನುಮೋದನೆ ನಂತರ ಮಾಹಿತಿಗಾಗಿ ತಾಲೂಕ ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು ಹಾಗೂ ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರಿಗೆ ಕಳುಹಿಸಲಾಗಿದೆ.
         </div>
     </div>
 </body>
