@@ -1940,7 +1940,7 @@ function loadAdminFreeEdu() {
             margin: 0 !important;
             border: 2px solid #b30000;
             padding: 5px;
-            background: #fffdeb;
+            background: #ffffff;
             box-sizing: border-box;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
@@ -2056,7 +2056,7 @@ function loadAdminFreeEdu() {
                 height: auto !important;
                 box-sizing: border-box;
                 padding: 5px;
-                background-color: #fffdeb !important;
+                background-color: #ffffff !important;
             }
         }
     </style>
@@ -2085,11 +2085,16 @@ function loadAdminFreeEdu() {
             ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27
         </div>
 
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 4px; font-size: 15.5px; font-weight: bold; color: #b30000;">
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 6px; font-size: 14.5px; font-weight: bold; color: #b30000; line-height: 1.4;">
             <tr>
                 <td style="width: 33%; text-align: left;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color: #000;">${appNumber}</span></td>
                 <td style="width: 34%; text-align: center;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color: #000;">${found.date}</span></td>
                 <td style="width: 33%; text-align: right;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ : <span style="color: #000;">${data.mobile || '-'}</span></td>
+            </tr>
+            <tr>
+                <td style="width: 33%; text-align: left;">ನಗರಿ/ಗ್ರಾಮ : <span style="color: #000;">${data.village || '-'}</span></td>
+                <td style="width: 34%; text-align: center;">ತಾಲೂಕು : <span style="color: #000;">${data.taluk || '-'}</span></td>
+                <td style="width: 33%; text-align: right;">ಜಿಲ್ಲೆ : <span style="color: #000;">${data.district || '-'}</span></td>
             </tr>
         </table>
 
@@ -2170,16 +2175,16 @@ function loadAdminFreeEdu() {
         </table>
         <div style="text-align: center; font-size: 8.5px; color: #666; margin: 0 0 2px 0;">00000</div>
 
-        <!-- Three Signature/Recommendation Boxes -->
-        <table style="width: 100%; border-collapse: collapse; margin-top: 4px;">
+        <!-- Three Signature/Recommendation Boxes (Enlarged) -->
+        <table style="width: 100%; border-collapse: collapse; margin-top: 6px;">
             <tr>
-                <td style="width: 25%; border: 1.5px solid #b30000; padding: 5px 8px; vertical-align: top; height: 65px;">
+                <td style="width: 25%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 105px;">
                     <div style="font-weight: bold; color: #b30000; font-size: 14px;">ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ</div>
                 </td>
-                <td style="width: 25%; border: 1.5px solid #b30000; padding: 5px 8px; vertical-align: top; height: 65px;">
+                <td style="width: 25%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 105px;">
                     <div style="font-weight: bold; color: #b30000; font-size: 14px;">ಪಾಲಕರ ಸಹಿ</div>
                 </td>
-                <td style="width: 50%; border: 1.5px solid #b30000; padding: 5px 8px; vertical-align: top; height: 65px;">
+                <td style="width: 50%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 105px;">
                     <div style="font-weight: bold; color: #b30000; font-size: 14px;">ತಾಲೂಕು ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ<br>ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ</div>
                 </td>
             </tr>
