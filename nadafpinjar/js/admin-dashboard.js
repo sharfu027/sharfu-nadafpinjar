@@ -2091,9 +2091,9 @@ function loadAdminFreeEdu() {
                 <td style="width: 50%; text-align: right;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color: #000;">${found.date}</span></td>
             </tr>
             <tr>
-                <td style="width: 33%; text-align: left;">ನಗರಿ/ಗ್ರಾಮ : <span style="color: #000;">${data.village || '-'}</span></td>
-                <td style="width: 34%; text-align: center;">ತಾಲೂಕು : <span style="color: #000;">${data.taluk || '-'}</span></td>
-                <td style="width: 33%; text-align: right;">ಜಿಲ್ಲೆ : <span style="color: #000;">${data.district || '-'}</span></td>
+                <td style="width: 33%; text-align: left; white-space: nowrap;">ನಗರಿ/ಗ್ರಾಮ : <span style="color: #000;">${data.village || '-'}</span></td>
+                <td style="width: 34%; text-align: center; white-space: nowrap;">ತಾಲೂಕು : <span style="color: #000;">${data.taluk || '-'}</span></td>
+                <td style="width: 33%; text-align: right; white-space: nowrap;">ಜಿಲ್ಲೆ : <span style="color: #000;">${data.district || '-'}</span></td>
             </tr>
         </table>
 
@@ -2182,8 +2182,8 @@ function loadAdminFreeEdu() {
             <div style="margin-bottom: 30px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
 
-        <!-- Bottom Message (Single line, no bottom red border) -->
-        <div style="font-weight: bold; color: #b30000; font-size: 11px; padding: 2px 0; margin-top: 4px; white-space: nowrap; text-align: center;">
+        <!-- Bottom Message -->
+        <div style="font-weight: bold; color: #b30000; font-size: 14px; padding: 2px 6px; margin-top: 4px; white-space: nowrap; text-align: left;">
             ರಾಜ್ಯದ ಅನುಮೋದನೆ ನಂತರ ಮಾಹಿತಿಗಾಗಿ ತಾಲೂಕ ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು ಹಾಗೂ ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರಿಗೆ ಕಳುಹಿಸಲಾಗಿದೆ.
         </div>
     </div>
