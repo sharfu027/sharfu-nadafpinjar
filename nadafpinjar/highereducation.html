@@ -275,6 +275,35 @@
         }
     </style>
 
+
+    <style>
+        #printArea {
+            display: none;
+        }
+        @media print {
+            body > *:not(#printArea) {
+                display: none !important;
+            }
+            .modal, #successModal, .modal-backdrop, header, footer, navbar, .navbar {
+                display: none !important;
+            }
+            #printArea {
+                display: block !important;
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                visibility: visible !important;
+                background: #ffffff !important;
+            }
+            #printArea * {
+                visibility: visible !important;
+            }
+        }
+    </style>
+    
 </head>
 <body>
     <header class="site-header">
