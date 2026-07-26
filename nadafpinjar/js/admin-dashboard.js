@@ -3865,7 +3865,8 @@ window.downloadPratibhaPdfAdmin = async function(id) {
             <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಅಜೀವ ಸದಸ್ಯತ್ವ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.lifeMembership || '-'}</td></tr>
             <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಪಡೆದ ಅಂಕಗಳ ವಿವರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.marksDetails || '-'}</td></tr>
             <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.parentMobile || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.bankName || fd.bankDetails || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಬ್ಯಾಂಕ್ ವಿವರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.bankDetails || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.bankName || '-'}</td></tr>
             <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.bankAccount || '-'}</td></tr>
             <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">IFSC ಕೋಡ್:</td><td style="padding:6px; border:1px solid #ccc;">${fd.ifsc || '-'}</td></tr>
             <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಸ್ಥಿತಿ (Status):</td><td style="padding:6px; border:1px solid #ccc; font-weight:bold; color:#155724;">${fd.status || 'Pending'}</td></tr>
