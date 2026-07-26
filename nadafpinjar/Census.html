@@ -1120,7 +1120,7 @@
         });
 
         // High-Fidelity Indic-Safe Printable Receipt System for Census
-        function printReceipt(data, appNumber) {
+        async function printReceipt(data, appNumber) {
             let membersRows = '';
             if (data.members && data.members.length > 0) {
                 data.members.forEach((m, idx) => {
@@ -1297,54 +1297,78 @@
 </body>
 </html>`;
 
-            let iframe = document.getElementById('receiptPrintIframe');
-            if (!iframe) {
-                iframe = document.createElement('iframe');
-                iframe.id = 'receiptPrintIframe';
-                iframe.style.position = 'fixed';
-                iframe.style.left = '-9999px';
-                iframe.style.top = '-9999px';
-                iframe.style.width = '0';
-                iframe.style.height = '0';
-                iframe.style.border = '0';
-                document.body.appendChild(iframe);
-            }
-            
-            iframe.style.width = '210mm';
-            iframe.style.height = '297mm';
-            const doc = iframe.contentWindow.document;
-            doc.open();
-            doc.write(printHTML);
-            doc.close();
-            
-            setTimeout(() => {
-                iframe.style.width = '794px';
-                iframe.style.height = 'auto';
-                
-                const container = doc.querySelector('.receipt-container');
-                const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-                if (isMobile) {
-                    if (container) {
-                        container.style.margin = '0';
+            // Direct DOM container PDF downloader (mobile friendly!)
+            const tempDiv = document.createElement('div');
+            tempDiv.className = 'pdf-receipt-download-temp';
+            tempDiv.style.position = 'fixed';
+            tempDiv.style.left = '0';
+            tempDiv.style.top = '0';
+            tempDiv.style.width = '794px';
+            tempDiv.style.zIndex = '-9999';
+            tempDiv.style.background = '#ffffff';
+            tempDiv.style.boxSizing = 'border-box';
+            tempDiv.style.padding = '0';
+            tempDiv.style.fontFamily = "'Noto Sans Kannada', 'Segoe UI', Arial, sans-serif";
+
+            tempDiv.innerHTML = printHTML;
+            document.body.appendChild(tempDiv);
+
+            const images = Array.from(tempDiv.querySelectorAll('img'));
+            await Promise.all(images.map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
+            }));
+
+            const container = tempDiv.querySelector('.receipt-container') || tempDiv;
+            const pdfFilename = 'Census_' + (typeof appNumber !== 'undefined' ? appNumber : (typeof paymentId !== 'undefined' ? paymentId : 'Receipt')) + '.pdf';
+
+            const opt = {
+                margin: 0,
+                filename: pdfFilename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, logging: false },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            try {
+                if (window.html2pdf) {
+                    const worker = window.html2pdf().set(opt).from(container);
+                    const pdfBlob = await worker.output('blob');
+                    const blobUrl = URL.createObjectURL(pdfBlob);
+                    
+                    const a = document.createElement('a');
+                    a.href = blobUrl;
+                    a.download = pdfFilename;
+                    a.style.display = 'none';
+                    document.body.appendChild(a);
+                    a.click();
+
+                    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                    if (isMobile) {
+                        setTimeout(() => {
+                            window.open(blobUrl, '_blank');
+                        }, 300);
                     }
-                    const script = doc.createElement('script');
-                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-                    script.onload = () => {
-                        const opt = {
-                            margin: 0,
-                            filename: 'Census_' + appNumber + '.pdf',
-                            image: { type: 'jpeg', quality: 0.98 },
-                            html2canvas: { scale: 2, useCORS: true, letterRendering: false, scrollX: 0, scrollY: 0, width: 794, windowWidth: 794 },
-                            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                        };
-                        iframe.contentWindow.html2pdf().from(container).set(opt).save();
-                    };
-                    doc.head.appendChild(script);
+
+                    setTimeout(() => {
+                        if (document.body.contains(a)) document.body.removeChild(a);
+                        setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
+                    }, 1500);
                 } else {
-                    iframe.contentWindow.focus();
-                    iframe.contentWindow.print();
+                    window.print();
                 }
-            }, 500);
+            } catch(err) {
+                console.error("PDF generation error:", err);
+                try {
+                    await window.html2pdf().set(opt).from(container).save();
+                } catch(e) {
+                    window.print();
+                }
+            } finally {
+                if (tempDiv.parentNode) {
+                    tempDiv.parentNode.removeChild(tempDiv);
+                }
+            }
         }
 
     </script>

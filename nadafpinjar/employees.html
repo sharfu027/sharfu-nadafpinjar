@@ -720,12 +720,46 @@
                 jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' }
             };
 
-            window.html2pdf().set(opt).from(container).save().then(() => {
-                if (container.parentNode) container.parentNode.removeChild(container);
-            }).catch(err => {
-                console.error("PDF generation error:", err);
-                if (container.parentNode) container.parentNode.removeChild(container);
-            });
+            (async () => {
+                try {
+                    if (window.html2pdf) {
+                        const worker = window.html2pdf().set(opt).from(container);
+                        const pdfBlob = await worker.output('blob');
+                        const blobUrl = URL.createObjectURL(pdfBlob);
+                        const filename = opt.filename || 'Employee_Details.pdf';
+                        
+                        const a = document.createElement('a');
+                        a.href = blobUrl;
+                        a.download = filename;
+                        a.style.display = 'none';
+                        document.body.appendChild(a);
+                        a.click();
+
+                        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                        if (isMobile) {
+                            setTimeout(() => {
+                                window.open(blobUrl, '_blank');
+                            }, 300);
+                        }
+
+                        setTimeout(() => {
+                            if (document.body.contains(a)) document.body.removeChild(a);
+                            setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
+                        }, 1500);
+                    } else {
+                        window.print();
+                    }
+                } catch(err) {
+                    console.error("PDF generation error:", err);
+                    try {
+                        await window.html2pdf().set(opt).from(container).save();
+                    } catch(e) {
+                        window.print();
+                    }
+                } finally {
+                    if (container.parentNode) container.parentNode.removeChild(container);
+                }
+            })();
         }
 
         // Initialize DOB dropdowns for employees form

@@ -434,10 +434,7 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group">
-                    <label for="previousMarks">ಹಿಂದಿನ ತರಗತಿಯಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳು</label>
-                    <input type="text" id="previousMarks" name="previousMarks">
-                </div>
+                
                 <div class="form-group">
                     <label for="joiningClass">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</label>
                     <input type="text" id="joiningClass" name="joiningClass">
@@ -600,7 +597,6 @@ function maskAadhar(val) {
                 { key: 'rationType', label: 'ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್ (BPL/Antyodaya)' },
                 { key: 'mobile', label: 'ಮೊಬೈಲ್ ಸಂಖ್ಯೆ (Mobile Number)' },
                 { key: 'currentSchool', label: 'ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ಶಾಲೆ ಕಾಲೇಜು (Current School/College)' },
-                { key: 'previousMarks', label: 'ಹಿಂದಿನ ತರಗತಿಯಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳು (Previous Class Marks)' },
                 { key: 'joiningClass', label: 'ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ (Class Joining)' },
                 { key: 'classSubjects', label: 'ತರಗತಿಯ ವಿಷಯಗಳು (Subjects)' },
                 { key: 'coaching', label: 'ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್ (Coaching Required)' },
@@ -781,498 +777,216 @@ function maskAadhar(val) {
         }
 
         // High-Fidelity Indic-Safe Printable Receipt System
-        function printReceipt(data, appNumber) {
-            const formatIncome = (val) => {
-                if (!val) return '-';
-                const cleanVal = val.toString().replace(/,/g, '').trim();
-                const num = Number(cleanVal);
-                return !isNaN(num) ? num.toLocaleString('en-IN') : val;
+        async function printReceipt(data, appNumber) {
+            if (!data) data = getFormData();
+            const maskAadhar = (a) => {
+                if (!a) return '-';
+                const str = String(a).replace(/\D/g, '');
+                return str.length >= 4 ? 'XXXX XXXX ' + str.slice(-4) : str;
             };
-            const printHTML = `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=794">
-    <title>ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ - ಅರ್ಜಿ ರಶೀದಿ</title>
-    <style>
-        @page {
-            size: A4 portrait;
-            margin: 0;
-        }
-        html, body {
-            width: 210mm;
-            height: 297mm;
-            margin: 0;
-            padding: 0;
-            background: #fff;
-            font-family: 'Noto Sans Kannada', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 0;
-            box-sizing: border-box;
-            width: 794px !important;
-            max-width: 794px !important;
-            margin: 0 auto !important;
-        }
-        .receipt-container {
-            width: 794px !important;
-            max-width: 794px !important;
-            min-height: 285mm;
-            margin: 0 !important;
-            border: 2.5px solid #b30000;
-            padding: 8px 12px;
-            background: #ffffff;
-            box-sizing: border-box;
-        }
-        .header-box {
-            width: 100%;
-            border-collapse: collapse;
-            border: 2.5px solid #a00000;
-            border-radius: 8px;
-            background-color: #ffedc2;
-            margin-bottom: 4px;
-        }
-        .header-photo-cell {
-            width: 115px;
-            text-align: center;
-            padding: 2px 4px 4px 6px;
-            vertical-align: middle;
-        }
-        .patron-photo {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 2px solid #a00000;
-            object-fit: cover;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-        }
-        .header-logo-cell {
-            width: 115px;
-            text-align: center;
-            padding: 2px 6px 4px 4px;
-            vertical-align: middle;
-        }
-        .header-logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 2px solid #a00000;
-            object-fit: cover;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-        }
-        .header-text-cell {
-            text-align: center;
-            vertical-align: middle;
-            padding: 2px 0;
-            color: #990000;
-        }
-        .kannada-title {
-            font-size: 25px;
-            font-weight: bold;
-            color: #990000;
-            margin-bottom: 2px;
-            white-space: nowrap;
-        }
-        .reg-no {
-            font-size: 13.5px;
-            font-weight: bold;
-            margin-bottom: 2px;
-            color: #990000;
-        }
-        .english-title {
-            font-size: 15.5px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            margin-bottom: 2px;
-            color: #990000;
-        }
-        .office-address, .office-location {
-            font-size: 12.5px;
-            font-weight: bold;
-            color: #990000;
-        }
-        .app-title-bar {
-            text-align: center;
-            color: #b30000;
-            font-weight: bold;
-            font-size: 20px;
-            margin: 6px 0 4px 0;
-            text-decoration: underline;
-        }
-        .sub-header-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 6px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #b30000;
-        }
-        .grid-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 4px;
-            background: #fff;
-        }
-        .grid-table td {
-            border: 1px solid #b30000;
-            padding: 5px 8px;
-            font-size: 15.5px;
-            vertical-align: middle;
-            line-height: 1.35;
-        }
-        .grid-label {
-            color: #b30000;
-            font-weight: bold;
-            width: 25%;
-            font-size: 15.5px;
-        }
-        .grid-value {
-            color: #000;
-            width: 25%;
-            font-weight: bold;
-            font-size: 15.5px;
-        }
-        .serial-footer {
-            text-align: center;
-            font-size: 9px;
-            color: #555;
-            margin: 2px 0 6px 0;
-        }
-        .recommendation-box {
-            border: 1px solid #b30000;
-            background: #fff;
-            padding: 8px 10px;
-            font-weight: bold;
-            color: #b30000;
-            font-size: 14px;
-            box-sizing: border-box;
-            margin-top: 4px;
-        }
-        .rec-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        .rec-left {
-            width: 32%;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            font-size: 14px;
-        }
-        .rec-center {
-            width: 44%;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            font-size: 14px;
-        }
-        .rec-center-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 220px;
-        }
-        .checkbox-sq {
-            border: 1.5px solid #b30000;
-            width: 16px;
-            height: 16px;
-            display: inline-block;
-            background: #fff;
-        }
-        .rec-right {
-            width: 24%;
-            text-align: right;
-            font-size: 15px;
-            font-weight: bold;
-            color: #b30000;
-            padding-top: 2px;
-        }
-        .bottom-signatures-section {
-            font-weight: bold;
-            color: #b30000;
-            font-size: 15px;
-            margin-top: 18px;
-            padding: 4px 6px;
-        }
-        .bottom-signatures-section .report-line {
-            margin-bottom: 80px;
-        }
-        .bottom-signatures-section .approval-line {
-            margin-bottom: 15px;
-        }
-        @media print {
-            @page {
-                size: A4 portrait;
-                margin: 0;
-            }
-            html, body {
-                width: 210mm;
-                height: 297mm;
-                margin: 0;
-                padding: 0;
-            }
-            body {
-                min-width: unset !important;
-            }
-            .receipt-container {
-                width: 198mm !important;
-                min-height: 285mm !important;
-                margin: 0 auto !important;
-                border: 2.5px solid #b30000 !important;
-                padding: 8px 12px !important;
-                background: #ffffff !important;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="receipt-container">
-        <table class="header-box">
-            <tr>
-                <td class="header-photo-cell">
-                    <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.president) ? RECEIPT_ASSETS.president : 'images/president.jpeg'}" class="patron-photo" onerror="this.src='images/president.png'">
-                </td>
-                <td class="header-text-cell">
-                    <div class="kannada-title">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
-                    <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
-                    <div class="english-title">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
-                    <div class="office-address">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
-                    <div class="office-location">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
-                </td>
-                <td class="header-logo-cell">
-                    <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.logo) ? RECEIPT_ASSETS.logo : 'images/logo-786.png'}" class="header-logo">
-                </td>
-            </tr>
-        </table>
-        
-        <div class="app-title-bar">
-            ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27
-        </div>
 
-        <table class="sub-header-table">
-            <tr>
-                <td style="width: 33%; text-align: left;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color: #000; font-weight: bold;">${appNumber}</span></td>
-                <td style="width: 34%; text-align: center;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color: #000; font-weight: bold;">${appDate}</span></td>
-                <td style="width: 33%; text-align: right;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ : <span style="color: #000; font-weight: bold;">${data.mobile || '-'}</span></td>
-            </tr>
-        </table>
+            const container = document.createElement('div');
+            container.className = 'receipt-pdf-wrapper';
+            container.style.position = 'fixed';
+            container.style.left = '0';
+            container.style.top = '0';
+            container.style.width = '794px';
+            container.style.zIndex = '-9999';
+            container.style.background = '#ffffff';
+            container.style.boxSizing = 'border-box';
+            container.style.padding = '15px';
+            container.style.fontFamily = "'Noto Sans Kannada', 'Segoe UI', Arial, sans-serif";
 
-        <table class="grid-table">
-            <tr>
-                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
-                <td class="grid-value">${data.studentName || data.name || '-'}</td>
-                <td class="grid-label">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು :</td>
-                <td class="grid-value">${data.fatherName || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ತಾಯಿಯ ಹೆಸರು</td>
-                <td class="grid-value">${data.motherName || '-'}</td>
-                <td class="grid-label">ವಿಳಾಸ :</td>
-                <td class="grid-value">${data.address || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ನಗರಿ/ಗ್ರಾಮ</td>
-                <td class="grid-value">${data.village || '-'}</td>
-                <td class="grid-label">ಜಿಲ್ಲೆ :</td>
-                <td class="grid-value">${data.district || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಉದ್ಯೋಗ :</td>
-                <td class="grid-value">${data.occupation || '-'}</td>
-                <td class="grid-label">ತಾಲೂಕು:</td>
-                <td class="grid-value">${data.taluk || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಅಂದಾಜು ಆದಾಯ</td>
-                <td class="grid-value">${formatIncome(data.income)}</td>
-                <td class="grid-label">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
-                <td class="grid-value">${data.membership || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಮನೆಯ ವಿವರ</td>
-                <td class="grid-value">${data.housingInfo || data.houseDetails || '-'}</td>
-                <td class="grid-label">ವಸತಿ ವಿವರ</td>
-                <td class="grid-value">${data.houseType || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಜಮೀನು</td>
-                <td class="grid-value">${data.landInfo || '0'} ಎಕರೆ ${data.gunte || '0'} ಗುಂಟೆ</td>
-                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
-                <td class="grid-value">${data.mobile || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಆಧಾರ್ ನಂ</td>
-                <td class="grid-value" style="color: #b30000; font-weight: bold;">${maskAadhar(data.aadhar)}</td>
-                <td class="grid-label">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
-                <td class="grid-value">${data.rationType || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ಶಾಲೆ/ಕಾಲೇಜು</td>
-                <td class="grid-value">${data.currentSchool || '-'}</td>
-                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
-                <td class="grid-value">${data.currentClass || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ಹಿಂದಿನ ತರಗತಿಯಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳು</td>
-                <td class="grid-value">${data.previousMarks || '-'}</td>
-                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
-                <td class="grid-value">${data.joiningClass || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು</td>
-                <td class="grid-value">${data.classSubjects || '-'}</td>
-                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್</td>
-                <td class="grid-value">${data.coaching || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
-                <td class="grid-value">${data.bankName || '-'}</td>
-                <td class="grid-label">ಶಾಖೆಯ ಹೆಸರು</td>
-                <td class="grid-value">${data.branchName || data.taluk || '-'}</td>
-            </tr>
-            <tr>
-                <td class="grid-label">IFSC ಕೋಡ್</td>
-                <td class="grid-value" style="font-weight: bold; color: #b30000;">${data.ifsc || '-'}</td>
-                <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
-                <td class="grid-value">${data.bankAccount || '-'}</td>
-            </tr>
-        </table>
-        <div class="serial-footer">00000</div>
-
-        <!-- Signatures & Recommendation Section -->
-        <div class="recommendation-box">
-            <div class="rec-flex">
-                <div class="rec-left">
-                    <div>ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ :</div>
-                    <div>ಪಾಲಕರ ಸಹಿ :</div>
-                </div>
-                <div class="rec-center">
-                    <div class="rec-center-row">
-                        <span>ತಾಲ್ಲೂಕು ಘಟಕ</span>
-                        <span class="checkbox-sq"></span>
+            container.innerHTML = `
+                <div style="width:100%; background:#fff; box-sizing:border-box;">
+                    <!-- HEADER -->
+                    <div style="background:#ffe699; border:2px solid #800000; padding:4px 8px; border-radius:4px; margin-bottom:4px;">
+                        <table style="width:100%; border-collapse:collapse; background:#ffe699;">
+                            <tr>
+                                <td style="width:80px; text-align:left; border:none; vertical-align:middle; padding:0;">
+                                    <img src="images/president.jpeg" style="width:75px; height:75px; border-radius:50%; object-fit:cover; border:1.5px solid #800000; display:block;">
+                                </td>
+                                <td style="text-align:center; border:none; vertical-align:middle; padding:0 4px;">
+                                    <h1 style="margin:0; font-size:20.5px; font-weight:900; color:#800000; line-height:1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
+                                    <h2 style="margin:1px 0 0 0; font-size:11.5px; font-weight:bold; color:#800000;">ನೋಂ ಸಂಖ್ಯೆ : 151/ ಎಸ್ ಓ ಆರ್ / ಎಸ್ ಎಂ ಜಿ /1993–94</h2>
+                                    <h3 style="margin:1px 0 0 0; font-size:13px; font-weight:900; color:#800000; letter-spacing:0.5px;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</h3>
+                                    <h4 style="margin:1px 0 0 0; font-size:11px; font-weight:bold; color:#800000;">ಆಡಳಿತ ಕಛೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ,</h4>
+                                    <h4 style="margin:1px 0 0 0; font-size:13.5px; font-weight:900; color:#800000;">ಸೀಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</h4>
+                                </td>
+                                <td style="width:80px; text-align:right; border:none; vertical-align:middle; padding:0;">
+                                    <img src="images/logo-786.png" style="width:75px; height:75px; border-radius:50%; object-fit:contain; display:block; margin-left:auto;">
+                                </td>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="rec-center-row">
-                        <span>ಜಿಲ್ಲಾ ಘಟಕ</span>
-                        <span class="checkbox-sq"></span>
+
+                    <!-- TITLE -->
+                    <div style="background:#ffffff; text-align:center; margin:3px 0; border:1.5px solid #c01535; padding:2px; border-radius:4px;">
+                        <h2 style="margin:0; font-size:15px; font-weight:bold; color:#c01535;">ಉಚಿತ ಶಿಕ್ಷಣ ಕೋರಿಕೆ ಅರ್ಜಿ 2026-27</h2>
                     </div>
-                    <div class="rec-center-row">
-                        <span>ವಿಧಾನಸಭಾ ರವಾನಿಸಲಾಗಿದೆ</span>
-                        <span class="checkbox-sq"></span>
+
+                    <!-- APP NO & DATE -->
+                    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:12px; color:#c01535; margin:3px 0;">
+                        <span>ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color:#000;">${appNumber || data.appNo || 'FED 2026-27-01'}</span></span>
+                        <span>ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color:#000;">${data.date || new Date().toLocaleDateString('en-GB')}</span></span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:12px; color:#c01535; margin-bottom:5px;">
+                        <span style="width:33.33%; text-align:left;">ನಗರ/ಗ್ರಾಮ : <span style="color:#000;">${data.city || '-'}</span></span>
+                        <span style="width:33.33%; text-align:center;">ತಾಲ್ಲೂಕು : <span style="color:#000;">${data.taluk || '-'}</span></span>
+                        <span style="width:33.33%; text-align:right;">ಜಿಲ್ಲೆ : <span style="color:#000;">${data.district || '-'}</span></span>
+                    </div>
+
+                    <!-- GRID TABLE -->
+                    <table style="width:100%; border-collapse:collapse; line-height:1.25; margin-bottom:8px;">
+                        <tr>
+                            <td style="width:23%; border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
+                            <td style="width:27%; border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.applicantName || '-'}</td>
+                            <td style="width:23%; border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು</td>
+                            <td style="width:27%; border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.fatherName || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ತಾಯಿಯ ಹೆಸರು</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.motherName || '-'}</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ವಿಳಾಸ</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.address || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ಉದ್ಯೋಗ</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.jobType || '-'}</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.mobile || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ಅಂದಾಜು ಆದಾಯ</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.income || '-'}</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.membershipNumber || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ಮನೆಯ ವಿವರ</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.houseType || '-'}</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ವಸತಿ ವಿವರ</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.housingInfo || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ಜಮೀನು ಎಕರೆ / ಗುಂಟೆ</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${(data.landInfo || '0') + ' ಎಕರೆ / ' + (data.gunte || '0') + ' ಗುಂಟೆ'}</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.mobile || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ಆಧಾರ್ ನಂ</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">${maskAadhar(data.aadhar)}</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.rationType || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ಶಾಲೆ/ಕಾಲೇಜು</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.currentSchool || '-'}</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.currentClass || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.joiningClass || '-'}</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ತರಗತಿಯ ವಿಷಯಗಳು</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.classSubjects || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.coaching || '-'}</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.bankName || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ಶಾಖೆಯ ಹೆಸರು</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.branchName || data.taluk || '-'}</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">IFSC ಕೋಡ್</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">${data.ifsc || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
+                            <td colspan="3" style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.bankAccount || '-'}</td>
+                        </tr>
+                    </table>
+
+                    <!-- RECOMMENDATION BOXES -->
+                    <table style="width:100%; border-collapse:collapse; margin:8px 0;">
+                        <tr>
+                            <td style="border:1px solid #c01535; width:50%; height:90px; vertical-align:top; padding:6px; font-weight:bold; color:#c01535; font-size:12px; text-align:center;">
+                                ತಾಲೂಕ ಘಟಕದಿಂದ ಶಿಫಾರಸ್ಸು
+                            </td>
+                            <td style="border:1px solid #c01535; width:50%; height:90px; vertical-align:top; padding:6px; font-weight:bold; color:#c01535; font-size:12px; text-align:center;">
+                                ಜಿಲ್ಲಾ ಘಟಕದಿಂದ ಶಿಫಾರಸ್ಸು
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- BOTTOM LINES -->
+                    <div style="font-weight:bold; color:#c01535; font-size:12.5px; line-height:1.6; margin-top:8px;">
+                        ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ : <br><br>
+                        ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ : <br><br>
                     </div>
                 </div>
-                <div class="rec-right">
-                    ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ
-                </div>
-            </div>
-        </div>
+            `;
 
-        <div class="bottom-signatures-section">
-            <div class="report-line">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
-            <div class="approval-line">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
-        </div>
-    </div>
-</body>
-</html>`;
-            // Create invisible iframe
-            let iframe = document.getElementById('receiptPrintIframe');
-            if (!iframe) {
-                iframe = document.createElement('iframe');
-                iframe.id = 'receiptPrintIframe';
-                iframe.style.position = 'fixed';
-                iframe.style.left = '-9999px';
-                iframe.style.top = '-9999px';
-                iframe.style.width = '0';
-                iframe.style.height = '0';
-                iframe.style.border = '0';
-                document.body.appendChild(iframe);
-            }
-            
-            iframe.style.width = '210mm';
-            iframe.style.height = '297mm';
-            const doc = iframe.contentWindow.document;
-            doc.open();
-            doc.write(printHTML);
-            doc.close();
-            
-            setTimeout(() => {
-                iframe.style.width = '794px';
-                iframe.style.height = '1123px';
-                
-                setTimeout(() => {
-                    const container = doc.querySelector('.receipt-container');
-                    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-                    if (container) {
-                        container.style.margin = isMobile ? '0' : '0 auto';
-                    }
+            document.body.appendChild(container);
 
-                    const rect = container ? container.getBoundingClientRect() : { width: 794, height: 1123 };
-                    const contentH = Math.ceil(rect.height || (container ? container.offsetHeight : 1123));
-                    const contentW = Math.ceil(rect.width || (container ? container.offsetWidth : 794));
+            const images = Array.from(container.querySelectorAll('img'));
+            await Promise.all(images.map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
+            }));
 
-                    const pdfWmm = 210;
-                    const pdfHmm = 297;
+            const filename = `Free_Education_${data.applicantName || appNumber || 'Application'}.pdf`;
 
+            const opt = {
+                margin: 0,
+                filename: filename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, logging: false },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            try {
+                if (window.html2pdf) {
+                    const worker = window.html2pdf().set(opt).from(container);
+                    const pdfBlob = await worker.output('blob');
+                    const blobUrl = URL.createObjectURL(pdfBlob);
+                    
+                    const a = document.createElement('a');
+                    a.href = blobUrl;
+                    a.download = filename;
+                    a.style.display = 'none';
+                    document.body.appendChild(a);
+                    a.click();
+
+                    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
                     if (isMobile) {
-                        const script = doc.createElement('script');
-                        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-                        script.onload = () => {
-                            const win = iframe.contentWindow;
-                            const h2c = win.html2canvas || window.html2canvas;
-                            const jsPdfClass = win.jsPDF || (win.jspdf && win.jspdf.jsPDF) || window.jsPDF || (window.jspdf && window.jspdf.jsPDF);
-
-                            if (h2c && jsPdfClass) {
-                                h2c(container, {
-                                    scale: 2,
-                                    useCORS: true,
-                                    letterRendering: false,
-                                    scrollX: 0,
-                                    scrollY: 0,
-                                    width: contentW,
-                                    height: contentH,
-                                    windowWidth: contentW,
-                                    windowHeight: contentH
-                                }).then(canvas => {
-                                    const imgData = canvas.toDataURL('image/jpeg', 0.98);
-                                    const pdf = new jsPdfClass({
-                                        orientation: 'portrait',
-                                        unit: 'mm',
-                                        format: 'a4'
-                                    });
-                                    // Scale to fit exactly A4 width
-                                    const finalW = 210;
-                                    const finalH = (contentH * 210) / contentW;
-                                    pdf.addImage(imgData, 'JPEG', 0, 0, finalW, finalH > 297 ? 297 : finalH);
-                                    pdf.save('FreeEducation-' + (appNumber || 'Receipt') + '.pdf');
-                                });
-                            } else {
-                                const opt = {
-                                    margin: 0,
-                                    filename: 'FreeEducation-' + (appNumber || 'Receipt') + '.pdf',
-                                    image: { type: 'jpeg', quality: 0.98 },
-                                    html2canvas: { scale: 2, useCORS: true, letterRendering: false, scrollX: 0, scrollY: 0, width: contentW, height: contentH, windowWidth: contentW, windowHeight: contentH },
-                                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                                };
-                                win.html2pdf().from(container).set(opt).save();
-                            }
-                        };
-                        doc.head.appendChild(script);
-                    } else {
-                        const dynStyle = doc.createElement('style');
-                        dynStyle.textContent = `@media print { @page { size: a4 portrait; margin: 0; } body { margin: 0; padding: 0; } .receipt-container { margin: 0 auto !important; width: 210mm !important; height: 297mm !important; } }`;
-                        doc.head.appendChild(dynStyle);
-
-                        iframe.contentWindow.focus();
-                        iframe.contentWindow.print();
-                        setTimeout(() => { iframe.style.width = '0'; iframe.style.height = '0'; }, 500);
+                        setTimeout(() => {
+                            window.open(blobUrl, '_blank');
+                        }, 300);
                     }
-                }, 200);
-            }, 300);
+
+                    setTimeout(() => {
+                        if (document.body.contains(a)) document.body.removeChild(a);
+                        setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
+                    }, 1500);
+                } else {
+                    window.print();
+                }
+            } catch(err) {
+                console.error("PDF generation error:", err);
+                try {
+                    await window.html2pdf().set(opt).from(container).save();
+                } catch(e) {
+                    window.print();
+                }
+            } finally {
+                if (container.parentNode) {
+                    container.parentNode.removeChild(container);
+                }
+            }
         }
 
         // Initialize features
