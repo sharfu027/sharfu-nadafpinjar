@@ -240,6 +240,7 @@
         }
     </style>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
     <header class="site-header">
@@ -455,6 +456,21 @@
     <script src="js/megamenu.js"></script>
     <script src="js/dropdowns.js"></script>
     <script>
+
+        function ensureHtml2Pdf() {
+            return new Promise((resolve, reject) => {
+                if (window.html2pdf) {
+                    resolve(window.html2pdf);
+                    return;
+                }
+                const script = document.createElement('script');
+                script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+                script.onload = () => resolve(window.html2pdf);
+                script.onerror = () => reject(new Error("Failed to load html2pdf"));
+                document.head.appendChild(script);
+            });
+        }
+
         let formData = {};
 
         function calculateAge(dobString) {
@@ -749,7 +765,7 @@
 
             try {
                 if (window.html2pdf) {
-                    await window.html2pdf().set(opt).from(container).save();
+                    const html2pdfLib = await ensureHtml2Pdf(); await html2pdfLib().set(opt).from(container).save();
                 } else {
                     window.print();
                 }
