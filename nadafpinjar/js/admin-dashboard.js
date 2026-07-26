@@ -2132,32 +2132,26 @@ function loadAdminFreeEdu() {
             <tr>
                 <td class="grid-label">ಜಮೀನು</td>
                 <td class="grid-value">${data.landInfo || '0'} ಎಕರೆ ${data.gunte || '0'} ಗುಂಟೆ</td>
-                <td class="grid-label">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
-                <td class="grid-value">${data.mobile || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ಆಧಾರ್ ನಂ</td>
                 <td class="grid-value" style="color: #b30000; font-weight: bold;">${maskAadhar(data.aadhar)}</td>
+            </tr>
+            <tr>
                 <td class="grid-label">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
                 <td class="grid-value">${data.rationType || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ಶಾಲೆ/ಕಾಲೇಜು</td>
                 <td class="grid-value">${data.currentSchool || '-'}</td>
-                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
-                <td class="grid-value">${data.currentClass || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
-                <td class="grid-value">${data.coaching || '-'}</td>
+                <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
+                <td class="grid-value">${data.currentClass || '-'}</td>
                 <td class="grid-label">ತರಗತಿ/ ಕೋಚಿಂಗ್ ವಿಷಯಗಳು</td>
                 <td class="grid-value">${data.classSubjects || '-'}</td>
             </tr>
             <tr>
+                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
+                <td class="grid-value">${data.coaching || '-'}</td>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
                 <td class="grid-value">${data.bankName || '-'}</td>
-                <td class="grid-label">ಶಾಖೆಯ ಹೆಸರು</td>
-                <td class="grid-value">${data.branchName || '-'}</td>
             </tr>
             <tr>
                 <td class="grid-label">IFSC ಕೋಡ್</td>
@@ -2189,8 +2183,8 @@ function loadAdminFreeEdu() {
             <div style="margin-bottom: 30px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
 
-        <!-- Bottom Message (Increased font size 12.2px, pushed to bottom with margin-top 35px) -->
-        <div style="font-weight: bold; color: #b30000; font-size: 12.2px; padding: 2px 6px; margin-top: 35px; margin-bottom: 4px; white-space: nowrap; text-align: left; box-sizing: border-box;">
+        <!-- Bottom Message (Increased font size 12.8px with tight letter-spacing to fit cleanly inside right border) -->
+        <div style="font-weight: bold; color: #b30000; font-size: 12.8px; letter-spacing: -0.15px; padding: 2px 4px; margin-top: 35px; margin-bottom: 4px; white-space: nowrap; text-align: left; box-sizing: border-box;">
             ರಾಜ್ಯದ ಅನುಮೋದನೆ ನಂತರ ಮಾಹಿತಿಗಾಗಿ ತಾಲೂಕ ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು ಹಾಗೂ ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರಿಗೆ ಕಳುಹಿಸಲಾಗಿದೆ.
         </div>
     </div>
