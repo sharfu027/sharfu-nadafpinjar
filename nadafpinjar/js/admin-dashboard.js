@@ -2144,18 +2144,20 @@ function loadAdminFreeEdu() {
             <tr>
                 <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
                 <td class="grid-value">${data.joiningClass || data.currentClass || '-'}</td>
-                <td class="grid-label">ತರಗತಿ/ ಕೋಚಿಂಗ್ ವಿಷಯಗಳು</td>
-                <td class="grid-value">${data.coaching || '-'}</td>
+                <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು</td>
+                <td class="grid-value">${data.classSubjects || '-'}</td>
             </tr>
             <tr>
+                <td class="grid-label">ಕೋಚಿಂಗ್ ವಿಷಯಗಳು</td>
+                <td class="grid-value">${data.coaching || '-'}</td>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
                 <td class="grid-value">${data.bankName || '-'}</td>
-                <td class="grid-label">IFSC ಕೋಡ್</td>
-                <td class="grid-value" style="font-weight: bold; color: #b30000;">${data.ifsc || '-'}</td>
             </tr>
             <tr>
+                <td class="grid-label">IFSC ಕೋಡ್</td>
+                <td class="grid-value" style="font-weight: bold; color: #b30000;">${data.ifsc || '-'}</td>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
-                <td colspan="3" class="grid-value">${data.bankAccount || '-'}</td>
+                <td class="grid-value">${data.bankAccount || '-'}</td>
             </tr>
         </table>
         <div style="text-align: center; font-size: 8.5px; color: #666; margin: 0 0 2px 0;">00000</div>
