@@ -739,6 +739,21 @@
                             <td class="field-input"><input type="text" id="bankDetails" required placeholder="Bank, Acc No, Branch, IFSC"></td>
                         </tr>
                         <tr>
+                            <td class="sl-no">11</td>
+                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು (Bank Name)</td>
+                            <td class="field-input"><input type="text" id="bankName" required placeholder="e.g. ಕೆನರಾ ಬ್ಯಾಂಕ್ / Canara Bank"></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">12</td>
+                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ (Bank Account Number)</td>
+                            <td class="field-input"><input type="text" id="bankAccount" required placeholder="e.g. 5600010456780"></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">13</td>
+                            <td class="field-label">IFSC ಕೋಡ್ (IFSC Code)</td>
+                            <td class="field-input"><input type="text" id="ifsc" required placeholder="e.g. CNRB0001234"></td>
+                        </tr>
+                        <tr>
                             <td class="sl-no">📷</td>
                             <td class="field-label">ಪಾಸ್ಪೋರ್ಟ್ ಸೈಜ್ ಫೋಟೋ (Passport Size Photo)</td>
                             <td class="field-input">
@@ -1057,11 +1072,11 @@
 
                     renderShowcase(allStudents);
                 } else {
-                    tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:#ef4444;">ಯಾವುದೇ ದತ್ತಾಂಶಗಳು ಲಭ್ಯವಿಲ್ಲ / No data available</td></tr>`;
+                    if (tableBody) tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:#ef4444;">ಯಾವುದೇ ದತ್ತಾಂಶಗಳು ಲಭ್ಯವಿಲ್ಲ / No data available</td></tr>`;
                 }
             } catch (err) {
                 console.error(err);
-                tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:#ef4444;">ದತ್ತಾಂಶ ಲೋಡ್ ಮಾಡುವಲ್ಲಿ ದೋಷ ಕಂಡುಬಂದಿದೆ / Error loading showcase</td></tr>`;
+                if (tableBody) tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:#ef4444;">ದತ್ತಾಂಶ ಲೋಡ್ ಮಾಡುವಲ್ಲಿ ದೋಷ ಕಂಡುಬಂದಿದೆ / Error loading showcase</td></tr>`;
             }
         }
 
@@ -1471,6 +1486,21 @@
                                 <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಅಥವಾ ಪಾಲಕರ ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (ಕಡ್ಡಾಯ)</td>
                                 <td class="value-col-split">${fd.bankDetails || '-'}</td>
                             </tr>
+                            <tr>
+                                <td class="sl-col">11</td>
+                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                                <td class="value-col-split">${fd.bankName || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">12</td>
+                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
+                                <td class="value-col-split">${fd.bankAccount || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">13</td>
+                                <td class="label-col">IFSC ಕೋಡ್</td>
+                                <td class="value-col-split">${fd.ifsc || '-'}</td>
+                            </tr>
                         </table>
                         
                         <div class="signature-section">
@@ -1623,6 +1653,9 @@
                     marksDetails: document.getElementById("marksDetails").value,
                     parentMobile: document.getElementById("parentMobile").value,
                     bankDetails: document.getElementById("bankDetails").value,
+                    bankName: document.getElementById("bankName").value,
+                    bankAccount: document.getElementById("bankAccount").value,
+                    ifsc: document.getElementById("ifsc").value,
                     photo: base64Photo,
                     city: document.getElementById("city").value,
                     year: document.getElementById("year").value,
