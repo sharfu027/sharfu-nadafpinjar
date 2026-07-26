@@ -13,23 +13,218 @@
     <link href="css/megamenu.css" rel="stylesheet" media="all">
     <link href="css/site.css" rel="stylesheet" media="all">
     <link href="css/site-responsive.css" rel="stylesheet" media="all">
-    
+    <style>
+        .form-container {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #fff;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+        }
+        .form-title {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #0066cc;
+        }
+        .section-title {
+            background: #0066cc;
+            color: white;
+            padding: 10px 15px;
+            margin: 25px 0 15px 0;
+            border-left: 5px solid #004499;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn-submit {
+            background: #28a745;
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .btn-cancel {
+            background: #dc3545;
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .btn-submit:hover {
+            background: #218838;
+        }
+        .btn-cancel:hover {
+            background: #c82333;
+        }
+        .breadcrumb {
+            padding: 15px 0;
+            background: #f8f9fa;
+        }
+        .btn-add-member {
+            background: #007bff;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-add-member:hover {
+            background: #0056b3;
+        }
+        
+        /* Success Modal Styles */
+        .custom-modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: backdropFade 0.3s ease-out forwards;
+        }
+        .modal-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+            width: 90%;
+            max-width: 450px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            animation: cardSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .modal-title {
+            color: #b30000;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
+        .modal-badge {
+            background: #0066ff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .modal-desc {
+            color: #b30000;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .btn-modal-print {
+            background: #0066ff;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-modal-print:hover {
+            background: #0052cc;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+        }
+        
+        @keyframes backdropFade {
+            from { background: rgba(255, 255, 255, 0); }
+            to { background: rgba(255, 255, 255, 0.85); }
+        }
+        @keyframes cardSlideIn {
+            from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+    </style>
+
+    <style>
+        @media print {
+            body > *:not(.pdf-page-container):not(.receipt-container) {
+                display: none !important;
+            }
+            .modal, #successModal, .modal-backdrop {
+                display: none !important;
+            }
+            .pdf-page-container, .receipt-container {
+                display: block !important;
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                visibility: visible !important;
+            }
+            .pdf-page-container *, .receipt-container * {
+                visibility: visible !important;
+            }
+        }
+    </style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <style>
         #printArea {
             display: none;
         }
         @media print {
-            @page {
-                size: A4 portrait;
-                margin: 4mm;
-            }
-            body {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                background: #ffffff !important;
-            }
             body > *:not(#printArea) {
                 display: none !important;
             }
@@ -46,17 +241,12 @@
                 padding: 0 !important;
                 visibility: visible !important;
                 background: #ffffff !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
             }
             #printArea * {
                 visibility: visible !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
             }
         }
     </style>
-
     
 </head>
 <body>
@@ -655,7 +845,7 @@ function maskAadhar(val) {
         // High-Fidelity Indic-Safe Printable Receipt System
         
         
-        function printReceipt(data, appNumber) {
+                function printReceipt(data, appNumber) {
             let printArea = document.getElementById('printArea');
             if (!printArea) {
                 printArea = document.createElement('div');
@@ -688,127 +878,134 @@ function maskAadhar(val) {
             const bankAccount = data.bankAccount || '-';
 
             printArea.innerHTML = `
-                <div style="width:100%; max-width:750px; margin:0 auto; box-sizing:border-box; padding:10px; background:#fff; font-family:'Noto Sans Kannada', 'Segoe UI', Arial, sans-serif;">
-                    <div style="background-color:#ffe699!important; border:2px solid #800000; padding:6px 10px; border-radius:4px; margin-bottom:6px;">
-                        <table style="width:100%; border-collapse:collapse; background-color:#ffe699!important;">
-                            <tr>
-                                <td style="width:18%; text-align:center; vertical-align:middle; border:none!important;">
-                                    <img src="images/logo.png" style="width:70px; height:70px; border-radius:50%; object-fit:cover;" alt="President">
+                <div style="width:100%; max-width:720px; margin:0 auto; box-sizing:border-box; padding:6px 12px; background:#fff; font-family:'Noto Sans Kannada', 'Segoe UI', Arial, sans-serif; -webkit-print-color-adjust:exact!important; print-color-adjust:exact!important;">
+                    
+                    <!-- YELLOW HEADER BANNER (MATCHES IMAGE 2 & 3) -->
+                    <div style="background-color:#ffe699!important; background:#ffe699!important; border:2px solid #800000; padding:4px 8px; border-radius:4px; margin-bottom:4px; -webkit-print-color-adjust:exact!important; print-color-adjust:exact!important;">
+                        <table style="width:100%; border-collapse:collapse; background-color:#ffe699!important; background:#ffe699!important;">
+                            <tr style="background-color:#ffe699!important; background:#ffe699!important;">
+                                <td style="width:18%; text-align:center; vertical-align:middle; border:none!important; background-color:#ffe699!important;">
+                                    <img src="images/president.png" style="width:65px; height:65px; border-radius:50%; object-fit:cover; border:1.5px solid #800000;" alt="President">
                                 </td>
-                                <td style="width:64%; text-align:center; vertical-align:middle; border:none!important; color:#800000!important;">
-                                    <div style="font-size:19px; font-weight:bold; line-height:1.2; color:#800000!important;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
-                                    <div style="font-size:11px; color:#800000!important; margin-top:2px;">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</div>
-                                    <div style="font-size:13.5px; font-weight:bold; color:#000000!important; margin-top:2px;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
-                                    <div style="font-size:10.5px; font-weight:bold; color:#000000!important; margin-top:2px;">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ<br>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</div>
+                                <td style="width:64%; text-align:center; vertical-align:middle; border:none!important; color:#800000!important; background-color:#ffe699!important;">
+                                    <div style="font-size:18px; font-weight:bold; line-height:1.2; color:#800000!important;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                                    <div style="font-size:11px; color:#800000!important; margin-top:1px;">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993-94</div>
+                                    <div style="font-size:13px; font-weight:bold; color:#000000!important; margin-top:2px;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
+                                    <div style="font-size:10px; font-weight:bold; color:#000000!important; margin-top:2px;">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ<br>ಸಿಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</div>
                                 </td>
-                                <td style="width:18%; text-align:center; vertical-align:middle; border:none!important;">
-                                    <img src="images/logo1.png" style="width:70px; height:70px; border-radius:50%; object-fit:cover;" alt="Logo">
+                                <td style="width:18%; text-align:center; vertical-align:middle; border:none!important; background-color:#ffe699!important;">
+                                    <img src="images/logo-786_circular.png" style="width:65px; height:65px; border-radius:50%; object-fit:cover; border:1.5px solid #800000;" alt="Logo">
                                 </td>
                             </tr>
                         </table>
                     </div>
 
-                    <div style="text-align:center; font-size:16px; font-weight:bold; color:#c01535; margin-bottom:6px;">
+                    <!-- DEEP RED TITLE -->
+                    <div style="text-align:center; font-size:15px; font-weight:bold; color:#c01535; margin-bottom:4px;">
                         ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯಕ್ಕಾಗಿ ಅರ್ಜಿ 2026-27
                     </div>
 
-                    <div style="display:flex; justify-style:space-between; font-weight:bold; font-size:12.5px; margin-bottom:6px; color:#000;">
+                    <!-- SUBHEADER LINE (CENTERED & BALANCED ACROSS WIDTH) -->
+                    <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:11.5px; margin-bottom:4px; color:#000;">
                         <span>ಅರ್ಜಿ ಸಂಖ್ಯೆ : ${appNumber}</span>
                         <span>ಅರ್ಜಿ ದಿನಾಂಕ : ${new Date().toLocaleDateString('en-GB')}</span>
                         <span>ಮೊಬೈಲ್ ಸಂಖ್ಯೆ : ${mobileNum}</span>
                     </div>
 
-                    <table style="width:100%; border-collapse:collapse; line-height:1.3; font-size:12px; margin-bottom:8px;">
+                    <!-- GRID TABLE (RED LABELS LEFT, BOLD BLACK VALUES RIGHT, AUTO-WRAP) -->
+                    <table style="width:100%; border-collapse:collapse; line-height:1.2; font-size:11.5px; margin-bottom:6px; border:1px solid #c01535;">
                         <tr>
-                            <td style="width:24%; border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
-                            <td style="width:26%; border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${studentName}</td>
-                            <td style="width:24%; border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು :</td>
-                            <td style="width:26%; border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${fatherName}</td>
+                            <td style="width:23%; border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
+                            <td style="width:27%; border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${studentName}</div></td>
+                            <td style="width:23%; border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು :</td>
+                            <td style="width:27%; border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${fatherName}</div></td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ತಾಯಿಯ ಹೆಸರು</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${motherName}</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ವಿಳಾಸ :</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${address}</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ತಾಯಿಯ ಹೆಸರು</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${motherName}</div></td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ವಿಳಾಸ :</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${address}</div></td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ನಗರಿ/ಗ್ರಾಮ</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${village}</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ಜಿಲ್ಲೆ :</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${district}</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ನಗರಿ/ಗ್ರಾಮ</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${village}</div></td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ಜಿಲ್ಲೆ :</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${district}</div></td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ಉದ್ಯೋಗ :</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${occupation}</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ತಾಲೂಕು:</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${taluk}</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ಉದ್ಯೋಗ :</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${occupation}</div></td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ತಾಲೂಕು:</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${taluk}</div></td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ಅಂದಾಜು ಆದಾಯ</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${income}</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${membership}</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ಅಂದಾಜು ಆದಾಯ</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${income}</div></td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${membership}</div></td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ಮನೆಯ ವಿವರ</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${houseType}</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ವಸತಿ ವಿವರ</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${housingInfo}</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ಮನೆಯ ವಿವರ</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${houseType}</div></td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ವಸತಿ ವಿವರ</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${housingInfo}</div></td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ಜಮೀನು</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${landInfo}</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${mobileNum}</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ಜಮೀನು</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${landInfo}</div></td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${mobileNum}</div></td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ಆಧಾರ್ ನಂ</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">${aadhar}</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${ration}</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ಆಧಾರ್ ನಂ</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${aadhar}</div></td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${ration}</div></td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ಶಾಲೆ/ಕಾಲೇಜು</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${school}</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${currentClass}</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ಶಾಲೆ/ಕಾಲೇಜು</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${school}</div></td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${currentClass}</div></td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ತರಗತಿಯ ವಿಷಯಗಳು</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${subjects}</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${coaching}</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ತರಗತಿಯ ವಿಷಯಗಳು</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${subjects}</div></td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ಪ್ರವೇಶ ಬಯಸುವ ಕೋಚಿಂಗ್</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${coaching}</div></td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${bankName}</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">IFSC ಕೋಡ್</td>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">${ifsc}</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${bankName}</div></td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">IFSC ಕೋಡ್</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${ifsc}</div></td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#c01535;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
-                            <td colspan="3" style="border:1px solid #c01535; padding:4px 6px; font-weight:bold; color:#000;">${bankAccount}</td>
+                            <td style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#c01535; vertical-align:middle;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
+                            <td colspan="3" style="border:1px solid #c01535; padding:3px 5px; font-weight:bold; color:#000000!important; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow-wrap:anywhere;">${bankAccount}</div></td>
                         </tr>
                     </table>
 
-                    <div style="border:1px solid #c01535; padding:8px 12px; margin-bottom:8px;">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start; font-weight:bold; color:#c01535; font-size:12.5px; line-height:1.8;">
+                    <!-- RECOMMENDATION BOX (MATCHES IMAGE 3 EXACTLY) -->
+                    <div style="border:1px solid #c01535; padding:6px 10px; margin-bottom:6px;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; font-weight:bold; color:#c01535; font-size:12px; line-height:1.7;">
                             <div>
                                 <div>ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ :</div>
-                                <div style="margin-top:8px;">ಪಾಲಕರ ಸಹಿ :</div>
+                                <div style="margin-top:6px;">ಪಾಲಕರ ಸಹಿ :</div>
                             </div>
                             <div>
-                                <div>ತಾಲೂಕು ಘಟಕ <span style="display:inline-block; width:14px; height:14px; border:1px solid #c01535; vertical-align:middle; margin-left:4px;"></span></div>
-                                <div>ಜಿಲ್ಲಾ ಘಟಕ <span style="display:inline-block; width:14px; height:14px; border:1px solid #c01535; vertical-align:middle; margin-left:4px;"></span></div>
-                                <div>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರ <span style="display:inline-block; width:14px; height:14px; border:1px solid #c01535; vertical-align:middle; margin-left:4px;"></span></div>
+                                <div>ತಾಲೂಕು ಘಟಕ <span style="display:inline-block; width:13px; height:13px; border:1px solid #c01535; vertical-align:middle; margin-left:4px;"></span></div>
+                                <div>ಜಿಲ್ಲಾ ಘಟಕ <span style="display:inline-block; width:13px; height:13px; border:1px solid #c01535; vertical-align:middle; margin-left:4px;"></span></div>
+                                <div>ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರ <span style="display:inline-block; width:13px; height:13px; border:1px solid #c01535; vertical-align:middle; margin-left:4px;"></span></div>
                             </div>
-                            <div style="text-align:right; align-self:center; font-size:13px;">
+                            <div style="text-align:right; align-self:center; font-size:12.5px;">
                                 ಶಿಫಾರಸ್ಸು<br>ಮಾಡಲಾಗಿದೆ
                             </div>
                         </div>
                     </div>
 
-                    <div style="font-weight:bold; color:#c01535; font-size:13px; line-height:2.0; margin-top:6px;">
+                    <!-- BOTTOM REPORT LINES -->
+                    <div style="font-weight:bold; color:#c01535; font-size:12.5px; line-height:1.8; margin-top:4px;">
                         ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ : <br>
                         ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ : <br>
                     </div>
@@ -821,7 +1018,6 @@ function maskAadhar(val) {
             }, 50);
         }
     
-
 
         // Initialize features
         setupOtherOptions();
