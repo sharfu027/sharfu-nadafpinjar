@@ -3862,7 +3862,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
             <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಉದ್ಯೋಗ ಮತ್ತು ಆದಾಯ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.parentOccupationIncome || '-'}</td></tr>
             <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಸಂಪೂರ್ಣ ವಿಳಾಸ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.completeAddress || '-'}</td></tr>
             <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಆಧಾರ ಸಂಖ್ಯೆ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.aadhar || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಅಜೀವ ಸದಸ್ಯತ್ವ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.lifeMembership || '-'}</td></tr>
+            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಕುಟುಂಬದವರು ಸಂಘದ ಅಜೀವ ಸದಸ್ಯರೇ?:</td><td style="padding:6px; border:1px solid #ccc;">${fd.lifeMembership || '-'}</td></tr>
             <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಪಡೆದ ಅಂಕಗಳ ವಿವರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.marksDetails || '-'}</td></tr>
             <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.parentMobile || '-'}</td></tr>
             <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಬ್ಯಾಂಕ್ ವಿವರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.bankDetails || '-'}</td></tr>

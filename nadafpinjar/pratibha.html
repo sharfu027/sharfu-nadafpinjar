@@ -714,7 +714,7 @@
                         </tr>
                         <tr>
                             <td class="sl-no">7</td>
-                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಕುಟುಂಬದ ಸಂಘದ ಅಜೀವ ಸದಸ್ಯತ್ವ ಕುರಿತು ಮಾಹಿತಿ (Details of Life Membership)</td>
+                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಕುಟುಂಬದವರು ಸಂಘದ ಅಜೀವ ಸದಸ್ಯರೇ?</td>
                             <td class="field-input">
                                 <select id="lifeMembership" required>
                                     <option value="">-ಆಯ್ಕೆ ಮಾಡಿ / Select-</option>
@@ -1467,7 +1467,7 @@
                             </tr>
                             <tr>
                                 <td class="sl-col">7</td>
-                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಕುಟುಂಬದ ಸಂಘದ ಅಜೀವ ಸದಸ್ಯತ್ವ ಕುರಿತು ಮಾಹಿತಿ</td>
+                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಕುಟುಂಬದವರು ಸಂಘದ ಅಜೀವ ಸದಸ್ಯರೇ?</td>
                                 <td class="value-col" colspan="2">${fd.lifeMembership || '-'}</td>
                             </tr>
                             <tr>
@@ -1487,6 +1487,21 @@
                                 <td class="sl-col">10</td>
                                 <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಅಥವಾ ಪಾಲಕರ ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (ಕಡ್ಡಾಯ)</td>
                                 <td class="value-col-split">${fd.bankDetails || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">11</td>
+                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                                <td class="value-col" colspan="2">${fd.bankName || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">12</td>
+                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
+                                <td class="value-col" colspan="2">${fd.bankAccount || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">13</td>
+                                <td class="label-col">IFSC ಕೋಡ್</td>
+                                <td class="value-col" colspan="2">${fd.ifsc || '-'}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">11</td>
@@ -1961,7 +1976,7 @@
                             </tr>
                             <tr>
                                 <td class="sl-col">7</td>
-                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಕುಟುಂಬದ ಸಂಘದ ಅಜೀವ ಸದಸ್ಯತ್ವ ಕುರಿತು ಮಾಹಿತಿ</td>
+                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಕುಟುಂಬದವರು ಸಂಘದ ಅಜೀವ ಸದಸ್ಯರೇ?</td>
                                 <td class="value-col" colspan="2">${fd.lifeMembership || '-'}</td>
                             </tr>
                             <tr>
@@ -1981,6 +1996,21 @@
                                 <td class="sl-col">10</td>
                                 <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಅಥವಾ ಪಾಲಕರ ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (ಕಡ್ಡಾಯ)</td>
                                 <td class="value-col-split">${fd.bankDetails || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">11</td>
+                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                                <td class="value-col" colspan="2">${fd.bankName || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">12</td>
+                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
+                                <td class="value-col" colspan="2">${fd.bankAccount || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">13</td>
+                                <td class="label-col">IFSC ಕೋಡ್</td>
+                                <td class="value-col" colspan="2">${fd.ifsc || '-'}</td>
                             </tr>
                         </table>
                         
