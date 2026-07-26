@@ -383,7 +383,7 @@ async function syncSubmissionsFromDatabase() {
         let hasChanges = false;
         let deletedIds = JSON.parse(localStorage.getItem('admin_deleted_ids')) || [];
         
-        // Load existing lists
+        // Load existing lists safely
         let freeeduList = JSON.parse(localStorage.getItem('admin_freeedu_submissions')) || [];
         let censusList = JSON.parse(localStorage.getItem('admin_census_submissions')) || [];
         let employeesList = JSON.parse(localStorage.getItem('admin_employees_submissions')) || [];
@@ -392,268 +392,149 @@ async function syncSubmissionsFromDatabase() {
         let receiptsList = JSON.parse(localStorage.getItem('receipts')) || [];
         
         donationItems.forEach(doc => {
-            const formType = doc.formType;
-            if (!formType) return;
-            
-            // Map by formType
-            if (formType === "ಸಾಧಕ ಪ್ರಶಸ್ತಿ") {
-                const appNum = doc.paymentId || `SADHAKA-2025-26-${parseInt((doc._id || '').slice(-4), 16) % 1000 || 555}`;
-                if (deletedIds.includes(appNum)) {
-                    const q = (doc._id ? `dbId=${encodeURIComponent(doc._id)}&` : '') + `paymentId=${encodeURIComponent(appNum)}`;
-                    fetch('/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
-                    fetch('/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
-                    return;
-                }
+            try {
+                const formType = doc.formType;
+                if (!formType) return;
                 
-                const exists = sadhakaList.some(item => item.id === appNum);
-                if (!exists) {
-                    sadhakaList.unshift({
-                        id: appNum,
-                        dbId: doc._id,
-                        date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
-                        formData: doc.formData || {}
-                    });
-                    hasChanges = true;
-                } else {
-                    const existingItem = sadhakaList.find(item => item.id === appNum);
-                    if (existingItem && !existingItem.dbId) {
-                        existingItem.dbId = doc._id;
+                // Map by formType
+                if (formType === "ಸಾಧಕ ಪ್ರಶಸ್ತಿ") {
+                    const appNum = doc.paymentId || `SADHAKA-2025-26-${parseInt((doc._id || '').slice(-4), 16) % 1000 || 555}`;
+                    if (deletedIds.includes(appNum)) {
+                        const q = (doc._id ? `dbId=${encodeURIComponent(doc._id)}&` : '') + `paymentId=${encodeURIComponent(appNum)}`;
+                        fetch('/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
+                        return;
+                    }
+                    
+                    const exists = sadhakaList.some(item => item.id === appNum);
+                    if (!exists) {
+                        sadhakaList.unshift({
+                            id: appNum,
+                            dbId: doc._id,
+                            date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
+                            formData: doc.formData || {}
+                        });
+                        hasChanges = true;
+                    } else {
+                        const existingItem = sadhakaList.find(item => item.id === appNum);
+                        if (existingItem) {
+                            if (!existingItem.dbId) {
+                                existingItem.dbId = doc._id;
+                                hasChanges = true;
+                            }
+                            if (doc.formData && existingItem.formData) {
+                                let localUpdated = false;
+                                if (existingItem.formData.status !== doc.formData.status) {
+                                    existingItem.formData.status = doc.formData.status;
+                                    localUpdated = true;
+                                }
+                                if (existingItem.formData.remarks !== doc.formData.remarks) {
+                                    existingItem.formData.remarks = doc.formData.remarks;
+                                    localUpdated = true;
+                                }
+                                if (localUpdated) {
+                                    hasChanges = true;
+                                }
+                            }
+                        }
+                    }
+                } else if (formType === "ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ") {
+                    const appNum = doc.paymentId || `PRATIBHA-2025-26-${parseInt((doc._id || '').slice(-4), 16) % 1000 || 555}`;
+                    if (deletedIds.includes(appNum)) {
+                        const q = (doc._id ? `dbId=${encodeURIComponent(doc._id)}&` : '') + `paymentId=${encodeURIComponent(appNum)}`;
+                        fetch('/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
+                        return;
+                    }
+                    
+                    const exists = pratibhaList.some(item => item.id === appNum);
+                    if (!exists) {
+                        pratibhaList.unshift({
+                            id: appNum,
+                            dbId: doc._id,
+                            date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
+                            formData: doc.formData || {}
+                        });
+                        hasChanges = true;
+                    } else {
+                        const existingItem = pratibhaList.find(item => item.id === appNum);
+                        if (existingItem) {
+                            if (!existingItem.dbId) {
+                                existingItem.dbId = doc._id;
+                                hasChanges = true;
+                            }
+                            if (doc.formData && existingItem.formData) {
+                                let localUpdated = false;
+                                if (existingItem.formData.status !== doc.formData.status) {
+                                    existingItem.formData.status = doc.formData.status;
+                                    localUpdated = true;
+                                }
+                                if (existingItem.formData.remarks !== doc.formData.remarks) {
+                                    existingItem.formData.remarks = doc.formData.remarks;
+                                    localUpdated = true;
+                                }
+                                if (localUpdated) {
+                                    hasChanges = true;
+                                }
+                            }
+                        }
+                    }
+                } else if (formType === "ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ") {
+                    let appNum = doc.paymentId || `HEH-2026-27-${parseInt((doc._id || '').slice(-4), 16) % 100 || 55}`;
+                    if (appNum.startsWith('KRNPS-')) appNum = appNum.replace('KRNPS-', 'HEH-');
+                    if (deletedIds.includes(appNum)) return;
+                    
+                    const exists = freeeduList.some(item => item.id === appNum);
+                    if (!exists) {
+                        freeeduList.unshift({
+                            id: appNum,
+                            date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
+                            formData: doc.formData || {}
+                        });
                         hasChanges = true;
                     }
-                    if (existingItem && doc.formData) {
-                        let localUpdated = false;
-                        if (existingItem.formData.status !== doc.formData.status) {
-                            existingItem.formData.status = doc.formData.status;
-                            localUpdated = true;
-                        }
-                        if (existingItem.formData.remarks !== doc.formData.remarks) {
-                            existingItem.formData.remarks = doc.formData.remarks;
-                            localUpdated = true;
-                        }
-                        if (localUpdated) {
-                            hasChanges = true;
-                        }
-                    }
-                }
-            } else if (formType === "ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ") {
-                const appNum = doc.paymentId || `PRATIBHA-2025-26-${parseInt((doc._id || '').slice(-4), 16) % 1000 || 555}`;
-                if (deletedIds.includes(appNum)) {
-                    const q = (doc._id ? `dbId=${encodeURIComponent(doc._id)}&` : '') + `paymentId=${encodeURIComponent(appNum)}`;
-                    fetch('/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
-                    fetch('/api/donations?' + q, { method: 'DELETE' }).catch(() => null);
-                    return;
-                }
-                
-                const exists = pratibhaList.some(item => item.id === appNum);
-                if (!exists) {
-                    pratibhaList.unshift({
-                        id: appNum,
-                        dbId: doc._id,
-                        date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
-                        formData: doc.formData || {}
-                    });
-                    hasChanges = true;
-                } else {
-                    const existingItem = pratibhaList.find(item => item.id === appNum);
-                    if (existingItem && !existingItem.dbId) {
-                        existingItem.dbId = doc._id;
+                } else if (formType === "ಜನಗಣತಿ" || formType === "ಜನಗಣತಿ (CENSUS)") {
+                    let appNum = doc.paymentId || `CEN-2026-27-${parseInt((doc._id || '').slice(-4), 16) % 100 || 55}`;
+                    if (appNum.startsWith('KRNPS-')) appNum = appNum.replace('KRNPS-', 'CEN-');
+                    if (deletedIds.includes(appNum)) return;
+                    
+                    const exists = censusList.some(item => item.id === appNum);
+                    if (!exists) {
+                        censusList.unshift({
+                            id: appNum,
+                            date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
+                            formData: doc.formData || {}
+                        });
                         hasChanges = true;
                     }
-                    if (existingItem && doc.formData) {
-                        let localUpdated = false;
-                        if (existingItem.formData.status !== doc.formData.status) {
-                            existingItem.formData.status = doc.formData.status;
-                            localUpdated = true;
-                        }
-                        if (existingItem.formData.remarks !== doc.formData.remarks) {
-                            existingItem.formData.remarks = doc.formData.remarks;
-                            localUpdated = true;
-                        }
-                        if (localUpdated) {
-                            hasChanges = true;
-                        }
-                    }
-                }
-            } else if (formType === "ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ") {
-                let appNum = doc.paymentId || `HEH-2026-27-${parseInt((doc._id || '').slice(-4), 16) % 100 || 55}`;
-                if (appNum.startsWith('KRNPS-')) appNum = appNum.replace('KRNPS-', 'HEH-');
-                if (deletedIds.includes(appNum)) return;
-                
-                const exists = freeeduList.some(item => item.id === appNum);
-                if (!exists) {
-                    freeeduList.unshift({
-                        id: appNum,
-                        date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
-                        formData: doc.formData || {}
-                    });
-                    hasChanges = true;
-                }
-            } else if (formType === "ಜನಗಣತಿ" || formType === "ಜನಗಣತಿ (CENSUS)") {
-                let appNum = doc.paymentId || `CEN-2026-27-${parseInt((doc._id || '').slice(-4), 16) % 100 || 55}`;
-                if (appNum.startsWith('KRNPS-')) appNum = appNum.replace('KRNPS-', 'CEN-');
-                if (deletedIds.includes(appNum)) return;
-                
-                const exists = censusList.some(item => item.id === appNum);
-                if (!exists) {
-                    censusList.unshift({
-                        id: appNum,
-                        date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
-                        formData: doc.formData || {}
-                    });
-                    hasChanges = true;
-                }
-            } else if (formType === "ನೌಕರರ ವಿವರ") {
-                const appNum = doc.paymentId || `KRNPS-EMP-2026-27-${parseInt((doc._id || '').slice(-4), 16) % 100 || 55}`;
-                if (deletedIds.includes(appNum)) return;
-                
-                const exists = employeesList.some(item => item.id === appNum);
-                if (!exists) {
-                    employeesList.unshift({
-                        id: appNum,
-                        date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
-                        formData: doc.formData || {}
-                    });
-                    hasChanges = true;
-                }
-            } else if (formType.includes("ವರ್ಗಾವಣೆ") || formType.includes("ವರ್ಗಾವಣೆಯಾದ")) {
-                const receiptId = doc.paymentId || doc._id;
-                const existingIdx = receiptsList.findIndex(item => item.id === receiptId);
-                if (existingIdx === -1) {
-                    const fd = doc.formData || {};
-                    let source = "state";
-                    if (formType.includes("ಜಿಲ್ಲೆ")) source = "district";
-                    if (formType.includes("ತಾಲ್ಲೂಕು") || formType.includes("ತಾಲೂಕು")) source = "taluk";
+                } else if (formType === "ನೌಕರರ ವಿವರ") {
+                    const appNum = doc.paymentId || `KRNPS-EMP-2026-27-${parseInt((doc._id || '').slice(-4), 16) % 100 || 55}`;
+                    if (deletedIds.includes(appNum)) return;
                     
-                    receiptsList.unshift({
-                        id: receiptId,
-                        date: doc.date ? doc.date.split('T')[0] : new Date().toISOString().split('T')[0],
-                        from: source,
-                        amount: doc.amount || 0,
-                        status: "",
-                        mode: fd.paymentMode || "Online",
-                        narration: `Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :${fd.donorName || fd.fullName || fd.presidentName || 'Donor'}`,
-                        details: {
-                            fullName: fd.donorName || fd.fullName || "",
-                            address: source === "state" ? (fd.address || fd.donorAddress || "") : (fd.donorAddress || fd.address || ""),
-                            mobile: source === "state" ? (fd.mobile || fd.donorMobile || "") : (fd.donorMobile || fd.mobile || ""),
-                            village: source === "state" ? (fd.village || fd.donorVillage || "") : (fd.donorVillage || fd.village || ""),
-                            taluk: source === "state" ? (fd.taluk || fd.donorTaluk || "") : (fd.donorTaluk || fd.taluk || ""),
-                            district: source === "state" ? (fd.district || fd.donorDistrict || "") : (fd.donorDistrict || fd.district || ""),
-                            purpose: fd.account || fd.purpose || "ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ",
-                            purposeDetails: fd.purposeDetails || "",
-                            mode: fd.paymentMode || "Online",
-                            presidentName: source !== "state" ? (fd.presidentName || "") : "",
-                            presidentAddress: source !== "state" ? (fd.presidentAddress || "") : "",
-                            presidentMobile: source !== "state" ? (fd.presidentMobile || "") : "",
-                            presidentVillage: source !== "state" ? (fd.presidentVillage || "") : "",
-                            presidentTaluk: source !== "state" ? (fd.taluk || fd.presidentTaluk || "") : "",
-                            presidentDistrict: source !== "state" ? (fd.district || fd.presidentDistrict || "") : ""
-                        }
-                    });
-                    hasChanges = true;
-                } else {
-                    const existingItem = receiptsList[existingIdx];
-                    const fd = doc.formData || {};
-                    let source = "state";
-                    if (formType.includes("ಜಿಲ್ಲೆ")) source = "district";
-                    if (formType.includes("ತಾಲ್ಲೂಕು") || formType.includes("ತಾಲೂಕು")) source = "taluk";
-                    
-                    let needsHealing = false;
-                    if (!existingItem.details) {
-                        existingItem.details = {};
-                        needsHealing = true;
-                    }
-                    
-                    const targetFullName = fd.donorName || fd.fullName || "";
-                    const targetAddress = source === "state" ? (fd.address || fd.donorAddress || "") : (fd.donorAddress || fd.address || "");
-                    
-                    if (!existingItem.details.fullName && targetFullName) {
-                        existingItem.details.fullName = targetFullName;
-                        needsHealing = true;
-                    }
-                    if (!existingItem.details.address && targetAddress) {
-                        existingItem.details.address = targetAddress;
-                        needsHealing = true;
-                    }
-                    
-                    const targetMobile = source === "state" ? (fd.mobile || fd.donorMobile || "") : (fd.donorMobile || fd.mobile || "");
-                    const targetVillage = source === "state" ? (fd.village || fd.donorVillage || "") : (fd.donorVillage || fd.village || "");
-                    const targetTaluk = source === "state" ? (fd.taluk || fd.donorTaluk || "") : (fd.donorTaluk || fd.taluk || "");
-                    const targetDistrict = source === "state" ? (fd.district || fd.donorDistrict || "") : (fd.donorDistrict || fd.district || "");
-                    
-                    if (!existingItem.details.mobile && targetMobile) {
-                        existingItem.details.mobile = targetMobile;
-                        needsHealing = true;
-                    }
-                    if (!existingItem.details.village && targetVillage) {
-                        existingItem.details.village = targetVillage;
-                        needsHealing = true;
-                    }
-                    if (!existingItem.details.taluk && targetTaluk) {
-                        existingItem.details.taluk = targetTaluk;
-                        needsHealing = true;
-                    }
-                    if (!existingItem.details.district && targetDistrict) {
-                        existingItem.details.district = targetDistrict;
-                        needsHealing = true;
-                    }
-                    
-                    if (source !== "state") {
-                        const targetPresName = fd.presidentName || "";
-                        const targetPresAddress = fd.presidentAddress || "";
-                        const targetPresMobile = fd.presidentMobile || "";
-                        const targetPresVillage = fd.presidentVillage || "";
-                        const targetPresTaluk = fd.taluk || fd.presidentTaluk || "";
-                        const targetPresDistrict = fd.district || fd.presidentDistrict || "";
-                        
-                        if (!existingItem.details.presidentName && targetPresName) {
-                            existingItem.details.presidentName = targetPresName;
-                            needsHealing = true;
-                        }
-                        if (!existingItem.details.presidentAddress && targetPresAddress) {
-                            existingItem.details.presidentAddress = targetPresAddress;
-                            needsHealing = true;
-                        }
-                        if (!existingItem.details.presidentMobile && targetPresMobile) {
-                            existingItem.details.presidentMobile = targetPresMobile;
-                            needsHealing = true;
-                        }
-                        if (!existingItem.details.presidentVillage && targetPresVillage) {
-                            existingItem.details.presidentVillage = targetPresVillage;
-                            needsHealing = true;
-                        }
-                        if (!existingItem.details.presidentTaluk && targetPresTaluk) {
-                            existingItem.details.presidentTaluk = targetPresTaluk;
-                            needsHealing = true;
-                        }
-                        if (!existingItem.details.presidentDistrict && targetPresDistrict) {
-                            existingItem.details.presidentDistrict = targetPresDistrict;
-                            needsHealing = true;
-                        }
-                    }
-                    
-                    if (existingItem.narration && existingItem.narration.includes("FROM :Donor")) {
-                        const targetName = fd.donorName || fd.fullName || fd.presidentName;
-                        if (targetName) {
-                            existingItem.narration = `Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :${targetName}`;
-                            needsHealing = true;
-                        }
-                    }
-                    
-                    if (needsHealing) {
+                    const exists = employeesList.some(item => item.id === appNum);
+                    if (!exists) {
+                        employeesList.unshift({
+                            id: appNum,
+                            date: doc.date ? new Date(doc.date).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'),
+                            formData: doc.formData || {}
+                        });
                         hasChanges = true;
                     }
                 }
+            } catch (err) {
+                console.error("Error processing sync doc:", doc, err);
             }
         });
         
         if (hasChanges) {
-            localStorage.setItem('admin_freeedu_submissions', JSON.stringify(freeeduList));
-            localStorage.setItem('admin_census_submissions', JSON.stringify(censusList));
-            localStorage.setItem('admin_employees_submissions', JSON.stringify(employeesList));
-            localStorage.setItem('admin_pratibha_submissions', JSON.stringify(pratibhaList));
-            localStorage.setItem('admin_sadhaka_submissions', JSON.stringify(sadhakaList));
-            localStorage.setItem('receipts', JSON.stringify(receiptsList));
+            try {
+                localStorage.setItem('admin_freeedu_submissions', JSON.stringify(freeeduList));
+                localStorage.setItem('admin_census_submissions', JSON.stringify(censusList));
+                localStorage.setItem('admin_employees_submissions', JSON.stringify(employeesList));
+                localStorage.setItem('admin_pratibha_submissions', JSON.stringify(pratibhaList));
+                localStorage.setItem('admin_sadhaka_submissions', JSON.stringify(sadhakaList));
+                localStorage.setItem('receipts', JSON.stringify(receiptsList));
+            } catch (e) {
+                console.error("LocalStorage write failed:", e);
+            }
         }
         
         return hasChanges;
@@ -2267,12 +2148,7 @@ function loadAdminFreeEdu() {
                 <td class="grid-label">ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡುತ್ತಿರುವ ತರಗತಿ</td>
                 <td class="grid-value">${data.currentClass || '-'}</td>
             </tr>
-            <tr>
-                <td class="grid-label">ಹಿಂದಿನ ತರಗತಿಯಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳು</td>
-                <td class="grid-value">${data.previousMarks || '-'}</td>
-                <td class="grid-label">ಪ್ರವೇಶ ಬಯಸುವ ತರಗತಿ</td>
-                <td class="grid-value">${data.joiningClass || '-'}</td>
-            </tr>
+            
             <tr>
                 <td class="grid-label">ತರಗತಿಯ ವಿಷಯಗಳು</td>
                 <td class="grid-value">${data.classSubjects || '-'}</td>
@@ -4083,4 +3959,23 @@ window.downloadSadhakaPdfAdmin = async function(id) {
     };
     await window.html2pdf().from(container).set(opt).save();
     document.body.removeChild(container);
+};
+
+window.syncAndRefreshData = async function(btn) {
+    if (!btn) return;
+    const oldHtml = btn.innerHTML;
+    btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Syncing...';
+    btn.disabled = true;
+    
+    try {
+        await syncSubmissionsFromDatabase();
+        initPageModules();
+        alert("Data synced successfully from live Database!");
+    } catch(err) {
+        console.error(err);
+        alert("Sync failed: " + err.message);
+    } finally {
+        btn.innerHTML = oldHtml;
+        btn.disabled = false;
+    }
 };
