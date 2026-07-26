@@ -1037,6 +1037,7 @@
 
         async function loadApprovedShowcase() {
             const tableBody = document.getElementById("studentsTableBody");
+            if (!tableBody) return;
             try {
                 let res = await fetch("/api/donations?_=" + Date.now()).catch(() => null);
                 if (!res || !res.ok) {
@@ -1082,6 +1083,7 @@
 
         function renderShowcase(list) {
             const tableBody = document.getElementById("studentsTableBody");
+            if (!tableBody) return;
             tableBody.innerHTML = "";
             
             if (list.length === 0) {
