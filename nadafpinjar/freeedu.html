@@ -487,16 +487,12 @@
                     <input type="text" id="bankName" name="bankName">
                 </div>
                 <div class="form-group">
-                    <label for="branchName">ಶಾಖೆಯ ಹೆಸರು</label>
-                    <input type="text" id="branchName" name="branchName">
+                    <label for="ifsc">IFSC ಕೋಡ್</label>
+                    <input type="text" id="ifsc" name="ifsc">
                 </div>
             </div>
 
             <div class="form-row">
-                <div class="form-group">
-                    <label for="ifsc">IFSC ಕೋಡ್</label>
-                    <input type="text" id="ifsc" name="ifsc">
-                </div>
                 <div class="form-group">
                     <label for="bankAccount">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ :</label>
                     <input type="text" id="bankAccount" name="bankAccount">
@@ -803,6 +799,8 @@ function maskAadhar(val) {
 
         // High-Fidelity Indic-Safe Printable Receipt System
         async function printReceipt(data, appNumber) {
+            const modal = document.getElementById('successModal');
+            if (modal) modal.style.display = 'none';
             if (!data) data = getFormData();
             const maskAadhar = (a) => {
                 if (!a) return '-';
@@ -924,14 +922,10 @@ function maskAadhar(val) {
                             <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.bankName || '-'}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ಶಾಖೆಯ ಹೆಸರು</td>
-                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.branchName || data.taluk || '-'}</td>
                             <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">IFSC ಕೋಡ್</td>
                             <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">${data.ifsc || '-'}</td>
-                        </tr>
-                        <tr>
                             <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#c01535; font-size:12px;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
-                            <td colspan="3" style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.bankAccount || '-'}</td>
+                            <td style="border:1px solid #000; padding:4px 6px; font-weight:bold; color:#000; font-size:12px;">${data.bankAccount || '-'}</td>
                         </tr>
                     </table>
 
@@ -986,6 +980,7 @@ function maskAadhar(val) {
                 if (container.parentNode) {
                     container.parentNode.removeChild(container);
                 }
+                if (modal) modal.style.display = 'flex';
             }
         }
 

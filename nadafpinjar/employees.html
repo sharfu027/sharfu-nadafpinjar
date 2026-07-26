@@ -637,6 +637,8 @@
 
         // Indic-Safe HD Vector PDF/Print Receipt Engine
         async function printReceipt(data, appNumber) {
+            const modal = document.getElementById('successModal');
+            if (modal) modal.style.display = 'none';
             const dateStr = new Date().toLocaleDateString('en-GB');
             const formattedDob = data.dob ? new Date(data.dob).toLocaleDateString('en-GB') : '-';
             const formattedRetirement = data.isRetired === 'ಹೌದು' && data.retirementDate ? new Date(data.retirementDate).toLocaleDateString('en-GB') : 'ಇಲ್ಲ (No)';
@@ -758,6 +760,7 @@
                 if (container.parentNode) {
                     container.parentNode.removeChild(container);
                 }
+                if (modal) modal.style.display = 'flex';
             }
         }
 
