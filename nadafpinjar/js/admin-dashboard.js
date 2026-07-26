@@ -1938,7 +1938,7 @@ function loadAdminFreeEdu() {
             max-width: 794px !important;
             height: auto;
             margin: 0 !important;
-            border: 2px solid #b30000;
+            border: 2px solid #b30000; border-bottom: none;
             padding: 5px;
             background: #ffffff;
             box-sizing: border-box;
@@ -2087,9 +2087,8 @@ function loadAdminFreeEdu() {
 
         <table style="width: 100%; border-collapse: collapse; margin-bottom: 6px; font-size: 14.5px; font-weight: bold; color: #b30000; line-height: 1.4;">
             <tr>
-                <td style="width: 33%; text-align: left;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color: #000;">${appNumber}</span></td>
-                <td style="width: 34%; text-align: center;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color: #000;">${found.date}</span></td>
-                <td style="width: 33%; text-align: right;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ : <span style="color: #000;">${data.mobile || '-'}</span></td>
+                <td style="width: 50%; text-align: left;">ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color: #000;">${appNumber}</span></td>
+                <td style="width: 50%; text-align: right;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color: #000;">${found.date}</span></td>
             </tr>
             <tr>
                 <td style="width: 33%; text-align: left;">ನಗರಿ/ಗ್ರಾಮ : <span style="color: #000;">${data.village || '-'}</span></td>
@@ -2154,41 +2153,37 @@ function loadAdminFreeEdu() {
                 <td class="grid-value">${data.bankName || '-'}</td>
             </tr>
             <tr>
-                <td class="grid-label">ಶಾಖೆಯ ಹೆಸರು</td>
-                <td class="grid-value">${data.branchName || '-'}</td>
                 <td class="grid-label">IFSC ಕೋಡ್</td>
                 <td class="grid-value" style="font-weight: bold; color: #b30000;">${data.ifsc || '-'}</td>
-            </tr>
-            <tr>
                 <td class="grid-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
-                <td colspan="3" class="grid-value">${data.bankAccount || '-'}</td>
+                <td class="grid-value">${data.bankAccount || '-'}</td>
             </tr>
         </table>
         <div style="text-align: center; font-size: 8.5px; color: #666; margin: 0 0 2px 0;">00000</div>
 
-        <!-- Three Signature/Recommendation Boxes (Enlarged to 140px height) -->
+        <!-- Three Signature/Recommendation Boxes (Enlarged) -->
         <table style="width: 100%; border-collapse: collapse; margin-top: 6px;">
             <tr>
-                <td style="width: 25%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 140px;">
+                <td style="width: 25%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 125px;">
                     <div style="font-weight: bold; color: #b30000; font-size: 14px;">ವಿದ್ಯಾರ್ಥಿಯ ಸಹಿ</div>
                 </td>
-                <td style="width: 25%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 140px;">
+                <td style="width: 25%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 125px;">
                     <div style="font-weight: bold; color: #b30000; font-size: 14px;">ಪಾಲಕರ ಸಹಿ</div>
                 </td>
-                <td style="width: 50%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 140px;">
+                <td style="width: 50%; border: 1.5px solid #b30000; padding: 6px 8px; vertical-align: top; height: 125px;">
                     <div style="font-weight: bold; color: #b30000; font-size: 13.5px; white-space: nowrap;">ತಾಲೂಕು ಘಟಕದಿಂದ ಶಿಫಾರಸ್ಸು ಮಾಡಲಾಗಿದೆ</div>
                 </td>
             </tr>
         </table>
 
         <!-- Report Lines -->
-        <div style="font-weight: bold; color: #b30000; font-size: 15px; margin-top: 10px; padding: 2px 6px;">
-            <div style="margin-bottom: 40px;">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
-            <div style="margin-bottom: 40px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
+        <div style="font-weight: bold; color: #b30000; font-size: 15px; margin-top: 14px; padding: 2px 6px;">
+            <div style="margin-bottom: 50px;">ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ :</div>
+            <div style="margin-bottom: 30px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
 
-        <!-- Bottom Message -->
-        <div style="font-weight: bold; color: #b30000; font-size: 13px; padding: 2px 6px; margin-top: 4px;">
+        <!-- Bottom Message (Single line, no bottom red border) -->
+        <div style="font-weight: bold; color: #b30000; font-size: 11px; padding: 2px 0; margin-top: 4px; white-space: nowrap; text-align: center;">
             ರಾಜ್ಯದ ಅನುಮೋದನೆ ನಂತರ ಮಾಹಿತಿಗಾಗಿ ತಾಲೂಕ ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು ಹಾಗೂ ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರಿಗೆ ಕಳುಹಿಸಲಾಗಿದೆ.
         </div>
     </div>
