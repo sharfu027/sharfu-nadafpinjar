@@ -2189,8 +2189,8 @@ function loadAdminFreeEdu() {
             <div style="margin-bottom: 30px;">ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ :</div>
         </div>
 
-        <!-- Bottom Message -->
-        <div style="font-weight: bold; color: #b30000; font-size: 14px; padding: 2px 6px; margin-top: 4px; white-space: nowrap; text-align: left;">
+        <!-- Bottom Message (Fixed 10.2px font size to fit completely inside container without touching or overflowing right border) -->
+        <div style="font-weight: bold; color: #b30000; font-size: 10.2px; padding: 2px 4px; margin-top: 4px; white-space: nowrap; text-align: left; box-sizing: border-box;">
             ರಾಜ್ಯದ ಅನುಮೋದನೆ ನಂತರ ಮಾಹಿತಿಗಾಗಿ ತಾಲೂಕ ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು ಹಾಗೂ ವಿಭಾಗೀಯ ಉಪಾಧ್ಯಕ್ಷರಿಗೆ ಕಳುಹಿಸಲಾಗಿದೆ.
         </div>
     </div>
