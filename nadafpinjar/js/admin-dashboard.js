@@ -3887,8 +3887,8 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                     <style>
                         .pdf-container {
                             font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
-                            font-size: 16px;
-                            line-height: 1.5 !important;
+                            font-size: 15.5px;
+                            line-height: 1.4 !important;
                             color: #000;
                             page-break-inside: avoid !important;
                             width: 100%;
@@ -3953,11 +3953,11 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         }
                         .details-table th, .details-table td {
                             border: 1px solid #000 !important;
-                            padding: 3px 5px !important;
+                            padding: 2px 4px !important;
                             text-align: left;
                             vertical-align: middle;
-                            font-size: 16px;
-                            line-height: 1.6 !important;
+                            font-size: 15.5px;
+                            line-height: 1.45 !important;
                             box-sizing: border-box;
                         }
                         .sl-col {
@@ -3968,14 +3968,14 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         .label-col {
                             width: 245px;
                             font-weight: bold;
-                            line-height: 1.5 !important;
+                            line-height: 1.4 !important;
                         }
                         .value-col {
                             word-break: normal !important;
                             overflow-wrap: break-word !important;
                             word-wrap: break-word !important;
                             white-space: normal !important;
-                            line-height: 1.6 !important;
+                            line-height: 1.45 !important;
                         }
                         .value-col-split {
                             width: 225px;
@@ -3983,7 +3983,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             overflow-wrap: break-word !important;
                             word-wrap: break-word !important;
                             white-space: normal !important;
-                            line-height: 1.6 !important;
+                            line-height: 1.45 !important;
                         }
                         .photo-cell {
                             width: 105px;
@@ -4006,8 +4006,8 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             text-align: center;
                         }
                         .signature-section {
-                            margin-top: 4px;
-                            margin-bottom: 4px;
+                            margin-top: 3px;
+                            margin-bottom: 3px;
                         }
                         .signature-table {
                             width: 100%;
@@ -4016,58 +4016,58 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         .signature-table td {
                             border: none !important;
                             padding: 0 !important;
-                            font-size: 16px;
+                            font-size: 15.5px;
                             line-height: 1.4 !important;
                         }
                         .recommendation-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-top: 4px;
-                            margin-bottom: 8px !important;
+                            margin-top: 3px;
+                            margin-bottom: 5px !important;
                         }
                         .recommendation-table td {
                             width: 50%;
                             border: 1px solid #000 !important;
-                            height: 140px !important;
+                            height: 120px !important;
                             vertical-align: top;
-                            padding: 5px !important;
+                            padding: 4px !important;
                             box-sizing: border-box;
                         }
                         .recommendation-title {
                             font-weight: bold;
-                            font-size: 16px;
+                            font-size: 15.5px;
                             text-align: center;
-                            line-height: 1.4 !important;
+                            line-height: 1.3 !important;
                         }
                         .recommendation-subtitle {
-                            font-size: 13px;
+                            font-size: 11px;
                             text-align: center;
-                            margin-top: 2px;
+                            margin-top: 1px;
                             color: #333;
-                            line-height: 1.3 !important;
+                            line-height: 1.25 !important;
                         }
                         .committee-section {
                             border-top: 1px dashed #000;
-                            padding-top: 5px !important;
-                            margin-top: 6px !important;
+                            padding-top: 3px !important;
+                            margin-top: 4px !important;
                         }
                         .committee-title {
                             font-weight: bold;
-                            font-size: 16px;
+                            font-size: 15.5px;
                             text-align: center;
-                            margin-bottom: 2px;
+                            margin-bottom: 1px;
                         }
                         .committee-text {
-                            font-size: 16px;
-                            line-height: 1.4 !important;
+                            font-size: 14px;
+                            line-height: 1.35 !important;
                         }
                         .committee-bullet {
-                            margin-top: 2px;
+                            margin-top: 1px;
                             padding-left: 12px;
                             text-indent: -12px;
                             text-align: justify;
-                            line-height: 1.35 !important;
-                            font-size: 14px;
+                            line-height: 1.3 !important;
+                            font-size: 12.5px;
                         }
                     </style>
         <div class="pdf-container">
@@ -4200,12 +4200,26 @@ window.downloadPratibhaPdfAdmin = async function(id) {
         if (img.complete) return Promise.resolve();
         return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
     }));
+    // Convert all images to base64 data URLs for foreignObjectRendering compatibility
+    await Promise.all(images.map(async (img) => {
+        if (img.src.startsWith('data:')) return;
+        try {
+            const resp = await fetch(img.src, { mode: 'cors' });
+            const blob = await resp.blob();
+            const dataUrl = await new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.readAsDataURL(blob);
+            });
+            img.src = dataUrl;
+        } catch(e) { console.warn('Image base64 convert failed:', e); }
+    }));
 
     const opt = {
         margin: [3, 6, 3, 6],
         filename: `Pratibha_Puraskar_${studentName || id}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+        html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, foreignObjectRendering: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: 'avoid-all' }
     };
