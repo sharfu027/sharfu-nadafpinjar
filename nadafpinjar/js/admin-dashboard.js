@@ -3830,12 +3830,28 @@ function loadAdminSadhaka() {
 
 // Download PDF for Pratibha Puraskar Admin
 window.downloadPratibhaPdfAdmin = async function(id) {
-    const list = JSON.parse(localStorage.getItem('admin_pratibha_submissions')) || [];
-    const app = list.find(item => item.id === id);
-    if (!app) { alert('Application not found'); return; }
-    const fd = app.formData || {};
+    let list = JSON.parse(localStorage.getItem('admin_pratibha_submissions')) || [];
+    let app = list.find(item => item.id === id || item.dbId === id || (item.formData && item.formData.paymentId === id));
     
-    // Dynamically load html2pdf if needed
+    if (!app) {
+        try {
+            let res = await fetch("/api/donations?_=" + Date.now()).catch(() => null);
+            if (res && res.ok) {
+                let data = await res.json().catch(() => null);
+                let apiList = Array.isArray(data) ? data : (data && Array.isArray(data.donations) ? data.donations : []);
+                app = apiList.find(item => item.paymentId === id || item._id === id || (item.formData && item.formData.paymentId === id));
+            }
+        } catch(e) {}
+    }
+
+    if (!app) { 
+        alert('Application not found'); 
+        return; 
+    }
+
+    const fd = app.formData || app;
+    const origin = window.location.origin;
+    
     if (!window.html2pdf) {
         await new Promise((resolve) => {
             const script = document.createElement('script');
@@ -3847,42 +3863,330 @@ window.downloadPratibhaPdfAdmin = async function(id) {
 
     const container = document.createElement('div');
     container.style.width = '700px';
-    container.style.padding = '20px';
-    container.style.fontFamily = "'Noto Serif Kannada', Tunga, serif";
-    container.style.fontSize = '14px';
-    container.style.color = '#000';
+    container.style.backgroundColor = '#ffffff';
+    container.style.color = '#000000';
+    container.style.padding = '15px 25px';
+    container.style.boxSizing = 'border-box';
+
+    const studentName = fd.studentName || '-';
+    const fatherName = fd.fatherName || '-';
+    const guardianName = fd.guardianName || '-';
+    const parentOccupationIncome = fd.parentOccupationIncome || '-';
+    const completeAddress = fd.completeAddress || '-';
+    const aadhar = fd.aadhar || '-';
+    const lifeMembership = (fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು (ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)' : (fd.lifeMembership || '-');
+    const marksDetails = fd.marksDetails || '-';
+    const parentMobile = fd.parentMobile || '-';
+    const bankName = fd.bankName || '-';
+    const bankAccount = fd.bankAccount || '-';
+    const ifsc = fd.ifsc || '-';
+    const photo = fd.photo;
+
     container.innerHTML = `
-        <div style="text-align:center; border-bottom:2px solid #990000; padding-bottom:10px; margin-bottom:15px;">
-            <h2 style="color:#990000; margin:0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h2>
-            <h3 style="color:#333; margin:5px 0 0 0;">ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ ಅರ್ಜಿ - 2025-26</h3>
-            <p style="margin:5px 0 0 0; font-weight:bold; color:#28a745;">ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${id}</p>
+        <style>
+            .pdf-container {
+                font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
+                font-size: 13.5px;
+                line-height: 1.22;
+                color: #000;
+                page-break-inside: avoid !important;
+            }
+            .header-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 4px;
+            }
+            .header-table td {
+                border: none !important;
+                padding: 0 !important;
+                vertical-align: middle;
+            }
+            .header-logo-left {
+                width: 90px;
+                text-align: left;
+            }
+            .header-logo-left img {
+                width: 88px;
+                height: 88px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+            .header-logo-right {
+                width: 90px;
+                text-align: right;
+            }
+            .header-logo-right img {
+                width: 88px;
+                height: 88px;
+                border-radius: 50%;
+                object-fit: contain;
+            }
+            .header-text {
+                text-align: center;
+            }
+            .header-text h1 {
+                margin: 0;
+                font-size: 21px;
+                font-weight: bold;
+                color: #000;
+            }
+            .header-text h2 {
+                margin: 2px 0 0 0;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            .header-text h3 {
+                margin: 2px 0 0 0;
+                font-size: 13.5px;
+                font-weight: bold;
+            }
+            .details-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 4px;
+            }
+            .details-table th, .details-table td {
+                border: 1px solid #000 !important;
+                padding: 2.5px 5px !important;
+                text-align: left;
+                vertical-align: middle;
+                font-size: 13px;
+            }
+            .sl-col {
+                width: 28px;
+                text-align: center !important;
+                font-weight: bold;
+            }
+            .label-col {
+                width: 250px;
+                font-weight: bold;
+            }
+            .value-col {
+                word-break: break-word;
+            }
+            .value-col-split {
+                width: 240px;
+                word-break: break-word;
+            }
+            .photo-cell {
+                width: 100px;
+                text-align: center !important;
+                vertical-align: middle !important;
+                padding: 2px !important;
+            }
+            .photo-cell img {
+                max-width: 95px;
+                max-height: 80px;
+                object-fit: contain;
+                display: block;
+                margin: 0 auto;
+            }
+            .photo-placeholder {
+                border: 1px dashed #666;
+                padding: 8px 4px;
+                font-size: 11px;
+                color: #555;
+                text-align: center;
+            }
+            .signature-section {
+                margin-top: 12px;
+                margin-bottom: 8px;
+            }
+            .signature-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .signature-table td {
+                border: none !important;
+                padding: 0 !important;
+                font-size: 13px;
+            }
+            .recommendation-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 8px;
+                margin-bottom: 10px;
+            }
+            .recommendation-table td {
+                width: 50%;
+                border: 1px solid #000 !important;
+                height: 75px;
+                vertical-align: top;
+                padding: 5px !important;
+            }
+            .recommendation-title {
+                font-weight: bold;
+                font-size: 13.5px;
+                text-align: center;
+            }
+            .recommendation-subtitle {
+                font-size: 11px;
+                text-align: center;
+                margin-top: 2px;
+                color: #333;
+            }
+            .committee-section {
+                border-top: 1px dashed #000;
+                padding-top: 6px;
+                margin-top: 6px;
+            }
+            .committee-title {
+                font-weight: bold;
+                font-size: 13.5px;
+                text-align: center;
+                margin-bottom: 4px;
+            }
+            .committee-text {
+                font-size: 12.5px;
+                line-height: 1.3;
+            }
+            .committee-bullet {
+                margin-top: 3px;
+                padding-left: 12px;
+                text-indent: -12px;
+                text-align: justify;
+            }
+        </style>
+        <div class="pdf-container">
+            <table class="header-table">
+                <tr>
+                    <td class="header-logo-left">
+                        <img src="${origin}/images/president_circular.png" onerror="this.src='${origin}/images/president.jpeg'">
+                    </td>
+                    <td class="header-text">
+                        <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
+                        <h2>ಶಿವಮೊಗ್ಗ</h2>
+                        <h3>ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h3>
+                        <h3>ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳು ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
+                    </td>
+                    <td class="header-logo-right">
+                        <img src="${origin}/images/logo-786_circular.png" onerror="this.src='${origin}/images/logo-786.png'">
+                    </td>
+                </tr>
+            </table>
+            
+            <table class="details-table">
+                <tr>
+                    <td class="sl-col">1</td>
+                    <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಹೆಸರು</td>
+                    <td class="value-col" colspan="2">${studentName}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">2</td>
+                    <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ತಂದೆಯ ಹೆಸರು</td>
+                    <td class="value-col" colspan="2">${fatherName}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">3</td>
+                    <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪೋಷಕರಿದ್ದಲ್ಲಿ ಹೆಸರು</td>
+                    <td class="value-col" colspan="2">${guardianName}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">4</td>
+                    <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ/ಪೋಷಕರ ಉದ್ಯೋಗ ಮತ್ತು ಆದಾಯ</td>
+                    <td class="value-col" colspan="2">${parentOccupationIncome}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">5</td>
+                    <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ/ಪೋಷಕರ ಸಂಪೂರ್ಣವಿಳಾಸ</td>
+                    <td class="value-col" colspan="2">${completeAddress}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">6</td>
+                    <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಆಧಾರ ಸಂಖ್ಯೆ</td>
+                    <td class="value-col" colspan="2">${aadhar}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">7</td>
+                    <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಕುಟುಂಬದವರು ಸಂಘದ ಅಜೀವ ಸದಸ್ಯರೇ?</td>
+                    <td class="value-col" colspan="2">${lifeMembership}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">8</td>
+                    <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯು 2025-26 ರಲ್ಲಿ ಪಡೆದ ಅಂಕಗಳ ವಿವರ ಮತ್ತು ದಾಖಲೆಗಳನ್ನು ಲಗತ್ತಿಸುವುದು</td>
+                    <td class="value-col" colspan="2">${marksDetails}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">9</td>
+                    <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ ಮೊ. ನಂ.</td>
+                    <td class="value-col-split">${parentMobile}</td>
+                    <td class="photo-cell" rowspan="2">
+                        ${photo ? '<img src="' + photo + '">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಸೈಜ್ ಫೋಟೋ</div>'}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="sl-col">10</td>
+                    <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                    <td class="value-col-split">${bankName}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">11</td>
+                    <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
+                    <td class="value-col" colspan="2">${bankAccount}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">12</td>
+                    <td class="label-col">IFSC ಕೋಡ್</td>
+                    <td class="value-col" colspan="2">${ifsc}</td>
+                </tr>
+            </table>
+            
+            <div class="signature-section">
+                <table class="signature-table">
+                    <tr>
+                        <td style="width: 33%; text-align: left; vertical-align: top;"><strong>ದಿನಾಂಕ :</strong> _________________</td>
+                        <td style="width: 34%; text-align: center; height: 22px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ ರುಜು</td>
+                        <td style="width: 33%; text-align: right; height: 22px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ರುಜು</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> _________________</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <table class="recommendation-table">
+                <tr>
+                    <td>
+                        <div class="recommendation-title">ತಾಲ್ಲೂಕ ಅಧ್ಯಕ್ಷರ ಶಿಫಾರಸ್ಸು</div>
+                        <div class="recommendation-subtitle">(ದಿನಾಂಕ 30-09-2026 ರ ಒಳಗಾಗಿ ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರಿಗೆ ನೀಡುವುದು)</div>
+                    </td>
+                    <td>
+                        <div class="recommendation-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ ಶಿಫಾರಸ್ಸು</div>
+                        <div class="recommendation-subtitle">(ದಿನಾಂಕ 05-10-2026 ರ ಒಳಗಾಗಿ ರಾಜ್ಯ ಸ್ಕ್ರೀನಿಂಗ್ ಸಮಿತಿಗೆ ನೀಡುವುದು)</div>
+                    </td>
+                </tr>
+            </table>
+            
+            <div class="committee-section">
+                <div class="committee-title">ರಾಜ್ಯ ಸ್ಕ್ರೀನಿಂಗ್ ಕಮಿಟಿ ಉಪಯೋಗಕ್ಕಾಗಿ</div>
+                <div class="committee-text">
+                    ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯಾದ ಕುಮಾರ/ರಿ <strong>${studentName}</strong> ......................................................................................................
+                    <div class="committee-bullet">
+                        • ಇವರ ಮೂಲ ದಾಖಲೆಗಳ ಸಮೇತ ಸಲ್ಲಿಸಿರುವ ಅರ್ಜಿಯನ್ನು ಸಂಘದ ಮಾರ್ಗಸೂಚಿಗಳ ಅನ್ವಯ ಕೂಲಂಕುಷವಾಗಿ ಪರಿಶೀಲಿಸಿ, ಸೂಕ್ತ ಎಂದು ಕಂಡು ಬಂದುದರಿಂದ ಸಂಸ್ಥಾಪನಾ ದಿನಾಚರಣೆ ನಿಮಿತ್ತ ರಾಜ್ಯ ಮಟ್ಟದಲ್ಲಿ ಜರುಗುವ ಗೌರವ ಸನ್ಮಾನ ಕಾರ್ಯಕ್ರಮದಲ್ಲಿ 'ಪುರಸ್ಕರಿಸಲು' ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ.
+                    </div>
+                </div>
+            </div>
         </div>
-        <table style="width:100%; border-collapse:collapse; margin-bottom:15px;">
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold; width:40%;">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.studentName || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ತಂದೆಯ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.fatherName || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಪೋಷಕರ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.guardianName || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಉದ್ಯೋಗ ಮತ್ತು ಆದಾಯ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.parentOccupationIncome || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಸಂಪೂರ್ಣ ವಿಳಾಸ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.completeAddress || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಆಧಾರ ಸಂಖ್ಯೆ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.aadhar || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಕುಟುಂಬದವರು ಸಂಘದ ಅಜೀವ ಸದಸ್ಯರೇ?:</td><td style="padding:6px; border:1px solid #ccc;">${(fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು (ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)' : (fd.lifeMembership || '-')}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಪಡೆದ ಅಂಕಗಳ ವಿವರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.marksDetails || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.parentMobile || '-'}</td></tr>
-                        <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.bankName || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.bankAccount || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">IFSC ಕೋಡ್:</td><td style="padding:6px; border:1px solid #ccc;">${fd.ifsc || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಸ್ಥಿತಿ (Status):</td><td style="padding:6px; border:1px solid #ccc; font-weight:bold; color:#155724;">${fd.status || 'Pending'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಅಡ್ಮಿನ್ ಷರಾ (Remarks):</td><td style="padding:6px; border:1px solid #ccc;">${fd.remarks || '-'}</td></tr>
-        </table>
     `;
 
     document.body.appendChild(container);
+    const images = Array.from(container.querySelectorAll('img'));
+    await Promise.all(images.map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
+    }));
+
     const opt = {
-        margin: 8,
-        filename: `Pratibha_Puraskar_${fd.studentName || id}.pdf`,
+        margin: [8, 12, 8, 12],
+        filename: `Pratibha_Puraskar_${studentName || id}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: 'avoid-all' }
     };
+
     await window.html2pdf().from(container).set(opt).save();
     document.body.removeChild(container);
 };
