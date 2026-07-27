@@ -3865,7 +3865,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     container.style.width = '700px';
     container.style.backgroundColor = '#ffffff';
     container.style.color = '#000000';
-    container.style.padding = '15px 25px';
+    container.style.padding = '12px 20px';
     container.style.boxSizing = 'border-box';
 
     const studentName = fd.studentName || '-';
@@ -3887,12 +3887,13 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                     <style>
                         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&display=swap');
                         .pdf-container {
-                            font-family: 'Noto Sans Kannada', 'Noto Serif Kannada', 'Segoe UI', sans-serif !important;
-                            font-size: 14.5px;
-                            line-height: 1.3;
-                            color: #000;
-                            letter-spacing: normal !important;
-                            word-spacing: normal !important;
+                            font-family: 'Noto Sans Kannada', 'Segoe UI', Arial, sans-serif !important;
+                            font-size: 15.5px !important;
+                            line-height: 1.3 !important;
+                            color: #000 !important;
+                            letter-spacing: 0.3px !important;
+                            word-spacing: 1.5px !important;
+                            font-kerning: none !important;
                             page-break-inside: avoid !important;
                             width: 100%;
                             box-sizing: border-box;
@@ -3900,7 +3901,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         .header-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-bottom: 6px;
+                            margin-bottom: 4px;
                         }
                         .header-table td {
                             border: none !important;
@@ -3908,22 +3909,22 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             vertical-align: middle;
                         }
                         .header-logo-left {
-                            width: 90px;
+                            width: 85px;
                             text-align: left;
                         }
                         .header-logo-left img {
-                            width: 85px;
-                            height: 85px;
+                            width: 80px;
+                            height: 80px;
                             border-radius: 50%;
                             object-fit: cover;
                         }
                         .header-logo-right {
-                            width: 90px;
+                            width: 85px;
                             text-align: right;
                         }
                         .header-logo-right img {
-                            width: 85px;
-                            height: 85px;
+                            width: 80px;
+                            height: 80px;
                             border-radius: 50%;
                             object-fit: contain;
                         }
@@ -3933,45 +3934,47 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         }
                         .header-text h1 {
                             margin: 0;
-                            font-size: 18.5px;
+                            font-size: 18.5px !important;
                             white-space: nowrap !important;
-                            font-weight: 700;
+                            font-weight: 700 !important;
                             color: #000;
+                            letter-spacing: 0.2px !important;
                         }
                         .header-text h2 {
-                            margin: 3px 0 0 0;
-                            font-size: 14.5px;
-                            font-weight: 700;
+                            margin: 2px 0 0 0;
+                            font-size: 14.5px !important;
+                            font-weight: 700 !important;
                         }
                         .header-text h3 {
-                            margin: 3px 0 0 0;
-                            font-size: 15.5px;
-                            font-weight: 700;
+                            margin: 2px 0 0 0;
+                            font-size: 15.5px !important;
+                            font-weight: 700 !important;
                         }
                         .details-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-top: 6px;
+                            margin-top: 4px;
                             table-layout: fixed;
                         }
                         .details-table th, .details-table td {
                             border: 1px solid #000 !important;
-                            padding: 3.5px 6px !important;
+                            padding: 2.5px 5px !important;
                             text-align: left;
                             vertical-align: middle;
-                            font-size: 14px;
+                            font-size: 15px !important;
                             box-sizing: border-box;
-                            letter-spacing: normal !important;
-                            word-spacing: normal !important;
+                            letter-spacing: 0.3px !important;
+                            word-spacing: 1.5px !important;
+                            font-kerning: none !important;
                         }
                         .sl-col {
                             width: 30px;
                             text-align: center !important;
-                            font-weight: 700;
+                            font-weight: 700 !important;
                         }
                         .label-col {
-                            width: 245px;
-                            font-weight: 700;
+                            width: 250px;
+                            font-weight: 700 !important;
                         }
                         .value-col {
                             word-break: normal !important;
@@ -3980,7 +3983,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             white-space: normal !important;
                         }
                         .value-col-split {
-                            width: 235px;
+                            width: 225px;
                             word-break: normal !important;
                             overflow-wrap: break-word !important;
                             word-wrap: break-word !important;
@@ -3994,21 +3997,21 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         }
                         .photo-cell img {
                             max-width: 100px;
-                            max-height: 85px;
+                            max-height: 80px;
                             object-fit: contain;
                             display: block;
                             margin: 0 auto;
                         }
                         .photo-placeholder {
                             border: 1px dashed #666;
-                            padding: 10px 4px;
+                            padding: 8px 4px;
                             font-size: 11px;
                             color: #555;
                             text-align: center;
                         }
                         .signature-section {
-                            margin-top: 14px;
-                            margin-bottom: 10px;
+                            margin-top: 10px;
+                            margin-bottom: 8px;
                         }
                         .signature-table {
                             width: 100%;
@@ -4017,50 +4020,55 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         .signature-table td {
                             border: none !important;
                             padding: 0 !important;
-                            font-size: 14px;
+                            font-size: 15px !important;
+                            letter-spacing: 0.2px !important;
                         }
                         .recommendation-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-top: 8px;
-                            margin-bottom: 10px;
+                            margin-top: 6px;
+                            margin-bottom: 8px;
                         }
                         .recommendation-table td {
                             width: 50%;
                             border: 1px solid #000 !important;
-                            height: 140px !important;
+                            height: 150px !important;
                             vertical-align: top;
                             padding: 6px !important;
                             box-sizing: border-box;
                         }
                         .recommendation-title {
-                            font-weight: 700;
-                            font-size: 14px;
+                            font-weight: 700 !important;
+                            font-size: 15px !important;
                             text-align: center;
+                            letter-spacing: 0.3px !important;
                         }
                         .recommendation-subtitle {
-                            font-size: 11.5px;
+                            font-size: 12px !important;
                             text-align: center;
                             margin-top: 3px;
                             color: #333;
+                            letter-spacing: 0.2px !important;
                         }
                         .committee-section {
                             border-top: 1px dashed #000;
-                            padding-top: 6px;
-                            margin-top: 6px;
+                            padding-top: 5px;
+                            margin-top: 5px;
                         }
                         .committee-title {
-                            font-weight: 700;
-                            font-size: 14.5px;
+                            font-weight: 700 !important;
+                            font-size: 15.5px !important;
                             text-align: center;
-                            margin-bottom: 4px;
+                            margin-bottom: 3px;
+                            letter-spacing: 0.3px !important;
                         }
                         .committee-text {
-                            font-size: 13.5px;
-                            line-height: 1.35;
+                            font-size: 14px !important;
+                            line-height: 1.3 !important;
+                            letter-spacing: 0.2px !important;
                         }
                         .committee-bullet {
-                            margin-top: 3px;
+                            margin-top: 2px;
                             padding-left: 12px;
                             text-indent: -12px;
                             text-align: justify;
@@ -4198,10 +4206,10 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     }));
 
     const opt = {
-        margin: [4, 8, 4, 8],
+        margin: [3, 6, 3, 6],
         filename: `Pratibha_Puraskar_${studentName || id}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+        html2canvas: { scale: 2, letterRendering: true, useCORS: true, scrollX: 0, scrollY: 0 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: 'avoid-all' }
     };
