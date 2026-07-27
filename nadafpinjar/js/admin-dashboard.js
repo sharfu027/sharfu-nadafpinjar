@@ -3883,170 +3883,180 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     const photo = fd.photo;
 
     container.innerHTML = `
-        <style>
-            .pdf-container {
-                font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
-                font-size: 13.5px;
-                line-height: 1.22;
-                color: #000;
-                page-break-inside: avoid !important;
-            }
-            .header-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-bottom: 4px;
-            }
-            .header-table td {
-                border: none !important;
-                padding: 0 !important;
-                vertical-align: middle;
-            }
-            .header-logo-left {
-                width: 90px;
-                text-align: left;
-            }
-            .header-logo-left img {
-                width: 88px;
-                height: 88px;
-                border-radius: 50%;
-                object-fit: cover;
-            }
-            .header-logo-right {
-                width: 90px;
-                text-align: right;
-            }
-            .header-logo-right img {
-                width: 88px;
-                height: 88px;
-                border-radius: 50%;
-                object-fit: contain;
-            }
-            .header-text {
-                text-align: center;
-            }
-            .header-text h1 {
-                margin: 0;
-                font-size: 21px;
-                font-weight: bold;
-                color: #000;
-            }
-            .header-text h2 {
-                margin: 2px 0 0 0;
-                font-size: 16px;
-                font-weight: bold;
-            }
-            .header-text h3 {
-                margin: 2px 0 0 0;
-                font-size: 13.5px;
-                font-weight: bold;
-            }
-            .details-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 4px;
-            }
-            .details-table th, .details-table td {
-                border: 1px solid #000 !important;
-                padding: 2.5px 5px !important;
-                text-align: left;
-                vertical-align: middle;
-                font-size: 13px;
-            }
-            .sl-col {
-                width: 28px;
-                text-align: center !important;
-                font-weight: bold;
-            }
-            .label-col {
-                width: 250px;
-                font-weight: bold;
-            }
-            .value-col {
-                word-break: break-word;
-            }
-            .value-col-split {
-                width: 240px;
-                word-break: break-word;
-            }
-            .photo-cell {
-                width: 100px;
-                text-align: center !important;
-                vertical-align: middle !important;
-                padding: 2px !important;
-            }
-            .photo-cell img {
-                max-width: 95px;
-                max-height: 80px;
-                object-fit: contain;
-                display: block;
-                margin: 0 auto;
-            }
-            .photo-placeholder {
-                border: 1px dashed #666;
-                padding: 8px 4px;
-                font-size: 11px;
-                color: #555;
-                text-align: center;
-            }
-            .signature-section {
-                margin-top: 12px;
-                margin-bottom: 8px;
-            }
-            .signature-table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-            .signature-table td {
-                border: none !important;
-                padding: 0 !important;
-                font-size: 13px;
-            }
-            .recommendation-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 8px;
-                margin-bottom: 10px;
-            }
-            .recommendation-table td {
-                width: 50%;
-                border: 1px solid #000 !important;
-                height: 75px;
-                vertical-align: top;
-                padding: 5px !important;
-            }
-            .recommendation-title {
-                font-weight: bold;
-                font-size: 13.5px;
-                text-align: center;
-            }
-            .recommendation-subtitle {
-                font-size: 11px;
-                text-align: center;
-                margin-top: 2px;
-                color: #333;
-            }
-            .committee-section {
-                border-top: 1px dashed #000;
-                padding-top: 6px;
-                margin-top: 6px;
-            }
-            .committee-title {
-                font-weight: bold;
-                font-size: 13.5px;
-                text-align: center;
-                margin-bottom: 4px;
-            }
-            .committee-text {
-                font-size: 12.5px;
-                line-height: 1.3;
-            }
-            .committee-bullet {
-                margin-top: 3px;
-                padding-left: 12px;
-                text-indent: -12px;
-                text-align: justify;
-            }
-        </style>
+        
+                    <style>
+                        .pdf-container {
+                            font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
+                            font-size: 14px;
+                            line-height: 1.25;
+                            color: #000;
+                            page-break-inside: avoid !important;
+                            width: 100%;
+                            box-sizing: border-box;
+                        }
+                        .header-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-bottom: 5px;
+                        }
+                        .header-table td {
+                            border: none !important;
+                            padding: 0 !important;
+                            vertical-align: middle;
+                        }
+                        .header-logo-left {
+                            width: 105px;
+                            text-align: left;
+                        }
+                        .header-logo-left img {
+                            width: 105px;
+                            height: 105px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+                        .header-logo-right {
+                            width: 105px;
+                            text-align: right;
+                        }
+                        .header-logo-right img {
+                            width: 105px;
+                            height: 105px;
+                            border-radius: 50%;
+                            object-fit: contain;
+                        }
+                        .header-text {
+                            text-align: center;
+                        }
+                        .header-text h1 {
+                            margin: 0;
+                            font-size: 20.5px;
+                            white-space: nowrap !important;
+                            font-weight: bold;
+                            color: #000;
+                        }
+                        .header-text h2 {
+                            margin: 3px 0 0 0;
+                            font-size: 14.5px;
+                            font-weight: bold;
+                        }
+                        .header-text h3 {
+                            margin: 3px 0 0 0;
+                            font-size: 15.5px;
+                            font-weight: bold;
+                        }
+                        .details-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 5px;
+                            table-layout: fixed;
+                        }
+                        .details-table th, .details-table td {
+                            border: 1px solid #000 !important;
+                            padding: 3px 6px !important;
+                            text-align: left;
+                            vertical-align: middle;
+                            font-size: 13.5px;
+                            box-sizing: border-box;
+                        }
+                        .sl-col {
+                            width: 30px;
+                            text-align: center !important;
+                            font-weight: bold;
+                        }
+                        .label-col {
+                            width: 250px;
+                            font-weight: bold;
+                        }
+                        .value-col {
+                            word-break: break-all !important;
+                            overflow-wrap: anywhere !important;
+                            white-space: normal !important;
+                        }
+                        .value-col-split {
+                            width: 230px;
+                            word-break: break-all !important;
+                            overflow-wrap: anywhere !important;
+                            white-space: normal !important;
+                        }
+                        .photo-cell {
+                            width: 110px;
+                            text-align: center !important;
+                            vertical-align: middle !important;
+                            padding: 2px !important;
+                        }
+                        .photo-cell img {
+                            max-width: 105px;
+                            max-height: 90px;
+                            object-fit: contain;
+                            display: block;
+                            margin: 0 auto;
+                        }
+                        .photo-placeholder {
+                            border: 1px dashed #666;
+                            padding: 10px 4px;
+                            font-size: 11px;
+                            color: #555;
+                            text-align: center;
+                        }
+                        .signature-section {
+                            margin-top: 14px;
+                            margin-bottom: 10px;
+                        }
+                        .signature-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        .signature-table td {
+                            border: none !important;
+                            padding: 0 !important;
+                            font-size: 13.5px;
+                        }
+                        .recommendation-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 8px;
+                            margin-bottom: 10px;
+                        }
+                        .recommendation-table td {
+                            width: 50%;
+                            border: 1px solid #000 !important;
+                            height: 105px;
+                            vertical-align: top;
+                            padding: 6px !important;
+                        }
+                        .recommendation-title {
+                            font-weight: bold;
+                            font-size: 14px;
+                            text-align: center;
+                        }
+                        .recommendation-subtitle {
+                            font-size: 11.5px;
+                            text-align: center;
+                            margin-top: 3px;
+                            color: #333;
+                        }
+                        .committee-section {
+                            border-top: 1px dashed #000;
+                            padding-top: 6px;
+                            margin-top: 6px;
+                        }
+                        .committee-title {
+                            font-weight: bold;
+                            font-size: 14px;
+                            text-align: center;
+                            margin-bottom: 4px;
+                        }
+                        .committee-text {
+                            font-size: 13px;
+                            line-height: 1.3;
+                        }
+                        .committee-bullet {
+                            margin-top: 3px;
+                            padding-left: 12px;
+                            text-indent: -12px;
+                            text-align: justify;
+                        }
+                    </style>
         <div class="pdf-container">
             <table class="header-table">
                 <tr>
@@ -4054,9 +4064,8 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         <img src="${origin}/images/president_circular.png" onerror="this.src='${origin}/images/president.jpeg'">
                     </td>
                     <td class="header-text">
-                        <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
-                        <h2>ಶಿವಮೊಗ್ಗ</h2>
-                        <h3>ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h3>
+                        <h1 style="font-size: 20.5px; white-space: nowrap; margin: 0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ) ಶಿವಮೊಗ್ಗ</h1>
+                        <h2>ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
                         <h3>ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳು ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
                     </td>
                     <td class="header-logo-right">
@@ -4179,7 +4188,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     }));
 
     const opt = {
-        margin: [8, 12, 8, 12],
+        margin: [6, 10, 6, 10],
         filename: `Pratibha_Puraskar_${studentName || id}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
