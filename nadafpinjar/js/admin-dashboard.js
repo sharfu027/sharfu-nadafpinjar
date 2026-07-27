@@ -4200,26 +4200,12 @@ window.downloadPratibhaPdfAdmin = async function(id) {
         if (img.complete) return Promise.resolve();
         return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
     }));
-    // Convert all images to base64 data URLs for foreignObjectRendering compatibility
-    await Promise.all(images.map(async (img) => {
-        if (img.src.startsWith('data:')) return;
-        try {
-            const resp = await fetch(img.src, { mode: 'cors' });
-            const blob = await resp.blob();
-            const dataUrl = await new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.readAsDataURL(blob);
-            });
-            img.src = dataUrl;
-        } catch(e) { console.warn('Image base64 convert failed:', e); }
-    }));
 
     const opt = {
         margin: [3, 6, 3, 6],
         filename: `Pratibha_Puraskar_${studentName || id}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, foreignObjectRendering: true },
+        html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: 'avoid-all' }
     };
