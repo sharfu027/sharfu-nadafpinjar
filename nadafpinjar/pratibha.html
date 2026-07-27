@@ -735,21 +735,16 @@
                         </tr>
                         <tr>
                             <td class="sl-no">10</td>
-                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಅಥವಾ ಪಾಲಕರ ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (ಕಡ್ಡಾಯ) (Mandatory Bank Details)</td>
-                            <td class="field-input"><input type="text" id="bankDetails" required placeholder="Bank, Acc No, Branch, IFSC"></td>
-                        </tr>
-                        <tr>
-                            <td class="sl-no">11</td>
                             <td class="field-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು (Bank Name)</td>
                             <td class="field-input"><input type="text" id="bankName" required placeholder="e.g. ಕೆನರಾ ಬ್ಯಾಂಕ್ / Canara Bank"></td>
                         </tr>
                         <tr>
-                            <td class="sl-no">12</td>
+                            <td class="sl-no">11</td>
                             <td class="field-label">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ (Bank Account Number)</td>
                             <td class="field-input"><input type="text" id="bankAccount" required placeholder="e.g. 5600010456780"></td>
                         </tr>
                         <tr>
-                            <td class="sl-no">13</td>
+                            <td class="sl-no">12</td>
                             <td class="field-label">IFSC ಕೋಡ್ (IFSC Code)</td>
                             <td class="field-input"><input type="text" id="ifsc" required placeholder="e.g. CNRB0001234"></td>
                         </tr>
@@ -1468,7 +1463,7 @@
                             <tr>
                                 <td class="sl-col">7</td>
                                 <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಕುಟುಂಬದವರು ಸಂಘದ ಅಜೀವ ಸದಸ್ಯರೇ?</td>
-                                <td class="value-col" colspan="2">${fd.lifeMembership || '-'}</td>
+                                <td class="value-col" colspan="2">${(fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು (ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)' : (fd.lifeMembership || '-')}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">8</td>
@@ -1485,21 +1480,16 @@
                             </tr>
                             <tr>
                                 <td class="sl-col">10</td>
-                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಅಥವಾ ಪಾಲಕರ ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (ಕಡ್ಡಾಯ)</td>
-                                <td class="value-col-split">${fd.bankDetails || '-'}</td>
+                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                                <td class="value-col-split">${fd.bankName || '-'}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">11</td>
-                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
-                                <td class="value-col" colspan="2">${fd.bankName || '-'}</td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">12</td>
                                 <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
                                 <td class="value-col" colspan="2">${fd.bankAccount || '-'}</td>
                             </tr>
                             <tr>
-                                <td class="sl-col">13</td>
+                                <td class="sl-col">12</td>
                                 <td class="label-col">IFSC ಕೋಡ್</td>
                                 <td class="value-col" colspan="2">${fd.ifsc || '-'}</td>
                             </tr>
@@ -1509,12 +1499,12 @@
                                 <td class="value-col-split">${fd.bankName || '-'}</td>
                             </tr>
                             <tr>
-                                <td class="sl-col">12</td>
+                                <td class="sl-col">11</td>
                                 <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
                                 <td class="value-col-split">${fd.bankAccount || '-'}</td>
                             </tr>
                             <tr>
-                                <td class="sl-col">13</td>
+                                <td class="sl-col">12</td>
                                 <td class="label-col">IFSC ಕೋಡ್</td>
                                 <td class="value-col-split">${fd.ifsc || '-'}</td>
                             </tr>
@@ -1977,7 +1967,7 @@
                             <tr>
                                 <td class="sl-col">7</td>
                                 <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಕುಟುಂಬದವರು ಸಂಘದ ಅಜೀವ ಸದಸ್ಯರೇ?</td>
-                                <td class="value-col" colspan="2">${fd.lifeMembership || '-'}</td>
+                                <td class="value-col" colspan="2">${(fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು (ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)' : (fd.lifeMembership || '-')}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">8</td>
@@ -1992,23 +1982,19 @@
                                     ${fd.photo ? '<img src="' + fd.photo + '">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಸೈಜ್ ಫೋಟೋ</div>'}
                                 </td>
                             </tr>
+
                             <tr>
                                 <td class="sl-col">10</td>
-                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಅಥವಾ ಪಾಲಕರ ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (ಕಡ್ಡಾಯ)</td>
-                                <td class="value-col-split">${fd.bankDetails || '-'}</td>
+                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                                <td class="value-col-split">${fd.bankName || '-'}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">11</td>
-                                <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
-                                <td class="value-col" colspan="2">${fd.bankName || '-'}</td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">12</td>
                                 <td class="label-col">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
                                 <td class="value-col" colspan="2">${fd.bankAccount || '-'}</td>
                             </tr>
                             <tr>
-                                <td class="sl-col">13</td>
+                                <td class="sl-col">12</td>
                                 <td class="label-col">IFSC ಕೋಡ್</td>
                                 <td class="value-col" colspan="2">${fd.ifsc || '-'}</td>
                             </tr>
