@@ -3885,11 +3885,14 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     container.innerHTML = `
         
                     <style>
+                        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&display=swap');
                         .pdf-container {
-                            font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
-                            font-size: 13.5px;
-                            line-height: 1.25;
+                            font-family: 'Noto Sans Kannada', 'Noto Serif Kannada', 'Segoe UI', sans-serif !important;
+                            font-size: 14.5px;
+                            line-height: 1.3;
                             color: #000;
+                            letter-spacing: normal !important;
+                            word-spacing: normal !important;
                             page-break-inside: avoid !important;
                             width: 100%;
                             box-sizing: border-box;
@@ -3897,7 +3900,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         .header-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-bottom: 4px;
+                            margin-bottom: 6px;
                         }
                         .header-table td {
                             border: none !important;
@@ -3930,43 +3933,45 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         }
                         .header-text h1 {
                             margin: 0;
-                            font-size: 17.5px;
+                            font-size: 18.5px;
                             white-space: nowrap !important;
-                            font-weight: bold;
+                            font-weight: 700;
                             color: #000;
                         }
                         .header-text h2 {
-                            margin: 2px 0 0 0;
-                            font-size: 13.5px;
-                            font-weight: bold;
+                            margin: 3px 0 0 0;
+                            font-size: 14.5px;
+                            font-weight: 700;
                         }
                         .header-text h3 {
-                            margin: 2px 0 0 0;
-                            font-size: 14.5px;
-                            font-weight: bold;
+                            margin: 3px 0 0 0;
+                            font-size: 15.5px;
+                            font-weight: 700;
                         }
                         .details-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-top: 4px;
+                            margin-top: 6px;
                             table-layout: fixed;
                         }
                         .details-table th, .details-table td {
                             border: 1px solid #000 !important;
-                            padding: 2.5px 5px !important;
+                            padding: 3.5px 6px !important;
                             text-align: left;
                             vertical-align: middle;
-                            font-size: 13px;
+                            font-size: 14px;
                             box-sizing: border-box;
+                            letter-spacing: normal !important;
+                            word-spacing: normal !important;
                         }
                         .sl-col {
-                            width: 28px;
+                            width: 30px;
                             text-align: center !important;
-                            font-weight: bold;
+                            font-weight: 700;
                         }
                         .label-col {
-                            width: 240px;
-                            font-weight: bold;
+                            width: 245px;
+                            font-weight: 700;
                         }
                         .value-col {
                             word-break: normal !important;
@@ -3975,35 +3980,35 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             white-space: normal !important;
                         }
                         .value-col-split {
-                            width: 230px;
+                            width: 235px;
                             word-break: normal !important;
                             overflow-wrap: break-word !important;
                             word-wrap: break-word !important;
                             white-space: normal !important;
                         }
                         .photo-cell {
-                            width: 100px;
+                            width: 105px;
                             text-align: center !important;
                             vertical-align: middle !important;
                             padding: 2px !important;
                         }
                         .photo-cell img {
-                            max-width: 95px;
-                            max-height: 80px;
+                            max-width: 100px;
+                            max-height: 85px;
                             object-fit: contain;
                             display: block;
                             margin: 0 auto;
                         }
                         .photo-placeholder {
                             border: 1px dashed #666;
-                            padding: 8px 4px;
+                            padding: 10px 4px;
                             font-size: 11px;
                             color: #555;
                             text-align: center;
                         }
                         .signature-section {
-                            margin-top: 10px;
-                            margin-bottom: 8px;
+                            margin-top: 14px;
+                            margin-bottom: 10px;
                         }
                         .signature-table {
                             width: 100%;
@@ -4012,50 +4017,50 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         .signature-table td {
                             border: none !important;
                             padding: 0 !important;
-                            font-size: 13px;
+                            font-size: 14px;
                         }
                         .recommendation-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-top: 6px;
-                            margin-bottom: 8px;
+                            margin-top: 8px;
+                            margin-bottom: 10px;
                         }
                         .recommendation-table td {
                             width: 50%;
                             border: 1px solid #000 !important;
-                            height: 120px !important;
+                            height: 140px !important;
                             vertical-align: top;
-                            padding: 5px !important;
+                            padding: 6px !important;
                             box-sizing: border-box;
                         }
                         .recommendation-title {
-                            font-weight: bold;
-                            font-size: 13.5px;
+                            font-weight: 700;
+                            font-size: 14px;
                             text-align: center;
                         }
                         .recommendation-subtitle {
-                            font-size: 11px;
+                            font-size: 11.5px;
                             text-align: center;
-                            margin-top: 2px;
+                            margin-top: 3px;
                             color: #333;
                         }
                         .committee-section {
                             border-top: 1px dashed #000;
-                            padding-top: 5px;
-                            margin-top: 5px;
+                            padding-top: 6px;
+                            margin-top: 6px;
                         }
                         .committee-title {
-                            font-weight: bold;
-                            font-size: 13.5px;
+                            font-weight: 700;
+                            font-size: 14.5px;
                             text-align: center;
-                            margin-bottom: 3px;
+                            margin-bottom: 4px;
                         }
                         .committee-text {
-                            font-size: 12.5px;
-                            line-height: 1.25;
+                            font-size: 13.5px;
+                            line-height: 1.35;
                         }
                         .committee-bullet {
-                            margin-top: 2px;
+                            margin-top: 3px;
                             padding-left: 12px;
                             text-indent: -12px;
                             text-align: justify;
@@ -4068,7 +4073,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         <img src="${origin}/images/president_circular.png" onerror="this.src='${origin}/images/president.jpeg'">
                     </td>
                     <td class="header-text">
-                        <h1 style="font-size: 17.5px; white-space: nowrap; margin: 0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ) ಶಿವಮೊಗ್ಗ</h1>
+                        <h1 style="font-size: 18.5px; white-space: nowrap; margin: 0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ) ಶಿವಮೊಗ್ಗ</h1>
                         <h2>ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
                         <h3>ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳು ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
                     </td>
@@ -4185,6 +4190,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     `;
 
     document.body.appendChild(container);
+    if (document.fonts) { await document.fonts.ready.catch(() => null); }
     const images = Array.from(container.querySelectorAll('img'));
     await Promise.all(images.map(img => {
         if (img.complete) return Promise.resolve();
@@ -4192,7 +4198,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     }));
 
     const opt = {
-        margin: [5, 8, 5, 8],
+        margin: [4, 8, 4, 8],
         filename: `Pratibha_Puraskar_${studentName || id}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
