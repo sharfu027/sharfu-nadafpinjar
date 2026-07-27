@@ -573,6 +573,8 @@ function initPageModules() {
         loadAdminCensus();
     } else if (currentPath.includes("admin-employees")) {
         loadAdminEmployees();
+    } else if (currentPath.includes("admin-highereducation")) {
+        if (window.loadHigherEducationApplications) window.loadHigherEducationApplications();
     }
 }
 

@@ -201,11 +201,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="js/admin-dashboard.js"></script>
 
+    
     <script>
+        let allApplications = [];
+        let currentApp = null;
 
         function formatCurrency(val, includePrefix) {
             if (!val || val === '-') return '-';
-            let numStr = val.toString().replace(/[^d]/g, '');
+            let numStr = val.toString().replace(/[^\d]/g, '');
             if (!numStr) return val;
             let num = parseInt(numStr, 10);
             let formatted = num.toLocaleString('en-IN');
@@ -218,20 +221,19 @@
 
         function formatPercentage(val) {
             if (!val || val === '-') return '-';
-            let clean = val.toString().replace(/[^d.]/g, '');
+            let clean = val.toString().replace(/[^\d.]/g, '');
             if (!clean) return val;
             return 'ಶೇಕಡ ' + clean;
         }
 
         function maskAadhar(val) {
-    if (!val || val === '-') return '-';
-    const digits = val.toString().replace(/\D/g, '');
-    if (digits.length >= 4) {
-        return 'XXXX XXXX ' + digits.slice(-4);
-    }
-    return val;
-}
-
+            if (!val || val === '-') return '-';
+            const digits = val.toString().replace(/\D/g, '');
+            if (digits.length >= 4) {
+                return 'XXXX XXXX ' + digits.slice(-4);
+            }
+            return val;
+        }
 
         function loadHtml2Pdf() {
             return new Promise((resolve, reject) => {
@@ -254,7 +256,7 @@
                 _id: a._id || d._id,
                 id: a.paymentId || a.id || a._id || d.id || d.paymentId || d._id,
                 appNo: a.appNo || a.appId || a.paymentId || d.appNo || d.appId || d.paymentId || 'HEH 2026-27-01',
-                date: a.date || d.date || new Date().toLocaleDateString('kn-IN'),
+                date: a.date || d.date ? (new Date(a.date || d.date).toLocaleDateString('kn-IN')) : new Date().toLocaleDateString('kn-IN'),
                 studentName: d.studentName || a.studentName || '-',
                 fatherName: d.fatherName || d.fatherHusbandName || a.fatherName || a.fatherHusbandName || '-',
                 fatherHusbandName: d.fatherHusbandName || d.fatherName || a.fatherHusbandName || a.fatherName || '-',
@@ -288,238 +290,243 @@
                 houseShape: d.houseShape || a.houseShape || 'ಗುಡಿಸಲು, ಷೆಡ್ ಮನೆ, ಆರ್ ಸಿ ಸಿ, ಮಣ್ಣಿನ ಮನೆ ಇತರೆ',
                 landDetails: d.landDetails || a.landDetails || '2 ಎಕರೆ 10 ಗುಂಟೆ',
                 status: a.status || d.status || 'Pending',
-                remarks: a.remarks || d.remarks || ''
+                remarks: a.remarks || d.remarks || '',
+                raw: a
             };
         }
 
-        async function generatePDF(data) {
-            const html2pdf = window.html2pdf;
-            const fd = normalizeAppData(data);
+        document.addEventListener("DOMContentLoaded", () => {
+            loadHigherEducationApplications();
+        });
 
-            const annualIncomeFormatted = formatCurrency(fd.annualIncome, false);
-            const collegeFeesFormatted = formatCurrency(fd.collegeFees, true);
-            const aidAmountFormatted = formatCurrency(fd.aidAmount, true);
-            const previousMarksFormatted = formatPercentage(fd.previousMarks);
-            const aadharMasked = maskAadhar(fd.aadhar || fd.aadharNo);
+        async function loadHigherEducationApplications() {
+            const tableBody = document.getElementById("adminTableBody");
+            if (tableBody) {
+                tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:20px;">ಮಾಹಿತಿ ಲೋಡ್ ಆಗುತ್ತಿದೆ...</td></tr>';
+            }
 
-            const container = document.createElement('div');
-            container.className = 'pdf-page-container';
-            container.style.width = '700px';
-            container.style.backgroundColor = '#ffffff';
-
-            container.innerHTML = `
-                <!-- PAGE 1 CONTAINER (COMPACT & LOCKED TO FIT 100% ON PAGE 1) -->
-                <div id="pdf-page-1" style="width:700px; box-sizing:border-box; padding:8px 15px; background:#fff; page-break-after:always!important; page-break-inside:avoid!important; overflow:hidden; font-family:'Noto Sans Kannada', 'Segoe UI', Arial, sans-serif;">
-                    <!-- HEADER BOX (Solid Yellow Background #ffe699) -->
-                    <div style="background-color:#ffe699!important; background:#ffe699!important; border:2px solid #800000; padding:2px 6px; border-radius:4px; margin-bottom:2px;">
-                        <table style="width:100%; border-collapse:collapse; background-color:#ffe699!important; background:#ffe699!important;">
-                            <tr style="background-color:#ffe699!important; background:#ffe699!important;">
-                                <td style="width:80px; text-align:left; border:none!important; vertical-align:middle; padding:0!important; background-color:#ffe699!important; background:#ffe699!important;">
-                                    <img src="images/president.jpeg" style="width:75px; height:75px; border-radius:50%; object-fit:cover; border:1.5px solid #800000; display:block;">
-                                </td>
-                                <td style="text-align:center; border:none!important; vertical-align:middle; padding:0 4px!important; background-color:#ffe699!important; background:#ffe699!important;">
-                                    <h1 style="margin:0; font-size:20.5px; font-weight:900; color:#800000; font-family:'Noto Serif Kannada', serif; background-color:transparent!important; line-height:1.1;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
-                                    <h2 style="margin:1px 0 0 0; font-size:11.5px; font-weight:bold; color:#800000; font-family:'Noto Serif Kannada', serif; background-color:transparent!important;">ನೋಂ ಸಂಖ್ಯೆ : 151/ ಎಸ್ ಓ ಆರ್ / ಎಸ್ ಎಂ ಜಿ /1993–94</h2>
-                                    <h3 style="margin:1px 0 0 0; font-size:13px; font-weight:900; color:#800000; font-family:Arial, sans-serif; letter-spacing:0.5px; background-color:transparent!important;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</h3>
-                                    <h4 style="margin:1px 0 0 0; font-size:11px; font-weight:bold; color:#800000; font-family:'Noto Serif Kannada', serif; background-color:transparent!important;">ಆಡಳಿತ ಕಛೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ,</h4>
-                                    <h4 style="margin:1px 0 0 0; font-size:13.5px; font-weight:900; color:#800000; font-family:'Noto Serif Kannada', serif; background-color:transparent!important;">ಸೀಬಾರ-ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ-577502</h4>
-                                </td>
-                                <td style="width:80px; text-align:right; border:none!important; vertical-align:middle; padding:0!important; background-color:#ffe699!important; background:#ffe699!important;">
-                                    <img src="images/logo-786.png" style="width:75px; height:75px; border-radius:50%; object-fit:contain; display:block; margin-left:auto;">
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <!-- APPLICATION TITLE BANNER -->
-                    <div style="background:#ffffff; text-align:center; margin:2px 0; border:1.5px solid #c01535; padding:1.5px; border-radius:4px;">
-                        <h2 style="margin:0; font-size:14.5px; font-weight:bold; color:#c01535;">ಉನ್ನತ ಶಿಕ್ಷಣ ಸಹಾಯಧನ ಕೋರಿಕೆ ಅರ್ಜಿ 2026-27</h2>
-                    </div>
-
-                    <!-- APP NO & DATE (Red labels, Black information) -->
-                    <!-- APP NO & DATE (Red labels, Black information) -->
-                    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:11.5px; color:#c01535; margin-top:3px; margin-bottom:2px;">
-                        <span>ಅರ್ಜಿ ಸಂಖ್ಯೆ : <span style="color:#000000!important;">${fd.appNo}</span></span>
-                        <span>ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color:#000000!important;">${fd.date}</span></span>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:11.5px; color:#c01535; margin-bottom:4px;">
-                        <span style="width:33.33%; text-align:left;">ನಗರ/ಗ್ರಾಮ : <span style="color:#000000!important;">${fd.city}</span></span>
-                        <span style="width:33.33%; text-align:center;">ತಾಲ್ಲೂಕು : <span style="color:#000000!important;">${fd.taluk}</span></span>
-                        <span style="width:33.33%; text-align:right;">ಜಿಲ್ಲೆ : <span style="color:#000000!important;">${fd.district}</span></span>
-                    </div>
-
-                    <!-- MAIN FORM GRID TABLE (Red labels, Black information) -->
-                    <table style="width:100%; border-collapse:collapse; margin-top:2px; line-height:1.25;">
-                        <tr>
-                            <td style="width:23%; border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು</td>
-                            <td style="width:27%; border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.studentName}</div></td>
-                            <td style="width:23%; border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ತಂದೆಯ/ ಪಾಲಕರ ಹೆಸರು</td>
-                            <td style="width:27%; border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.fatherName}</div></td>
-                        </tr>
-                        <tr>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ತಾಯಿಯ ಹೆಸರು</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.motherName}</div></td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ವಿಳಾಸ</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.completeAddress}</div></td>
-                        </tr>
-                        <tr>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ಉದ್ಯೋಗ</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.occupation}</div></td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.mobile}</div></td>
-                        </tr>
-                        <tr>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ಅಂದಾಜು ಆದಾಯ</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${annualIncomeFormatted}</div></td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ಸಂಘದ ಸದಸ್ಯತ್ವ</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.membershipNo}</div></td>
-                        </tr>
-                        <tr>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ಮನೆಯ ವಿವರ</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.houseType}</div></td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ಮನೆಯ ಆಕಾರ</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.houseShape}</div></td>
-                        </tr>
-                        <tr>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ಜಮೀನು</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.landDetails}</div></td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.parentMobile}</div></td>
-                        </tr>
-                        <tr>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ಆಧಾರ್ ನಂ</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${aadharMasked}</div></td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ಅಂತ್ಯೋದಯ/ಬಿಪಿಎಲ್</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.rationCard}</div></td>
-                        </tr>
-                        <tr>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ಪ್ರವೇಶ ಪಡೆಯುವ ಕಾಲೇಜು</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.collegeName}</div></td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ವ್ಯಾಸಂಗ ಮಾಡುವ ತರಗತಿ</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.courseClass}</div></td>
-                        </tr>
-                        <tr>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:11.5px; vertical-align:middle;">ಹಿಂದಿನ ಪರೀಕ್ಷೆ ಅಂಕ ಹಾಗೂ<br>ಫಲಿತಾಂಶದ ಮಾರ್ಕ್ಸ್ ಕಾರ್ಡ್ ಲಗತ್ತಿಸಿದೆ</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${previousMarksFormatted}</div></td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:11.5px; vertical-align:middle;">ಕಾಲೇಜು ಶುಲ್ಕದ ಅಂದಾಜು ಪ್ರತಿ<br>(ಲಗತ್ತಿಸಿದೆ)</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${collegeFeesFormatted}</div></td>
-                        </tr>
-                        <tr>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:12px; vertical-align:middle;">ಸಹಾಯಧನ ಮೊತ್ತ</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${aidAmountFormatted}</div></td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:11.5px; vertical-align:middle;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಹೆಸರು, (ಅಥವಾ)<br>ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.bankName}</div></td>
-                        </tr>
-                        <tr>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:11.5px; vertical-align:middle;">ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆ (ಅಥವಾ)<br>ಕಾಲೇಜಿನ ಬ್ಯಾಂಕ್ ಖಾತೆ</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.bankAccount}</div></td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; font-weight:bold; color:#c01535; font-size:11.5px; vertical-align:middle;">IFSC ಕೋಡ್ ವಿದ್ಯಾರ್ಥಿ / ಕಾಲೇಜು</td>
-                            <td style="border:1px solid #000!important; padding:4px 5px!important; color:#000000!important; font-weight:bold; font-size:12px; word-break:break-all; vertical-align:middle;"><div style="width:100%; word-break:break-all; overflow:hidden;">${fd.ifscCode}</div></td>
-                        </tr>
-                    </table>
-
-                    <!-- CERTIFICATE DECLARATION -->
-                    <div style="margin-top:8px; font-size:12.5px; line-height:1.35; text-align:justify; color:#c01535;">
-                        <div style="text-align:center; font-weight:bold; font-size:13.5px; color:#c01535; text-decoration:underline; margin-bottom:4px;">ಪ್ರಮಾಣ ಪತ್ರ</div>
-                        <p style="margin:0 0 2px 0;">ವಿದ್ಯಾರ್ಥಿಯಾದ ನಾನು ................................................................................................................................................................</p>
-                        <p style="margin:0 0 2px 0;">ಹಾಗೂ ನನ್ನ ಪಾಲಕರು ಈ ಮೂಲಕ ಘೋಷಿಸುವುದೇನೆಂದರೆ, ನನ್ನ ಕುಟುಂಬ ಬಡತನರೇಖೆ ಇದ್ದು, ನನ್ನ ಮುಂದಿನ ವಿದ್ಯಾಭ್ಯಾಸ ಮುಂದುವರೆಸಲು ಆರ್ಥಿಕವಾಗಿ ಸಧ್ಯಧ ಇರುವುದಿಲ್ಲ. ನನ್ನ ಪ್ರತಿಭೆಯಿಂದ ಶಿಕ್ಷಣ ಮುಂದುವರೆಸಲು ನನಗೆ ಆರ್ಥಿಕ ನೆರವು ಅಗತ್ಯ ಇದೆ. ನನ್ನ ಪ್ರತಿಭೆಯನ್ನು ಗುರುತಿಸಿ ಸಂಘದ ಪರವಾಗಿ ಪ್ರೋತ್ಸಾಹ ಧನವನ್ನು ನೀಡಿದಲ್ಲಿ ನಾನು ಸಮರ್ಥಕವಾಗಿ ಉಪಯೋಗಿಸಿಕೊಂಡು, ಬಹಳ ಶ್ರದ್ಧೆಯಿಂದ ವಿದ್ಯಾಭ್ಯಾಸ ಮಾಡಿ ಹೆಚ್ಚಿನ ಅಂಕಗಳನ್ನು ಪಡೆದುಕೊಳ್ಳಲು ಪ್ರಾಮಾಣಿಕವಾಗಿ ಪ್ರಯತ್ನಿಸುತ್ತೇನೆ.</p>
-                        <p style="margin:0 0 2px 0;">ಓದು ಮುಗಿದನಂತರ ಮುಂದಿನ ದಿನಗಳಲ್ಲಿ ನಾನು ಸರ್ಕಾರಿ/ ಅರೆಸರ್ಕಾರಿ/ ಉದ್ಯೋಗ/ಇತ್ಯಾದಿ ಯಾವುದೇ ರೀತಿಯ ಹುದ್ದೆಗಳಲ್ಲಿ ಮುಂದುವರೆದಾಗ ನನ್ನಂತೆ ಮುಂದಿನ ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೂ ಸಹ ಪ್ರೋತ್ಸಾಹಿಸಲು ನೆರವಾಗುವಂತೆ ಕಾಲ ಕಾಲಕ್ಕೆ ನನ್ನ ಶಕ್ತಿಗೆ ಅನುಗುಣವಾಗಿ, ಪ್ರಾಮಾಣಿಕವಾಗಿ ಮತ್ತು ನನ್ನ ಅಂತರಾತ್ಮ ಸಾಕ್ಷಿಯಾಗಿ, ಸ್ಥಳೀಯ ಸಾಕ್ಷಿಗಳ ಸಮ್ಮುಖದಲ್ಲಿ ಸಂಘಕ್ಕೆ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ನೀಡುತ್ತೇನೆಂದು ಘೋಷಿಸುತ್ತೇನೆ.</p>
-                        <p style="margin:0;">ಮೇಲೆ ತಿಳಿಸಿದಂತೆ ನಾವುಗಳು ಎಲ್ಲಾ ವಿಷಯಗಳಿಗೆ ಬದ್ಧರಿದ್ದೇವೆ ಎಂದು ತಿಳಿಸುತ್ತಾ, ಈ ಮೂಲಕ ಪ್ರಮಾಣೀಕರಿಸುತ್ತೇವೆ.</p>
-                    </div>
-
-                    <!-- SIGNATURES ROW -->
-                    <table style="width:100%; margin-top:15px; font-weight:bold; color:#c01535; font-size:13px;">
-                        <tr>
-                            <td style="width:50%; text-align:left; border:none!important;">ವಿದ್ಯಾರ್ಥಿಯ ಪಾಲಕರ ರುಜು</td>
-                            <td style="width:50%; text-align:right; border:none!important;">ವಿದ್ಯಾರ್ಥಿಯ ರುಜು</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <!-- PAGE 2 CONTAINER -->
-                <div id="pdf-page-2" style="width:700px; box-sizing:border-box; padding:15px 20px; background:#fff; page-break-before:always!important; page-break-inside:avoid!important; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; font-family:'Noto Sans Kannada', 'Segoe UI', Arial, sans-serif;">
-                    <div>
-                        <div style="text-align:center; font-weight:bold; font-size:16px; margin-bottom:4px; color:#c01535;">2</div>
-                        <div style="text-align:center; font-weight:bold; font-size:15px; margin-bottom:12px; color:#c01535; text-decoration:underline;">ಸ್ಥಳೀಯರ ಸಾಕ್ಷಿಗಳು</div>
-
-                        <table style="width:100%; border-collapse:collapse; text-align:center; margin-bottom:16px;">
-                            <tr style="font-weight:bold; color:#c01535; font-size:12.5px;">
-                                <td style="border:1px solid #000!important; width:10%; padding:5px!important;">ಸಂ</td>
-                                <td style="border:1px solid #000!important; width:60%; padding:5px!important;">ವರ್ಷದ ವಿವರ</td>
-                                <td style="border:1px solid #000!important; width:30%; padding:5px!important;">ರೂ</td>
-                            </tr>
-                            <tr>
-                                <td style="border:1px solid #000!important; font-weight:bold; color:#c01535; padding:10px!important; font-size:13px;">01</td>
-                                <td style="border:1px solid #000!important; height:75px;"></td>
-                                <td style="border:1px solid #000!important; height:75px;"></td>
-                            </tr>
-                            <tr>
-                                <td style="border:1px solid #000!important; font-weight:bold; color:#c01535; padding:10px!important; font-size:13px;">02</td>
-                                <td style="border:1px solid #000!important; height:75px;"></td>
-                                <td style="border:1px solid #000!important; height:75px;"></td>
-                            </tr>
-                        </table>
-
-                        <div style="font-size:14.5px; line-height:1.65; color:#c01535; text-align:justify; margin-bottom:20px; font-weight:500;">
-                            ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ) ದಿಂದ ಪ್ರತಿ ವರ್ಷ ಸಮಾಜದ ಅರ್ಹ ಪ್ರತಿಭಾನ್ವಿತ ಬಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಉನ್ನತ ಶಿಕ್ಷಣ ಪ್ರೋತ್ಸಾಹಕ್ಕಾಗಿ ಆರ್ಥಿಕ ಸಹಾಯ ನೀಡುತ್ತಲಿದೆ. ಮೇಲೆ ತಿಳಿಸಿರುವ ವಿದ್ಯಾರ್ಥಿಯು ಪ್ರತಿಭಾನ್ವಿತ ಬಡವಿದ್ಯಾರ್ಥಿ ಇದ್ದು, ಅರ್ಜಿಯಲ್ಲಿ ತಿಳಿಸಿರುವ ಎಲ್ಲಾ ಮಾಹಿತಿಗಳು ನಿಜ ಇರುತ್ತವೆಂದು ದೃಢೀಕರಿಸುತ್ತೇವೆ. ವ್ಯಾಸಂಗ ಮುಕ್ತಾಯದ ನಂತರ ಯಾವುದೇ ರೀತಿಯ ಉದ್ಯೋಗದ ಹುದ್ದೆ ಪಡೆದುಕೊಂಡ ತಕ್ಷಣ ಸಂಘದ ಕರಾರಿನ ಅನ್ವಯ ಮುಂದಿನ ಉನ್ನತ ಶಿಕ್ಷಣಕ್ಕಾಗಿ ಆರ್ಥಿಕ ಸಹಾಯ ಪಡೆಯ ಬಯಸುವ ನಮ್ಮ ಸಮಾಜದ ಬಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಪ್ರೋತ್ಸಾಹಿಸಲು ಸಂಘಕ್ಕೆ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ನೀಡುತ್ತಾರೆಂದು ಸಾಕ್ಷಿದಾರರಾದ ನಾವುಗಳು ಈ ಮೂಲಕ ದೃಢೀಕರಿಸುತ್ತೇವೆ. ಮತ್ತು ಸಂಘಕ್ಕೆ ಸದರಿ ವಿದ್ಯಾರ್ಥಿಯಿಂದ ಆರ್ಥಿಕ ನೆರವು/ದೇಣಿಗೆ ಪಾವತಿ ಮಾಡಿಸುವ ಜವಾಬ್ದಾರಿ ನಮ್ಮ ಮೇಲೆ ಇದೆಯೆಂದು ಪ್ರಮಾಣೀಕರಿಸುತ್ತೇವೆ.
-                        </div>
-
-                        <div style="font-weight:bold; color:#c01535; font-size:13px; margin-bottom:18px;">
-                            <div style="margin-bottom:8px;">ಸಾಕ್ಷಿಗಳ ಸಹಿ :</div>
-                            <div style="display:flex; justify-content:space-between; padding:0 15px; font-size:13px;">
-                                <span>1) ................................................................................</span>
-                                <span>2) ................................................................................</span>
-                            </div>
-                        </div>
-
-                        <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
-                            <tr>
-                                <td style="border:1px solid #c01535!important; width:50%; height:125px; vertical-align:top; padding:6px!important; font-weight:bold; color:#c01535; font-size:13px; text-align:center;">
-                                    ತಾಲೂಕ ಘಟಕದಿಂದ ಶಿಫಾರಸ್ಸು
-                                </td>
-                                <td style="border:1px solid #c01535!important; width:50%; height:125px; vertical-align:top; padding:6px!important; font-weight:bold; color:#c01535; font-size:13px; text-align:center;">
-                                    ಜಿಲ್ಲಾ ಘಟಕದಿಂದ ಶಿಫಾರಸ್ಸು
-                                </td>
-                            </tr>
-                        </table>
-
-                        <div style="font-weight:bold; color:#c01535; font-size:12.5px; line-height:1.7;">
-                            ರಾಜ್ಯ ಶಿಕ್ಷಣ ಸಮಿತಿಯ ವರದಿ : <br><br><br><br>
-                            ರಾಜ್ಯ ಸಮಿತಿ ಅನುಮೋದನೆ : <br><br><br><br>
-                        </div>
-                    </div>
-
-                    <div style="font-weight:bold; color:#c01535; font-size:11.5px; margin-top:10px; padding-bottom:5px;">
-                        ರಾಜ್ಯದ ಅನುಮೋದನೆ ನಂತರ ಮಾಹಿತಿಗಾಗಿ ತಾಲೂಕ ಮತ್ತು ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರಿಗೆ ಹಾಗೂ ವಿಭಾಗಿಯ ಉಪಾಧ್ಯಕ್ಷರಿಗೆ ಕಳುಹಿಸಲಾಗಿದೆ.
-                    </div>
-                </div>
-            `;document.body.appendChild(container);
-
-            const images = Array.from(container.querySelectorAll('img'));
-            await Promise.all(images.map(img => {
-                if (img.complete) return Promise.resolve();
-                return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
-            }));
-
-            const opt = {
-                margin: 0,
-                filename: `Higher_Education_Aid_${fd.studentName || 'Application'}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, logging: false },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { mode: ['css'] }
-            };
+            let apps = [];
+            const deletedIds = JSON.parse(localStorage.getItem('nadaf_deleted_highereducation_ids') || '[]');
 
             try {
-                await window.html2pdf().set(opt).from(container).save();
-            } catch(err) {
-                console.error("PDF generation failed:", err);
-            } finally {
-                if (container.parentNode) {
-                    container.parentNode.removeChild(container);
+                let res = await fetch('/api/donations?formType=highereducation&_=' + Date.now()).catch(() => null);
+                if (!res || !res.ok) {
+                    res = await fetch('/api/donations?_=' + Date.now()).catch(() => null);
                 }
+                if (res && res.ok) {
+                    const data = await res.json().catch(() => null);
+                    const list = Array.isArray(data) ? data : (data && Array.isArray(data.donations) ? data.donations : []);
+                    list.forEach(item => {
+                        const ft = item.formType || (item.formData && item.formData.formType) || '';
+                        const pId = item.paymentId || item.id || (item.formData && item.formData.paymentId) || '';
+                        if (ft === 'highereducation' || ft === 'ಉನ್ನತ ಶಿಕ್ಷಣ ಸಹಾಯಧನ' || pId.startsWith('HEDU-')) {
+                            apps.push(item);
+                        }
+                    });
+                }
+            } catch(e) {
+                console.error("Error fetching higher education applications:", e);
+            }
+
+            // LocalStorage fallback/merge
+            const localApps = JSON.parse(localStorage.getItem('nadaf_highereducation_applications') || '[]');
+            localApps.forEach(la => {
+                const normL = normalizeAppData(la);
+                if (!apps.some(a => normalizeAppData(a).id === normL.id)) {
+                    apps.push(la);
+                }
+            });
+
+            // Filter out deleted IDs
+            apps = apps.filter(a => {
+                const norm = normalizeAppData(a);
+                return !deletedIds.includes(norm.id) && !deletedIds.includes(norm._id);
+            });
+
+            allApplications = apps.map(a => normalizeAppData(a));
+            renderAdminApplications(allApplications);
+        }
+
+        function renderAdminApplications(list) {
+            const tableBody = document.getElementById("adminTableBody");
+            if (!tableBody) return;
+            tableBody.innerHTML = "";
+
+            if (!list || list.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#777; padding:20px;">ಯಾವುದೇ ಅರ್ಜಿಗಳು ಕಂಡುಬಂದಿಲ್ಲ (No Applications Found)</td></tr>';
+                return;
+            }
+
+            list.forEach((app, index) => {
+                const tr = document.createElement("tr");
+                const statusClass = app.status === "Approved" ? "status-approved" : (app.status === "Rejected" ? "status-rejected" : "status-pending");
+                const statusText = app.status === "Approved" ? "ಅನುಮೋದಿಸಲಾಗಿದೆ" : (app.status === "Rejected" ? "ತಿರಸ್ಕರಿಸಲಾಗಿದೆ" : "ವಿಲೇವಾರಿಯಲ್ಲಿದೆ");
+
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td><span style="font-weight: 600; color: #4f1971;">${app.appNo}</span></td>
+                    <td><strong>${app.studentName}</strong></td>
+                    <td>${app.courseClass}</td>
+                    <td>${app.collegeName}</td>
+                    <td>${app.mobile}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText} (${app.status})</span></td>
+                    <td>
+                        <button class="btn-edit" onclick="reviewApplication('${app.id}')" title="ಪರಿಶೀಲನೆ (Review)"><i class="fa fa-eye"></i></button>
+                        <button class="btn-view" onclick="downloadPdfById('${app.id}')" title="PDF ಡೌನ್‌ಲೋಡ್" style="background-color: #007bff; color: white; margin-left: 3px;"><i class="fa fa-download"></i></button>
+                        <button class="btn-delete" onclick="deleteApplication('${app.id}')" title="ಅಳಿಸಿ (Delete)"><i class="fa fa-trash"></i></button>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function filterAdminApplications() {
+            const search = (document.getElementById("adminSearchInput").value || "").toLowerCase().trim();
+            const status = document.getElementById("adminStatusFilter").value;
+
+            const filtered = allApplications.filter(app => {
+                const searchMatch = !search ||
+                    (app.studentName && app.studentName.toLowerCase().includes(search)) ||
+                    (app.mobile && app.mobile.includes(search)) ||
+                    (app.collegeName && app.collegeName.toLowerCase().includes(search)) ||
+                    (app.district && app.district.toLowerCase().includes(search)) ||
+                    (app.fatherName && app.fatherName.toLowerCase().includes(search)) ||
+                    (app.appNo && app.appNo.toLowerCase().includes(search));
+
+                const statusMatch = !status || app.status === status;
+                return searchMatch && statusMatch;
+            });
+
+            renderAdminApplications(filtered);
+        }
+
+        function reviewApplication(id) {
+            const app = allApplications.find(a => a.id === id || a._id === id);
+            if (!app) return;
+            currentApp = app;
+
+            document.getElementById("revAppNo").textContent = app.appNo;
+            document.getElementById("revStudentName").textContent = app.studentName;
+            document.getElementById("revFatherName").textContent = app.fatherName;
+            document.getElementById("revMotherName").textContent = app.motherName;
+            document.getElementById("revDobGender").textContent = `${app.dob} (${app.age} ವರ್ಷ, ${app.gender})`;
+            document.getElementById("revOccupation").textContent = `${app.occupation} (ವಾರ್ಷಿಕ ಆದಾಯ: ${formatCurrency(app.annualIncome, true)})`;
+            document.getElementById("revAddress").textContent = `${app.completeAddress}, ${app.city}, ${app.taluk}, ${app.district}`;
+            document.getElementById("revContact").textContent = `${app.mobile} / ಆಧಾರ್: ${maskAadhar(app.aadhar)}`;
+            document.getElementById("revCollege").textContent = `${app.collegeName} (${app.courseClass})`;
+            document.getElementById("revMarksFees").textContent = `ಅಂಕ: ${formatPercentage(app.previousMarks)} | ಶುಲ್ಕ: ${formatCurrency(app.collegeFees, true)}`;
+            document.getElementById("revAidAmount").textContent = `ಕೋರುವ ಮೊತ್ತ: ${formatCurrency(app.aidAmount, true)}`;
+            document.getElementById("revBank").textContent = `${app.bankName} (ಖಾತೆ: ${app.bankAccount}, IFSC: ${app.ifscCode})`;
+
+            document.getElementById("reviewStatus").value = app.status || 'Pending';
+            document.getElementById("reviewRemarks").value = app.remarks || '';
+
+            document.getElementById("reviewModal").style.display = "flex";
+        }
+
+        function closeReviewModal() {
+            document.getElementById("reviewModal").style.display = "none";
+            currentApp = null;
+        }
+
+        async function saveReviewStatus(e) {
+            if (e) e.preventDefault();
+            if (!currentApp) return;
+
+            const newStatus = document.getElementById("reviewStatus").value;
+            const newRemarks = document.getElementById("reviewRemarks").value;
+
+            currentApp.status = newStatus;
+            currentApp.remarks = newRemarks;
+
+            // API Update
+            try {
+                await fetch('/api/donations/update', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: currentApp.id,
+                        paymentId: currentApp.id,
+                        dbId: currentApp._id,
+                        status: newStatus,
+                        remarks: newRemarks
+                    })
+                }).catch(() => null);
+            } catch(err) {
+                console.error("Failed to update status API:", err);
+            }
+
+            // LocalStorage Update
+            const localApps = JSON.parse(localStorage.getItem('nadaf_highereducation_applications') || '[]');
+            const idx = localApps.findIndex(a => (a.paymentId || a.id || a._id) === currentApp.id);
+            if (idx !== -1) {
+                localApps[idx].status = newStatus;
+                localApps[idx].remarks = newRemarks;
+                if (localApps[idx].formData) {
+                    localApps[idx].formData.status = newStatus;
+                    localApps[idx].formData.remarks = newRemarks;
+                }
+                localStorage.setItem('nadaf_highereducation_applications', JSON.stringify(localApps));
+            }
+
+            alert("ಅರ್ಜಿ ಸ್ಥಿತಿಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಉಳಿಸಲಾಗಿದೆ / Status updated successfully!");
+            closeReviewModal();
+            loadHigherEducationApplications();
+        }
+
+        async function deleteCurrentApp() {
+            if (!currentApp) return;
+            await deleteApplication(currentApp.id);
+            closeReviewModal();
+        }
+
+        async function deleteApplication(id) {
+            if (!confirm("ಈ ಅರ್ಜಿಯನ್ನು ಖಚಿತವಾಗಿ ಅಳಿಸಲು ಬಯಸುತ್ತೀರಾ? (Are you sure you want to delete this application?)")) return;
+
+            const deletedIds = JSON.parse(localStorage.getItem('nadaf_deleted_highereducation_ids') || '[]');
+            if (!deletedIds.includes(id)) {
+                deletedIds.push(id);
+                localStorage.setItem('nadaf_deleted_highereducation_ids', JSON.stringify(deletedIds));
+            }
+
+            // Remove from local storage
+            let localApps = JSON.parse(localStorage.getItem('nadaf_highereducation_applications') || '[]');
+            localApps = localApps.filter(a => (a.paymentId || a.id || a._id) !== id);
+            localStorage.setItem('nadaf_highereducation_applications', JSON.stringify(localApps));
+
+            // API Delete
+            try {
+                await fetch('/api/donations/' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+                await fetch('/api/donations?paymentId=' + encodeURIComponent(id), { method: 'DELETE' }).catch(() => null);
+            } catch(e) {}
+
+            alert("ಅರ್ಜಿಯನ್ನು ಅಳಿಸಲಾಗಿದೆ / Application deleted!");
+            loadHigherEducationApplications();
+        }
+
+        function downloadCurrentPdf() {
+            if (currentApp) {
+                generatePDF(currentApp);
             }
         }
+
+        function downloadPdfById(id) {
+            const app = allApplications.find(a => a.id === id || a._id === id);
+            if (app) {
+                generatePDF(app);
+            }
+        }
+
+        window.loadHigherEducationApplications = loadHigherEducationApplications;
+        window.filterAdminApplications = filterAdminApplications;
+        window.reviewApplication = reviewApplication;
+        window.closeReviewModal = closeReviewModal;
+        window.saveReviewStatus = saveReviewStatus;
+        window.deleteCurrentApp = deleteCurrentApp;
+        window.deleteApplication = deleteApplication;
+        window.downloadCurrentPdf = downloadCurrentPdf;
+        window.downloadPdfById = downloadPdfById;
     </script>
+
 </body>
 </html>
