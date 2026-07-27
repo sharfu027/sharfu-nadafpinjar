@@ -920,6 +920,13 @@
     <script src="js/dropdowns.js"></script>
 
     <script>
+        function handleLifeMembershipChange(selectEl) {
+            if (selectEl && (selectEl.value === "ಹೌದು" || selectEl.value.includes("ಹೌದು"))) {
+                alert("ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ");
+            }
+        }
+        window.handleLifeMembershipChange = handleLifeMembershipChange;
+
         let allStudents = [];
         let base64Photo = "";
 
