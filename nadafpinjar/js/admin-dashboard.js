@@ -4380,14 +4380,12 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                         <div class="signature-section">
                             <table class="signature-table">
                                 <tr>
-                                    <td style="width: 33%; text-align: left; vertical-align: top;"><strong>ದಿನಾಂಕ :</strong> _________________</td>
-                                    <td style="width: 34%; text-align: center; height: 22px; vertical-align: bottom; font-weight: bold;">ಸಾಧಕರ ಪಾಲಕರ ರುಜು (ಶ್ರೀಧೆಯಲ್ಲಿದ್ದಲ್ಲಿ)</td>
-                                    <td style="width: 33%; text-align: right; height: 22px; vertical-align: bottom; font-weight: bold;">ಸಾಧಕರ ರುಜು</td>
+                                    <td style="width: 25%; text-align: left; vertical-align: top;"><strong>ದಿನಾಂಕ :</strong> _________________</td>
+                                    <td style="width: 50%; text-align: center; height: 22px; vertical-align: bottom; font-weight: bold; white-space: nowrap; font-size: 13.5px;">ಸಾಧಕರ ಪಾಲಕರ ರುಜು (ಕ್ರೀಡೆಯಿದ್ದಲ್ಲಿ)</td>
+                                    <td style="width: 25%; text-align: right; height: 22px; vertical-align: bottom; font-weight: bold; white-space: nowrap; font-size: 13.5px;">ಸಾಧಕರ ರುಜು</td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td style="text-align: left; vertical-align: top; padding-top: 4px;" colspan="3"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</td>
                                 </tr>
                             </table>
                         </div>
