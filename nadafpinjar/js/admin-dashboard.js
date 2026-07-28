@@ -1545,7 +1545,9 @@ window.downloadReceiptPdf = function(receiptId) {
                         });
                     } else {
                 // Convert Kannada text elements to images to prevent html2canvas mangling
-                const kannadaEls = element.querySelectorAll('.kannada-text-img');
+                const targetPdfEl = (typeof container !== 'undefined' && container) ? container : (typeof element !== 'undefined' && element ? element : null);
+                if (!targetPdfEl) return;
+                const kannadaEls = targetPdfEl.querySelectorAll('.kannada-text-img');
                 for (const el of kannadaEls) {
                     const text = el.textContent;
                     const fs2 = 23; // 11.5px * 2 for hi-res
@@ -2287,7 +2289,9 @@ function loadAdminFreeEdu() {
                             });
                         } else {
                 // Convert Kannada text elements to images to prevent html2canvas mangling
-                const kannadaEls = element.querySelectorAll('.kannada-text-img');
+                const targetPdfEl = (typeof container !== 'undefined' && container) ? container : (typeof element !== 'undefined' && element ? element : null);
+                if (!targetPdfEl) return;
+                const kannadaEls = targetPdfEl.querySelectorAll('.kannada-text-img');
                 for (const el of kannadaEls) {
                     const text = el.textContent;
                     const fs2 = 23; // 11.5px * 2 for hi-res
@@ -3176,7 +3180,9 @@ function loadAdminCensus() {
                 script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
                 script.onload = () => {
                 // Convert Kannada text elements to images to prevent html2canvas mangling
-                const kannadaEls = element.querySelectorAll('.kannada-text-img');
+                const targetPdfEl = (typeof container !== 'undefined' && container) ? container : (typeof element !== 'undefined' && element ? element : null);
+                if (!targetPdfEl) return;
+                const kannadaEls = targetPdfEl.querySelectorAll('.kannada-text-img');
                 for (const el of kannadaEls) {
                     const text = el.textContent;
                     const fs2 = 23; // 11.5px * 2 for hi-res
@@ -3458,7 +3464,9 @@ function loadAdminEmployees() {
 
         document.body.appendChild(container);
                 // Convert Kannada text elements to images to prevent html2canvas mangling
-                const kannadaEls = element.querySelectorAll('.kannada-text-img');
+                const targetPdfEl = (typeof container !== 'undefined' && container) ? container : (typeof element !== 'undefined' && element ? element : null);
+                if (!targetPdfEl) return;
+                const kannadaEls = targetPdfEl.querySelectorAll('.kannada-text-img');
                 for (const el of kannadaEls) {
                     const text = el.textContent;
                     const fs2 = 23; // 11.5px * 2 for hi-res
@@ -4304,7 +4312,9 @@ window.downloadPratibhaPdfAdmin = async function(id) {
         return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
     }));
                 // Convert Kannada text elements to images to prevent html2canvas mangling
-                const kannadaEls = element.querySelectorAll('.kannada-text-img');
+                const targetPdfEl = (typeof container !== 'undefined' && container) ? container : (typeof element !== 'undefined' && element ? element : null);
+                if (!targetPdfEl) return;
+                const kannadaEls = targetPdfEl.querySelectorAll('.kannada-text-img');
                 for (const el of kannadaEls) {
                     const text = el.textContent;
                     const fs2 = 23; // 11.5px * 2 for hi-res
@@ -4535,7 +4545,9 @@ window.downloadSadhakaPdfAdmin = async function(id) {
         return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
     }));
                 // Convert Kannada text elements to images to prevent html2canvas mangling
-                const kannadaEls = element.querySelectorAll('.kannada-text-img');
+                const targetPdfEl = (typeof container !== 'undefined' && container) ? container : (typeof element !== 'undefined' && element ? element : null);
+                if (!targetPdfEl) return;
+                const kannadaEls = targetPdfEl.querySelectorAll('.kannada-text-img');
                 for (const el of kannadaEls) {
                     const text = el.textContent;
                     const fs2 = 23; // 11.5px * 2 for hi-res
