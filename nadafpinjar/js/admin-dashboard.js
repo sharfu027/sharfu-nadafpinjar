@@ -3992,17 +3992,15 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             word-break: keep-all !important;
                         }
                         .value-col {
-                            word-break: keep-all !important;
-                            overflow-wrap: normal !important;
-                            word-wrap: normal !important;
+                            word-break: break-word !important;
+                            overflow-wrap: break-word !important;
                             white-space: normal !important;
                             line-height: 1.45 !important;
                         }
                         .value-col-split {
                             width: 220px;
-                            word-break: keep-all !important;
-                            overflow-wrap: normal !important;
-                            word-wrap: normal !important;
+                            word-break: break-word !important;
+                            overflow-wrap: break-word !important;
                             white-space: normal !important;
                             line-height: 1.45 !important;
                         }
