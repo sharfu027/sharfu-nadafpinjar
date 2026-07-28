@@ -3874,7 +3874,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     const parentOccupationIncome = fd.parentOccupationIncome || '-';
     const completeAddress = fd.completeAddress || '-';
     const aadhar = fd.aadhar || '-';
-    const lifeMembership = (fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು<br><span style="font-size: 12.5px; font-weight: normal; color: #000; display: block; line-height: 1.55; margin-top: 2px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-');
+    const lifeMembership = (fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes'))) ? 'ಹೌದು<br><span style="font-size: 12.5px; font-weight: normal; color: #000; display: block; line-height: 1.55; margin-top: 2px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-');
     const marksDetails = fd.marksDetails || '-';
     const parentMobile = fd.parentMobile || '-';
     const bankName = fd.bankName || '-';
