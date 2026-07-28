@@ -3874,7 +3874,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     const parentOccupationIncome = fd.parentOccupationIncome || '-';
     const completeAddress = fd.completeAddress || '-';
     const aadhar = fd.aadhar || '-';
-    const lifeMembership = (fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು<br><span style="font-size: 13px; font-weight: normal; color: #000;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-');
+    const lifeMembership = (fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು (ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)' : (fd.lifeMembership || '-');
     const marksDetails = fd.marksDetails || '-';
     const parentMobile = fd.parentMobile || '-';
     const bankName = fd.bankName || '-';
@@ -3888,11 +3888,12 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                     
                     
                     
+                    
                     <style>
                         .pdf-container {
-                            font-family: 'Noto Sans Kannada', 'Noto Serif Kannada', Tunga, 'Segoe UI', Arial, sans-serif;
+                            font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
                             font-size: 14.5px;
-                            line-height: 1.5 !important;
+                            line-height: 1.55 !important;
                             color: #000;
                             page-break-inside: avoid !important;
                             width: 100%;
@@ -3972,7 +3973,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             text-align: left;
                             vertical-align: middle;
                             font-size: 14px;
-                            line-height: 1.5 !important;
+                            line-height: 1.55 !important;
                             box-sizing: border-box;
                         }
                         .sl-col {
@@ -3989,14 +3990,14 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             word-break: normal !important;
                             overflow-wrap: break-word !important;
                             white-space: normal !important;
-                            line-height: 1.5 !important;
+                            line-height: 1.55 !important;
                         }
                         .value-col-split {
                             width: 220px;
                             word-break: normal !important;
                             overflow-wrap: break-word !important;
                             white-space: normal !important;
-                            line-height: 1.5 !important;
+                            line-height: 1.55 !important;
                         }
                         .photo-cell {
                             width: 110px;
@@ -4174,7 +4175,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         <td style="width: 33%; text-align: right; height: 22px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ರುಜು</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> _________________</td>
+                        <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</td>
                         <td></td>
                         <td></td>
                     </tr>

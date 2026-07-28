@@ -608,11 +608,7 @@
                             <td class="field-label">ಸಾಧಕರ / ಪಾಲಕರ ಮೊ. ನಂ. (Sadhaka/Parent Mobile Number)</td>
                             <td class="field-input"><input type="text" id="parentMobile" required></td>
                         </tr>
-                        <tr>
-                            <td class="sl-no">10</td>
-                            <td class="field-label">ಸಾಧಕರ ಅಥವಾ ಪಾಲಕರ ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (ಕಡ್ಡಾಯ) (Mandatory Bank Details)</td>
-                            <td class="field-input"><input type="text" id="bankDetails" required placeholder="Bank, Acc No, Branch, IFSC"></td>
-                        </tr>
+                        
                         <tr>
                             <td class="sl-no">📷</td>
                             <td class="field-label">ಪಾಸ್ಪೋರ್ಟ್ ಸೈಜ್ ಫೋಟೋ (Passport Size Photo)</td>
@@ -1302,12 +1298,12 @@
                                     <img src="${window.location.origin}/images/president_circular.png" onerror="this.src='${window.location.origin}/images/president.jpeg'">
                                 </td>
                                 <td class="header-text">
-                                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</h1>
+                                    <h1 style="font-size: 18px; white-space: nowrap; margin: 0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ) ಶಿವಮೊಗ್ಗ</h1>
                                     <h2>ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
-                                    <h3>ವಿವಿಧ ಕ್ಷೇತ್ರಗಳ ಸಾಧಕರ ಆಯ್ಕೆಗಾಗಿ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
+                                    <h3>ಸಾಧಕ ಪ್ರಶಸ್ತಿ ಅರ್ಜಿ 2025-26</h3>
                                 </td>
                                 <td class="header-logo-right">
-                                    <img src="${window.location.origin}/images/logo-786_circular.png" onerror="this.src='${window.location.origin}/images/logo-786.png'">
+                                    <img src="${window.location.origin}/images/logo-786.png" onerror="this.src='images/logo-786.png'">
                                 </td>
                             </tr>
                         </table>
@@ -1320,22 +1316,22 @@
                             </tr>
                             <tr>
                                 <td class="sl-col">2</td>
-                                <td class="label-col">ಸಾಧಕರ ತಂದೆ/ಗಂಡ/ ಹೆಸರು</td>
+                                <td class="label-col">ತಂದೆಯ/ಗಂಡನ ಹೆಸರು</td>
                                 <td class="value-col" colspan="2">${fd.fatherName || '-'}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">3</td>
-                                <td class="label-col">ಸಾಧಕರ ಪೋಷಕರಿದ್ದಲ್ಲಿ ಹೆಸರು</td>
+                                <td class="label-col">ಪೋಷಕರಿದ್ದಲ್ಲಿ ಹೆಸರು</td>
                                 <td class="value-col" colspan="2">${fd.guardianName || '-'}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">4</td>
-                                <td class="label-col">ಸಾಧಕರು/ಪೋಷಕರ ಉದ್ಯೋಗ</td>
+                                <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಉದ್ಯೋಗ ಮತ್ತು ಆದಾಯ</td>
                                 <td class="value-col" colspan="2">${fd.parentOccupationIncome || '-'}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">5</td>
-                                <td class="label-col">ಸಾಧಕರ ಮತ್ತು/ಪೋಷಕರ ಸಂಪೂರ್ಣವಿಳಾಸ</td>
+                                <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಸಂಪೂರ್ಣವಿಳಾಸ</td>
                                 <td class="value-col" colspan="2">${fd.completeAddress || '-'}</td>
                             </tr>
                             <tr>
@@ -1350,24 +1346,31 @@
                             </tr>
                             <tr>
                                 <td class="sl-col">8</td>
-                                <td class="label-col">ಸಾಧಕರು ಸಾಧನೆ ಮಾಡಿದ ಕ್ಷೇತ್ರಗಳ ವಿವರ ಮತ್ತು ಸಂಬಂಧಿಸಿದ ದಾಖಲೆಗಳನ್ನು ಲಗತ್ತಿಸುವುದು</td>
-                                <td class="value-col" colspan="2">
-                                    ಕ್ಷೇತ್ರ: ${fd.field || '-'}, ವರ್ಗ: ${fd.category || '-'}, ವರ್ಷ: ${fd.year || '-'}, ಜಿಲ್ಲೆ: ${fd.city || '-'}<br>
-                                    ವಿವರ: ${fd.marksDetails || '-'}
-                                </td>
+                                <td class="label-col">ಸಾಧಕರು ಸಾಧನೆ ಮಾಡಿದ ಕ್ಷೇತ್ರಗಳ ವಿವರ ಮತ್ತು ದಾಖಲೆಗಳು</td>
+                                <td class="value-col" colspan="2">${fd.marksDetails || '-'}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">9</td>
                                 <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಮೊ. ನಂ.</td>
                                 <td class="value-col-split">${fd.parentMobile || '-'}</td>
-                                <td class="photo-cell" rowspan="2">
-                                    ${fd.photo ? '<img src="' + fd.photo + '">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್ ಸೈಜ್ ಫೋಟೋ</div>'}
+                                <td class="photo-cell" rowspan="4">
+                                    ${fd.photo ? '<img src="' + fd.photo + '">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಸೈಜ್ ಫೋಟೋ</div>'}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="sl-col">10</td>
-                                <td class="label-col">ಸಾಧಕರ ಅಥವಾ ಪಾಲಕರ ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (ಕಡ್ಡಾಯ)</td>
-                                <td class="value-col-split">${fd.bankDetails || '-'}</td>
+                                <td class="label-col">ಸಾಧನೆ ಮಾಡಿದ ಕ್ಷೇತ್ರ (Field)</td>
+                                <td class="value-col-split">${fd.field || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">11</td>
+                                <td class="label-col">ಸಾಧನೆಯ ವರ್ಗ (Category)</td>
+                                <td class="value-col-split">${fd.category || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">12</td>
+                                <td class="label-col">ಪಟ್ಟಣ/ಜಿಲ್ಲೆ & ವರ್ಷ</td>
+                                <td class="value-col-split">${fd.city || '-'}, ${fd.year || '2025-26'}</td>
                             </tr>
                         </table>
                         
@@ -1375,11 +1378,11 @@
                             <table class="signature-table">
                                 <tr>
                                     <td style="width: 33%; text-align: left; vertical-align: top;"><strong>ದಿನಾಂಕ :</strong> _________________</td>
-                                    <td style="width: 34%; text-align: center; height: 22px; vertical-align: bottom; font-weight: bold;">ಸಾಧಕರ ಪಾಲಕರ ಸಹಿ (ಕಡ್ಡಾಯ)</td>
-                                    <td style="width: 33%; text-align: right; height: 22px; vertical-align: bottom; font-weight: bold;">ಸಾಧಕರ ಸಹಿ</td>
+                                    <td style="width: 34%; text-align: center; height: 22px; vertical-align: bottom; font-weight: bold;">ಸಾಧಕರ / ಪಾಲಕರ ರುಜು</td>
+                                    <td style="width: 33%; text-align: right; height: 22px; vertical-align: bottom; font-weight: bold;">ಸಾಧಕರ ರುಜು</td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> _________________</td>
+                                    <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -1402,14 +1405,14 @@
                         <div class="committee-section">
                             <div class="committee-title">ರಾಜ್ಯ ಸ್ಕ್ರೀನಿಂಗ್ ಕಮಿಟಿ ಉಪಯೋಗಕ್ಕಾಗಿ</div>
                             <div class="committee-text">
-                                ಸಾಧಕರಾದ <strong>${fd.studentName || '......................................................'}</strong> ......................................................................................................
+                                ಸಾಧಕ/ಕಿ ಯಾದ ಶ್ರೀ/ಶ್ರೀಮತಿ <strong>${fd.studentName || '......................................................'}</strong> ......................................................................................................
                                 <div class="committee-bullet">
-                                    • ಇವರ ಮೂಲ ದಾಖಲೆಗಳ ಸಮೇತ ಸಲ್ಲಿಸಿರುವ ಅರ್ಜಿಯನ್ನು ಸಂಘದ ಮಾರ್ಗಸೂಚಿಗಳ ಅನ್ವಯ ಕೂಲಂಕುಷವಾಗಿ ಪರಿಶೀಲಿಸಿ, ಸೂಕ್ತ ಎಂದು ಕಂಡು ಬಂದುದರಿಂದ ಸಂಸ್ಥಾಪನಾ ದಿನಾಚರಣೆ ನಿಮಿತ್ತ ರಾಜ್ಯ ಮಟ್ಟದಲ್ಲಿ ಜರುಗುವ ಗೌರವ ಸನ್ಮಾನ ಕಾರ್ಯಕ್ರಮದಲ್ಲಿ 'ಪುರಸ್ಕರಿಸಲು' ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ.
+                                    • ಇವರ ಮೂಲ ದಾಖಲೆಗಳ ಸಮೇತ ಸಲ್ಲಿಸಿರುವ ಅರ್ಜಿಯನ್ನು ಸಂಘದ ಮಾರ್ಗಸೂಚಿಗಳ ಅನ್ವಯ ಕೂಲಂಕುಷವಾಗಿ ಪರಿಶೀಲಿಸಿ, ಸೂಕ್ತ ಎಂದು ಕಂಡು ಬಂದುದರಿಂದ ಸಂಸ್ಥಾಪನಾ ದಿನಾಚರಣೆ ನಿಮಿತ್ತ ರಾಜ್ಯ ಮಟ್ಟದಲ್ಲಿ ಜರುಗುವ ಗೌರವ ಸನ್ಮಾನ ಕಾರ್ಯಕ್ರಮದಲ್ಲಿ 'ಸಾಧಕ ಪ್ರಶಸ್ತಿ' ಗೆ ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ.
                                 </div>
                             </div>
                         </div>
-                    </div>
-    `;
+</div>
+`;
 
                 document.body.appendChild(element);
                 const images = Array.from(element.querySelectorAll('img'));
@@ -1782,12 +1785,12 @@
                                     <img src="${window.location.origin}/images/president_circular.png" onerror="this.src='${window.location.origin}/images/president.jpeg'">
                                 </td>
                                 <td class="header-text">
-                                    <h1 style="font-size: 19.5px; white-space: nowrap; margin: 0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ) ಶಿವಮೊಗ್ಗ</h1>
+                                    <h1 style="font-size: 18px; white-space: nowrap; margin: 0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ) ಶಿವಮೊಗ್ಗ</h1>
                                     <h2>ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
-                                    <h3>ವಿವಿಧ ಕ್ಷೇತ್ರಗಳ ಸಾಧಕರ ಆಯ್ಕೆಗಾಗಿ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
+                                    <h3>ಸಾಧಕ ಪ್ರಶಸ್ತಿ ಅರ್ಜಿ 2025-26</h3>
                                 </td>
                                 <td class="header-logo-right">
-                                    <img src="${window.location.origin}/images/logo-786_circular.png" onerror="this.src='${window.location.origin}/images/logo-786.png'">
+                                    <img src="${window.location.origin}/images/logo-786.png" onerror="this.src='images/logo-786.png'">
                                 </td>
                             </tr>
                         </table>
@@ -1800,22 +1803,22 @@
                             </tr>
                             <tr>
                                 <td class="sl-col">2</td>
-                                <td class="label-col">ಸಾಧಕರ ತಂದೆಯ/ಗಂಡ/ ಹೆಸರು</td>
+                                <td class="label-col">ತಂದೆಯ/ಗಂಡನ ಹೆಸರು</td>
                                 <td class="value-col" colspan="2">${fd.fatherName || '-'}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">3</td>
-                                <td class="label-col">ಸಾಧಕರ ಪೋಷಕರಿದ್ದಲ್ಲಿ ಹೆಸರು</td>
+                                <td class="label-col">ಪೋಷಕರಿದ್ದಲ್ಲಿ ಹೆಸರು</td>
                                 <td class="value-col" colspan="2">${fd.guardianName || '-'}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">4</td>
-                                <td class="label-col">ಪಾಲಕರ/ಪೋಷಕರ ಉದ್ಯೋಗ</td>
+                                <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಉದ್ಯೋಗ ಮತ್ತು ಆದಾಯ</td>
                                 <td class="value-col" colspan="2">${fd.parentOccupationIncome || '-'}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">5</td>
-                                <td class="label-col">ಸಾಧಕರ ಪಾಲಕರ/ಪೋಷಕರ ಸಂಪೂರ್ಣವಿಳಾಸ</td>
+                                <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಸಂಪೂರ್ಣವಿಳಾಸ</td>
                                 <td class="value-col" colspan="2">${fd.completeAddress || '-'}</td>
                             </tr>
                             <tr>
@@ -1830,23 +1833,31 @@
                             </tr>
                             <tr>
                                 <td class="sl-col">8</td>
-                                <td class="label-col">ಸಾಧಕರು ಸಾಧನೆ ಮಾಡಿದ ಕ್ಷೇತ್ರಗಳ ವಿವರ ಮತ್ತು ಸಂಬಂಧಿಸಿದ ದಾಖಲೆಗಳನ್ನು ಲಗತ್ತಿಸುವುದು</td>
-                                <td class="value-col" colspan="2">
-                                    ${fd.marksDetails || '-'}
-                                </td>
+                                <td class="label-col">ಸಾಧಕರು ಸಾಧನೆ ಮಾಡಿದ ಕ್ಷೇತ್ರಗಳ ವಿವರ ಮತ್ತು ದಾಖಲೆಗಳು</td>
+                                <td class="value-col" colspan="2">${fd.marksDetails || '-'}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">9</td>
                                 <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಮೊ. ನಂ.</td>
                                 <td class="value-col-split">${fd.parentMobile || '-'}</td>
-                                <td class="photo-cell" rowspan="2">
-                                    ${fd.photo ? '<img src="' + fd.photo + '">' : '<div class="photo-placeholder">ಪಾಸ್<br>ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
+                                <td class="photo-cell" rowspan="4">
+                                    ${fd.photo ? '<img src="' + fd.photo + '">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಸೈಜ್ ಫೋಟೋ</div>'}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="sl-col">10</td>
-                                <td class="label-col">ಸಾಧಕರ ಅಥವಾ ಪಾಲಕರ ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (ಕಡ್ಡಾಯ)</td>
-                                <td class="value-col-split">${fd.bankDetails || '-'}</td>
+                                <td class="label-col">ಸಾಧನೆ ಮಾಡಿದ ಕ್ಷೇತ್ರ (Field)</td>
+                                <td class="value-col-split">${fd.field || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">11</td>
+                                <td class="label-col">ಸಾಧನೆಯ ವರ್ಗ (Category)</td>
+                                <td class="value-col-split">${fd.category || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">12</td>
+                                <td class="label-col">ಪಟ್ಟಣ/ಜಿಲ್ಲೆ & ವರ್ಷ</td>
+                                <td class="value-col-split">${fd.city || '-'}, ${fd.year || '2025-26'}</td>
                             </tr>
                         </table>
                         
@@ -1854,11 +1865,11 @@
                             <table class="signature-table">
                                 <tr>
                                     <td style="width: 33%; text-align: left; vertical-align: top;"><strong>ದಿನಾಂಕ :</strong> _________________</td>
-                                    <td style="width: 34%; text-align: center; height: 22px; vertical-align: bottom; font-weight: bold;">ಸಾಧಕರ ಪಾಲಕರ ರುಜು (ಕ್ರೀಡೆಯಲ್ಲಿದ್ದಲ್ಲಿ)</td>
+                                    <td style="width: 34%; text-align: center; height: 22px; vertical-align: bottom; font-weight: bold;">ಸಾಧಕರ / ಪಾಲಕರ ರುಜು</td>
                                     <td style="width: 33%; text-align: right; height: 22px; vertical-align: bottom; font-weight: bold;">ಸಾಧಕರ ರುಜು</td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> _________________</td>
+                                    <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -1881,14 +1892,14 @@
                         <div class="committee-section">
                             <div class="committee-title">ರಾಜ್ಯ ಸ್ಕ್ರೀನಿಂಗ್ ಕಮಿಟಿ ಉಪಯೋಗಕ್ಕಾಗಿ</div>
                             <div class="committee-text">
-                                ಸಾಧಕರಾದ <strong>${fd.studentName || '......................................................'}</strong> ......................................................................................................
+                                ಸಾಧಕ/ಕಿ ಯಾದ ಶ್ರೀ/ಶ್ರೀಮತಿ <strong>${fd.studentName || '......................................................'}</strong> ......................................................................................................
                                 <div class="committee-bullet">
-                                    • ಇವರ ಮೂಲ ದಾಖಲೆಗಳ ಸಮೇತ ಸಲ್ಲಿಸಿರುವ ಅರ್ಜಿಯನ್ನು ಸಂಘದ ಮಾರ್ಗಸೂಚಿಗಳ ಅನ್ವಯ ಕೂಲಂಕುಷವಾಗಿ ಪರಿಶೀಲಿಸಿ, ಸೂಕ್ತ ಎಂದು ಕಂಡು ಬಂದುದರಿಂದ ಸಂಸ್ಥಾಪನಾ ದಿನಾಚರಣೆ ನಿಮಿತ್ತ ರಾಜ್ಯ ಮಟ್ಟದಲ್ಲಿ ಜರುಗುವ ಗೌರವ ಸನ್ಮಾನ ಕಾರ್ಯಕ್ರಮದಲ್ಲಿ 'ಪುರಸ್ಕರಿಸಲು' ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ.
+                                    • ಇವರ ಮೂಲ ದಾಖಲೆಗಳ ಸಮೇತ ಸಲ್ಲಿಸಿರುವ ಅರ್ಜಿಯನ್ನು ಸಂಘದ ಮಾರ್ಗಸೂಚಿಗಳ ಅನ್ವಯ ಕೂಲಂಕುಷವಾಗಿ ಪರಿಶೀಲಿಸಿ, ಸೂಕ್ತ ಎಂದು ಕಂಡು ಬಂದುದರಿಂದ ಸಂಸ್ಥಾಪನಾ ದಿನಾಚರಣೆ ನಿಮಿತ್ತ ರಾಜ್ಯ ಮಟ್ಟದಲ್ಲಿ ಜರುಗುವ ಗೌರವ ಸನ್ಮಾನ ಕಾರ್ಯಕ್ರಮದಲ್ಲಿ 'ಸಾಧಕ ಪ್ರಶಸ್ತಿ' ಗೆ ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ.
                                 </div>
                             </div>
                         </div>
-                    </div>
-    `;
+</div>
+`;
 
                 document.body.appendChild(element);
 

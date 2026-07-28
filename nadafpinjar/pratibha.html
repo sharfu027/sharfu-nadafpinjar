@@ -7,11 +7,12 @@
                     
                     
                     
+                    
                     <style>
                         .pdf-container {
-                            font-family: 'Noto Sans Kannada', 'Noto Serif Kannada', Tunga, 'Segoe UI', Arial, sans-serif;
+                            font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
                             font-size: 14.5px;
-                            line-height: 1.5 !important;
+                            line-height: 1.55 !important;
                             color: #000;
                             page-break-inside: avoid !important;
                             width: 100%;
@@ -91,7 +92,7 @@
                             text-align: left;
                             vertical-align: middle;
                             font-size: 14px;
-                            line-height: 1.5 !important;
+                            line-height: 1.55 !important;
                             box-sizing: border-box;
                         }
                         .sl-col {
@@ -108,14 +109,14 @@
                             word-break: normal !important;
                             overflow-wrap: break-word !important;
                             white-space: normal !important;
-                            line-height: 1.5 !important;
+                            line-height: 1.55 !important;
                         }
                         .value-col-split {
                             width: 220px;
                             word-break: normal !important;
                             overflow-wrap: break-word !important;
                             white-space: normal !important;
-                            line-height: 1.5 !important;
+                            line-height: 1.55 !important;
                         }
                         .photo-cell {
                             width: 110px;
@@ -253,7 +254,7 @@
                             <tr>
                                 <td class="sl-col">7</td>
                                 <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಕುಟುಂಬದವರು ಸಂಘದ ಅಜೀವ ಸದಸ್ಯರೇ?</td>
-                                <td class="value-col" colspan="2">${(fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು<br><span style="font-size: 13px; font-weight: normal; color: #000;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-')}</td>
+                                <td class="value-col" colspan="2">${(fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು (ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)' : (fd.lifeMembership || '-')}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">8</td>
@@ -293,7 +294,7 @@
                                     <td style="width: 33%; text-align: right; height: 22px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ರುಜು</td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> _________________</td>
+                                    <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -519,11 +520,12 @@
                 element.style.boxSizing = 'border-box';
                 
                 element.innerHTML = `
-<style>
+
+                    <style>
                         .pdf-container {
-                            font-family: 'Noto Sans Kannada', 'Noto Serif Kannada', Tunga, 'Segoe UI', Arial, sans-serif;
+                            font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
                             font-size: 14.5px;
-                            line-height: 1.5 !important;
+                            line-height: 1.55 !important;
                             color: #000;
                             page-break-inside: avoid !important;
                             width: 100%;
@@ -603,7 +605,7 @@
                             text-align: left;
                             vertical-align: middle;
                             font-size: 14px;
-                            line-height: 1.5 !important;
+                            line-height: 1.55 !important;
                             box-sizing: border-box;
                         }
                         .sl-col {
@@ -620,14 +622,14 @@
                             word-break: normal !important;
                             overflow-wrap: break-word !important;
                             white-space: normal !important;
-                            line-height: 1.5 !important;
+                            line-height: 1.55 !important;
                         }
                         .value-col-split {
                             width: 220px;
                             word-break: normal !important;
                             overflow-wrap: break-word !important;
                             white-space: normal !important;
-                            line-height: 1.5 !important;
+                            line-height: 1.55 !important;
                         }
                         .photo-cell {
                             width: 110px;
@@ -765,7 +767,7 @@
                             <tr>
                                 <td class="sl-col">7</td>
                                 <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಕುಟುಂಬದವರು ಸಂಘದ ಅಜೀವ ಸದಸ್ಯರೇ?</td>
-                                <td class="value-col" colspan="2">${(fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು<br><span style="font-size: 13px; font-weight: normal; color: #000;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-')}</td>
+                                <td class="value-col" colspan="2">${(fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು (ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)' : (fd.lifeMembership || '-')}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">8</td>
@@ -805,7 +807,7 @@
                                     <td style="width: 33%; text-align: right; height: 22px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ರುಜು</td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> _________________</td>
+                                    <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
