@@ -3874,7 +3874,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     const parentOccupationIncome = fd.parentOccupationIncome || '-';
     const completeAddress = fd.completeAddress || '-';
     const aadhar = fd.aadhar || '-';
-    const lifeMembership = (fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes'))) ? 'ಹೌದು<br><span style="font-size: 12.5px; font-weight: normal; color: #000; display: block; line-height: 1.55; margin-top: 2px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-');
+    const lifeMembership = (fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes'))) ? '<div style="font-weight: bold; font-size: 13.5px; line-height: 1.3;">ಹೌದು</div><div style="font-size: 11.5px; font-weight: normal; color: #000; margin-top: 2px; white-space: nowrap !important; font-family: "Noto Sans Kannada", sans-serif !important; letter-spacing: 0 !important; line-height: 1.3;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</div>' : (fd.lifeMembership || '-');
     const marksDetails = fd.marksDetails || '-';
     const parentMobile = fd.parentMobile || '-';
     const bankName = fd.bankName || '-';
@@ -3891,7 +3891,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                     
                     <style>
                         .pdf-container {
-                            font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
+                            font-family: 'Noto Sans Kannada', 'Kannada MN', 'Kannada Sangam MN', 'Tunga', sans-serif;
                             font-size: 14.5px;
                             line-height: 1.55 !important;
                             color: #000;
@@ -4250,7 +4250,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
     container.innerHTML = `
         <style>
             .pdf-container {
-                font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
+                font-family: 'Noto Sans Kannada', 'Kannada MN', 'Kannada Sangam MN', 'Tunga', sans-serif;
                 font-size: 14.5px;
                 line-height: 1.55 !important;
                 color: #000;
@@ -4342,7 +4342,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                             <tr>
                                 <td class="sl-col">7</td>
                                 <td class="label-col">ಸಾಧಕರ ಕುಟುಂಬದವರು ಅಜೀವ ಸದಸ್ಯರೇ ?</td>
-                                <td class="value-col" colspan="2">${(fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes'))) ? 'ಹೌದು<br><span style="font-size: 12.5px; font-weight: normal; color: #000; display: block; line-height: 1.55; margin-top: 2px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-')}</td>
+                                <td class="value-col" colspan="2">${(fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes'))) ? '<div style="font-weight: bold; font-size: 13.5px; line-height: 1.3;">ಹೌದು</div><div style="font-size: 11.5px; font-weight: normal; color: #000; margin-top: 2px; white-space: nowrap !important; font-family: "Noto Sans Kannada", sans-serif !important; letter-spacing: 0 !important; line-height: 1.3;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</div>' : (fd.lifeMembership || '-')}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">8</td>
