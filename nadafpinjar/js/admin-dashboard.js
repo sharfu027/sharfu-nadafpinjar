@@ -3874,7 +3874,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     const parentOccupationIncome = fd.parentOccupationIncome || '-';
     const completeAddress = fd.completeAddress || '-';
     const aadhar = fd.aadhar || '-';
-    const lifeMembership = (fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು<br><span style="font-size: 13.5px; font-weight: normal; color: #000; display: inline-block; margin-top: 1px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-');
+    const lifeMembership = (fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು<br><span style="font-size: 13px; font-weight: normal; color: #000;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-');
     const marksDetails = fd.marksDetails || '-';
     const parentMobile = fd.parentMobile || '-';
     const bankName = fd.bankName || '-';
@@ -3887,15 +3887,13 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                     
                     
                     
+                    
                     <style>
-                        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&display=swap');
                         .pdf-container {
-                            font-family: 'Noto Sans Kannada', 'Noto Serif Kannada', 'Segoe UI', Arial, sans-serif;
+                            font-family: 'Noto Sans Kannada', 'Noto Serif Kannada', Tunga, 'Segoe UI', Arial, sans-serif;
                             font-size: 14.5px;
-                            line-height: 1.45 !important;
+                            line-height: 1.5 !important;
                             color: #000;
-                            letter-spacing: normal !important;
-                            word-spacing: normal !important;
                             page-break-inside: avoid !important;
                             width: 100%;
                             box-sizing: border-box;
@@ -3970,11 +3968,11 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         }
                         .details-table th, .details-table td {
                             border: 1px solid #000 !important;
-                            padding: 2.5px 5px !important;
+                            padding: 3px 5px !important;
                             text-align: left;
                             vertical-align: middle;
                             font-size: 14px;
-                            line-height: 1.45 !important;
+                            line-height: 1.5 !important;
                             box-sizing: border-box;
                         }
                         .sl-col {
@@ -3985,21 +3983,20 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         .label-col {
                             width: 245px;
                             font-weight: bold;
-                            line-height: 1.4 !important;
-                            word-break: keep-all !important;
+                            line-height: 1.45 !important;
                         }
                         .value-col {
                             word-break: normal !important;
                             overflow-wrap: break-word !important;
                             white-space: normal !important;
-                            line-height: 1.45 !important;
+                            line-height: 1.5 !important;
                         }
                         .value-col-split {
                             width: 220px;
                             word-break: normal !important;
                             overflow-wrap: break-word !important;
                             white-space: normal !important;
-                            line-height: 1.45 !important;
+                            line-height: 1.5 !important;
                         }
                         .photo-cell {
                             width: 110px;
@@ -4033,8 +4030,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             border: none !important;
                             padding: 0 !important;
                             font-size: 14.5px;
-                            line-height: 1.4 !important;
-                            word-break: keep-all !important;
+                            line-height: 1.45 !important;
                         }
                         .recommendation-table {
                             width: 100%;
@@ -4049,7 +4045,6 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             vertical-align: top;
                             padding: 5px !important;
                             box-sizing: border-box;
-                            word-break: keep-all !important;
                         }
                         .recommendation-title {
                             font-weight: bold;
@@ -4074,12 +4069,10 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             font-size: 16.5px;
                             text-align: center;
                             margin-bottom: 3px;
-                            word-break: keep-all !important;
                         }
                         .committee-text {
                             font-size: 16px;
                             line-height: 1.45 !important;
-                            word-break: keep-all !important;
                         }
                         .committee-bullet {
                             margin-top: 4px;
@@ -4088,7 +4081,6 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             text-align: justify;
                             line-height: 1.45 !important;
                             font-size: 16px;
-                            word-break: keep-all !important;
                         }
                     </style>
         <div class="pdf-container">
