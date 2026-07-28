@@ -4246,44 +4246,194 @@ window.downloadSadhakaPdfAdmin = async function(id) {
 
     const container = document.createElement('div');
     container.style.width = '700px';
-    container.style.padding = '20px';
-    container.style.fontFamily = "'Noto Serif Kannada', Tunga, serif";
-    container.style.fontSize = '14px';
-    container.style.color = '#000';
+    container.style.backgroundColor = '#ffffff';
+    container.style.color = '#000000';
+    container.style.padding = '15px 25px';
+    container.style.boxSizing = 'border-box';
     container.innerHTML = `
-        <div style="text-align:center; border-bottom:2px solid #990000; padding-bottom:10px; margin-bottom:15px;">
-            <h2 style="color:#990000; margin:0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h2>
-            <h3 style="color:#333; margin:5px 0 0 0;">ಸಾಧಕ ಪ್ರಶಸ್ತಿ ಅರ್ಜಿ - 2025-26</h3>
-            <p style="margin:5px 0 0 0; font-weight:bold; color:#28a745;">ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${id}</p>
+        <style>
+            .pdf-container {
+                font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
+                font-size: 14.5px;
+                line-height: 1.55 !important;
+                color: #000;
+                page-break-inside: avoid !important;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .header-table { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+            .header-table td { border: none !important; padding: 0 !important; vertical-align: middle; }
+            .header-logo-left { width: 80px; text-align: left; }
+            .header-logo-left img { width: 80px !important; height: 80px !important; border-radius: 50% !important; object-fit: cover !important; display: block; }
+            .header-logo-right { width: 80px; text-align: right; }
+            .header-logo-right img { width: 80px !important; height: 80px !important; border-radius: 50% !important; object-fit: cover !important; display: block; margin-left: auto; }
+            .header-text { text-align: center; padding: 0 4px; }
+            .header-text h1 { margin: 0; font-size: 18px; white-space: nowrap !important; font-weight: bold; color: #000; }
+            .header-text h2 { margin: 2px 0 0 0; font-size: 13.5px; font-weight: bold; }
+            .header-text h3 { margin: 2px 0 0 0; font-size: 14.5px; font-weight: bold; }
+            .details-table { width: 100%; border-collapse: collapse; margin-top: 4px; table-layout: fixed; }
+            .details-table th, .details-table td { border: 1px solid #000 !important; padding: 3px 5px !important; text-align: left; vertical-align: middle; font-size: 14px; line-height: 1.55 !important; box-sizing: border-box; }
+            .sl-col { width: 28px; text-align: center !important; font-weight: bold; }
+            .label-col { width: 245px; font-weight: bold; line-height: 1.45 !important; }
+            .value-col { word-break: normal !important; overflow-wrap: break-word !important; white-space: normal !important; line-height: 1.55 !important; }
+            .value-col-split { width: 220px; word-break: normal !important; overflow-wrap: break-word !important; white-space: normal !important; line-height: 1.55 !important; }
+            .photo-cell { width: 110px; text-align: center !important; vertical-align: middle !important; padding: 2px !important; }
+            .photo-cell img { max-width: 105px; max-height: 115px; object-fit: contain; display: block; margin: 0 auto; }
+            .photo-placeholder { border: 1px dashed #666; padding: 14px 4px; font-size: 12px; color: #555; text-align: center; }
+            .signature-section { margin-top: 5px; margin-bottom: 5px; }
+            .signature-table { width: 100%; border-collapse: collapse; }
+            .signature-table td { border: none !important; padding: 0 !important; font-size: 14.5px; line-height: 1.45 !important; }
+            .recommendation-table { width: 100%; border-collapse: collapse; margin-top: 4px; margin-bottom: 6px !important; }
+            .recommendation-table td { width: 50%; border: 1px solid #000 !important; height: 160px !important; vertical-align: top; padding: 5px !important; box-sizing: border-box; }
+            .recommendation-title { font-weight: bold; font-size: 15.5px; text-align: center; line-height: 1.35 !important; }
+            .recommendation-subtitle { font-size: 11.5px; text-align: center; margin-top: 2px; color: #333; line-height: 1.3 !important; }
+            .committee-section { border-top: 1px dashed #000; padding-top: 6px !important; margin-top: 8px !important; }
+            .committee-title { font-weight: bold; font-size: 16.5px; text-align: center; margin-bottom: 3px; }
+            .committee-text { font-size: 16px; line-height: 1.45 !important; }
+            .committee-bullet { margin-top: 4px; padding-left: 14px; text-indent: -14px; text-align: justify; line-height: 1.45 !important; font-size: 16px; }
+        </style>
+        <div class="pdf-container">
+            
+                        <table class="header-table">
+                            <tr>
+                                <td class="header-logo-left">
+                                    <img src="${window.location.origin}/images/president_circular.png" onerror="this.src='${window.location.origin}/images/president.jpeg'">
+                                </td>
+                                <td class="header-text">
+                                    <h1 style="font-size: 18px; white-space: nowrap; margin: 0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h1>
+                                    <h2 style="font-size: 12.5px; margin: 1px 0 0 0;">ನೊ ಸಂಖ್ಯೆ 151/ಎಸ್ ಓ ಆರ್/ ಎಸ್ ಎಂ ಜೆ/1993-94</h2>
+                                    <h2 style="font-size: 13.5px; margin: 1px 0 0 0;">ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
+                                    <h3 style="font-size: 14.5px; margin: 2px 0 0 0;">ವಿವಿಧ ಕ್ಷೇತ್ರಗಳ ಸಾಧಕರ ಆಯ್ಕೆಗಾಗಿ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
+                                </td>
+                                <td class="header-logo-right">
+                                    <img src="${window.location.origin}/images/logo-786.png" onerror="this.src='images/logo-786.png'">
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <table class="details-table">
+                            <tr>
+                                <td class="sl-col">1</td>
+                                <td class="label-col">ಸಾಧಕರ ಹೆಸರು</td>
+                                <td class="value-col" colspan="2">${fd.studentName || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">2</td>
+                                <td class="label-col">ಸಾಧಕರ ತಂದೆಯ/ಗಂ/ ಹೆಸರು</td>
+                                <td class="value-col" colspan="2">${fd.fatherName || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">3</td>
+                                <td class="label-col">ಸಾಧಕರ ಪೋಷಕರಿದ್ದಲ್ಲಿ ಹೆಸರು</td>
+                                <td class="value-col" colspan="2">${fd.guardianName || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">4</td>
+                                <td class="label-col">ಪಾಲಕರ/ಪೋಷಕರ ಉದ್ಯೋಗ</td>
+                                <td class="value-col" colspan="2">${fd.parentOccupationIncome || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">5</td>
+                                <td class="label-col">ಸಾಧಕರ ಪಾಲಕರ/ಪೋಷಕರ ಸಂಪೂರ್ಣವಿಳಾಸ</td>
+                                <td class="value-col" colspan="2">${fd.completeAddress || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">6</td>
+                                <td class="label-col">ಸಾಧಕರ ಆಧಾರ ಸಂಖ್ಯೆ</td>
+                                <td class="value-col" colspan="2">${fd.aadhar || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">7</td>
+                                <td class="label-col">ಸಾಧಕರ ಕುಟುಂಬದವರು ಅಜೀವ ಸದಸ್ಯರೇ ?</td>
+                                <td class="value-col" colspan="2">${fd.lifeMembership || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">8</td>
+                                <td class="label-col">ಸಾಧಕರು ಸಾಧನೆ ಮಾಡಿದ ಕ್ಷೇತ್ರಗಳ ವಿವರ ಮತ್ತು ಸಂಬಂಧಿಸಿದ ದಾಖಲೆಗಳನ್ನು ಲಗತ್ತಿಸುವುದು</td>
+                                <td class="value-col" colspan="2">${fd.marksDetails || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">9</td>
+                                <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಮೊ. ನಂ.</td>
+                                <td class="value-col-split">${fd.parentMobile || '-'}</td>
+                                <td class="photo-cell" rowspan="4">
+                                    ${fd.photo ? '<img src="' + fd.photo + '">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">10</td>
+                                <td class="label-col">ಸಾಧಕರ ಅಥವಾ ಪಾಲಕರ ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (ಕಡ್ಡಾಯ)</td>
+                                <td class="value-col-split">${fd.bankAccount || fd.bankDetails || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">11</td>
+                                <td class="label-col">ಸಾಧಕರ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                                <td class="value-col-split">${fd.bankName || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="sl-col">12</td>
+                                <td class="label-col">IFSC ಕೋಡ್</td>
+                                <td class="value-col-split">${fd.ifsc || '-'}</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="signature-section">
+                            <table class="signature-table">
+                                <tr>
+                                    <td style="width: 33%; text-align: left; vertical-align: top;"><strong>ದಿನಾಂಕ :</strong> _________________</td>
+                                    <td style="width: 34%; text-align: center; height: 22px; vertical-align: bottom; font-weight: bold;">ಸಾಧಕರ ಪಾಲಕರ ರುಜು (ಶ್ರೀಧೆಯಲ್ಲಿದ್ದಲ್ಲಿ)</td>
+                                    <td style="width: 33%; text-align: right; height: 22px; vertical-align: bottom; font-weight: bold;">ಸಾಧಕರ ರುಜು</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <table class="recommendation-table">
+                            <tr>
+                                <td>
+                                    <div class="recommendation-title">ತಾಲ್ಲೂಕ ಅಧ್ಯಕ್ಷರ ಶಿಫಾರಸ್ಸು</div>
+                                    <div class="recommendation-subtitle">(ದಿನಾಂಕ 30-09-2026 ರ ಒಳಗಾಗಿ ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರಿಗೆ ನೀಡುವುದು)</div>
+                                </td>
+                                <td>
+                                    <div class="recommendation-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ ಶಿಫಾರಸ್ಸು</div>
+                                    <div class="recommendation-subtitle">(ದಿನಾಂಕ 05-10-2026 ರ ಒಳಗಾಗಿ ರಾಜ್ಯ ಸ್ಕ್ರೀನಿಂಗ್ ಸಮಿತಿಗೆ ನೀಡುವುದು)</div>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <div class="committee-section">
+                            <div class="committee-title">ರಾಜ್ಯ ಸ್ಕ್ರೀನಿಂಗ್ ಕಮಿಟಿ ಉಪಯೋಗಕ್ಕಾಗಿ</div>
+                            <div class="committee-text">
+                                ಸಾಧಕರಾದ <strong>${fd.studentName || '......................................................'}</strong> ......................................................................................................
+                                <div class="committee-bullet">
+                                    • ಇವರ ಮೂಲ ದಾಖಲೆಗಳ ಸಮೇತ ಸಲ್ಲಿಸಿರುವ ಅರ್ಜಿಯನ್ನು ಸಂಘದ ಮಾರ್ಗಸೂಚಿಗಳ ಅನ್ವಯ ಕೂಲಂಕುಷವಾಗಿ ಪರಿಶೀಲಿಸಿ, ಸೂಕ್ತ ಎಂದು ಕಂಡು ಬಂದುದರಿಂದ ಸಂಸ್ಥಾಪನಾ ದಿನಾಚರಣೆ ನಿಮಿತ್ತ ರಾಜ್ಯ ಮಟ್ಟದಲ್ಲಿ ಜರುಗುವ ಗೌರವ ಸನ್ಮಾನ ಕಾರ್ಯಕ್ರಮದಲ್ಲಿ 'ಪುರಸ್ಕರಿಸಲು' ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ.
+                                </div>
+                            </div>
+                        </div>
         </div>
-        <table style="width:100%; border-collapse:collapse; margin-bottom:15px;">
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold; width:40%;">ಸಾಧಕರ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.studentName || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ತಂದೆಯ/ಗಂಡನ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.fatherName || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಪೋಷಕರ ಹೆಸರು:</td><td style="padding:6px; border:1px solid #ccc;">${fd.guardianName || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಉದ್ಯೋಗ ಮತ್ತು ಆದಾಯ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.parentOccupationIncome || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಸಂಪೂರ್ಣ ವಿಳಾಸ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.completeAddress || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಆಧಾರ ಸಂಖ್ಯೆ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.aadhar || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಅಜೀವ ಸದಸ್ಯತ್ವ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.lifeMembership || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಸಾಧನೆಗಳ ವಿವರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.marksDetails || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.parentMobile || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಬ್ಯಾಂಕ್ ವಿವರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.bankDetails || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಪಟ್ಟಣ/ನಗರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.city || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ವರ್ಷ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.year || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ವರ್ಗ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.category || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಕ್ಷೇತ್ರ:</td><td style="padding:6px; border:1px solid #ccc;">${fd.field || '-'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಸ್ಥಿತಿ (Status):</td><td style="padding:6px; border:1px solid #ccc; font-weight:bold; color:#155724;">${fd.status || 'Pending'}</td></tr>
-            <tr><td style="padding:6px; border:1px solid #ccc; font-weight:bold;">ಅಡ್ಮಿನ್ ಷರಾ (Remarks):</td><td style="padding:6px; border:1px solid #ccc;">${fd.remarks || '-'}</td></tr>
-        </table>
     `;
 
     document.body.appendChild(container);
+    if (document.fonts) { await document.fonts.ready.catch(() => null); }
+    const images = Array.from(container.querySelectorAll('img'));
+    await Promise.all(images.map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
+    }));
+
     const opt = {
-        margin: 8,
+        margin: [3, 6, 3, 6],
         filename: `Sadhaka_Award_${fd.studentName || id}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: 'avoid-all' }
     };
+
     await window.html2pdf().from(container).set(opt).save();
     document.body.removeChild(container);
 };

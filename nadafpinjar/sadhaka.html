@@ -608,7 +608,21 @@
                             <td class="field-label">ಸಾಧಕರ / ಪಾಲಕರ ಮೊ. ನಂ. (Sadhaka/Parent Mobile Number)</td>
                             <td class="field-input"><input type="text" id="parentMobile" required></td>
                         </tr>
-                        
+                        <tr>
+                            <td class="sl-no">10</td>
+                            <td class="field-label">ಸಾಧಕರ ಅಥವಾ ಪಾಲಕರ ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (ಕಡ್ಡಾಯ) (Bank Account No)</td>
+                            <td class="field-input"><input type="text" id="bankAccount" required placeholder="ಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ / Account No"></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">11</td>
+                            <td class="field-label">ವಿದ್ಯಾರ್ಥಿಯ/ಸಾಧಕರ ಬ್ಯಾಂಕ್ ಹೆಸರು (Bank Name)</td>
+                            <td class="field-input"><input type="text" id="bankName" required placeholder="ಬ್ಯಾಂಕ್ ಹೆಸರು / Bank Name"></td>
+                        </tr>
+                        <tr>
+                            <td class="sl-no">12</td>
+                            <td class="field-label">IFSC ಕೋಡ್ (IFSC Code)</td>
+                            <td class="field-input"><input type="text" id="ifsc" required placeholder="e.g. SBIN0001234"></td>
+                        </tr>
                         <tr>
                             <td class="sl-no">📷</td>
                             <td class="field-label">ಪಾಸ್ಪೋರ್ಟ್ ಸೈಜ್ ಫೋಟೋ (Passport Size Photo)</td>
@@ -912,6 +926,7 @@
 
         async function loadApprovedShowcase() {
             const tableBody = document.getElementById("studentsTableBody");
+            if (!tableBody) return;
             try {
                 let res = await fetch("/api/donations?_=" + Date.now()).catch(() => null);
                 if (!res || !res.ok) {
@@ -957,6 +972,7 @@
 
         function renderShowcase(list) {
             const tableBody = document.getElementById("studentsTableBody");
+            if (!tableBody) return;
             tableBody.innerHTML = "";
             
             if (list.length === 0) {
