@@ -1544,6 +1544,29 @@ window.downloadReceiptPdf = function(receiptId) {
                             pdf.save('Receipt-' + (receiptId || 'Download') + '.pdf');
                         });
                     } else {
+                // Convert Kannada text elements to images to prevent html2canvas mangling
+                const kannadaEls = element.querySelectorAll('.kannada-text-img');
+                for (const el of kannadaEls) {
+                    const text = el.textContent;
+                    const fs2 = 23; // 11.5px * 2 for hi-res
+                    const cvs = document.createElement('canvas');
+                    const ctx = cvs.getContext('2d');
+                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
+                    const w = Math.ceil(ctx.measureText(text).width) + 8;
+                    cvs.width = w;
+                    cvs.height = Math.ceil(fs2 * 1.6);
+                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
+                    ctx.fillStyle = '#000000';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(text, 0, cvs.height / 2);
+                    const imgEl = document.createElement('img');
+                    imgEl.src = cvs.toDataURL('image/png');
+                    imgEl.style.cssText = 'display:block; height:' + (fs2 * 0.7) + 'px; margin-top:1px;';
+                    el.textContent = '';
+                    el.appendChild(imgEl);
+                }
+
+
                         const opt = {
                             margin: 0,
                             filename: 'Receipt-' + (receiptId || 'Download') + '.pdf',
@@ -2263,6 +2286,29 @@ function loadAdminFreeEdu() {
                                 pdf.save('FreeEducation-' + (id || 'Receipt') + '.pdf');
                             });
                         } else {
+                // Convert Kannada text elements to images to prevent html2canvas mangling
+                const kannadaEls = element.querySelectorAll('.kannada-text-img');
+                for (const el of kannadaEls) {
+                    const text = el.textContent;
+                    const fs2 = 23; // 11.5px * 2 for hi-res
+                    const cvs = document.createElement('canvas');
+                    const ctx = cvs.getContext('2d');
+                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
+                    const w = Math.ceil(ctx.measureText(text).width) + 8;
+                    cvs.width = w;
+                    cvs.height = Math.ceil(fs2 * 1.6);
+                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
+                    ctx.fillStyle = '#000000';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(text, 0, cvs.height / 2);
+                    const imgEl = document.createElement('img');
+                    imgEl.src = cvs.toDataURL('image/png');
+                    imgEl.style.cssText = 'display:block; height:' + (fs2 * 0.7) + 'px; margin-top:1px;';
+                    el.textContent = '';
+                    el.appendChild(imgEl);
+                }
+
+
                             const opt = {
                                 margin: 0,
                                 filename: 'FreeEducation-' + (id || 'Receipt') + '.pdf',
@@ -3129,6 +3175,29 @@ function loadAdminCensus() {
                 const script = doc.createElement('script');
                 script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
                 script.onload = () => {
+                // Convert Kannada text elements to images to prevent html2canvas mangling
+                const kannadaEls = element.querySelectorAll('.kannada-text-img');
+                for (const el of kannadaEls) {
+                    const text = el.textContent;
+                    const fs2 = 23; // 11.5px * 2 for hi-res
+                    const cvs = document.createElement('canvas');
+                    const ctx = cvs.getContext('2d');
+                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
+                    const w = Math.ceil(ctx.measureText(text).width) + 8;
+                    cvs.width = w;
+                    cvs.height = Math.ceil(fs2 * 1.6);
+                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
+                    ctx.fillStyle = '#000000';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(text, 0, cvs.height / 2);
+                    const imgEl = document.createElement('img');
+                    imgEl.src = cvs.toDataURL('image/png');
+                    imgEl.style.cssText = 'display:block; height:' + (fs2 * 0.7) + 'px; margin-top:1px;';
+                    el.textContent = '';
+                    el.appendChild(imgEl);
+                }
+
+
                     const opt = {
                         margin: 0,
                         filename: 'Census_' + appNumber + '.pdf',
@@ -3388,6 +3457,29 @@ function loadAdminEmployees() {
         `;
 
         document.body.appendChild(container);
+                // Convert Kannada text elements to images to prevent html2canvas mangling
+                const kannadaEls = element.querySelectorAll('.kannada-text-img');
+                for (const el of kannadaEls) {
+                    const text = el.textContent;
+                    const fs2 = 23; // 11.5px * 2 for hi-res
+                    const cvs = document.createElement('canvas');
+                    const ctx = cvs.getContext('2d');
+                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
+                    const w = Math.ceil(ctx.measureText(text).width) + 8;
+                    cvs.width = w;
+                    cvs.height = Math.ceil(fs2 * 1.6);
+                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
+                    ctx.fillStyle = '#000000';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(text, 0, cvs.height / 2);
+                    const imgEl = document.createElement('img');
+                    imgEl.src = cvs.toDataURL('image/png');
+                    imgEl.style.cssText = 'display:block; height:' + (fs2 * 0.7) + 'px; margin-top:1px;';
+                    el.textContent = '';
+                    el.appendChild(imgEl);
+                }
+
+
 
         const opt = {
             margin: 0,
@@ -3874,7 +3966,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     const parentOccupationIncome = fd.parentOccupationIncome || '-';
     const completeAddress = fd.completeAddress || '-';
     const aadhar = fd.aadhar || '-';
-    const lifeMembership = (fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes'))) ? '<div style="font-weight: bold; font-size: 13.5px; line-height: 1.35; font-family: &quot;Noto Sans Kannada&quot;, sans-serif;">ಹೌದು</div><div style="font-size: 11.5px; font-weight: 400 !important; color: #000; margin-top: 1px; white-space: nowrap !important; font-family: &quot;Noto Sans Kannada&quot;, sans-serif !important; letter-spacing: 0 !important; line-height: 1.35;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</div>' : (fd.lifeMembership || '-');
+    const lifeMembership = (fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes'))) ? '<div style="font-weight: bold; font-size: 13.5px; line-height: 1.35;">ಹೌದು</div><div class="kannada-text-img" style="font-size: 11.5px; font-weight: 400; color: #000; margin-top: 1px; line-height: 1.35;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</div>' : (fd.lifeMembership || '-');
     const marksDetails = fd.marksDetails || '-';
     const parentMobile = fd.parentMobile || '-';
     const bankName = fd.bankName || '-';
@@ -4211,6 +4303,29 @@ window.downloadPratibhaPdfAdmin = async function(id) {
         if (img.complete) return Promise.resolve();
         return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
     }));
+                // Convert Kannada text elements to images to prevent html2canvas mangling
+                const kannadaEls = element.querySelectorAll('.kannada-text-img');
+                for (const el of kannadaEls) {
+                    const text = el.textContent;
+                    const fs2 = 23; // 11.5px * 2 for hi-res
+                    const cvs = document.createElement('canvas');
+                    const ctx = cvs.getContext('2d');
+                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
+                    const w = Math.ceil(ctx.measureText(text).width) + 8;
+                    cvs.width = w;
+                    cvs.height = Math.ceil(fs2 * 1.6);
+                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
+                    ctx.fillStyle = '#000000';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(text, 0, cvs.height / 2);
+                    const imgEl = document.createElement('img');
+                    imgEl.src = cvs.toDataURL('image/png');
+                    imgEl.style.cssText = 'display:block; height:' + (fs2 * 0.7) + 'px; margin-top:1px;';
+                    el.textContent = '';
+                    el.appendChild(imgEl);
+                }
+
+
 
     const opt = {
         margin: [3, 6, 3, 6],
@@ -4342,7 +4457,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                             <tr>
                                 <td class="sl-col">7</td>
                                 <td class="label-col">ಸಾಧಕರ ಕುಟುಂಬದವರು ಅಜೀವ ಸದಸ್ಯರೇ ?</td>
-                                <td class="value-col" colspan="2">${(fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes'))) ? '<div style="font-weight: bold; font-size: 13.5px; line-height: 1.35; font-family: &quot;Noto Sans Kannada&quot;, sans-serif;">ಹೌದು</div><div style="font-size: 11.5px; font-weight: 400 !important; color: #000; margin-top: 1px; white-space: nowrap !important; font-family: &quot;Noto Sans Kannada&quot;, sans-serif !important; letter-spacing: 0 !important; line-height: 1.35;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</div>' : (fd.lifeMembership || '-')}</td>
+                                <td class="value-col" colspan="2">${(fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes'))) ? '<div style="font-weight: bold; font-size: 13.5px; line-height: 1.35;">ಹೌದು</div><div class="kannada-text-img" style="font-size: 11.5px; font-weight: 400; color: #000; margin-top: 1px; line-height: 1.35;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</div>' : (fd.lifeMembership || '-')}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">8</td>
@@ -4419,6 +4534,29 @@ window.downloadSadhakaPdfAdmin = async function(id) {
         if (img.complete) return Promise.resolve();
         return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
     }));
+                // Convert Kannada text elements to images to prevent html2canvas mangling
+                const kannadaEls = element.querySelectorAll('.kannada-text-img');
+                for (const el of kannadaEls) {
+                    const text = el.textContent;
+                    const fs2 = 23; // 11.5px * 2 for hi-res
+                    const cvs = document.createElement('canvas');
+                    const ctx = cvs.getContext('2d');
+                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
+                    const w = Math.ceil(ctx.measureText(text).width) + 8;
+                    cvs.width = w;
+                    cvs.height = Math.ceil(fs2 * 1.6);
+                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
+                    ctx.fillStyle = '#000000';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(text, 0, cvs.height / 2);
+                    const imgEl = document.createElement('img');
+                    imgEl.src = cvs.toDataURL('image/png');
+                    imgEl.style.cssText = 'display:block; height:' + (fs2 * 0.7) + 'px; margin-top:1px;';
+                    el.textContent = '';
+                    el.appendChild(imgEl);
+                }
+
+
 
     const opt = {
         margin: [3, 6, 3, 6],
