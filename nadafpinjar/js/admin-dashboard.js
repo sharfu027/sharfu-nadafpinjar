@@ -3874,7 +3874,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     const parentOccupationIncome = fd.parentOccupationIncome || '-';
     const completeAddress = fd.completeAddress || '-';
     const aadhar = fd.aadhar || '-';
-    const lifeMembership = (fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು (ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)' : (fd.lifeMembership || '-');
+    const lifeMembership = (fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು<br><span style="font-size: 12.5px; font-weight: normal; color: #000; display: block; line-height: 1.55; margin-top: 2px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-');
     const marksDetails = fd.marksDetails || '-';
     const parentMobile = fd.parentMobile || '-';
     const bankName = fd.bankName || '-';
@@ -4354,7 +4354,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                                 <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಮೊ. ನಂ.</td>
                                 <td class="value-col-split">${fd.parentMobile || '-'}</td>
                                 <td class="photo-cell" rowspan="4">
-                                    ${fd.photo ? '<img src="${fd.photo}">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
+                                    ${fd.photo ? '<img src="' + fd.photo + '" style="max-width:105px; max-height:115px; width:auto; height:auto; object-fit:contain; display:block; margin:0 auto; border:1px solid #000;">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
                                 </td>
                             </tr>
                             <tr>

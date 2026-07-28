@@ -1472,7 +1472,7 @@
                             <tr>
                                 <td class="sl-col">7</td>
                                 <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಕುಟುಂಬದವರು ಸಂಘದ ಅಜೀವ ಸದಸ್ಯರೇ?</td>
-                                <td class="value-col" colspan="2">${(fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು (ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)' : (fd.lifeMembership || '-')}</td>
+                                <td class="value-col" colspan="2">${(fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು<br><span style="font-size: 12.5px; font-weight: normal; color: #000; display: block; line-height: 1.55; margin-top: 2px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-')}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">8</td>
@@ -1629,17 +1629,36 @@
         function previewPhoto(input) {
             const file = input.files[0];
             if (file) {
-                if (file.size > 300 * 1024) {
-                    alert("Photo size should be less than 300KB!");
+                if (file.size > 10 * 1024 * 1024) {
+                    alert("ಫೋಟೋ ಗಾತ್ರ 10MB ಗಿಂತ ಕಡಿಮೆಯಿರಬೇಕು / Photo size should be less than 10MB!");
                     input.value = "";
                     return;
                 }
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    base64Photo = e.target.result;
-                    const preview = document.getElementById("photoPreview");
-                    preview.src = base64Photo;
-                    preview.style.display = "block";
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        const maxDim = 400;
+                        if (width > height) {
+                            if (width > maxDim) { height = Math.round(height * (maxDim / width)); width = maxDim; }
+                        } else {
+                            if (height > maxDim) { width = Math.round(width * (maxDim / height)); height = maxDim; }
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        base64Photo = canvas.toDataURL('image/jpeg', 0.85);
+                        const preview = document.getElementById("photoPreview");
+                        if (preview) {
+                            preview.src = base64Photo;
+                            preview.style.display = "block";
+                        }
+                    };
+                    img.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
@@ -1977,7 +1996,7 @@
                             <tr>
                                 <td class="sl-col">7</td>
                                 <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಕುಟುಂಬದವರು ಸಂಘದ ಅಜೀವ ಸದಸ್ಯರೇ?</td>
-                                <td class="value-col" colspan="2">${(fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು (ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)' : (fd.lifeMembership || '-')}</td>
+                                <td class="value-col" colspan="2">${(fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು<br><span style="font-size: 12.5px; font-weight: normal; color: #000; display: block; line-height: 1.55; margin-top: 2px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-')}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">8</td>
