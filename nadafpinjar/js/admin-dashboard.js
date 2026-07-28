@@ -3874,7 +3874,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     const parentOccupationIncome = fd.parentOccupationIncome || '-';
     const completeAddress = fd.completeAddress || '-';
     const aadhar = fd.aadhar || '-';
-    const lifeMembership = (fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು (ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)' : (fd.lifeMembership || '-');
+    const lifeMembership = (fd.lifeMembership === 'ಹೌದು' || fd.lifeMembership === 'Yes') ? 'ಹೌದು<br><span style="font-size: 13px; font-weight: normal; color: #111;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-');
     const marksDetails = fd.marksDetails || '-';
     const parentMobile = fd.parentMobile || '-';
     const bankName = fd.bankName || '-';
@@ -3884,6 +3884,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
 
     container.innerHTML = `
         
+                    
                     
                     <style>
                         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&display=swap');
@@ -3925,8 +3926,10 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         .header-logo-right img {
                             width: 80px;
                             height: 80px;
-                            border-radius: 50%;
+                            border-radius: 50% !important;
                             object-fit: cover !important;
+                            display: block;
+                            margin-left: auto;
                         }
                         .header-text {
                             text-align: center;
@@ -4032,14 +4035,14 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         .recommendation-table td {
                             width: 50%;
                             border: 1px solid #000 !important;
-                            height: 135px !important;
+                            height: 160px !important;
                             vertical-align: top;
                             padding: 5px !important;
                             box-sizing: border-box;
                         }
                         .recommendation-title {
                             font-weight: bold;
-                            font-size: 15px;
+                            font-size: 15.5px;
                             text-align: center;
                             line-height: 1.35 !important;
                         }
@@ -4057,12 +4060,12 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         }
                         .committee-title {
                             font-weight: bold;
-                            font-size: 15.5px;
+                            font-size: 16.5px;
                             text-align: center;
                             margin-bottom: 3px;
                         }
                         .committee-text {
-                            font-size: 14.5px;
+                            font-size: 16px;
                             line-height: 1.45 !important;
                         }
                         .committee-bullet {
@@ -4071,7 +4074,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             text-indent: -14px;
                             text-align: justify;
                             line-height: 1.45 !important;
-                            font-size: 14px;
+                            font-size: 16px;
                         }
                     </style>
         <div class="pdf-container">
@@ -4086,7 +4089,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         <h3>ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳು ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
                     </td>
                     <td class="header-logo-right">
-                        <img src="${origin}/images/logo-786_circular.png" onerror="this.src='${origin}/images/logo-786.png'">
+                        <img src="${origin}/images/logo-786.png" onerror="this.src='images/logo-786.png'">
                     </td>
                 </tr>
             </table>
