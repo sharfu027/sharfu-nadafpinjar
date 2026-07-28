@@ -4019,10 +4019,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             color: #555;
                             text-align: center;
                         }
-                        .signature-section {
-                            margin-top: 5px;
-                            margin-bottom: 5px;
-                        }
+                        .signature-section { margin-top: 8px; margin-bottom: 24px !important; }
                         .signature-table {
                             width: 100%;
                             border-collapse: collapse;
@@ -4280,7 +4277,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
             .photo-cell { width: 110px; text-align: center !important; vertical-align: middle !important; padding: 2px !important; }
             .photo-cell img { max-width: 105px; max-height: 115px; object-fit: contain; display: block; margin: 0 auto; }
             .photo-placeholder { border: 1px dashed #666; padding: 14px 4px; font-size: 12px; color: #555; text-align: center; }
-            .signature-section { margin-top: 5px; margin-bottom: 5px; }
+            .signature-section { margin-top: 8px; margin-bottom: 24px !important; }
             .signature-table { width: 100%; border-collapse: collapse; }
             .signature-table td { border: none !important; padding: 0 !important; font-size: 14.5px; line-height: 1.45 !important; }
             .recommendation-table { width: 100%; border-collapse: collapse; margin-top: 4px; margin-bottom: 6px !important; }
@@ -4297,7 +4294,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                         <table class="header-table">
                             <tr>
                                 <td class="header-logo-left">
-                                    <img src="${window.location.origin}/images/president_circular.png" onerror="this.src='${window.location.origin}/images/president.jpeg'">
+                                    <img src="images/president_circular.png" onerror="this.src='images/president.jpeg'">
                                 </td>
                                 <td class="header-text">
                                     <h1 style="font-size: 18px; white-space: nowrap; margin: 0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h1>
@@ -4306,7 +4303,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                                     <h3 style="font-size: 14.5px; margin: 2px 0 0 0;">ವಿವಿಧ ಕ್ಷೇತ್ರಗಳ ಸಾಧಕರ ಆಯ್ಕೆಗಾಗಿ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
                                 </td>
                                 <td class="header-logo-right">
-                                    <img src="${window.location.origin}/images/logo-786.png" onerror="this.src='images/logo-786.png'">
+                                    <img src="images/logo-786.png" onerror="this.src='images/logo-786.png'">
                                 </td>
                             </tr>
                         </table>
@@ -4357,7 +4354,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                                 <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಮೊ. ನಂ.</td>
                                 <td class="value-col-split">${fd.parentMobile || '-'}</td>
                                 <td class="photo-cell" rowspan="4">
-                                    ${fd.photo ? '<img src="' + fd.photo + '">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
+                                    ${fd.photo ? '<img src="${fd.photo}">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
                                 </td>
                             </tr>
                             <tr>
