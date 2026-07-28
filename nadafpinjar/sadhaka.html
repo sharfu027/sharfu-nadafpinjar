@@ -591,7 +591,7 @@
                             <td class="sl-no">7</td>
                             <td class="field-label">ಸಾಧಕರ ಕುಟುಂಬದವರು ಸಂಘದ ಅಜೀವ ಸದಸ್ಯರೇ? (Details of Life Membership)</td>
                             <td class="field-input">
-                                <select id="lifeMembership" required>
+                                <select id="lifeMembership" required onchange="handleLifeMembershipChange(this)">
                                     <option value="">-ಆಯ್ಕೆ ಮಾಡಿ / Select-</option>
                                     <option value="ಹೌದು">ಹೌದು (Yes)</option>
                                     <option value="ಇಲ್ಲ">ಇಲ್ಲ (No)</option>
@@ -1355,7 +1355,7 @@
                             <tr>
                                 <td class="sl-col">7</td>
                                 <td class="label-col">ಸಾಧಕರ ಕುಟುಂಬದವರು ಅಜೀವ ಸದಸ್ಯರೇ ?</td>
-                                <td class="value-col" colspan="2">${fd.lifeMembership || '-'}</td>
+                                <td class="value-col" colspan="2">${(fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes'))) ? 'ಹೌದು<br><span style="font-size: 12.5px; font-weight: normal; color: #000; display: block; line-height: 1.55; margin-top: 2px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-')}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">8</td>
@@ -1527,6 +1527,13 @@
                     img.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
+            }
+        }
+
+        
+        function handleLifeMembershipChange(select) {
+            if (select.value === 'Yes' || select.value === 'ಹೌದು') {
+                alert("ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ");
             }
         }
 
@@ -1859,7 +1866,7 @@
                             <tr>
                                 <td class="sl-col">7</td>
                                 <td class="label-col">ಸಾಧಕರ ಕುಟುಂಬದವರು ಅಜೀವ ಸದಸ್ಯರೇ ?</td>
-                                <td class="value-col" colspan="2">${fd.lifeMembership || '-'}</td>
+                                <td class="value-col" colspan="2">${(fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes'))) ? 'ಹೌದು<br><span style="font-size: 12.5px; font-weight: normal; color: #000; display: block; line-height: 1.55; margin-top: 2px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-')}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">8</td>

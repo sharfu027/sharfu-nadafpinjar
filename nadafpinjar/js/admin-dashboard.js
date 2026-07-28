@@ -4342,7 +4342,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                             <tr>
                                 <td class="sl-col">7</td>
                                 <td class="label-col">ಸಾಧಕರ ಕುಟುಂಬದವರು ಅಜೀವ ಸದಸ್ಯರೇ ?</td>
-                                <td class="value-col" colspan="2">${fd.lifeMembership || '-'}</td>
+                                <td class="value-col" colspan="2">${(fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes'))) ? 'ಹೌದು<br><span style="font-size: 12.5px; font-weight: normal; color: #000; display: block; line-height: 1.55; margin-top: 2px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span>' : (fd.lifeMembership || '-')}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">8</td>
