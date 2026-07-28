@@ -3976,9 +3976,6 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             font-size: 14px;
                             line-height: 1.45 !important;
                             box-sizing: border-box;
-                            word-break: keep-all !important;
-                            overflow-wrap: normal !important;
-                            word-wrap: normal !important;
                         }
                         .sl-col {
                             width: 28px;
@@ -3994,6 +3991,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         .value-col {
                             word-break: break-word !important;
                             overflow-wrap: break-word !important;
+                            word-wrap: break-word !important;
                             white-space: normal !important;
                             line-height: 1.45 !important;
                         }
@@ -4001,6 +3999,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             width: 220px;
                             word-break: break-word !important;
                             overflow-wrap: break-word !important;
+                            word-wrap: break-word !important;
                             white-space: normal !important;
                             line-height: 1.45 !important;
                         }
