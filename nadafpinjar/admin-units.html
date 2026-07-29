@@ -119,7 +119,7 @@
                 <li><a href="admin-census"><i class="fa fa-users"></i> ಜನಗಣತಿ</a></li>
                 <li><a href="admin-employees"><i class="fa fa-briefcase"></i> ನೌಕರರು</a></li>
                 <li><a href="admin-committee"><i class="fa fa-list-ul"></i> ಸಮಿತಿಗಳು</a></li>
-                <li class="active"><a href="admin-units.html"><i class="fa fa-sitemap"></i> ಘಟಕಗಳು (Units)</a></li>
+                <li class="active"><a href="admin-units"><i class="fa fa-sitemap"></i> ಘಟಕಗಳು (Units)</a></li>
                 <li><a href="#" id="logoutBtn"><i class="fa fa-sign-out"></i> ನಿರ್ಗಮನ (Logout)</a></li>
             </ul>
         </aside>
@@ -217,11 +217,29 @@
                         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                             <div class="form-group" style="flex: 1; min-width: 200px;">
                                 <label style="display: block; font-weight: 600; margin-bottom: 5px;">Category (ವರ್ಗ) *</label>
-                                <input type="text" id="formCategory" required placeholder="e.g. Notice, Circular, Event" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
+                                <input type="text" id="formCategory" list="categoryDatalist" required placeholder="Select or type category (e.g. Notice, Circular, Event)..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
+                                <datalist id="categoryDatalist">
+                                    <option value="Notice (ಪ್ರಕಟಣೆ)">
+                                    <option value="Circular (ಸುತ್ತೋಲೆ)">
+                                    <option value="Event (ಕಾರ್ಯಕ್ರಮ)">
+                                    <option value="Meeting Report (ಸಭೆಯ ವರದಿ)">
+                                    <option value="Press Release (ಪತ್ರಿಕಾ ಪ್ರಕಟಣೆ)">
+                                    <option value="Document (ದಾಖಲೆ)">
+                                    <option value="General (ಸಾಮಾನ್ಯ)">
+                                </datalist>
                             </div>
                             <div class="form-group" style="flex: 1; min-width: 200px;">
                                 <label style="display: block; font-weight: 600; margin-bottom: 5px;">Sub Category (ಉಪ ವರ್ಗ)</label>
-                                <input type="text" id="formSubCategory" placeholder="e.g. Meeting Report, Press Release" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
+                                <input type="text" id="formSubCategory" list="subCategoryDatalist" placeholder="Select or type sub category (e.g. Press, Meeting, Executive)..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
+                                <datalist id="subCategoryDatalist">
+                                    <option value="State Level (ರಾಜ್ಯ ಮಟ್ಟ)">
+                                    <option value="District Level (ಜಿಲ್ಲಾ ಮಟ್ಟ)">
+                                    <option value="Taluk Level (ತಾಲ್ಲೂಕು ಮಟ್ಟ)">
+                                    <option value="Executive (ಕಾರ್ಯಕಾರಿ)">
+                                    <option value="General (ಸಾಮಾನ್ಯ)">
+                                    <option value="Meeting (ಸಭೆ)">
+                                    <option value="Special Notice (ವಿಷೇಶ ಪ್ರಕಟಣೆ)">
+                                </datalist>
                             </div>
                         </div>
 
@@ -366,7 +384,31 @@
             renderUnitsTable();
         }
 
+        function updateDynamicDatalists() {
+            const catDatalist = document.getElementById('categoryDatalist');
+            const subCatDatalist = document.getElementById('subCategoryDatalist');
+            if (!catDatalist || !subCatDatalist) return;
+
+            const existingCats = new Set([
+                'Notice (ಪ್ರಕಟಣೆ)', 'Circular (ಸುತ್ತೋಲೆ)', 'Event (ಕಾರ್ಯಕ್ರಮ)', 
+                'Meeting Report (ಸಭೆಯ ವರದಿ)', 'Press Release (ಪತ್ರಿಕಾ ಪ್ರಕಟಣೆ)', 'Document (ದಾಖಲೆ)', 'General (ಸಾಮಾನ್ಯ)'
+            ]);
+            const existingSubCats = new Set([
+                'State Level (ರಾಜ್ಯ ಮಟ್ಟ)', 'District Level (ಜಿಲ್ಲಾ ಮಟ್ಟ)', 'Taluk Level (ತಾಲ್ಲೂಕು ಮಟ್ಟ)', 
+                'Executive (ಕಾರ್ಯಕಾರಿ)', 'General (ಸಾಮಾನ್ಯ)', 'Meeting (ಸಭೆ)', 'Special Notice (ವಿಷೇಶ ಪ್ರಕಟಣೆ)'
+            ]);
+
+            allUnitsData.forEach(item => {
+                if (item.category && item.category.trim()) existingCats.add(item.category.trim());
+                if (item.subCategory && item.subCategory.trim()) existingSubCats.add(item.subCategory.trim());
+            });
+
+            catDatalist.innerHTML = Array.from(existingCats).map(c => `<option value="${escapeHtml(c)}">`).join('');
+            subCatDatalist.innerHTML = Array.from(existingSubCats).map(s => `<option value="${escapeHtml(s)}">`).join('');
+        }
+
         function renderUnitsTable() {
+            updateDynamicDatalists();
             const tbody = document.getElementById('unitsTableBody');
             const search = (document.getElementById('filterSearch').value || '').toLowerCase();
 
