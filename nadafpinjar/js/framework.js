@@ -1,3 +1,15 @@
+// Suppress browser extension / translation errors from showing in the console
+window.addEventListener('unhandledrejection', function(event) {
+    if (event.reason && (event.reason.message && event.reason.message.includes('translate-page') || event.reason.toString().includes('translate-page'))) {
+        event.preventDefault();
+    }
+});
+window.addEventListener('error', function(event) {
+    if (event.message && event.message.includes('translate-page')) {
+        event.preventDefault();
+    }
+}, true);
+
 function getCookie(Name) { var search = Name + '='; var returnvalue = ''; if (document.cookie.length > 0) { offset = document.cookie.indexOf(search); if (offset != -1) { offset += search.length; end = document.cookie.indexOf(';', offset); if (end == -1) end = document.cookie.length; returnvalue = unescape(document.cookie.substring(offset, end)); } } return returnvalue; }
 // date 24-2-2016   code for add class in mega menu  written by waliullah 
 /*

@@ -1,3 +1,14 @@
+// Suppress browser extension / translation errors from showing in the console
+window.addEventListener('unhandledrejection', function(event) {
+    if (event.reason && (event.reason.message && event.reason.message.includes('translate-page') || event.reason.toString().includes('translate-page'))) {
+        event.preventDefault();
+    }
+});
+window.addEventListener('error', function(event) {
+    if (event.message && event.message.includes('translate-page')) {
+        event.preventDefault();
+    }
+}, true);
 
 function maskAadhar(val) {
     if (!val || val === '-') return '-';

@@ -257,6 +257,18 @@
 
     <!-- JS Scripts -->
     <script>
+        // Suppress browser extension / translation errors from showing in the console
+        window.addEventListener('unhandledrejection', function(event) {
+            if (event.reason && (event.reason.message && event.reason.message.includes('translate-page') || event.reason.toString().includes('translate-page'))) {
+                event.preventDefault();
+            }
+        });
+        window.addEventListener('error', function(event) {
+            if (event.message && event.message.includes('translate-page')) {
+                event.preventDefault();
+            }
+        }, true);
+
         let allUnitsData = [];
         let currentTab = 'all';
         let uploadedFileData = '';
@@ -265,7 +277,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             // Check auth
-            if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
+            if (localStorage.getItem('adminLoggedIn') !== 'true') {
                 window.location.href = 'login.html';
                 return;
             }
@@ -291,7 +303,7 @@
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    sessionStorage.removeItem('adminLoggedIn');
+                    localStorage.removeItem('adminLoggedIn');
                     window.location.href = 'login.html';
                 });
             }
