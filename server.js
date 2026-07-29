@@ -27,6 +27,19 @@ const donationSchema = new mongoose.Schema({
 
 const Donation = mongoose.model('Donation', donationSchema);
 
+const unitSchema = new mongoose.Schema({
+  subUnit: String,
+  category: String,
+  subCategory: String,
+  subject: String,
+  fileData: String,
+  fileName: String,
+  fileType: String,
+  date: { type: Date, default: Date.now }
+});
+
+const Unit = mongoose.models.Unit || mongoose.model('Unit', unitSchema);
+
 // MIME types mapping
 const mimeTypes = {
   '.html': 'text/html',
@@ -216,6 +229,83 @@ const server = http.createServer(async (req, res) => {
         res.end(JSON.stringify({ success: false, error: err.message }));
       }
     });
+    return;
+  }
+
+  // UNITS API HANDLERS
+  if (req.method === 'GET' && reqPath === '/api/units') {
+    try {
+      if (!mongoose.connection || mongoose.connection.readyState !== 1) {
+        await mongoose.connect(MONGO_URI);
+      }
+      const subUnit = parsedUrl.searchParams.get('subUnit');
+      let filter = {};
+      if (subUnit) {
+        filter.subUnit = { $regex: new RegExp(`^${subUnit.replace(/[-_]/g, '\\s*')}$`, 'i') };
+      }
+      const units = await Unit.find(filter).sort({ date: -1 });
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, units }));
+    } catch (err) {
+      console.error('Error fetching units:', err);
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+    return;
+  }
+
+  if (req.method === 'POST' && reqPath === '/api/units') {
+    let body = '';
+    req.on('data', chunk => body += chunk.toString());
+    req.on('end', async () => {
+      try {
+        if (!mongoose.connection || mongoose.connection.readyState !== 1) {
+          await mongoose.connect(MONGO_URI);
+        }
+        const data = JSON.parse(body);
+        const newUnit = new Unit({
+          subUnit: data.subUnit || 'State',
+          category: data.category || '',
+          subCategory: data.subCategory || '',
+          subject: data.subject || '',
+          fileData: data.fileData || '',
+          fileName: data.fileName || '',
+          fileType: data.fileType || '',
+          date: data.date ? new Date(data.date) : new Date()
+        });
+        await newUnit.save();
+        res.writeHead(201, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, message: 'Unit record saved', id: newUnit._id, unit: newUnit }));
+      } catch (err) {
+        console.error('Error saving unit:', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
+  if (req.method === 'DELETE' && (reqPath.startsWith('/api/units/') || reqPath === '/api/units')) {
+    let id = parsedUrl.searchParams.get('id');
+    if (reqPath.startsWith('/api/units/')) {
+      id = decodeURIComponent(reqPath.replace('/api/units/', ''));
+    }
+    try {
+      if (!mongoose.connection || mongoose.connection.readyState !== 1) {
+        await mongoose.connect(MONGO_URI);
+      }
+      if (id && mongoose.Types.ObjectId.isValid(id)) {
+        await Unit.findByIdAndDelete(id);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, message: 'Unit deleted' }));
+      } else {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Invalid ID' }));
+      }
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
     return;
   }
 

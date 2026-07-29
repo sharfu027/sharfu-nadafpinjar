@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Units (ಘಟಕಗಳು) - Karnataka State Nadaf / Pinjar Sangha</title>
+    <link href="css/base.css" rel="stylesheet" media="all">
+    <link href="css/base-responsive.css" rel="stylesheet" media="all">
+    <link href="css/grid.css" rel="stylesheet" media="all">
+    <link href="css/font.css" rel="stylesheet" media="all">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/megamenu.css" rel="stylesheet" media="all">
+    <link href="css/site.css" rel="stylesheet" media="all">
+    <link href="css/site-responsive.css" rel="stylesheet" media="all">
+    <style>
+        .unit-page-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 30px;
+            background: #fff;
+            border: 2px solid #b30000;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(179,0,0,0.08);
+        }
+        .unit-header-section {
+            text-align: center;
+            border-bottom: 2px solid #b30000;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        .unit-header-section h2 {
+            color: #b30000;
+            font-size: 26px;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+        }
+        .unit-header-section p {
+            color: #555;
+            font-size: 14px;
+            margin: 0;
+        }
+        .unit-nav-tabs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .unit-tab-link {
+            padding: 10px 20px;
+            background: #fff;
+            border: 2px solid #b30000;
+            color: #b30000;
+            font-weight: bold;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .unit-tab-link:hover, .unit-tab-link.active {
+            background: #b30000;
+            color: #fff;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(179,0,0,0.2);
+        }
+        .unit-search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            background: #fffdf5;
+            padding: 15px 20px;
+            border: 1px dashed #b30000;
+            border-radius: 6px;
+        }
+        .unit-search-bar input {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 320px;
+            max-width: 100%;
+            font-size: 14px;
+        }
+        .unit-table-container {
+            overflow-x: auto;
+        }
+        .public-unit-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: #fff;
+        }
+        .public-unit-table th {
+            background: #b30000;
+            color: #fff;
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: bold;
+            border: 1px solid #900;
+        }
+        .public-unit-table td {
+            padding: 12px 15px;
+            border: 1px solid #e5e7eb;
+            font-size: 14px;
+            color: #333;
+            vertical-align: middle;
+        }
+        .public-unit-table tr:nth-child(even) {
+            background: #fffdf5;
+        }
+        .public-unit-table tr:hover {
+            background: #fef2f2;
+        }
+        .btn-public-download {
+            background: #10b981;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+        .btn-public-download:hover {
+            background: #059669;
+            color: #fff;
+            text-decoration: none;
+        }
+        .badge-cat {
+            display: inline-block;
+            padding: 3px 8px;
+            background: #fee2e2;
+            color: #991b1b;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .breadcrumb {
+            padding: 15px 0;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+        .breadcrumb .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            font-size: 14px;
+        }
+        .breadcrumb a {
+            color: #b30000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="site-header">
+            <div class="header-container">
+                <img src="images/header-nadaf.png" alt="Karnataka Rajya Nadaf Pinjar Sangha" class="header-image">
+            </div>
+        </div>
+        <section class="wrapper megamenu-wraper">
+            <div class="container common-container four_content">
+                <p class="showhide"><em></em><em></em><em></em></p>
+                <nav class="main-menu clearfix" id="main_menu">
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="default.html">HOME</a></li>
+                        <li class="nav-item"><a href="#">ABOUT</a>
+                            <div class="sub-nav">
+                                <ul class="sub-nav-group">
+                                    <li><a href="#">ESTABLISHMENT </a></li>
+                                    <li><a href="committee.html?type=working">STATE WORKING COMMITTEE LIST </a></li>
+                                    <li><a href="committee.html?type=general">STATE GENERAL COMMITTEE LIST</a></li>
+                                    <li><a href="aims-objectives.html">AIMS AND OBJECTIVES</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item"><a href="#">Units / ಘಟಕಗಳು</a>
+                            <div class="sub-nav">
+                                <ul class="sub-nav-group">
+                                    <li><a href="unit.html?type=state">State Unit / ರಾಜ್ಯ ಘಟಕ</a></li>
+                                    <li><a href="unit.html?type=youth">Youth Unit / ಯುವ ಘಟಕ</a></li>
+                                    <li><a href="unit.html?type=subcommittee">Sub Committee / ಉಪ ಸಮಿತಿ</a></li>
+                                    <li><a href="unit.html?type=foundation">Foundation / ಫೌಂಡೇಶನ್</a></li>
+                                    <li><a href="unit.html?type=calendar">Calendar / ಕ್ಯಾಲೆಂಡರ್</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item"><a href="#">ಅರ್ಜಿಗಳು</a>
+                            <div class="sub-nav">
+                                <ul class="sub-nav-group">
+                                    <li><a href="freeedu.html">ಉಚಿತ ಶಿಕ್ಷಣ ಸೌಲಭ್ಯ</a></li>
+                                    <li><a href="highereducation.html">ಉನ್ನತ ಶಿಕ್ಷಣ ಸಹಾಯಧನ ಕೋರಿಕೆ ಅರ್ಜಿ</a></li>
+                                    <li><a href="pratibha.html">ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ</a></li>
+                                    <li><a href="sadhaka.html">ಸಾಧಕ ಪ್ರಶಸ್ತಿ</a></li>
+                                    <li><a href="lifemembership.html">ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿ</a></li>
+                                    <li><a href="Census.html">ಜನಗಣತಿ (Census) </a></li>
+                                    <li><a href="employees.html">ನೌಕರರ ವಿವರ</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item"><a href="#">ರಸೀದಿಗಳು</a>
+                            <div class="sub-nav">
+                                <ul class="sub-nav-group">
+                                    <li><a href="donationdirectstate.html">ರಾಜ್ಯಕ್ಕೆ ನೇರವಾಗಿ</a></li>
+                                    <li><a href="donationtaluktostate.html">ತಾಲೂಕಿನಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                    <li><a href="donationdistricttostate.html">ಜಿಲ್ಲೆಯಿಂದ ರಾಜ್ಯಕ್ಕೆ</a></li>
+                                    <li><a href="#">State Unit to Beneficiary</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item"><a href="gallery.html">GALLERY</a></li>
+                        <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+    </header>
+
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="default.html">Home</a> &gt; <span>Units (ಘಟಕಗಳು)</span> &gt; <strong id="breadcrumbCurrentUnit">State Unit</strong>
+        </div>
+    </div>
+
+    <div class="unit-page-container">
+        <div class="unit-header-section">
+            <h2 id="unitMainTitle">State Unit (ರಾಜ್ಯ ಘಟಕ)</h2>
+            <p id="unitSubTitle">Official Notifications, Circulars, Events &amp; Forms of State Unit</p>
+        </div>
+
+        <!-- Unit Navigation Links -->
+        <div class="unit-nav-tabs">
+            <a href="unit.html?type=state" id="tabLinkState" class="unit-tab-link"><i class="fa fa-university"></i> State (ರಾಜ್ಯ ಘಟಕ)</a>
+            <a href="unit.html?type=youth" id="tabLinkYouth" class="unit-tab-link"><i class="fa fa-users"></i> Youth (ಯುವ ಘಟಕ)</a>
+            <a href="unit.html?type=subcommittee" id="tabLinkSubcommittee" class="unit-tab-link"><i class="fa fa-sitemap"></i> Sub Committee (ಉಪ ಸಮಿತಿ)</a>
+            <a href="unit.html?type=foundation" id="tabLinkFoundation" class="unit-tab-link"><i class="fa fa-building"></i> Foundation (ಫೌಂಡೇಶನ್)</a>
+            <a href="unit.html?type=calendar" id="tabLinkCalendar" class="unit-tab-link"><i class="fa fa-calendar"></i> Calendar (ಕ್ಯಾಲೆಂಡರ್)</a>
+        </div>
+
+        <!-- Search & Filter Bar -->
+        <div class="unit-search-bar">
+            <div>
+                <strong style="color: #b30000;"><i class="fa fa-list-alt"></i> Records &amp; Documents List</strong>
+            </div>
+            <div>
+                <input type="text" id="unitSearchInput" placeholder="Search by subject, category, date..." onkeyup="filterPublicTable()">
+            </div>
+        </div>
+
+        <!-- Table View -->
+        <div class="unit-table-container">
+            <table class="public-unit-table">
+                <thead>
+                    <tr>
+                        <th style="width: 60px; text-align: center;">#</th>
+                        <th style="width: 120px;">Date (ದಿನಾಂಕ)</th>
+                        <th style="width: 150px;">Category (ವರ್ಗ)</th>
+                        <th style="width: 160px;">Sub Category (ಉಪ ವರ್ಗ)</th>
+                        <th>Subject (ವಿಷಯ)</th>
+                        <th style="width: 160px; text-align: center;">Download (ಡೌನ್‌ಲೋಡ್)</th>
+                    </tr>
+                </thead>
+                <tbody id="publicUnitsTableBody">
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 30px; color: #666;">
+                            <i class="fa fa-spinner fa-spin"></i> Loading unit records...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-wrapper">
+        <div class="container common-container">
+            <div class="footer-content" style="text-align: center; padding: 20px; color: #fff;">
+                <p>&copy; 2026 Karnataka State Nadaf / Pinjar Sangha. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentUnitType = 'state';
+        let publicUnitsList = [];
+
+        const unitTitles = {
+            'state': { title: 'State Unit (ರಾಜ್ಯ ಘಟಕ)', desc: 'Official Notifications, Circulars, Events & Forms of State Unit' },
+            'youth': { title: 'Youth Unit (ಯುವ ಘಟಕ)', desc: 'Youth Wing Activities, Events, Notifications & Forms' },
+            'subcommittee': { title: 'Sub Committee (ಉಪ ಸಮಿತಿ)', desc: 'Specialized Sub Committees Notifications & Reports' },
+            'foundation': { title: 'Foundation (ಫೌಂಡೇಶನ್)', desc: 'Foundation Programs, Trust Schemes & Announcements' },
+            'calendar': { title: 'Calendar (ಕ್ಯಾಲೆಂಡರ್)', desc: 'Annual Event Calendar, Holidays & Activity Schedules' }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const type = (urlParams.get('type') || 'state').toLowerCase().replace(/[-_]/g, '');
+
+            if (type.includes('youth')) currentUnitType = 'youth';
+            else if (type.includes('subcom') || type.includes('sub_com')) currentUnitType = 'subcommittee';
+            else if (type.includes('found')) currentUnitType = 'foundation';
+            else if (type.includes('cal')) currentUnitType = 'calendar';
+            else currentUnitType = 'state';
+
+            // Highlight Active Tab
+            document.querySelectorAll('.unit-tab-link').forEach(el => el.classList.remove('active'));
+            if (currentUnitType === 'state') document.getElementById('tabLinkState').classList.add('active');
+            else if (currentUnitType === 'youth') document.getElementById('tabLinkYouth').classList.add('active');
+            else if (currentUnitType === 'subcommittee') document.getElementById('tabLinkSubcommittee').classList.add('active');
+            else if (currentUnitType === 'foundation') document.getElementById('tabLinkFoundation').classList.add('active');
+            else if (currentUnitType === 'calendar') document.getElementById('tabLinkCalendar').classList.add('active');
+
+            // Update Title
+            const info = unitTitles[currentUnitType] || unitTitles['state'];
+            document.getElementById('unitMainTitle').innerText = info.title;
+            document.getElementById('unitSubTitle').innerText = info.desc;
+            document.getElementById('breadcrumbCurrentUnit').innerText = info.title;
+            document.title = `${info.title} - Karnataka State Nadaf / Pinjar Sangha`;
+
+            // Load Data
+            loadPublicUnitData();
+        });
+
+        async function loadPublicUnitData() {
+            try {
+                const res = await fetch(`/api/units?subUnit=${encodeURIComponent(currentUnitType)}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.success && Array.isArray(data.units)) {
+                        publicUnitsList = data.units;
+                    }
+                }
+            } catch (e) {
+                console.warn('API fetch error, fallback to local', e);
+            }
+
+            // localStorage fallback
+            const local = localStorage.getItem('nadaf_units_data');
+            if (local) {
+                try {
+                    const parsed = JSON.parse(local);
+                    if (Array.isArray(parsed)) {
+                        const existingIds = new Set(publicUnitsList.map(u => u._id || u.id));
+                        parsed.forEach(p => {
+                            if (matchUnitType(p.subUnit, currentUnitType) && !existingIds.has(p._id || p.id)) {
+                                publicUnitsList.push(p);
+                            }
+                        });
+                    }
+                } catch (e) {}
+            }
+
+            renderPublicUnitsTable();
+        }
+
+        function matchUnitType(subUnitName, targetType) {
+            const norm = (subUnitName || '').toLowerCase().replace(/[-_\s]/g, '');
+            const target = targetType.toLowerCase().replace(/[-_\s]/g, '');
+            if (target === 'subcommittee') return norm.includes('subcom');
+            return norm.includes(target);
+        }
+
+        function renderPublicUnitsTable() {
+            const tbody = document.getElementById('publicUnitsTableBody');
+            const search = (document.getElementById('unitSearchInput').value || '').toLowerCase();
+
+            let list = publicUnitsList;
+            if (search) {
+                list = list.filter(item => 
+                    (item.category || '').toLowerCase().includes(search) ||
+                    (item.subCategory || '').toLowerCase().includes(search) ||
+                    (item.subject || '').toLowerCase().includes(search) ||
+                    (item.date || '').toLowerCase().includes(search)
+                );
+            }
+
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:35px; color:#777; font-size:15px;">
+                    <i class="fa fa-info-circle" style="font-size:20px; color:#b30000;"></i><br><br>
+                    No documents or records available for this Unit currently.
+                </td></tr>`;
+                return;
+            }
+
+            let html = '';
+            list.forEach((item, idx) => {
+                const itemDate = item.date ? new Date(item.date).toLocaleDateString('en-GB') : '-';
+                
+                html += `
+                    <tr>
+                        <td style="text-align: center; font-weight: bold; color: #b30000;">${idx + 1}</td>
+                        <td style="font-weight: 600;">${itemDate}</td>
+                        <td><span class="badge-cat">${escapeHtml(item.category || 'General')}</span></td>
+                        <td>${escapeHtml(item.subCategory || '-')}</td>
+                        <td style="font-weight: 600; color: #1e293b;">${escapeHtml(item.subject || '-')}</td>
+                        <td style="text-align: center;">
+                            <button class="btn-public-download" onclick="downloadPublicUnitFile('${item._id || item.id}')">
+                                <i class="fa fa-download"></i> Download
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function filterPublicTable() {
+            renderPublicUnitsTable();
+        }
+
+        function downloadPublicUnitFile(id) {
+            const item = publicUnitsList.find(u => (u._id || u.id) === id);
+            if (!item) {
+                alert('Record not found!');
+                return;
+            }
+
+            if (item.fileData) {
+                const a = document.createElement('a');
+                a.href = item.fileData;
+                a.download = item.fileName || `${item.subUnit}_${item.category}_${Date.now()}`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } else {
+                const text = `KARNATAKA RAJYA NADAF PINJAR SANGHA
+------------------------------------------
+UNIT         : ${item.subUnit}
+DATE         : ${new Date(item.date).toLocaleDateString()}
+CATEGORY     : ${item.category}
+SUB CATEGORY : ${item.subCategory || '-'}
+SUBJECT      : ${item.subject}
+------------------------------------------`;
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${item.subUnit}_${item.category}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+        }
+
+        function escapeHtml(str) {
+            return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+    </script>
+</body>
+</html>
