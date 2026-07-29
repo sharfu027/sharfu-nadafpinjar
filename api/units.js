@@ -23,7 +23,14 @@ const unitSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now }
 });
 
+const customCatSchema = new mongoose.Schema({
+  type: String, // 'category' or 'subCategory'
+  name: String,
+  date: { type: Date, default: Date.now }
+});
+
 const Unit = mongoose.models.Unit || mongoose.model('Unit', unitSchema);
+const CustomCategory = mongoose.models.CustomCategory || mongoose.model('CustomCategory', customCatSchema);
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -39,18 +46,35 @@ module.exports = async (req, res) => {
     await connectToDatabase();
 
     if (req.method === 'GET') {
-      const { subUnit } = req.query;
+      const { subUnit, action } = req.query;
+
+      if (action === 'categories') {
+        const customCategories = await CustomCategory.find({}).sort({ date: -1 });
+        return res.status(200).json({ success: true, customCategories });
+      }
+
       let filter = {};
       if (subUnit) {
-        // Match case-insensitively or normalized
         filter.subUnit = { $regex: new RegExp(`^${subUnit.replace(/[-_]/g, '\\s*')}$`, 'i') };
       }
       const units = await Unit.find(filter).sort({ date: -1 });
-      return res.status(200).json({ success: true, units });
+      const customCategories = await CustomCategory.find({}).sort({ date: -1 });
+      return res.status(200).json({ success: true, units, customCategories });
     }
 
     if (req.method === 'POST') {
       const bodyData = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
+
+      if (bodyData.action === 'addCategory') {
+        const newCat = new CustomCategory({
+          type: bodyData.type || 'category',
+          name: bodyData.name || '',
+          date: new Date()
+        });
+        await newCat.save();
+        return res.status(201).json({ success: true, message: 'Custom category saved', category: newCat });
+      }
+
       const newUnit = new Unit({
         subUnit: bodyData.subUnit || 'State',
         category: bodyData.category || '',
@@ -66,12 +90,16 @@ module.exports = async (req, res) => {
     }
 
     if (req.method === 'DELETE') {
-      const { id } = req.query;
-      if (!id) {
-        return res.status(400).json({ success: false, error: 'ID is required' });
+      const { id, catId } = req.query;
+      if (catId) {
+        await CustomCategory.findByIdAndDelete(catId);
+        return res.status(200).json({ success: true, message: 'Custom category deleted' });
       }
-      await Unit.findByIdAndDelete(id);
-      return res.status(200).json({ success: true, message: 'Unit record deleted' });
+      if (id) {
+        await Unit.findByIdAndDelete(id);
+        return res.status(200).json({ success: true, message: 'Unit record deleted' });
+      }
+      return res.status(400).json({ success: false, error: 'ID or catId is required' });
     }
 
     return res.status(405).json({ success: false, error: 'Method Not Allowed' });

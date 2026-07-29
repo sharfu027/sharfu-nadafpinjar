@@ -38,7 +38,14 @@ const unitSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now }
 });
 
+const customCatSchema = new mongoose.Schema({
+  type: String,
+  name: String,
+  date: { type: Date, default: Date.now }
+});
+
 const Unit = mongoose.models.Unit || mongoose.model('Unit', unitSchema);
+const CustomCategory = mongoose.models.CustomCategory || mongoose.model('CustomCategory', customCatSchema);
 
 // MIME types mapping
 const mimeTypes = {
@@ -239,13 +246,23 @@ const server = http.createServer(async (req, res) => {
         await mongoose.connect(MONGO_URI);
       }
       const subUnit = parsedUrl.searchParams.get('subUnit');
+      const action = parsedUrl.searchParams.get('action');
+
+      if (action === 'categories') {
+        const customCategories = await CustomCategory.find({}).sort({ date: -1 });
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, customCategories }));
+        return;
+      }
+
       let filter = {};
       if (subUnit) {
         filter.subUnit = { $regex: new RegExp(`^${subUnit.replace(/[-_]/g, '\\s*')}$`, 'i') };
       }
       const units = await Unit.find(filter).sort({ date: -1 });
+      const customCategories = await CustomCategory.find({}).sort({ date: -1 });
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: true, units }));
+      res.end(JSON.stringify({ success: true, units, customCategories }));
     } catch (err) {
       console.error('Error fetching units:', err);
       res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -263,6 +280,19 @@ const server = http.createServer(async (req, res) => {
           await mongoose.connect(MONGO_URI);
         }
         const data = JSON.parse(body);
+
+        if (data.action === 'addCategory') {
+          const newCat = new CustomCategory({
+            type: data.type || 'category',
+            name: data.name || '',
+            date: new Date()
+          });
+          await newCat.save();
+          res.writeHead(201, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, message: 'Custom category saved', category: newCat }));
+          return;
+        }
+
         const newUnit = new Unit({
           subUnit: data.subUnit || 'State',
           category: data.category || '',
@@ -287,6 +317,7 @@ const server = http.createServer(async (req, res) => {
 
   if (req.method === 'DELETE' && (reqPath.startsWith('/api/units/') || reqPath === '/api/units')) {
     let id = parsedUrl.searchParams.get('id');
+    let catId = parsedUrl.searchParams.get('catId');
     if (reqPath.startsWith('/api/units/')) {
       id = decodeURIComponent(reqPath.replace('/api/units/', ''));
     }
@@ -294,14 +325,20 @@ const server = http.createServer(async (req, res) => {
       if (!mongoose.connection || mongoose.connection.readyState !== 1) {
         await mongoose.connect(MONGO_URI);
       }
+      if (catId && mongoose.Types.ObjectId.isValid(catId)) {
+        await CustomCategory.findByIdAndDelete(catId);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, message: 'Custom category deleted' }));
+        return;
+      }
       if (id && mongoose.Types.ObjectId.isValid(id)) {
         await Unit.findByIdAndDelete(id);
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, message: 'Unit deleted' }));
-      } else {
-        res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: false, error: 'Invalid ID' }));
+        return;
       }
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Invalid ID or catId' }));
     } catch (err) {
       res.writeHead(500, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ success: false, error: err.message }));
