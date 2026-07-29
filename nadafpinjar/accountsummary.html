@@ -21,7 +21,7 @@
     <div class="admin-layout">
         <aside class="admin-sidebar">
             <ul class="sidebar-menu">
-                <li><a href="accountsummary"><i class="fa fa-dashboard"></i> ಖಾತೆ ಸಾರಾಂಶ</a></li>
+                <li class="active"><a href="accountsummary"><i class="fa fa-dashboard"></i> ಖಾತೆ ಸಾರಾಂಶ</a></li>
                 <li><a href="Beneficiaries"><i class="fa fa-users"></i> ಫಲಾನುಭವಿಗಳು</a></li>
                 <li><a href="Paymentsandtransfers"><i class="fa fa-credit-card"></i> ಪಾವತಿಗಳು & ವರ್ಗಾವಣೆಗಳು</a></li>
                 <li><a href="Receipts"><i class="fa fa-file-text-o"></i> ರಸೀದಿಗಳು</a></li>
@@ -36,7 +36,7 @@
                 <li><a href="admin-census"><i class="fa fa-users"></i> ಜನಗಣತಿ</a></li>
                 <li><a href="admin-employees"><i class="fa fa-briefcase"></i> ನೌಕರರು</a></li>
                 <li><a href="admin-committee"><i class="fa fa-list-ul"></i> ಸಮಿತಿಗಳು</a></li>
-                <li><a href="admin-units.html"><i class="fa fa-sitemap"></i> ಘಟಕಗಳು (Units)</a></li>
+                <li><a href="admin-units"><i class="fa fa-sitemap"></i> ಘಟಕಗಳು (Units)</a></li>
                 <li><a href="#" id="logoutBtn"><i class="fa fa-sign-out"></i> ನಿರ್ಗಮನ (Logout)</a></li>
             </ul>
         </aside>
@@ -44,6 +44,22 @@
         <main class="admin-content">
             <div class="page-title-bar">
                 <span>Your Details</span>
+            </div>
+
+            <!-- Units Management Quick Action Card -->
+            <div class="admin-card" style="border-left: 4px solid #4f1971; background: #faf5ff; margin-bottom: 20px;">
+                <div class="card-header" style="background: #4f1971; color: white; display: flex; justify-content: space-between; align-items: center;">
+                    <span><i class="fa fa-sitemap"></i> ಘಟಕಗಳ ನಿರ್ವಹಣೆ (Units Management)</span>
+                </div>
+                <div class="card-body" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <h4 style="margin: 0 0 5px 0; color: #4f1971; font-weight: bold; font-size: 16px;">ಘಟಕಗಳ ಮಾಹಿತಿ ಸೇರಿಸಿ/ನಿರ್ವಹಿಸಿ (Units Management)</h4>
+                        <p style="margin: 0; color: #64748b; font-size: 13px;">Add State, Youth, Sub Committee, Foundation &amp; Calendar unit forms, upload files &amp; publish to main website.</p>
+                    </div>
+                    <a href="admin-units" style="background: #4f1971; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(79, 25, 113, 0.3);">
+                        <i class="fa fa-plus-circle"></i> Open Units Form (ಘಟಕಗಳ ಫಾರ್ಮ್ ತೆರೆಯಿರಿ)
+                    </a>
+                </div>
             </div>
 
             <div class="admin-card">
@@ -71,7 +87,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="admin-card">
                 <div class="card-header">
