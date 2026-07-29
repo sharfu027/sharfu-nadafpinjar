@@ -263,29 +263,13 @@
                         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                             <div class="form-group" style="flex: 1; min-width: 200px;">
                                 <label style="display: block; font-weight: 600; margin-bottom: 5px;">Category (ವರ್ಗ) *</label>
-                                <input type="text" id="formCategory" list="categoryDatalist" required placeholder="Select or type category (e.g. Notice, Circular, Event)..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
-                                <datalist id="categoryDatalist">
-                                    <option value="Notice (ಪ್ರಕಟಣೆ)">
-                                    <option value="Circular (ಸುತ್ತೋಲೆ)">
-                                    <option value="Event (ಕಾರ್ಯಕ್ರಮ)">
-                                    <option value="Meeting Report (ಸಭೆಯ ವರದಿ)">
-                                    <option value="Press Release (ಪತ್ರಿಕಾ ಪ್ರಕಟಣೆ)">
-                                    <option value="Document (ದಾಖಲೆ)">
-                                    <option value="General (ಸಾಮಾನ್ಯ)">
-                                </datalist>
+                                <input type="text" id="formCategory" list="categoryDatalist" required placeholder="Select or type category..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
+                                <datalist id="categoryDatalist"></datalist>
                             </div>
                             <div class="form-group" style="flex: 1; min-width: 200px;">
                                 <label style="display: block; font-weight: 600; margin-bottom: 5px;">Sub Category (ಉಪ ವರ್ಗ)</label>
-                                <input type="text" id="formSubCategory" list="subCategoryDatalist" placeholder="Select or type sub category (e.g. Press, Meeting, Executive)..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
-                                <datalist id="subCategoryDatalist">
-                                    <option value="State Level (ರಾಜ್ಯ ಮಟ್ಟ)">
-                                    <option value="District Level (ಜಿಲ್ಲಾ ಮಟ್ಟ)">
-                                    <option value="Taluk Level (ತಾಲ್ಲೂಕು ಮಟ್ಟ)">
-                                    <option value="Executive (ಕಾರ್ಯಕಾರಿ)">
-                                    <option value="General (ಸಾಮಾನ್ಯ)">
-                                    <option value="Meeting (ಸಭೆ)">
-                                    <option value="Special Notice (ವಿಷೇಶ ಪ್ರಕಟಣೆ)">
-                                </datalist>
+                                <input type="text" id="formSubCategory" list="subCategoryDatalist" placeholder="Select or type sub category..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
+                                <datalist id="subCategoryDatalist"></datalist>
                             </div>
                         </div>
 
@@ -527,14 +511,8 @@
             const subCatDatalist = document.getElementById('subCategoryDatalist');
             if (!catDatalist || !subCatDatalist) return;
 
-            const existingCats = new Set([
-                'Notice (ಪ್ರಕಟಣೆ)', 'Circular (ಸುತ್ತೋಲೆ)', 'Event (ಕಾರ್ಯಕ್ರಮ)', 
-                'Meeting Report (ಸಭೆಯ ವರದಿ)', 'Press Release (ಪತ್ರಿಕಾ ಪ್ರಕಟಣೆ)', 'Document (ದಾಖಲೆ)', 'General (ಸಾಮಾನ್ಯ)'
-            ]);
-            const existingSubCats = new Set([
-                'State Level (ರಾಜ್ಯ ಮಟ್ಟ)', 'District Level (ಜಿಲ್ಲಾ ಮಟ್ಟ)', 'Taluk Level (ತಾಲ್ಲೂಕು ಮಟ್ಟ)', 
-                'Executive (ಕಾರ್ಯಕಾರಿ)', 'General (ಸಾಮಾನ್ಯ)', 'Meeting (ಸಭೆ)', 'Special Notice (ವಿಷೇಶ ಪ್ರಕಟಣೆ)'
-            ]);
+            const existingCats = new Set();
+            const existingSubCats = new Set();
 
             // Add custom categories created by admin
             customCategoriesList.forEach(item => {
