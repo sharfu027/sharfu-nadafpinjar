@@ -172,10 +172,10 @@
         <div id="previewContent" class="preview-grid"></div>
         <div class="preview-amount-bar">₹ <span id="displayAmount">0</span></div>
         <div class="preview-actions-bar">
-            <button type="button" class="btn-preview-edit" onclick="editForm()">Edit</button>
-            <button type="button" class="btn-preview-pay" id="btnPay" onclick="initiatePayment()">Pay (ಈಗ ಪಾವತಿಸಿ)</button>
-            <button type="button" class="btn-preview-pay" id="btnSubmitOffline" style="background:#10b981; display:none;" onclick="submitToMongoDB(null)">Submit (ಉಳಿಸಿ)</button>
-            <button type="button" class="btn-preview-cancel" onclick="editForm()">Cancel</button>
+            <button type="button" class="btn-preview-edit" id="btnEdit" onclick="editForm()">Edit</button>
+            <button type="button" class="btn-preview-pay" id="btnPay" onclick="initiatePayment()">Pay</button>
+            <button type="button" class="btn-preview-pay" id="btnSubmitOffline" style="background:#10b981; display:none;" onclick="submitToMongoDB(null)">Submit</button>
+            <button type="button" class="btn-preview-cancel" id="btnCancel" onclick="editForm()">Cancel</button>
         </div>
     </div>
 
@@ -415,7 +415,7 @@
             document.getElementById('previewContainer').style.display = 'none';
             
             const receiptContainer = document.getElementById('receiptContainer');
-            if (receiptContainer) receiptContainer.style.display = 'none';
+            if (receiptContainer) receiptContainer.style.display = 'block';
 
             printReceipt(data, paymentId);
         }
