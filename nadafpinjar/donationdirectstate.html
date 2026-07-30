@@ -927,17 +927,12 @@
         const offlineReceiptRow = document.getElementById('offlineReceiptRow');
 
         function toggleOfflineFields() {
-            if (paymentModeSelect.value === 'Cash/Offline') {
-                bankDetailsGroup.style.display = 'block';
-                offlineReceiptRow.style.display = 'flex';
-                document.getElementById('bankDetails').required = true;
-                document.getElementById('depositDate').required = true;
-            } else {
-                bankDetailsGroup.style.display = 'none';
-                offlineReceiptRow.style.display = 'none';
-                document.getElementById('bankDetails').required = false;
-                document.getElementById('depositDate').required = false;
-            }
+            if (!paymentModeSelect) return;
+            const isOffline = (paymentModeSelect.value === 'Cash/Offline' || paymentModeSelect.value === 'Offline');
+            if (bankDetailsGroup) bankDetailsGroup.style.display = isOffline ? 'block' : 'none';
+            if (offlineReceiptRow) offlineReceiptRow.style.display = isOffline ? 'flex' : 'none';
+            if (document.getElementById('bankDetails')) document.getElementById('bankDetails').required = false;
+            if (document.getElementById('depositDate')) document.getElementById('depositDate').required = false;
         }
 
         if (paymentModeSelect) {

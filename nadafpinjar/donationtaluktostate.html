@@ -756,6 +756,10 @@
                 document.getElementById('displayAmount').textContent = formData.amount || 0;
             }
 
+            const isOffline = (formData.paymentMode === 'Cash/Offline' || formData.paymentMode === 'Offline');
+            if (document.getElementById('btnPay')) document.getElementById('btnPay').style.display = isOffline ? 'none' : 'inline-block';
+            if (document.getElementById('btnSubmitOffline')) document.getElementById('btnSubmitOffline').style.display = isOffline ? 'inline-block' : 'none';
+
             window.scrollTo(0, 0);
         }
 
