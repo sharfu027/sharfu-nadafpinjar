@@ -133,10 +133,10 @@
             <div class="unit-tabs">
                 <button class="tab-btn active" id="tabAll" onclick="switchUnitTab('all')">All Units (ಎಲ್ಲಾ ಘಟಕಗಳು)</button>
                 <button class="tab-btn" id="tabState" onclick="switchUnitTab('State')">State (ರಾಜ್ಯ ಘಟಕ)</button>
-                <button class="tab-btn" id="tabYouth" onclick="switchUnitTab('Youth')">Youth (ಯುವ ಘಟಕ)</button>
-                <button class="tab-btn" id="tabSubCommittee" onclick="switchUnitTab('Sub Committee')">Sub Committee (ಉಪ ಸಮಿತಿ)</button>
-                <button class="tab-btn" id="tabFoundation" onclick="switchUnitTab('Foundation')">Foundation (ಫೌಂಡೇಶನ್)</button>
-                <button class="tab-btn" id="tabCalendar" onclick="switchUnitTab('Calendar')">Calendar (ಕ್ಯಾಲೆಂಡರ್)</button>
+                <button class="tab-btn" id="tabYouth" onclick="switchUnitTab('Youth')">State Youth (ರಾಜ್ಯ ಯುವ ಘಟಕ)</button>
+                <button class="tab-btn" id="tabSubCommittee" onclick="switchUnitTab('Sub Committee')">Sub Committee (ರಾಜ್ಯ ಉಪ ಸಮಿತಿ)</button>
+                <button class="tab-btn" id="tabDistrict" onclick="switchUnitTab('District')">Districts (ಜಿಲ್ಲಾ ಘಟಕಗಳು)</button>
+                <button class="tab-btn" id="tabTaluk" onclick="switchUnitTab('Taluk')">Talukas (ತಾಲ್ಲೂಕು ಘಟಕಗಳು)</button>
             </div>
 
             <!-- Filter & Add Button Card -->
@@ -171,13 +171,13 @@
                         <table class="admin-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 60px; text-align: center;">#</th>
+                                    <th style="width: 50px; text-align: center;">#</th>
                                     <th style="width: 110px;">Date (ದಿನಾಂಕ)</th>
-                                    <th style="width: 130px;">Sub Unit (ಉಪ ಘಟಕ)</th>
-                                    <th style="width: 140px;">Category (ವರ್ಗ)</th>
-                                    <th style="width: 150px;">Sub Category (ಉಪ ವರ್ಗ)</th>
+                                    <th style="width: 160px;">Sub Unit (ಉಪ ಘಟಕ)</th>
+                                    <th style="width: 160px;">Category (ವರ್ಗ)</th>
+                                    <th style="width: 160px;">Sub Category (ಉಪ ವರ್ಗ)</th>
                                     <th>Subject (ವಿಷಯ)</th>
-                                    <th style="width: 160px; text-align: center;">Actions (ಡೌನ್‌ಲೋಡ್ / ಅಳಿಸಿ)</th>
+                                    <th style="width: 140px; text-align: center;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="unitsTableBody">
@@ -253,10 +253,10 @@
                             <select id="formSubUnit" required style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
                                 <option value="">-- ಆಯ್ಕೆ ಮಾಡಿ / Select Sub Unit --</option>
                                 <option value="State">State (ರಾಜ್ಯ ಘಟಕ)</option>
-                                <option value="Youth">Youth (ಯುವ ಘಟಕ)</option>
-                                <option value="Sub Committee">Sub Committee (ಉಪ ಸಮಿತಿ)</option>
-                                <option value="Foundation">Foundation (ಫೌಂಡೇಶನ್)</option>
-                                <option value="Calendar">Calendar (ಕ್ಯಾಲೆಂಡರ್)</option>
+                                <option value="Youth">Youth (ರಾಜ್ಯ ಯುವ ಘಟಕ)</option>
+                                <option value="Sub Committee">Sub Committee (ರಾಜ್ಯ ಉಪ ಸಮಿತಿ)</option>
+                                <option value="District">Districts (ಜಿಲ್ಲಾ ಘಟಕ)</option>
+                                <option value="Taluk">Talukas (ತಾಲ್ಲೂಕು ಘಟಕ)</option>
                             </select>
                         </div>
 
@@ -535,6 +535,30 @@
             subCatDatalist.innerHTML = Array.from(existingSubCats).map(s => `<option value="${escapeHtml(s)}">`).join('');
         }
 
+        function switchUnitTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.unit-tabs .tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            if (tab === 'all') document.getElementById('tabAll').classList.add('active');
+            else if (tab === 'State') document.getElementById('tabState').classList.add('active');
+            else if (tab === 'Youth') document.getElementById('tabYouth').classList.add('active');
+            else if (tab === 'Sub Committee') document.getElementById('tabSubCommittee').classList.add('active');
+            else if (tab === 'District') document.getElementById('tabDistrict').classList.add('active');
+            else if (tab === 'Taluk') document.getElementById('tabTaluk').classList.add('active');
+
+            const titles = {
+                'all': 'All Units Submissions',
+                'State': 'State Unit (ರಾಜ್ಯ ಘಟಕ) Submissions',
+                'Youth': 'State Youth Unit (ರಾಜ್ಯ ಯುವ ಘಟಕ) Submissions',
+                'Sub Committee': 'State Sub Committee (ರಾಜ್ಯ ಉಪ ಸಮಿತಿ) Submissions',
+                'District': 'Districts (ಜಿಲ್ಲಾ ಘಟಕಗಳು) Submissions',
+                'Taluk': 'Talukas (ತಾಲ್ಲೂಕು ಘಟಕಗಳು) Submissions'
+            };
+            document.getElementById('tableHeaderTitle').innerText = titles[tab] || 'Units Submissions';
+
+            renderUnitsTable();
+        }
+
         function renderUnitsTable() {
             updateDynamicDatalists();
             const tbody = document.getElementById('unitsTableBody');
@@ -542,7 +566,13 @@
 
             let list = allUnitsData;
             if (currentTab !== 'all') {
-                list = list.filter(item => (item.subUnit || '').toLowerCase() === currentTab.toLowerCase());
+                list = list.filter(item => {
+                    const u = (item.subUnit || '').toLowerCase();
+                    const c = currentTab.toLowerCase();
+                    if (c === 'district') return u === 'district' || u === 'foundation';
+                    if (c === 'taluk') return u === 'taluk' || u === 'calendar';
+                    return u === c;
+                });
             }
 
             if (search) {
@@ -597,7 +627,9 @@
                 case 'youth': return 'badge-youth';
                 case 'sub committee':
                 case 'subcommittee': return 'badge-subcommittee';
+                case 'district':
                 case 'foundation': return 'badge-foundation';
+                case 'taluk':
                 case 'calendar': return 'badge-calendar';
                 default: return 'badge-state';
             }

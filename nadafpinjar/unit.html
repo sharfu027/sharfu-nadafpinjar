@@ -192,10 +192,10 @@
                             <div class="sub-nav">
                                 <ul class="sub-nav-group">
                                     <li><a href="unit.html?type=state">State Unit / ರಾಜ್ಯ ಘಟಕ</a></li>
-                                    <li><a href="unit.html?type=youth">Youth Unit / ಯುವ ಘಟಕ</a></li>
-                                    <li><a href="unit.html?type=subcommittee">Sub Committee / ಉಪ ಸಮಿತಿ</a></li>
-                                    <li><a href="unit.html?type=foundation">Foundation / ಫೌಂಡೇಶನ್</a></li>
-                                    <li><a href="unit.html?type=calendar">Calendar / ಕ್ಯಾಲೆಂಡರ್</a></li>
+                                    <li><a href="unit.html?type=youth">Youth Unit / ರಾಜ್ಯ ಯುವ ಘಟಕ</a></li>
+                                    <li><a href="unit.html?type=subcommittee">Sub Committee / ರಾಜ್ಯ ಉಪ ಸಮಿತಿ</a></li>
+                                    <li><a href="unit.html?type=district">District Unit / ಜಿಲ್ಲಾ ಘಟಕ</a></li>
+                                    <li><a href="unit.html?type=taluk">Taluk Unit / ತಾಲ್ಲೂಕು ಘಟಕ</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -248,10 +248,10 @@
         <!-- Unit Navigation Links -->
         <div class="unit-nav-tabs">
             <a href="unit.html?type=state" id="tabLinkState" class="unit-tab-link"><i class="fa fa-university"></i> State (ರಾಜ್ಯ ಘಟಕ)</a>
-            <a href="unit.html?type=youth" id="tabLinkYouth" class="unit-tab-link"><i class="fa fa-users"></i> Youth (ಯುವ ಘಟಕ)</a>
-            <a href="unit.html?type=subcommittee" id="tabLinkSubcommittee" class="unit-tab-link"><i class="fa fa-sitemap"></i> Sub Committee (ಉಪ ಸಮಿತಿ)</a>
-            <a href="unit.html?type=foundation" id="tabLinkFoundation" class="unit-tab-link"><i class="fa fa-building"></i> Foundation (ಫೌಂಡೇಶನ್)</a>
-            <a href="unit.html?type=calendar" id="tabLinkCalendar" class="unit-tab-link"><i class="fa fa-calendar"></i> Calendar (ಕ್ಯಾಲೆಂಡರ್)</a>
+            <a href="unit.html?type=youth" id="tabLinkYouth" class="unit-tab-link"><i class="fa fa-users"></i> Youth (ರಾಜ್ಯ ಯುವ ಘಟಕ)</a>
+            <a href="unit.html?type=subcommittee" id="tabLinkSubcommittee" class="unit-tab-link"><i class="fa fa-sitemap"></i> Sub Committee (ರಾಜ್ಯ ಉಪ ಸಮಿತಿ)</a>
+            <a href="unit.html?type=district" id="tabLinkDistrict" class="unit-tab-link"><i class="fa fa-building"></i> Districts (ಜಿಲ್ಲಾ ಘಟಕಗಳು)</a>
+            <a href="unit.html?type=taluk" id="tabLinkTaluk" class="unit-tab-link"><i class="fa fa-map-marker"></i> Talukas (ತಾಲ್ಲೂಕು ಘಟಕಗಳು)</a>
         </div>
 
         <!-- Search & Filter Bar -->
@@ -269,18 +269,18 @@
             <table class="public-unit-table">
                 <thead>
                     <tr>
-                        <th style="width: 60px; text-align: center;">#</th>
+                        <th style="width: 50px; text-align: center;">#</th>
                         <th style="width: 120px;">Date (ದಿನಾಂಕ)</th>
-                        <th style="width: 150px;">Category (ವರ್ಗ)</th>
+                        <th style="width: 160px;">Category (ವರ್ಗ)</th>
                         <th style="width: 160px;">Sub Category (ಉಪ ವರ್ಗ)</th>
                         <th>Subject (ವಿಷಯ)</th>
-                        <th style="width: 160px; text-align: center;">Download (ಡೌನ್‌ಲೋಡ್)</th>
+                        <th style="width: 150px; text-align: center;">Action (ದಾಖಲೆ)</th>
                     </tr>
                 </thead>
-                <tbody id="publicUnitsTableBody">
+                <tbody id="publicUnitTableBody">
                     <tr>
                         <td colspan="6" style="text-align: center; padding: 30px; color: #666;">
-                            <i class="fa fa-spinner fa-spin"></i> Loading unit records...
+                            <i class="fa fa-spinner fa-spin"></i> Loading records...
                         </td>
                     </tr>
                 </tbody>
@@ -332,10 +332,10 @@
 
         const unitTitles = {
             'state': { title: 'State Unit (ರಾಜ್ಯ ಘಟಕ)', desc: 'Official Notifications, Circulars, Events & Forms of State Unit' },
-            'youth': { title: 'Youth Unit (ಯುವ ಘಟಕ)', desc: 'Youth Wing Activities, Events, Notifications & Forms' },
-            'subcommittee': { title: 'Sub Committee (ಉಪ ಸಮಿತಿ)', desc: 'Specialized Sub Committees Notifications & Reports' },
-            'foundation': { title: 'Foundation (ಫೌಂಡೇಶನ್)', desc: 'Foundation Programs, Trust Schemes & Announcements' },
-            'calendar': { title: 'Calendar (ಕ್ಯಾಲೆಂಡರ್)', desc: 'Annual Event Calendar, Holidays & Activity Schedules' }
+            'youth': { title: 'State Youth Unit (ರಾಜ್ಯ ಯುವ ಘಟಕ)', desc: 'Youth Wing Activities, Events, Notifications & Forms' },
+            'subcommittee': { title: 'State Sub Committee (ರಾಜ್ಯ ಉಪ ಸಮಿತಿ)', desc: 'Specialized Sub Committees Notifications & Reports' },
+            'district': { title: 'Districts (ಜಿಲ್ಲಾ ಘಟಕಗಳು)', desc: 'District Level Units Notifications, Reports & Announcements' },
+            'taluk': { title: 'Talukas (ತಾಲ್ಲೂಕು ಘಟಕಗಳು)', desc: 'Taluk Level Units Notifications & Activity Schedules' }
         };
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -344,8 +344,8 @@
 
             if (type.includes('youth')) currentUnitType = 'youth';
             else if (type.includes('subcom') || type.includes('sub_com')) currentUnitType = 'subcommittee';
-            else if (type.includes('found')) currentUnitType = 'foundation';
-            else if (type.includes('cal')) currentUnitType = 'calendar';
+            else if (type.includes('dist') || type.includes('found')) currentUnitType = 'district';
+            else if (type.includes('taluk') || type.includes('cal')) currentUnitType = 'taluk';
             else currentUnitType = 'state';
 
             // Highlight Active Tab
@@ -353,8 +353,8 @@
             if (currentUnitType === 'state') document.getElementById('tabLinkState').classList.add('active');
             else if (currentUnitType === 'youth') document.getElementById('tabLinkYouth').classList.add('active');
             else if (currentUnitType === 'subcommittee') document.getElementById('tabLinkSubcommittee').classList.add('active');
-            else if (currentUnitType === 'foundation') document.getElementById('tabLinkFoundation').classList.add('active');
-            else if (currentUnitType === 'calendar') document.getElementById('tabLinkCalendar').classList.add('active');
+            else if (currentUnitType === 'district') document.getElementById('tabLinkDistrict').classList.add('active');
+            else if (currentUnitType === 'taluk') document.getElementById('tabLinkTaluk').classList.add('active');
 
             // Update Title
             const info = unitTitles[currentUnitType] || unitTitles['state'];
@@ -403,11 +403,13 @@
             const norm = (subUnitName || '').toLowerCase().replace(/[-_\s]/g, '');
             const target = targetType.toLowerCase().replace(/[-_\s]/g, '');
             if (target === 'subcommittee') return norm.includes('subcom');
+            if (target === 'district') return norm.includes('district') || norm.includes('found');
+            if (target === 'taluk') return norm.includes('taluk') || norm.includes('cal');
             return norm.includes(target);
         }
 
         function renderPublicUnitsTable() {
-            const tbody = document.getElementById('publicUnitsTableBody');
+            const tbody = document.getElementById('publicUnitTableBody') || document.getElementById('publicUnitsTableBody');
             const search = (document.getElementById('unitSearchInput').value || '').toLowerCase();
 
             let list = publicUnitsList;
