@@ -171,7 +171,7 @@
                 </div>
             </div>
             <div class="btn-container">
-                <button class="btn-submit" type="submit" onclick="handleFormPreview(event)">Preview and Submit</button>
+                <button class="btn-submit" type="submit">Preview and Submit</button>
                 <button class="btn-cancel" type="reset">Cancel</button>
             </div>
         </form>
@@ -275,7 +275,7 @@
                 'paymentMode': 'span-12'
             };
 
-            const fieldsOrder = ['donorName', 'address', 'village', 'district', 'mobile', 'taluk', 'account', 'purposeDetails', 'paymentMode'];
+            const fieldsOrder = ['donorName', 'address', 'village', 'district', 'mobile', 'taluk', 'amount', 'account', 'purposeDetails', 'paymentMode', 'bankDetails', 'depositDate'];
             let previewHTML = '';
             fieldsOrder.forEach(key => {
                 if (formData[key] !== undefined) {

@@ -553,7 +553,7 @@
             </div>
 
             <div class="btn-container">
-                <button type="submit" class="btn-submit" onclick="handleFormPreview(event)">Preview and Submit</button>
+                <button type="submit" class="btn-submit">Preview and Submit</button>
                 <button type="button" class="btn-cancel" onclick="window.history.back()">Cancel</button>
             </div>
         </form>
@@ -736,7 +736,7 @@
             // Group fields by sections for clear structure
             const presidentFields = ['presidentName', 'presidentAddress', 'presidentMobile', 'presidentVillage', 'district', 'taluk'];
             const donorFields = ['donorName', 'donorAddress', 'donorVillage', 'donorDistrict', 'donorTaluk', 'donorMobile'];
-            const purposeFields = ['account', 'purposeDetails', 'paymentMode'];
+            const purposeFields = ['amount', 'account', 'purposeDetails', 'paymentMode', 'bankDetails', 'depositDate'];
 
             function buildGrid(fields) {
                 let html = '';
