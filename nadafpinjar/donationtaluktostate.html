@@ -445,7 +445,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="presidentMobile">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</label>
-                    <input type="tel" id="presidentMobile" name="presidentMobile" pattern="[0-9]{10}" required>
+                    <input type="tel" id="presidentMobile" name="presidentMobile"  required>
                 </div>
                 <div class="form-group">
                     <label for="presidentVillage">ಗ್ರಾಮ / ನಗರ</label>
@@ -501,7 +501,7 @@
                 </div>
                 <div class="form-group">
                     <label for="donorMobile">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</label>
-                    <input type="tel" id="donorMobile" name="donorMobile" pattern="[0-9]{10}" required>
+                    <input type="tel" id="donorMobile" name="donorMobile"  required>
                 </div>
             </div>
 
@@ -553,7 +553,7 @@
             </div>
 
             <div class="btn-container">
-                <button type="submit" class="btn-submit">Preview and Submit</button>
+                <button type="submit" class="btn-submit" onclick="handleFormPreview(event)">Preview and Submit</button>
                 <button type="button" class="btn-cancel" onclick="window.history.back()">Cancel</button>
             </div>
         </form>
@@ -671,6 +671,20 @@
 
             showPreview();
         });
+
+        function handleFormPreview(e) {
+            if (e) e.preventDefault();
+            const form = document.querySelector('form');
+            if (form) {
+                const formObj = new FormData(form);
+                formData = Object.assign(formData || {}, Object.fromEntries(formObj.entries()));
+            }
+            const pmSelect = document.getElementById('paymentMode');
+            if (pmSelect && !formData.paymentMode) {
+                formData.paymentMode = pmSelect.value;
+            }
+            showPreview();
+        }
 
         function showPreview() {
             document.getElementById('formContainer').style.display = 'none';

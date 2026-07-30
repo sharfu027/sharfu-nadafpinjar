@@ -195,13 +195,13 @@
     </div>
 
     <!-- Manage Custom Categories Modal -->
-    <div id="customCategoryModal" class="admin-modal" style="display: none;">
-        <div class="modal-content modal-large" style="max-width: 600px; margin: 40px auto; background: white; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); overflow: hidden;">
-            <div class="modal-header" style="background: #8b5cf6; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+    <div id="customCategoryModal" class="admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 99999; padding: 15px; box-sizing: border-box; overflow-y: auto; align-items: center; justify-content: center;">
+        <div class="modal-content modal-large" style="max-width: 600px; width: 100%; max-height: 90vh; margin: auto; background: white; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); display: flex; flex-direction: column; overflow: hidden;">
+            <div class="modal-header" style="background: #8b5cf6; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">
                 <span style="font-size: 16px; font-weight: bold;"><i class="fa fa-tags"></i> Add Custom Category / Sub Category (ವರ್ಗ ಮತ್ತು ಉಪ ವರ್ಗ ಸೇರಿಸಿ)</span>
                 <button class="modal-close" onclick="closeCustomCategoryModal()" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer;">&times;</button>
             </div>
-            <div class="modal-body" style="padding: 20px;">
+            <div class="modal-body" style="padding: 20px; overflow-y: auto; flex: 1; min-height: 0;">
                 <form id="customCategoryForm" onsubmit="event.preventDefault(); saveCustomCategory();">
                     <div style="display: flex; flex-direction: column; gap: 15px;">
                         
@@ -238,15 +238,15 @@
     </div>
 
     <!-- Add Unit Modal Form -->
-    <div id="unitModal" class="admin-modal" style="display: none;">
-        <div class="modal-content modal-large" style="max-width: 650px; margin: 40px auto; background: white; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); overflow: hidden;">
-            <div class="modal-header" style="background: #4f1971; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+    <div id="unitModal" class="admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 99999; padding: 15px; box-sizing: border-box; overflow-y: auto; align-items: center; justify-content: center;">
+        <div class="modal-content modal-large" style="max-width: 650px; width: 100%; max-height: 90vh; margin: auto; background: white; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); display: flex; flex-direction: column; overflow: hidden;">
+            <div class="modal-header" style="background: #4f1971; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">
                 <span id="modalHeaderTitle" style="font-size: 16px; font-weight: bold;">Add Unit Form (ಘಟಕದ ಮಾಹಿತಿ ಸೇರಿಸಿ)</span>
                 <button class="modal-close" onclick="closeUnitModal()" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer;">&times;</button>
             </div>
-            <div class="modal-body" style="padding: 20px;">
-                <form id="unitForm" onsubmit="event.preventDefault(); saveUnitForm();">
-                    <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div class="modal-body" style="padding: 20px; overflow-y: auto; flex: 1; min-height: 0;">
+                <form id="unitForm" onsubmit="event.preventDefault(); saveUnitForm();" style="display: flex; flex-direction: column; height: 100%;">
+                    <div style="display: flex; flex-direction: column; gap: 15px; flex: 1;">
                         
                         <div class="form-group">
                             <label style="display: block; font-weight: 600; margin-bottom: 5px;">Sub Unit (ಉಪ ಘಟಕ) *</label>
@@ -294,7 +294,7 @@
 
                     </div>
 
-                    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px; border-top: 1px solid #e2e8f0; padding-top: 15px; background: white; position: sticky; bottom: 0; flex-shrink: 0; z-index: 10;">
                         <button type="button" class="btn-view" style="background-color: #64748b; height: 40px; color: white; padding: 0 20px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="closeUnitModal()">Cancel (ರದ್ದುಮಾಡಿ)</button>
                         <button type="submit" id="saveUnitBtn" class="btn-submit" style="height: 40px; background-color: #4f1971; color: white; padding: 0 25px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Submit (ಸಲ್ಲಿಸಿ)</button>
                     </div>

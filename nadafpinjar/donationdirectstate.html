@@ -158,7 +158,7 @@
                 </div>
             </div>
             <div class="btn-container">
-                <button class="btn-submit" type="submit">Preview</button>
+                <button class="btn-submit" type="submit" onclick="handleFormPreview(event)">Preview and Submit</button>
                 <button class="btn-cancel" type="reset">Cancel</button>
             </div>
         </form>
@@ -213,6 +213,20 @@
         }
 
         
+        function handleFormPreview(e) {
+            if (e) e.preventDefault();
+            const form = document.querySelector('form');
+            if (form) {
+                const formObj = new FormData(form);
+                formData = Object.assign(formData || {}, Object.fromEntries(formObj.entries()));
+            }
+            const pmSelect = document.getElementById('paymentMode');
+            if (pmSelect && !formData.paymentMode) {
+                formData.paymentMode = pmSelect.value;
+            }
+            showPreview();
+        }
+
         function showPreview() {
             document.getElementById('formContainer').style.display = 'none';
             if(!document.getElementById('previewContainer')) return submitToMongoDB();
