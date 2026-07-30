@@ -228,13 +228,17 @@
         
         function handleFormPreview(e) {
             if (e) e.preventDefault();
-            const form = document.querySelector('form');
+            const form = document.getElementById('directStateForm');
             if (form) {
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
                 const formObj = new FormData(form);
                 formData = Object.assign(formData || {}, Object.fromEntries(formObj.entries()));
             }
             const pmSelect = document.getElementById('paymentMode');
-            if (pmSelect && !formData.paymentMode) {
+            if (pmSelect) {
                 formData.paymentMode = pmSelect.value;
             }
             showPreview();

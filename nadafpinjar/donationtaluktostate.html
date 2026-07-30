@@ -624,7 +624,7 @@
         </table>
 
         <div style="text-align: center; margin-top: 30px; display: flex; gap: 15px; justify-content: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-            <button type="button" id="btnPrintReceipt" style="background: #007bff; color: white; padding: 12px 35px; border-radius: 4px; font-size: 16px; font-weight: bold; border: none; cursor: pointer; transition: background 0.2s;">ಪ್ರಿಂಟ್ ರಶೀದಿ</button>
+            <button type="button" id="btnPrintReceipt" style="background: #007bff; color: white; padding: 12px 35px; border-radius: 4px; font-size: 16px; font-weight: bold; border: none; cursor: pointer; transition: background 0.2s;">ರಶೀದಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ (PDF) / Download Receipt</button>
             <button type="button" style="background: #6c757d; color: white; padding: 12px 35px; border-radius: 4px; font-size: 16px; font-weight: bold; border: none; cursor: pointer; transition: background 0.2s;" onclick="window.location.href='default.html'">ಹೊರಹೋಗಿ (Exit)</button>
         </div>
     </div>
@@ -674,13 +674,17 @@
 
         function handleFormPreview(e) {
             if (e) e.preventDefault();
-            const form = document.querySelector('form');
+            const form = document.getElementById('talukToStateForm');
             if (form) {
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
                 const formObj = new FormData(form);
                 formData = Object.assign(formData || {}, Object.fromEntries(formObj.entries()));
             }
             const pmSelect = document.getElementById('paymentMode');
-            if (pmSelect && !formData.paymentMode) {
+            if (pmSelect) {
                 formData.paymentMode = pmSelect.value;
             }
             showPreview();
