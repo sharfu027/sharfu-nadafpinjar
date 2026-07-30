@@ -1357,49 +1357,7 @@
                             }, 1000);
                         }
                     };
-                    doc.head.appendChild(script);;
-                                win.html2pdf().from(container).set(opt).save();
-                            }
-                        };
-                        doc.head.appendChild(script);
-                    } else {
-                        const dynStyle = doc.createElement('style');
-                        dynStyle.textContent = `@media print {
-            @page {
-                size: A5 landscape;
-                margin: 0;
-            }
-            html, body {
-                width: 210mm;
-                height: 148mm;
-                margin: 0;
-                padding: 0;
-                overflow: hidden !important;
-            }
-            body {
-                padding: 0;
-            }
-            .receipt-container {
-                width: 198mm !important;
-                max-height: 140mm !important;
-                margin: 2mm auto !important;
-                padding: 3px 5px !important;
-                border: none !important;
-                box-sizing: border-box !important;
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
-                page-break-after: avoid !important;
-                break-after: avoid !important;
-                background: #fff !important;
-            }
-        }`;
-                        doc.head.appendChild(dynStyle);
-
-                        iframe.style.width = '0';
-                        iframe.style.height = '0';
-                        iframe.contentWindow.focus();
-                        iframe.contentWindow.print();
-                    }
+                    doc.head.appendChild(script);
                 }, 200);
             }, 300);
         }
