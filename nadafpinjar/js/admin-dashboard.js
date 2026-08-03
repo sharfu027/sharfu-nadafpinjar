@@ -10,6 +10,80 @@ window.addEventListener('error', function(event) {
     }
 }, true);
 
+function rasterizeKannadaNodesAdmin(container, win, doc) {
+    if (!container) return;
+    const winRef = win || window;
+    const docRef = doc || document;
+    const kannadaRegex = /[\u0C80-\u0CFF]/;
+
+    function processElement(el) {
+        if (!el || el.dataset.rasterized) return;
+        if (el.children.length > 0) return;
+
+        const text = (el.textContent || '').trim();
+        if (!text || !kannadaRegex.test(text)) return;
+
+        try {
+            const computedStyle = winRef.getComputedStyle(el);
+            const fontSizePx = parseFloat(computedStyle.fontSize) || 13.5;
+            const fontWeight = computedStyle.fontWeight || '600';
+            const fontStyleAttr = computedStyle.fontStyle || 'normal';
+            const color = computedStyle.color || '#000000';
+
+            const scale = 3;
+            const scaledFontSize = Math.round(fontSizePx * scale);
+            const fontSpec = `${fontStyleAttr} ${fontWeight} ${scaledFontSize}px "Noto Sans Kannada", "Tunga", "Kalinga", "Segoe UI", sans-serif`;
+
+            const testCanvas = docRef.createElement('canvas');
+            const testCtx = testCanvas.getContext('2d');
+            testCtx.font = fontSpec;
+
+            const textMetrics = testCtx.measureText(text);
+            const measuredWidth = Math.ceil(textMetrics.width);
+
+            const paddingX = Math.ceil(8 * scale);
+            const paddingY = Math.ceil(4 * scale);
+            const canvasWidth = measuredWidth + (paddingX * 2);
+            const canvasHeight = Math.ceil(scaledFontSize * 1.5) + (paddingY * 2);
+
+            const canvas = docRef.createElement('canvas');
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+
+            const ctx = canvas.getContext('2d');
+            ctx.font = fontSpec;
+            ctx.fillStyle = color;
+            ctx.textBaseline = 'middle';
+            ctx.textAlign = 'left';
+
+            ctx.fillText(text, paddingX, canvasHeight / 2);
+
+            const img = docRef.createElement('img');
+            img.src = canvas.toDataURL('image/png');
+
+            const displayW = (canvasWidth / scale).toFixed(2);
+            const displayH = (canvasHeight / scale).toFixed(2);
+            img.style.width = displayW + 'px';
+            img.style.height = displayH + 'px';
+            img.style.maxWidth = '100%';
+            img.style.objectFit = 'contain';
+            img.style.verticalAlign = 'middle';
+            img.style.display = 'inline-block';
+            img.style.margin = '0';
+            img.style.padding = '0';
+
+            el.dataset.rasterized = 'true';
+            el.innerHTML = '';
+            el.appendChild(img);
+        } catch (e) {
+            console.warn('Kannada text rasterization fallback:', e);
+        }
+    }
+
+    const allElements = Array.from(container.querySelectorAll('*'));
+    allElements.forEach(processElement);
+}
+
 function maskAadhar(val) {
     if (!val || val === '-') return '-';
     const digits = val.toString().replace(/\D/g, '');
@@ -1308,13 +1382,11 @@ window.downloadReceiptPdf = function(receiptId) {
             border-spacing: 0 !important;
             border: 2.5px solid ${themeColor} !important;
             box-sizing: border-box !important;
-        } !important;
-            box-sizing: border-box;
         }
         .grid-cell {
             border: none;
             border-bottom: 1.5px solid ${themeColor};
-            padding: 5px 8px !important;
+            padding: 8px 10px 8px 16px !important;
             font-size: 13.5px !important;
             vertical-align: top !important;
             color: #1e293b;
@@ -1322,13 +1394,6 @@ window.downloadReceiptPdf = function(receiptId) {
             box-sizing: border-box !important;
             word-break: break-word !important;
             overflow-wrap: anywhere !important;
-        };
-            padding: 1.5px 5px;
-            font-size: 13px;
-            vertical-align: middle;
-            color: #1e293b;
-            line-height: 1.2;
-            box-sizing: border-box;
         }
         .center-align {
             text-align: center;
@@ -1553,6 +1618,7 @@ window.downloadReceiptPdf = function(receiptId) {
                     const isLandscape = pdfWmm >= pdfHmm;
 
                     if (h2c && jsPdfClass) {
+                        rasterizeKannadaNodesAdmin(container, win, doc);
                         h2c(container, {
                             scale: 2,
                             useCORS: true,
@@ -1574,29 +1640,7 @@ window.downloadReceiptPdf = function(receiptId) {
                             pdf.save('Receipt-' + (receiptId || 'Download') + '.pdf');
                         });
                     } else {
-                // Convert Kannada text elements to images to prevent html2canvas mangling
-                const targetPdfEl = (typeof container !== 'undefined' && container) ? container : (typeof element !== 'undefined' && element ? element : null);
-                if (!targetPdfEl) return;
-                const kannadaEls = targetPdfEl.querySelectorAll('.kannada-text-img');
-                for (const el of kannadaEls) {
-                    const text = el.textContent;
-                    const fs2 = 23; // 11.5px * 2 for hi-res
-                    const cvs = document.createElement('canvas');
-                    const ctx = cvs.getContext('2d');
-                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
-                    const w = Math.ceil(ctx.measureText(text).width) + 8;
-                    cvs.width = w;
-                    cvs.height = Math.ceil(fs2 * 1.6);
-                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
-                    ctx.fillStyle = '#000000';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(text, 0, cvs.height / 2);
-                    const imgEl = document.createElement('img');
-                    imgEl.src = cvs.toDataURL('image/png');
-                    imgEl.style.cssText = 'display:block; height:' + (fs2 * 0.7) + 'px; margin-top:1px;';
-                    el.textContent = '';
-                    el.appendChild(imgEl);
-                }
+                        rasterizeKannadaNodesAdmin(container, win, doc);
 
 
                         const opt = {
@@ -2296,6 +2340,7 @@ function loadAdminFreeEdu() {
                         const jsPdfClass = win.jsPDF || (win.jspdf && win.jspdf.jsPDF) || window.jsPDF || (window.jspdf && window.jspdf.jsPDF);
 
                         if (h2c && jsPdfClass) {
+                            rasterizeKannadaNodesAdmin(container, win, doc);
                             h2c(container, {
                                 scale: 2,
                                 useCORS: true,
@@ -2320,29 +2365,7 @@ function loadAdminFreeEdu() {
                                 pdf.save('FreeEducation-' + (id || 'Receipt') + '.pdf');
                             });
                         } else {
-                // Convert Kannada text elements to images to prevent html2canvas mangling
-                const targetPdfEl = (typeof container !== 'undefined' && container) ? container : (typeof element !== 'undefined' && element ? element : null);
-                if (!targetPdfEl) return;
-                const kannadaEls = targetPdfEl.querySelectorAll('.kannada-text-img');
-                for (const el of kannadaEls) {
-                    const text = el.textContent;
-                    const fs2 = 23; // 11.5px * 2 for hi-res
-                    const cvs = document.createElement('canvas');
-                    const ctx = cvs.getContext('2d');
-                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
-                    const w = Math.ceil(ctx.measureText(text).width) + 8;
-                    cvs.width = w;
-                    cvs.height = Math.ceil(fs2 * 1.6);
-                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
-                    ctx.fillStyle = '#000000';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(text, 0, cvs.height / 2);
-                    const imgEl = document.createElement('img');
-                    imgEl.src = cvs.toDataURL('image/png');
-                    imgEl.style.cssText = 'display:block; height:' + (fs2 * 0.7) + 'px; margin-top:1px;';
-                    el.textContent = '';
-                    el.appendChild(imgEl);
-                }
+                            rasterizeKannadaNodesAdmin(container, win, doc);
 
 
                             const opt = {
@@ -3215,29 +3238,7 @@ function loadAdminCensus() {
                 const script = doc.createElement('script');
                 script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
                 script.onload = () => {
-                // Convert Kannada text elements to images to prevent html2canvas mangling
-                const targetPdfEl = (typeof container !== 'undefined' && container) ? container : (typeof element !== 'undefined' && element ? element : null);
-                if (!targetPdfEl) return;
-                const kannadaEls = targetPdfEl.querySelectorAll('.kannada-text-img');
-                for (const el of kannadaEls) {
-                    const text = el.textContent;
-                    const fs2 = 23; // 11.5px * 2 for hi-res
-                    const cvs = document.createElement('canvas');
-                    const ctx = cvs.getContext('2d');
-                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
-                    const w = Math.ceil(ctx.measureText(text).width) + 8;
-                    cvs.width = w;
-                    cvs.height = Math.ceil(fs2 * 1.6);
-                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
-                    ctx.fillStyle = '#000000';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(text, 0, cvs.height / 2);
-                    const imgEl = document.createElement('img');
-                    imgEl.src = cvs.toDataURL('image/png');
-                    imgEl.style.cssText = 'display:block; height:' + (fs2 * 0.7) + 'px; margin-top:1px;';
-                    el.textContent = '';
-                    el.appendChild(imgEl);
-                }
+                    rasterizeKannadaNodesAdmin(container, iframe.contentWindow, doc);
 
 
                     const opt = {
@@ -3499,29 +3500,7 @@ function loadAdminEmployees() {
         `;
 
         document.body.appendChild(container);
-                // Convert Kannada text elements to images to prevent html2canvas mangling
-                const targetPdfEl = (typeof container !== 'undefined' && container) ? container : (typeof element !== 'undefined' && element ? element : null);
-                if (!targetPdfEl) return;
-                const kannadaEls = targetPdfEl.querySelectorAll('.kannada-text-img');
-                for (const el of kannadaEls) {
-                    const text = el.textContent;
-                    const fs2 = 23; // 11.5px * 2 for hi-res
-                    const cvs = document.createElement('canvas');
-                    const ctx = cvs.getContext('2d');
-                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
-                    const w = Math.ceil(ctx.measureText(text).width) + 8;
-                    cvs.width = w;
-                    cvs.height = Math.ceil(fs2 * 1.6);
-                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
-                    ctx.fillStyle = '#000000';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(text, 0, cvs.height / 2);
-                    const imgEl = document.createElement('img');
-                    imgEl.src = cvs.toDataURL('image/png');
-                    imgEl.style.cssText = 'display:block; height:' + (fs2 * 0.7) + 'px; margin-top:1px;';
-                    el.textContent = '';
-                    el.appendChild(imgEl);
-                }
+        rasterizeKannadaNodesAdmin(container, window, document);
 
 
 
@@ -4349,29 +4328,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
         if (img.complete) return Promise.resolve();
         return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
     }));
-                // Convert Kannada text elements to images to prevent html2canvas mangling
-                const targetPdfEl = (typeof container !== 'undefined' && container) ? container : (typeof element !== 'undefined' && element ? element : null);
-                if (!targetPdfEl) return;
-                const kannadaEls = targetPdfEl.querySelectorAll('.kannada-text-img');
-                for (const el of kannadaEls) {
-                    const text = el.textContent;
-                    const fs2 = 23; // 11.5px * 2 for hi-res
-                    const cvs = document.createElement('canvas');
-                    const ctx = cvs.getContext('2d');
-                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
-                    const w = Math.ceil(ctx.measureText(text).width) + 8;
-                    cvs.width = w;
-                    cvs.height = Math.ceil(fs2 * 1.6);
-                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
-                    ctx.fillStyle = '#000000';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(text, 0, cvs.height / 2);
-                    const imgEl = document.createElement('img');
-                    imgEl.src = cvs.toDataURL('image/png');
-                    imgEl.style.cssText = 'display:block; height:' + (fs2 * 0.7) + 'px; margin-top:1px;';
-                    el.textContent = '';
-                    el.appendChild(imgEl);
-                }
+    rasterizeKannadaNodesAdmin(container, window, document);
 
 
 
@@ -4587,29 +4544,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
         if (img.complete) return Promise.resolve();
         return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
     }));
-                // Convert Kannada text elements to images to prevent html2canvas mangling
-                const targetPdfEl = (typeof container !== 'undefined' && container) ? container : (typeof element !== 'undefined' && element ? element : null);
-                if (!targetPdfEl) return;
-                const kannadaEls = targetPdfEl.querySelectorAll('.kannada-text-img');
-                for (const el of kannadaEls) {
-                    const text = el.textContent;
-                    const fs2 = 23; // 11.5px * 2 for hi-res
-                    const cvs = document.createElement('canvas');
-                    const ctx = cvs.getContext('2d');
-                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
-                    const w = Math.ceil(ctx.measureText(text).width) + 8;
-                    cvs.width = w;
-                    cvs.height = Math.ceil(fs2 * 1.6);
-                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
-                    ctx.fillStyle = '#000000';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(text, 0, cvs.height / 2);
-                    const imgEl = document.createElement('img');
-                    imgEl.src = cvs.toDataURL('image/png');
-                    imgEl.style.cssText = 'display:block; height:' + (fs2 * 0.7) + 'px; margin-top:1px;';
-                    el.textContent = '';
-                    el.appendChild(imgEl);
-                }
+    rasterizeKannadaNodesAdmin(container, window, document);
 
 
 

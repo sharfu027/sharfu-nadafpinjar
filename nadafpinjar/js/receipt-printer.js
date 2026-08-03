@@ -196,7 +196,7 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
             max-width: 794px !important;
             margin: 0 !important;
             border: none;
-            padding: 6px 8px;
+            padding: 10px 16px !important;
             background: #fff;
         }
         .header-box {
@@ -238,8 +238,7 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
         .header-text-cell {
             text-align: center;
             vertical-align: middle;
-            padding: 2px 0;
-            color: #990000;
+            padding: 2px 4px;
         }
         .kannada-title {
             font-size: 24px;
@@ -250,24 +249,21 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
             line-height: 1.3;
         }
         .reg-no {
-            font-size: 13px;
+            font-size: 13.5px;
             font-weight: bold;
-            margin-bottom: 2px;
-            color: #990000;
-            line-height: 1.3;
+            color: #a00000;
         }
         .english-title {
             font-size: 15px;
             font-weight: bold;
-            letter-spacing: 0.5px !important;
-            margin-bottom: 2px;
-            color: #990000;
-            line-height: 1.3;
+            color: #a00000;
+            margin: 2px 0;
+            letter-spacing: 0.5px;
         }
         .office-address, .office-location {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: bold;
-            color: #990000;
+            color: #a00000;
             line-height: 1.3;
         }
         .receipt-grid {
@@ -280,7 +276,7 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
         .grid-cell {
             border: none;
             border-bottom: 1.5px solid ${themeColor};
-            padding: 6px 8px !important;
+            padding: 8px 10px 8px 16px !important;
             font-size: 13.5px !important;
             vertical-align: top !important;
             color: #1e293b;
@@ -305,6 +301,7 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
             font-weight: bold;
             color: ${themeColor};
             margin-right: 4px;
+            padding-left: 2px;
             display: inline-block;
             vertical-align: middle;
         }
