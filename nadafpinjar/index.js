@@ -22,24 +22,43 @@ const MIME_TYPES = {
 };
 
 const handleRequest = (req, res) => {
-    let cleanUrl = req.url.split('?')[0];
-    if (cleanUrl === '/' || cleanUrl === '') {
-        cleanUrl = '/default.html';
+    let rawUrl = req.url.split('?')[0];
+    if (rawUrl === '/' || rawUrl === '') {
+        rawUrl = '/default.html';
+    }
+
+    // Strip leading subpath prefix if static assets are requested relatively (e.g. /sadhaka/js/...)
+    let cleanUrl = rawUrl;
+    if (cleanUrl.includes('/js/') || cleanUrl.includes('/css/') || cleanUrl.includes('/images/') || cleanUrl.includes('/fonts/')) {
+        const assetIndex = cleanUrl.search(/\/(js|css|images|fonts)\//);
+        if (assetIndex !== -1) {
+            cleanUrl = cleanUrl.substring(assetIndex);
+        }
     }
 
     let filePath = path.join(__dirname, cleanUrl);
 
-    // If requesting directory without trailing slash or index
-    if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
-        filePath = path.join(filePath, 'default.html');
+    // If cleanUrl has no extension, check if .html file exists
+    if (!path.extname(cleanUrl)) {
+        if (fs.existsSync(filePath + '.html')) {
+            filePath = filePath + '.html';
+        } else if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
+            filePath = path.join(filePath, 'default.html');
+        }
     }
 
     const extname = String(path.extname(filePath)).toLowerCase();
-    const contentType = MIME_TYPES[extname] || 'application/octet-stream';
+    const contentType = MIME_TYPES[extname] || 'text/html; charset=utf-8';
 
     fs.readFile(filePath, (error, content) => {
         if (error) {
             if (error.code === 'ENOENT') {
+                // Return proper 404 for missing assets instead of default.html to avoid SyntaxError: Unexpected token '<'
+                if (extname && extname !== '.html') {
+                    res.writeHead(404, { 'Content-Type': 'text/plain' });
+                    res.end('404 Asset Not Found: ' + rawUrl);
+                    return;
+                }
                 const defaultPath = path.join(__dirname, 'default.html');
                 fs.readFile(defaultPath, (err, html) => {
                     if (err) {
