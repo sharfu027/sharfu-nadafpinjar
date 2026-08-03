@@ -1,7 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="kn">
+<html lang="kn">
 <head>
-
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ರಾಜ್ಯಕ್ಕೆ ನೇರ ಮೊತ್ತ ವರ್ಗಾವಣೆ - Karnataka State Nadaf / Pinjar Sangha</title>
+    
     <script>
         window.addEventListener('unhandledrejection', function(e) {
             if (e.reason && (String(e.reason).includes('translate-page') || String(e.reason).includes('save-page') || String(e.reason).includes('querySelectorAll'))) {
@@ -15,27 +21,6 @@
         }, true);
     </script>
     
-    <script>
-        window.addEventListener('unhandledrejection', function(e) {
-            if (e.reason && (String(e.reason).includes('translate-page') || String(e.reason).includes('save-page'))) {
-                e.preventDefault();
-            }
-        });
-        window.addEventListener('error', function(e) {
-            if (e.message && (e.message.includes('translate-page') || e.message.includes('save-page'))) {
-                e.preventDefault();
-            }
-        }, true);
-    </script>
-    <meta charset="utf-8">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <title>ರಾಜ್ಯಕ್ಕೆ ನೇರ ಮೊತ್ತ ವರ್ಗಾವಣೆ - Karnataka State Nadaf / Pinjar Sangha</title>
     <link href="css/base.css?v=2" rel="stylesheet" media="all">
     <link href="css/base-responsive.css?v=2" rel="stylesheet" media="all">
     <link href="css/grid.css?v=2" rel="stylesheet" media="all">
@@ -45,12 +30,16 @@
     <link href="css/megamenu.css" rel="stylesheet" media="all">
     <link href="css/site.css" rel="stylesheet" media="all">
     <link href="css/site-responsive.css" rel="stylesheet" media="all">
+
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="js/receipt-assets.js"></script>
+
     <style>
-        body { background: #f5f5f5 !important; }
+        body { background: #f5f5f5 !important; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important; }
         .banner-image { width: 100% !important; max-height: 300px !important; object-fit: cover !important; border-radius: 8px !important; margin-bottom: 30px !important; }
         .form-container { max-width: 960px !important; margin: 40px auto !important; padding: 30px !important; background: #fff !important; border: 2px solid #0066cc !important; border-radius: 8px !important; box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important; }
-        .form-title { text-align: center !important; color: #333 !important; font-size: 28px !important; margin-bottom: 30px !important; padding-bottom: 15px !important; border-bottom: 3px solid #0066cc !important; }
+        .form-title { text-align: center !important; color: #333 !important; font-size: 28px !important; margin-bottom: 30px !important; padding-bottom: 15px !important; border-bottom: 3px solid #0066cc !important; font-weight: 700 !important; }
         .form-group { margin-bottom: 20px !important; }
         .form-group label { display: block !important; margin-bottom: 8px !important; font-weight: 600 !important; color: #333 !important; }
         .form-group input, .form-group textarea, .form-group select { width: 100% !important; padding: 10px !important; border: 1px solid #ccc !important; border-radius: 4px !important; font-size: 14px !important; box-sizing: border-box !important; }
@@ -58,37 +47,35 @@
         .form-row { display: flex; gap: 20px; }
         .form-row .form-group { flex: 1 !important; }
         .btn-container { text-align: center !important; margin-top: 30px !important; }
-        .btn-submit { background: #28a745 !important; color: white !important; padding: 12px 40px !important; border: none !important; border-radius: 4px !important; font-size: 16px !important; cursor: pointer !important; margin: 0 10px !important; }
-        .btn-cancel { background: #dc3545 !important; color: white !important; padding: 12px 40px !important; border: none !important; border-radius: 4px !important; font-size: 16px !important; cursor: pointer !important; margin: 0 10px !important; }
+        .btn-submit { background: #28a745 !important; color: white !important; padding: 12px 40px !important; border: none !important; border-radius: 4px !important; font-size: 16px !important; font-weight: 700 !important; cursor: pointer !important; margin: 0 10px !important; }
+        .btn-cancel { background: #dc3545 !important; color: white !important; padding: 12px 40px !important; border: none !important; border-radius: 4px !important; font-size: 16px !important; font-weight: 700 !important; cursor: pointer !important; margin: 0 10px !important; }
         .btn-submit:hover { background: #218838 !important; }
         .btn-cancel:hover { background: #c82333 !important; }
+
         /* Preview styles */
-        .preview-container { display: none; max-width: 960px !important; margin: 40px auto !important; padding: 40px !important; background: #fff !important; border-radius: 12px !important; box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important; border: 1px solid #e2e8f0 !important; font-family: 'Inter', 'Outfit', 'Helvetica Neue', sans-serif !important; }
+        .preview-container { display: none; max-width: 960px !important; margin: 40px auto !important; padding: 40px !important; background: #fff !important; border-radius: 12px !important; box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important; border: 1px solid #e2e8f0 !important; }
         .preview-header { text-align: center !important; margin-bottom: 35px !important; }
         .preview-main-title { color: #0066cc !important; font-size: 28px !important; font-weight: 700 !important; margin: 0 0 8px 0 !important; }
         .preview-subtitle { color: #718096 !important; font-size: 15px !important; margin: 0 !important; font-weight: 500 !important; }
-        .preview-section-header { display: flex !important; align-items: center !important; font-size: 18px !important; font-weight: 700 !important; color: #2d3748 !important; margin: 30px 0 20px 0 !important; padding-left: 12px !important; border-left: 4px solid #3b82f6 !important; line-height: 1.2 !important; }
         .preview-grid { display: grid !important; grid-template-columns: repeat(12, 1fr) !important; gap: 16px !important; }
-        .preview-card { grid-column: span 6 !important; width: 100% !important; display: block !important; box-sizing: border-box !important; background: #f8fafc !important; border: 1px solid #e2e8f0 !important; border-radius: 8px !important; padding: 12px 16px !important; transition: all 0.2s ease !important; }
+        .preview-card { grid-column: span 6 !important; width: 100% !important; display: block !important; box-sizing: border-box !important; background: #f8fafc !important; border: 1px solid #e2e8f0 !important; border-radius: 8px !important; padding: 12px 16px !important; }
         .preview-card.span-4 { grid-column: span 4 !important; }
         .preview-card.span-6 { grid-column: span 6 !important; }
         .preview-card.span-12 { grid-column: span 12 !important; }
-        .preview-card-label { display: block !important; font-size: 11px !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; color: #718096 !important; margin-bottom: 6px !important; font-weight: 600 !important; }
-        .preview-card-value { font-size: 15px !important; color: #1a202c !important; font-weight: 500 !important; margin: 0 !important; word-break: break-word !important; }
-        .preview-amount-bar { background: #3b82f6 !important; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important; color: white !important; text-align: center !important; padding: 16px !important; border-radius: 8px !important; font-size: 24px !important; font-weight: 700 !important; margin: 30px 0 !important; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important; }
+        .preview-card-label { display: block !important; font-size: 12px !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; color: #718096 !important; margin-bottom: 6px !important; font-weight: 600 !important; }
+        .preview-card-value { font-size: 16px !important; color: #1a202c !important; font-weight: 600 !important; margin: 0 !important; word-break: break-word !important; }
+        .preview-amount-bar { background: #0066cc !important; color: white !important; text-align: center !important; padding: 16px !important; border-radius: 8px !important; font-size: 24px !important; font-weight: 700 !important; margin: 30px 0 !important; box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; }
         .preview-actions-bar { display: flex !important; justify-content: center !important; gap: 16px !important; margin-top: 30px !important; flex-wrap: wrap !important; }
-        .btn-preview-edit { background: #eab308 !important; color: #1e293b !important; font-weight: 600 !important; padding: 12px 30px !important; border-radius: 6px !important; border: none !important; cursor: pointer !important; font-size: 16px !important; transition: all 0.2s !important; }
-        .btn-preview-edit:hover { background: #ca8a04 !important; transform: translateY(-1px) !important; }
-        .btn-preview-pay { background: #22c55e !important; color: white !important; font-weight: 600 !important; padding: 12px 36px !important; border-radius: 6px !important; border: none !important; cursor: pointer !important; font-size: 16px !important; transition: all 0.2s !important; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2) !important; }
-        .btn-preview-pay:hover { background: #16a34a !important; transform: translateY(-1px) !important; }
-        .btn-preview-cancel { background: #ef4444 !important; color: white !important; padding: 12px 30px !important; border-radius: 6px !important; border: none !important; cursor: pointer !important; font-size: 16px !important; transition: all 0.2s !important; font-weight: 600 !important; }
-        .btn-preview-cancel:hover { background: #dc2626 !important; transform: translateY(-1px) !important; }
-        /* Colored value pills for receipt */
-        .state-value { color: #b30000; font-weight: 800; padding: 4px 8px; border-radius: 4px; display: inline-block; background: rgba(179,0,0,0.04); }
-        .district-value { color: #1e88e5; font-weight: 800; padding: 4px 8px; border-radius: 4px; display: inline-block; background: rgba(30,136,229,0.04); margin-left:6px; }
-        .taluk-value { color: #2e7d32; font-weight: 800; padding: 4px 8px; border-radius: 4px; display: inline-block; background: rgba(46,125,50,0.04); margin-left:6px; }
-        @media (max-width: 768px) { .preview-card { grid-column: span 12 !important; } .preview-card.span-4 { grid-column: span 12 !important; } .form-row { flex-direction: column; } }
-    
+        .btn-preview-edit { background: #eab308 !important; color: #1e293b !important; font-weight: 700 !important; padding: 12px 32px !important; border-radius: 6px !important; border: none !important; cursor: pointer !important; font-size: 16px !important; }
+        .btn-preview-pay { background: #22c55e !important; color: white !important; font-weight: 700 !important; padding: 12px 36px !important; border-radius: 6px !important; border: none !important; cursor: pointer !important; font-size: 16px !important; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2) !important; }
+        .btn-preview-cancel { background: #ef4444 !important; color: white !important; padding: 12px 32px !important; border-radius: 6px !important; border: none !important; cursor: pointer !important; font-size: 16px !important; font-weight: 700 !important; }
+
+        @media (max-width: 768px) {
+            .preview-card { grid-column: span 12 !important; }
+            .preview-card.span-4 { grid-column: span 12 !important; }
+            .form-row { flex-direction: column; }
+        }
+
         /* Success Popup Modal Styles */
         .success-modal-overlay {
             position: fixed;
@@ -188,9 +175,7 @@
             cursor: pointer;
         }
         .btn-modal-close:hover { background: #94a3b8; }
-
     </style>
-    <script src="js/receipt-assets.js"></script>
 </head>
 <body>
     <header class="site-header">
@@ -221,55 +206,64 @@
         <img src="images/slider-2.jpg" alt="Donation Banner" class="banner-image">
     </div>
 
+    <!-- FORM CONTAINER -->
     <div class="form-container" id="formContainer">
         <h1 class="form-title">ರಾಜ್ಯಕ್ಕೆ ನೇರ ಮೊತ್ತ ವರ್ಗಾವಣೆ</h1>
         <form id="directStateForm" method="post">
             <div class="form-group">
-                <label for="donorName">ಪೂರ್ಣ ಹೆಸರು</label>
+                <label for="donorName">ಪೂರ್ಣ ಹೆಸರು (Full Name)</label>
                 <input type="text" id="donorName" name="donorName" required>
             </div>
             <div class="form-group">
-                <label for="address">ವಿಳಾಸ</label>
+                <label for="address">ವಿಳಾಸ (Address)</label>
                 <textarea id="address" name="address"></textarea>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="village">ಗ್ರಾಮ / ನಗರ</label>
+                    <label for="village">ಗ್ರಾಮ / ನಗರ (Village/City)</label>
                     <input type="text" id="village" name="village">
                 </div>
                 <div class="form-group">
-                    <label for="district">ಜಿಲ್ಲೆ</label>
+                    <label for="district">ಜಿಲ್ಲೆ (District)</label>
                     <select id="district" name="district"><option value="">-ಜಿಲ್ಲೆ ಆಯ್ಕೆಮಾಡಿ-</option></select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="taluk">ತಾಲೂಕು</label>
+                    <label for="taluk">ತಾಲೂಕು (Taluk)</label>
                     <select id="taluk" name="taluk"><option value="">-ತಾಲೂಕನ್ನು ಆಯ್ಕೆ ಮಾಡಿ-</option></select>
                 </div>
                 <div class="form-group">
-                    <label for="mobile">ಮೊಬೈಲ್</label>
-                    <input type="tel" id="mobile" name="mobile">
+                    <label for="mobile">ಮೊಬೈಲ್ (Mobile)</label>
+                    <input type="tel" id="mobile" name="mobile" required pattern="[0-9]{10}">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="amount">ಮೊತ್ತ (₹)</label>
-                    <input type="number" id="amount" name="amount" step="0.01" required>
+                    <label for="amount">ಮೊತ್ತ (Amount ₹)</label>
+                    <input type="number" id="amount" name="amount" min="1" required>
                 </div>
                 <div class="form-group">
-                    <label for="account">ಖಾತೆ</label>
-                    <select id="account" name="account"><option value="">-- ಖಾತೆ ಆಯ್ಕೆಮಾಡಿ--</option></select>
+                    <label for="account">ಉದ್ದೇಶ (Account/Purpose)</label>
+                    <select id="account" name="account">
+                        <option value="ವಾರ್ಷಿಕ ವಂತಿಗೆ">ವಾರ್ಷಿಕ ವಂತಿಗೆ</option>
+                        <option value="ಕಾರ್ಯಕ್ರಮ ದೇಣಿಗೆ">ಕಾರ್ಯಕ್ರಮ ದೇಣಿಗೆ</option>
+                        <option value="ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ">ಸಾಮಾನ್ಯ ದೇಣಿಗೆ ಖಾತೆ</option>
+                        <option value="ಇತರೆ">ಇತರೆ</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
-                <label for="purposeDetails">ಉದ್ದೇಶದ ವಿವರಗಳು</label>
+                <label for="purposeDetails">ಉದ್ದೇಶದ ವಿವರಗಳು (Purpose Details)</label>
                 <textarea id="purposeDetails" name="purposeDetails"></textarea>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="paymentMode">ಪಾವತಿ ವಿಧಾನ</label>
-                    <select id="paymentMode" name="paymentMode"><option value="Online">Online</option><option value="Cash/Offline">Cash/Offline</option></select>
+                    <label for="paymentMode">ಪಾವತಿ ವಿಧಾನ (Payment Mode)</label>
+                    <select id="paymentMode" name="paymentMode">
+                        <option value="Online">Online</option>
+                        <option value="Cash/Offline">Cash/Offline</option>
+                    </select>
                 </div>
                 <div class="form-group" id="bankDetailsGroup" style="display:none;">
                     <label for="bankDetails">ಬ್ಯಾಂಕ್ ಮತ್ತು ಶಾಖೆಯ ವಿವರಗಳು</label>
@@ -288,18 +282,19 @@
             </div>
             <div class="btn-container">
                 <button class="btn-submit" type="button" onclick="handleFormPreview(event)">Preview and Submit</button>
-                <button class="btn-cancel" type="reset">Cancel</button>
+                <button class="btn-cancel" type="button" onclick="window.history.back()">Cancel</button>
             </div>
         </form>
     </div>
 
+    <!-- PREVIEW CONTAINER -->
     <div id="previewContainer" class="preview-container" style="display:none;">
         <div class="preview-header">
-            <div class="preview-main-title">ನೇರವಾಗಿ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ</div>
-            <div class="preview-subtitle">Preview before payment</div>
+            <div class="preview-main-title">ರಾಜ್ಯಕ್ಕೆ ನೇರ ಮೊತ್ತ ವರ್ಗಾವಣೆ - ಪೂರ್ವವೀಕ್ಷಣೆ</div>
+            <div class="preview-subtitle">ಪಾವತಿಸುವ/ಸಲ್ಲಿಸುವ ಮೊದಲು ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ</div>
         </div>
         <div id="previewContent" class="preview-grid"></div>
-        <div class="preview-amount-bar">₹ <span id="displayAmount">0</span></div>
+        <div class="preview-amount-bar">ಮೊತ್ತ: ₹ <span id="displayAmount">0</span></div>
         <div class="preview-actions-bar">
             <button type="button" class="btn-preview-edit" id="btnEdit" onclick="editForm()">Edit</button>
             <button type="button" class="btn-preview-pay" id="btnPay" onclick="initiatePayment()">Pay</button>
@@ -308,28 +303,53 @@
         </div>
     </div>
 
-    
+    <!-- SUCCESS POPUP MODAL -->
+    <div id="successModal" class="success-modal-overlay" style="display:none;">
+        <div class="success-modal-card">
+            <div class="success-modal-icon">✓</div>
+            <h2 class="success-modal-title">ಸ್ವೀಕೃತಿ ಯಶಸ್ವಿಯಾಗಿದೆ!</h2>
+            <p class="success-modal-msg">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ್ ಸಂಘಕ್ಕೆ ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಸ್ವೀಕರಿಸಲಾಗಿದೆ.</p>
+            <div class="success-receipt-id-box">
+                <span class="success-id-label">ರಶೀದಿ ಸಂಖ್ಯೆ (Receipt ID):</span>
+                <strong id="modalReceiptId" class="success-id-val">KRNPS-2026-01-1001</strong>
+            </div>
+            <div class="success-modal-actions">
+                <button type="button" class="btn-modal-download" id="btnModalDownload" onclick="downloadReceiptPDF()">
+                    <i class="fa fa-download"></i> ರಶೀದಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ (PDF)
+                </button>
+                <button type="button" class="btn-modal-close" onclick="closeSuccessModal()">ಮುಚ್ಚಿ (Close)</button>
+            </div>
+        </div>
+    </div>
 
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/jquery-accessibleMegaMenu.js"></script>
     <script src="js/framework.js"></script>
     <script src="js/megamenu.js"></script>
     <script src="js/dropdowns.js"></script>
+
     <script>
         const RAZORPAY_KEY = "rzp_live_SISoxIvhIen2o1";
         let formData = {};
+        let currentGeneratedReceiptId = "";
+        let currentReceiptData = null;
 
-        const directForm = document.getElementById('directStateForm');
-        if (directForm) {
-            directForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formObj = new FormData(this);
-                formData = Object.fromEntries(formObj.entries());
-                showPreview();
-            });
+        const paymentModeSelect = document.getElementById('paymentMode');
+        const bankDetailsGroup = document.getElementById('bankDetailsGroup');
+        const offlineReceiptRow = document.getElementById('offlineReceiptRow');
+
+        function toggleOfflineFields() {
+            if (!paymentModeSelect) return;
+            const isOffline = (paymentModeSelect.value === 'Cash/Offline' || paymentModeSelect.value === 'Offline' || paymentModeSelect.value === 'Cash');
+            if (bankDetailsGroup) bankDetailsGroup.style.display = isOffline ? 'block' : 'none';
+            if (offlineReceiptRow) offlineReceiptRow.style.display = isOffline ? 'flex' : 'none';
         }
 
-        
+        if (paymentModeSelect) {
+            paymentModeSelect.addEventListener('change', toggleOfflineFields);
+            toggleOfflineFields();
+        }
+
         function handleFormPreview(e) {
             if (e) e.preventDefault();
             const form = document.getElementById('directStateForm');
@@ -339,21 +359,24 @@
                     return;
                 }
                 const formObj = new FormData(form);
-                formData = Object.assign(formData || {}, Object.fromEntries(formObj.entries()));
+                formData = Object.assign({}, Object.fromEntries(formObj.entries()));
+                const inputs = form.querySelectorAll('input, select, textarea');
+                inputs.forEach(el => {
+                    if (el.name && el.value !== undefined && el.value !== '') {
+                        formData[el.name] = el.value;
+                    }
+                });
+                if (paymentModeSelect) {
+                    formData.paymentMode = paymentModeSelect.value;
+                }
+                showPreview();
             }
-            const pmSelect = document.getElementById('paymentMode');
-            if (pmSelect) {
-                formData.paymentMode = pmSelect.value;
-            }
-            showPreview();
         }
 
         function showPreview() {
             document.getElementById('formContainer').style.display = 'none';
-            if(!document.getElementById('previewContainer')) return submitToMongoDB();
             document.getElementById('previewContainer').style.display = 'block';
 
-            // Custom targeted labels mapping
             const labelMap = {
                 'donorName': 'ಪೂರ್ಣ ಹೆಸರು',
                 'address': 'ಪೂರ್ಣ ವಿಳಾಸ',
@@ -361,12 +384,14 @@
                 'mobile': 'ಮೊಬೈಲ್',
                 'district': 'ಜಿಲ್ಲೆ',
                 'taluk': 'ತಾಲೂಕು',
+                'amount': 'ಮೊತ್ತ',
                 'account': 'ಉದ್ದೇಶ',
                 'purposeDetails': 'ಉದ್ದೇಶದ ವಿವರಗಳು',
-                'paymentMode': 'ಪಾವತಿ ವಿಧಾನ'
+                'paymentMode': 'ಪಾವತಿ ವಿಧಾನ',
+                'bankDetails': 'ಬ್ಯಾಂಕ್ ಮತ್ತು ಶಾಖೆಯ ವಿವರಗಳು',
+                'depositDate': 'ಠೇವಣಿ ದಿನಾಂಕ'
             };
 
-            // Custom grid span classes
             const spanMap = {
                 'donorName': 'span-6',
                 'address': 'span-6',
@@ -374,15 +399,18 @@
                 'district': 'span-4',
                 'mobile': 'span-4',
                 'taluk': 'span-4',
+                'amount': 'span-6',
                 'account': 'span-6',
                 'purposeDetails': 'span-6',
-                'paymentMode': 'span-12'
+                'paymentMode': 'span-12',
+                'bankDetails': 'span-6',
+                'depositDate': 'span-6'
             };
 
             const fieldsOrder = ['donorName', 'address', 'village', 'district', 'mobile', 'taluk', 'amount', 'account', 'purposeDetails', 'paymentMode', 'bankDetails', 'depositDate'];
             let previewHTML = '';
             fieldsOrder.forEach(key => {
-                if (formData[key] !== undefined) {
+                if (formData[key] !== undefined && formData[key] !== '') {
                     let label = labelMap[key] || key;
                     let spanClass = spanMap[key] || 'span-6';
                     let val = formData[key] || '-';
@@ -401,7 +429,7 @@
                 document.getElementById('displayAmount').textContent = formData.amount || 0;
             }
 
-            const isOffline = (formData.paymentMode === 'Cash/Offline' || formData.paymentMode === 'Offline');
+            const isOffline = (formData.paymentMode === 'Cash/Offline' || formData.paymentMode === 'Offline' || formData.paymentMode === 'Cash');
             if (document.getElementById('btnPay')) document.getElementById('btnPay').style.display = isOffline ? 'none' : 'inline-block';
             if (document.getElementById('btnSubmitOffline')) document.getElementById('btnSubmitOffline').style.display = isOffline ? 'inline-block' : 'none';
 
@@ -415,7 +443,8 @@
         }
 
         function initiatePayment() {
-            if (formData.paymentMode === 'Cash/Offline' || formData.paymentMode === 'Offline') {
+            const isOffline = (formData.paymentMode === 'Cash/Offline' || formData.paymentMode === 'Offline' || formData.paymentMode === 'Cash');
+            if (isOffline) {
                 submitToMongoDB(null);
                 return;
             }
@@ -427,7 +456,6 @@
             }
 
             if (typeof Razorpay === 'undefined') {
-                console.warn('Razorpay SDK loading dynamically...');
                 const script = document.createElement('script');
                 script.src = 'https://checkout.razorpay.com/v1/checkout.js';
                 script.onload = () => openRazorpayModal(amount);
@@ -454,13 +482,13 @@
                         submitToMongoDB(response.razorpay_payment_id || ('PAY-' + Date.now()));
                     },
                     prefill: {
-                        name: formData.donorName || formData.presidentName || '',
-                        contact: formData.mobile || formData.presidentMobile || formData.donorMobile || ''
+                        name: formData.donorName || '',
+                        contact: formData.mobile || ''
                     },
                     notes: {
-                    donorName: String(formData.donorName || formData.presidentName || '').substring(0, 30),
-                    mobile: String(formData.mobile || formData.presidentMobile || '').substring(0, 15)
-                },
+                        donorName: String(formData.donorName || '').substring(0, 30),
+                        mobile: String(formData.mobile || '').substring(0, 15)
+                    },
                     theme: { color: "#0066cc" },
                     modal: {
                         ondismiss: function() {
@@ -474,24 +502,23 @@
                 });
                 rzp.open();
             } catch(err) {
-                console.error('Razorpay initialization error:', err);
-                alert('Payment gateway initialization issue. Proceeding with receipt generation.');
+                console.error('Razorpay error:', err);
                 submitToMongoDB('RZP-PAYMENT-' + Date.now());
             }
         }
 
         function submitToMongoDB(paymentId = null) {
-            // Save to localStorage receipts database for Admin Dashboard compatibility
             try {
                 const receipts = JSON.parse(localStorage.getItem('receipts')) || [];
-                const tempId = `GENERATE-${Date.now()}`;
+                const seqNo = Math.floor(1000 + Math.random() * 9000);
+                const genId = paymentId || ('KRNPS-2026-S-' + seqNo);
                 
                 const newReceipt = {
-                    id: tempId,
+                    id: genId,
                     date: new Date().toISOString().split('T')[0],
                     amount: parseFloat(formData.amount || 0),
-                    from: "Amount Transfer Direct to State",
-                    status: "",
+                    from: "ರಾಜ್ಯಕ್ಕೆ ನೇರ ಮೊತ್ತ ವರ್ಗಾವಣೆ",
+                    status: "Completed",
                     mode: formData.paymentMode || "Cash",
                     narration: `Donated Amount Received in Account Number KRATNATAKA STATE PINJAR SANGHA FROM :${formData.donorName || 'Donor'}`,
                     details: {
@@ -521,36 +548,14 @@
                 formData: formData
             };
 
-            let apiPromise = fetch('/api/donations', {
+            fetch('/api/donations', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dataToSave)
-            })
-            .then(res => {
-                if (!res.ok) throw new Error("Local save failed");
-                return res.json();
-            })
-            .catch(() => {
-                return fetch('/api/donations', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(dataToSave)
-                }).then(res => res.json());
-            });
+            }).catch(err => console.log('API save notice:', err));
 
-            apiPromise
-            .then(data => {
-                showReceipt(formData, paymentId);
-            })
-            .catch(err => {
-                console.error(err);
-                showReceipt(formData, paymentId);
-            });
+            showReceipt(formData, paymentId);
         }
-
-        
-        let currentGeneratedReceiptId = "";
-        let currentReceiptData = null;
 
         function showReceipt(data, paymentId) {
             currentReceiptData = data;
@@ -559,9 +564,6 @@
             
             document.getElementById('formContainer').style.display = 'none';
             document.getElementById('previewContainer').style.display = 'none';
-            
-            const receiptContainer = document.getElementById('receiptContainer');
-            if (receiptContainer) receiptContainer.style.display = 'block';
 
             if (document.getElementById('modalReceiptId')) {
                 document.getElementById('modalReceiptId').textContent = currentGeneratedReceiptId;
@@ -584,9 +586,7 @@
                 document.getElementById('successModal').style.display = 'none';
             }
         }
-    
 
-        
         function printReceipt(data, paymentId) {
             const formatDateDashes = (dateStr) => {
                 if (!dateStr) return "";
@@ -605,17 +605,17 @@
                 });
             };
 
-            const themeColor = "#b30000";
+            const themeColor = "#0066cc";
             const subheaderTitle = "ನೇರವಾಗಿ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
             const formattedDate = formatDateDashes(new Date());
             const recId = paymentId || ('KRNPS-2026-S-' + Math.floor(1000 + Math.random() * 9000));
 
-            const fullName = data.donorName || data.fullName || data.presidentName || "-";
-            const village = data.village || data.donorVillage || data.presidentVillage || "-";
-            const address = data.address || data.donorAddress || data.presidentAddress || "-";
-            const mobile = data.mobile || data.donorMobile || data.presidentMobile || "-";
-            const taluk = data.taluk || data.donorTaluk || data.presidentTaluk || "-";
-            const district = data.district || data.donorDistrict || data.presidentDistrict || "-";
+            const fullName = data.donorName || data.fullName || "-";
+            const village = data.village || data.donorVillage || "-";
+            const address = data.address || data.donorAddress || "-";
+            const mobile = data.mobile || data.donorMobile || "-";
+            const taluk = data.taluk || data.donorTaluk || "-";
+            const district = data.district || data.donorDistrict || "-";
             const amountVal = formatCurrencyRaw(data.amount);
             const modeVal = data.paymentMode || "Online";
             const accountVal = data.account || "ವಾರ್ಷಿಕ ವಂತಿಗೆ";
@@ -631,116 +631,21 @@
     <title>Donation Receipt</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap">
     <style>
-        html, body {
-            height: auto;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-        body {
-            font-family: 'Noto Sans Kannada', 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #fff;
-            color: #333;
-            width: 794px !important;
-            max-width: 794px !important;
-            margin: 0 auto !important;
-            box-sizing: border-box;
-        }
-        .receipt-container {
-            width: 794px !important;
-            max-width: 794px !important;
-            margin: 0 !important;
-            border: none;
-            padding: 4px 6px;
-            background: #fff;
-            box-sizing: border-box;
-        }
-        .header-box {
-            width: 100%;
-            border-collapse: collapse;
-            border: 2.5px solid #a00000;
-            border-radius: 8px;
-            background-color: #ffedc2;
-            margin-bottom: 4px;
-        }
-        .header-photo-cell {
-            width: 115px;
-            text-align: center;
-            padding: 2px 4px 4px 6px;
-            vertical-align: middle;
-        }
-        .patron-photo {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 2px solid #a00000;
-            object-fit: cover;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-        }
-        .header-logo-cell {
-            width: 115px;
-            text-align: center;
-            padding: 2px 6px 4px 4px;
-            vertical-align: middle;
-        }
-        .header-logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 2px solid #a00000;
-            object-fit: cover;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-        }
-        .header-text-cell {
-            text-align: center;
-            vertical-align: middle;
-            padding: 2px 0;
-            color: #990000;
-        }
-        .kannada-title {
-            font-size: 25px;
-            font-weight: bold;
-            color: #990000;
-            margin-bottom: 2px;
-            white-space: nowrap;
-        }
-        .reg-no {
-            font-size: 13.5px;
-            font-weight: bold;
-            margin-bottom: 2px;
-            color: #990000;
-        }
-        .english-title {
-            font-size: 15.5px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            margin-bottom: 2px;
-            color: #990000;
-        }
-        .office-address, .office-location {
-            font-size: 12.5px;
-            font-weight: bold;
-            color: #990000;
-        }
-        .receipt-grid {
-            width: 100%;
-            border-collapse: collapse !important;
-            border-spacing: 0 !important;
-            border: 2.5px solid ${themeColor} !important;
-            box-sizing: border-box;
-        }
-        .grid-cell {
-            border: none;
-            border-bottom: 1.5px solid ${themeColor};
-            padding: 2px 6px;
-            font-size: 13.5px;
-            vertical-align: middle;
-            color: #1e293b;
-            line-height: 1.3;
-            box-sizing: border-box;
-        }
+        html, body { height: auto; margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        body { font-family: 'Noto Sans Kannada', 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #fff; color: #333; width: 794px !important; max-width: 794px !important; margin: 0 auto !important; box-sizing: border-box; }
+        .receipt-container { width: 794px !important; max-width: 794px !important; margin: 0 !important; border: none; padding: 4px 6px; background: #fff; box-sizing: border-box; }
+        .header-box { width: 100%; border-collapse: collapse; border: 2.5px solid #a00000; border-radius: 8px; background-color: #ffedc2; margin-bottom: 4px; }
+        .header-photo-cell { width: 115px; text-align: center; padding: 2px 4px 4px 6px; vertical-align: middle; }
+        .patron-photo { width: 100px; height: 100px; border-radius: 50%; border: 2px solid #a00000; object-fit: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+        .header-logo-cell { width: 115px; text-align: center; padding: 2px 6px 4px 4px; vertical-align: middle; }
+        .header-logo { width: 100px; height: 100px; border-radius: 50%; border: 2px solid #a00000; object-fit: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+        .header-text-cell { text-align: center; vertical-align: middle; padding: 2px 0; color: #990000; }
+        .kannada-title { font-size: 25px; font-weight: bold; color: #990000; margin-bottom: 2px; white-space: nowrap; }
+        .reg-no { font-size: 13.5px; font-weight: bold; margin-bottom: 2px; color: #990000; }
+        .english-title { font-size: 15.5px; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 2px; color: #990000; }
+        .office-address, .office-location { font-size: 12.5px; font-weight: bold; color: #990000; }
+        .receipt-grid { width: 100%; border-collapse: collapse !important; border-spacing: 0 !important; border: 2.5px solid ${themeColor} !important; box-sizing: border-box; }
+        .grid-cell { border: none; border-bottom: 1.5px solid ${themeColor}; padding: 2px 6px; font-size: 13.5px; vertical-align: middle; color: #1e293b; line-height: 1.3; box-sizing: border-box; }
         .center-align { text-align: center; }
         .right-align { text-align: right; }
         .subheader-row { color: ${themeColor}; font-weight: bold; }
@@ -846,7 +751,6 @@
 </body>
 </html>`;
 
-            // Create off-screen container for rendering PDF
             const pdfContainer = document.createElement('div');
             pdfContainer.style.cssText = "position: fixed; left: -9999px; top: -9999px; width: 794px; background: #fff;";
             pdfContainer.innerHTML = printHTML;
@@ -885,7 +789,6 @@
                 triggerSave();
             }
         }
-    
     </script>
 </body>
 </html>
