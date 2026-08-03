@@ -1302,15 +1302,27 @@ window.downloadReceiptPdf = function(receiptId) {
             color: #990000;
         }
         .receipt-grid {
-            width: 100%;
+            width: 100% !important;
+            table-layout: fixed !important;
             border-collapse: collapse !important;
             border-spacing: 0 !important;
             border: 2.5px solid ${themeColor} !important;
+            box-sizing: border-box !important;
+        } !important;
             box-sizing: border-box;
         }
         .grid-cell {
             border: none;
             border-bottom: 1.5px solid ${themeColor};
+            padding: 3px 6px !important;
+            font-size: 13px !important;
+            vertical-align: top !important;
+            color: #1e293b;
+            line-height: 1.35 !important;
+            box-sizing: border-box !important;
+            word-break: break-word !important;
+            overflow-wrap: anywhere !important;
+        };
             padding: 1.5px 5px;
             font-size: 13px;
             vertical-align: middle;
