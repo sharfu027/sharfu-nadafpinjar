@@ -1348,6 +1348,9 @@ window.downloadReceiptPdf = function(receiptId) {
         .field-value {
             color: #000;
             font-weight: 500;
+            word-break: break-all !important;
+            overflow-wrap: anywhere !important;
+            white-space: normal !important;
         }
         .payment-line {
             font-size: 13px;
