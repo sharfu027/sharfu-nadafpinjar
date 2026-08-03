@@ -934,6 +934,110 @@
     <script src="js/dropdowns.js"></script>
 
     <script>
+        function rasterizeKannadaElement(container) {
+            if (!container) return;
+            const kannadaRegex = /[\u0C80-\u0CFF]/;
+
+            function processElement(el) {
+                if (!el || el.dataset.rasterized) return;
+                if (el.children.length > 0) return;
+
+                const text = (el.textContent || '').trim();
+                if (!text || !kannadaRegex.test(text)) return;
+
+                try {
+                    const computedStyle = window.getComputedStyle(el);
+                    const fontSizePx = parseFloat(computedStyle.fontSize) || 13.5;
+                    const fontWeight = computedStyle.fontWeight || 'normal';
+                    const fontStyleAttr = computedStyle.fontStyle || 'normal';
+                    const color = computedStyle.color || '#000000';
+                    const textAlign = computedStyle.textAlign || 'left';
+                    const parentWidthPx = el.parentElement ? el.parentElement.clientWidth : 300;
+
+                    const scale = 3;
+                    const scaledFontSize = Math.round(fontSizePx * scale);
+                    const fontSpec = `${fontStyleAttr} ${fontWeight} ${scaledFontSize}px "Noto Sans Kannada", "Segoe UI", sans-serif`;
+
+                    const testCanvas = document.createElement('canvas');
+                    const testCtx = testCanvas.getContext('2d');
+                    testCtx.font = fontSpec;
+
+                    const maxScaledWidth = Math.max(120 * scale, (parentWidthPx - 10) * scale);
+                    const words = text.split(/\s+/);
+                    const lines = [];
+                    let currentLine = '';
+
+                    for (let i = 0; i < words.length; i++) {
+                        const testLine = currentLine ? (currentLine + ' ' + words[i]) : words[i];
+                        if (testCtx.measureText(testLine).width > maxScaledWidth && currentLine) {
+                            lines.push(currentLine);
+                            currentLine = words[i];
+                        } else {
+                            currentLine = testLine;
+                        }
+                    }
+                    if (currentLine) lines.push(currentLine);
+
+                    let maxLineWidth = 0;
+                    lines.forEach(l => {
+                        const w = testCtx.measureText(l).width;
+                        if (w > maxLineWidth) maxLineWidth = w;
+                    });
+
+                    const lineHeightPx = scaledFontSize * 1.45;
+                    const canvasWidth = Math.ceil(maxLineWidth) + (10 * scale);
+                    const canvasHeight = Math.ceil(lines.length * lineHeightPx) + (6 * scale);
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = canvasWidth;
+                    canvas.height = canvasHeight;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.font = fontSpec;
+                    ctx.fillStyle = color;
+                    ctx.textBaseline = 'middle';
+
+                    lines.forEach((lineText, idx) => {
+                        let drawX = 2 * scale;
+                        if (textAlign === 'center') {
+                            drawX = canvasWidth / 2;
+                            ctx.textAlign = 'center';
+                        } else if (textAlign === 'right') {
+                            drawX = canvasWidth - (2 * scale);
+                            ctx.textAlign = 'right';
+                        } else {
+                            ctx.textAlign = 'left';
+                        }
+
+                        const drawY = (idx * lineHeightPx) + (lineHeightPx / 2) + (3 * scale);
+                        ctx.fillText(lineText, drawX, drawY);
+                    });
+
+                    const img = document.createElement('img');
+                    img.src = canvas.toDataURL('image/png');
+
+                    const totalDisplayHeight = (fontSizePx * 1.35 * lines.length);
+                    img.style.height = totalDisplayHeight.toFixed(2) + 'px';
+                    img.style.width = 'auto';
+                    img.style.maxWidth = '100%';
+                    img.style.objectFit = 'contain';
+                    img.style.verticalAlign = 'middle';
+                    img.style.display = (computedStyle.display === 'block' || lines.length > 1) ? 'block' : 'inline-block';
+                    img.style.margin = '0';
+                    img.style.padding = '0';
+
+                    el.dataset.rasterized = 'true';
+                    el.innerHTML = '';
+                    el.appendChild(img);
+                } catch (e) {
+                    console.warn('Kannada text rasterization fallback:', e);
+                }
+            }
+
+            const allElements = Array.from(container.querySelectorAll('*'));
+            allElements.forEach(processElement);
+        }
+
         function handleLifeMembershipChange(selectEl) {
             if (selectEl && (selectEl.value === "ಹೌದು" || selectEl.value.includes("ಹೌದು"))) {
                 alert("ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ");
@@ -1568,28 +1672,9 @@
                         img.onerror = resolve;
                     });
                 }));
-                // Convert Kannada text elements to images to prevent html2canvas mangling
-                const targetPdfEl = (typeof container !== 'undefined' && container) ? container : (typeof element !== 'undefined' && element ? element : null);
-                if (!targetPdfEl) return;
-                const kannadaEls = targetPdfEl.querySelectorAll('.kannada-text-img');
-                for (const el of kannadaEls) {
-                    const text = el.textContent;
-                    const fs2 = 23; // 11.5px * 2 for hi-res
-                    const cvs = document.createElement('canvas');
-                    const ctx = cvs.getContext('2d');
-                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
-                    const w = Math.ceil(ctx.measureText(text).width) + 8;
-                    cvs.width = w;
-                    cvs.height = Math.ceil(fs2 * 1.6);
-                    ctx.font = fs2 + 'px "Noto Sans Kannada", sans-serif';
-                    ctx.fillStyle = '#000000';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(text, 0, cvs.height / 2);
-                    const imgEl = document.createElement('img');
-                    imgEl.src = cvs.toDataURL('image/png');
-                    imgEl.style.cssText = 'display:block; height:' + (fs2 * 0.7) + 'px; margin-top:1px;';
-                    el.textContent = '';
-                    el.appendChild(imgEl);
+                // Rasterize all Kannada text elements into crisp canvas PNGs
+                if (typeof rasterizeKannadaElement === 'function') {
+                    rasterizeKannadaElement(element);
                 }
 
 
