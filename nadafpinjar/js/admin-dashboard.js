@@ -1976,12 +1976,10 @@ function loadAdminFreeEdu() {
             max-width: 794px !important;
             height: auto;
             margin: 0 !important;
-            border: 2px solid #b30000; border-bottom: none;
-            padding: 5px;
+            border: 2px solid #b30000;
+            padding: 10px 18px 10px 42px !important;
             background: #ffffff;
             box-sizing: border-box;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
         }
         .header-box {
             width: 100%;
@@ -4117,9 +4115,11 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             padding: 2px !important;
                         }
                         .photo-cell img {
-                            max-width: 105px;
-                            max-height: 115px;
-                            object-fit: contain;
+                            max-width: 95px !important;
+                            max-height: 100px !important;
+                            width: 95px !important;
+                            height: 100px !important;
+                            object-fit: cover !important;
                             display: block;
                             margin: 0 auto;
                         }
@@ -4411,7 +4411,12 @@ window.downloadSadhakaPdfAdmin = async function(id) {
             .value-col { word-break: normal !important; overflow-wrap: break-word !important; white-space: normal !important; line-height: 1.55 !important; }
             .value-col-split { width: 220px; word-break: normal !important; overflow-wrap: break-word !important; white-space: normal !important; line-height: 1.55 !important; }
             .photo-cell { width: 110px; text-align: center !important; vertical-align: middle !important; padding: 2px !important; }
-            .photo-cell img { max-width: 105px; max-height: 115px; object-fit: contain; display: block; margin: 0 auto; }
+            .photo-cell img {
+                            max-width: 95px !important;
+                            max-height: 100px !important;
+                            width: 95px !important;
+                            height: 100px !important;
+                            object-fit: cover !important; display: block; margin: 0 auto; }
             .photo-placeholder { border: 1px dashed #666; padding: 14px 4px; font-size: 12px; color: #555; text-align: center; }
             .signature-section { margin-top: 8px; margin-bottom: 24px !important; }
             .signature-table { width: 100%; border-collapse: collapse; }

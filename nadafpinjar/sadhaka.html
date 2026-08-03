@@ -968,8 +968,8 @@
                             bankDetails: doc.formData.bankDetails || "-",
                             city: doc.formData.city,
                             year: doc.formData.year,
-                            category: translateToKannada(doc.formData.category, 'category'),
-                            field: translateToKannada(doc.formData.field, 'field'),
+                            category: translateToKannada(doc.formData.'category'),
+                            field: translateToKannada(doc.formData.'field'),
                             photo: doc.formData.photo,
                             remarks: translateToKannada(doc.formData.remarks || doc.formData.status || "ಅನುಮೋದಿಸಲಾಗಿದೆ", 'status')
                         }));
@@ -1073,8 +1073,8 @@
             document.getElementById("detBank").textContent = student.bankDetails || "-";
             document.getElementById("detCity").textContent = student.city || "-";
             document.getElementById("detYear").textContent = student.year || "-";
-            document.getElementById("detCategory").textContent = translateToKannada(student.category, 'category') || "-";
-            document.getElementById("detField").textContent = translateToKannada(student.field, 'field') || "-";
+            document.getElementById("detCategory").textContent = translateToKannada(student.'category') || "-";
+            document.getElementById("detField").textContent = translateToKannada(student.'field') || "-";
             
             const remarksSpan = document.getElementById("detRemarks");
             const remarksBox = document.getElementById("detRemarksBox");
@@ -1180,10 +1180,10 @@
                             text-align: right;
                         }
                         .header-logo-right img {
-                            width: 95px;
-                            height: 95px;
-                            border-radius: 50%;
-                            object-fit: contain;
+                            width: 90px !important;
+                            height: 90px !important;
+                            border-radius: 50% !important;
+                            object-fit: cover !important;
                         }
                         .header-text {
                             text-align: center;
@@ -1233,19 +1233,23 @@
                             width: 47%;
                         }
                         .photo-cell {
-                            text-align: center;
-                            vertical-align: middle;
+                            text-align: center !important;
+                            vertical-align: middle !important;
                             padding: 2px !important;
-                            width: 15%;
-                            height: 80px;
+                            width: 110px !important;
+                            max-width: 110px !important;
+                            box-sizing: border-box;
                         }
                         .photo-cell img {
-                            width: 75px;
-                            height: 85px;
-                            object-fit: cover;
-                            display: block;
-                            margin: 0 auto;
-                            border: 1px solid #000;
+                            max-width: 95px !important;
+                            max-height: 100px !important;
+                            width: 95px !important;
+                            height: 100px !important;
+                            object-fit: cover !important;
+                            display: block !important;
+                            margin: 0 auto !important;
+                            border: 1px solid #000 !important;
+                            box-sizing: border-box;
                         }
                         .photo-placeholder {
                             font-size: 8px;
@@ -1716,10 +1720,10 @@
                             text-align: right;
                         }
                         .header-logo-right img {
-                            width: 95px;
-                            height: 95px;
-                            border-radius: 50%;
-                            object-fit: contain;
+                            width: 90px !important;
+                            height: 90px !important;
+                            border-radius: 50% !important;
+                            object-fit: cover !important;
                         }
                         .header-text {
                             text-align: center;
@@ -1769,19 +1773,23 @@
                             width: 47%;
                         }
                         .photo-cell {
-                            text-align: center;
-                            vertical-align: middle;
+                            text-align: center !important;
+                            vertical-align: middle !important;
                             padding: 2px !important;
-                            width: 15%;
-                            height: 80px;
+                            width: 110px !important;
+                            max-width: 110px !important;
+                            box-sizing: border-box;
                         }
                         .photo-cell img {
-                            width: 75px;
-                            height: 85px;
-                            object-fit: cover;
-                            display: block;
-                            margin: 0 auto;
-                            border: 1px solid #000;
+                            max-width: 95px !important;
+                            max-height: 100px !important;
+                            width: 95px !important;
+                            height: 100px !important;
+                            object-fit: cover !important;
+                            display: block !important;
+                            margin: 0 auto !important;
+                            border: 1px solid #000 !important;
+                            box-sizing: border-box;
                         }
                         .photo-placeholder {
                             font-size: 8px;

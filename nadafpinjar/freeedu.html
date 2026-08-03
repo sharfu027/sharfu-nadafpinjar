@@ -203,15 +203,17 @@
                 display: none !important;
             }
             .pdf-page-container, .receipt-container {
-                display: block !important;
-                position: absolute !important;
-                left: 0 !important;
-                top: 0 !important;
-                width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                visibility: visible !important;
-            }
+            width: 794px !important;
+            max-width: 794px !important;
+            height: auto;
+            margin: 0 !important;
+            border: 2px solid #b30000;
+            padding: 10px 18px 10px 42px !important;
+            background: #ffffff;
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
             .pdf-page-container *, .receipt-container * {
                 visibility: visible !important;
             }
@@ -926,8 +928,8 @@ function maskAadhar(val) {
             max-width: 794px !important;
             height: auto;
             margin: 0 !important;
-            border: 2px solid #b30000; border-bottom: none;
-            padding: 5px;
+            border: 2px solid #b30000;
+            padding: 10px 18px 10px 42px !important;
             background: #ffffff;
             box-sizing: border-box;
             -webkit-print-color-adjust: exact;
@@ -1038,13 +1040,17 @@ function maskAadhar(val) {
                 min-width: unset !important;
             }
             .receipt-container {
-                border: 2px solid #b30000 !important;
-                max-width: 100%;
-                height: auto !important;
-                box-sizing: border-box;
-                padding: 5px;
-                background-color: #ffffff !important;
-            }
+            width: 794px !important;
+            max-width: 794px !important;
+            height: auto;
+            margin: 0 !important;
+            border: 2px solid #b30000;
+            padding: 10px 18px 10px 42px !important;
+            background: #ffffff;
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
         }
     </style>
 </head>
