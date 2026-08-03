@@ -442,7 +442,7 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
                 const testCtx = testCanvas.getContext('2d');
                 testCtx.font = fontSpec;
 
-                const maxScaledWidth = Math.max(140 * scale, (parentWidthPx - 12) * scale);
+                const maxScaledWidth = Math.max(140 * scale, (parentWidthPx - 10) * scale);
                 const words = text.split(/\s+/);
                 const lines = [];
                 let currentLine = '';
@@ -464,9 +464,10 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
                     if (w > maxLineWidth) maxLineWidth = w;
                 });
 
-                const lineHeightPx = scaledFontSize * 1.5;
-                const canvasWidth = Math.ceil(maxLineWidth) + (12 * scale);
-                const canvasHeight = Math.ceil(lines.length * lineHeightPx) + (6 * scale);
+                const paddingX = 4 * scale;
+                const lineHeightPx = Math.ceil(scaledFontSize * 1.4);
+                const canvasWidth = Math.ceil(maxLineWidth) + (paddingX * 2);
+                const canvasHeight = Math.ceil(lines.length * lineHeightPx) + (4 * scale);
 
                 const canvas = doc.createElement('canvas');
                 canvas.width = canvasWidth;
@@ -478,29 +479,29 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
                 ctx.textBaseline = 'middle';
 
                 lines.forEach((lineText, idx) => {
-                    let drawX = 2 * scale;
+                    let drawX = paddingX;
                     if (textAlign === 'center') {
                         drawX = canvasWidth / 2;
                         ctx.textAlign = 'center';
                     } else if (textAlign === 'right') {
-                        drawX = canvasWidth - (2 * scale);
+                        drawX = canvasWidth - paddingX;
                         ctx.textAlign = 'right';
                     } else {
                         ctx.textAlign = 'left';
                     }
 
-                    const drawY = (idx * lineHeightPx) + (lineHeightPx / 2) + (3 * scale);
+                    const drawY = (idx * lineHeightPx) + (lineHeightPx / 2) + (2 * scale);
                     ctx.fillText(lineText, drawX, drawY);
                 });
 
                 const img = doc.createElement('img');
                 img.src = canvas.toDataURL('image/png');
 
-                // PRESERVE NATURAL ASPECT RATIO:
-                // Set height proportional to font size, and let width be AUTO so it never squishes!
-                const totalDisplayHeight = (fontSizePx * 1.35 * lines.length);
-                img.style.height = totalDisplayHeight.toFixed(2) + 'px';
-                img.style.width = 'auto';
+                // 1-to-1 Pixel-Perfect Aspect Ratio Display Dimensions:
+                const displayW = (canvasWidth / scale).toFixed(2);
+                const displayH = (canvasHeight / scale).toFixed(2);
+                img.style.width = displayW + 'px';
+                img.style.height = displayH + 'px';
                 img.style.maxWidth = '100%';
                 img.style.objectFit = 'contain';
                 img.style.verticalAlign = 'middle';
