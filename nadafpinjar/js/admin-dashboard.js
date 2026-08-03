@@ -1036,7 +1036,7 @@ window.downloadReceiptPdf = function(receiptId) {
     }
 
     // Determine colors, subheader titles and layout fields based on the source category
-    let themeColor = "#b30000"; // Red for State Direct
+    let themeColor = "#990000"; // Red for State Direct
     let subheaderTitle = "ನೇರವಾಗಿ ರಾಜ್ಯಕ್ಕೆ ವರ್ಗಾವಣೆ";
 
     const fromStr = (found.from || "").toLowerCase();
@@ -1314,11 +1314,11 @@ window.downloadReceiptPdf = function(receiptId) {
         .grid-cell {
             border: none;
             border-bottom: 1.5px solid ${themeColor};
-            padding: 3px 6px !important;
-            font-size: 13px !important;
+            padding: 5px 8px !important;
+            font-size: 13.5px !important;
             vertical-align: top !important;
             color: #1e293b;
-            line-height: 1.35 !important;
+            line-height: 1.6 !important;
             box-sizing: border-box !important;
             word-break: break-word !important;
             overflow-wrap: anywhere !important;
@@ -4186,7 +4186,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             font-weight: bold;
                             font-size: 15.5px;
                             text-align: center;
-                            line-height: 1.35 !important;
+                            line-height: 1.6 !important;
                         }
                         .recommendation-subtitle {
                             font-size: 11.5px;
@@ -4450,7 +4450,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
             .signature-table td { border: none !important; padding: 0 !important; font-size: 14.5px; line-height: 1.45 !important; }
             .recommendation-table { width: 100%; border-collapse: collapse; margin-top: 4px; margin-bottom: 6px !important; }
             .recommendation-table td { width: 50%; border: 1px solid #000 !important; height: 160px !important; vertical-align: top; padding: 5px !important; box-sizing: border-box; }
-            .recommendation-title { font-weight: bold; font-size: 15.5px; text-align: center; line-height: 1.35 !important; }
+            .recommendation-title { font-weight: bold; font-size: 15.5px; text-align: center; line-height: 1.6 !important; }
             .recommendation-subtitle { font-size: 11.5px; text-align: center; margin-top: 2px; color: #333; line-height: 1.3 !important; }
             .committee-section { border-top: 1px dashed #000; padding-top: 6px !important; margin-top: 8px !important; }
             .committee-title { font-weight: bold; font-size: 16.5px; text-align: center; margin-bottom: 3px; }
