@@ -54,27 +54,61 @@
             margin-bottom: 50px;
         }
         .gallery-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #eee;
             cursor: pointer;
         }
-        .gallery-card-img-real {
-            width: 100%;
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .gallery-img-wrapper {
+            position: relative;
             height: 220px;
-            object-fit: cover;
+            background: linear-gradient(135deg, #0052cc, #00c6ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .gallery-img-placeholder {
+            font-size: 64px;
+            opacity: 0.85;
             transition: transform 0.3s ease;
         }
-        .gallery-card:hover .gallery-card-img-real {
-            transform: scale(1.05);
+        .gallery-card:hover .gallery-img-placeholder {
+            transform: scale(1.1);
         }
-        .photo-count-badge {
-            position: absolute;
-            bottom: 12px;
-            right: 12px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 12px;
+        .gallery-card-content {
+            padding: 20px;
+        }
+        .gallery-card-content h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
             font-weight: 600;
+        }
+        .gallery-card-content p {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .coming-soon-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(3px);
         }
         /* Modal for Article & Photo View */
         .public-modal-overlay {

@@ -116,30 +116,19 @@
         ];
 
         grid.innerHTML = albums.map((alb, index) => {
-            const photosCount = (alb.photos || []).length;
-            const coverSrc = alb.coverImage || (alb.photos && alb.photos[0]) || '';
             const icon = icons[index % icons.length];
             const grad = gradients[index % gradients.length];
-
-            const headerVisual = coverSrc
-                ? `<div style="position: relative; height: 220px; overflow: hidden; background: #000;">
-                     <img src="${coverSrc}" class="gallery-card-img-real" onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\\'gallery-img-wrapper\\' style=\\'background:${grad}\\';><i class=\\'fa ${icon} gallery-img-placeholder\\'></i></div>';">
-                     <span class="photo-count-badge"><i class="fa fa-camera"></i> ${photosCount} Photos</span>
-                   </div>`
-                : `<div class="gallery-img-wrapper" style="background: ${grad}; position: relative;">
-                     <i class="fa ${icon} gallery-img-placeholder"></i>
-                     <span class="photo-count-badge"><i class="fa fa-camera"></i> ${photosCount} Photos</span>
-                   </div>`;
+            const badgeText = alb.badge || 'ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ / Soon';
 
             return `
                 <div class="gallery-card" onclick="openPublicAlbumModal('${alb.id}')">
-                    ${headerVisual}
+                    <div class="gallery-img-wrapper" style="background: ${grad}; position: relative;">
+                        <span class="coming-soon-badge">${escapeHTML(badgeText)}</span>
+                        <i class="fa ${icon} gallery-img-placeholder"></i>
+                    </div>
                     <div class="gallery-card-content">
                         <h3>${escapeHTML(alb.title)}</h3>
                         <p>${escapeHTML(alb.description)}</p>
-                        <div style="margin-top: 12px; font-size: 13px; font-weight: bold; color: #0052cc; display: flex; align-items: center; gap: 5px;">
-                            <span>ಮತ್ತಷ್ಟು ನೋಡಿ &amp; ಚಿತ್ರಗಳು / View Details</span> <i class="fa fa-arrow-right"></i>
-                        </div>
                     </div>
                 </div>
             `;
