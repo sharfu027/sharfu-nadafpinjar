@@ -13,9 +13,10 @@
             date: '2026-07-15',
             location: 'ಚಿತ್ರದುರ್ಗ (Chitradurga)',
             description: 'ರಾಜ್ಯ ಪದಾಧಿಕಾರಿಗಳ ಹಾಗೂ ಪ್ರಮುಖ ಗಣ್ಯರ ಉಪಸ್ಥಿತಿಯಲ್ಲಿ ನಡೆದ ಮಹತ್ವದ ರಾಜ್ಯ ಮಟ್ಟದ ಸಭೆ ಮತ್ತು ಸಮಾಲೋಚನೆ ಕಾರ್ಯಕ್ರಮ. ಸಭಾಂಗಣದಲ್ಲಿ ಸಂಘಟನೆಯ ಏಳಿಗೆ ಹಾಗೂ ಭವಿಷ್ಯದ ಯೋಜನೆಗಳ ಕುರಿತು ಸುದೀರ್ಘ ಚರ್ಚೆ ನಡೆಸಲಾಯಿತು.',
-            coverImage: 'images/banner-bg.jpg',
+            coverImage: 'images/slider-1.jpg',
             photos: [
-                'images/banner-bg.jpg',
+                'images/slider-1.jpg',
+                'images/slider-2.jpg',
                 'images/president.jpeg',
                 'images/logo-786.png'
             ]
@@ -26,10 +27,11 @@
             date: '2026-06-20',
             location: 'ಬೆಂಗಳೂರು (Bengaluru)',
             description: 'ಪ್ರತಿಭಾವಂತ ಸಮುದಾಯದ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ರಾಜ್ಯ ಮಟ್ಟದ ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ ಹಾಗೂ ಉಚಿತ ಶಿಕ್ಷಣ ನೆರವು ವಿತರಣಾ ಸಮಾರಂಭ. ಸಾಧನೆ ಮಾಡಿದ ಶ್ರೇಷ್ಠ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ನಗದು ಬಹುಮಾನ ಹಾಗೂ ಮೆಡಲ್ ನೀಡಲಾಯಿತು.',
-            coverImage: 'images/section-rural-bg.jpg',
+            coverImage: 'images/slider-2.jpg',
             photos: [
-                'images/section-rural-bg.jpg',
-                'images/president.png'
+                'images/slider-2.jpg',
+                'images/slider-3.jpg',
+                'images/president.jpeg'
             ]
         },
         {
@@ -144,7 +146,7 @@
             photosGrid.innerHTML = '<div style="grid-column: 1/-1; color: #94a3b8; font-style: italic;">ಈ ಆಲ್ಬಂನಲ್ಲಿ ಚಿತ್ರಗಳಿಲ್ಲ (No photos uploaded for this event yet).</div>';
         } else {
             photosGrid.innerHTML = activeAlbumPhotos.map((src, idx) => `
-                <img src="${src}" class="album-photo-thumb" onclick="openLightbox(${idx})" onerror="this.onerror=null; this.src='images/banner-bg.jpg';">
+                <img src="${src}" class="album-photo-thumb" onclick="openLightbox(${idx})" onerror="this.onerror=null; this.src='images/slider-1.jpg';">
             `).join('');
         }
 

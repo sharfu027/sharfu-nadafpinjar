@@ -14,9 +14,10 @@
             date: '2026-07-15',
             location: 'ಚಿತ್ರದುರ್ಗ (Chitradurga)',
             description: 'ರಾಜ್ಯ ಪದಾಧಿಕಾರಿಗಳ ಹಾಗೂ ಪ್ರಮುಖ ಗಣ್ಯರ ಉಪಸ್ಥಿತಿಯಲ್ಲಿ ನಡೆದ ಮಹತ್ವದ ರಾಜ್ಯ ಮಟ್ಟದ ಸಭೆ ಮತ್ತು ಸಮಾಲೋಚನೆ ಕಾರ್ಯಕ್ರಮ. ಸಭಾಂಗಣದಲ್ಲಿ ಸಂಘಟನೆಯ ಏಳಿಗೆ ಹಾಗೂ ಭವಿಷ್ಯದ ಯೋಜನೆಗಳ ಕುರಿತು ಸುದೀರ್ಘ ಚರ್ಚೆ ನಡೆಸಲಾಯಿತು.',
-            coverImage: 'images/banner-bg.jpg',
+            coverImage: 'images/slider-1.jpg',
             photos: [
-                'images/banner-bg.jpg',
+                'images/slider-1.jpg',
+                'images/slider-2.jpg',
                 'images/president.jpeg',
                 'images/logo-786.png'
             ]
@@ -27,10 +28,11 @@
             date: '2026-06-20',
             location: 'ಬೆಂಗಳೂರು (Bengaluru)',
             description: 'ಪ್ರತಿಭಾವಂತ ಸಮುದಾಯದ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ರಾಜ್ಯ ಮಟ್ಟದ ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ ಹಾಗೂ ಉಚಿತ ಶಿಕ್ಷಣ ನೆರವು ವಿತರಣಾ ಸಮಾರಂಭ. ಸಾಧನೆ ಮಾಡಿದ ಶ್ರೇಷ್ಠ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ನಗದು ಬಹುಮಾನ ಹಾಗೂ ಮೆಡಲ್ ನೀಡಲಾಯಿತು.',
-            coverImage: 'images/section-rural-bg.jpg',
+            coverImage: 'images/slider-2.jpg',
             photos: [
-                'images/section-rural-bg.jpg',
-                'images/president.png'
+                'images/slider-2.jpg',
+                'images/slider-3.jpg',
+                'images/president.jpeg'
             ]
         },
         {
@@ -93,7 +95,7 @@
             const photosCount = (alb.photos || []).length;
             const coverSrc = alb.coverImage || (alb.photos && alb.photos[0]) || '';
             const coverHTML = coverSrc 
-                ? `<img src="${coverSrc}" class="album-cover-img" onerror="this.onerror=null; this.src='images/banner-bg.jpg';">`
+                ? `<img src="${coverSrc}" class="album-cover-img" onerror="this.onerror=null; this.src='images/slider-1.jpg';">`
                 : `<div class="album-cover-placeholder"><i class="fa fa-picture-o"></i></div>`;
 
             return `

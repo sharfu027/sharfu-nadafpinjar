@@ -4,6 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact Us - Karnataka State Nadaf / Pinjar Sangha</title>
+    <script>
+        window.addEventListener('unhandledrejection', function(event) {
+            const reasonStr = String(event.reason && (event.reason.message || event.reason) || '');
+            if (reasonStr.includes('translate-page') || reasonStr.includes('save-page') || reasonStr.includes('Cannot find menu item')) {
+                event.preventDefault();
+            }
+        });
+        window.addEventListener('error', function(event) {
+            const msgStr = String(event.message || '');
+            if (msgStr.includes('translate-page') || msgStr.includes('save-page') || msgStr.includes('Cannot find menu item') || msgStr.includes('feature_collector')) {
+                event.preventDefault();
+            }
+        }, true);
+    </script>
     <link href="css/base.css" rel="stylesheet" media="all">
     <link href="css/base-responsive.css" rel="stylesheet" media="all">
     <link href="css/grid.css" rel="stylesheet" media="all">
