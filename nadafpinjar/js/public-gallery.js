@@ -57,11 +57,31 @@
     function getAlbums() {
         try {
             const raw = localStorage.getItem(STORAGE_KEY);
-            if (!raw) {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_ALBUMS));
-                return DEFAULT_ALBUMS;
+            let albums = raw ? JSON.parse(raw) : DEFAULT_ALBUMS;
+            if (!Array.isArray(albums) || albums.length === 0) {
+                albums = DEFAULT_ALBUMS;
             }
-            return JSON.parse(raw);
+
+            // Automatically sanitize any old cached banner-bg.jpg / section-rural-bg.jpg references
+            let cleaned = false;
+            albums.forEach(alb => {
+                if (alb.coverImage && (alb.coverImage.includes('banner-bg.jpg') || alb.coverImage.includes('section-rural-bg.jpg'))) {
+                    alb.coverImage = alb.coverImage.includes('section-rural-bg.jpg') ? 'images/slider-2.jpg' : 'images/slider-1.jpg';
+                    cleaned = true;
+                }
+                if (Array.isArray(alb.photos)) {
+                    alb.photos = alb.photos.map(p => {
+                        if (p.includes('banner-bg.jpg')) { cleaned = true; return 'images/slider-1.jpg'; }
+                        if (p.includes('section-rural-bg.jpg')) { cleaned = true; return 'images/slider-2.jpg'; }
+                        return p;
+                    });
+                }
+            });
+
+            if (cleaned || !raw) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(albums));
+            }
+            return albums;
         } catch (e) {
             return DEFAULT_ALBUMS;
         }
