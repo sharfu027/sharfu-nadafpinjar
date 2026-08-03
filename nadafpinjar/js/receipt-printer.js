@@ -1,7 +1,7 @@
 /**
  * Shared Receipt Printer for Karnataka State Nadaf / Pinjar Sangha
- * Uses IFRAME approach + Native Canvas Hi-DPI Text Rasterization for Kannada text.
- * This guarantees 100% PERFECT Kannada ligature rendering with ZERO word/character overlap.
+ * Uses IFRAME approach (850x1200 offscreen) + Aspect-Ratio Preserved Canvas Text Rasterization.
+ * Guarantees 100% PERFECT Kannada ligature rendering with ZERO word/character overlap or compression.
  */
 function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTitle, themeColor) {
     data = data || {};
@@ -103,13 +103,15 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
         middleRowsHTML = '<tr>' +
             '<td class="grid-cell" style="width: 35%;">' +
                 '<div class="section-title" style="color: ' + themeColor + '; font-weight: bold;">' + sec1Title + ':</div>' +
-                '<div style="margin-top: 2px;"><span class="field-label">ಹೆಸರು:</span> <span class="field-value">' + sec1Name + '</span></div>' +
+                '<div style="margin-top: 4px;"><span class="field-label">ಹೆಸರು:</span> <span class="field-value">' + sec1Name + '</span></div>' +
             '</td>' +
             '<td class="grid-cell" style="width: 35%;">' +
+                '<div style="height: 22px; margin-bottom: 5px;"></div>' +
                 '<div style="margin-bottom: 4px;"><span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span> <span class="field-value">' + sec1Village + '</span></div>' +
                 '<div><span class="field-label">ವಿಳಾಸ:</span> <span class="field-value">' + sec1Address + '</span></div>' +
             '</td>' +
             '<td class="grid-cell" style="width: 30%;">' +
+                '<div style="height: 22px; margin-bottom: 5px;"></div>' +
                 '<div style="margin-bottom: 4px;"><span class="field-label">ಮೊಬೈಲ್:</span> <span class="field-value">' + sec1Mobile + '</span></div>' +
                 '<div style="margin-bottom: 4px;"><span class="field-label">ತಾಲೂಕು:</span> <span class="field-value">' + sec1Taluk + '</span></div>' +
                 '<div><span class="field-label">ಜಿಲ್ಲೆ:</span> <span class="field-value">' + sec1District + '</span></div>' +
@@ -118,13 +120,15 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
         '<tr>' +
             '<td class="grid-cell" style="width: 35%;">' +
                 '<div class="section-title" style="color: ' + themeColor + '; font-weight: bold;">ಯಾರ ಪರವಾಗಿ:</div>' +
-                '<div style="margin-top: 2px;"><span class="field-label">ಹೆಸರು:</span> <span class="field-value" style="font-weight: 600;">' + donorName + '</span></div>' +
+                '<div style="margin-top: 4px;"><span class="field-label">ಹೆಸರು:</span> <span class="field-value" style="font-weight: 600;">' + donorName + '</span></div>' +
             '</td>' +
             '<td class="grid-cell" style="width: 35%;">' +
+                '<div style="height: 22px; margin-bottom: 5px;"></div>' +
                 '<div style="margin-bottom: 4px;"><span class="field-label">ಗ್ರಾಮ/ಪಟ್ಟಣ:</span> <span class="field-value">' + donorVillage + '</span></div>' +
                 '<div><span class="field-label">ವಿಳಾಸ:</span> <span class="field-value">' + donorAddress + '</span></div>' +
             '</td>' +
             '<td class="grid-cell" style="width: 30%;">' +
+                '<div style="height: 22px; margin-bottom: 5px;"></div>' +
                 '<div style="margin-bottom: 4px;"><span class="field-label">ಮೊಬೈಲ್:</span> <span class="field-value">' + donorMobile + '</span></div>' +
                 '<div style="margin-bottom: 4px;"><span class="field-label">ತಾಲೂಕು:</span> <span class="field-value">' + donorTaluk + '</span></div>' +
                 '<div><span class="field-label">ಜಿಲ್ಲೆ:</span> <span class="field-value">' + donorDistrict + '</span></div>' +
@@ -384,25 +388,21 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
 </body>
 </html>`;
 
-    // Create iframe off-screen
+    // Create iframe off-screen with FULL size (850x1200) to ensure perfect layout calculation
     let iframe = document.getElementById('receiptPrintIframe');
     if (!iframe) {
         iframe = document.createElement('iframe');
         iframe.id = 'receiptPrintIframe';
-        iframe.style.position = 'fixed';
-        iframe.style.position = 'absolute';
-        iframe.style.left = '0';
-        iframe.style.top = '0';
-        iframe.style.zIndex = '-9999';
-        iframe.style.opacity = '1';
-        iframe.style.pointerEvents = 'none';
-        iframe.style.width = '0';
-        iframe.style.height = '0';
-        iframe.style.border = '0';
         document.body.appendChild(iframe);
     }
-    iframe.style.width = '794px';
-    iframe.style.height = '1000px';
+    iframe.style.position = 'absolute';
+    iframe.style.left = '-9999px';
+    iframe.style.top = '0';
+    iframe.style.width = '850px';
+    iframe.style.height = '1200px';
+    iframe.style.border = '0';
+    iframe.style.opacity = '1';
+    iframe.style.pointerEvents = 'none';
 
     const win = iframe.contentWindow;
     const doc = win.document;
@@ -411,9 +411,9 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
     doc.close();
 
     /**
-     * Native Canvas High-DPI Text Rasterizer for Kannada Text
+     * Aspect-Ratio Preserved Native Canvas Text Rasterizer for Kannada Text.
      * Renders every Kannada text element into a crisp 3x PNG image via native browser 2D canvas context.
-     * This completely prevents html2canvas from mangling, splitting, or overlapping Kannada characters.
+     * Keeps width: auto so images NEVER get squished, squeezed, or compressed horizontally.
      */
     function rasterizeKannadaNodes(container) {
         const kannadaRegex = /[\u0C80-\u0CFF]/;
@@ -465,7 +465,7 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
                 });
 
                 const lineHeightPx = scaledFontSize * 1.5;
-                const canvasWidth = Math.ceil(maxLineWidth) + (10 * scale);
+                const canvasWidth = Math.ceil(maxLineWidth) + (12 * scale);
                 const canvasHeight = Math.ceil(lines.length * lineHeightPx) + (6 * scale);
 
                 const canvas = doc.createElement('canvas');
@@ -496,12 +496,13 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
                 const img = doc.createElement('img');
                 img.src = canvas.toDataURL('image/png');
 
-                const displayW = (canvasWidth / scale);
-                const displayH = (canvasHeight / scale);
-
-                img.style.width = displayW.toFixed(2) + 'px';
-                img.style.height = displayH.toFixed(2) + 'px';
+                // PRESERVE NATURAL ASPECT RATIO:
+                // Set height proportional to font size, and let width be AUTO so it never squishes!
+                const totalDisplayHeight = (fontSizePx * 1.35 * lines.length);
+                img.style.height = totalDisplayHeight.toFixed(2) + 'px';
+                img.style.width = 'auto';
                 img.style.maxWidth = '100%';
+                img.style.objectFit = 'contain';
                 img.style.verticalAlign = 'middle';
                 img.style.display = (computedStyle.display === 'block' || lines.length > 1) ? 'block' : 'inline-block';
                 img.style.margin = '0';
