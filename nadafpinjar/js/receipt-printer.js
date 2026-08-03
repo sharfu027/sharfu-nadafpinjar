@@ -305,10 +305,14 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
             font-weight: bold;
             color: ${themeColor};
             margin-right: 4px;
+            display: inline-block;
+            vertical-align: middle;
         }
         .field-value {
             color: #000;
             font-weight: 500;
+            display: inline-block;
+            vertical-align: middle;
             word-break: break-word !important;
             overflow-wrap: anywhere !important;
             white-space: normal !important;
@@ -411,9 +415,9 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
     doc.close();
 
     /**
-     * Aspect-Ratio Preserved Native Canvas Text Rasterizer for Kannada Text.
-     * Renders every Kannada text element into a crisp 3x PNG image via native browser 2D canvas context.
-     * Keeps width: auto so images NEVER get squished, squeezed, or compressed horizontally.
+     * High-DPI Native Canvas Text Rasterizer for Kannada Text.
+     * Direct unconstrained text measurement with 1-to-1 pixel-perfect aspect ratio.
+     * Prevents any glyph compression, character squishing, or word overlap.
      */
     function rasterizeKannadaNodes(container) {
         const kannadaRegex = /[\u0C80-\u0CFF]/;
@@ -428,46 +432,26 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
             try {
                 const computedStyle = win.getComputedStyle(el);
                 const fontSizePx = parseFloat(computedStyle.fontSize) || 13.5;
-                const fontWeight = computedStyle.fontWeight || 'normal';
+                const fontWeight = computedStyle.fontWeight || '600';
                 const fontStyleAttr = computedStyle.fontStyle || 'normal';
                 const color = computedStyle.color || '#000000';
                 const textAlign = computedStyle.textAlign || 'left';
-                const parentWidthPx = el.parentElement ? el.parentElement.clientWidth : 240;
 
                 const scale = 3; // 3x High-DPI multiplier
                 const scaledFontSize = Math.round(fontSizePx * scale);
-                const fontSpec = `${fontStyleAttr} ${fontWeight} ${scaledFontSize}px "Noto Sans Kannada", "Segoe UI", sans-serif`;
+                const fontSpec = `${fontStyleAttr} ${fontWeight} ${scaledFontSize}px "Noto Sans Kannada", "Tunga", "Kalinga", "Segoe UI", sans-serif`;
 
                 const testCanvas = doc.createElement('canvas');
                 const testCtx = testCanvas.getContext('2d');
                 testCtx.font = fontSpec;
 
-                const maxScaledWidth = Math.max(140 * scale, (parentWidthPx - 10) * scale);
-                const words = text.split(/\s+/);
-                const lines = [];
-                let currentLine = '';
+                const textMetrics = testCtx.measureText(text);
+                const measuredWidth = Math.ceil(textMetrics.width);
 
-                for (let i = 0; i < words.length; i++) {
-                    const testLine = currentLine ? (currentLine + ' ' + words[i]) : words[i];
-                    if (testCtx.measureText(testLine).width > maxScaledWidth && currentLine) {
-                        lines.push(currentLine);
-                        currentLine = words[i];
-                    } else {
-                        currentLine = testLine;
-                    }
-                }
-                if (currentLine) lines.push(currentLine);
-
-                let maxLineWidth = 0;
-                lines.forEach(l => {
-                    const w = testCtx.measureText(l).width;
-                    if (w > maxLineWidth) maxLineWidth = w;
-                });
-
-                const paddingX = 4 * scale;
-                const lineHeightPx = Math.ceil(scaledFontSize * 1.4);
-                const canvasWidth = Math.ceil(maxLineWidth) + (paddingX * 2);
-                const canvasHeight = Math.ceil(lines.length * lineHeightPx) + (4 * scale);
+                const paddingX = Math.ceil(8 * scale);
+                const paddingY = Math.ceil(4 * scale);
+                const canvasWidth = measuredWidth + (paddingX * 2);
+                const canvasHeight = Math.ceil(scaledFontSize * 1.5) + (paddingY * 2);
 
                 const canvas = doc.createElement('canvas');
                 canvas.width = canvasWidth;
@@ -477,27 +461,14 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
                 ctx.font = fontSpec;
                 ctx.fillStyle = color;
                 ctx.textBaseline = 'middle';
+                ctx.textAlign = 'left';
 
-                lines.forEach((lineText, idx) => {
-                    let drawX = paddingX;
-                    if (textAlign === 'center') {
-                        drawX = canvasWidth / 2;
-                        ctx.textAlign = 'center';
-                    } else if (textAlign === 'right') {
-                        drawX = canvasWidth - paddingX;
-                        ctx.textAlign = 'right';
-                    } else {
-                        ctx.textAlign = 'left';
-                    }
-
-                    const drawY = (idx * lineHeightPx) + (lineHeightPx / 2) + (2 * scale);
-                    ctx.fillText(lineText, drawX, drawY);
-                });
+                ctx.fillText(text, paddingX, canvasHeight / 2);
 
                 const img = doc.createElement('img');
                 img.src = canvas.toDataURL('image/png');
 
-                // 1-to-1 Pixel-Perfect Aspect Ratio Display Dimensions:
+                // Set exact 1-to-1 pixel display dimensions:
                 const displayW = (canvasWidth / scale).toFixed(2);
                 const displayH = (canvasHeight / scale).toFixed(2);
                 img.style.width = displayW + 'px';
@@ -505,7 +476,7 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
                 img.style.maxWidth = '100%';
                 img.style.objectFit = 'contain';
                 img.style.verticalAlign = 'middle';
-                img.style.display = (computedStyle.display === 'block' || lines.length > 1) ? 'block' : 'inline-block';
+                img.style.display = 'inline-block';
                 img.style.margin = '0';
                 img.style.padding = '0';
 
