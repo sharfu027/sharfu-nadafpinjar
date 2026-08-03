@@ -191,13 +191,43 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
             max-width: 794px !important;
             margin: 0 auto !important;
         }
-        .receipt-container {
+        .receipt-outer-wrapper {
+            position: relative;
             width: 794px !important;
-            max-width: 794px !important;
+            padding-left: 36px !important;
+            padding-right: 12px !important;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+            background: #fff;
+            box-sizing: border-box !important;
+        }
+        .punch-guide {
+            position: absolute;
+            left: 10px;
+            top: 12px;
+            bottom: 12px;
+            width: 18px;
+            border-right: 1.5px dashed #a0a0a0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            pointer-events: none;
+        }
+        .punch-hole {
+            width: 10px;
+            height: 10px;
+            border: 1.5px solid #777;
+            border-radius: 50%;
+            background: #fff;
+        }
+        .receipt-container {
+            width: 100% !important;
             margin: 0 !important;
             border: none;
-            padding: 10px 16px !important;
+            padding: 4px 6px !important;
             background: #fff;
+            box-sizing: border-box !important;
         }
         .header-box {
             width: 100%;
@@ -276,14 +306,24 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
         .grid-cell {
             border: none;
             border-bottom: 1.5px solid ${themeColor};
-            padding: 8px 10px 8px 16px !important;
-            font-size: 13.5px !important;
+            padding: 6px 8px !important;
+            font-size: 13px !important;
             vertical-align: top !important;
             color: #1e293b;
-            line-height: 1.6 !important;
+            line-height: 1.5 !important;
             word-break: break-word !important;
             overflow-wrap: anywhere !important;
             white-space: normal !important;
+        }
+        .seal-img {
+            max-height: 48px !important;
+            width: auto;
+            object-fit: contain;
+        }
+        .sig-img {
+            max-height: 34px !important;
+            width: auto;
+            object-fit: contain;
         }
         .section-title {
             font-size: 13.5px;
@@ -306,20 +346,18 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
             vertical-align: middle;
         }
         .field-value {
-            color: #000;
-            font-weight: 500;
             display: inline-block;
             vertical-align: middle;
-            word-break: break-word !important;
-            overflow-wrap: anywhere !important;
-            white-space: normal !important;
         }
-        .seal-img { height: 55px; width: auto; }
-        .sig-img { height: 42px; width: auto; margin-bottom: 2px; }
     </style>
 </head>
 <body>
-    <div class="receipt-container">
+    <div class="receipt-outer-wrapper">
+        <div class="punch-guide">
+            <div class="punch-hole"></div>
+            <div class="punch-hole"></div>
+        </div>
+        <div class="receipt-container">
         <table class="header-box">
             <tr>
                 <td colspan="3" style="text-align: center; padding: 4px 8px 1px 8px;">
@@ -328,7 +366,7 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
             </tr>
             <tr>
                 <td class="header-photo-cell">
-                    <img src="${absPresidentImg}" class="patron-photo" onerror="this.src='${resolveUrl('images/president.png')}'">
+                    <img src="${absPresidentImg}" class="patron-photo" onerror="this.src='images/president.png'">
                 </td>
                 <td class="header-text-cell">
                     <div class="reg-no">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
@@ -344,7 +382,7 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
         <table class="receipt-grid">
             <tr class="subheader-row">
                 <td class="grid-cell" style="width: 35%;">
-                    <span class="field-label">ರಶೀದಿ ಸಂಖ್ಯೆ:</span><span class="field-value" style="white-space: nowrap;">${recId}</span>
+                    <span class="field-label">ರಶೀದಿ ಸಂಖ್ಯೆ:</span> <span class="field-value" style="font-weight: bold;">${recId}</span>
                 </td>
                 <td class="grid-cell center-align" style="width: 35%;">
                     <div style="font-size: 15px; font-weight: bold; color: ${themeColor};">ಪಾವತಿಸಿದ ರಶೀದಿ</div>
@@ -356,23 +394,23 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
             </tr>
             ${middleRowsHTML}
             <tr>
-                <td class="grid-cell" style="width: 35%; border-bottom: none !important; padding: 6px 8px; vertical-align: top;">
-                    <div><span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span> <span class="field-value" style="font-size: 15px; font-weight: bold;">${amountVal}</span></div>
-                    <div style="margin-top: 4px;"><span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span> <span class="field-value">${formattedDate}</span></div>
-                    <div style="margin-top: 4px;"><span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span> <span class="field-value">${accountVal}</span></div>
-                    <div style="margin-top: 4px;"><span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span> <span class="field-value">${purposeVal}</span></div>
+                <td class="grid-cell" style="width: 35%; border-bottom: 1.5px solid ${themeColor} !important; padding: 6px 8px; vertical-align: top;">
+                    <div><span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span> <span class="field-value" style="font-size: 14.5px; font-weight: bold;">${amountVal}</span></div>
+                    <div style="margin-top: 3px;"><span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span> <span class="field-value">${formattedDate}</span></div>
+                    <div style="margin-top: 3px;"><span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span> <span class="field-value">${accountVal}</span></div>
+                    <div style="margin-top: 3px;"><span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span> <span class="field-value" style="font-size: 12px; word-break: break-word;">${purposeVal}</span></div>
                 </td>
-                <td class="grid-cell center-align" style="width: 35%; border-bottom: none !important; padding: 6px 8px; vertical-align: top;">
+                <td class="grid-cell center-align" style="width: 35%; border-bottom: 1.5px solid ${themeColor} !important; padding: 6px 8px; vertical-align: top;">
                     <div><span class="field-label">ಪಾವತಿ ಮೋಡ್:</span> <span class="field-value" style="font-weight: bold;">${modeVal}</span></div>
-                    <div style="margin-top: 6px; text-align: center;"><img src="${absSealImg}" class="seal-img"></div>
+                    <div style="margin-top: 4px; text-align: center;"><img src="${absSealImg}" class="seal-img"></div>
                 </td>
-                <td class="grid-cell" style="width: 30%; border-bottom: none !important; padding: 6px 8px; vertical-align: top;">
+                <td class="grid-cell" style="width: 30%; border-bottom: 1.5px solid ${themeColor} !important; padding: 6px 8px; vertical-align: top;">
                     <div style="text-align: center; width: 100%; margin: 0 auto;">
-                        <div style="font-size: 13px; font-weight: bold; color: ${themeColor}; margin-bottom: 3px; white-space: nowrap;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
-                        <img src="${absSigImg}" class="sig-img" style="margin-bottom: 2px;">
-                        <div style="font-size: 13px; font-weight: bold; color: #4f1971; margin-top: 1px; line-height: 1.3; white-space: nowrap;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
-                        <div style="font-size: 12px; font-weight: bold; color: #4f1971; line-height: 1.3; white-space: nowrap;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
-                        <div style="font-size: 10.5px; font-weight: bold; color: #4f1971; line-height: 1.3; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                        <div style="font-size: 12px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px; white-space: nowrap;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
+                        <img src="${absSigImg}" class="sig-img" style="margin-bottom: 1px;">
+                        <div style="font-size: 12px; font-weight: bold; color: #4f1971; margin-top: 1px; line-height: 1.2; white-space: nowrap;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
+                        <div style="font-size: 11px; font-weight: bold; color: #4f1971; line-height: 1.2; white-space: nowrap;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
+                        <div style="font-size: 10px; font-weight: bold; color: #4f1971; line-height: 1.2; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     </div>
                 </td>
             </tr>
@@ -490,7 +528,7 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
     }
 
     function capturePDF() {
-        const container = doc.querySelector('.receipt-container');
+        const container = doc.querySelector('.receipt-outer-wrapper') || doc.querySelector('.receipt-container');
         if (!container) {
             if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
             return;

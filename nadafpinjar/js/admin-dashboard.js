@@ -1299,9 +1299,38 @@ window.downloadReceiptPdf = function(receiptId) {
             margin: 0 auto !important;
             box-sizing: border-box;
         }
-        .receipt-container {
+        .receipt-outer-wrapper {
+            position: relative;
             width: 794px !important;
-            max-width: 794px !important;
+            padding-left: 36px !important;
+            padding-right: 12px !important;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+            background: #fff;
+            box-sizing: border-box !important;
+        }
+        .punch-guide {
+            position: absolute;
+            left: 10px;
+            top: 12px;
+            bottom: 12px;
+            width: 18px;
+            border-right: 1.5px dashed #a0a0a0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            pointer-events: none;
+        }
+        .punch-hole {
+            width: 10px;
+            height: 10px;
+            border: 1.5px solid #777;
+            border-radius: 50%;
+            background: #fff;
+        }
+        .receipt-container {
+            width: 100% !important;
             margin: 0 !important;
             border: none;
             padding: 4px 6px;
@@ -1466,7 +1495,12 @@ window.downloadReceiptPdf = function(receiptId) {
     </style>
 </head>
 <body>
-    <div class="receipt-container">
+    <div class="receipt-outer-wrapper">
+        <div class="punch-guide">
+            <div class="punch-hole"></div>
+            <div class="punch-hole"></div>
+        </div>
+        <div class="receipt-container">
         <table class="header-box">
             <tr>
                 <td colspan="3" style="text-align: center; padding: 4px 8px 1px 8px;">
@@ -1508,58 +1542,59 @@ window.downloadReceiptPdf = function(receiptId) {
             ${fieldsHTML}
 
             <tr>
-                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
+                <td class="grid-cell" style="width: 35%; border-bottom: 1.5px solid ${themeColor} !important; vertical-align: top; padding: 6px 8px;">
                     <div class="payment-line" style="margin-top: 2px;">
                         <span class="field-label">ಪಾವತಿ ರಕಮು ರೂ:</span>
                         <span class="field-value" style="font-size: 14px; font-weight: bold; color: #000; white-space: nowrap;">${formatCurrencyRaw(found.amount)}</span>
                     </div>
-                    <div class="payment-line" style="margin-top: 6px;">
+                    <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ರಶೀದಿ ದಿನಾಂಕ:</span>
                         <span class="field-value" style="color: #000; white-space: nowrap;">${formatDateDashes(found.date)}</span>
                     </div>
-                    <div class="payment-line" style="margin-top: 6px;">
+                    <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಯಾವ ಖಾತೆಗೆ:</span>
                         <span class="field-value" style="color: #000;">${details.purpose || found.from}</span>
                     </div>
-                    <div class="payment-line" style="margin-top: 6px;">
+                    <div class="payment-line" style="margin-top: 4px;">
                         <span class="field-label">ಯೋಜನೆ ಉದ್ದೇಶ:</span>
-                        <span class="field-value" style="color: #000;">${details.purposeDetails || details.notes || ""}</span>
+                        <span class="field-value" style="color: #000; font-size: 12px; word-break: break-word;">${details.purposeDetails || details.notes || ""}</span>
                     </div>
                 </td>
-                <td class="grid-cell center-align" style="width: 30%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
+                <td class="grid-cell center-align" style="width: 30%; border-bottom: 1.5px solid ${themeColor} !important; vertical-align: top; padding: 6px 8px;">
                     <div class="payment-line" style="margin-top: 2px;">
                         <span class="field-label">ಪಾವತಿ ಮೋಡ್:</span>
                         <span class="field-value" style="color: #000;">${details.paymentMode || found.paymentMode || "Cash"}</span>
                     </div>
-                    <div style="margin-top: 12px; text-align: center;">
-                        <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.seal) ? RECEIPT_ASSETS.seal : 'images/seal.jpg'}" class="seal-img">
+                    <div style="margin-top: 6px; text-align: center;">
+                        <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.seal) ? RECEIPT_ASSETS.seal : 'images/seal.jpg'}" class="seal-img" style="max-height: 48px; width: auto; object-fit: contain;">
                     </div>
                 </td>
-                <td class="grid-cell" style="width: 35%; border-bottom: none !important; vertical-align: top; padding: 6px 8px;">
-                    <div style="text-align: center; width: 230px; margin: 2px auto 0 auto;">
-                        <div style="font-size: 14px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
-                        <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.sig) ? RECEIPT_ASSETS.sig : 'images/sig.jpg'}" class="sig-img" style="margin-bottom: 2px;">
-                        <div style="font-size: 15px; font-weight: bold; color: #4f1971; margin-top: 2px; line-height: 1.2; white-space: nowrap;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
-                        <div style="font-size: 13.5px; font-weight: bold; color: #4f1971; line-height: 1.2; white-space: nowrap;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
-                        <div style="font-size: 12px; font-weight: bold; color: #4f1971; line-height: 1.2; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                <td class="grid-cell" style="width: 35%; border-bottom: 1.5px solid ${themeColor} !important; vertical-align: top; padding: 6px 8px;">
+                    <div style="text-align: center; width: 100%; margin: 0 auto;">
+                        <div style="font-size: 12px; font-weight: bold; color: ${themeColor}; margin-bottom: 2px;">ಅದಾಬ್ ಗಳೊಂದಿಗೆ ಸ್ವೀಕರಿಸಿದೆ</div>
+                        <img src="${(typeof RECEIPT_ASSETS !== 'undefined' && RECEIPT_ASSETS.sig) ? RECEIPT_ASSETS.sig : 'images/sig.jpg'}" class="sig-img" style="max-height: 34px; width: auto; object-fit: contain; margin-bottom: 1px;">
+                        <div style="font-size: 12px; font-weight: bold; color: #4f1971; margin-top: 1px; line-height: 1.2; white-space: nowrap;">ಶಹಾಬುದ್ದೀನ್ ಸಾಬ್ ನೂರಭಾಷ</div>
+                        <div style="font-size: 11px; font-weight: bold; color: #4f1971; line-height: 1.2; white-space: nowrap;">ರಾಜ್ಯ ಕೋಶಾಧಿಕಾರಿ</div>
+                        <div style="font-size: 10px; font-weight: bold; color: #4f1971; line-height: 1.2; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್ ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
                     </div>
                 </td>
             </tr>
 
             <tr class="bottom-serial-row">
-                <td class="grid-cell" colspan="2" style="border-top: none !important; border-bottom: none !important; padding: 4px 8px 6px 8px;">
+                <td class="grid-cell" colspan="2" style="border-top: none !important; border-bottom: none !important; padding: 4px 8px; vertical-align: middle;">
                     <div>
-                        <span class="field-label" style="font-size: 14px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
-                        <span class="field-value" style="font-size: 14px; color: #000; white-space: nowrap;">KRNPS-2026-27-${serialNoVal}</span>
+                        <span class="field-label" style="font-size: 13px;">ರಶೀದಿಗಳ ಕ್ರಮ ಸಂಖ್ಯೆಗಳು :</span>
+                        <span class="field-value" style="font-size: 13px; color: #000; white-space: nowrap;">KRNPS-2026-27-${serialNoVal}</span>
                     </div>
                 </td>
-                <td class="grid-cell right-align" style="border-top: none !important; border-bottom: none !important; padding: 4px 12px 6px 8px; font-weight: bold; color: ${themeColor}; font-size: 14px; white-space: nowrap;">
+                <td class="grid-cell right-align" style="border-top: none !important; border-bottom: none !important; padding: 4px 12px; font-weight: bold; color: ${themeColor}; font-size: 13px; white-space: nowrap; vertical-align: middle;">
                     <div>
                         ಅಧಿಕೃತ ಸಹಿ
                     </div>
                 </td>
             </tr>
         </table>
+    </div>
     </div>
 </body>
 </html>`;
@@ -1593,7 +1628,7 @@ window.downloadReceiptPdf = function(receiptId) {
         iframe.style.height = '100px';
         
         setTimeout(() => {
-            const container = doc.querySelector('.receipt-container');
+            const container = doc.querySelector('.receipt-outer-wrapper') || doc.querySelector('.receipt-container');
             const isMobile = true;
             if (container) {
                 container.style.margin = isMobile ? '0' : '0 auto';
