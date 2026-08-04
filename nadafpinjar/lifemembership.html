@@ -1099,8 +1099,11 @@ function maskAadhar(val) {
         async function handleFormSubmit(e) {
             e.preventDefault();
 
+            const newId = "LM-" + Date.now().toString().slice(-6);
             const appData = {
-                id: "LM-" + Date.now().toString().slice(-6),
+                id: newId,
+                _id: newId,
+                paymentId: newId,
                 formType: "lifemembership",
                 applicantName: document.getElementById("applicantName").value,
                 fatherHusbandName: document.getElementById("fatherHusbandName").value,
