@@ -1219,15 +1219,15 @@ function maskAadhar(val) {
                 element.style.width = '680px';
                 element.style.backgroundColor = '#ffffff';
                 element.style.color = '#000000';
-                element.style.padding = '4px 10px 4px 24px';
+                element.style.padding = '6px 12px 6px 26px';
                 element.style.boxSizing = 'border-box';
 
                 element.innerHTML = `
                     <style>
                         .pdf-container {
                             font-family: 'Noto Serif Kannada', Tunga, 'Times New Roman', serif;
-                            font-size: 11.5px;
-                            line-height: 1.2;
+                            font-size: 12.5px;
+                            line-height: 1.3;
                             color: #0b3c5d;
                             background-color: #ffffff !important;
                             page-break-inside: avoid !important;
@@ -1243,22 +1243,22 @@ function maskAadhar(val) {
                             vertical-align: middle;
                         }
                         .header-logo-left {
-                            width: 80px;
+                            width: 85px;
                             text-align: left;
                         }
                         .header-logo-left img {
-                            width: 80px;
-                            height: 80px;
+                            width: 85px;
+                            height: 85px;
                             border-radius: 50%;
                             object-fit: cover;
                         }
                         .header-logo-right {
-                            width: 80px;
+                            width: 85px;
                             text-align: right;
                         }
                         .header-logo-right img {
-                            width: 80px;
-                            height: 80px;
+                            width: 85px;
+                            height: 85px;
                             border-radius: 50%;
                             object-fit: contain;
                         }
@@ -1267,50 +1267,50 @@ function maskAadhar(val) {
                         }
                         .header-text h1 {
                             margin: 0;
-                            font-size: 21px;
+                            font-size: 22px;
                             font-weight: bold;
                             color: #c01535;
                         }
                         .header-text h2 {
                             margin: 1px 0 0 0;
-                            font-size: 12px;
+                            font-size: 12.5px;
                             font-weight: bold;
                             color: #c01535;
                         }
                         .header-text h3 {
                             margin: 1px 0 0 0;
-                            font-size: 10.5px;
+                            font-size: 11px;
                             font-weight: bold;
                             color: #0b3c5d;
                         }
                         .header-text h4 {
                             margin: 1px 0 0 0;
-                            font-size: 10.5px;
+                            font-size: 11px;
                             font-weight: bold;
                             color: #0b3c5d;
                         }
                         .header-line {
                             border-top: 2px solid #000;
-                            margin: 3px 0 2px 0;
+                            margin: 4px 0 3px 0;
                         }
                         .title-box {
                             border: 1.5px solid #f6cf57;
                             background-color: #fff8eb;
                             border-radius: 8px;
                             text-align: center;
-                            padding: 2px 8px;
-                            margin: 2px auto 3px auto;
-                            max-width: 320px;
+                            padding: 3px 10px;
+                            margin: 2px auto 4px auto;
+                            max-width: 330px;
                         }
                         .title-box h2 {
                             margin: 0;
-                            font-size: 15px;
+                            font-size: 16px;
                             font-weight: bold;
                             color: #c01535;
                         }
                         .title-box p {
                             margin: 1px 0 0 0;
-                            font-size: 10.5px;
+                            font-size: 11px;
                             font-weight: bold;
                             color: #c01535;
                         }
@@ -1322,11 +1322,11 @@ function maskAadhar(val) {
                         }
                         .details-table th, .details-table td {
                             border: 1px solid #333 !important;
-                            padding: 3.5px 5px !important;
+                            padding: 4.5px 6px !important;
                             text-align: left;
                             vertical-align: middle;
-                            font-size: 11px !important;
-                            line-height: 1.25 !important;
+                            font-size: 12px !important;
+                            line-height: 1.3 !important;
                             background-color: #ffffff !important;
                         }
                         .details-table .sl-col {
@@ -1336,26 +1336,26 @@ function maskAadhar(val) {
                             color: #0b3c5d;
                         }
                         .details-table .label-col {
-                            width: 30%;
+                            width: 31%;
                             font-weight: bold;
                             color: #0b3c5d;
-                            font-size: 11.5px !important;
+                            font-size: 12px !important;
                         }
                         .details-table .value-col {
                             color: #c01535;
                             font-weight: bold;
-                            font-size: 11.5px !important;
+                            font-size: 12px !important;
                         }
                         .photo-cell {
                             text-align: center;
                             vertical-align: middle;
                             padding: 2px !important;
-                            width: 100px;
+                            width: 105px;
                             background-color: #ffffff !important;
                         }
                         .photo-cell img {
-                            width: 90px;
-                            height: 105px;
+                            width: 95px;
+                            height: 110px;
                             object-fit: cover;
                             display: block;
                             margin: 0 auto;
@@ -1363,32 +1363,32 @@ function maskAadhar(val) {
                             border-radius: 2px;
                         }
                         .photo-placeholder {
-                            font-size: 10px;
+                            font-size: 10.5px;
                             border: 1px dashed #0b3c5d;
-                            width: 90px;
-                            height: 105px;
+                            width: 95px;
+                            height: 110px;
                             display: flex;
                             flex-direction: column;
                             align-items: center;
                             justify-content: center;
                             margin: 0 auto;
                             background: #ffffff;
-                            line-height: 1.2;
+                            line-height: 1.3;
                             color: #0b3c5d;
                             text-align: center;
                         }
                         .declaration-text {
-                            margin-top: 4px;
-                            font-size: 10.5px;
-                            line-height: 1.25;
+                            margin-top: 6px;
+                            font-size: 11.5px;
+                            line-height: 1.35;
                             text-align: justify;
                             color: #0b3c5d;
                             font-weight: 500;
                         }
                         .signature-section {
                             width: 100%;
-                            margin-top: 4px;
-                            margin-bottom: 2px;
+                            margin-top: 6px;
+                            margin-bottom: 3px;
                         }
                         .signature-table {
                             width: 100%;
@@ -1397,28 +1397,28 @@ function maskAadhar(val) {
                         .signature-table td {
                             border: none !important;
                             padding: 1px 0 !important;
-                            font-size: 11.5px;
+                            font-size: 12px;
                             white-space: nowrap;
                             color: #c01535;
                         }
                         .dashed-divider {
                             border-top: 1.5px dashed #c01535;
                             text-align: center;
-                            margin: 4px 0 3px 0;
-                            padding-top: 1px;
-                            font-size: 10.5px;
+                            margin: 6px 0 5px 0;
+                            padding-top: 2px;
+                            font-size: 11px;
                             font-weight: bold;
                             color: #c01535;
                         }
                         .state-unit-section {
-                            margin-top: 2px;
-                            font-size: 11px;
+                            margin-top: 4px;
+                            font-size: 11.5px;
                             color: #0b3c5d;
                         }
                         .bottom-note {
-                            font-size: 10px;
+                            font-size: 10.5px;
                             font-weight: bold;
-                            margin-top: 3px;
+                            margin-top: 5px;
                             color: #0b3c5d;
                         }
                     </style>
@@ -1441,7 +1441,7 @@ function maskAadhar(val) {
                         </table>
                         <div class="header-line"></div>
                         
-                        <table style="width:100%; border-collapse:collapse; margin-bottom:2px; font-weight:bold; font-size:12px;">
+                        <table style="width:100%; border-collapse:collapse; margin-bottom:3px; font-weight:bold; font-size:12.5px;">
                             <tr>
                                 <td style="border:none!important; text-align:left; color:#c01535;">ತಾಲ್ಲೂಕು : <span style="color:#c01535;">${fd.taluk || fd.city || '.........................'}</span></td>
                                 <td style="border:none!important; text-align:right; color:#c01535;">ಜಿಲ್ಲೆ : <span style="color:#c01535;">${fd.district || '.........................'}</span></td>
@@ -1458,103 +1458,103 @@ function maskAadhar(val) {
                                 <td style="padding:0!important; border:none!important; vertical-align:top;" colspan="3">
                                     <table style="width:100%; border-collapse:collapse;">
                                         <tr>
-                                            <td class="sl-col" style="width:6%; border:1px solid #333!important; padding:3px!important;">1</td>
-                                            <td class="label-col" style="width:34%; border:1px solid #333!important; padding:4px 5px!important;">ಅರ್ಜಿದಾರರ ಹೆಸರು</td>
-                                            <td class="value-col" style="border:1px solid #333!important; padding:4px 5px!important;">${fd.applicantName || fd.studentName || '-'}</td>
+                                            <td class="sl-col" style="width:6%; border:1px solid #333!important; padding:4px!important;">1</td>
+                                            <td class="label-col" style="width:34%; border:1px solid #333!important; padding:4.5px 6px!important;">ಅರ್ಜಿದಾರರ ಹೆಸರು</td>
+                                            <td class="value-col" style="border:1px solid #333!important; padding:4.5px 6px!important;">${fd.applicantName || fd.studentName || '-'}</td>
                                         </tr>
                                         <tr>
-                                            <td class="sl-col" style="border:1px solid #333!important; padding:3px!important;">2</td>
-                                            <td class="label-col" style="border:1px solid #333!important; padding:4px 5px!important;">ತಂದೆ/ಗಂಡನ ಹೆಸರು</td>
-                                            <td class="value-col" style="border:1px solid #333!important; padding:4px 5px!important;">${fd.fatherHusbandName || fd.fatherName || '-'}</td>
+                                            <td class="sl-col" style="border:1px solid #333!important; padding:4px!important;">2</td>
+                                            <td class="label-col" style="border:1px solid #333!important; padding:4.5px 6px!important;">ತಂದೆ/ಗಂಡನ ಹೆಸರು</td>
+                                            <td class="value-col" style="border:1px solid #333!important; padding:4.5px 6px!important;">${fd.fatherHusbandName || fd.fatherName || '-'}</td>
                                         </tr>
                                         <tr>
-                                            <td class="sl-col" style="border:1px solid #333!important; padding:3px!important;">3</td>
-                                            <td class="label-col" style="border:1px solid #333!important; padding:4px 5px!important;">ತಾಯಿಯ ಹೆಸರು</td>
-                                            <td class="value-col" style="border:1px solid #333!important; padding:4px 5px!important;">${fd.motherName || fd.guardianName || '-'}</td>
+                                            <td class="sl-col" style="border:1px solid #333!important; padding:4px!important;">3</td>
+                                            <td class="label-col" style="border:1px solid #333!important; padding:4.5px 6px!important;">ತಾಯಿಯ ಹೆಸರು</td>
+                                            <td class="value-col" style="border:1px solid #333!important; padding:4.5px 6px!important;">${fd.motherName || fd.guardianName || '-'}</td>
                                         </tr>
                                     </table>
                                 </td>
-                                <td class="photo-cell" style="width:100px; border:1px solid #333!important; text-align:center; vertical-align:middle; padding:2px!important; background:#ffffff;">
-                                    ${fd.photo ? '<img src="' + fd.photo + '" style="width:90px; height:105px; object-fit:cover; display:block; margin:0 auto; border:1px solid #333;">' : '<div class="photo-placeholder"><span style="color:#c01535; font-size:10px; font-weight:bold;">ಇತ್ತೀಚಿನ</span><br><span style="color:#c01535; font-size:10px; font-weight:bold;">ಭಾವ ಚಿತ್ರ</span></div>'}
+                                <td class="photo-cell" style="width:105px; border:1px solid #333!important; text-align:center; vertical-align:middle; padding:2px!important; background:#ffffff;">
+                                    ${fd.photo ? '<img src="' + fd.photo + '" style="width:95px; height:110px; object-fit:cover; display:block; margin:0 auto; border:1px solid #333;">' : '<div class="photo-placeholder"><span style="color:#c01535; font-size:10.5px; font-weight:bold;">ಇತ್ತೀಚಿನ</span><br><span style="color:#c01535; font-size:10.5px; font-weight:bold;">ಭಾವ ಚಿತ್ರ</span></div>'}
                                 </td>
                             </tr>
                             <tr>
-                                <td class="sl-col" style="padding:3px!important;">4</td>
-                                <td class="label-col" style="padding:4px 5px!important;">ಖಾಯಂ ವಾಸ ಸ್ಥಳ</td>
-                                <td class="value-col" colspan="2" style="padding:4px 5px!important;"><span style="color:#0b3c5d;">ಗ್ರಾಮ/ನಗರ :</span> &nbsp;&nbsp;<span style="color:#c01535;">${fd.city || fd.taluk || fd.district || '-'}</span></td>
+                                <td class="sl-col" style="padding:4px!important;">4</td>
+                                <td class="label-col" style="padding:4.5px 6px!important;">ಖಾಯಂ ವಾಸ ಸ್ಥಳ</td>
+                                <td class="value-col" colspan="2" style="padding:4.5px 6px!important;"><span style="color:#0b3c5d;">ಗ್ರಾಮ/ನಗರ :</span> &nbsp;&nbsp;<span style="color:#c01535;">${fd.city || fd.taluk || fd.district || '-'}</span></td>
                             </tr>
                             <tr>
-                                <td class="sl-col" style="padding:3px!important;">5</td>
-                                <td class="label-col" style="padding:4px 5px!important;">ಅಂಚೆ ವಿಳಾಸ</td>
-                                <td class="value-col" colspan="2" style="padding:4px 5px!important; line-height:1.3;">${fd.permanentAddress || fd.completeAddress || '-'}</td>
+                                <td class="sl-col" style="padding:4px!important;">5</td>
+                                <td class="label-col" style="padding:4.5px 6px!important;">ಅಂಚೆ ವಿಳಾಸ</td>
+                                <td class="value-col" colspan="2" style="padding:4.5px 6px!important; line-height:1.35;">${fd.permanentAddress || fd.completeAddress || '-'}</td>
                             </tr>
                             <tr>
-                                <td class="sl-col" style="padding:3px!important;">6</td>
-                                <td class="label-col" style="padding:4px 5px!important;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</td>
+                                <td class="sl-col" style="padding:4px!important;">6</td>
+                                <td class="label-col" style="padding:4.5px 6px!important;">ಹುಟ್ಟಿದ ದಿನಾಂಕ</td>
                                 <td class="value-col" colspan="2" style="padding:0!important;">
                                     <table style="width:100%; border-collapse:collapse; text-align:center;">
                                         <tr>
-                                            <td style="border:none!important; border-right:1px solid #333!important; width:28%; color:#c01535; font-weight:bold; font-size:11.5px; padding:4px 3px!important; vertical-align:middle;">
+                                            <td style="border:none!important; border-right:1px solid #333!important; width:28%; color:#c01535; font-weight:bold; font-size:12px; padding:5px 4px!important; vertical-align:middle;">
                                                 ${fd.dob || '-'}
                                             </td>
-                                            <td style="border:none!important; border-right:1px solid #333!important; width:15%; padding:3px 2px!important; vertical-align:middle;">
-                                                <div style="font-size:10px; font-weight:bold; color:#0b3c5d; margin-bottom:1px;">ಅಂಗ</div>
-                                                <div style="font-size:11px; font-weight:bold; color:#c01535;">${fd.gender || 'ಗಂಡು'}</div>
+                                            <td style="border:none!important; border-right:1px solid #333!important; width:15%; padding:4px 2px!important; vertical-align:middle;">
+                                                <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; margin-bottom:2px;">ಅಂಗ</div>
+                                                <div style="font-size:11.5px; font-weight:bold; color:#c01535;">${fd.gender || 'ಗಂಡು'}</div>
                                             </td>
-                                            <td style="border:none!important; border-right:1px solid #333!important; width:18%; padding:3px 2px!important; vertical-align:middle;">
-                                                <div style="font-size:10px; font-weight:bold; color:#0b3c5d; margin-bottom:1px;">ರಾಷ್ಟ್ರೀಯತೆ</div>
-                                                <div style="font-size:11px; font-weight:bold; color:#c01535;">ಭಾರತೀಯ</div>
+                                            <td style="border:none!important; border-right:1px solid #333!important; width:18%; padding:4px 2px!important; vertical-align:middle;">
+                                                <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; margin-bottom:2px;">ರಾಷ್ಟ್ರೀಯತೆ</div>
+                                                <div style="font-size:11.5px; font-weight:bold; color:#c01535;">ಭಾರತೀಯ</div>
                                             </td>
-                                            <td style="border:none!important; border-right:1px solid #333!important; width:16%; padding:3px 2px!important; vertical-align:middle;">
-                                                <div style="font-size:10px; font-weight:bold; color:#0b3c5d; margin-bottom:1px;">ಧರ್ಮ</div>
-                                                <div style="font-size:11px; font-weight:bold; color:#c01535;">ಇಸ್ಲಾಂ</div>
+                                            <td style="border:none!important; border-right:1px solid #333!important; width:16%; padding:4px 2px!important; vertical-align:middle;">
+                                                <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; margin-bottom:2px;">ಧರ್ಮ</div>
+                                                <div style="font-size:11.5px; font-weight:bold; color:#c01535;">ಇಸ್ಲಾಂ</div>
                                             </td>
-                                            <td style="border:none!important; width:23%; padding:3px 2px!important; vertical-align:middle;">
-                                                <div style="font-size:10px; font-weight:bold; color:#0b3c5d; margin-bottom:1px;">ಜಾತಿ</div>
-                                                <div style="font-size:11px; font-weight:bold; color:#c01535;">${fd.subCaste || 'ನದಾಫ್/ಪಿಂಜಾರ'}</div>
+                                            <td style="border:none!important; width:23%; padding:4px 2px!important; vertical-align:middle;">
+                                                <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; margin-bottom:2px;">ಜಾತಿ</div>
+                                                <div style="font-size:11.5px; font-weight:bold; color:#c01535;">${fd.subCaste || 'ನದಾಫ್/ಪಿಂಜಾರ'}</div>
                                             </td>
                                         </tr>
                                     </table>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="sl-col" style="padding:3px!important;">7</td>
-                                <td class="label-col" style="text-align:center; padding:4px 3px!important; vertical-align:middle;">
+                                <td class="sl-col" style="padding:4px!important;">7</td>
+                                <td class="label-col" style="text-align:center; padding:4.5px 4px!important; vertical-align:middle;">
                                     <div style="color:#0b3c5d; font-weight:bold; margin-bottom:2px;">ಶಿಕ್ಷಣ</div>
                                     <div style="color:#c01535; font-weight:bold;">${fd.education || '-'}</div>
                                 </td>
                                 <td class="value-col" colspan="2" style="padding:0!important;">
                                     <table style="width:100%; border-collapse:collapse; text-align:center;">
                                         <tr>
-                                            <td style="border:none!important; border-right:1px solid #333!important; width:50%; padding:4px 5px!important; vertical-align:middle;">
-                                                <div style="font-size:10px; font-weight:bold; color:#0b3c5d; margin-bottom:2px;">ಅರ್ಜಿದಾರರ ಆಧಾರ್ ಸಂಖ್ಯೆ</div>
-                                                <div style="font-size:11.5px; font-weight:bold; color:#c01535;">${maskAadhar(fd.aadhar)}</div>
+                                            <td style="border:none!important; border-right:1px solid #333!important; width:50%; padding:4.5px 6px!important; vertical-align:middle;">
+                                                <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; margin-bottom:2px;">ಅರ್ಜಿದಾರರ ಆಧಾರ್ ಸಂಖ್ಯೆ</div>
+                                                <div style="font-size:12px; font-weight:bold; color:#c01535;">${maskAadhar(fd.aadhar)}</div>
                                             </td>
-                                            <td style="border:none!important; width:50%; padding:4px 5px!important; vertical-align:middle;">
-                                                <div style="font-size:10px; font-weight:bold; color:#0b3c5d; margin-bottom:2px;">ಅರ್ಜಿದಾರರ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</div>
-                                                <div style="font-size:11.5px; font-weight:bold; color:#c01535;">${fd.mobile || fd.parentMobile || '-'}</div>
+                                            <td style="border:none!important; width:50%; padding:4.5px 6px!important; vertical-align:middle;">
+                                                <div style="font-size:10.5px; font-weight:bold; color:#0b3c5d; margin-bottom:2px;">ಅರ್ಜಿದಾರರ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</div>
+                                                <div style="font-size:12px; font-weight:bold; color:#c01535;">${fd.mobile || fd.parentMobile || '-'}</div>
                                             </td>
                                         </tr>
                                     </table>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="sl-col" style="padding:3px!important;">8</td>
-                                <td class="label-col" style="text-align:center; padding:4px 3px!important; vertical-align:middle;">
+                                <td class="sl-col" style="padding:4px!important;">8</td>
+                                <td class="label-col" style="text-align:center; padding:4.5px 4px!important; vertical-align:middle;">
                                     <div style="color:#0b3c5d; font-weight:bold; margin-bottom:2px;">ಉದ್ಯೋಗ</div>
                                     <div style="color:#c01535; font-weight:bold;">${fd.occupation || fd.parentOccupationIncome || '-'}</div>
                                 </td>
-                                <td class="value-col" style="width:50%; padding:4px 5px!important; text-align:center; vertical-align:middle;">
-                                    <div style="color:#0b3c5d; font-size:10px; font-weight:bold; line-height:1.2; margin-bottom:2px;">
+                                <td class="value-col" style="width:48%; padding:4.5px 6px!important; text-align:center; vertical-align:middle;">
+                                    <div style="color:#0b3c5d; font-size:10.5px; font-weight:bold; line-height:1.3; margin-bottom:2px;">
                                         ಆಜೀವ ಸದಸ್ಯತ್ವ / ಪೋಷಕ ಸದಸ್ಯತ್ವ<br>ಮಹಾಪೋಷಕ ಸದಸ್ಯತ್ವ
                                     </div>
-                                    <div style="color:#c01535; font-size:11.5px; font-weight:bold;">${fd.membershipType || 'ಆಜೀವ ಸದಸ್ಯತ್ವ'}</div>
+                                    <div style="color:#c01535; font-size:12px; font-weight:bold;">${fd.membershipType || 'ಆಜೀವ ಸದಸ್ಯತ್ವ'}</div>
                                 </td>
-                                <td class="value-col" style="width:25%; padding:4px 5px!important; text-align:center; vertical-align:middle;">
-                                    <div style="color:#0b3c5d; font-size:10px; font-weight:bold; margin-bottom:2px;">
-                                        ನಗದು / RTGS / ಚೆಕ್ / ಡಿಡಿ / ಇತರ
+                                <td class="value-col" style="width:27%; padding:4.5px 5px!important; text-align:center; vertical-align:middle;">
+                                    <div style="color:#0b3c5d; font-size:10.5px; font-weight:bold; line-height:1.35; margin-bottom:3px; white-space:normal; word-break:keep-all;">
+                                        ನಗದು / RTGS /<br>ಚೆಕ್ / ಡಿಡಿ / ಇತರ
                                     </div>
-                                    <div style="color:#c01535; font-size:11.5px; font-weight:bold;">${fd.paymentMode || 'ಆನ್‌ಲೈನ್'}</div>
+                                    <div style="color:#c01535; font-size:12px; font-weight:bold;">${fd.paymentMode || 'ಆನ್‌ಲೈನ್'}</div>
                                 </td>
                             </tr>
                         </table>
@@ -1563,27 +1563,27 @@ function maskAadhar(val) {
                             ಕರ್ನಾಟಕ ಸಂಘಗಳ ನೋಂದಣಿ ಕಾಯ್ದೆ 1960 ರ ಅಡಿಯಲ್ಲಿ ನೋಂದಾಯಿತ ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘದ ಬೈಲಾ ನಿಯಮಾವಳಿಗಳನ್ನು ಪೂರ್ತಿಯಾಗಿ ತಿಳಿದುಕೊಂಡು, ಉಲ್ಲೇಖಿತ ಸಂಘಕ್ಕೆ ಯಾವುದೇ ರೀತಿಯ ಹಾನಿಯುಂಟಾಗದಂತೆ, ಶ್ರದ್ಧೆ ಹಾಗೂ ಪ್ರಾಮಾಣಿಕತೆಯಿಂದ ನಡೆದುಕೊಳ್ಳುತ್ತೇನೆಂದು ಪ್ರಮಾಣೀಕರಿಸುತ್ತೇನೆ. ನನ್ನ ಅರ್ಜಿಯನ್ನು ಪರಿಶೀಲಿಸಿ ಸಂಘದ ಆಜೀವ ಸದಸ್ಯತ್ವವನ್ನು ನೀಡಬೇಕಾಗಿ ವಿನಂತಿಸಿಕೊಳ್ಳುತ್ತೇನೆ.
                         </div>
 
-                        <div class="signature-section" style="margin-top:4px; margin-bottom:2px;">
+                        <div class="signature-section">
                             <table class="signature-table" style="width:100%; border-collapse:collapse;">
                                 <tr>
-                                    <td style="width: 33%; text-align: left; color:#c01535; font-size:11.5px; border:none!important;"><strong>ಅರ್ಜಿ ದಿನಾಂಕ :</strong> ${fd.date || new Date().toLocaleDateString('kn-IN')}</td>
-                                    <td style="width: 34%; text-align: center; color:#c01535; font-weight:bold; font-size:11.5px; border:none!important;">ಸಂಘದ ಮುದ್ರೆಯೊಂದಿಗೆ ಸಹಿ</td>
-                                    <td style="width: 33%; text-align: right; font-weight: bold; color:#c01535; font-size:11.5px; border:none!important;">ಅರ್ಜಿದಾರರ ಸಹಿ</td>
+                                    <td style="width: 33%; text-align: left; color:#c01535; font-size:12px; border:none!important;"><strong>ಅರ್ಜಿ ದಿನಾಂಕ :</strong> ${fd.date || new Date().toLocaleDateString('kn-IN')}</td>
+                                    <td style="width: 34%; text-align: center; color:#c01535; font-weight:bold; font-size:12.5px; border:none!important;">ಸಂಘದ ಮುದ್ರೆಯೊಂದಿಗೆ ಸಹಿ</td>
+                                    <td style="width: 33%; text-align: right; font-weight: bold; color:#c01535; font-size:12px; border:none!important;">ಅರ್ಜಿದಾರರ ಸಹಿ</td>
                                 </tr>
                             </table>
                         </div>
 
-                        <table style="width:100%; border-collapse:collapse; margin-top:2px; margin-bottom:2px;">
+                        <table style="width:100%; border-collapse:collapse; margin-top:3px; margin-bottom:3px;">
                             <tr>
                                 <td style="width:100%; vertical-align:top; border:none!important; padding:0!important;">
-                                    <div style="display:flex; gap:20px; align-items:center;">
+                                    <div style="display:flex; gap:22px; align-items:center;">
                                         <div>
-                                            <span style="font-weight:bold; font-size:11px; color:#0b3c5d; min-width:80px; display:inline-block;">ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರು</span>
-                                            <span style="border:1.5px solid #000; height:20px; width:24px; display:inline-block; vertical-align:middle; margin-left:4px; background:#fff;"></span>
+                                            <span style="font-weight:bold; font-size:11.5px; color:#0b3c5d; min-width:82px; display:inline-block;">ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರು</span>
+                                            <span style="border:1.5px solid #000; height:22px; width:26px; display:inline-block; vertical-align:middle; margin-left:5px; background:#fff;"></span>
                                         </div>
                                         <div>
-                                            <span style="font-weight:bold; font-size:11px; color:#0b3c5d; min-width:80px; display:inline-block;">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು</span>
-                                            <span style="border:1.5px solid #000; height:20px; width:24px; display:inline-block; vertical-align:middle; margin-left:4px; background:#fff;"></span>
+                                            <span style="font-weight:bold; font-size:11.5px; color:#0b3c5d; min-width:82px; display:inline-block;">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರು</span>
+                                            <span style="border:1.5px solid #000; height:22px; width:26px; display:inline-block; vertical-align:middle; margin-left:5px; background:#fff;"></span>
                                         </div>
                                     </div>
                                 </td>
@@ -1598,17 +1598,17 @@ function maskAadhar(val) {
                             <table style="width:100%; border-collapse:collapse;">
                                 <tr>
                                     <td style="border:none!important; text-align:left; vertical-align:top; color:#0b3c5d; width:55%;">
-                                        <div style="font-size:11px; line-height:1.25;">
+                                        <div style="font-size:11.5px; line-height:1.3;">
                                             ಮೇಲ್ಕಂಡ ಅರ್ಜಿದಾರರನ್ನು ರಾಜ್ಯ ಘಟಕದಿಂದ<br>
                                             ಸಂಘದ ಆಜೀವ ಸದಸ್ಯತ್ವ ನೀಡಲು ತೀರ್ಮಾನಿಸಲಾಗಿದೆ.
                                         </div>
-                                        <div style="border:1.5px solid #0066cc; border-radius:4px; padding:4px 10px; margin-top:4px; width:300px; height:42px; box-sizing:border-box; background:#fff;">
-                                            <span style="font-weight:bold; font-size:11.5px; color:#c01535;">: ಆಜೀವ ಸದಸ್ಯತ್ವ ಸಂಖ್ಯೆ :</span>
+                                        <div style="border:1.5px solid #0066cc; border-radius:4px; padding:6px 12px; margin-top:5px; width:320px; height:48px; box-sizing:border-box; background:#fff;">
+                                            <span style="font-weight:bold; font-size:12px; color:#c01535;">: ಆಜೀವ ಸದಸ್ಯತ್ವ ಸಂಖ್ಯೆ :</span>
                                         </div>
                                     </td>
                                     <td style="border:none!important; text-align:right; vertical-align:bottom; width:45%; padding-bottom:2px;">
-                                        <div style="height:25px;"></div>
-                                        <span style="font-weight:bold; font-size:11px; color:#c01535;">ರಾಜ್ಯಾಧ್ಯಕ್ಷರ ಮೊಹರು/ ಸಹಿ,</span>
+                                        <div style="height:30px;"></div>
+                                        <span style="font-weight:bold; font-size:11.5px; color:#c01535;">ರಾಜ್ಯಾಧ್ಯಕ್ಷರ ಮೊಹರು/ ಸಹಿ,</span>
                                     </td>
                                 </tr>
                             </table>
@@ -1628,7 +1628,7 @@ function maskAadhar(val) {
                 }));
 
                 const opt = {
-                    margin: [2, 3, 2, 8],
+                    margin: [3, 4, 3, 10],
                     filename: `Life_Membership_${fd.applicantName || fd.studentName || 'Application'}.pdf`,
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0 },
