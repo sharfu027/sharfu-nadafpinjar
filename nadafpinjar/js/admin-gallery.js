@@ -109,7 +109,7 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         renderAdminGrid();
-        setupEventListeners();
+        setupEvents();
     });
 
     function renderAdminGrid() {
