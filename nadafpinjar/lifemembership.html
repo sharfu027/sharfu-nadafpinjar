@@ -857,14 +857,16 @@ function maskAadhar(val) {
         async function fetchMarqueeSetting() {
             try {
                 let res = await fetch("/api/settings").catch(() => null);
-                if (!res || !res.ok || !res.headers.get("content-type") || !res.headers.get("content-type").includes("application/json")) {
-                    res = await fetch("/api/settings").catch(() => null);
-                }
                 if (res && res.ok) {
-                    const data = await res.json().catch(() => null);
-                    if (data && data.success && data.lifemembershipMarqueeEnabled === false) {
-                        const marquee = document.getElementById("marqueeBanner");
-                        if (marquee) marquee.style.display = "none";
+                    const ct = res.headers.get("content-type");
+                    if (ct && ct.includes("application/json")) {
+                        const data = await res.json().catch(() => null);
+                        if (data && data.success) {
+                            const marquee = document.getElementById("marqueeBanner");
+                            if (marquee) {
+                                marquee.style.display = (data.lifemembershipMarqueeEnabled !== false) ? "block" : "none";
+                            }
+                        }
                     }
                 }
             } catch (err) {
@@ -938,14 +940,16 @@ function maskAadhar(val) {
         async function loadApplications() {
             try {
                 let res = await fetch("/api/donations?_=" + Date.now()).catch(() => null);
-                if (!res || !res.ok) {
-                    res = await fetch("/api/donations?_=" + Date.now()).catch(() => null);
-                }
                 
                 let remoteData = [];
                 if (res && res.ok) {
-                    const data = await res.json();
-                    remoteData = Array.isArray(data) ? data : (data.donations || []);
+                    const ct = res.headers.get("content-type");
+                    if (ct && ct.includes("application/json")) {
+                        const data = await res.json().catch(() => null);
+                        if (data) {
+                            remoteData = Array.isArray(data) ? data : (data.donations || []);
+                        }
+                    }
                 }
 
                 let localData = [];
@@ -958,10 +962,15 @@ function maskAadhar(val) {
                     deletedIds = JSON.parse(localStorage.getItem("nadaf_deleted_lifemembership_ids") || "[]");
                 } catch(e) {}
 
-                const remoteLifemembership = remoteData.filter(item => item.formType === "lifemembership");
-                const merged = [...remoteLifemembership];
+                const normalizedRemote = remoteData.map(item => {
+                    const unwrapped = (item.formData && typeof item.formData === 'object') ? { ...item.formData, ...item } : item;
+                    if (!unwrapped.id && unwrapped._id) unwrapped.id = unwrapped._id;
+                    return unwrapped;
+                }).filter(item => item.formType === "lifemembership" || item.membershipType);
+
+                const merged = [...normalizedRemote];
                 localData.forEach(loc => {
-                    if (!merged.some(m => m.id === loc.id || (m._id && loc._id && m._id === loc._id))) {
+                    if (!merged.some(m => (m.id && m.id === loc.id) || (m._id && loc._id && m._id === loc._id))) {
                         merged.push(loc);
                     }
                 });

@@ -6,7 +6,11 @@ let memoryStore = {
     submissions: [],
     settings: {
         pratibhaEnabled: true,
-        sadhakaEnabled: true
+        sadhakaEnabled: true,
+        lifemembershipMarqueeEnabled: true,
+        highereduMarqueeEnabled: true,
+        freeeduMarqueeEnabled: true,
+        censusMarqueeEnabled: true
     }
 };
 let lastSyncTime = 0;
@@ -23,7 +27,14 @@ async function syncFromCloud() {
             const json = await res.json();
             if (json && json.data) {
                 memoryStore.submissions = json.data.submissions || [];
-                memoryStore.settings = json.data.settings || { pratibhaEnabled: true, sadhakaEnabled: true };
+                memoryStore.settings = Object.assign({
+                    pratibhaEnabled: true,
+                    sadhakaEnabled: true,
+                    lifemembershipMarqueeEnabled: true,
+                    highereduMarqueeEnabled: true,
+                    freeeduMarqueeEnabled: true,
+                    censusMarqueeEnabled: true
+                }, json.data.settings || {});
                 lastSyncTime = now;
             }
         }
@@ -74,7 +85,11 @@ export default async function handler(req, res) {
             return res.status(200).json({
                 success: true,
                 enabled: memoryStore.settings.pratibhaEnabled !== false,
-                sadhakaMarqueeEnabled: memoryStore.settings.sadhakaEnabled !== false
+                sadhakaMarqueeEnabled: memoryStore.settings.sadhakaEnabled !== false,
+                lifemembershipMarqueeEnabled: memoryStore.settings.lifemembershipMarqueeEnabled !== false,
+                highereduMarqueeEnabled: memoryStore.settings.highereduMarqueeEnabled !== false,
+                freeeduMarqueeEnabled: memoryStore.settings.freeeduMarqueeEnabled !== false,
+                censusMarqueeEnabled: memoryStore.settings.censusMarqueeEnabled !== false
             });
         }
         if (method === 'POST') {
@@ -85,11 +100,27 @@ export default async function handler(req, res) {
             if (typeof body.sadhakaMarqueeEnabled !== 'undefined') {
                 memoryStore.settings.sadhakaEnabled = !!body.sadhakaMarqueeEnabled;
             }
+            if (typeof body.lifemembershipMarqueeEnabled !== 'undefined') {
+                memoryStore.settings.lifemembershipMarqueeEnabled = !!body.lifemembershipMarqueeEnabled;
+            }
+            if (typeof body.highereduMarqueeEnabled !== 'undefined') {
+                memoryStore.settings.highereduMarqueeEnabled = !!body.highereduMarqueeEnabled;
+            }
+            if (typeof body.freeeduMarqueeEnabled !== 'undefined') {
+                memoryStore.settings.freeeduMarqueeEnabled = !!body.freeeduMarqueeEnabled;
+            }
+            if (typeof body.censusMarqueeEnabled !== 'undefined') {
+                memoryStore.settings.censusMarqueeEnabled = !!body.censusMarqueeEnabled;
+            }
             await saveToCloud();
             return res.status(200).json({
                 success: true,
                 enabled: memoryStore.settings.pratibhaEnabled !== false,
-                sadhakaMarqueeEnabled: memoryStore.settings.sadhakaEnabled !== false
+                sadhakaMarqueeEnabled: memoryStore.settings.sadhakaEnabled !== false,
+                lifemembershipMarqueeEnabled: memoryStore.settings.lifemembershipMarqueeEnabled !== false,
+                highereduMarqueeEnabled: memoryStore.settings.highereduMarqueeEnabled !== false,
+                freeeduMarqueeEnabled: memoryStore.settings.freeeduMarqueeEnabled !== false,
+                censusMarqueeEnabled: memoryStore.settings.censusMarqueeEnabled !== false
             });
         }
     }

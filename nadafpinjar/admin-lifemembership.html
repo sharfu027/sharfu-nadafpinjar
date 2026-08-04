@@ -357,14 +357,14 @@ function maskAadhar(val) {
         async function fetchMarqueeTogglerState() {
             try {
                 let res = await fetch("/api/settings").catch(() => null);
-                if (!res || !res.ok || !res.headers.get("content-type") || !res.headers.get("content-type").includes("application/json")) {
-                    res = await fetch("/api/settings").catch(() => null);
-                }
                 if (res && res.ok) {
-                    const data = await res.json().catch(() => null);
-                    if (data && data.success) {
-                        const toggle = document.getElementById("marqueeToggle");
-                        if (toggle) toggle.checked = data.lifemembershipMarqueeEnabled !== false;
+                    const ct = res.headers.get("content-type");
+                    if (ct && ct.includes("application/json")) {
+                        const data = await res.json().catch(() => null);
+                        if (data && data.success) {
+                            const toggle = document.getElementById("marqueeToggle");
+                            if (toggle) toggle.checked = data.lifemembershipMarqueeEnabled !== false;
+                        }
                     }
                 }
             } catch (err) {
@@ -380,21 +380,20 @@ function maskAadhar(val) {
                     body: JSON.stringify({ lifemembershipMarqueeEnabled: checkbox.checked })
                 }).catch(() => null);
 
-                if (!res || !res.ok) {
-                    res = await fetch("/api/settings", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ lifemembershipMarqueeEnabled: checkbox.checked })
-                    }).catch(() => null);
-                }
-
                 if (res && res.ok) {
-                    const data = await res.json().catch(() => null);
-                    if (data && data.success) {
-                        alert("Settings updated successfully!");
+                    const ct = res.headers.get("content-type");
+                    if (ct && ct.includes("application/json")) {
+                        const data = await res.json().catch(() => null);
+                        if (data && data.success) {
+                            alert("Settings updated successfully!");
+                        } else {
+                            alert("Failed to save setting!");
+                        }
                     } else {
-                        alert("Failed to save setting!");
+                        alert("Settings updated successfully!");
                     }
+                } else {
+                    alert("Network error. Failed to save setting.");
                 }
             } catch (err) {
                 console.error("Error saving setting:", err);
@@ -434,15 +433,15 @@ function maskAadhar(val) {
         async function loadApplications() {
             try {
                 let res = await fetch("/api/donations?_=" + Date.now()).catch(() => null);
-                if (!res || !res.ok) {
-                    res = await fetch("/api/donations?_=" + Date.now()).catch(() => null);
-                }
                 
                 let remoteData = [];
                 if (res && res.ok) {
-                    const data = await res.json().catch(() => null);
-                    if (data) {
-                        remoteData = Array.isArray(data) ? data : (data.donations || []);
+                    const ct = res.headers.get("content-type");
+                    if (ct && ct.includes("application/json")) {
+                        const data = await res.json().catch(() => null);
+                        if (data) {
+                            remoteData = Array.isArray(data) ? data : (data.donations || []);
+                        }
                     }
                 }
 
@@ -456,10 +455,15 @@ function maskAadhar(val) {
                     deletedIds = JSON.parse(localStorage.getItem("nadaf_deleted_lifemembership_ids") || "[]");
                 } catch(e) {}
 
-                const remoteLife = remoteData.filter(item => item.formType === "lifemembership");
-                const merged = [...remoteLife];
+                const normalizedRemote = remoteData.map(item => {
+                    const unwrapped = (item.formData && typeof item.formData === 'object') ? { ...item.formData, ...item } : item;
+                    if (!unwrapped.id && unwrapped._id) unwrapped.id = unwrapped._id;
+                    return unwrapped;
+                }).filter(item => item.formType === "lifemembership" || item.membershipType);
+
+                const merged = [...normalizedRemote];
                 localData.forEach(loc => {
-                    if (!merged.some(m => m.id === loc.id || (m._id && loc._id && m._id === loc._id))) {
+                    if (!merged.some(m => (m.id && m.id === loc.id) || (m._id && loc._id && m._id === loc._id))) {
                         merged.push(loc);
                     }
                 });
