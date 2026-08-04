@@ -675,6 +675,63 @@
             });
         }
 
+        function rasterizeKannadaNodesLocal(containerEl) {
+            if (!containerEl) return;
+            const kannadaRegex = /[\u0C80-\u0CFF]/;
+            const allElements = Array.from(containerEl.querySelectorAll('*'));
+            allElements.forEach(el => {
+                if (!el || el.dataset.rasterized) return;
+                if (el.children.length > 0) return;
+                const text = (el.textContent || '').trim();
+                if (!text || !kannadaRegex.test(text)) return;
+                try {
+                    const computedStyle = window.getComputedStyle(el);
+                    const fontSizePx = parseFloat(computedStyle.fontSize) || 13.5;
+                    const fontWeight = computedStyle.fontWeight || '600';
+                    const fontStyleAttr = computedStyle.fontStyle || 'normal';
+                    const color = computedStyle.color || '#000000';
+                    const scale = 3;
+                    const scaledFontSize = Math.round(fontSizePx * scale);
+                    const fontSpec = `${fontStyleAttr} ${fontWeight} ${scaledFontSize}px "Noto Sans Kannada", "Tunga", "Kalinga", "Segoe UI", sans-serif`;
+
+                    const canvas = document.createElement('canvas');
+                    const testCtx = canvas.getContext('2d');
+                    testCtx.font = fontSpec;
+                    const textMetrics = testCtx.measureText(text);
+                    const measuredWidth = Math.ceil(textMetrics.width);
+                    const paddingX = Math.ceil(8 * scale);
+                    const paddingY = Math.ceil(4 * scale);
+                    const canvasWidth = measuredWidth + (paddingX * 2);
+                    const canvasHeight = Math.ceil(scaledFontSize * 1.5) + (paddingY * 2);
+
+                    canvas.width = canvasWidth;
+                    canvas.height = canvasHeight;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.font = fontSpec;
+                    ctx.fillStyle = color;
+                    ctx.textBaseline = 'middle';
+                    ctx.textAlign = 'left';
+                    ctx.fillText(text, paddingX, canvasHeight / 2);
+
+                    const img = document.createElement('img');
+                    img.src = canvas.toDataURL('image/png');
+                    img.style.width = (canvasWidth / scale).toFixed(2) + 'px';
+                    img.style.height = (canvasHeight / scale).toFixed(2) + 'px';
+                    img.style.maxWidth = '100%';
+                    img.style.objectFit = 'contain';
+                    img.style.verticalAlign = 'middle';
+                    img.style.display = 'inline-block';
+                    img.style.margin = '0';
+                    img.style.padding = '0';
+
+                    el.dataset.rasterized = 'true';
+                    el.innerHTML = '';
+                    el.appendChild(img);
+                } catch (e) {}
+            });
+        }
+
         // Indic-Safe HD Vector PDF/Print Receipt Engine
         async function printReceipt(data, appNumber) {
             const modal = document.getElementById('successModal');
@@ -705,20 +762,20 @@
             container.innerHTML = `
                 <div style="width:144mm; max-height:190mm; margin:2mm auto; border:none; padding:4px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; font-family:'Noto Sans Kannada', sans-serif; background:#ffffff;">
                     <div>
-                        <!-- HEADER BOX (YELLOW BACKGROUND) -->
-                        <table style="width:100%; border-collapse:collapse; border:2px solid #a00000; border-radius:6px; background-color:#FFD700!important; background:#FFD700!important; margin-bottom:3px;">
-                            <tr style="background-color:#FFD700!important; background:#FFD700!important;">
-                                <td style="width:85px; text-align:center; padding:2px 2px 2px 4px; vertical-align:middle; background-color:#FFD700!important; background:#FFD700!important;">
+                        <!-- HEADER BOX (LIGHT YELLOW BACKGROUND) -->
+                        <table style="width:100%; border-collapse:collapse; border:2px solid #a00000; border-radius:6px; background-color:#FFF3A0!important; background:#FFF3A0!important; margin-bottom:3px;">
+                            <tr style="background-color:#FFF3A0!important; background:#FFF3A0!important;">
+                                <td style="width:85px; text-align:center; padding:2px 2px 2px 4px; vertical-align:middle; background-color:#FFF3A0!important; background:#FFF3A0!important;">
                                     <img src="images/president.jpeg" style="width:75px; height:75px; border-radius:50%; border:1.5px solid #a00000; object-fit:cover;" onerror="this.src='images/president.png'">
                                 </td>
-                                <td style="text-align:center; vertical-align:middle; padding:2px 0; color:#990000; background-color:#FFD700!important; background:#FFD700!important;">
-                                    <div style="font-size:16px; font-weight:bold; color:#990000; margin:0; line-height:1.1; white-space:nowrap; background-color:#FFD700!important; background:#FFD700!important;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
-                                    <div style="font-size:9px; font-weight:bold; margin-top:1px; color:#990000; background-color:#FFD700!important; background:#FFD700!important;">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
-                                    <div style="font-size:10.5px; font-weight:bold; letter-spacing:0.3px; margin-top:1px; color:#990000; background-color:#FFD700!important; background:#FFD700!important;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
-                                    <div style="font-size:8.5px; font-weight:bold; color:#990000; background-color:#FFD700!important; background:#FFD700!important;">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
-                                    <div style="font-size:8.5px; font-weight:bold; color:#990000; background-color:#FFD700!important; background:#FFD700!important;">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
+                                <td style="text-align:center; vertical-align:middle; padding:2px 0; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important;">
+                                    <div style="font-size:16px; font-weight:bold; color:#990000; margin:0; line-height:1.1; white-space:nowrap; background-color:#FFF3A0!important; background:#FFF3A0!important;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                                    <div style="font-size:9px; font-weight:bold; margin-top:1px; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important;">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
+                                    <div style="font-size:10.5px; font-weight:bold; letter-spacing:0.3px; margin-top:1px; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
+                                    <div style="font-size:8.5px; font-weight:bold; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important;">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
+                                    <div style="font-size:8.5px; font-weight:bold; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important;">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                                 </td>
-                                <td style="width:85px; text-align:center; padding:2px 4px 2px 2px; vertical-align:middle; background-color:#FFD700!important; background:#FFD700!important;">
+                                <td style="width:85px; text-align:center; padding:2px 4px 2px 2px; vertical-align:middle; background-color:#FFF3A0!important; background:#FFF3A0!important;">
                                     <img src="images/logo-786.png" style="width:75px; height:75px; border-radius:50%; border:1.5px solid #a00000; object-fit:cover;">
                                 </td>
                             </tr>
@@ -784,6 +841,9 @@
             `;
 
             document.body.appendChild(container);
+            if (typeof rasterizeKannadaNodesLocal === 'function') {
+                rasterizeKannadaNodesLocal(container);
+            }
 
             const opt = {
                 margin: 0,

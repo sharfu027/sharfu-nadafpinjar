@@ -2888,20 +2888,20 @@ function loadAdminEmployees() {
         container.innerHTML = `
             <div style="width:144mm; max-height:190mm; margin:2mm auto; border:1.5px double #b30000; padding:4px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; font-family:'Noto Sans Kannada', sans-serif; background:#ffffff;">
                 <div>
-                    <!-- HEADER BOX (YELLOW BACKGROUND) -->
-                    <table style="width:100%; border-collapse:collapse; border:2px solid #a00000; border-radius:6px; background-color:#FFD700!important; background:#FFD700!important; margin-bottom:3px;">
-                        <tr style="background-color:#FFD700!important; background:#FFD700!important;">
-                            <td style="width:85px; text-align:center; padding:2px 2px 2px 4px; vertical-align:middle; background-color:#FFD700!important; background:#FFD700!important;">
+                    <!-- HEADER BOX (LIGHT YELLOW BACKGROUND) -->
+                    <table style="width:100%; border-collapse:collapse; border:2px solid #a00000; border-radius:6px; background-color:#FFF3A0!important; background:#FFF3A0!important; margin-bottom:3px;">
+                        <tr style="background-color:#FFF3A0!important; background:#FFF3A0!important;">
+                            <td style="width:85px; text-align:center; padding:2px 2px 2px 4px; vertical-align:middle; background-color:#FFF3A0!important; background:#FFF3A0!important;">
                                 <img src="images/president.jpeg" style="width:75px; height:75px; border-radius:50%; border:1.5px solid #a00000; object-fit:cover;" onerror="this.src='images/president.png'">
                             </td>
-                            <td style="text-align:center; vertical-align:middle; padding:2px 0; color:#990000; background-color:#FFD700!important; background:#FFD700!important;">
-                                <div style="font-size:16px; font-weight:bold; color:#990000; margin:0; line-height:1.1; white-space:nowrap; background-color:#FFD700!important; background:#FFD700!important;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
-                                <div style="font-size:9px; font-weight:bold; margin-top:1px; color:#990000; background-color:#FFD700!important; background:#FFD700!important;">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
-                                <div style="font-size:10.5px; font-weight:bold; letter-spacing:0.3px; margin-top:1px; color:#990000; background-color:#FFD700!important; background:#FFD700!important;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
-                                <div style="font-size:8.5px; font-weight:bold; color:#990000; background-color:#FFD700!important; background:#FFD700!important;">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
-                                <div style="font-size:8.5px; font-weight:bold; color:#990000; background-color:#FFD700!important; background:#FFD700!important;">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
+                            <td style="text-align:center; vertical-align:middle; padding:2px 0; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important;">
+                                <div style="font-size:16px; font-weight:bold; color:#990000; margin:0; line-height:1.1; white-space:nowrap; background-color:#FFF3A0!important; background:#FFF3A0!important;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                                <div style="font-size:9px; font-weight:bold; margin-top:1px; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important;">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
+                                <div style="font-size:10.5px; font-weight:bold; letter-spacing:0.3px; margin-top:1px; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
+                                <div style="font-size:8.5px; font-weight:bold; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important;">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
+                                <div style="font-size:8.5px; font-weight:bold; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important;">ಸಿಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                             </td>
-                            <td style="width:85px; text-align:center; padding:2px 4px 2px 2px; vertical-align:middle; background-color:#FFD700!important; background:#FFD700!important;">
+                            <td style="width:85px; text-align:center; padding:2px 4px 2px 2px; vertical-align:middle; background-color:#FFF3A0!important; background:#FFF3A0!important;">
                                 <img src="images/logo-786.png" style="width:75px; height:75px; border-radius:50%; border:1.5px solid #a00000; object-fit:cover;">
                             </td>
                         </tr>
