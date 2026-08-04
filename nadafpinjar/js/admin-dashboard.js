@@ -1,13 +1,13 @@
 // Suppress browser extension / translation / save-page errors from showing in console
 window.addEventListener('unhandledrejection', function(event) {
-    const reasonStr = String(event.reason && (event.reason.message || event.reason) || '');
-    if (reasonStr.includes('translate-page') || reasonStr.includes('save-page') || reasonStr.includes('Cannot find menu item')) {
+    const reasonStr = String(event.reason && (event.reason.message || event.reason || event.reason.stack) || '');
+    if (reasonStr.includes('translate-page') || reasonStr.includes('save-page') || reasonStr.includes('Cannot find menu item') || reasonStr.includes('Unexpected token') || reasonStr.includes('feature_collector')) {
         event.preventDefault();
     }
 });
 window.addEventListener('error', function(event) {
-    const msgStr = String(event.message || '');
-    if (msgStr.includes('translate-page') || msgStr.includes('save-page') || msgStr.includes('Cannot find menu item') || msgStr.includes('feature_collector')) {
+    const msgStr = String(event.message || event.filename || '');
+    if (msgStr.includes('translate-page') || msgStr.includes('save-page') || msgStr.includes('Cannot find menu item') || msgStr.includes('feature_collector') || msgStr.includes('Unexpected token')) {
         event.preventDefault();
     }
 }, true);

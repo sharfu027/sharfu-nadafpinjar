@@ -371,6 +371,7 @@ function maskAadhar(val) {
                 console.error("Error loading settings:", err);
             }
         }
+        window.fetchMarqueeTogglerState = fetchMarqueeTogglerState;
 
         async function toggleMarqueeSetting(checkbox) {
             try {
@@ -400,6 +401,7 @@ function maskAadhar(val) {
                 alert("Network error. Failed to save setting.");
             }
         }
+        window.toggleMarqueeSetting = toggleMarqueeSetting;
 
         function getDemoData() {
             return [
@@ -459,7 +461,11 @@ function maskAadhar(val) {
                     const unwrapped = (item.formData && typeof item.formData === 'object') ? { ...item.formData, ...item } : item;
                     if (!unwrapped.id && unwrapped._id) unwrapped.id = unwrapped._id;
                     return unwrapped;
-                }).filter(item => item.formType === "lifemembership" || item.membershipType);
+                }).filter(item => {
+                    if (!item) return false;
+                    const ft = String(item.formType || item.membershipType || '').toLowerCase();
+                    return ft.includes("life") || ft.includes("ಆಜೀವ") || (item.applicantName && !item.schoolCollegeName);
+                });
 
                 const merged = [...normalizedRemote];
                 localData.forEach(loc => {
@@ -472,10 +478,8 @@ function maskAadhar(val) {
                     return !deletedIds.includes(app.id) && (!app._id || !deletedIds.includes(app._id));
                 });
 
-                if (validApps.length === 0 && deletedIds.length === 0) {
+                if (validApps.length === 0) {
                     validApps = getDemoData();
-                } else if (validApps.length === 0) {
-                    validApps = getDemoData().filter(d => !deletedIds.includes(d.id));
                 }
 
                 allApplications = validApps;
@@ -486,7 +490,7 @@ function maskAadhar(val) {
                 try {
                     deletedIds = JSON.parse(localStorage.getItem("nadaf_deleted_lifemembership_ids") || "[]");
                 } catch(err) {}
-                allApplications = getDemoData().filter(d => !deletedIds.includes(d.id));
+                allApplications = getDemoData();
                 renderTable(allApplications);
             }
         }
