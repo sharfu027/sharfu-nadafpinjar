@@ -158,7 +158,7 @@
             <!-- Toggle Marquee Banner Setting -->
             <div class="switch-container">
                 <label class="switch">
-                    <input type="checkbox" id="marqueeToggle" onchange="toggleMarqueeSetting(this)">
+                    <input type="checkbox" id="marqueeToggle" checked onchange="toggleMarqueeSetting(this)">
                     <span class="slider"></span>
                 </label>
                 <span class="switch-label"><i class="fa fa-id-card" style="margin-right:6px; color:#990000;"></i> Enable "ಆಜೀವ ಸದಸ್ಯತ್ವ ಕೋರಿಕೆಯ ಅರ್ಜಿ" Marquee Banner on Public Page</span>
@@ -504,6 +504,8 @@ function maskAadhar(val) {
 
             let html = "";
             apps.forEach((app, idx) => {
+                const appId = String(app.id || app._id || ('LM-' + (idx + 1))).replace(/'/g, "\\'");
+                const appDbId = String(app._id || '').replace(/'/g, "\\'");
                 const status = app.status || "Approved";
                 let statusClass = "status-approved";
                 if (status === "Pending") statusClass = "status-pending";
@@ -512,7 +514,7 @@ function maskAadhar(val) {
                 html += `
                     <tr>
                         <td>${idx + 1}</td>
-                        <td><strong>${app.id || '-'}</strong></td>
+                        <td><strong>${app.id || app._id || '-'}</strong></td>
                         <td>${app.date || '-'}</td>
                         <td><strong>${app.applicantName || app.studentName || '-'}</strong></td>
                         <td>${app.fatherHusbandName || app.fatherName || '-'}</td>
@@ -521,10 +523,10 @@ function maskAadhar(val) {
                         <td>${app.membershipType || 'ಆಜೀವ ಸದಸ್ಯತ್ವ'}</td>
                         <td><span class="status-badge ${statusClass}">${status}</span></td>
                         <td>
-                            <button class="btn-view" onclick="openReviewModal('${app.id}')" style="background:#007bff; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer; margin-right:4px;">
+                            <button class="btn-view" onclick="openReviewModal('${appId}')" style="background:#007bff; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer; margin-right:4px;">
                                 <i class="fa fa-edit"></i> Review
                             </button>
-                            <button class="btn-view" onclick="deleteApplication('${app.id}', '${app._id || ''}')" style="background:#dc3545; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">
+                            <button class="btn-view" onclick="deleteApplication('${appId}', '${appDbId}')" style="background:#dc3545; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">
                                 <i class="fa fa-trash"></i> Delete
                             </button>
                         </td>
