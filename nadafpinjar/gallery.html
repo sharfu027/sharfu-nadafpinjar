@@ -5,18 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gallery - Karnataka State Nadaf / Pinjar Sangha</title>
     <script>
-        window.addEventListener('unhandledrejection', function(event) {
-            const reasonStr = String(event.reason && (event.reason.message || event.reason) || '');
-            if (reasonStr.includes('translate-page') || reasonStr.includes('save-page') || reasonStr.includes('Cannot find menu item')) {
-                event.preventDefault();
+        (function() {
+            function isExtensionError(err) {
+                if (!err) return false;
+                const str = String(err.message || err.reason || err.stack || err || '');
+                return str.includes('translate-page') || 
+                       str.includes('save-page') || 
+                       str.includes('Cannot find menu item') || 
+                       str.includes('feature_collector') ||
+                       str.includes('chrome-extension://') ||
+                       str.includes('moz-extension://');
             }
-        });
-        window.addEventListener('error', function(event) {
-            const msgStr = String(event.message || '');
-            if (msgStr.includes('translate-page') || msgStr.includes('save-page') || msgStr.includes('Cannot find menu item') || msgStr.includes('feature_collector')) {
-                event.preventDefault();
-            }
-        }, true);
+            window.addEventListener('unhandledrejection', function(event) {
+                if (isExtensionError(event.reason) || isExtensionError(event.promise)) {
+                    try { event.stopImmediatePropagation(); } catch(e){}
+                    try { event.preventDefault(); } catch(e){}
+                    return false;
+                }
+            }, true);
+            window.addEventListener('error', function(event) {
+                if (isExtensionError(event.error) || isExtensionError(event.message)) {
+                    try { event.stopImmediatePropagation(); } catch(e){}
+                    try { event.preventDefault(); } catch(e){}
+                    return false;
+                }
+            }, true);
+        })();
     </script>
     <link href="css/base.css" rel="stylesheet" media="all">
     <link href="css/base-responsive.css" rel="stylesheet" media="all">
