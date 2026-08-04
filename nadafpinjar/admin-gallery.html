@@ -8,7 +8,7 @@
         (function() {
             function isExtensionError(err) {
                 if (!err) return false;
-                const str = String(err.message || err.reason || err.stack || err || '');
+                const str = typeof err === 'object' ? (err.message || err.reason || err.stack || JSON.stringify(err)) : String(err);
                 return str.includes('translate-page') || 
                        str.includes('save-page') || 
                        str.includes('Cannot find menu item') || 
@@ -30,6 +30,13 @@
                     return false;
                 }
             }, true);
+            const origConsoleError = console.error;
+            console.error = function() {
+                for (let i = 0; i < arguments.length; i++) {
+                    if (isExtensionError(arguments[i])) return;
+                }
+                origConsoleError.apply(console, arguments);
+            };
         })();
     </script>
     <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
