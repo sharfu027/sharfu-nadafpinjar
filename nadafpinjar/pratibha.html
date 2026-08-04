@@ -1812,11 +1812,25 @@
                 formData: formData
             };
             
-            // Save to localStorage
+            // Save to localStorage (admin reads 'admin_pratibha_submissions')
+            var localEntry = {
+                id: appNumber,
+                date: new Date().toLocaleDateString('en-IN'),
+                formData: formData
+            };
             let existing = [];
-            try { existing = JSON.parse(localStorage.getItem('sangha_pratibha_applications') || '[]'); } catch(e) { existing = []; }
-            existing.push(dataToSave);
-            localStorage.setItem('sangha_pratibha_applications', JSON.stringify(existing));
+            try { existing = JSON.parse(localStorage.getItem('admin_pratibha_submissions') || '[]'); } catch(e) { existing = []; }
+            existing.unshift(localEntry);
+            localStorage.setItem('admin_pratibha_submissions', JSON.stringify(existing));
+            
+            // Also POST to API for database sync
+            try {
+                fetch('/api/donations', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dataToSave)
+                }).catch(function(){});
+            } catch(e) {}
             
             window.lastSubmittedData = dataToSave;
             

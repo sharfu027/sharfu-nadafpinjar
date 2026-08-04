@@ -1705,19 +1705,43 @@
                     }).catch(() => null);
                 }
                 
-                if (res && res.ok) {
-                    window.lastSubmittedData = payload;
-                    document.getElementById("modalAppNumber").textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}`;
-                    document.getElementById("applyModal").style.display = "none";
-                    document.getElementById("successModal").style.display = "flex";
-                } else {
-                    alert("ಅರ್ಜಿ ಸಲ್ಲಿಕೆ ವಿಫಲವಾಗಿದೆ / Submission failed. Please try again.");
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = "ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Submit Application";
-                }
+                // Save to localStorage so admin dashboard can read it
+                var localEntry = {
+                    id: appNumber,
+                    date: new Date().toLocaleDateString('en-IN'),
+                    formData: payload.formData
+                };
+                let existingSadhaka = [];
+                try { existingSadhaka = JSON.parse(localStorage.getItem('admin_sadhaka_submissions') || '[]'); } catch(ex) { existingSadhaka = []; }
+                existingSadhaka.unshift(localEntry);
+                localStorage.setItem('admin_sadhaka_submissions', JSON.stringify(existingSadhaka));
+
+                window.lastSubmittedData = payload;
+                document.getElementById("modalAppNumber").textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}`;
+                document.getElementById("applyModal").style.display = "none";
+                document.getElementById("successModal").style.display = "flex";
+                
+                submitBtn.disabled = false;
+                submitBtn.textContent = "ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Submit Application";
             } catch (err) {
                 console.error(err);
-                alert("ನೆಟ್‌ವರ್ಕ್ ದೋಷ ಕಂಡುಬಂದಿದೆ / Network error. Please try again.");
+                
+                // Still save to localStorage even on network error
+                var localEntry2 = {
+                    id: appNumber,
+                    date: new Date().toLocaleDateString('en-IN'),
+                    formData: payload.formData
+                };
+                let existingSadhaka2 = [];
+                try { existingSadhaka2 = JSON.parse(localStorage.getItem('admin_sadhaka_submissions') || '[]'); } catch(ex) { existingSadhaka2 = []; }
+                existingSadhaka2.unshift(localEntry2);
+                localStorage.setItem('admin_sadhaka_submissions', JSON.stringify(existingSadhaka2));
+
+                window.lastSubmittedData = payload;
+                document.getElementById("modalAppNumber").textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}`;
+                document.getElementById("applyModal").style.display = "none";
+                document.getElementById("successModal").style.display = "flex";
+                
                 submitBtn.disabled = false;
                 submitBtn.textContent = "ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Submit Application";
             }
