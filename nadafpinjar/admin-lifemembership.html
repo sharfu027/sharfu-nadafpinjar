@@ -356,15 +356,12 @@ function maskAadhar(val) {
 
         async function fetchMarqueeTogglerState() {
             try {
-                let res = await fetch("/api/settings").catch(() => null);
+                let res = await fetch("/api/settings?_=" + Date.now()).catch(() => null);
                 if (res && res.ok) {
-                    const ct = res.headers.get("content-type");
-                    if (ct && ct.includes("application/json")) {
-                        const data = await res.json().catch(() => null);
-                        if (data && data.success) {
-                            const toggle = document.getElementById("marqueeToggle");
-                            if (toggle) toggle.checked = data.lifemembershipMarqueeEnabled !== false;
-                        }
+                    const data = await res.json().catch(() => null);
+                    if (data && data.success) {
+                        const toggle = document.getElementById("marqueeToggle");
+                        if (toggle) toggle.checked = data.lifemembershipMarqueeEnabled !== false;
                     }
                 }
             } catch (err) {
@@ -382,16 +379,11 @@ function maskAadhar(val) {
                 }).catch(() => null);
 
                 if (res && res.ok) {
-                    const ct = res.headers.get("content-type");
-                    if (ct && ct.includes("application/json")) {
-                        const data = await res.json().catch(() => null);
-                        if (data && data.success) {
-                            alert("Settings updated successfully!");
-                        } else {
-                            alert("Failed to save setting!");
-                        }
-                    } else {
+                    const data = await res.json().catch(() => null);
+                    if (data && data.success) {
                         alert("Settings updated successfully!");
+                    } else {
+                        alert("Failed to save setting!");
                     }
                 } else {
                     alert("Network error. Failed to save setting.");
@@ -438,12 +430,9 @@ function maskAadhar(val) {
                 
                 let remoteData = [];
                 if (res && res.ok) {
-                    const ct = res.headers.get("content-type");
-                    if (ct && ct.includes("application/json")) {
-                        const data = await res.json().catch(() => null);
-                        if (data) {
-                            remoteData = Array.isArray(data) ? data : (data.donations || []);
-                        }
+                    const data = await res.json().catch(() => null);
+                    if (data) {
+                        remoteData = Array.isArray(data) ? data : (data.donations || []);
                     }
                 }
 
@@ -458,23 +447,21 @@ function maskAadhar(val) {
                 } catch(e) {}
 
                 const normalizedRemote = remoteData.map(item => {
-                    const unwrapped = (item.formData && typeof item.formData === 'object') ? { ...item.formData, ...item } : item;
+                    if (!item) return null;
+                    const unwrapped = (item.formData && typeof item.formData === 'object') ? { ...item.formData, ...item } : { ...item };
                     if (!unwrapped.id && unwrapped._id) unwrapped.id = unwrapped._id;
                     return unwrapped;
-                }).filter(item => {
-                    if (!item) return false;
-                    const ft = String(item.formType || item.membershipType || '').toLowerCase();
-                    return ft.includes("life") || ft.includes("ಆಜೀವ") || (item.applicantName && !item.schoolCollegeName);
-                });
+                }).filter(Boolean);
 
                 const merged = [...normalizedRemote];
                 localData.forEach(loc => {
-                    if (!merged.some(m => (m.id && m.id === loc.id) || (m._id && loc._id && m._id === loc._id))) {
+                    if (loc && !merged.some(m => (m.id && loc.id && m.id === loc.id) || (m._id && loc._id && m._id === loc._id))) {
                         merged.push(loc);
                     }
                 });
 
                 let validApps = merged.filter(app => {
+                    if (!app) return false;
                     return !deletedIds.includes(app.id) && (!app._id || !deletedIds.includes(app._id));
                 });
 
@@ -486,10 +473,6 @@ function maskAadhar(val) {
                 renderTable(allApplications);
             } catch(e) {
                 console.error("Error loading:", e);
-                let deletedIds = [];
-                try {
-                    deletedIds = JSON.parse(localStorage.getItem("nadaf_deleted_lifemembership_ids") || "[]");
-                } catch(err) {}
                 allApplications = getDemoData();
                 renderTable(allApplications);
             }
