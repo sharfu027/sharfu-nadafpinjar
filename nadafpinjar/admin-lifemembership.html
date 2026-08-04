@@ -432,7 +432,7 @@ function maskAadhar(val) {
                 if (res && res.ok) {
                     const data = await res.json().catch(() => null);
                     if (data) {
-                        remoteData = Array.isArray(data) ? data : (data.donations || []);
+                        remoteData = Array.isArray(data) ? data : (data.donations || data.data || []);
                     }
                 }
 
@@ -446,21 +446,27 @@ function maskAadhar(val) {
                     deletedIds = JSON.parse(localStorage.getItem("nadaf_deleted_lifemembership_ids") || "[]");
                 } catch(e) {}
 
-                const normalizedRemote = remoteData.map(item => {
+                const allRaw = [...remoteData, ...localData];
+                const normalized = allRaw.map(item => {
                     if (!item) return null;
                     const unwrapped = (item.formData && typeof item.formData === 'object') ? { ...item.formData, ...item } : { ...item };
                     if (!unwrapped.id && unwrapped._id) unwrapped.id = unwrapped._id;
                     return unwrapped;
-                }).filter(item => {
-                    if (!item) return false;
+                }).filter(Boolean);
+
+                const filtered = normalized.filter(item => {
                     const ft = String(item.formType || item.membershipType || '').toLowerCase();
-                    return ft.includes("life") || ft.includes("ಆಜೀವ") || (item.applicantName && !item.schoolCollegeName && !item.studentName);
+                    const isOther = ft.includes("pratibha") || ft.includes("ಪ್ರತಿಭಾ") || ft.includes("sadhaka") || ft.includes("ಸಾಧಕ") || ft.includes("census") || ft.includes("ಜನಗಣತಿ") || ft.includes("freeedu") || ft.includes("ಉಚಿತ") || ft.includes("employee") || ft.includes("ನೌಕರ");
+                    return !isOther;
                 });
 
-                const merged = [...normalizedRemote];
-                localData.forEach(loc => {
-                    if (loc && !merged.some(m => (m.id && loc.id && m.id === loc.id) || (m._id && loc._id && m._id === loc._id))) {
-                        merged.push(loc);
+                const merged = [];
+                const seen = new Set();
+                filtered.forEach(item => {
+                    const key = item.id || item._id || item.mobile || ((item.applicantName || item.studentName || '') + (item.mobile || ''));
+                    if (key && !seen.has(key)) {
+                        seen.add(key);
+                        merged.push(item);
                     }
                 });
 

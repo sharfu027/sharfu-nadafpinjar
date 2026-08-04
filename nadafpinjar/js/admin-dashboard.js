@@ -480,8 +480,7 @@ async function syncSubmissionsFromDatabase() {
         
         donationItems.forEach(doc => {
             try {
-                const formType = doc.formType;
-                if (!formType) return;
+                const formType = String(doc.formType || (doc.formData && doc.formData.formType) || doc.membershipType || (doc.formData && doc.formData.membershipType) || '').trim();
                 
                 // Map by formType
                 if (formType === "ಸಾಧಕ ಪ್ರಶಸ್ತಿ") {
