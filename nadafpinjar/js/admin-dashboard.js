@@ -605,6 +605,20 @@ async function syncSubmissionsFromDatabase() {
                         });
                         hasChanges = true;
                     }
+                } else if (formType === "lifemembership" || formType === "ಆಜೀವ ಸದಸ್ಯತ್ವ" || formType.includes("life")) {
+                    const appNum = doc.paymentId || doc.id || (doc.formData && doc.formData.id) || `LM-${parseInt((doc._id || '').slice(-4), 16) % 1000 || 555}`;
+                    if (deletedIds.includes(appNum)) return;
+                    
+                    let lifeList = JSON.parse(localStorage.getItem('nadaf_lifemembership_applications')) || [];
+                    const exists = lifeList.some(item => item.id === appNum || item._id === doc._id);
+                    if (!exists) {
+                        const itemObj = (doc.formData && typeof doc.formData === 'object') ? { ...doc.formData, ...doc } : { ...doc };
+                        itemObj.id = appNum;
+                        itemObj._id = doc._id || appNum;
+                        lifeList.unshift(itemObj);
+                        localStorage.setItem('nadaf_lifemembership_applications', JSON.stringify(lifeList));
+                        hasChanges = true;
+                    }
                 }
             } catch (err) {
                 console.error("Error processing sync doc:", doc, err);
@@ -660,6 +674,8 @@ function initPageModules() {
         loadAdminCensus();
     } else if (currentPath.includes("admin-employees")) {
         loadAdminEmployees();
+    } else if (currentPath.includes("admin-lifemembership")) {
+        if (window.loadApplications) window.loadApplications();
     } else if (currentPath.includes("admin-highereducation")) {
         if (window.loadHigherEducationApplications) window.loadHigherEducationApplications();
     }

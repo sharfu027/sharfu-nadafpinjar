@@ -451,7 +451,11 @@ function maskAadhar(val) {
                     const unwrapped = (item.formData && typeof item.formData === 'object') ? { ...item.formData, ...item } : { ...item };
                     if (!unwrapped.id && unwrapped._id) unwrapped.id = unwrapped._id;
                     return unwrapped;
-                }).filter(Boolean);
+                }).filter(item => {
+                    if (!item) return false;
+                    const ft = String(item.formType || item.membershipType || '').toLowerCase();
+                    return ft.includes("life") || ft.includes("ಆಜೀವ") || (item.applicantName && !item.schoolCollegeName && !item.studentName);
+                });
 
                 const merged = [...normalizedRemote];
                 localData.forEach(loc => {
@@ -477,6 +481,7 @@ function maskAadhar(val) {
                 renderTable(allApplications);
             }
         }
+        window.loadApplications = loadApplications;
 
         function renderTable(apps) {
             const tbody = document.getElementById("tableBody");

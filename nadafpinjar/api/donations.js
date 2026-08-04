@@ -170,14 +170,18 @@ export default async function handler(req, res) {
 
     // 4. POST Submission (/api/donations)
     if (method === 'POST') {
-        const body = req.body || {};
+        let body = req.body || {};
+        if (typeof body === 'string') {
+            try { body = JSON.parse(body); } catch(e) {}
+        }
         if (body && Object.keys(body).length > 0) {
+            const appId = body.id || body.paymentId || ('SUB-' + Date.now() + '-' + Math.floor(Math.random()*1000));
             const newItem = {
-                _id: body.paymentId || ('SUB-' + Date.now() + '-' + Math.floor(Math.random()*1000)),
-                paymentId: body.paymentId || ('SUB-' + Date.now()),
+                _id: appId,
+                paymentId: appId,
                 formType: body.formType || 'ಸಾಮಾನ್ಯ',
                 amount: body.amount || 0,
-                date: new Date().toLocaleDateString('en-IN'),
+                date: body.date || new Date().toLocaleDateString('en-IN'),
                 submittedAt: new Date().toISOString(),
                 formData: body.formData || body
             };
