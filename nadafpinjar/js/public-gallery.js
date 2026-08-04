@@ -141,11 +141,9 @@
 
             const headerVisual = coverSrc
                 ? `<div class="gallery-img-wrapper" style="position: relative; overflow: hidden; background: #0f172a;">
-                     <img src="${coverSrc}" class="gallery-card-img-real" onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\\'gallery-img-wrapper\\' style=\\'background: ${grad}; position: relative;\\'><span class=\\'coming-soon-badge\\'>${escapeHTML(badgeText)}</span><i class=\\'fa ${icon} gallery-img-placeholder\\'></i></div>';">
-                     <span class="coming-soon-badge">${escapeHTML(badgeText)}</span>
+                     <img src="${coverSrc}" class="gallery-card-img-real" onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\\'gallery-img-wrapper\\' style=\\'background: ${grad}; position: relative;\\'><i class=\\'fa ${icon} gallery-img-placeholder\\'></i></div>';">
                    </div>`
                 : `<div class="gallery-img-wrapper" style="background: ${grad}; position: relative;">
-                     <span class="coming-soon-badge">${escapeHTML(badgeText)}</span>
                      <i class="fa ${icon} gallery-img-placeholder"></i>
                    </div>`;
 

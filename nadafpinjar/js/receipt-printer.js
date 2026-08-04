@@ -436,11 +436,12 @@ function generateDonationPDF(data, paymentId, formTitle, formPrefix, subheaderTi
     }
     iframe.style.position = 'absolute';
     iframe.style.left = '-9999px';
-    iframe.style.top = '0';
+    iframe.style.top = '-9999px';
     iframe.style.width = '850px';
     iframe.style.height = '1200px';
     iframe.style.border = '0';
-    iframe.style.opacity = '1';
+    iframe.style.opacity = '0';
+    iframe.style.visibility = 'hidden';
     iframe.style.pointerEvents = 'none';
 
     const win = iframe.contentWindow;
