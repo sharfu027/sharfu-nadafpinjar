@@ -3,7 +3,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employees - Admin Dashboard</title>
+    <title>Employees Registration - Admin Dashboard</title>
+    <script>
+        (function() {
+            function isExtensionError(err) {
+                if (!err) return false;
+                var str = typeof err === 'object' ? (err.message || err.reason || err.stack || JSON.stringify(err)) : String(err);
+                return str.includes('translate-page') || str.includes('save-page') || str.includes('Cannot find menu item') || str.includes('feature_collector') || str.includes('chrome-extension://') || str.includes('moz-extension://');
+            }
+            window.addEventListener('unhandledrejection', function(event) {
+                if (isExtensionError(event.reason) || isExtensionError(event.promise)) { try { event.stopImmediatePropagation(); } catch(e){} try { event.preventDefault(); } catch(e){} return false; }
+            }, true);
+            window.addEventListener('error', function(event) {
+                if (isExtensionError(event.error) || isExtensionError(event.message)) { try { event.stopImmediatePropagation(); } catch(e){} try { event.preventDefault(); } catch(e){} return false; }
+            }, true);
+            var origErr = console.error;
+            console.error = function() { for (var i = 0; i < arguments.length; i++) { if (isExtensionError(arguments[i])) return; } origErr.apply(console, arguments); };
+        })();
+    </script>
     <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="css/admin-dashboard.css" rel="stylesheet" media="all">
     <style>
