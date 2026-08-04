@@ -8,6 +8,41 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ - Karnataka State Nadaf / Pinjar Sangha</title>
+    <script>
+        (function() {
+            function isExtensionError(err) {
+                if (!err) return false;
+                const str = typeof err === 'object' ? (err.message || err.reason || err.stack || JSON.stringify(err)) : String(err);
+                return str.includes('translate-page') || 
+                       str.includes('save-page') || 
+                       str.includes('Cannot find menu item') || 
+                       str.includes('feature_collector') ||
+                       str.includes('chrome-extension://') ||
+                       str.includes('moz-extension://');
+            }
+            window.addEventListener('unhandledrejection', function(event) {
+                if (isExtensionError(event.reason) || isExtensionError(event.promise)) {
+                    try { event.stopImmediatePropagation(); } catch(e){}
+                    try { event.preventDefault(); } catch(e){}
+                    return false;
+                }
+            }, true);
+            window.addEventListener('error', function(event) {
+                if (isExtensionError(event.error) || isExtensionError(event.message)) {
+                    try { event.stopImmediatePropagation(); } catch(e){}
+                    try { event.preventDefault(); } catch(e){}
+                    return false;
+                }
+            }, true);
+            const origConsoleError = console.error;
+            console.error = function() {
+                for (let i = 0; i < arguments.length; i++) {
+                    if (isExtensionError(arguments[i])) return;
+                }
+                origConsoleError.apply(console, arguments);
+            };
+        })();
+    </script>
     <link href="css/base.css?v=2" rel="stylesheet" media="all">
     <link href="css/base-responsive.css?v=2" rel="stylesheet" media="all">
     <link href="css/grid.css?v=2" rel="stylesheet" media="all">
@@ -1037,6 +1072,44 @@
             const allElements = Array.from(container.querySelectorAll('*'));
             allElements.forEach(processElement);
         }
+
+        function openApplyModal() {
+            const modal = document.getElementById('applyModal');
+            if (modal) modal.style.display = 'flex';
+        }
+        window.openApplyModal = openApplyModal;
+
+        function closeApplyModal() {
+            const modal = document.getElementById('applyModal');
+            if (modal) modal.style.display = 'none';
+        }
+        window.closeApplyModal = closeApplyModal;
+
+        function toggleMarqueePause(event, containerEl) {
+            if (event && event.target && (event.target.tagName.toLowerCase() === 'a' || event.target.closest('a'))) {
+                return;
+            }
+            if (containerEl) {
+                containerEl.classList.toggle('paused');
+            }
+        }
+        window.toggleMarqueePause = toggleMarqueePause;
+
+        function previewPhoto(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    base64Photo = e.target.result;
+                    const img = document.getElementById('photoPreview');
+                    if (img) {
+                        img.src = base64Photo;
+                        img.style.display = 'block';
+                    }
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        window.previewPhoto = previewPhoto;
 
         function handleLifeMembershipChange(selectEl) {
             if (selectEl && (selectEl.value === "ಹೌದು" || selectEl.value.includes("ಹೌದು"))) {
