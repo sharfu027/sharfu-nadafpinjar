@@ -204,36 +204,56 @@
         }
         .application-form-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0 12px;
             margin-bottom: 20px;
         }
+        .application-form-table tr {
+            display: flex;
+            flex-direction: column;
+            border: 1.5px solid #cbd5e0;
+            border-radius: 8px;
+            background: #ffffff;
+            padding: 12px 14px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
         .application-form-table th, .application-form-table td {
-            border: 1px solid #cbd5e0;
-            padding: 10px;
-            vertical-align: middle;
+            border: none !important;
+            padding: 2px 0 !important;
+            width: 100% !important;
+            display: block !important;
+            box-sizing: border-box;
         }
         .application-form-table .sl-no {
-            width: 40px;
-            text-align: center;
-            font-weight: bold;
-            background: #fff8eb;
-            color: #990000;
+            display: none !important;
         }
         .application-form-table .field-label {
-            width: 32%;
+            width: 100% !important;
             font-weight: bold;
-            color: #333;
-            font-size: 13.5px;
+            color: #990000;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+        .application-form-table .field-input {
+            width: 100% !important;
         }
         .application-form-table .field-input input,
         .application-form-table .field-input select,
         .application-form-table .field-input textarea {
-            width: 100%;
-            padding: 8px 10px;
+            width: 100% !important;
+            padding: 10px 12px;
             border: 1.5px solid #cbd5e0;
-            border-radius: 4px;
+            border-radius: 6px;
             box-sizing: border-box;
             font-size: 14px;
+            color: #1e293b;
+        }
+        .application-form-table .field-input input:focus,
+        .application-form-table .field-input select:focus,
+        .application-form-table .field-input textarea:focus {
+            border-color: #990000;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(153, 0, 0, 0.1);
         }
         .structured-cards-container {
             display: grid;
@@ -489,7 +509,7 @@
                             <td class="sl-no">4</td>
                             <td class="field-label">4. ಉದ್ಯೋಗ ಹಾಗೂ ವಾರ್ಷಿಕ ವರಮಾನ (Occupation & Income)</td>
                             <td class="field-input">
-                                <div style="display:flex; gap:10px;">
+                                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:10px;">
                                     <input type="text" id="occupation" placeholder="ಹುದ್ದೆ/ವೃತ್ತಿ (e.g. ವ್ಯಾಪಾರ, ಕೃಷಿ, ನೌಕರಿ)" required>
                                     <input type="text" id="annualIncome" placeholder="ವಾರ್ಷಿಕ ವರಮಾನ (e.g. ₹1,00,000/-)" required>
                                 </div>
@@ -504,7 +524,7 @@
                             <td class="sl-no">6</td>
                             <td class="field-label">6. ಜನ್ಮ ದಿನಾಂಕ, ವಯಸ್ಸು, ಲಿಂಗ & ಉಪ ಪಂಗಡ</td>
                             <td class="field-input">
-                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+                                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
                                     <!-- DOB Dropdowns (Day, Month, Year) -->
                                     <div>
                                         <label style="font-size:11.5px; font-weight:bold; color:#0b3c5d; display:block; margin-bottom:2px;">ಜನ್ಮ ದಿನಾಂಕ (Date of Birth)</label>
@@ -563,7 +583,7 @@
                             <td class="sl-no">7</td>
                             <td class="field-label">7. ಶೈಕ್ಷಣಿಕ ಅರ್ಹತೆ, ಆಧಾರ್ & ಮೊಬೈಲ್</td>
                             <td class="field-input">
-                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:10px;">
                                     <input type="text" id="education" placeholder="ಶಿಕ್ಷಣ / ಶೈಕ್ಷಣಿಕ ಅರ್ಹತೆ" required>
                                     <input type="text" id="aadhar" placeholder="ಆಧಾರ್ ಸಂಖ್ಯೆ (12 Digits)" maxlength="14" required>
                                     <input type="text" id="mobile" placeholder="ಮೊಬೈಲ್ ಸಂಖ್ಯೆ (10 Digits)" maxlength="10" required>
@@ -574,7 +594,7 @@
                             <td class="sl-no">8</td>
                             <td class="field-label">8. ಸದಸ್ಯತ್ವ ಕೋರಿಕೆ ವಿವರ & ಪಾವತಿ ವಿಧಾನ</td>
                             <td class="field-input">
-                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:10px;">
                                     <select id="membershipType" required>
                                         <option value="ಆಜೀವ ಸದಸ್ಯತ್ವ">ಆಜೀವ ಸದಸ್ಯತ್ವ (Life Membership)</option>
                                         <option value="ಪೋಷಕ ಸದಸ್ಯತ್ವ">ಪೋಷಕ ಸದಸ್ಯತ್ವ (Patron Membership)</option>
