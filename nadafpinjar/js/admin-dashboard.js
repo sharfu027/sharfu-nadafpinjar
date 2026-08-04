@@ -2868,22 +2868,25 @@ function loadAdminEmployees() {
 
         let deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಇಲಾಖೆಯ ಹೆಸರು';
         let locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳ';
+        let desigLabel = 'ಹುದ್ದೆಯ ಹೆಸರು';
         if (data.employeeType === 'ಖಾಸಗಿ ನೌಕರರ ಮಾಹಿತಿ') {
             deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಖಾಸಗಿ ಸಂಸ್ಥೆಯ ಹೆಸರು';
             locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳ';
+            desigLabel = 'ಹುದ್ದೆಯ ಹೆಸರು';
         } else if (data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') {
-            deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಇಲಾಖೆಯ ಹೆಸರು';
-            locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಸ್ಥಳ';
+            deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಕೊನೆಯ ಇಲಾಖೆಯ ಹೆಸರು';
+            locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿರುವ ಸ್ಥಳಗಳು';
+            desigLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಕೊನೆಯ ಹುದ್ದೆಯ ಹೆಸರು';
         }
 
         const container = document.createElement('div');
         container.style.width = '148mm';
-        container.style.height = '210mm';
+        container.style.height = 'auto';
         container.style.boxSizing = 'border-box';
         container.style.background = '#fff';
 
         container.innerHTML = `
-            <div style="width:144mm; height:204mm; margin:2mm auto; border:1.5px double #b30000; padding:4px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; font-family:'Noto Sans Kannada', sans-serif;">
+            <div style="width:144mm; max-height:190mm; margin:2mm auto; border:1.5px double #b30000; padding:4px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; font-family:'Noto Sans Kannada', sans-serif;">
                 <div>
                     <!-- HEADER BOX -->
                     <table style="width:100%; border-collapse:collapse; border:2px solid #a00000; border-radius:6px; background-color:#ffedc2!important; margin-bottom:3px;">
@@ -2928,6 +2931,10 @@ function loadAdminEmployees() {
                             <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;" colspan="3">${data.permanentAddress || '-'}</td>
                         </tr>
                         <tr>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">${locLabel} :</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;" colspan="3">${data.servicePlace || '-'}</td>
+                        </tr>
+                        <tr>
                             <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
                             <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;">${data.contactNumber || '-'}</td>
                             <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">ವಿದ್ಯಾರ್ಹತೆ :</td>
@@ -2942,15 +2949,14 @@ function loadAdminEmployees() {
                         <tr>
                             <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">${deptLabel} :</td>
                             <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;">${data.departmentName || '-'}</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">${locLabel} :</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;">${data.workLocation || '-'}</td>
-                        </tr>
-                        <tr>
-                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">ಹುದ್ದೆಯ ಹೆಸರು :</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">${desigLabel} :</td>
                             <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;">${data.designation || '-'}</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">${data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ' ? 'ನಿವೃತ್ತಿ ದಿನಾಂಕ :' : ''}</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;">${data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ' ? formattedRetirement : ''}</td>
                         </tr>
+                        ${data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ' ? `
+                        <tr>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; background:#fffcf5; color:#b30000; font-weight:bold;">ನಿವೃತ್ತಿ ದಿನಾಂಕ :</td>
+                            <td style="border:1px solid #b30000; padding:2.5px 4px; font-size:10px; color:#000000!important; font-weight:bold;" colspan="3">${formattedRetirement}</td>
+                        </tr>` : ''}
                     </table>
                 </div>
 
@@ -2970,7 +2976,8 @@ function loadAdminEmployees() {
             filename: `Employee_${appNumber || 'Details'}.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
-            jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' }
+            jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' },
+            pagebreak: { mode: ['avoid-all', 'css'] }
         };
 
         if (window.html2pdf) {
