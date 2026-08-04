@@ -1209,6 +1209,14 @@
             document.body.style.overflow = "auto";
         }
 
+        function maskAadhar(num) {
+            if (!num) return '-';
+            const cleaned = String(num).replace(/\s+/g, '');
+            if (cleaned.length < 4) return cleaned;
+            const last4 = cleaned.slice(-4);
+            return 'XXXX XXXX ' + last4;
+        }
+
         async function downloadShowcaseForm() {
             const fd = window.currentViewedStudent;
             if (!fd) { alert("ದಯವಿಟ್ಟು ಮೊದಲು ವಿವರಗಳನ್ನು ತೆರೆಯಿರಿ."); return; }
@@ -1452,7 +1460,7 @@
                             <tr>
                                 <td class="sl-col">6</td>
                                 <td class="label-col">ಸಾಧಕರ ಆಧಾರ ಸಂಖ್ಯೆ</td>
-                                <td class="value-col" colspan="2">${fd.aadhar || '-'}</td>
+                                <td class="value-col" colspan="2">${maskAadhar(fd.aadhar)}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">7</td>
@@ -1469,7 +1477,7 @@
                                 <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಮೊ. ನಂ.</td>
                                 <td class="value-col-split">${fd.parentMobile || '-'}</td>
                                 <td class="photo-cell" rowspan="4">
-                                    ${fd.photo ? '<img src="' + fd.photo + '" style="max-width:105px; max-height:115px; width:auto; height:auto; object-fit:contain; display:block; margin:0 auto; border:1px solid #000;">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
+                                    ${fd.photo ? '<img src="' + fd.photo + '" style="width:95px; height:110px; object-fit:cover; display:block; margin:0 auto; border:1px solid #000;">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
                                 </td>
                             </tr>
                             <tr>
@@ -1672,7 +1680,7 @@
                     bankName: document.getElementById("bankName") ? document.getElementById("bankName").value : "",
                     ifsc: document.getElementById("ifsc") ? document.getElementById("ifsc").value : "",
                     bankDetails: document.getElementById("bankDetails") ? document.getElementById("bankDetails").value : "",
-                    photo: typeof base64Photo !== "undefined" ? base64Photo : "",
+                    photo: base64Photo,
                     city: document.getElementById("city") ? document.getElementById("city").value : "",
                     year: document.getElementById("year") ? document.getElementById("year").value : "2025-26",
                     category: document.getElementById("category") ? translateToKannada(document.getElementById("category").value, 'category') : "",
@@ -1973,7 +1981,7 @@
                             <tr>
                                 <td class="sl-col">6</td>
                                 <td class="label-col">ಸಾಧಕರ ಆಧಾರ ಸಂಖ್ಯೆ</td>
-                                <td class="value-col" colspan="2">${fd.aadhar || '-'}</td>
+                                <td class="value-col" colspan="2">${maskAadhar(fd.aadhar)}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">7</td>
@@ -1990,7 +1998,7 @@
                                 <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಮೊ. ನಂ.</td>
                                 <td class="value-col-split">${fd.parentMobile || '-'}</td>
                                 <td class="photo-cell" rowspan="4">
-                                    ${fd.photo ? '<img src="' + fd.photo + '" style="max-width:105px; max-height:115px; width:auto; height:auto; object-fit:contain; display:block; margin:0 auto; border:1px solid #000;">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
+                                    ${fd.photo ? '<img src="' + fd.photo + '" style="width:95px; height:110px; object-fit:cover; display:block; margin:0 auto; border:1px solid #000;">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
                                 </td>
                             </tr>
                             <tr>

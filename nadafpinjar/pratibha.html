@@ -1780,6 +1780,85 @@
                 }
             }
         }
+
+        function submitApplication(event) {
+            event.preventDefault();
+            
+            const formData = {
+                studentName: document.getElementById('studentName').value,
+                fatherName: document.getElementById('fatherName').value,
+                guardianName: (document.getElementById('guardianName') || {}).value || '',
+                parentOccupationIncome: document.getElementById('parentOccupationIncome').value,
+                completeAddress: document.getElementById('completeAddress').value,
+                aadhar: document.getElementById('aadhar').value,
+                lifeMembership: document.getElementById('lifeMembership').value,
+                marksDetails: document.getElementById('marksDetails').value,
+                parentMobile: document.getElementById('parentMobile').value,
+                bankName: document.getElementById('bankName').value,
+                bankAccount: document.getElementById('bankAccount').value,
+                ifsc: document.getElementById('ifsc').value,
+                photo: typeof base64Photo !== 'undefined' ? base64Photo : '',
+                submittedAt: new Date().toISOString(),
+                status: 'Pending'
+            };
+            
+            const lastDigits = Math.floor(Math.random() * 9000) + 1000;
+            const appNumber = 'PP-' + new Date().getFullYear() + '-' + lastDigits;
+            
+            const dataToSave = {
+                formType: 'ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ',
+                amount: 0,
+                paymentId: appNumber,
+                formData: formData
+            };
+            
+            // Save to localStorage
+            let existing = [];
+            try { existing = JSON.parse(localStorage.getItem('sangha_pratibha_applications') || '[]'); } catch(e) { existing = []; }
+            existing.push(dataToSave);
+            localStorage.setItem('sangha_pratibha_applications', JSON.stringify(existing));
+            
+            window.lastSubmittedData = dataToSave;
+            
+            // Show success modal
+            document.getElementById('modalAppNumber').textContent = 'ಅರ್ಜಿ ಸಂಖ್ಯೆ: ' + appNumber;
+            document.getElementById('successModal').style.display = 'flex';
+            document.getElementById('applyModal').style.display = 'none';
+        }
+        window.submitApplication = submitApplication;
+
+        async function downloadSubmittedForm() {
+            if (!window.lastSubmittedData) return;
+            const data = window.lastSubmittedData;
+            const fd = data.formData;
+            
+            // Temporarily set window.currentViewedStudent so downloadShowcaseForm can use it
+            window.currentViewedStudent = fd;
+            
+            // Mock data for paymentId inside downloadShowcaseForm if needed
+            window.data = data; 
+
+            await downloadShowcaseForm();
+        }
+        window.downloadSubmittedForm = downloadSubmittedForm;
+
+        function loadHtml2Pdf() {
+            return new Promise((resolve, reject) => {
+                if (window.html2pdf) return resolve(window.html2pdf);
+                const s = document.createElement('script');
+                s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+                s.onload = () => resolve(window.html2pdf);
+                s.onerror = reject;
+                document.head.appendChild(s);
+            });
+        }
+
+        function shouldShowDownloadAlert(type, id) {
+            const key = 'download_alert_' + type + '_' + id;
+            if (localStorage.getItem(key)) return false;
+            localStorage.setItem(key, '1');
+            return true;
+        }
     </script>
 </body>
 </html>
