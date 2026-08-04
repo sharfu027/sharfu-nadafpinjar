@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Life Membership Applications - Admin Dashboard</title>
@@ -923,6 +926,13 @@ function maskAadhar(val) {
             `;
 
             document.body.appendChild(element);
+            if (document.fonts) { await document.fonts.ready.catch(() => null); }
+            const images = Array.from(element.querySelectorAll('img'));
+            await Promise.all(images.map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
+            }));
+
             const opt = {
                 margin: [3, 4, 3, 10],
                 filename: `Life_Membership_${fd.applicantName || fd.studentName || 'Application'}.pdf`,
