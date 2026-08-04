@@ -137,13 +137,21 @@
             const icon = icons[index % icons.length];
             const grad = gradients[index % gradients.length];
             const badgeText = alb.badge || 'ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ / Soon';
+            const coverSrc = alb.coverImage;
+
+            const headerVisual = coverSrc
+                ? `<div class="gallery-img-wrapper" style="position: relative; overflow: hidden; background: #0f172a;">
+                     <img src="${coverSrc}" class="gallery-card-img-real" onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\\'gallery-img-wrapper\\' style=\\'background: ${grad}; position: relative;\\'><span class=\\'coming-soon-badge\\'>${escapeHTML(badgeText)}</span><i class=\\'fa ${icon} gallery-img-placeholder\\'></i></div>';">
+                     <span class="coming-soon-badge">${escapeHTML(badgeText)}</span>
+                   </div>`
+                : `<div class="gallery-img-wrapper" style="background: ${grad}; position: relative;">
+                     <span class="coming-soon-badge">${escapeHTML(badgeText)}</span>
+                     <i class="fa ${icon} gallery-img-placeholder"></i>
+                   </div>`;
 
             return `
                 <div class="gallery-card" onclick="openPublicAlbumModal('${alb.id}')">
-                    <div class="gallery-img-wrapper" style="background: ${grad}; position: relative;">
-                        <span class="coming-soon-badge">${escapeHTML(badgeText)}</span>
-                        <i class="fa ${icon} gallery-img-placeholder"></i>
-                    </div>
+                    ${headerVisual}
                     <div class="gallery-card-content">
                         <h3>${escapeHTML(alb.title)}</h3>
                         <p>${escapeHTML(alb.description)}</p>

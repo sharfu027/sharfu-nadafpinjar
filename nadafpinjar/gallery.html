@@ -83,6 +83,16 @@
         .gallery-card:hover .gallery-img-placeholder {
             transform: scale(1.1);
         }
+        .gallery-card-img-real {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        .gallery-card:hover .gallery-card-img-real {
+            transform: scale(1.05);
+        }
         .gallery-card-content {
             padding: 20px;
         }
