@@ -40,8 +40,12 @@
             date: '2026-05-10',
             location: 'ವಿಜಯಪುರ (Vijayapura)',
             description: 'ವಿವಿಧ ಜಿಲ್ಲೆಗಳ ಪದಾಧಿಕಾರಿಗಳೊಂದಿಗೆ ನಡೆದ ಜಿಲ್ಲಾ ಮಟ್ಟದ ಪ್ರಗತಿ ಪರಿಶೀಲನಾ ಸಭೆ ಮತ್ತು ಸನ್ಮಾನ ಕಾರ್ಯಕ್ರಮ.',
-            coverImage: '',
-            photos: []
+            coverImage: 'images/slider-3.jpg',
+            photos: [
+                'images/slider-3.jpg',
+                'images/slider-1.jpg',
+                'images/president.jpeg'
+            ]
         },
         {
             id: 'alb_4',
@@ -49,8 +53,12 @@
             date: '2026-04-05',
             location: 'ಹುಬ್ಬಳ್ಳಿ (Hubballi)',
             description: 'ಸಮುದಾಯದ ಅಭಿವೃದ್ಧಿ, ಶೈಕ್ಷಣಿಕ ಸೌಲಭ್ಯಗಳು ಹಾಗೂ ಸಂಘಟನಾತ್ಮಕ ಹಕ್ಕುಗಳ ಬಗ್ಗೆ ವ್ಯಾಪಕ ಜಾಗೃತಿ ಮೂಡಿಸುವ ಬೃಹತ್ ಸಭಾವಳಿ.',
-            coverImage: '',
-            photos: []
+            coverImage: 'images/slider-1.jpg',
+            photos: [
+                'images/slider-1.jpg',
+                'images/slider-2.jpg',
+                'images/logo-786.png'
+            ]
         }
     ];
 
@@ -62,14 +70,17 @@
                 albums = DEFAULT_ALBUMS;
             }
 
-            // Automatically sanitize any old cached banner-bg.jpg / section-rural-bg.jpg references
+            // Automatically sanitize any old cached banner-bg.jpg / section-rural-bg.jpg / empty photos
             let cleaned = false;
-            albums.forEach(alb => {
-                if (alb.coverImage && (alb.coverImage.includes('banner-bg.jpg') || alb.coverImage.includes('section-rural-bg.jpg'))) {
-                    alb.coverImage = alb.coverImage.includes('section-rural-bg.jpg') ? 'images/slider-2.jpg' : 'images/slider-1.jpg';
+            albums.forEach((alb, idx) => {
+                if (!alb.coverImage || alb.coverImage.includes('banner-bg.jpg') || alb.coverImage.includes('section-rural-bg.jpg')) {
+                    alb.coverImage = (DEFAULT_ALBUMS[idx] && DEFAULT_ALBUMS[idx].coverImage) || 'images/slider-1.jpg';
                     cleaned = true;
                 }
-                if (Array.isArray(alb.photos)) {
+                if (!Array.isArray(alb.photos) || alb.photos.length === 0) {
+                    alb.photos = (DEFAULT_ALBUMS[idx] && DEFAULT_ALBUMS[idx].photos) || ['images/slider-1.jpg', 'images/slider-2.jpg', 'images/president.jpeg'];
+                    cleaned = true;
+                } else {
                     alb.photos = alb.photos.map(p => {
                         if (p.includes('banner-bg.jpg')) { cleaned = true; return 'images/slider-1.jpg'; }
                         if (p.includes('section-rural-bg.jpg')) { cleaned = true; return 'images/slider-2.jpg'; }
@@ -93,6 +104,13 @@
     document.addEventListener('DOMContentLoaded', function() {
         renderPublicGrid();
         setupModalEvents();
+    });
+
+    // Listen to storage changes from admin updates
+    window.addEventListener('storage', function(e) {
+        if (!e.key || e.key === STORAGE_KEY) {
+            renderPublicGrid();
+        }
     });
 
     function renderPublicGrid() {
