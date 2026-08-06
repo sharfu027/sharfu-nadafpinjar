@@ -3508,56 +3508,60 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             vertical-align: middle;
                         }
                         .header-logo-left {
-                            width: 80px;
+                            width: 90px;
                             text-align: left;
                         }
                         .header-logo-left img {
-                            width: 80px !important;
-                            height: 80px !important;
-                            min-width: 80px !important;
-                            max-width: 80px !important;
-                            min-height: 80px !important;
-                            max-height: 80px !important;
+                            width: 85px !important;
+                            height: 85px !important;
+                            min-width: 85px !important;
+                            max-width: 85px !important;
+                            min-height: 85px !important;
+                            max-height: 85px !important;
                             border-radius: 50% !important;
                             object-fit: cover !important;
                             display: block;
                         }
                         .header-logo-right {
-                            width: 80px;
+                            width: 90px;
                             text-align: right;
                         }
                         .header-logo-right img {
-                            width: 80px !important;
-                            height: 80px !important;
-                            min-width: 80px !important;
-                            max-width: 80px !important;
-                            min-height: 80px !important;
-                            max-height: 80px !important;
+                            width: 85px !important;
+                            height: 85px !important;
+                            min-width: 85px !important;
+                            max-width: 85px !important;
+                            min-height: 85px !important;
+                            max-height: 85px !important;
                             border-radius: 50% !important;
                             object-fit: cover !important;
                             display: block;
                             margin-left: auto;
                         }
                         .header-text {
-                            text-align: center;
+                            text-align: center !important;
+                            margin: 0 auto;
                             padding: 0 4px;
                         }
                         .header-text h1 {
-                            margin: 0;
-                            font-size: 18px;
+                            margin: 0 auto;
+                            font-size: 22px;
                             white-space: nowrap !important;
                             font-weight: bold;
                             color: #000;
+                            text-align: center;
                         }
                         .header-text h2 {
-                            margin: 2px 0 0 0;
-                            font-size: 13.5px;
-                            font-weight: bold;
-                        }
-                        .header-text h3 {
-                            margin: 2px 0 0 0;
+                            margin: 2px auto 0 auto;
                             font-size: 14.5px;
                             font-weight: bold;
+                            text-align: center;
+                        }
+                        .header-text h3 {
+                            margin: 2px auto 0 auto;
+                            font-size: 15.5px;
+                            font-weight: bold;
+                            text-align: center;
                         }
                         .details-table {
                             width: 100%;
@@ -3598,26 +3602,40 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             line-height: 1.55 !important;
                         }
                         .photo-cell {
-                            width: 110px;
+                            width: 105px !important;
+                            max-width: 105px !important;
                             text-align: center !important;
                             vertical-align: middle !important;
                             padding: 2px !important;
+                            box-sizing: border-box !important;
+                            overflow: hidden !important;
                         }
                         .photo-cell img {
-                            max-width: 95px !important;
-                            max-height: 100px !important;
-                            width: 95px !important;
-                            height: 100px !important;
+                            max-width: 85px !important;
+                            max-height: 85px !important;
+                            width: 85px !important;
+                            height: 85px !important;
                             object-fit: cover !important;
-                            display: block;
-                            margin: 0 auto;
+                            display: block !important;
+                            margin: 0 auto !important;
+                            border: 1px solid #000 !important;
+                            box-sizing: border-box !important;
                         }
                         .photo-placeholder {
                             border: 1px dashed #666;
-                            padding: 14px 4px;
-                            font-size: 12px;
+                            width: 85px !important;
+                            height: 85px !important;
+                            max-width: 85px !important;
+                            max-height: 85px !important;
+                            font-size: 10px;
                             color: #555;
                             text-align: center;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto;
+                            background: #fafafa;
+                            box-sizing: border-box !important;
                         }
                         .signature-section { margin-top: 8px; margin-bottom: 24px !important; }
                         .signature-table {
@@ -3688,12 +3706,12 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         <img src="${origin}/images/president_circular.png" onerror="this.src='${origin}/images/president.jpeg'">
                     </td>
                     <td class="header-text">
-                        <h1 style="font-size: 18px; white-space: nowrap; margin: 0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ) ಶಿವಮೊಗ್ಗ</h1>
+                        <h1 style="font-size: 22px; white-space: nowrap; margin: 0 auto; text-align: center;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ) ಶಿವಮೊಗ್ಗ</h1>
                         <h2>ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
                         <h3>ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳು ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
                     </td>
                     <td class="header-logo-right">
-                        <img src="${origin}/images/logo-786.png" onerror="this.src='images/logo-786.png'">
+                        <img src="${origin}/images/logo-786_circular.png" onerror="this.src='${origin}/images/logo-786.png'">
                     </td>
                 </tr>
             </table>
@@ -3767,14 +3785,16 @@ window.downloadPratibhaPdfAdmin = async function(id) {
             <div class="signature-section">
                 <table class="signature-table">
                     <tr>
-                        <td style="width: 33%; text-align: left; vertical-align: top;"><strong>ದಿನಾಂಕ :</strong> _________________</td>
-                        <td style="width: 34%; text-align: center; height: 22px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ ರುಜು</td>
-                        <td style="width: 33%; text-align: right; height: 22px; vertical-align: bottom; font-weight: bold;">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ರುಜು</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left; vertical-align: top; padding-top: 4px;"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</td>
-                        <td></td>
-                        <td></td>
+                        <td style="width: 30%; text-align: left; vertical-align: middle;">
+                            <div><strong>ದಿನಾಂಕ :</strong> _________________</div>
+                            <div style="margin-top: 6px;"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</div>
+                        </td>
+                        <td style="width: 40%; text-align: center; vertical-align: middle; font-weight: bold; font-size: 14.5px;">
+                            ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ ರುಜು
+                        </td>
+                        <td style="width: 30%; text-align: right; vertical-align: middle; font-weight: bold; font-size: 14.5px;">
+                            ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ರುಜು
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -3863,28 +3883,28 @@ window.downloadSadhakaPdfAdmin = async function(id) {
             }
             .header-table { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
             .header-table td { border: none !important; padding: 0 !important; vertical-align: middle; }
-            .header-logo-left { width: 80px; text-align: left; }
-            .header-logo-left img { width: 80px !important; height: 80px !important; border-radius: 50% !important; object-fit: cover !important; display: block; }
-            .header-logo-right { width: 80px; text-align: right; }
-            .header-logo-right img { width: 80px !important; height: 80px !important; border-radius: 50% !important; object-fit: cover !important; display: block; margin-left: auto; }
-            .header-text { text-align: center; padding: 0 4px; }
-            .header-text h1 { margin: 0; font-size: 18px; white-space: nowrap !important; font-weight: bold; color: #000; }
-            .header-text h2 { margin: 2px 0 0 0; font-size: 13.5px; font-weight: bold; }
-            .header-text h3 { margin: 2px 0 0 0; font-size: 14.5px; font-weight: bold; }
+            .header-logo-left { width: 90px; text-align: left; }
+            .header-logo-left img { width: 85px !important; height: 85px !important; border-radius: 50% !important; object-fit: cover !important; display: block; }
+            .header-logo-right { width: 90px; text-align: right; }
+            .header-logo-right img { width: 85px !important; height: 85px !important; border-radius: 50% !important; object-fit: cover !important; display: block; margin-left: auto; }
+            .header-text { text-align: center !important; margin: 0 auto; padding: 0 4px; }
+            .header-text h1 { margin: 0 auto; font-size: 22px; white-space: nowrap !important; font-weight: bold; color: #000; text-align: center; }
+            .header-text h2 { margin: 2px auto 0 auto; font-size: 14.5px; font-weight: bold; text-align: center; }
+            .header-text h3 { margin: 2px auto 0 auto; font-size: 15.5px; font-weight: bold; text-align: center; }
             .details-table { width: 100%; border-collapse: collapse; margin-top: 4px; table-layout: fixed; }
             .details-table th, .details-table td { border: 1px solid #000 !important; padding: 3px 5px !important; text-align: left; vertical-align: middle; font-size: 14px; line-height: 1.55 !important; box-sizing: border-box; }
             .sl-col { width: 28px; text-align: center !important; font-weight: bold; }
             .label-col { width: 245px; font-weight: bold; line-height: 1.45 !important; }
             .value-col { word-break: normal !important; overflow-wrap: break-word !important; white-space: normal !important; line-height: 1.55 !important; }
             .value-col-split { width: 220px; word-break: normal !important; overflow-wrap: break-word !important; white-space: normal !important; line-height: 1.55 !important; }
-            .photo-cell { width: 110px; text-align: center !important; vertical-align: middle !important; padding: 2px !important; }
+            .photo-cell { width: 105px !important; max-width: 105px !important; text-align: center !important; vertical-align: middle !important; padding: 2px !important; box-sizing: border-box !important; overflow: hidden !important; }
             .photo-cell img {
-                            max-width: 95px !important;
-                            max-height: 100px !important;
-                            width: 95px !important;
-                            height: 100px !important;
-                            object-fit: cover !important; display: block; margin: 0 auto; }
-            .photo-placeholder { border: 1px dashed #666; padding: 14px 4px; font-size: 12px; color: #555; text-align: center; }
+                            max-width: 85px !important;
+                            max-height: 85px !important;
+                            width: 85px !important;
+                            height: 85px !important;
+                            object-fit: cover !important; display: block !important; margin: 0 auto !important; border: 1px solid #000 !important; box-sizing: border-box !important; }
+            .photo-placeholder { border: 1px dashed #666; width: 85px !important; height: 85px !important; max-width: 85px !important; max-height: 85px !important; font-size: 10px; color: #555; text-align: center; display: flex; align-items: center; justify-content: center; margin: 0 auto; background: #fafafa; box-sizing: border-box !important; }
             .signature-section { margin-top: 8px; margin-bottom: 24px !important; }
             .signature-table { width: 100%; border-collapse: collapse; }
             .signature-table td { border: none !important; padding: 0 !important; font-size: 14.5px; line-height: 1.45 !important; }
@@ -3902,16 +3922,16 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                         <table class="header-table">
                             <tr>
                                 <td class="header-logo-left">
-                                    <img src="images/president_circular.png" onerror="this.src='images/president.jpeg'">
+                                    <img src="${origin}/images/president_circular.png" onerror="this.src='${origin}/images/president.jpeg'">
                                 </td>
                                 <td class="header-text">
-                                    <h1 style="font-size: 18px; white-space: nowrap; margin: 0;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h1>
-                                    <h2 style="font-size: 12.5px; margin: 1px 0 0 0;">ನೊ ಸಂಖ್ಯೆ 151/ಎಸ್ ಓ ಆರ್/ ಎಸ್ ಎಂ ಜೆ/1993-94</h2>
-                                    <h2 style="font-size: 13.5px; margin: 1px 0 0 0;">ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
-                                    <h3 style="font-size: 14.5px; margin: 2px 0 0 0;">ವಿವಿಧ ಕ್ಷೇತ್ರಗಳ ಸಾಧಕರ ಆಯ್ಕೆಗಾಗಿ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
+                                    <h1 style="font-size: 22px; white-space: nowrap; margin: 0 auto; text-align: center;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h1>
+                                    <h2 style="font-size: 12.5px; margin: 1px auto 0 auto; text-align: center;">ನೊ ಸಂಖ್ಯೆ 151/ಎಸ್ ಓ ಆರ್/ ಎಸ್ ಎಂ ಜೆ/1993-94</h2>
+                                    <h2 style="font-size: 13.5px; margin: 1px auto 0 auto; text-align: center;">ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
+                                    <h3 style="font-size: 15.5px; margin: 2px auto 0 auto; text-align: center;">ವಿವಿಧ ಕ್ಷೇತ್ರಗಳ ಸಾಧಕರ ಆಯ್ಕೆಗಾಗಿ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
                                 </td>
                                 <td class="header-logo-right">
-                                    <img src="images/logo-786.png" onerror="this.src='images/logo-786.png'">
+                                    <img src="${origin}/images/logo-786_circular.png" onerror="this.src='images/logo-786.png'">
                                 </td>
                             </tr>
                         </table>
@@ -3962,7 +3982,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                                 <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಮೊ. ನಂ.</td>
                                 <td class="value-col-split">${fd.parentMobile || '-'}</td>
                                 <td class="photo-cell" rowspan="4">
-                                    ${fd.photo ? '<img src="' + fd.photo + '" style="max-width:105px; max-height:115px; width:auto; height:auto; object-fit:contain; display:block; margin:0 auto; border:1px solid #000;">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
+                                    ${fd.photo ? '<img src="' + fd.photo + '">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
                                 </td>
                             </tr>
                             <tr>
@@ -3985,12 +4005,16 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                         <div class="signature-section">
                             <table class="signature-table">
                                 <tr>
-                                    <td style="width: 25%; text-align: left; vertical-align: top;"><strong>ದಿನಾಂಕ :</strong></td>
-                                    <td style="width: 50%; text-align: center; height: 22px; vertical-align: bottom; font-weight: bold; white-space: nowrap; font-size: 13.5px;">ಸಾಧಕರ ಪಾಲಕರ ರುಜು (ಕ್ರೀಡೆಯಿದ್ದಲ್ಲಿ)</td>
-                                    <td style="width: 25%; text-align: right; height: 22px; vertical-align: bottom; font-weight: bold; white-space: nowrap; font-size: 13.5px;">ಸಾಧಕರ ರುಜು</td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: left; vertical-align: top; padding-top: 6px;" colspan="3"><strong>ಸ್ಥಳ :</strong></td>
+                                    <td style="width: 30%; text-align: left; vertical-align: middle;">
+                                        <div><strong>ದಿನಾಂಕ :</strong> _________________</div>
+                                        <div style="margin-top: 6px;"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</div>
+                                    </td>
+                                    <td style="width: 40%; text-align: center; vertical-align: middle; font-weight: bold; font-size: 14.5px;">
+                                        ಸಾಧಕರ ಪಾಲಕರ ರುಜು (ಕ್ರೀಡೆಯಿದ್ದಲ್ಲಿ)
+                                    </td>
+                                    <td style="width: 30%; text-align: right; vertical-align: middle; font-weight: bold; font-size: 14.5px;">
+                                        ಸಾಧಕರ ರುಜು
+                                    </td>
                                 </tr>
                             </table>
                         </div>
