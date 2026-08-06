@@ -1483,7 +1483,6 @@
                         .header-text h1 {
                             margin: 0 auto;
                             font-size: 22px;
-                            white-space: nowrap;
                             font-weight: bold;
                             color: #000;
                             text-align: center;
@@ -1542,13 +1541,21 @@
                             width: 105px !important;
                             max-width: 105px !important;
                             box-sizing: border-box !important;
-                            overflow: hidden !important;
+                        }
+                        .photo-wrapper {
+                            width: 95px;
+                            height: 95px;
+                            overflow: hidden;
+                            margin: 0 auto;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
                         }
                         .photo-cell img {
-                            width: 85px !important;
-                            height: 85px !important;
-                            max-width: 85px !important;
-                            max-height: 85px !important;
+                            width: 93px !important;
+                            height: 93px !important;
+                            max-width: 93px !important;
+                            max-height: 93px !important;
                             object-fit: cover !important;
                             display: block !important;
                             margin: 0 auto !important;
@@ -1558,10 +1565,10 @@
                         .photo-placeholder {
                             font-size: 10px;
                             border: 1px dashed #555;
-                            width: 85px !important;
-                            height: 85px !important;
-                            max-width: 85px !important;
-                            max-height: 85px !important;
+                            width: 93px !important;
+                            height: 93px !important;
+                            max-width: 93px !important;
+                            max-height: 93px !important;
                             display: flex;
                             align-items: center;
                             justify-content: center;
@@ -1697,7 +1704,9 @@
                                 <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ ಮೊ. ನಂ.</td>
                                 <td class="value-col-split">${fd.parentMobile || '-'}</td>
                                 <td class="photo-cell" rowspan="4">
+                                    <div class="photo-wrapper">
                                     ${fd.photo ? '<img src="' + fd.photo + '">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಸೈಜ್ ಫೋಟೋ</div>'}
+                                    </div>
                                 </td>
                             </tr>
                             <tr>

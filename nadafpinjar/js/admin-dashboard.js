@@ -1667,7 +1667,7 @@ function loadAdminFreeEdu() {
                 <td style="width: 33%; text-align: right; white-space: nowrap;">ಅರ್ಜಿ ದಿನಾಂಕ : <span style="color: #000;">${found.date}</span></td>
             </tr>
             <tr>
-                <td style="width: 33%; text-align: left; white-space: nowrap;">ನಗರಿ/ಗ್ರಾಮ : <span style="color: #000;">${data.village || '-'}</span></td>
+                <td style="width: 33%; text-align: left; white-space: nowrap;">ನಗರ/ಗ್ರಾಮ : <span style="color: #000;">${data.village || '-'}</span></td>
                 <td style="width: 34%; text-align: center; white-space: nowrap;">ತಾಲೂಕು : <span style="color: #000;">${data.taluk || '-'}</span></td>
                 <td style="width: 33%; text-align: right; white-space: nowrap;">ಜಿಲ್ಲೆ : <span style="color: #000;">${data.district || '-'}</span></td>
             </tr>
@@ -3546,7 +3546,6 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         .header-text h1 {
                             margin: 0 auto;
                             font-size: 22px;
-                            white-space: nowrap !important;
                             font-weight: bold;
                             color: #000;
                             text-align: center;
@@ -3608,13 +3607,21 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                             vertical-align: middle !important;
                             padding: 2px !important;
                             box-sizing: border-box !important;
-                            overflow: hidden !important;
+                        }
+                        .photo-wrapper {
+                            width: 95px;
+                            height: 95px;
+                            overflow: hidden;
+                            margin: 0 auto;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
                         }
                         .photo-cell img {
-                            max-width: 85px !important;
-                            max-height: 85px !important;
-                            width: 85px !important;
-                            height: 85px !important;
+                            max-width: 93px !important;
+                            max-height: 93px !important;
+                            width: 93px !important;
+                            height: 93px !important;
                             object-fit: cover !important;
                             display: block !important;
                             margin: 0 auto !important;
@@ -3623,10 +3630,10 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         }
                         .photo-placeholder {
                             border: 1px dashed #666;
-                            width: 85px !important;
-                            height: 85px !important;
-                            max-width: 85px !important;
-                            max-height: 85px !important;
+                            width: 93px !important;
+                            height: 93px !important;
+                            max-width: 93px !important;
+                            max-height: 93px !important;
                             font-size: 10px;
                             color: #555;
                             text-align: center;
@@ -3706,7 +3713,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         <img src="${origin}/images/president_circular.png" onerror="this.src='${origin}/images/president.jpeg'">
                     </td>
                     <td class="header-text">
-                        <h1 style="font-size: 22px; white-space: nowrap; margin: 0 auto; text-align: center;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ) ಶಿವಮೊಗ್ಗ</h1>
+                        <h1 style="font-size: 22px; margin: 0 auto; text-align: center;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ) ಶಿವಮೊಗ್ಗ</h1>
                         <h2>ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
                         <h3>ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳು ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
                     </td>
@@ -3762,7 +3769,9 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                     <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ ಮೊ. ನಂ.</td>
                     <td class="value-col-split">${parentMobile}</td>
                     <td class="photo-cell" rowspan="4">
+                        <div class="photo-wrapper">
                         ${photo ? '<img src="' + photo + '">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಸೈಜ್ ಫೋಟೋ</div>'}
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -3888,7 +3897,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
             .header-logo-right { width: 90px; text-align: right; }
             .header-logo-right img { width: 85px !important; height: 85px !important; border-radius: 50% !important; object-fit: cover !important; display: block; margin-left: auto; }
             .header-text { text-align: center !important; margin: 0 auto; padding: 0 4px; }
-            .header-text h1 { margin: 0 auto; font-size: 22px; white-space: nowrap !important; font-weight: bold; color: #000; text-align: center; }
+            .header-text h1 { margin: 0 auto; font-size: 22px; font-weight: bold; color: #000; text-align: center; }
             .header-text h2 { margin: 2px auto 0 auto; font-size: 14.5px; font-weight: bold; text-align: center; }
             .header-text h3 { margin: 2px auto 0 auto; font-size: 15.5px; font-weight: bold; text-align: center; }
             .details-table { width: 100%; border-collapse: collapse; margin-top: 4px; table-layout: fixed; }
@@ -3897,14 +3906,15 @@ window.downloadSadhakaPdfAdmin = async function(id) {
             .label-col { width: 245px; font-weight: bold; line-height: 1.45 !important; }
             .value-col { word-break: normal !important; overflow-wrap: break-word !important; white-space: normal !important; line-height: 1.55 !important; }
             .value-col-split { width: 220px; word-break: normal !important; overflow-wrap: break-word !important; white-space: normal !important; line-height: 1.55 !important; }
-            .photo-cell { width: 105px !important; max-width: 105px !important; text-align: center !important; vertical-align: middle !important; padding: 2px !important; box-sizing: border-box !important; overflow: hidden !important; }
+            .photo-cell { width: 105px !important; max-width: 105px !important; text-align: center !important; vertical-align: middle !important; padding: 2px !important; box-sizing: border-box !important; }
+            .photo-wrapper { width: 95px; height: 95px; overflow: hidden; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
             .photo-cell img {
-                            max-width: 85px !important;
-                            max-height: 85px !important;
-                            width: 85px !important;
-                            height: 85px !important;
+                            max-width: 93px !important;
+                            max-height: 93px !important;
+                            width: 93px !important;
+                            height: 93px !important;
                             object-fit: cover !important; display: block !important; margin: 0 auto !important; border: 1px solid #000 !important; box-sizing: border-box !important; }
-            .photo-placeholder { border: 1px dashed #666; width: 85px !important; height: 85px !important; max-width: 85px !important; max-height: 85px !important; font-size: 10px; color: #555; text-align: center; display: flex; align-items: center; justify-content: center; margin: 0 auto; background: #fafafa; box-sizing: border-box !important; }
+            .photo-placeholder { border: 1px dashed #666; width: 93px !important; height: 93px !important; max-width: 93px !important; max-height: 93px !important; font-size: 10px; color: #555; text-align: center; display: flex; align-items: center; justify-content: center; margin: 0 auto; background: #fafafa; box-sizing: border-box !important; }
             .signature-section { margin-top: 8px; margin-bottom: 24px !important; }
             .signature-table { width: 100%; border-collapse: collapse; }
             .signature-table td { border: none !important; padding: 0 !important; font-size: 14.5px; line-height: 1.45 !important; }
@@ -3925,7 +3935,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                                     <img src="${origin}/images/president_circular.png" onerror="this.src='${origin}/images/president.jpeg'">
                                 </td>
                                 <td class="header-text">
-                                    <h1 style="font-size: 22px; white-space: nowrap; margin: 0 auto; text-align: center;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h1>
+                                    <h1 style="font-size: 22px; margin: 0 auto; text-align: center;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h1>
                                     <h2 style="font-size: 12.5px; margin: 1px auto 0 auto; text-align: center;">ನೊ ಸಂಖ್ಯೆ 151/ಎಸ್ ಓ ಆರ್/ ಎಸ್ ಎಂ ಜೆ/1993-94</h2>
                                     <h2 style="font-size: 13.5px; margin: 1px auto 0 auto; text-align: center;">ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
                                     <h3 style="font-size: 15.5px; margin: 2px auto 0 auto; text-align: center;">ವಿವಿಧ ಕ್ಷೇತ್ರಗಳ ಸಾಧಕರ ಆಯ್ಕೆಗಾಗಿ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
@@ -3982,7 +3992,9 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                                 <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಮೊ. ನಂ.</td>
                                 <td class="value-col-split">${fd.parentMobile || '-'}</td>
                                 <td class="photo-cell" rowspan="4">
+                                    <div class="photo-wrapper">
                                     ${fd.photo ? '<img src="' + fd.photo + '">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
