@@ -1048,6 +1048,7 @@
                         ctx.fillText(lineText, drawX, drawY);
                     });
 
+                    const isCentered = textAlign === 'center' || (el.closest && !!el.closest('.header-text')) || computedStyle.textAlign === 'center';
                     const img = document.createElement('img');
                     img.src = canvas.toDataURL('image/png');
 
@@ -1057,8 +1058,14 @@
                     img.style.maxWidth = '100%';
                     img.style.objectFit = 'contain';
                     img.style.verticalAlign = 'middle';
-                    img.style.display = (computedStyle.display === 'block' || lines.length > 1) ? 'block' : 'inline-block';
-                    img.style.margin = '0';
+                    if (isCentered) {
+                        img.style.display = 'block';
+                        img.style.marginLeft = 'auto';
+                        img.style.marginRight = 'auto';
+                    } else {
+                        img.style.display = (computedStyle.display === 'block' || lines.length > 1) ? 'block' : 'inline-block';
+                        img.style.margin = '0';
+                    }
                     img.style.padding = '0';
 
                     el.dataset.rasterized = 'true';
@@ -1449,6 +1456,7 @@
                             width: 100%;
                             border-collapse: collapse;
                             margin-bottom: 4px;
+                            table-layout: fixed;
                         }
                         .header-table td {
                             border: none !important;
@@ -1480,29 +1488,32 @@
                             margin: 0 auto;
                             padding: 0 4px;
                         }
+                        .header-text h1, .header-text h2, .header-text h3 {
+                            margin: 0 auto !important;
+                            text-align: center !important;
+                            display: block !important;
+                            width: 100% !important;
+                        }
                         .header-text h1 {
-                            margin: 0 auto;
                             font-size: 22px;
                             font-weight: bold;
                             color: #000;
-                            text-align: center;
                         }
                         .header-text h2 {
-                            margin: 2px auto 0 auto;
+                            margin-top: 2px !important;
                             font-size: 14.5px;
                             font-weight: bold;
-                            text-align: center;
                         }
                         .header-text h3 {
-                            margin: 3px auto 0 auto;
+                            margin-top: 3px !important;
                             font-size: 15.5px;
                             font-weight: bold;
-                            text-align: center;
                         }
                         .details-table {
                             width: 100%;
                             border-collapse: collapse;
                             margin-top: 4px;
+                            table-layout: fixed;
                         }
                         .details-table th, .details-table td {
                             border: 1px solid #000 !important;
@@ -1537,38 +1548,31 @@
                         .photo-cell {
                             text-align: center !important;
                             vertical-align: middle !important;
-                            padding: 2px !important;
+                            padding: 3px !important;
                             width: 105px !important;
                             max-width: 105px !important;
                             box-sizing: border-box !important;
-                        }
-                        .photo-wrapper {
-                            width: 95px;
-                            height: 95px;
-                            overflow: hidden;
-                            margin: 0 auto;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
+                            background-color: #ffffff !important;
                         }
                         .photo-cell img {
-                            width: 93px !important;
-                            height: 93px !important;
-                            max-width: 93px !important;
-                            max-height: 93px !important;
+                            width: 88px !important;
+                            height: 110px !important;
+                            max-width: 88px !important;
+                            max-height: 110px !important;
                             object-fit: cover !important;
                             display: block !important;
                             margin: 0 auto !important;
                             border: 1px solid #000 !important;
                             box-sizing: border-box !important;
+                            background-color: #ffffff !important;
                         }
                         .photo-placeholder {
                             font-size: 10px;
                             border: 1px dashed #555;
-                            width: 93px !important;
-                            height: 93px !important;
-                            max-width: 93px !important;
-                            max-height: 93px !important;
+                            width: 88px !important;
+                            height: 110px !important;
+                            max-width: 88px !important;
+                            max-height: 110px !important;
                             display: flex;
                             align-items: center;
                             justify-content: center;
@@ -1704,9 +1708,7 @@
                                 <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ ಮೊ. ನಂ.</td>
                                 <td class="value-col-split">${fd.parentMobile || '-'}</td>
                                 <td class="photo-cell" rowspan="4">
-                                    <div class="photo-wrapper">
-                                    ${fd.photo ? '<img src="' + fd.photo + '">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಸೈಜ್ ಫೋಟೋ</div>'}
-                                    </div>
+                                    ${fd.photo ? '<img src="' + fd.photo + '" style="width: 88px; height: 110px; max-width: 88px; max-height: 110px; object-fit: cover; display: block; margin: 0 auto; border: 1px solid #000; background: #fff;">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಸೈಜ್ ಫೋಟೋ</div>'}
                                 </td>
                             </tr>
                             <tr>
