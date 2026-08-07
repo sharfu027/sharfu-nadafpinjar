@@ -28,11 +28,22 @@ function rasterizeKannadaNodesAdmin(container, win, doc) {
         try {
             const computedStyle = winRef.getComputedStyle(el);
             const fontSizePx = parseFloat(computedStyle.fontSize) || 13.5;
-            const fontWeight = computedStyle.fontWeight || '600';
+            const fontWeight = computedStyle.fontWeight || 'normal';
             const fontStyleAttr = computedStyle.fontStyle || 'normal';
             const color = computedStyle.color || '#000000';
             const textAlign = computedStyle.textAlign || 'left';
-            const isCentered = textAlign === 'center' || (el.closest && !!el.closest('.header-text'));
+            const isCentered = textAlign === 'center' || (el.closest && !!el.closest('.header-text')) || computedStyle.textAlign === 'center';
+
+            let parentWidthPx = 300;
+            let currentEl = el;
+            while (currentEl && currentEl !== container) {
+                if (currentEl.offsetWidth > 0) {
+                    parentWidthPx = currentEl.offsetWidth;
+                    break;
+                }
+                currentEl = currentEl.parentElement;
+            }
+            if (!parentWidthPx || parentWidthPx <= 0) parentWidthPx = 300;
 
             const scale = 3;
             const scaledFontSize = Math.round(fontSizePx * scale);
@@ -42,13 +53,31 @@ function rasterizeKannadaNodesAdmin(container, win, doc) {
             const testCtx = testCanvas.getContext('2d');
             testCtx.font = fontSpec;
 
-            const textMetrics = testCtx.measureText(text);
-            const measuredWidth = Math.ceil(textMetrics.width);
+            const maxScaledWidth = Math.max(100 * scale, (parentWidthPx - 16) * scale);
+            const words = text.split(/\s+/);
+            const lines = [];
+            let currentLine = '';
 
-            const paddingX = Math.ceil(8 * scale);
-            const paddingY = Math.ceil(4 * scale);
-            const canvasWidth = measuredWidth + (paddingX * 2);
-            const canvasHeight = Math.ceil(scaledFontSize * 1.5) + (paddingY * 2);
+            for (let i = 0; i < words.length; i++) {
+                const testLine = currentLine ? (currentLine + ' ' + words[i]) : words[i];
+                if (testCtx.measureText(testLine).width > maxScaledWidth && currentLine) {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine = testLine;
+                }
+            }
+            if (currentLine) lines.push(currentLine);
+
+            let maxLineWidth = 0;
+            lines.forEach(l => {
+                const w = testCtx.measureText(l).width;
+                if (w > maxLineWidth) maxLineWidth = w;
+            });
+
+            const lineHeightPx = Math.ceil(scaledFontSize * 1.45);
+            const canvasWidth = Math.ceil(maxLineWidth) + (10 * scale);
+            const canvasHeight = Math.ceil(lines.length * lineHeightPx) + (6 * scale);
 
             const canvas = docRef.createElement('canvas');
             canvas.width = canvasWidth;
@@ -59,24 +88,28 @@ function rasterizeKannadaNodesAdmin(container, win, doc) {
             ctx.fillStyle = color;
             ctx.textBaseline = 'middle';
 
-            if (isCentered) {
-                ctx.textAlign = 'center';
-                ctx.fillText(text, canvasWidth / 2, canvasHeight / 2);
-            } else if (textAlign === 'right') {
-                ctx.textAlign = 'right';
-                ctx.fillText(text, canvasWidth - paddingX, canvasHeight / 2);
-            } else {
-                ctx.textAlign = 'left';
-                ctx.fillText(text, paddingX, canvasHeight / 2);
-            }
+            lines.forEach((lineText, idx) => {
+                let drawX = 2 * scale;
+                if (isCentered) {
+                    drawX = canvasWidth / 2;
+                    ctx.textAlign = 'center';
+                } else if (textAlign === 'right') {
+                    drawX = canvasWidth - (2 * scale);
+                    ctx.textAlign = 'right';
+                } else {
+                    ctx.textAlign = 'left';
+                }
+
+                const drawY = (idx * lineHeightPx) + (lineHeightPx / 2) + (3 * scale);
+                ctx.fillText(lineText, drawX, drawY);
+            });
 
             const img = docRef.createElement('img');
             img.src = canvas.toDataURL('image/png');
 
-            const displayW = (canvasWidth / scale).toFixed(2);
-            const displayH = (canvasHeight / scale).toFixed(2);
-            img.style.width = displayW + 'px';
-            img.style.height = displayH + 'px';
+            const totalDisplayHeight = (fontSizePx * 1.4 * lines.length);
+            img.style.height = totalDisplayHeight.toFixed(2) + 'px';
+            img.style.width = 'auto';
             img.style.maxWidth = '100%';
             img.style.objectFit = 'contain';
             img.style.verticalAlign = 'middle';
@@ -86,7 +119,7 @@ function rasterizeKannadaNodesAdmin(container, win, doc) {
                 img.style.marginLeft = 'auto';
                 img.style.marginRight = 'auto';
             } else {
-                img.style.display = 'inline-block';
+                img.style.display = (computedStyle.display === 'block' || lines.length > 1) ? 'block' : 'inline-block';
                 img.style.margin = '0';
             }
             img.style.padding = '0';

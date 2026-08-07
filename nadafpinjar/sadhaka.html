@@ -826,7 +826,16 @@
                     const fontStyleAttr = computedStyle.fontStyle || 'normal';
                     const color = computedStyle.color || '#000000';
                     const textAlign = computedStyle.textAlign || 'left';
-                    const parentWidthPx = el.parentElement ? el.parentElement.clientWidth : 300;
+                    let parentWidthPx = 300;
+                    let currentEl = el;
+                    while (currentEl && currentEl !== container) {
+                        if (currentEl.offsetWidth > 0) {
+                            parentWidthPx = currentEl.offsetWidth;
+                            break;
+                        }
+                        currentEl = currentEl.parentElement;
+                    }
+                    if (!parentWidthPx || parentWidthPx <= 0) parentWidthPx = 300;
 
                     const scale = 3;
                     const scaledFontSize = Math.round(fontSizePx * scale);
@@ -836,7 +845,7 @@
                     const testCtx = testCanvas.getContext('2d');
                     testCtx.font = fontSpec;
 
-                    const maxScaledWidth = Math.max(120 * scale, (parentWidthPx - 10) * scale);
+                    const maxScaledWidth = Math.max(100 * scale, (parentWidthPx - 16) * scale);
                     const words = text.split(/\s+/);
                     const lines = [];
                     let currentLine = '';
