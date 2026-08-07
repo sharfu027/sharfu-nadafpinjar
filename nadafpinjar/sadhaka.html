@@ -1297,18 +1297,19 @@
                             width: 100% !important;
                         }
                         .header-text h1 {
-                            font-size: 20px;
+                            font-size: 20px !important;
                             font-weight: bold;
                             color: #000;
+                            line-height: 1.3 !important;
                         }
                         .header-text h2 {
                             margin-top: 2px !important;
-                            font-size: 13.5px;
+                            font-size: 13.5px !important;
                             font-weight: bold;
                         }
                         .header-text h3 {
                             margin-top: 3px !important;
-                            font-size: 15.5px;
+                            font-size: 15px !important;
                             font-weight: bold;
                         }
                         .details-table {
@@ -1316,6 +1317,9 @@
                             border-collapse: collapse;
                             margin-top: 4px;
                             table-layout: fixed;
+                        }
+                        .details-table tr {
+                            background: transparent !important;
                         }
                         .details-table th, .details-table td {
                             border: 1px solid #000 !important;
@@ -1350,16 +1354,17 @@
                         .photo-cell {
                             text-align: center !important;
                             vertical-align: middle !important;
-                            padding: 3px !important;
+                            padding: 2px !important;
                             width: 105px !important;
                             max-width: 105px !important;
                             box-sizing: border-box !important;
                             background-color: #ffffff !important;
+                            position: relative !important;
                         }
                         .photo-cell img {
-                            width: 88px !important;
+                            width: 90px !important;
                             height: 110px !important;
-                            max-width: 88px !important;
+                            max-width: 90px !important;
                             max-height: 110px !important;
                             object-fit: cover !important;
                             display: block !important;
@@ -1371,9 +1376,9 @@
                         .photo-placeholder {
                             font-size: 10px;
                             border: 1px dashed #555;
-                            width: 88px !important;
+                            width: 90px !important;
                             height: 110px !important;
-                            max-width: 88px !important;
+                            max-width: 90px !important;
                             max-height: 110px !important;
                             display: flex;
                             align-items: center;
@@ -1449,10 +1454,10 @@
                                     <img src="images/president_circular.png" onerror="this.src='images/president.jpeg'">
                                 </td>
                                 <td class="header-text">
-                                    <h1>ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h1>
-                                    <h2>ನೊ ಸಂಖ್ಯೆ 151/ಎಸ್ ಓ ಆರ್/ ಎಸ್ ಎಂ ಜೆ/1993-94</h2>
-                                    <h2>ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
-                                    <h3>ವಿವಿಧ ಕ್ಷೇತ್ರಗಳ ಸಾಧಕರ ಆಯ್ಕೆಗಾಗಿ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
+                                    <h1 style="font-size: 24px; font-weight: bold; margin: 0 auto; text-align: center;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ) ಶಿವಮೊಗ್ಗ</h1>
+                                    <h2 style="font-size: 14.5px; font-weight: bold; margin: 2px auto 0 auto; text-align: center;">ನೋ.ಸಂಖ್ಯೆ: 151/ಎಸ್.ಒ.ಆರ್/ಎಸ್.ಎಮ್.ಜೆ/1993-94</h2>
+                                    <h2 style="font-size: 15.5px; font-weight: bold; margin: 2px auto 0 auto; text-align: center;">ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
+                                    <h3 style="font-size: 17px; font-weight: bold; margin: 3px auto 0 auto; text-align: center;">ವಿವಿಧ ಕ್ಷೇತ್ರಗಳ ಸಾಧಕರ ಆಯ್ಕೆಗಾಗಿ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
                                 </td>
                                 <td class="header-logo-right">
                                     <img src="images/logo-786_circular.png" onerror="this.src='images/logo-786.png'">
@@ -1505,8 +1510,8 @@
                                 <td class="sl-col">9</td>
                                 <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಮೊ. ನಂ.</td>
                                 <td class="value-col-split">${fd.parentMobile || '-'}</td>
-                                <td class="photo-cell" rowspan="4">
-                                    ${fd.photo ? '<img src="' + fd.photo + '" style="width: 88px; height: 110px; max-width: 88px; max-height: 110px; object-fit: cover; display: block; margin: 0 auto; border: 1px solid #000; background: #fff;">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
+                                <td class="photo-cell" rowspan="4" style="position: relative !important; z-index: 100 !important; background: #ffffff !important;">
+                                    ${fd.photo ? '<img src="' + fd.photo + '" style="width: 88px; height: 110px; max-width: 88px; max-height: 110px; object-fit: cover; display: block; margin: 0 auto; border: 1px solid #000; background: #fff; position: relative !important; z-index: 101 !important;">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
                                 </td>
                             </tr>
                             <tr>
