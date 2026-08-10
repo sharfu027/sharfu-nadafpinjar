@@ -3765,9 +3765,10 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         <img src="${origin}/images/president_circular.png" onerror="this.src='${origin}/images/president.jpeg'">
                     </td>
                     <td class="header-text">
-                        <h1 style="font-size: 24px; margin: 0 auto; text-align: center; font-weight: bold;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ) ಶಿವಮೊಗ್ಗ</h1>
-                        <h2 style="font-size: 15.5px; margin: 3px auto 0 auto; text-align: center; font-weight: bold;">ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
-                        <h3 style="font-size: 17px; margin: 3px auto 0 auto; text-align: center; font-weight: bold;">ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳು ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
+                        <h1 style="font-size: 20.5px; margin: 0 auto; text-align: center; font-weight: bold; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h1>
+                        <h2 style="font-size: 12.5px; margin: 2px auto 0 auto; text-align: center; font-weight: bold;">ನೋ.ಸಂಖ್ಯೆ: 151/ಎಸ್.ಒ.ಆರ್/ಎಸ್.ಎಮ್.ಜೆ/1993-94</h2>
+                        <h2 style="font-size: 13.5px; margin: 1px auto 0 auto; text-align: center; font-weight: bold;">ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
+                        <h3 style="font-size: 15.5px; margin: 3px auto 0 auto; text-align: center; font-weight: bold;">ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳು ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
                     </td>
                     <td class="header-logo-right">
                         <img src="${origin}/images/logo-786_circular.png" onerror="this.src='${origin}/images/logo-786.png'">
