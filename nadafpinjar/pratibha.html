@@ -1121,17 +1121,48 @@
         window.toggleMarqueePause = toggleMarqueePause;
 
         function previewPhoto(input) {
-            if (input.files && input.files[0]) {
+            const file = input.files && input.files[0];
+            if (file) {
+                if (file.size > 15 * 1024 * 1024) {
+                    alert("ಫೋಟೋ ಗಾತ್ರ 15MB ಗಿಂತ ಕಡಿಮೆಯಿರಬೇಕು / Photo size should be less than 15MB!");
+                    input.value = "";
+                    return;
+                }
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    base64Photo = e.target.result;
-                    const img = document.getElementById('photoPreview');
-                    if (img) {
-                        img.src = base64Photo;
-                        img.style.display = 'block';
-                    }
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        const maxDim = 380;
+                        if (width > height) {
+                            if (width > maxDim) { height = Math.round(height * (maxDim / width)); width = maxDim; }
+                        } else {
+                            if (height > maxDim) { width = Math.round(width * (maxDim / height)); height = maxDim; }
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        base64Photo = canvas.toDataURL('image/jpeg', 0.85);
+                        const preview = document.getElementById("photoPreview");
+                        if (preview) {
+                            preview.src = base64Photo;
+                            preview.style.display = "block";
+                        }
+                    };
+                    img.onerror = function() {
+                        base64Photo = e.target.result;
+                        const preview = document.getElementById("photoPreview");
+                        if (preview) {
+                            preview.src = base64Photo;
+                            preview.style.display = "block";
+                        }
+                    };
+                    img.src = e.target.result;
                 };
-                reader.readAsDataURL(input.files[0]);
+                reader.readAsDataURL(file);
             }
         }
         window.previewPhoto = previewPhoto;
@@ -1849,63 +1880,135 @@
             }
         }
 
+        function safeSaveLocalStorage(key, newEntry, maxEntries = 25) {
+            try {
+                let existing = [];
+                try {
+                    existing = JSON.parse(localStorage.getItem(key) || '[]');
+                    if (!Array.isArray(existing)) existing = [];
+                } catch (e) {
+                    existing = [];
+                }
+                
+                existing.unshift(newEntry);
+                if (existing.length > maxEntries) {
+                    existing = existing.slice(0, maxEntries);
+                }
+                
+                try {
+                    localStorage.setItem(key, JSON.stringify(existing));
+                    return true;
+                } catch (quotaErr) {
+                    console.warn('Storage quota exceeded, trimming older entries...', quotaErr);
+                    for (let limit of [10, 5, 2, 1]) {
+                        try {
+                            const trimmed = existing.slice(0, limit);
+                            localStorage.setItem(key, JSON.stringify(trimmed));
+                            return true;
+                        } catch (err2) {}
+                    }
+                    
+                    try {
+                        const stripped = existing.slice(0, 5).map((item, idx) => {
+                            if (idx === 0) return item;
+                            const copy = JSON.parse(JSON.stringify(item));
+                            if (copy.formData && copy.formData.photo) copy.formData.photo = '';
+                            if (copy.photo) copy.photo = '';
+                            return copy;
+                        });
+                        localStorage.setItem(key, JSON.stringify(stripped));
+                        return true;
+                    } catch (err3) {}
+
+                    try {
+                        const minimal = [JSON.parse(JSON.stringify(newEntry))];
+                        if (minimal[0].formData && minimal[0].formData.photo) minimal[0].formData.photo = '';
+                        localStorage.setItem(key, JSON.stringify(minimal));
+                        return true;
+                    } catch (err4) {
+                        console.warn('Could not save to localStorage:', err4);
+                    }
+                }
+            } catch (outerErr) {
+                console.error('safeSaveLocalStorage error:', outerErr);
+            }
+            return false;
+        }
+
         function submitApplication(event) {
             event.preventDefault();
             
-            const formData = {
-                studentName: document.getElementById('studentName').value,
-                fatherName: document.getElementById('fatherName').value,
-                guardianName: (document.getElementById('guardianName') || {}).value || '',
-                parentOccupationIncome: document.getElementById('parentOccupationIncome').value,
-                completeAddress: document.getElementById('completeAddress').value,
-                aadhar: document.getElementById('aadhar').value,
-                lifeMembership: document.getElementById('lifeMembership').value,
-                marksDetails: document.getElementById('marksDetails').value,
-                parentMobile: document.getElementById('parentMobile').value,
-                bankName: document.getElementById('bankName').value,
-                bankAccount: document.getElementById('bankAccount').value,
-                ifsc: document.getElementById('ifsc').value,
-                photo: typeof base64Photo !== 'undefined' ? base64Photo : '',
-                submittedAt: new Date().toISOString(),
-                status: 'Pending'
-            };
+            const submitBtn = event.target ? event.target.querySelector('button[type="submit"]') : null;
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = "ಸಲ್ಲಿಸಲಾಗುತ್ತಿದೆ / Submitting...";
+            }
             
-            const lastDigits = Math.floor(Math.random() * 9000) + 1000;
-            const appNumber = 'PP-' + new Date().getFullYear() + '-' + lastDigits;
-            
-            const dataToSave = {
-                formType: 'ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ',
-                amount: 0,
-                paymentId: appNumber,
-                formData: formData
-            };
-            
-            // Save to localStorage (admin reads 'admin_pratibha_submissions')
-            var localEntry = {
-                id: appNumber,
-                date: new Date().toLocaleDateString('en-IN'),
-                formData: formData
-            };
-            let existing = [];
-            try { existing = JSON.parse(localStorage.getItem('admin_pratibha_submissions') || '[]'); } catch(e) { existing = []; }
-            existing.unshift(localEntry);
-            localStorage.setItem('admin_pratibha_submissions', JSON.stringify(existing));
-            
-            // Also POST to API for database sync
             try {
-                fetch('/api/donations', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(dataToSave)
-                }).catch(function(){});
-            } catch(e) {}
-            
-            window.lastSubmittedData = dataToSave;
-            
-            // Show success modal
-            document.getElementById('modalAppNumber').textContent = 'ಅರ್ಜಿ ಸಂಖ್ಯೆ: ' + appNumber;
-            document.getElementById('successModal').style.display = 'flex';
-            document.getElementById('applyModal').style.display = 'none';
+                const formData = {
+                    studentName: (document.getElementById('studentName') || {}).value || '',
+                    fatherName: (document.getElementById('fatherName') || {}).value || '',
+                    guardianName: (document.getElementById('guardianName') || {}).value || '',
+                    parentOccupationIncome: (document.getElementById('parentOccupationIncome') || {}).value || '',
+                    completeAddress: (document.getElementById('completeAddress') || {}).value || '',
+                    aadhar: (document.getElementById('aadhar') || {}).value || '',
+                    lifeMembership: (document.getElementById('lifeMembership') || {}).value || '',
+                    marksDetails: (document.getElementById('marksDetails') || {}).value || '',
+                    parentMobile: (document.getElementById('parentMobile') || {}).value || '',
+                    bankName: (document.getElementById('bankName') || {}).value || '',
+                    bankAccount: (document.getElementById('bankAccount') || {}).value || '',
+                    ifsc: (document.getElementById('ifsc') || {}).value || '',
+                    photo: typeof base64Photo !== 'undefined' ? base64Photo : '',
+                    submittedAt: new Date().toISOString(),
+                    status: 'Pending'
+                };
+                
+                const lastDigits = Math.floor(Math.random() * 9000) + 1000;
+                const appNumber = 'PP-' + new Date().getFullYear() + '-' + lastDigits;
+                
+                const dataToSave = {
+                    formType: 'ಪ್ರತಿಭಾ ಪುರಸ್ಕಾರ',
+                    amount: 0,
+                    paymentId: appNumber,
+                    formData: formData
+                };
+                
+                // Save to localStorage safely (handles QuotaExceededError automatically)
+                const localEntry = {
+                    id: appNumber,
+                    date: new Date().toLocaleDateString('en-IN'),
+                    formData: formData
+                };
+                safeSaveLocalStorage('admin_pratibha_submissions', localEntry, 25);
+                
+                // Also POST to API for database sync
+                try {
+                    fetch('/api/donations', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(dataToSave)
+                    }).catch(function(){});
+                } catch(e) {}
+                
+                window.lastSubmittedData = dataToSave;
+                window.currentViewedStudent = formData;
+                
+                // Show success modal
+                const appNoEl = document.getElementById('modalAppNumber');
+                if (appNoEl) appNoEl.textContent = 'ಅರ್ಜಿ ಸಂಖ್ಯೆ: ' + appNumber;
+                const successM = document.getElementById('successModal');
+                if (successM) successM.style.display = 'flex';
+                const applyM = document.getElementById('applyModal');
+                if (applyM) applyM.style.display = 'none';
+            } catch (err) {
+                console.error("Submission error:", err);
+                alert("ಅರ್ಜಿ ಸಲ್ಲಿಸುವಲ್ಲಿ ತೊಂದರೆಯಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.");
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Submit Application";
+                }
+            }
         }
         window.submitApplication = submitApplication;
 

@@ -1752,12 +1752,69 @@
             }
         }
 
+        function safeSaveLocalStorage(key, newEntry, maxEntries = 25) {
+            try {
+                let existing = [];
+                try {
+                    existing = JSON.parse(localStorage.getItem(key) || '[]');
+                    if (!Array.isArray(existing)) existing = [];
+                } catch (e) {
+                    existing = [];
+                }
+                
+                existing.unshift(newEntry);
+                if (existing.length > maxEntries) {
+                    existing = existing.slice(0, maxEntries);
+                }
+                
+                try {
+                    localStorage.setItem(key, JSON.stringify(existing));
+                    return true;
+                } catch (quotaErr) {
+                    console.warn('Storage quota exceeded, trimming older entries...', quotaErr);
+                    for (let limit of [10, 5, 2, 1]) {
+                        try {
+                            const trimmed = existing.slice(0, limit);
+                            localStorage.setItem(key, JSON.stringify(trimmed));
+                            return true;
+                        } catch (err2) {}
+                    }
+                    
+                    try {
+                        const stripped = existing.slice(0, 5).map((item, idx) => {
+                            if (idx === 0) return item;
+                            const copy = JSON.parse(JSON.stringify(item));
+                            if (copy.formData && copy.formData.photo) copy.formData.photo = '';
+                            if (copy.photo) copy.photo = '';
+                            return copy;
+                        });
+                        localStorage.setItem(key, JSON.stringify(stripped));
+                        return true;
+                    } catch (err3) {}
+
+                    try {
+                        const minimal = [JSON.parse(JSON.stringify(newEntry))];
+                        if (minimal[0].formData && minimal[0].formData.photo) minimal[0].formData.photo = '';
+                        localStorage.setItem(key, JSON.stringify(minimal));
+                        return true;
+                    } catch (err4) {
+                        console.warn('Could not save to localStorage:', err4);
+                    }
+                }
+            } catch (outerErr) {
+                console.error('safeSaveLocalStorage error:', outerErr);
+            }
+            return false;
+        }
+
         async function submitApplication(e) {
             e.preventDefault();
             
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.textContent = "ಸಲ್ಲಿಸಲಾಗುತ್ತಿದೆ / Submitting...";
+            const submitBtn = e.target ? e.target.querySelector('button[type="submit"]') : null;
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = "ಸಲ್ಲಿಸಲಾಗುತ್ತಿದೆ / Submitting...";
+            }
 
             const appNumber = `SADHAKA-2025-26-${Math.floor(Math.random() * 9000) + 1000}`;
             
@@ -1790,59 +1847,47 @@
             };
 
             try {
-                let res = await fetch("/api/donations", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
-                }).catch(() => null);
-
-                if (!res || !res.ok) {
-                    res = await fetch("/api/donations", {
+                try {
+                    let res = await fetch("/api/donations", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(payload)
                     }).catch(() => null);
-                }
+
+                    if (!res || !res.ok) {
+                        await fetch("/api/donations", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(payload)
+                        }).catch(() => null);
+                    }
+                } catch(apiErr) {}
                 
-                // Save to localStorage so admin dashboard can read it
+                // Save to localStorage safely (won't crash on quota limit)
                 var localEntry = {
                     id: appNumber,
                     date: new Date().toLocaleDateString('en-IN'),
                     formData: payload.formData
                 };
-                let existingSadhaka = [];
-                try { existingSadhaka = JSON.parse(localStorage.getItem('admin_sadhaka_submissions') || '[]'); } catch(ex) { existingSadhaka = []; }
-                existingSadhaka.unshift(localEntry);
-                localStorage.setItem('admin_sadhaka_submissions', JSON.stringify(existingSadhaka));
+                safeSaveLocalStorage('admin_sadhaka_submissions', localEntry, 25);
 
                 window.lastSubmittedData = payload;
-                document.getElementById("modalAppNumber").textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}`;
-                document.getElementById("applyModal").style.display = "none";
-                document.getElementById("successModal").style.display = "flex";
-                
-                submitBtn.disabled = false;
-                submitBtn.textContent = "ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Submit Application";
+                window.currentViewedStudent = payload.formData;
+
+                const appNoEl = document.getElementById("modalAppNumber");
+                if (appNoEl) appNoEl.textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}`;
+                const applyM = document.getElementById("applyModal");
+                if (applyM) applyM.style.display = "none";
+                const successM = document.getElementById("successModal");
+                if (successM) successM.style.display = "flex";
             } catch (err) {
-                console.error(err);
-                
-                // Still save to localStorage even on network error
-                var localEntry2 = {
-                    id: appNumber,
-                    date: new Date().toLocaleDateString('en-IN'),
-                    formData: payload.formData
-                };
-                let existingSadhaka2 = [];
-                try { existingSadhaka2 = JSON.parse(localStorage.getItem('admin_sadhaka_submissions') || '[]'); } catch(ex) { existingSadhaka2 = []; }
-                existingSadhaka2.unshift(localEntry2);
-                localStorage.setItem('admin_sadhaka_submissions', JSON.stringify(existingSadhaka2));
-
-                window.lastSubmittedData = payload;
-                document.getElementById("modalAppNumber").textContent = `ಅರ್ಜಿ ಸಂಖ್ಯೆ: ${appNumber}`;
-                document.getElementById("applyModal").style.display = "none";
-                document.getElementById("successModal").style.display = "flex";
-                
-                submitBtn.disabled = false;
-                submitBtn.textContent = "ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Submit Application";
+                console.error("Submission error:", err);
+                alert("ಅರ್ಜಿ ಸಲ್ಲಿಸುವಲ್ಲಿ ತೊಂದರೆಯಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.");
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Submit Application";
+                }
             }
         }
     </script>
