@@ -3520,9 +3520,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     const fatherName = fd.fatherName || '-';
     const guardianName = fd.guardianName || '-';
     const parentOccupationIncome = fd.parentOccupationIncome || '-';
-    const completeAddress = fd.completeAddress || '-';
-    const aadhar = fd.aadhar || '-';
-    const lifeMembership = (fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes'))) ? '<div style="font-weight: bold; font-size: 13.5px; line-height: 1.35;">ಹೌದು</div><div class="kannada-text-img" style="font-size: 11.5px; font-weight: 400; color: #000; margin-top: 1px; line-height: 1.35;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</div>' : (fd.lifeMembership || '-');
+    const lifeMembership = (fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes') || fd.lifeMembership === 'Yes' || fd.lifeMembership === 'ಹೌದು')) ? '<div style="font-size: 13.5px; font-weight: bold; line-height: 1.4;">ಹೌದು <span style="font-size: 12px; font-weight: normal; color: #111; margin-left: 6px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span></div>' : (fd.lifeMembership || '-');
     const marksDetails = fd.marksDetails || '-';
     const parentMobile = fd.parentMobile || '-';
     const bankName = fd.bankName || '-';
@@ -3983,10 +3981,10 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                                     <img src="${origin}/images/president_circular.png" onerror="this.src='${origin}/images/president.jpeg'">
                                 </td>
                                 <td class="header-text">
-                                    <h1 style="font-size: 24px; margin: 0 auto; text-align: center; font-weight: bold;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನದಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ) ಶಿವಮೊಗ್ಗ</h1>
-                                    <h2 style="font-size: 14.5px; margin: 2px auto 0 auto; text-align: center; font-weight: bold;">ನೊ ಸಂಖ್ಯೆ 151/ಎಸ್ ಓ ಆರ್/ ಎಸ್ ಎಂ ಜೆ/1993-94</h2>
-                                    <h2 style="font-size: 15.5px; margin: 2px auto 0 auto; text-align: center; font-weight: bold;">ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
-                                    <h3 style="font-size: 17px; margin: 3px auto 0 auto; text-align: center; font-weight: bold;">ವಿವಿಧ ಕ್ಷೇತ್ರಗಳ ಸಾಧಕರ ಆಯ್ಕೆಗಾಗಿ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
+                                    <h1 style="font-size: 20.5px; margin: 0 auto; text-align: center; font-weight: bold; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h1>
+                                    <h2 style="font-size: 12.5px; margin: 2px auto 0 auto; text-align: center; font-weight: bold;">ನೋ.ಸಂಖ್ಯೆ: 151/ಎಸ್.ಒ.ಆರ್/ಎಸ್.ಎಮ್.ಜೆ/1993-94</h2>
+                                    <h2 style="font-size: 13.5px; margin: 1px auto 0 auto; text-align: center; font-weight: bold;">ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
+                                    <h3 style="font-size: 15.5px; margin: 3px auto 0 auto; text-align: center; font-weight: bold;">ವಿವಿಧ ಕ್ಷೇತ್ರಗಳ ಸಾಧಕರ ಆಯ್ಕೆಗಾಗಿ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
                                 </td>
                                 <td class="header-logo-right">
                                     <img src="${origin}/images/logo-786_circular.png" onerror="this.src='images/logo-786.png'">
@@ -4028,7 +4026,7 @@ window.downloadSadhakaPdfAdmin = async function(id) {
                             <tr>
                                 <td class="sl-col">7</td>
                                 <td class="label-col">ಸಾಧಕರ ಕುಟುಂಬದವರು ಅಜೀವ ಸದಸ್ಯರೇ ?</td>
-                                <td class="value-col" colspan="2">${(fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes'))) ? '<div style="font-weight: bold; font-size: 13.5px; line-height: 1.35;">ಹೌದು</div><div class="kannada-text-img" style="font-size: 11.5px; font-weight: 400; color: #000; margin-top: 1px; line-height: 1.35;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</div>' : (fd.lifeMembership || '-')}</td>
+                                <td class="value-col" colspan="2">${(fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes') || fd.lifeMembership === 'Yes' || fd.lifeMembership === 'ಹೌದು')) ? '<div style="font-size: 13.5px; font-weight: bold; line-height: 1.4;">ಹೌದು <span style="font-size: 12px; font-weight: normal; color: #111; margin-left: 6px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span></div>' : (fd.lifeMembership || '-')}</td>
                             </tr>
                             <tr>
                                 <td class="sl-col">8</td>
