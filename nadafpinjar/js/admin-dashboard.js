@@ -427,26 +427,118 @@ if (localStorage.getItem('receipts_version') !== 'v77') {
     localStorage.setItem('receipts', JSON.stringify(defaultReceipts));
     localStorage.setItem('receipts_version', 'v77');
 }
+// Safe LocalStorage Manager to prevent QuotaExceededError
+function safeSetLocalStorage(key, data, maxEntries = 100) {
+    if (!key) return false;
+    try {
+        if (!Array.isArray(data)) {
+            try {
+                localStorage.setItem(key, typeof data === 'string' ? data : JSON.stringify(data));
+                return true;
+            } catch (err) {
+                console.warn(`LocalStorage write failed for key ${key}:`, err);
+                return false;
+            }
+        }
+
+        let list = data;
+        if (list.length > maxEntries) {
+            list = list.slice(0, maxEntries);
+        }
+
+        // Helper to strip huge base64 strings (> 25KB) from objects
+        function stripLargeBlobs(items, keepFirstNPhotos = 2) {
+            return items.map((item, idx) => {
+                if (!item || typeof item !== 'object') return item;
+                const copy = JSON.parse(JSON.stringify(item));
+                const sanitizeObj = (obj, canKeepPhoto) => {
+                    if (!obj || typeof obj !== 'object') return;
+                    for (const k of Object.keys(obj)) {
+                        if (typeof obj[k] === 'string') {
+                            if (obj[k].startsWith('data:') && obj[k].length > 25000) {
+                                if (k === 'photo' && canKeepPhoto) {
+                                    // keep photo for recent items
+                                } else {
+                                    obj[k] = '';
+                                }
+                            }
+                        } else if (typeof obj[k] === 'object') {
+                            sanitizeObj(obj[k], canKeepPhoto);
+                        }
+                    }
+                };
+                sanitizeObj(copy, idx < keepFirstNPhotos);
+                return copy;
+            });
+        }
+
+        // Attempt 1: With recent photos kept
+        try {
+            const cleanList = stripLargeBlobs(list, 2);
+            localStorage.setItem(key, JSON.stringify(cleanList));
+            return true;
+        } catch (e1) {}
+
+        // Attempt 2: Strip all base64 data strings completely
+        try {
+            const strippedList = stripLargeBlobs(list, 0);
+            localStorage.setItem(key, JSON.stringify(strippedList));
+            return true;
+        } catch (e2) {}
+
+        // Attempt 3: Progressive trimming of entries
+        const stripped = stripLargeBlobs(list, 0);
+        for (const limit of [50, 25, 10, 5, 2, 1]) {
+            try {
+                const trimmed = stripped.slice(0, limit);
+                localStorage.setItem(key, JSON.stringify(trimmed));
+                return true;
+            } catch (e3) {}
+        }
+
+        // Attempt 4: Evict temporary / non-essential keys and retry
+        try {
+            const keysToRemove = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const k = localStorage.key(i);
+                if (k && (k.startsWith('pdf_') || k.startsWith('temp_') || k.includes('cache'))) {
+                    keysToRemove.push(k);
+                }
+            }
+            keysToRemove.forEach(k => localStorage.removeItem(k));
+            const minimal = stripped.slice(0, 5);
+            localStorage.setItem(key, JSON.stringify(minimal));
+            return true;
+        } catch (e4) {
+            return false;
+        }
+    } catch (outerErr) {
+        console.warn(`safeSetLocalStorage error for ${key}:`, outerErr);
+        return false;
+    }
+}
+window.safeSetLocalStorage = safeSetLocalStorage;
+
 if (localStorage.getItem('security_version') !== 'v3') {
-    localStorage.setItem('security', JSON.stringify(defaultSecurity));
-    localStorage.setItem('security_version', 'v3');
+    safeSetLocalStorage('security', defaultSecurity);
+    safeSetLocalStorage('security_version', 'v3');
 }
 
 if (!localStorage.getItem('transfers')) {
-    localStorage.setItem('transfers', JSON.stringify(defaultTransfers));
+    safeSetLocalStorage('transfers', defaultTransfers);
 }
 if (!localStorage.getItem('statements')) {
-    localStorage.setItem('statements', JSON.stringify(defaultStatements));
+    safeSetLocalStorage('statements', defaultStatements);
 }
 
 if (!localStorage.getItem('admin_freeedu_submissions')) {
-    localStorage.setItem('admin_freeedu_submissions', JSON.stringify(defaultFreeeduSubmissions));
+    safeSetLocalStorage('admin_freeedu_submissions', defaultFreeeduSubmissions);
 }
 if (!localStorage.getItem('admin_census_submissions')) {
-    localStorage.setItem('admin_census_submissions', JSON.stringify(defaultCensusSubmissions));
+    safeSetLocalStorage('admin_census_submissions', defaultCensusSubmissions);
 }
 if (!localStorage.getItem('admin_employees_submissions')) {
-    localStorage.setItem('admin_employees_submissions', JSON.stringify(defaultEmployeesSubmissions));
+    safeSetLocalStorage('admin_employees_submissions', defaultEmployeesSubmissions);
 }
 
 // Common Dashboard Setup after DOM Load
@@ -501,7 +593,7 @@ function trackDeletedId(id) {
     let deletedIds = JSON.parse(localStorage.getItem('admin_deleted_ids')) || [];
     if (!deletedIds.includes(id)) {
         deletedIds.push(id);
-        localStorage.setItem('admin_deleted_ids', JSON.stringify(deletedIds));
+        safeSetLocalStorage('admin_deleted_ids', deletedIds);
     }
 }
 
@@ -665,7 +757,7 @@ async function syncSubmissionsFromDatabase() {
                         itemObj.id = appNum;
                         itemObj._id = doc._id || appNum;
                         lifeList.unshift(itemObj);
-                        localStorage.setItem('nadaf_lifemembership_applications', JSON.stringify(lifeList));
+                        safeSetLocalStorage('nadaf_lifemembership_applications', lifeList);
                         hasChanges = true;
                     }
                 }
@@ -675,16 +767,12 @@ async function syncSubmissionsFromDatabase() {
         });
         
         if (hasChanges) {
-            try {
-                localStorage.setItem('admin_freeedu_submissions', JSON.stringify(freeeduList));
-                localStorage.setItem('admin_census_submissions', JSON.stringify(censusList));
-                localStorage.setItem('admin_employees_submissions', JSON.stringify(employeesList));
-                localStorage.setItem('admin_pratibha_submissions', JSON.stringify(pratibhaList));
-                localStorage.setItem('admin_sadhaka_submissions', JSON.stringify(sadhakaList));
-                localStorage.setItem('receipts', JSON.stringify(receiptsList));
-            } catch (e) {
-                console.error("LocalStorage write failed:", e);
-            }
+            safeSetLocalStorage('admin_freeedu_submissions', freeeduList);
+            safeSetLocalStorage('admin_census_submissions', censusList);
+            safeSetLocalStorage('admin_employees_submissions', employeesList);
+            safeSetLocalStorage('admin_pratibha_submissions', pratibhaList);
+            safeSetLocalStorage('admin_sadhaka_submissions', sadhakaList);
+            safeSetLocalStorage('receipts', receiptsList);
         }
         
         return hasChanges;
@@ -1503,7 +1591,7 @@ function loadAdminFreeEdu() {
                 bankAccount: document.getElementById('editBankAccount').value
             };
 
-            localStorage.setItem('admin_freeedu_submissions', JSON.stringify(submissions));
+            safeSetLocalStorage('admin_freeedu_submissions', submissions);
             alert("Application updated successfully!");
             document.getElementById('editFreeeduModal').style.display = 'none';
             render(submissions);
@@ -1515,7 +1603,7 @@ function loadAdminFreeEdu() {
         if (confirm("Are you sure you want to delete this application?")) {
             trackDeletedId(id);
             submissions = submissions.filter(app => app.id !== id);
-            localStorage.setItem('admin_freeedu_submissions', JSON.stringify(submissions));
+            safeSetLocalStorage('admin_freeedu_submissions', submissions);
             render(submissions);
         }
     };
@@ -2379,7 +2467,7 @@ function loadAdminCensus() {
                 members: membersList
             };
 
-            localStorage.setItem('admin_census_submissions', JSON.stringify(submissions));
+            safeSetLocalStorage('admin_census_submissions', submissions);
             alert("Census updated successfully!");
             document.getElementById('editCensusModal').style.display = 'none';
             render(submissions);
@@ -2391,7 +2479,7 @@ function loadAdminCensus() {
         if (confirm("Are you sure you want to delete this Census application?")) {
             trackDeletedId(id);
             submissions = submissions.filter(app => app.id !== id);
-            localStorage.setItem('admin_census_submissions', JSON.stringify(submissions));
+            safeSetLocalStorage('admin_census_submissions', submissions);
             render(submissions);
         }
     };
@@ -2902,7 +2990,7 @@ function loadAdminEmployees() {
                 permanentAddress: document.getElementById('editPermanentAddress').value
             };
 
-            localStorage.setItem('admin_employees_submissions', JSON.stringify(submissions));
+            safeSetLocalStorage('admin_employees_submissions', submissions);
             alert("Employee updated successfully!");
             document.getElementById('editEmployeeModal').style.display = 'none';
             render(submissions);
@@ -2914,7 +3002,7 @@ function loadAdminEmployees() {
         if (confirm("Are you sure you want to delete this employee registration?")) {
             trackDeletedId(id);
             submissions = submissions.filter(app => app.id !== id);
-            localStorage.setItem('admin_employees_submissions', JSON.stringify(submissions));
+            safeSetLocalStorage('admin_employees_submissions', submissions);
             render(submissions);
         }
     };
@@ -3273,7 +3361,7 @@ function loadAdminPratibha() {
             // Update local storage
             submissions[idx].formData.status = status;
             submissions[idx].formData.remarks = remarks;
-            localStorage.setItem('admin_pratibha_submissions', JSON.stringify(submissions));
+            safeSetLocalStorage('admin_pratibha_submissions', submissions);
 
             // Sync update to Server Database
             try {
@@ -3342,7 +3430,7 @@ function loadAdminPratibha() {
             // Also remove from localStorage
             trackDeletedId(id);
             submissions = submissions.filter(app => app.id !== id);
-            localStorage.setItem('admin_pratibha_submissions', JSON.stringify(submissions));
+            safeSetLocalStorage('admin_pratibha_submissions', submissions);
             render(submissions);
             alert('Application deleted successfully!');
         }
@@ -3479,7 +3567,7 @@ function loadAdminSadhaka() {
             // Update local storage
             submissions[idx].formData.status = status;
             submissions[idx].formData.remarks = remarks;
-            localStorage.setItem('admin_sadhaka_submissions', JSON.stringify(submissions));
+            safeSetLocalStorage('admin_sadhaka_submissions', submissions);
 
             // Sync update to Server Database
             try {
@@ -3548,7 +3636,7 @@ function loadAdminSadhaka() {
             // Also remove from localStorage
             trackDeletedId(id);
             submissions = submissions.filter(app => app.id !== id);
-            localStorage.setItem('admin_sadhaka_submissions', JSON.stringify(submissions));
+            safeSetLocalStorage('admin_sadhaka_submissions', submissions);
             render(submissions);
             alert('Application deleted successfully!');
         }

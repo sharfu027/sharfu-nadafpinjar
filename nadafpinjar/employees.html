@@ -650,13 +650,22 @@
             };
 
             const saveLocally = (appNum) => {
-                const submissions = JSON.parse(localStorage.getItem('admin_employees_submissions') || '[]');
-                submissions.unshift({
-                    id: appNum,
-                    date: new Date().toLocaleDateString(),
-                    formData: formData
-                });
-                localStorage.setItem('admin_employees_submissions', JSON.stringify(submissions));
+                try {
+                    let submissions = JSON.parse(localStorage.getItem('admin_employees_submissions') || '[]');
+                    submissions.unshift({
+                        id: appNum,
+                        date: new Date().toLocaleDateString(),
+                        formData: formData
+                    });
+                    if (submissions.length > 50) submissions = submissions.slice(0, 50);
+                    try {
+                        localStorage.setItem('admin_employees_submissions', JSON.stringify(submissions));
+                    } catch (qe) {
+                        localStorage.setItem('admin_employees_submissions', JSON.stringify(submissions.slice(0, 10)));
+                    }
+                } catch (e) {
+                    console.warn("Local save skipped:", e);
+                }
             };
 
             let apiPromise = fetch('/api/donations', {
