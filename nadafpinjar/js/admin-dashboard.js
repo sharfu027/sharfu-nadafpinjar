@@ -3171,10 +3171,21 @@ function loadAdminEmployees() {
             </div>
         `;
 
+        container.style.position = 'fixed';
+        container.style.left = '0px';
+        container.style.top = '0px';
+        container.style.zIndex = '999999';
+        container.style.margin = '0px';
+        container.style.transform = 'none';
+
         document.body.appendChild(container);
 
         const executeDownload = async () => {
             try {
+                if (document.fonts && document.fonts.ready) {
+                    await document.fonts.ready.catch(() => null);
+                }
+
                 const images = Array.from(container.querySelectorAll('img'));
                 await Promise.all(images.map(img => {
                     if (img.complete) return Promise.resolve();
@@ -3185,18 +3196,56 @@ function loadAdminEmployees() {
                 }));
 
                 // Small delay to let browser paint the DOM
-                await new Promise(resolve => setTimeout(resolve, 300));
+                await new Promise(resolve => setTimeout(resolve, 250));
 
-                const opt = {
-                    margin:       [4, 6, 4, 6],
-                    filename:     fileName,
-                    image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: 800 },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                    pagebreak:    { mode: 'avoid-all' }
-                };
+                const h2c = window.html2canvas || (window.html2pdf && window.html2pdf().html2canvas);
+                const JsPdfClass = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
 
-                await window.html2pdf().set(opt).from(container).save();
+                const elW = container.offsetWidth || 740;
+                const elH = container.offsetHeight || 1050;
+
+                const canvas = await h2c(container, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#ffffff',
+                    scrollX: 0,
+                    scrollY: 0,
+                    x: 0,
+                    y: 0,
+                    width: elW,
+                    height: elH,
+                    windowWidth: elW,
+                    windowHeight: elH
+                });
+
+                const imgData = canvas.toDataURL('image/jpeg', 0.98);
+
+                const pdf = new JsPdfClass({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+
+                const pageW = 210;
+                const pageH = 297;
+                const marginX = 5;
+                const marginY = 5;
+                const maxW = pageW - (marginX * 2);
+                const maxH = pageH - (marginY * 2);
+
+                let renderW = maxW;
+                let renderH = (canvas.height * renderW) / canvas.width;
+
+                if (renderH > maxH) {
+                    renderH = maxH;
+                    renderW = (canvas.width * renderH) / canvas.height;
+                }
+
+                const posX = (pageW - renderW) / 2;
+                const posY = marginY;
+
+                pdf.addImage(imgData, 'JPEG', posX, posY, renderW, renderH);
+                pdf.save(fileName);
             } catch (err) {
                 console.error("PDF download error:", err);
                 alert("PDF ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.");
@@ -3205,7 +3254,7 @@ function loadAdminEmployees() {
             }
         };
 
-        if (window.html2pdf) {
+        if (window.html2pdf && window.jspdf) {
             executeDownload();
         } else {
             const script = document.createElement('script');
@@ -3665,10 +3714,10 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     }
 
     const container = document.createElement('div');
-    container.style.width = '700px';
+    container.style.width = '740px';
     container.style.backgroundColor = '#ffffff';
     container.style.color = '#000000';
-    container.style.padding = '12px 20px';
+    container.style.padding = '8px 16px';
     container.style.boxSizing = 'border-box';
 
     const studentName = fd.studentName || '-';
@@ -3686,235 +3735,49 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     const photo = fd.photo;
 
     container.innerHTML = `
-        
-                    
-                    
-                    
-                    
-                    
-                    <style>
-                        .pdf-container {
-                            font-family: 'Noto Sans Kannada', 'Kannada MN', 'Kannada Sangam MN', 'Tunga', sans-serif;
-                            font-size: 14.5px;
-                            line-height: 1.55 !important;
-                            color: #000;
-                            page-break-inside: avoid !important;
-                            width: 100%;
-                            box-sizing: border-box;
-                        }
-                        .header-table {
-                            width: 100%;
-                            border-collapse: collapse;
-                            margin-bottom: 4px;
-                            table-layout: fixed;
-                        }
-                        .header-table td {
-                            border: none !important;
-                            padding: 0 !important;
-                            vertical-align: middle;
-                        }
-                        .header-logo-left {
-                            width: 90px;
-                            text-align: left;
-                        }
-                        .header-logo-left img {
-                            width: 85px !important;
-                            height: 85px !important;
-                            min-width: 85px !important;
-                            max-width: 85px !important;
-                            min-height: 85px !important;
-                            max-height: 85px !important;
-                            border-radius: 50% !important;
-                            object-fit: cover !important;
-                            display: block;
-                        }
-                        .header-logo-right {
-                            width: 90px;
-                            text-align: right;
-                        }
-                        .header-logo-right img {
-                            width: 85px !important;
-                            height: 85px !important;
-                            min-width: 85px !important;
-                            max-width: 85px !important;
-                            min-height: 85px !important;
-                            max-height: 85px !important;
-                            border-radius: 50% !important;
-                            object-fit: cover !important;
-                            display: block;
-                            margin-left: auto;
-                        }
-                        .header-text {
-                            text-align: center !important;
-                            margin: 0 auto;
-                            padding: 0 4px;
-                        }
-                        .header-text h1, .header-text h2, .header-text h3 {
-                            margin: 0 auto !important;
-                            text-align: center !important;
-                            display: block !important;
-                            width: 100% !important;
-                        }
-                        .header-text h1 {
-                            font-size: 24px !important;
-                            font-weight: bold;
-                            color: #000;
-                            line-height: 1.3 !important;
-                        }
-                        .header-text h2 {
-                            margin-top: 2px !important;
-                            font-size: 15.5px !important;
-                            font-weight: bold;
-                        }
-                        .header-text h3 {
-                            margin-top: 3px !important;
-                            font-size: 17px !important;
-                            font-weight: bold;
-                        }
-                        .details-table {
-                            width: 100%;
-                            border-collapse: collapse;
-                            margin-top: 4px;
-                            table-layout: fixed;
-                        }
-                        .details-table tr {
-                            background: transparent !important;
-                        }
-                        .details-table th, .details-table td {
-                            border: 1px solid #000 !important;
-                            padding: 3px 5px !important;
-                            text-align: left;
-                            vertical-align: middle;
-                            font-size: 14px;
-                            line-height: 1.55 !important;
-                            box-sizing: border-box;
-                        }
-                        .sl-col {
-                            width: 28px;
-                            text-align: center !important;
-                            font-weight: bold;
-                        }
-                        .label-col {
-                            width: 245px;
-                            font-weight: bold;
-                            line-height: 1.45 !important;
-                        }
-                        .value-col {
-                            word-break: normal !important;
-                            overflow-wrap: break-word !important;
-                            white-space: normal !important;
-                            line-height: 1.55 !important;
-                        }
-                        .value-col-split {
-                            width: 220px;
-                            word-break: normal !important;
-                            overflow-wrap: break-word !important;
-                            white-space: normal !important;
-                            line-height: 1.55 !important;
-                        }
-                        .photo-cell {
-                            width: 105px !important;
-                            max-width: 105px !important;
-                            text-align: center !important;
-                            vertical-align: middle !important;
-                            padding: 3px !important;
-                            box-sizing: border-box !important;
-                            background-color: #ffffff !important;
-                            position: relative !important;
-                            z-index: 100 !important;
-                        }
-                        .photo-cell img {
-                            width: 88px !important;
-                            height: 110px !important;
-                            max-width: 88px !important;
-                            max-height: 110px !important;
-                            object-fit: cover !important;
-                            display: block !important;
-                            margin: 0 auto !important;
-                            border: 1px solid #000 !important;
-                            box-sizing: border-box !important;
-                            background-color: #ffffff !important;
-                            position: relative !important;
-                            z-index: 101 !important;
-                        }
-                        .photo-placeholder {
-                            border: 1px dashed #666;
-                            width: 88px !important;
-                            height: 110px !important;
-                            max-width: 88px !important;
-                            max-height: 110px !important;
-                            font-size: 10px;
-                            color: #555;
-                            text-align: center;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            margin: 0 auto;
-                            background: #fafafa;
-                            box-sizing: border-box !important;
-                        }
-                        .signature-section { margin-top: 8px; margin-bottom: 24px !important; }
-                        .signature-table {
-                            width: 100%;
-                            border-collapse: collapse;
-                        }
-                        .signature-table td {
-                            border: none !important;
-                            padding: 0 !important;
-                            font-size: 14.5px;
-                            line-height: 1.45 !important;
-                        }
-                        .recommendation-table {
-                            width: 100%;
-                            border-collapse: collapse;
-                            margin-top: 4px;
-                            margin-bottom: 6px !important;
-                        }
-                        .recommendation-table td {
-                            width: 50%;
-                            border: 1px solid #000 !important;
-                            height: 160px !important;
-                            vertical-align: top;
-                            padding: 5px !important;
-                            box-sizing: border-box;
-                        }
-                        .recommendation-title {
-                            font-weight: bold;
-                            font-size: 15.5px;
-                            text-align: center;
-                            line-height: 1.6 !important;
-                        }
-                        .recommendation-subtitle {
-                            font-size: 11.5px;
-                            text-align: center;
-                            margin-top: 2px;
-                            color: #333;
-                            line-height: 1.3 !important;
-                        }
-                        .committee-section {
-                            border-top: 1px dashed #000;
-                            padding-top: 6px !important;
-                            margin-top: 8px !important;
-                        }
-                        .committee-title {
-                            font-weight: bold;
-                            font-size: 16.5px;
-                            text-align: center;
-                            margin-bottom: 3px;
-                        }
-                        .committee-text {
-                            font-size: 16px;
-                            line-height: 1.45 !important;
-                        }
-                        .committee-bullet {
-                            margin-top: 4px;
-                            padding-left: 14px;
-                            text-indent: -14px;
-                            text-align: justify;
-                            line-height: 1.45 !important;
-                            font-size: 16px;
-                        }
-                    </style>
+        <style>
+            .pdf-container {
+                font-family: 'Noto Sans Kannada', 'Kannada MN', 'Kannada Sangam MN', 'Tunga', sans-serif;
+                font-size: 13px;
+                line-height: 1.35 !important;
+                color: #000;
+                page-break-inside: avoid !important;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .header-table { width: 100%; border-collapse: collapse; margin-bottom: 3px; table-layout: fixed; }
+            .header-table td { border: none !important; padding: 0 !important; vertical-align: middle; }
+            .header-logo-left { width: 75px; text-align: left; }
+            .header-logo-left img { width: 72px !important; height: 72px !important; border-radius: 50% !important; object-fit: cover !important; display: block; }
+            .header-logo-right { width: 75px; text-align: right; }
+            .header-logo-right img { width: 72px !important; height: 72px !important; border-radius: 50% !important; object-fit: cover !important; display: block; margin-left: auto; }
+            .header-text { text-align: center !important; margin: 0 auto; padding: 0 4px; }
+            .header-text h1 { font-size: 19px !important; font-weight: bold; color: #000; margin: 0 auto; text-align: center; white-space: nowrap; line-height: 1.2; }
+            .header-text h2.reg-no { margin: 2px auto 0 auto; font-size: 12px; font-weight: bold; text-align: center; line-height: 1.2; }
+            .header-text h2.office { margin: 1px auto 0 auto; font-size: 12.5px; font-weight: bold; text-align: center; line-height: 1.2; }
+            .header-text h3 { margin: 2px auto 0 auto; font-size: 14.5px; font-weight: bold; text-align: center; line-height: 1.2; }
+            .details-table { width: 100%; border-collapse: collapse; margin-top: 3px; table-layout: fixed; }
+            .details-table tr { background: transparent !important; }
+            .details-table th, .details-table td { border: 1px solid #000 !important; padding: 3px 5px !important; text-align: left; vertical-align: middle; font-size: 13px !important; line-height: 1.35 !important; box-sizing: border-box; }
+            .sl-col { width: 28px; text-align: center !important; font-weight: bold; }
+            .label-col { width: 245px; font-weight: bold; line-height: 1.35 !important; }
+            .value-col { word-break: normal !important; overflow-wrap: break-word !important; white-space: normal !important; line-height: 1.35 !important; }
+            .value-col-split { width: 220px; word-break: normal !important; overflow-wrap: break-word !important; white-space: normal !important; line-height: 1.35 !important; }
+            .photo-cell { width: 105px !important; max-width: 105px !important; text-align: center !important; vertical-align: middle !important; padding: 2px !important; box-sizing: border-box !important; background-color: #ffffff !important; position: relative !important; z-index: 100 !important; }
+            .photo-cell img { width: 80px !important; height: 100px !important; max-width: 80px !important; max-height: 100px !important; object-fit: cover !important; display: block !important; margin: 0 auto !important; border: 1px solid #000 !important; box-sizing: border-box !important; background-color: #ffffff !important; position: relative !important; z-index: 101 !important; }
+            .photo-placeholder { border: 1px dashed #666; width: 80px !important; height: 100px !important; max-width: 80px !important; max-height: 100px !important; font-size: 10px; color: #555; text-align: center; display: flex; align-items: center; justify-content: center; margin: 0 auto; background: #fafafa; box-sizing: border-box !important; }
+            .signature-section { width: 100%; margin-top: 5px; margin-bottom: 5px !important; }
+            .signature-table { width: 100%; border-collapse: collapse; }
+            .signature-table td { border: none !important; padding: 1px 0 !important; font-size: 13px; line-height: 1.35 !important; white-space: nowrap; }
+            .recommendation-table { width: 100%; border-collapse: collapse; margin-top: 2px; margin-bottom: 4px !important; }
+            .recommendation-table td { width: 50%; border: 1px solid #000 !important; height: 110px !important; vertical-align: top; padding: 4px 6px !important; box-sizing: border-box; }
+            .recommendation-title { font-weight: bold; font-size: 13px; text-align: center; margin-bottom: 2px; }
+            .recommendation-subtitle { font-size: 11px; text-align: center; color: #222; }
+            .committee-section { border-top: 1px dashed #000; padding-top: 3px !important; margin-top: 3px !important; }
+            .committee-title { font-weight: bold; font-size: 13px; text-align: center; margin-bottom: 2px; }
+            .committee-text { font-size: 12px; line-height: 1.35 !important; }
+            .committee-bullet { margin-top: 2px; padding-left: 12px; text-indent: -12px; text-align: justify; line-height: 1.35 !important; font-size: 12px; }
+        </style>
         <div class="pdf-container">
             <table class="header-table">
                 <tr>
@@ -3922,13 +3785,13 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                         <img src="${origin}/images/president_circular.png" onerror="this.src='${origin}/images/president.jpeg'">
                     </td>
                     <td class="header-text">
-                        <h1 style="font-size: 20.5px; margin: 0 auto; text-align: center; font-weight: bold; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h1>
-                        <h2 style="font-size: 12.5px; margin: 2px auto 0 auto; text-align: center; font-weight: bold;">ನೋ.ಸಂಖ್ಯೆ: 151/ಎಸ್.ಒ.ಆರ್/ಎಸ್.ಎಮ್.ಜೆ/1993-94</h2>
-                        <h2 style="font-size: 13.5px; margin: 1px auto 0 auto; text-align: center; font-weight: bold;">ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
-                        <h3 style="font-size: 15.5px; margin: 3px auto 0 auto; text-align: center; font-weight: bold;">ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳು ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
+                        <h1 style="font-size: 19px; margin: 0 auto; text-align: center; font-weight: bold; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h1>
+                        <h2 class="reg-no" style="font-size: 12px; margin: 2px auto 0 auto; text-align: center; font-weight: bold;">ನೋ.ಸಂಖ್ಯೆ: 151/ಎಸ್.ಒ.ಆರ್/ಎಸ್.ಎಮ್.ಜೆ/1993-94</h2>
+                        <h2 class="office" style="font-size: 12.5px; margin: 1px auto 0 auto; text-align: center; font-weight: bold;">ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
+                        <h3 style="font-size: 14.5px; margin: 2px auto 0 auto; text-align: center; font-weight: bold;">ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿಗಳು ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
                     </td>
                     <td class="header-logo-right">
-                        <img src="${origin}/images/logo-786_circular.png" onerror="this.src='${origin}/images/logo-786.png'">
+                        <img src="${origin}/images/logo-786_circular.png" onerror="this.src='images/logo-786.png'">
                     </td>
                 </tr>
             </table>
@@ -3979,7 +3842,7 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                     <td class="label-col">ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ ಮೊ. ನಂ.</td>
                     <td class="value-col-split">${parentMobile}</td>
                     <td class="photo-cell" rowspan="4" style="position: relative !important; z-index: 100 !important; background: #ffffff !important;">
-                        ${photo ? '<img src="' + photo + '" style="width: 88px; height: 110px; max-width: 88px; max-height: 110px; object-fit: cover; display: block; margin: 0 auto; border: 1px solid #000; background: #fff; position: relative !important; z-index: 101 !important;">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಸೈಜ್ ಫೋಟೋ</div>'}
+                        ${photo ? '<img src="' + photo + '" style="width: 80px; height: 100px; max-width: 80px; max-height: 100px; object-fit: cover; display: block; margin: 0 auto; border: 1px solid #000; background: #fff; position: relative !important; z-index: 101 !important;">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಸೈಜ್ ಫೋಟೋ</div>'}
                     </td>
                 </tr>
                 <tr>
@@ -4004,12 +3867,12 @@ window.downloadPratibhaPdfAdmin = async function(id) {
                     <tr>
                         <td style="width: 30%; text-align: left; vertical-align: middle;">
                             <div><strong>ದಿನಾಂಕ :</strong> _________________</div>
-                            <div style="margin-top: 6px;"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</div>
+                            <div style="margin-top: 5px;"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</div>
                         </td>
-                        <td style="width: 40%; text-align: center; vertical-align: middle; font-weight: bold; font-size: 14.5px;">
+                        <td style="width: 40%; text-align: center; vertical-align: middle; font-weight: bold; font-size: 13px;">
                             ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ಪಾಲಕರ ರುಜು
                         </td>
-                        <td style="width: 30%; text-align: right; vertical-align: middle; font-weight: bold; font-size: 14.5px;">
+                        <td style="width: 30%; text-align: right; vertical-align: middle; font-weight: bold; font-size: 13px;">
                             ವಿದ್ಯಾರ್ಥಿ/ನಿ ಯ ರುಜು
                         </td>
                     </tr>
@@ -4041,36 +3904,99 @@ window.downloadPratibhaPdfAdmin = async function(id) {
         </div>
     `;
 
+    container.style.position = 'fixed';
+    container.style.left = '0px';
+    container.style.top = '0px';
+    container.style.zIndex = '999999';
+    container.style.margin = '0px';
+    container.style.transform = 'none';
+
     document.body.appendChild(container);
-    if (document.fonts) { await document.fonts.ready.catch(() => null); }
-    const images = Array.from(container.querySelectorAll('img'));
-    await Promise.all(images.map(img => {
-        if (img.complete) return Promise.resolve();
-        return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
-    }));
+    try {
+        if (document.fonts) { await document.fonts.ready.catch(() => null); }
+        const images = Array.from(container.querySelectorAll('img'));
+        await Promise.all(images.map(img => {
+            if (img.complete) return Promise.resolve();
+            return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
+        }));
 
-    // Small delay to let browser paint the DOM
-    await new Promise(resolve => setTimeout(resolve, 300));
+        // Small delay to let browser paint the DOM
+        await new Promise(resolve => setTimeout(resolve, 250));
 
-    const opt = {
-        margin: [3, 6, 3, 6],
-        filename: `Pratibha_Puraskar_${studentName || id}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: 800 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: 'avoid-all' }
-    };
+        const h2c = window.html2canvas || (window.html2pdf && window.html2pdf().html2canvas);
+        const JsPdfClass = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
 
-    await window.html2pdf().from(container).set(opt).save();
-    document.body.removeChild(container);
+        const elW = container.offsetWidth || 740;
+        const elH = container.offsetHeight || 1050;
+
+        const canvas = await h2c(container, {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: '#ffffff',
+            scrollX: 0,
+            scrollY: 0,
+            x: 0,
+            y: 0,
+            width: elW,
+            height: elH,
+            windowWidth: elW,
+            windowHeight: elH
+        });
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.98);
+
+        const pdf = new JsPdfClass({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'a4'
+        });
+
+        const pageW = 210;
+        const pageH = 297;
+        const marginX = 5;
+        const marginY = 5;
+        const maxW = pageW - (marginX * 2);
+        const maxH = pageH - (marginY * 2);
+
+        let renderW = maxW;
+        let renderH = (canvas.height * renderW) / canvas.width;
+
+        if (renderH > maxH) {
+            renderH = maxH;
+            renderW = (canvas.width * renderH) / canvas.height;
+        }
+
+        const posX = (pageW - renderW) / 2;
+        const posY = marginY;
+
+        pdf.addImage(imgData, 'JPEG', posX, posY, renderW, renderH);
+        pdf.save(`Pratibha_Puraskar_${studentName || id}.pdf`);
+    } catch (err) {
+        console.error("PDF generation error:", err);
+        alert("PDF ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.");
+    } finally {
+        if (container.parentNode) document.body.removeChild(container);
+    }
 };
 
 // Download PDF for Sadhaka Award Admin
 window.downloadSadhakaPdfAdmin = async function(id) {
     const list = JSON.parse(localStorage.getItem('admin_sadhaka_submissions')) || [];
-    const app = list.find(item => item.id === id);
+    let app = list.find(item => item.id === id || item.dbId === id || (item.formData && item.formData.paymentId === id));
+    if (!app) {
+        try {
+            let res = await fetch("/api/donations?_=" + Date.now()).catch(() => null);
+            if (res && res.ok) {
+                let data = await res.json().catch(() => null);
+                let apiList = Array.isArray(data) ? data : (data && Array.isArray(data.donations) ? data.donations : []);
+                app = apiList.find(item => item.paymentId === id || item._id === id || (item.formData && item.formData.paymentId === id));
+            }
+        } catch(e) {}
+    }
+
     if (!app) { alert('Application not found'); return; }
-    const fd = app.formData || {};
+    const fd = app.formData || app;
+    const origin = window.location.origin;
     
     if (!window.html2pdf) {
         await new Promise((resolve) => {
@@ -4082,204 +4008,254 @@ window.downloadSadhakaPdfAdmin = async function(id) {
     }
 
     const container = document.createElement('div');
-    container.style.width = '700px';
+    container.style.width = '740px';
     container.style.backgroundColor = '#ffffff';
     container.style.color = '#000000';
-    container.style.padding = '15px 25px';
+    container.style.padding = '8px 16px';
     container.style.boxSizing = 'border-box';
     container.innerHTML = `
         <style>
             .pdf-container {
                 font-family: 'Noto Sans Kannada', 'Kannada MN', 'Kannada Sangam MN', 'Tunga', sans-serif;
-                font-size: 14.5px;
-                line-height: 1.55 !important;
+                font-size: 13px;
+                line-height: 1.35 !important;
                 color: #000;
                 page-break-inside: avoid !important;
                 width: 100%;
                 box-sizing: border-box;
             }
-            .header-table { width: 100%; border-collapse: collapse; margin-bottom: 4px; table-layout: fixed; }
+            .header-table { width: 100%; border-collapse: collapse; margin-bottom: 3px; table-layout: fixed; }
             .header-table td { border: none !important; padding: 0 !important; vertical-align: middle; }
-            .header-logo-left { width: 90px; text-align: left; }
-            .header-logo-left img { width: 85px !important; height: 85px !important; border-radius: 50% !important; object-fit: cover !important; display: block; }
-            .header-logo-right { width: 90px; text-align: right; }
-            .header-logo-right img { width: 85px !important; height: 85px !important; border-radius: 50% !important; object-fit: cover !important; display: block; margin-left: auto; }
+            .header-logo-left { width: 75px; text-align: left; }
+            .header-logo-left img { width: 72px !important; height: 72px !important; border-radius: 50% !important; object-fit: cover !important; display: block; }
+            .header-logo-right { width: 75px; text-align: right; }
+            .header-logo-right img { width: 72px !important; height: 72px !important; border-radius: 50% !important; object-fit: cover !important; display: block; margin-left: auto; }
             .header-text { text-align: center !important; margin: 0 auto; padding: 0 4px; }
-            .header-text h1, .header-text h2, .header-text h3 { margin: 0 auto !important; text-align: center !important; display: block !important; width: 100% !important; }
-            .header-text h1 { font-size: 24px !important; font-weight: bold; color: #000; line-height: 1.3 !important; }
-            .header-text h2 { margin-top: 2px !important; font-size: 15.5px !important; font-weight: bold; }
-            .header-text h3 { margin-top: 3px !important; font-size: 17px !important; font-weight: bold; }
-            .details-table { width: 100%; border-collapse: collapse; margin-top: 4px; table-layout: fixed; }
+            .header-text h1 { font-size: 19px !important; font-weight: bold; color: #000; margin: 0 auto; text-align: center; white-space: nowrap; line-height: 1.2; }
+            .header-text h2.reg-no { margin: 2px auto 0 auto; font-size: 12px; font-weight: bold; text-align: center; line-height: 1.2; }
+            .header-text h2.office { margin: 1px auto 0 auto; font-size: 12.5px; font-weight: bold; text-align: center; line-height: 1.2; }
+            .header-text h3 { margin: 2px auto 0 auto; font-size: 14.5px; font-weight: bold; text-align: center; line-height: 1.2; }
+            .details-table { width: 100%; border-collapse: collapse; margin-top: 3px; table-layout: fixed; }
             .details-table tr { background: transparent !important; }
-            .details-table th, .details-table td { border: 1px solid #000 !important; padding: 3px 5px !important; text-align: left; vertical-align: middle; font-size: 14px; line-height: 1.55 !important; box-sizing: border-box; }
+            .details-table th, .details-table td { border: 1px solid #000 !important; padding: 3px 5px !important; text-align: left; vertical-align: middle; font-size: 13px !important; line-height: 1.35 !important; box-sizing: border-box; }
             .sl-col { width: 28px; text-align: center !important; font-weight: bold; }
-            .label-col { width: 245px; font-weight: bold; line-height: 1.45 !important; }
-            .value-col { word-break: normal !important; overflow-wrap: break-word !important; white-space: normal !important; line-height: 1.55 !important; }
-            .value-col-split { width: 220px; word-break: normal !important; overflow-wrap: break-word !important; white-space: normal !important; line-height: 1.55 !important; }
-            .photo-cell { width: 105px !important; max-width: 105px !important; text-align: center !important; vertical-align: middle !important; padding: 3px !important; box-sizing: border-box !important; background-color: #ffffff !important; position: relative !important; z-index: 100 !important; }
-            .photo-cell img { width: 88px !important; height: 110px !important; max-width: 88px !important; max-height: 110px !important; object-fit: cover !important; display: block !important; margin: 0 auto !important; border: 1px solid #000 !important; box-sizing: border-box !important; background-color: #ffffff !important; position: relative !important; z-index: 101 !important; }
-            .photo-placeholder { border: 1px dashed #666; width: 88px !important; height: 110px !important; max-width: 88px !important; max-height: 110px !important; font-size: 10px; color: #555; text-align: center; display: flex; align-items: center; justify-content: center; margin: 0 auto; background: #fafafa; box-sizing: border-box !important; }
-            .signature-section { margin-top: 8px; margin-bottom: 24px !important; }
+            .label-col { width: 245px; font-weight: bold; line-height: 1.35 !important; }
+            .value-col { word-break: normal !important; overflow-wrap: break-word !important; white-space: normal !important; line-height: 1.35 !important; }
+            .value-col-split { width: 220px; word-break: normal !important; overflow-wrap: break-word !important; white-space: normal !important; line-height: 1.35 !important; }
+            .photo-cell { width: 105px !important; max-width: 105px !important; text-align: center !important; vertical-align: middle !important; padding: 2px !important; box-sizing: border-box !important; background-color: #ffffff !important; position: relative !important; z-index: 100 !important; }
+            .photo-cell img { width: 80px !important; height: 100px !important; max-width: 80px !important; max-height: 100px !important; object-fit: cover !important; display: block !important; margin: 0 auto !important; border: 1px solid #000 !important; box-sizing: border-box !important; background-color: #ffffff !important; position: relative !important; z-index: 101 !important; }
+            .photo-placeholder { border: 1px dashed #666; width: 80px !important; height: 100px !important; max-width: 80px !important; max-height: 100px !important; font-size: 10px; color: #555; text-align: center; display: flex; align-items: center; justify-content: center; margin: 0 auto; background: #fafafa; box-sizing: border-box !important; }
+            .signature-section { width: 100%; margin-top: 5px; margin-bottom: 5px !important; }
             .signature-table { width: 100%; border-collapse: collapse; }
-            .signature-table td { border: none !important; padding: 0 !important; font-size: 14.5px; line-height: 1.45 !important; }
-            .recommendation-table { width: 100%; border-collapse: collapse; margin-top: 4px; margin-bottom: 6px !important; }
-            .recommendation-table td { width: 50%; border: 1px solid #000 !important; height: 160px !important; vertical-align: top; padding: 5px !important; box-sizing: border-box; }
-            .recommendation-title { font-weight: bold; font-size: 15.5px; text-align: center; line-height: 1.6 !important; }
-            .recommendation-subtitle { font-size: 11.5px; text-align: center; margin-top: 2px; color: #333; line-height: 1.3 !important; }
-            .committee-section { border-top: 1px dashed #000; padding-top: 6px !important; margin-top: 8px !important; }
-            .committee-title { font-weight: bold; font-size: 16.5px; text-align: center; margin-bottom: 3px; }
-            .committee-text { font-size: 16px; line-height: 1.45 !important; }
-            .committee-bullet { margin-top: 4px; padding-left: 14px; text-indent: -14px; text-align: justify; line-height: 1.45 !important; font-size: 16px; }
+            .signature-table td { border: none !important; padding: 1px 0 !important; font-size: 13px; line-height: 1.35 !important; white-space: nowrap; }
+            .recommendation-table { width: 100%; border-collapse: collapse; margin-top: 2px; margin-bottom: 4px !important; }
+            .recommendation-table td { width: 50%; border: 1px solid #000 !important; height: 110px !important; vertical-align: top; padding: 4px 6px !important; box-sizing: border-box; }
+            .recommendation-title { font-weight: bold; font-size: 13px; text-align: center; margin-bottom: 2px; }
+            .recommendation-subtitle { font-size: 11px; text-align: center; color: #222; }
+            .committee-section { border-top: 1px dashed #000; padding-top: 3px !important; margin-top: 3px !important; }
+            .committee-title { font-weight: bold; font-size: 13px; text-align: center; margin-bottom: 2px; }
+            .committee-text { font-size: 12px; line-height: 1.35 !important; }
+            .committee-bullet { margin-top: 2px; padding-left: 12px; text-indent: -12px; text-align: justify; line-height: 1.35 !important; font-size: 12px; }
         </style>
         <div class="pdf-container">
+            <table class="header-table">
+                <tr>
+                    <td class="header-logo-left">
+                        <img src="${origin}/images/president_circular.png" onerror="this.src='${origin}/images/president.jpeg'">
+                    </td>
+                    <td class="header-text">
+                        <h1 style="font-size: 19px; margin: 0 auto; text-align: center; font-weight: bold; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h1>
+                        <h2 class="reg-no" style="font-size: 12px; margin: 2px auto 0 auto; text-align: center; font-weight: bold;">ನೋ.ಸಂಖ್ಯೆ: 151/ಎಸ್.ಒ.ಆರ್/ಎಸ್.ಎಮ್.ಜೆ/1993-94</h2>
+                        <h2 class="office" style="font-size: 12.5px; margin: 1px auto 0 auto; text-align: center; font-weight: bold;">ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
+                        <h3 style="font-size: 14.5px; margin: 2px auto 0 auto; text-align: center; font-weight: bold;">ವಿವಿಧ ಕ್ಷೇತ್ರಗಳ ಸಾಧಕರ ಆಯ್ಕೆಗಾಗಿ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
+                    </td>
+                    <td class="header-logo-right">
+                        <img src="${origin}/images/logo-786_circular.png" onerror="this.src='images/logo-786.png'">
+                    </td>
+                </tr>
+            </table>
             
-                        <table class="header-table">
-                            <tr>
-                                <td class="header-logo-left">
-                                    <img src="${origin}/images/president_circular.png" onerror="this.src='${origin}/images/president.jpeg'">
-                                </td>
-                                <td class="header-text">
-                                    <h1 style="font-size: 20.5px; margin: 0 auto; text-align: center; font-weight: bold; white-space: nowrap;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ ಸಂಘ (ರಿ)</h1>
-                                    <h2 style="font-size: 12.5px; margin: 2px auto 0 auto; text-align: center; font-weight: bold;">ನೋ.ಸಂಖ್ಯೆ: 151/ಎಸ್.ಒ.ಆರ್/ಎಸ್.ಎಮ್.ಜೆ/1993-94</h2>
-                                    <h2 style="font-size: 13.5px; margin: 1px auto 0 auto; text-align: center; font-weight: bold;">ಆಡಳಿತ ಕಚೇರಿ : ಸೀಬಾರಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ</h2>
-                                    <h3 style="font-size: 15.5px; margin: 3px auto 0 auto; text-align: center; font-weight: bold;">ವಿವಿಧ ಕ್ಷೇತ್ರಗಳ ಸಾಧಕರ ಆಯ್ಕೆಗಾಗಿ ಸಲ್ಲಿಸುವ ಅರ್ಜಿ 2025-26</h3>
-                                </td>
-                                <td class="header-logo-right">
-                                    <img src="${origin}/images/logo-786_circular.png" onerror="this.src='images/logo-786.png'">
-                                </td>
-                            </tr>
-                        </table>
-                        
-                        <table class="details-table">
-                            <tr>
-                                <td class="sl-col">1</td>
-                                <td class="label-col">ಸಾಧಕರ ಹೆಸರು</td>
-                                <td class="value-col" colspan="2">${fd.studentName || '-'}</td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">2</td>
-                                <td class="label-col">ಸಾಧಕರ ತಂದೆಯ/ಗಂ/ ಹೆಸರು</td>
-                                <td class="value-col" colspan="2">${fd.fatherName || '-'}</td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">3</td>
-                                <td class="label-col">ಸಾಧಕರ ಪೋಷಕರಿದ್ದಲ್ಲಿ ಹೆಸರು</td>
-                                <td class="value-col" colspan="2">${fd.guardianName || '-'}</td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">4</td>
-                                <td class="label-col">ಪಾಲಕರ/ಪೋಷಕರ ಉದ್ಯೋಗ</td>
-                                <td class="value-col" colspan="2">${fd.parentOccupationIncome || '-'}</td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">5</td>
-                                <td class="label-col">ಸಾಧಕರ ಪಾಲಕರ/ಪೋಷಕರ ಸಂಪೂರ್ಣವಿಳಾಸ</td>
-                                <td class="value-col" colspan="2">${fd.completeAddress || '-'}</td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">6</td>
-                                <td class="label-col">ಸಾಧಕರ ಆಧಾರ ಸಂಖ್ಯೆ</td>
-                                <td class="value-col" colspan="2">${fd.aadhar || '-'}</td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">7</td>
-                                <td class="label-col">ಸಾಧಕರ ಕುಟುಂಬದವರು ಅಜೀವ ಸದಸ್ಯರೇ ?</td>
-                                <td class="value-col" colspan="2">${(fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes') || fd.lifeMembership === 'Yes' || fd.lifeMembership === 'ಹೌದು')) ? '<div style="font-size: 13.5px; font-weight: bold; line-height: 1.4;">ಹೌದು <span style="font-size: 12px; font-weight: normal; color: #111; margin-left: 6px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span></div>' : (fd.lifeMembership || '-')}</td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">8</td>
-                                <td class="label-col">ಸಾಧಕರು ಸಾಧನೆ ಮಾಡಿದ ಕ್ಷೇತ್ರಗಳ ವಿವರ ಮತ್ತು ಸಂಬಂಧಿಸಿದ ದಾಖಲೆಗಳನ್ನು ಲಗತ್ತಿಸುವುದು</td>
-                                <td class="value-col" colspan="2">${fd.marksDetails || '-'}</td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">9</td>
-                                <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಮೊ. ನಂ.</td>
-                                <td class="value-col-split">${fd.parentMobile || '-'}</td>
-                                <td class="photo-cell" rowspan="4" style="position: relative !important; z-index: 100 !important; background: #ffffff !important;">
-                                    ${fd.photo ? '<img src="' + fd.photo + '" style="width: 88px; height: 110px; max-width: 88px; max-height: 110px; object-fit: cover; display: block; margin: 0 auto; border: 1px solid #000; background: #fff; position: relative !important; z-index: 101 !important;">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">10</td>
-                                <td class="label-col">ಸಾಧಕರ ಅಥವಾ ಪಾಲಕರ ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (ಕಡ್ಡಾಯ)</td>
-                                <td class="value-col-split">${fd.bankAccount || fd.bankDetails || '-'}</td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">11</td>
-                                <td class="label-col">ಸಾಧಕರ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
-                                <td class="value-col-split">${fd.bankName || '-'}</td>
-                            </tr>
-                            <tr>
-                                <td class="sl-col">12</td>
-                                <td class="label-col">IFSC ಕೋಡ್</td>
-                                <td class="value-col-split">${fd.ifsc || '-'}</td>
-                            </tr>
-                        </table>
-                        
-                        <div class="signature-section">
-                            <table class="signature-table">
-                                <tr>
-                                    <td style="width: 30%; text-align: left; vertical-align: middle;">
-                                        <div><strong>ದಿನಾಂಕ :</strong> _________________</div>
-                                        <div style="margin-top: 6px;"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</div>
-                                    </td>
-                                    <td style="width: 40%; text-align: center; vertical-align: middle; font-weight: bold; font-size: 14.5px;">
-                                        ಸಾಧಕರ ಪಾಲಕರ ರುಜು (ಕ್ರೀಡೆಯಿದ್ದಲ್ಲಿ)
-                                    </td>
-                                    <td style="width: 30%; text-align: right; vertical-align: middle; font-weight: bold; font-size: 14.5px;">
-                                        ಸಾಧಕರ ರುಜು
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        
-                        <table class="recommendation-table">
-                            <tr>
-                                <td>
-                                    <div class="recommendation-title">ತಾಲ್ಲೂಕ ಅಧ್ಯಕ್ಷರ ಶಿಫಾರಸ್ಸು</div>
-                                    <div class="recommendation-subtitle">(ದಿನಾಂಕ 30-09-2026 ರ ಒಳಗಾಗಿ ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರಿಗೆ ನೀಡುವುದು)</div>
-                                </td>
-                                <td>
-                                    <div class="recommendation-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ ಶಿಫಾರಸ್ಸು</div>
-                                    <div class="recommendation-subtitle">(ದಿನಾಂಕ 05-10-2026 ರ ಒಳಗಾಗಿ ರಾಜ್ಯ ಸ್ಕ್ರೀನಿಂಗ್ ಸಮಿತಿಗೆ ನೀಡುವುದು)</div>
-                                </td>
-                            </tr>
-                        </table>
-                        
-                        <div class="committee-section">
-                            <div class="committee-title">ರಾಜ್ಯ ಸ್ಕ್ರೀನಿಂಗ್ ಕಮಿಟಿ ಉಪಯೋಗಕ್ಕಾಗಿ</div>
-                            <div class="committee-text">
-                                ಸಾಧಕರಾದ <strong>${fd.studentName || '......................................................'}</strong> ......................................................................................................
-                                <div class="committee-bullet">
-                                    • ಇವರ ಮೂಲ ದಾಖಲೆಗಳ ಸಮೇತ ಸಲ್ಲಿಸಿರುವ ಅರ್ಜಿಯನ್ನು ಸಂಘದ ಮಾರ್ಗಸೂಚಿಗಳ ಅನ್ವಯ ಕೂಲಂಕುಷವಾಗಿ ಪರಿಶೀಲಿಸಿ, ಸೂಕ್ತ ಎಂದು ಕಂಡು ಬಂದುದರಿಂದ ಸಂಸ್ಥಾಪನಾ ದಿನಾಚರಣೆ ನಿಮಿತ್ತ ರಾಜ್ಯ ಮಟ್ಟದಲ್ಲಿ ಜರುಗುವ ಗೌರವ ಸನ್ಮಾನ ಕಾರ್ಯಕ್ರಮದಲ್ಲಿ 'ಪುರಸ್ಕರಿಸಲು' ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ.
-                                </div>
-                            </div>
-                        </div>
+            <table class="details-table">
+                <tr>
+                    <td class="sl-col">1</td>
+                    <td class="label-col">ಸಾಧಕರ ಹೆಸರು</td>
+                    <td class="value-col" colspan="2">${fd.studentName || fd.name || '-'}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">2</td>
+                    <td class="label-col">ಸಾಧಕರ ತಂದೆಯ/ಗಂ/ ಹೆಸರು</td>
+                    <td class="value-col" colspan="2">${fd.fatherName || fd.father_name || '-'}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">3</td>
+                    <td class="label-col">ಸಾಧಕರ ಪೋಷಕರಿದ್ದಲ್ಲಿ ಹೆಸರು</td>
+                    <td class="value-col" colspan="2">${fd.guardianName || fd.guardian_name || '-'}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">4</td>
+                    <td class="label-col">ಪಾಲಕರ/ಪೋಷಕರ ಉದ್ಯೋಗ</td>
+                    <td class="value-col" colspan="2">${fd.parentOccupationIncome || fd.parent_occupation || '-'}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">5</td>
+                    <td class="label-col">ಸಾಧಕರ ಪಾಲಕರ/ಪೋಷಕರ ಸಂಪೂರ್ಣವಿಳಾಸ</td>
+                    <td class="value-col" colspan="2">${fd.completeAddress || fd.address || '-'}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">6</td>
+                    <td class="label-col">ಸಾಧಕರ ಆಧಾರ ಸಂಖ್ಯೆ</td>
+                    <td class="value-col" colspan="2">${(typeof maskAadhar === 'function' ? maskAadhar(fd.aadhar) : fd.aadhar) || '-'}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">7</td>
+                    <td class="label-col">ಸಾಧಕರ ಕುಟುಂಬದವರು ಅಜೀವ ಸದಸ್ಯರೇ ?</td>
+                    <td class="value-col" colspan="2">${(fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes') || fd.lifeMembership === 'Yes' || fd.lifeMembership === 'ಹೌದು')) ? '<div style="font-size: 13.5px; font-weight: bold; line-height: 1.4;">ಹೌದು <span style="font-size: 12px; font-weight: normal; color: #111; margin-left: 6px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span></div>' : (fd.lifeMembership || '-')}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">8</td>
+                    <td class="label-col">ಸಾಧಕರು ಸಾಧನೆ ಮಾಡಿದ ಕ್ಷೇತ್ರಗಳ ವಿವರ ಮತ್ತು ಸಂಬಂಧಿಸಿದ ದಾಖಲೆಗಳನ್ನು ಲಗತ್ತಿಸುವುದು</td>
+                    <td class="value-col" colspan="2">${fd.marksDetails || '-'}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">9</td>
+                    <td class="label-col">ಸಾಧಕರ / ಪಾಲಕರ ಮೊ. ನಂ.</td>
+                    <td class="value-col-split">${fd.parentMobile || fd.mobile || '-'}</td>
+                    <td class="photo-cell" rowspan="4" style="position: relative !important; z-index: 100 !important; background: #ffffff !important;">
+                        ${fd.photo ? '<img src="' + fd.photo + '" style="width: 80px; height: 100px; max-width: 80px; max-height: 100px; object-fit: cover; display: block; margin: 0 auto; border: 1px solid #000; background: #fff; position: relative !important; z-index: 101 !important;">' : '<div class="photo-placeholder">ಪಾಸ್ ಪೋರ್ಟ್<br>ಫೋಟೋ</div>'}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="sl-col">10</td>
+                    <td class="label-col">ಸಾಧಕರ ಅಥವಾ ಪಾಲಕರ ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರ (ಕಡ್ಡಾಯ)</td>
+                    <td class="value-col-split">${fd.bankAccount || fd.bank_account || fd.bankDetails || '-'}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">11</td>
+                    <td class="label-col">ಸಾಧಕರ ಬ್ಯಾಂಕ್ ಹೆಸರು</td>
+                    <td class="value-col-split">${fd.bankName || fd.bank_name || '-'}</td>
+                </tr>
+                <tr>
+                    <td class="sl-col">12</td>
+                    <td class="label-col">IFSC ಕೋಡ್</td>
+                    <td class="value-col-split">${fd.ifsc || '-'}</td>
+                </tr>
+            </table>
+            
+            <div class="signature-section">
+                <table class="signature-table">
+                    <tr>
+                        <td style="width: 30%; text-align: left; vertical-align: middle;">
+                            <div><strong>ದಿನಾಂಕ :</strong> _________________</div>
+                            <div style="margin-top: 5px;"><strong>ಸ್ಥಳ :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _________________</div>
+                        </td>
+                        <td style="width: 40%; text-align: center; vertical-align: middle; font-weight: bold; font-size: 13px;">
+                            ಸಾಧಕರ ಪಾಲಕರ ರುಜು (ಕ್ರೀಡೆಯಿದ್ದಲ್ಲಿ)
+                        </td>
+                        <td style="width: 30%; text-align: right; vertical-align: middle; font-weight: bold; font-size: 13px;">
+                            ಸಾಧಕರ ರುಜು
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <table class="recommendation-table">
+                <tr>
+                    <td>
+                        <div class="recommendation-title">ತಾಲ್ಲೂಕ ಅಧ್ಯಕ್ಷರ ಶಿಫಾರಸ್ಸು</div>
+                        <div class="recommendation-subtitle">(ದಿನಾಂಕ 30-09-2026 ರ ಒಳಗಾಗಿ ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರಿಗೆ ನೀಡುವುದು)</div>
+                    </td>
+                    <td>
+                        <div class="recommendation-title">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ ಶಿಫಾರಸ್ಸು</div>
+                        <div class="recommendation-subtitle">(ದಿನಾಂಕ 05-10-2026 ರ ಒಳಗಾಗಿ ರಾಜ್ಯ ಸ್ಕ್ರೀನಿಂಗ್ ಸಮಿತಿಗೆ ನೀಡುವುದು)</div>
+                    </td>
+                </tr>
+            </table>
+            
+            <div class="committee-section">
+                <div class="committee-title">ರಾಜ್ಯ ಸ್ಕ್ರೀನಿಂಗ್ ಕಮಿಟಿ ಉಪಯೋಗಕ್ಕಾಗಿ</div>
+                <div class="committee-text">
+                    ಸಾಧಕರಾದ <strong>${fd.studentName || fd.name || '......................................................'}</strong> ......................................................................................................
+                    <div class="committee-bullet">
+                        • ಇವರ ಮೂಲ ದಾಖಲೆಗಳ ಸಮೇತ ಸಲ್ಲಿಸಿರುವ ಅರ್ಜಿಯನ್ನು ಸಂಘದ ಮಾರ್ಗಸೂಚಿಗಳ ಅನ್ವಯ ಕೂಲಂಕುಷವಾಗಿ ಪರಿಶೀಲಿಸಿ, ಸೂಕ್ತ ಎಂದು ಕಂಡು ಬಂದುದರಿಂದ ಸಂಸ್ಥಾಪನಾ ದಿನಾಚರಣೆ ನಿಮಿತ್ತ ರಾಜ್ಯ ಮಟ್ಟದಲ್ಲಿ ಜರುಗುವ ಗೌರವ ಸನ್ಮಾನ ಕಾರ್ಯಕ್ರಮದಲ್ಲಿ 'ಪುರಸ್ಕರಿಸಲು' ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ.
+                    </div>
+                </div>
+            </div>
         </div>
     `;
 
+    container.style.position = 'fixed';
+    container.style.left = '0px';
+    container.style.top = '0px';
+    container.style.zIndex = '999999';
+    container.style.margin = '0px';
+    container.style.transform = 'none';
+
     document.body.appendChild(container);
-    if (document.fonts) { await document.fonts.ready.catch(() => null); }
-    const images = Array.from(container.querySelectorAll('img'));
-    await Promise.all(images.map(img => {
-        if (img.complete) return Promise.resolve();
-        return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
-    }));
+    try {
+        if (document.fonts) { await document.fonts.ready.catch(() => null); }
+        const images = Array.from(container.querySelectorAll('img'));
+        await Promise.all(images.map(img => {
+            if (img.complete) return Promise.resolve();
+            return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
+        }));
 
-    // Small delay to let browser paint the DOM
-    await new Promise(resolve => setTimeout(resolve, 300));
+        // Small delay to let browser paint the DOM
+        await new Promise(resolve => setTimeout(resolve, 250));
 
-    const opt = {
-        margin: [3, 6, 3, 6],
-        filename: `Sadhaka_Award_${fd.studentName || id}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: 800 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: 'avoid-all' }
-    };
+        const h2c = window.html2canvas || (window.html2pdf && window.html2pdf().html2canvas);
+        const JsPdfClass = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
 
-    await window.html2pdf().from(container).set(opt).save();
-    document.body.removeChild(container);
+        const elW = container.offsetWidth || 740;
+        const elH = container.offsetHeight || 1050;
+
+        const canvas = await h2c(container, {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: '#ffffff',
+            scrollX: 0,
+            scrollY: 0,
+            x: 0,
+            y: 0,
+            width: elW,
+            height: elH,
+            windowWidth: elW,
+            windowHeight: elH
+        });
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.98);
+
+        const pdf = new JsPdfClass({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'a4'
+        });
+
+        const pageW = 210;
+        const pageH = 297;
+        const marginX = 5;
+        const marginY = 5;
+        const maxW = pageW - (marginX * 2);
+        const maxH = pageH - (marginY * 2);
+
+        let renderW = maxW;
+        let renderH = (canvas.height * renderW) / canvas.width;
+
+        if (renderH > maxH) {
+            renderH = maxH;
+            renderW = (canvas.width * renderH) / canvas.height;
+        }
+
+        const posX = (pageW - renderW) / 2;
+        const posY = marginY;
+
+        pdf.addImage(imgData, 'JPEG', posX, posY, renderW, renderH);
+        pdf.save(`Sadhaka_Award_${fd.studentName || fd.name || id}.pdf`);
+    } catch (err) {
+        console.error("PDF generation error:", err);
+        alert("PDF ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.");
+    } finally {
+        if (container.parentNode) document.body.removeChild(container);
+    }
 };
 
 window.syncAndRefreshData = async function(btn) {
