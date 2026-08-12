@@ -3052,24 +3052,12 @@ function loadAdminEmployees() {
         const safeId = (appNumber || 'Details').toString().replace(/[\/\\:?*"<>|]/g, '_');
         const fileName = `Employee_${safeId}.pdf`;
 
-        const wrapper = document.createElement('div');
-        wrapper.style.position = 'fixed';
-        wrapper.style.left = '0';
-        wrapper.style.top = '0';
-        wrapper.style.width = '0';
-        wrapper.style.height = '0';
-        wrapper.style.overflow = 'hidden';
-        wrapper.style.zIndex = '-9999';
-
         const container = document.createElement('div');
         container.style.width = '740px';
         container.style.backgroundColor = '#ffffff';
         container.style.color = '#000000';
         container.style.padding = '8px 16px';
         container.style.boxSizing = 'border-box';
-        container.style.position = 'absolute';
-        container.style.left = '0';
-        container.style.top = '0';
 
         container.innerHTML = `
             <div style="width: 100%; box-sizing: border-box; margin: 0 auto; border: 1.5px solid #b30000; border-radius: 4px; padding: 6px; display: flex; flex-direction: column; justify-content: space-between; font-family: 'Noto Sans Kannada', sans-serif; background: #ffffff;">
@@ -3183,8 +3171,7 @@ function loadAdminEmployees() {
             </div>
         `;
 
-        wrapper.appendChild(container);
-        document.body.appendChild(wrapper);
+        document.body.appendChild(container);
 
         const executeDownload = async () => {
             try {
@@ -3204,7 +3191,7 @@ function loadAdminEmployees() {
                     margin:       [4, 6, 4, 6],
                     filename:     fileName,
                     image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, width: 740, windowWidth: 740 },
+                    html2canvas:  { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: 800 },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
                     pagebreak:    { mode: 'avoid-all' }
                 };
@@ -3214,7 +3201,7 @@ function loadAdminEmployees() {
                 console.error("PDF download error:", err);
                 alert("PDF ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.");
             } finally {
-                if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                if (container.parentNode) container.parentNode.removeChild(container);
             }
         };
 
@@ -3226,7 +3213,7 @@ function loadAdminEmployees() {
             script.onload = executeDownload;
             script.onerror = () => {
                 alert("PDF library loading failed.");
-                if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                if (container.parentNode) container.parentNode.removeChild(container);
             };
             document.head.appendChild(script);
         }
@@ -3688,9 +3675,11 @@ window.downloadPratibhaPdfAdmin = async function(id) {
     const fatherName = fd.fatherName || '-';
     const guardianName = fd.guardianName || '-';
     const parentOccupationIncome = fd.parentOccupationIncome || '-';
+    const completeAddress = fd.completeAddress || fd.address || '-';
+    const aadhar = (typeof maskAadhar === 'function' ? maskAadhar(fd.aadhar) : fd.aadhar) || '-';
     const lifeMembership = (fd.lifeMembership && (fd.lifeMembership.includes('ಹೌದು') || fd.lifeMembership.includes('Yes') || fd.lifeMembership === 'Yes' || fd.lifeMembership === 'ಹೌದು')) ? '<div style="font-size: 13.5px; font-weight: bold; line-height: 1.4;">ಹೌದು <span style="font-size: 12px; font-weight: normal; color: #111; margin-left: 6px;">(ನಂತರ ಮಾಹಿತಿಯನ್ನು ರಾಜ್ಯ ಪರಿಶೀಲನಾ ಸಮಿತಿಗೆ ಸಲ್ಲಿಸಿ)</span></div>' : (fd.lifeMembership || '-');
     const marksDetails = fd.marksDetails || '-';
-    const parentMobile = fd.parentMobile || '-';
+    const parentMobile = fd.parentMobile || fd.mobile || '-';
     const bankName = fd.bankName || '-';
     const bankAccount = fd.bankAccount || '-';
     const ifsc = fd.ifsc || '-';
