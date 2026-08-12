@@ -12,6 +12,30 @@ window.addEventListener('error', function(event) {
     }
 }, true);
 
+async function ensurePdfDependencies() {
+    const loadScript = (src) => new Promise((resolve) => {
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = () => resolve();
+        s.onerror = () => resolve();
+        document.head.appendChild(s);
+    });
+
+    if (typeof window.html2canvas !== 'function') {
+        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+    }
+    if (!window.jspdf && !window.jsPDF) {
+        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+    }
+    if (!window.html2pdf) {
+        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js');
+    }
+
+    const h2c = window.html2canvas;
+    const JsPdfClass = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+    return { h2c, JsPdfClass };
+}
+
 function rasterizeKannadaNodesAdmin(container, win, doc) {
     if (!container) return;
     const winRef = win || window;
@@ -3008,7 +3032,7 @@ function loadAdminEmployees() {
     };
 
     // Download PDF handler
-    window.downloadEmployeePdf = function(id) {
+    window.downloadEmployeePdf = async function(id) {
         const found = submissions.find(app => app.id === id);
         if (!found) return;
 
@@ -3180,27 +3204,26 @@ function loadAdminEmployees() {
 
         document.body.appendChild(container);
 
-        const executeDownload = async () => {
-            try {
-                if (document.fonts && document.fonts.ready) {
-                    await document.fonts.ready.catch(() => null);
-                }
+        try {
+            if (document.fonts && document.fonts.ready) {
+                await document.fonts.ready.catch(() => null);
+            }
 
-                const images = Array.from(container.querySelectorAll('img'));
-                await Promise.all(images.map(img => {
-                    if (img.complete) return Promise.resolve();
-                    return new Promise(resolve => {
-                        img.onload = resolve;
-                        img.onerror = resolve;
-                    });
-                }));
+            const images = Array.from(container.querySelectorAll('img'));
+            await Promise.all(images.map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(resolve => {
+                    img.onload = resolve;
+                    img.onerror = resolve;
+                });
+            }));
 
-                // Small delay to let browser paint the DOM
-                await new Promise(resolve => setTimeout(resolve, 250));
+            // Small delay to let browser paint the DOM
+            await new Promise(resolve => setTimeout(resolve, 250));
 
-                const h2c = window.html2canvas || (window.html2pdf && window.html2pdf().html2canvas);
-                const JsPdfClass = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+            const { h2c, JsPdfClass } = await ensurePdfDependencies();
 
+            if (typeof h2c === 'function' && JsPdfClass) {
                 const elW = container.offsetWidth || 740;
                 const elH = container.offsetHeight || 1050;
 
@@ -3246,25 +3269,24 @@ function loadAdminEmployees() {
 
                 pdf.addImage(imgData, 'JPEG', posX, posY, renderW, renderH);
                 pdf.save(fileName);
-            } catch (err) {
-                console.error("PDF download error:", err);
-                alert("PDF ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.");
-            } finally {
-                if (container.parentNode) container.parentNode.removeChild(container);
+            } else if (window.html2pdf) {
+                const opt = {
+                    margin: [3, 5, 3, 5],
+                    filename: fileName,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                    pagebreak: { mode: 'avoid-all' }
+                };
+                await window.html2pdf().from(container).set(opt).save();
+            } else {
+                throw new Error("PDF libraries could not be loaded");
             }
-        };
-
-        if (window.html2pdf && window.jspdf) {
-            executeDownload();
-        } else {
-            const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-            script.onload = executeDownload;
-            script.onerror = () => {
-                alert("PDF library loading failed.");
-                if (container.parentNode) container.parentNode.removeChild(container);
-            };
-            document.head.appendChild(script);
+        } catch (err) {
+            console.error("PDF download error:", err);
+            alert("PDF ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.");
+        } finally {
+            if (container.parentNode) container.parentNode.removeChild(container);
         }
     };
 }
@@ -3923,54 +3945,67 @@ window.downloadPratibhaPdfAdmin = async function(id) {
         // Small delay to let browser paint the DOM
         await new Promise(resolve => setTimeout(resolve, 250));
 
-        const h2c = window.html2canvas || (window.html2pdf && window.html2pdf().html2canvas);
-        const JsPdfClass = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+        const { h2c, JsPdfClass } = await ensurePdfDependencies();
 
-        const elW = container.offsetWidth || 740;
-        const elH = container.offsetHeight || 1050;
+        if (typeof h2c === 'function' && JsPdfClass) {
+            const elW = container.offsetWidth || 740;
+            const elH = container.offsetHeight || 1050;
 
-        const canvas = await h2c(container, {
-            scale: 2,
-            useCORS: true,
-            backgroundColor: '#ffffff',
-            scrollX: 0,
-            scrollY: 0,
-            x: 0,
-            y: 0,
-            width: elW,
-            height: elH,
-            windowWidth: elW,
-            windowHeight: elH
-        });
+            const canvas = await h2c(container, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                scrollX: 0,
+                scrollY: 0,
+                x: 0,
+                y: 0,
+                width: elW,
+                height: elH,
+                windowWidth: elW,
+                windowHeight: elH
+            });
 
-        const imgData = canvas.toDataURL('image/jpeg', 0.98);
+            const imgData = canvas.toDataURL('image/jpeg', 0.98);
 
-        const pdf = new JsPdfClass({
-            orientation: 'portrait',
-            unit: 'mm',
-            format: 'a4'
-        });
+            const pdf = new JsPdfClass({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
 
-        const pageW = 210;
-        const pageH = 297;
-        const marginX = 5;
-        const marginY = 5;
-        const maxW = pageW - (marginX * 2);
-        const maxH = pageH - (marginY * 2);
+            const pageW = 210;
+            const pageH = 297;
+            const marginX = 5;
+            const marginY = 5;
+            const maxW = pageW - (marginX * 2);
+            const maxH = pageH - (marginY * 2);
 
-        let renderW = maxW;
-        let renderH = (canvas.height * renderW) / canvas.width;
+            let renderW = maxW;
+            let renderH = (canvas.height * renderW) / canvas.width;
 
-        if (renderH > maxH) {
-            renderH = maxH;
-            renderW = (canvas.width * renderH) / canvas.height;
+            if (renderH > maxH) {
+                renderH = maxH;
+                renderW = (canvas.width * renderH) / canvas.height;
+            }
+
+            const posX = (pageW - renderW) / 2;
+            const posY = marginY;
+
+            pdf.addImage(imgData, 'JPEG', posX, posY, renderW, renderH);
+            pdf.save(`Pratibha_Puraskar_${studentName || id}.pdf`);
+        } else if (window.html2pdf) {
+            const opt = {
+                margin: [3, 5, 3, 5],
+                filename: `Pratibha_Puraskar_${studentName || id}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: 'avoid-all' }
+            };
+            await window.html2pdf().from(container).set(opt).save();
+        } else {
+            throw new Error("PDF libraries could not be loaded");
         }
-
-        const posX = (pageW - renderW) / 2;
-        const posY = marginY;
-
-        pdf.addImage(imgData, 'JPEG', posX, posY, renderW, renderH);
-        pdf.save(`Pratibha_Puraskar_${studentName || id}.pdf`);
     } catch (err) {
         console.error("PDF generation error:", err);
         alert("PDF ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.");
@@ -3997,15 +4032,6 @@ window.downloadSadhakaPdfAdmin = async function(id) {
     if (!app) { alert('Application not found'); return; }
     const fd = app.formData || app;
     const origin = window.location.origin;
-    
-    if (!window.html2pdf) {
-        await new Promise((resolve) => {
-            const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-            script.onload = resolve;
-            document.head.appendChild(script);
-        });
-    }
 
     const container = document.createElement('div');
     container.style.width = '740px';
@@ -4202,54 +4228,67 @@ window.downloadSadhakaPdfAdmin = async function(id) {
         // Small delay to let browser paint the DOM
         await new Promise(resolve => setTimeout(resolve, 250));
 
-        const h2c = window.html2canvas || (window.html2pdf && window.html2pdf().html2canvas);
-        const JsPdfClass = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+        const { h2c, JsPdfClass } = await ensurePdfDependencies();
 
-        const elW = container.offsetWidth || 740;
-        const elH = container.offsetHeight || 1050;
+        if (typeof h2c === 'function' && JsPdfClass) {
+            const elW = container.offsetWidth || 740;
+            const elH = container.offsetHeight || 1050;
 
-        const canvas = await h2c(container, {
-            scale: 2,
-            useCORS: true,
-            backgroundColor: '#ffffff',
-            scrollX: 0,
-            scrollY: 0,
-            x: 0,
-            y: 0,
-            width: elW,
-            height: elH,
-            windowWidth: elW,
-            windowHeight: elH
-        });
+            const canvas = await h2c(container, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                scrollX: 0,
+                scrollY: 0,
+                x: 0,
+                y: 0,
+                width: elW,
+                height: elH,
+                windowWidth: elW,
+                windowHeight: elH
+            });
 
-        const imgData = canvas.toDataURL('image/jpeg', 0.98);
+            const imgData = canvas.toDataURL('image/jpeg', 0.98);
 
-        const pdf = new JsPdfClass({
-            orientation: 'portrait',
-            unit: 'mm',
-            format: 'a4'
-        });
+            const pdf = new JsPdfClass({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
 
-        const pageW = 210;
-        const pageH = 297;
-        const marginX = 5;
-        const marginY = 5;
-        const maxW = pageW - (marginX * 2);
-        const maxH = pageH - (marginY * 2);
+            const pageW = 210;
+            const pageH = 297;
+            const marginX = 5;
+            const marginY = 5;
+            const maxW = pageW - (marginX * 2);
+            const maxH = pageH - (marginY * 2);
 
-        let renderW = maxW;
-        let renderH = (canvas.height * renderW) / canvas.width;
+            let renderW = maxW;
+            let renderH = (canvas.height * renderW) / canvas.width;
 
-        if (renderH > maxH) {
-            renderH = maxH;
-            renderW = (canvas.width * renderH) / canvas.height;
+            if (renderH > maxH) {
+                renderH = maxH;
+                renderW = (canvas.width * renderH) / canvas.height;
+            }
+
+            const posX = (pageW - renderW) / 2;
+            const posY = marginY;
+
+            pdf.addImage(imgData, 'JPEG', posX, posY, renderW, renderH);
+            pdf.save(`Sadhaka_Award_${fd.studentName || fd.name || id}.pdf`);
+        } else if (window.html2pdf) {
+            const opt = {
+                margin: [3, 5, 3, 5],
+                filename: `Sadhaka_Award_${fd.studentName || fd.name || id}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: 'avoid-all' }
+            };
+            await window.html2pdf().from(container).set(opt).save();
+        } else {
+            throw new Error("PDF libraries could not be loaded");
         }
-
-        const posX = (pageW - renderW) / 2;
-        const posY = marginY;
-
-        pdf.addImage(imgData, 'JPEG', posX, posY, renderW, renderH);
-        pdf.save(`Sadhaka_Award_${fd.studentName || fd.name || id}.pdf`);
     } catch (err) {
         console.error("PDF generation error:", err);
         alert("PDF ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.");
