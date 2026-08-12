@@ -2961,153 +2961,173 @@ function loadAdminEmployees() {
             desigLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಕೊನೆಯ ಹುದ್ದೆಯ ಹೆಸರು';
         }
 
+        const safeId = (appNumber || 'Details').toString().replace(/[\/\\:?*"<>|]/g, '_');
+        const fileName = `Employee_${safeId}.pdf`;
+
         const container = document.createElement('div');
-        container.style.width = '148mm';
+        container.style.width = '740px';
+        container.style.backgroundColor = '#ffffff';
+        container.style.color = '#000000';
+        container.style.padding = '8px 16px';
         container.style.boxSizing = 'border-box';
-        container.style.background = '#ffffff';
-        container.style.padding = '3mm 8mm';
-        container.style.margin = '0 auto';
+        container.style.position = 'absolute';
+        container.style.left = '-9999px';
+        container.style.top = '0';
 
         container.innerHTML = `
-            <div style="width:132mm; box-sizing:border-box; margin:0 auto; border:1.5px solid #b30000; border-radius:4px; padding:3.5px; display:flex; flex-direction:column; justify-content:space-between; font-family:'Noto Sans Kannada', sans-serif; background:#ffffff;">
+            <div style="width: 100%; box-sizing: border-box; margin: 0 auto; border: 1.5px solid #b30000; border-radius: 4px; padding: 6px; display: flex; flex-direction: column; justify-content: space-between; font-family: 'Noto Sans Kannada', sans-serif; background: #ffffff;">
                 <div>
                     <!-- HEADER BOX (LIGHT YELLOW BACKGROUND) -->
-                    <table style="width:100%; border-collapse:collapse; border:1.5px solid #a00000; border-radius:4px; background-color:#FFF3A0!important; background:#FFF3A0!important; margin-bottom:2px;">
-                        <tr style="background-color:#FFF3A0!important; background:#FFF3A0!important;">
-                            <td style="width:70px; text-align:center; padding:2px 2px 2px 3px; vertical-align:middle; background-color:#FFF3A0!important; background:#FFF3A0!important;">
-                                <img src="images/president.jpeg" style="width:62px; height:62px; border-radius:50%; border:1.5px solid #a00000; object-fit:cover;" onerror="this.src='images/president.png'">
+                    <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #a00000; border-radius: 4px; background-color: #FFF3A0 !important; background: #FFF3A0 !important; margin-bottom: 4px;">
+                        <tr style="background-color: #FFF3A0 !important; background: #FFF3A0 !important;">
+                            <td style="width: 85px; text-align: center; padding: 4px; vertical-align: middle; background-color: #FFF3A0 !important; background: #FFF3A0 !important;">
+                                <img src="images/president.jpeg" style="width: 72px; height: 72px; border-radius: 50%; border: 1.5px solid #a00000; object-fit: cover;" onerror="this.src='images/president.png'">
                             </td>
-                            <td style="text-align:center; vertical-align:middle; padding:2px 0; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important;">
-                                <div style="font-size:14.5px; font-weight:bold; color:#990000; margin:0; line-height:1.15; white-space:nowrap; background-color:#FFF3A0!important; background:#FFF3A0!important;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
-                                <div style="font-size:8.5px; font-weight:bold; margin-top:1px; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important;">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
-                                <div style="font-size:9.5px; font-weight:bold; letter-spacing:0.2px; margin-top:1px; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
-                                <div style="font-size:8px; font-weight:bold; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important; margin-top:1px;">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
-                                <div style="font-size:8px; font-weight:bold; color:#990000; background-color:#FFF3A0!important; background:#FFF3A0!important;">ಸೀಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
+                            <td style="text-align: center; vertical-align: middle; padding: 4px 2px; color: #990000; background-color: #FFF3A0 !important; background: #FFF3A0 !important;">
+                                <div style="font-size: 18px; font-weight: bold; color: #990000; margin: 0; line-height: 1.2; white-space: nowrap; background-color: #FFF3A0 !important; background: #FFF3A0 !important;">ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್/ಪಿಂಜಾರ್ ಸಂಘ (ರಿ)</div>
+                                <div style="font-size: 11px; font-weight: bold; margin-top: 2px; color: #990000; background-color: #FFF3A0 !important; background: #FFF3A0 !important;">ನೋ. ಸಂ. : 151/ಎಸ್ ಒ ಆರ್/ಎಸ್ ಎಂ ಜಿ/1993−94</div>
+                                <div style="font-size: 12px; font-weight: bold; letter-spacing: 0.3px; margin-top: 2px; color: #990000; background-color: #FFF3A0 !important; background: #FFF3A0 !important;">KARNATAKA RAJYA NADAF/PINJAR SANGHA ®</div>
+                                <div style="font-size: 10px; font-weight: bold; color: #990000; background-color: #FFF3A0 !important; background: #FFF3A0 !important; margin-top: 2px;">ಆಡಳಿತ ಕಚೇರಿ : ವಿಶ್ವಮಾನವ ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ವಿದ್ಯಾ ಸಂಸ್ಥೆ ಆವರಣ</div>
+                                <div style="font-size: 10px; font-weight: bold; color: #990000; background-color: #FFF3A0 !important; background: #FFF3A0 !important;">ಸೀಬಾರ−ಗುತ್ತಿನಾಡು, ಚಿತ್ರದುರ್ಗ−577502</div>
                             </td>
-                            <td style="width:70px; text-align:center; padding:2px 3px 2px 2px; vertical-align:middle; background-color:#FFF3A0!important; background:#FFF3A0!important;">
-                                <img src="images/logo-786.png" style="width:62px; height:62px; border-radius:50%; border:1.5px solid #a00000; object-fit:cover;">
+                            <td style="width: 85px; text-align: center; padding: 4px; vertical-align: middle; background-color: #FFF3A0 !important; background: #FFF3A0 !important;">
+                                <img src="images/logo-786.png" style="width: 72px; height: 72px; border-radius: 50%; border: 1.5px solid #a00000; object-fit: cover;">
                             </td>
                         </tr>
                     </table>
 
                     <!-- TITLE BANNER -->
-                    <div style="border-top:1.2px solid #b30000; border-bottom:1.2px solid #b30000; padding:2.5px 3px; margin:2px 0 3px 0; background:#ffffff; display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:10px; color:#b30000;">
+                    <div style="border-top: 1.2px solid #b30000; border-bottom: 1.2px solid #b30000; padding: 4px 6px; margin: 3px 0 5px 0; background: #ffffff; display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 12px; color: #b30000;">
                         <div>ನೋಂದಣಿ ಸಂಖ್ಯೆ: ${appNumber}</div>
-                        <div style="font-weight:bold; color:#b30000;">${data.employeeType || 'ಸರ್ಕಾರಿ ನೌಕರರ ಮಾಹಿತಿ'}</div>
+                        <div style="font-weight: bold; color: #b30000;">${data.employeeType || 'ಸರ್ಕಾರಿ ನೌಕರರ ಮಾಹಿತಿ'}</div>
                         <div>ದಿನಾಂಕ : ${dateStr}</div>
                     </div>
 
                     <!-- CITY / DISTRICT / TALUK TOP BAR -->
-                    <table style="width:100%; border-collapse:collapse; margin-bottom:3px; background:#ffffff; font-size:10px; font-weight:bold; border:1px solid #b30000;">
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 5px; background: #ffffff; font-size: 12px; font-weight: bold; border: 1px solid #b30000;">
                         <tr>
-                            <td style="padding:2.5px 4px; border-right:1px solid #b30000; width:33.3%; vertical-align:middle;">
-                                <span style="color:#b30000;">ನಗರ / ಗ್ರಾಮ : </span><span style="color:#000000;">${data.village || data.city || '-'}</span>
+                            <td style="padding: 4px 6px; border-right: 1px solid #b30000; width: 33.3%; vertical-align: middle;">
+                                <span style="color: #b30000;">ನಗರ / ಗ್ರಾಮ : </span><span style="color: #000000;">${data.village || data.city || '-'}</span>
                             </td>
-                            <td style="padding:2.5px 4px; border-right:1px solid #b30000; width:33.3%; vertical-align:middle;">
-                                <span style="color:#b30000;">ಜಿಲ್ಲೆ : </span><span style="color:#000000;">${data.district || '-'}</span>
+                            <td style="padding: 4px 6px; border-right: 1px solid #b30000; width: 33.3%; vertical-align: middle;">
+                                <span style="color: #b30000;">ಜಿಲ್ಲೆ : </span><span style="color: #000000;">${data.district || '-'}</span>
                             </td>
-                            <td style="padding:2.5px 4px; width:33.4%; vertical-align:middle;">
-                                <span style="color:#b30000;">ತಾಲೂಕು : </span><span style="color:#000000;">${data.taluk || '-'}</span>
+                            <td style="padding: 4px 6px; width: 33.4%; vertical-align: middle;">
+                                <span style="color: #b30000;">ತಾಲೂಕು : </span><span style="color: #000000;">${data.taluk || '-'}</span>
                             </td>
                         </tr>
                     </table>
 
                     <!-- 2-COLUMN DETAILS TABLE -->
-                    <table style="width:100%; border-collapse:collapse; margin-bottom:3px; background:#ffffff;">
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 5px; background: #ffffff;">
                         <tr>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; background:#ffffff; color:#b30000; font-weight:bold; width:38%;">೧. ನೌಕರರ ಹೆಸರು :</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; color:#000000!important; font-weight:bold; width:62%; background:#ffffff;">${data.employeeName || '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; background: #ffffff; color: #b30000; font-weight: bold; width: 38%;">೧. ನೌಕರರ ಹೆಸರು :</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; color: #000000 !important; font-weight: bold; width: 62%; background: #ffffff;">${data.employeeName || '-'}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; background:#ffffff; color:#b30000; font-weight:bold;">೨. ತಂದೆಯ ಹೆಸರು :</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; color:#000000!important; font-weight:bold; background:#ffffff;">${data.fatherName || '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; color: #000000 !important; font-weight: bold; width: 22%; background: #ffffff;">೨. ತಂದೆಯ ಹೆಸರು :</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; color: #000000 !important; font-weight: bold; width: 62%; background: #ffffff;">${data.fatherName || '-'}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; background:#ffffff; color:#b30000; font-weight:bold;">೩. ಕಾಯಂ ವಿಳಾಸ :</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; color:#000000!important; font-weight:bold; background:#ffffff;">${data.permanentAddress || '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; background: #ffffff; color: #b30000; font-weight: bold;">೩. ಕಾಯಂ ವಿಳಾಸ :</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; color: #000000 !important; font-weight: bold; background: #ffffff;">${data.permanentAddress || '-'}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; background:#ffffff; color:#b30000; font-weight:bold;">೪. ${locLabel} :</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; color:#000000!important; font-weight:bold; background:#ffffff;">${data.servicePlace || '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; background: #ffffff; color: #b30000; font-weight: bold;">೪. ${locLabel} :</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; color: #000000 !important; font-weight: bold; background: #ffffff;">${data.servicePlace || '-'}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; background:#ffffff; color:#b30000; font-weight:bold;">೫. ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; color:#000000!important; font-weight:bold; background:#ffffff;">${data.contactNumber || '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; background: #ffffff; color: #b30000; font-weight: bold;">೫. ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; color: #000000 !important; font-weight: bold; background: #ffffff;">${data.contactNumber || '-'}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; background:#ffffff; color:#b30000; font-weight:bold;">೬. ವಿದ್ಯಾರ್ಹತೆ :</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; color:#000000!important; font-weight:bold; background:#ffffff;">${data.qualification || '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; background: #ffffff; color: #b30000; font-weight: bold;">೬. ವಿದ್ಯಾರ್ಹತೆ :</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; color: #000000 !important; font-weight: bold; background: #ffffff;">${data.qualification || '-'}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; background:#ffffff; color:#b30000; font-weight:bold;">೭. ಹುಟ್ಟಿದ ದಿನಾಂಕ :</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; color:#000000!important; font-weight:bold; background:#ffffff;">${formattedDob}</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; color: #000000 !important; font-weight: bold; background: #ffffff;">೭. ಹುಟ್ಟಿದ ದಿನಾಂಕ :</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; color: #000000 !important; font-weight: bold; background: #ffffff;">${formattedDob}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; background:#ffffff; color:#b30000; font-weight:bold;">೮. ವಯಸ್ಸು :</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; color:#000000!important; font-weight:bold; background:#ffffff;">${data.age ? data.age + ' ವರ್ಷ' : '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; background: #ffffff; color: #b30000; font-weight: bold;">೮. ವಯಸ್ಸು :</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; color: #000000 !important; font-weight: bold; background: #ffffff;">${data.age ? data.age + ' ವರ್ಷ' : '-'}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; background:#ffffff; color:#b30000; font-weight:bold;">೯. ${deptLabel} :</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; color:#000000!important; font-weight:bold; background:#ffffff;">${data.departmentName || '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; background: #ffffff; color: #b30000; font-weight: bold;">೯. ${deptLabel} :</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; color: #000000 !important; font-weight: bold; background: #ffffff;">${data.departmentName || '-'}</td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; background:#ffffff; color:#b30000; font-weight:bold;">೧೦. ${desigLabel} :</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; color:#000000!important; font-weight:bold; background:#ffffff;">${data.designation || '-'}</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; background: #ffffff; color: #b30000; font-weight: bold;">೧೦. ${desigLabel} :</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; color: #000000 !important; font-weight: bold; background: #ffffff;">${data.designation || '-'}</td>
                         </tr>
                         ${data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ' ? `
                         <tr>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; background:#ffffff; color:#b30000; font-weight:bold;">೧೧. ನಿವೃತ್ತಿ ದಿನಾಂಕ :</td>
-                            <td style="border:1px solid #b30000; padding:2.5px 5px; font-size:10px; color:#000000!important; font-weight:bold; background:#ffffff;">${formattedRetirement}</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; background: #ffffff; color: #b30000; font-weight: bold;">೧೧. ನಿವೃತ್ತಿ ದಿನಾಂಕ :</td>
+                            <td style="border: 1px solid #b30000; padding: 4px 8px; font-size: 12px; color: #000000 !important; font-weight: bold; background: #ffffff;">${formattedRetirement}</td>
                         </tr>` : ''}
                     </table>
 
                     <!-- SIGNATURE / ENDORSEMENT SECTION (TALUK & DISTRICT PRESIDENT) -->
-                    <table style="width:100%; border-collapse:collapse; margin-top:4px; margin-bottom:3px;">
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 6px; margin-bottom: 4px;">
                         <tr>
-                            <td style="border:1px solid #b30000; padding:4px 6px; width:50%; vertical-align:top; height:45px; text-align:center;">
-                                <div style="font-size:9.5px; font-weight:bold; color:#b30000;">ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರ ಸಹಿ / ಮೊಹರು</div>
+                            <td style="border: 1px solid #b30000; padding: 6px 8px; width: 50%; vertical-align: top; height: 50px; text-align: center;">
+                                <div style="font-size: 11px; font-weight: bold; color: #b30000;">ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರ ಸಹಿ / ಮೊಹರು</div>
                             </td>
-                            <td style="border:1px solid #b30000; padding:4px 6px; width:50%; vertical-align:top; height:45px; text-align:center;">
-                                <div style="font-size:9.5px; font-weight:bold; color:#b30000;">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ ಸಹಿ / ಮೊಹರು</div>
+                            <td style="border: 1px solid #b30000; padding: 6px 8px; width: 50%; vertical-align: top; height: 50px; text-align: center;">
+                                <div style="font-size: 11px; font-weight: bold; color: #b30000;">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ ಸಹಿ / ಮೊಹರು</div>
                             </td>
                         </tr>
                     </table>
                 </div>
 
-                <div style="text-align:center; font-size:9px; font-weight:bold; color:#b30000; border-top:1px dashed #b30000; padding-top:3px; margin-top:2px;">
+                <div style="text-align: center; font-size: 10px; font-weight: bold; color: #b30000; border-top: 1px dashed #b30000; padding-top: 4px; margin-top: 3px;">
                     ಕರ್ನಾಟಕ ರಾಜ್ಯ ನಡಾಫ್ / ಪಿಂಜಾರ ಸಂಘ (ರಿ) - ರಾಜ್ಯ ಆಡಳಿತ ನೋಂದಣಿ ಪತ್ರ
                 </div>
             </div>
         `;
 
         document.body.appendChild(container);
-        rasterizeKannadaNodesAdmin(container, window, document);
 
+        const executeDownload = async () => {
+            try {
+                const images = Array.from(container.querySelectorAll('img'));
+                await Promise.all(images.map(img => {
+                    if (img.complete) return Promise.resolve();
+                    return new Promise(resolve => {
+                        img.onload = resolve;
+                        img.onerror = resolve;
+                    });
+                }));
 
+                rasterizeKannadaNodesAdmin(container, window, document);
 
-        const opt = {
-            margin: 0,
-            filename: `Employee_${appNumber || 'Details'}.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
-            jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' },
-            pagebreak: { mode: ['avoid-all', 'css'] }
+                const opt = {
+                    margin:       [4, 6, 4, 6],
+                    filename:     fileName,
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                    pagebreak:    { mode: 'avoid-all' }
+                };
+
+                await window.html2pdf().set(opt).from(container).save();
+            } catch (err) {
+                console.error("PDF download error:", err);
+                alert("PDF ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.");
+            } finally {
+                if (container.parentNode) container.parentNode.removeChild(container);
+            }
         };
 
         if (window.html2pdf) {
-            window.html2pdf().set(opt).from(container).save().then(() => {
-                if (container.parentNode) container.parentNode.removeChild(container);
-            }).catch(err => {
-                console.error("PDF download error:", err);
-                if (container.parentNode) container.parentNode.removeChild(container);
-            });
+            executeDownload();
         } else {
             const script = document.createElement('script');
             script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-            script.onload = () => {
-                window.html2pdf().set(opt).from(container).save().then(() => {
-                    if (container.parentNode) container.parentNode.removeChild(container);
-                });
+            script.onload = executeDownload;
+            script.onerror = () => {
+                alert("PDF library loading failed.");
+                if (container.parentNode) container.parentNode.removeChild(container);
             };
             document.head.appendChild(script);
         }
