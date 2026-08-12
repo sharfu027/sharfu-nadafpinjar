@@ -2964,6 +2964,15 @@ function loadAdminEmployees() {
         const safeId = (appNumber || 'Details').toString().replace(/[\/\\:?*"<>|]/g, '_');
         const fileName = `Employee_${safeId}.pdf`;
 
+        const wrapper = document.createElement('div');
+        wrapper.style.position = 'fixed';
+        wrapper.style.left = '0';
+        wrapper.style.top = '0';
+        wrapper.style.width = '0';
+        wrapper.style.height = '0';
+        wrapper.style.overflow = 'hidden';
+        wrapper.style.zIndex = '-9999';
+
         const container = document.createElement('div');
         container.style.width = '740px';
         container.style.backgroundColor = '#ffffff';
@@ -2971,7 +2980,7 @@ function loadAdminEmployees() {
         container.style.padding = '8px 16px';
         container.style.boxSizing = 'border-box';
         container.style.position = 'absolute';
-        container.style.left = '-9999px';
+        container.style.left = '0';
         container.style.top = '0';
 
         container.innerHTML = `
@@ -3086,7 +3095,8 @@ function loadAdminEmployees() {
             </div>
         `;
 
-        document.body.appendChild(container);
+        wrapper.appendChild(container);
+        document.body.appendChild(wrapper);
 
         const executeDownload = async () => {
             try {
@@ -3106,7 +3116,7 @@ function loadAdminEmployees() {
                     margin:       [4, 6, 4, 6],
                     filename:     fileName,
                     image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: 800 },
+                    html2canvas:  { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, width: 740, windowWidth: 740 },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
                     pagebreak:    { mode: 'avoid-all' }
                 };
@@ -3116,7 +3126,7 @@ function loadAdminEmployees() {
                 console.error("PDF download error:", err);
                 alert("PDF ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.");
             } finally {
-                if (container.parentNode) container.parentNode.removeChild(container);
+                if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
             }
         };
 
@@ -3128,7 +3138,7 @@ function loadAdminEmployees() {
             script.onload = executeDownload;
             script.onerror = () => {
                 alert("PDF library loading failed.");
-                if (container.parentNode) container.parentNode.removeChild(container);
+                if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
             };
             document.head.appendChild(script);
         }
