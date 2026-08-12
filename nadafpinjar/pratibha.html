@@ -1854,16 +1854,15 @@
                         img.onerror = resolve;
                     });
                 }));
-                // Rasterize all Kannada text elements into crisp canvas PNGs
-                if (typeof rasterizeKannadaElement === 'function') {
-                    rasterizeKannadaElement(element);
-                }
+
+                // Small delay to let browser paint the DOM
+                await new Promise(resolve => setTimeout(resolve, 300));
 
                 const opt = {
                     margin:       [4, 6, 4, 6],
                     filename:     `Pratibha_Puraskar_${fd.studentName || 'Application'}.pdf`,
                     image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, useCORS: true, scrollY: 0, scrollX: 0 },
+                    html2canvas:  { scale: 2, useCORS: true, scrollY: 0, scrollX: 0, windowWidth: 800 },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
                     pagebreak:    { mode: 'avoid-all' }
                 };

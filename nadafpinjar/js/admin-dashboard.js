@@ -3099,13 +3099,14 @@ function loadAdminEmployees() {
                     });
                 }));
 
-                rasterizeKannadaNodesAdmin(container, window, document);
+                // Small delay to let browser paint the DOM
+                await new Promise(resolve => setTimeout(resolve, 300));
 
                 const opt = {
                     margin:       [4, 6, 4, 6],
                     filename:     fileName,
                     image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+                    html2canvas:  { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: 800 },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
                     pagebreak:    { mode: 'avoid-all' }
                 };
@@ -3960,15 +3961,15 @@ window.downloadPratibhaPdfAdmin = async function(id) {
         if (img.complete) return Promise.resolve();
         return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
     }));
-    rasterizeKannadaNodesAdmin(container, window, document);
 
-
+    // Small delay to let browser paint the DOM
+    await new Promise(resolve => setTimeout(resolve, 300));
 
     const opt = {
         margin: [3, 6, 3, 6],
         filename: `Pratibha_Puraskar_${studentName || id}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+        html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: 800 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: 'avoid-all' }
     };
@@ -4177,15 +4178,15 @@ window.downloadSadhakaPdfAdmin = async function(id) {
         if (img.complete) return Promise.resolve();
         return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
     }));
-    rasterizeKannadaNodesAdmin(container, window, document);
 
-
+    // Small delay to let browser paint the DOM
+    await new Promise(resolve => setTimeout(resolve, 300));
 
     const opt = {
         margin: [3, 6, 3, 6],
         filename: `Sadhaka_Award_${fd.studentName || id}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+        html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: 800 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: 'avoid-all' }
     };

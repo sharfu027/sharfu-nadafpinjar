@@ -942,6 +942,7 @@
             document.body.appendChild(container);
 
             try {
+                // Wait for images to load
                 const images = Array.from(container.querySelectorAll('img'));
                 await Promise.all(images.map(img => {
                     if (img.complete) return Promise.resolve();
@@ -951,16 +952,15 @@
                     });
                 }));
 
-                if (typeof rasterizeKannadaNodesLocal === 'function') {
-                    rasterizeKannadaNodesLocal(container);
-                }
+                // Small delay to let browser paint the DOM
+                await new Promise(resolve => setTimeout(resolve, 300));
 
                 const html2pdfLib = await ensureHtml2Pdf();
                 const opt = {
                     margin:       [4, 6, 4, 6],
                     filename:     fileName,
                     image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+                    html2canvas:  { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: 800 },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
                     pagebreak:    { mode: 'avoid-all' }
                 };
