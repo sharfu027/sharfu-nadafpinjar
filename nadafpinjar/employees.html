@@ -632,15 +632,63 @@
             document.getElementById('formContainer').style.display = 'block';
         }
 
-        function submitToMongoDB() {
-            // Dynamic ID generation utilizing timestamp & random digits
-            const lastDigits = Math.floor(Math.random() * 900) + 100;
+        async function submitToMongoDB() {
+            const submitBtn = document.querySelector('#previewModal .btn-submit') || document.querySelector('.btn-submit');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ (Please wait)...';
+            }
+
             const empType = document.getElementById('employeeType').value;
             let prefix = 'EMP';
             if (empType === 'ಸರ್ಕಾರಿ ನೌಕರರ ಮಾಹಿತಿ' || empType.includes('ಸರ್ಕಾರಿ')) prefix = 'GE';
             else if (empType === 'ಖಾಸಗಿ ನೌಕರರ ಮಾಹಿತಿ' || empType.includes('ಖಾಸಗಿ')) prefix = 'PE';
             else if (empType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ' || empType.includes('ನಿವೃತ್ತ')) prefix = 'RE';
-            const appNumber = `${prefix}/${lastDigits}`;
+
+            // Collect existing numbers strictly for THIS specific prefix
+            const existingNumbers = new Set();
+            const prefixRegex = new RegExp(`^${prefix}[/\\s_-](\\d+)$`, 'i');
+
+            // 1. Check local storage submissions
+            try {
+                const localSubmissions = JSON.parse(localStorage.getItem('admin_employees_submissions') || '[]');
+                localSubmissions.forEach(sub => {
+                    const idStr = String(sub.id || (sub.formData && sub.formData.appNumber) || '').trim();
+                    const match = idStr.match(prefixRegex);
+                    if (match) {
+                        existingNumbers.add(parseInt(match[1], 10));
+                    }
+                });
+            } catch (e) {
+                console.warn("Could not read local submissions for ID check:", e);
+            }
+
+            // 2. Check MongoDB API
+            try {
+                const res = await fetch('/api/donations?formType=ನೌಕರರ ವಿವರ').catch(() => null);
+                if (res && res.ok) {
+                    const json = await res.json();
+                    if (json && json.success && Array.isArray(json.donations)) {
+                        json.donations.forEach(don => {
+                            const idStr = String(don.paymentId || (don.formData && don.formData.appNumber) || '').trim();
+                            const match = idStr.match(prefixRegex);
+                            if (match) {
+                                existingNumbers.add(parseInt(match[1], 10));
+                            }
+                        });
+                    }
+                }
+            } catch (e) {
+                console.warn("API check for existing IDs failed, using local count:", e);
+            }
+
+            // Start from lowest number (1) and increment if number exists
+            let nextNum = 1;
+            while (existingNumbers.has(nextNum)) {
+                nextNum++;
+            }
+
+            const appNumber = `${prefix}/${nextNum}`;
 
             const dataToSave = {
                 formType: "ನೌಕರರ ವಿವರ",
@@ -705,6 +753,10 @@
                     };
                 } else {
                     alert('Error saving data: ' + (data.error || 'Server error'));
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Submit Form';
+                    }
                 }
             })
             .catch(err => {
