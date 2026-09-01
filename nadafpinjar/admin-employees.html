@@ -193,11 +193,11 @@
                             <input type="number" id="editAge" required>
                         </div>
                         <div class="form-group">
-                            <label>ಇಲಾಖೆಯ ಹೆಸರು (Department)</label>
+                            <label id="editLblDepartmentName">ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಇಲಾಖೆಯ ಹೆಸರು (Department)</label>
                             <input type="text" id="editDepartmentName" required>
                         </div>
                         <div class="form-group">
-                            <label>ಹುದ್ದೆಯ ಹೆಸರು (Designation)</label>
+                            <label id="editLblDesignation">ಹುದ್ದೆಯ ಹೆಸರು (Designation)</label>
                             <input type="text" id="editDesignation" required>
                         </div>
                         <div class="form-group">
@@ -235,11 +235,23 @@
         function toggleRetirementDateEdit() {
             const empType = document.getElementById('editEmployeeType').value;
             const group = document.getElementById('retirementDateGroup');
+            const lblDept = document.getElementById('editLblDepartmentName');
+            const lblDesig = document.getElementById('editLblDesignation');
+
             if (empType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') {
                 group.style.display = 'flex';
+                if (lblDept) lblDept.textContent = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಕೊನೆಯ ಇಲಾಖೆಯ ಹೆಸರು (Last Served Department)';
+                if (lblDesig) lblDesig.textContent = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಕೊನೆಯ ಹುದ್ದೆಯ ಹೆಸರು (Last Served Designation)';
+            } else if (empType === 'ಖಾಸಗಿ ನೌಕರರ ಮಾಹಿತಿ') {
+                group.style.display = 'none';
+                document.getElementById('editRetirementDate').value = '';
+                if (lblDept) lblDept.textContent = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಖಾಸಗಿ ಸಂಸ್ಥೆಯ ಹೆಸರು (Company / Organization)';
+                if (lblDesig) lblDesig.textContent = 'ಹುದ್ದೆಯ ಹೆಸರು (Designation)';
             } else {
                 group.style.display = 'none';
                 document.getElementById('editRetirementDate').value = '';
+                if (lblDept) lblDept.textContent = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಇಲಾಖೆಯ ಹೆಸರು (Department)';
+                if (lblDesig) lblDesig.textContent = 'ಹುದ್ದೆಯ ಹೆಸರು (Designation)';
             }
         }
     </script>

@@ -3061,15 +3061,15 @@ const search = document.getElementById("filterSearch").value.toLowerCase();
         const formattedRetirement = data.isRetired === 'ಹೌದು' && data.retirementDate ? new Date(data.retirementDate).toLocaleDateString('en-GB') : 'ಇಲ್ಲ (No)';
 
         let deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಇಲಾಖೆಯ ಹೆಸರು';
-        let locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳ';
+        let locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳಗಳು';
         let desigLabel = 'ಹುದ್ದೆಯ ಹೆಸರು';
         if (data.employeeType === 'ಖಾಸಗಿ ನೌಕರರ ಮಾಹಿತಿ') {
             deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಖಾಸಗಿ ಸಂಸ್ಥೆಯ ಹೆಸರು';
-            locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳ';
+            locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳಗಳು';
             desigLabel = 'ಹುದ್ದೆಯ ಹೆಸರು';
         } else if (data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') {
             deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಕೊನೆಯ ಇಲಾಖೆಯ ಹೆಸರು';
-            locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿರುವ ಸ್ಥಳಗಳು';
+            locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಸ್ಥಳಗಳು';
             desigLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಕೊನೆಯ ಹುದ್ದೆಯ ಹೆಸರು';
         }
 
@@ -3140,72 +3140,72 @@ const search = document.getElementById("filterSearch").value.toLowerCase();
                             </tr>
                         </table>
 
-                        <!-- 2-COLUMN DETAILS TABLE (EXACT 50% / 50% EQUAL HALVES WITH COMFORTABLE ROW HEIGHT & BIGGER FONT) -->
-                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 6px; background: #ffffff; table-layout: fixed;">
+                        <!-- 2-COLUMN DETAILS TABLE (52% / 48% SPLIT SO COLONS DO NOT WRAP) -->
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 0px; background: #ffffff; table-layout: fixed;">
                             <colgroup>
-                                <col style="width: 50%;">
-                                <col style="width: 50%;">
+                                <col style="width: 52%;">
+                                <col style="width: 48%;">
                             </colgroup>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; background: #ffffff; color: #b30000; font-weight: bold; vertical-align: middle; word-break: break-word; width: 50%;">೧. ನೌಕರರ ಹೆಸರು :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.employeeName || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; background: #ffffff; color: #b30000; font-weight: bold; vertical-align: middle; word-break: break-word; width: 52%;">೧. ನೌಕರರ ಹೆಸರು :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.employeeName || '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೨. ತಂದೆಯ ಹೆಸರು :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.fatherName || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೨. ತಂದೆಯ ಹೆಸರು :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.fatherName || '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೩. ಕಾಯಂ ವಿಳಾಸ :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.permanentAddress || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೩. ಕಾಯಂ ವಿಳಾಸ :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.permanentAddress || '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೪. ${locLabel} :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.servicePlace || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೪. ${locLabel} :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.servicePlace || '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೫. ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.contactNumber || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೫. ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.contactNumber || '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೬. ವಿದ್ಯಾರ್ಹತೆ :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.qualification || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೬. ವಿದ್ಯಾರ್ಹತೆ :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.qualification || '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೭. ಹುಟ್ಟಿದ ದಿನಾಂಕ :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${formattedDob}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೭. ಹುಟ್ಟಿದ ದಿನಾಂಕ :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${formattedDob}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೮. ವಯಸ್ಸು :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.age ? data.age + ' ವರ್ಷ' : '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೮. ವಯಸ್ಸು :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.age ? data.age + ' ವರ್ಷ' : '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೯. ${deptLabel} :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.departmentName || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೯. ${deptLabel} :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.departmentName || '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೧೦. ${desigLabel} :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.designation || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೧೦. ${desigLabel} :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.designation || '-'}</td>
                             </tr>
                             ${data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ' ? `
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೧೧. ನಿವೃತ್ತಿ ದಿನಾಂಕ :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${formattedRetirement}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೧೧. ನಿವೃತ್ತಿ ದಿನಾಂಕ :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${formattedRetirement}</td>
                             </tr>` : ''}
-                        </table>
-
-                        <!-- SIGNATURE / ENDORSEMENT SECTION (WITH GENEROUS STAMP AND SIGNATURE SPACE) -->
-                        <table style="width: 100%; border-collapse: collapse; margin-top: 8px; margin-bottom: 2px; table-layout: fixed;">
-                            <tr>
-                                <td style="border: 1px solid #b30000; padding: 8px 8px; width: 50%; vertical-align: top; height: 85px; text-align: center; background: #ffffff;">
-                                    <div style="font-size: 13.5px; font-weight: bold; color: #b30000; margin-bottom: 50px;">ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರ ಸಹಿ / ಮೊಹರು</div>
-                                </td>
-                                <td style="border: 1px solid #b30000; padding: 8px 8px; width: 50%; vertical-align: top; height: 85px; text-align: center; background: #ffffff;">
-                                    <div style="font-size: 13.5px; font-weight: bold; color: #b30000; margin-bottom: 50px;">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ ಸಹಿ / ಮೊಹರು</div>
-                                </td>
-                            </tr>
                         </table>
                     </div>
                 </div>
+
+                <!-- SIGNATURE / ENDORSEMENT SECTION (OUTSIDE THE BORDER) -->
+                <table style="width: 100%; border-collapse: collapse; margin-top: 18px; margin-bottom: 4px; table-layout: fixed; border: none; font-family: 'Noto Sans Kannada', sans-serif;">
+                    <tr>
+                        <td style="border: none; padding: 4px 8px; width: 50%; vertical-align: top; height: 85px; text-align: center; background: #ffffff;">
+                            <div style="font-size: 13.5px; font-weight: bold; color: #b30000; margin-bottom: 50px;">ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರ ಸಹಿ / ಮೊಹರು</div>
+                        </td>
+                        <td style="border: none; padding: 4px 8px; width: 50%; vertical-align: top; height: 85px; text-align: center; background: #ffffff;">
+                            <div style="font-size: 13.5px; font-weight: bold; color: #b30000; margin-bottom: 50px;">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ ಸಹಿ / ಮೊಹರು</div>
+                        </td>
+                    </tr>
+                </table>
             `;
 
         container.style.position = 'fixed';

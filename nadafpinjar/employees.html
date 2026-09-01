@@ -330,7 +330,7 @@
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="employeeName">ನೌಕರರ ಹೆಸರು (Name of Employee) *</label>
+                    <label for="employeeName">ನೌಕರರ ಹೆಸರು (Employee Name) *</label>
                     <input type="text" id="employeeName" name="employeeName" placeholder="Enter employee name" required>
                 </div>
                 <div class="form-group">
@@ -376,17 +376,17 @@
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="departmentName">ಇಲಾಖೆಯ ಹೆಸರು (Department Name) *</label>
+                    <label for="departmentName" id="lblDepartmentName">ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಇಲಾಖೆಯ ಹೆಸರು (Department Name) *</label>
                     <input type="text" id="departmentName" name="departmentName" placeholder="Enter department name" required>
                 </div>
                 <div class="form-group">
-                    <label for="designation">ಹುದ್ದೆಯ ಹೆಸರು (Designation) *</label>
+                    <label for="designation" id="lblDesignation">ಹುದ್ದೆಯ ಹೆಸರು (Designation) *</label>
                     <input type="text" id="designation" name="designation" placeholder="Enter designation" required>
                 </div>
             </div>
 
             <div class="form-group" id="retirementFieldsRow" style="display: none !important; margin-bottom: 20px;">
-                <label for="retirementDate">ನಿವೃತ್ತಿ ಹೊಂದಿದ ದಿನಾಂಕ (Date of Retirement) *</label>
+                <label for="retirementDate" id="lblRetirementDate">ನಿವೃತ್ತಿ ದಿನಾಂಕ (Date of Retirement) *</label>
                 <input type="date" id="retirementDate" name="retirementDate">
             </div>
 
@@ -415,8 +415,8 @@
                     <textarea id="permanentAddress" name="permanentAddress" placeholder="Enter permanent address" rows="2" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="servicePlace">ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳ (Service Place)</label>
-                    <input type="text" id="servicePlace" name="servicePlace" placeholder="Enter current service place">
+                    <label for="servicePlace" id="lblServicePlace">ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳಗಳು (Service Places)</label>
+                    <input type="text" id="servicePlace" name="servicePlace" placeholder="Enter service places">
                 </div>
             </div>
 
@@ -540,13 +540,30 @@
         function handleEmployeeTypeChange(value) {
             const row = document.getElementById('retirementFieldsRow');
             const input = document.getElementById('retirementDate');
+            const lblDept = document.getElementById('lblDepartmentName') || document.querySelector('label[for="departmentName"]');
+            const lblDesig = document.getElementById('lblDesignation') || document.querySelector('label[for="designation"]');
+            const lblLoc = document.getElementById('lblServicePlace') || document.querySelector('label[for="servicePlace"]');
+
             if (value === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') {
                 row.style.setProperty('display', 'block', 'important');
                 input.setAttribute('required', 'true');
+                if (lblDept) lblDept.innerHTML = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಕೊನೆಯ ಇಲಾಖೆಯ ಹೆಸರು (Last Served Department Name) *';
+                if (lblDesig) lblDesig.innerHTML = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಕೊನೆಯ ಹುದ್ದೆಯ ಹೆಸರು (Last Served Designation) *';
+                if (lblLoc) lblLoc.innerHTML = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಸ್ಥಳಗಳು (Service Places)';
+            } else if (value === 'ಖಾಸಗಿ ನೌಕರರ ಮಾಹಿತಿ') {
+                row.style.setProperty('display', 'none', 'important');
+                input.removeAttribute('required');
+                input.value = '';
+                if (lblDept) lblDept.innerHTML = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಖಾಸಗಿ ಸಂಸ್ಥೆಯ ಹೆಸರು (Company / Organization Name) *';
+                if (lblDesig) lblDesig.innerHTML = 'ಹುದ್ದೆಯ ಹೆಸರು (Designation) *';
+                if (lblLoc) lblLoc.innerHTML = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳಗಳು (Service Places)';
             } else {
                 row.style.setProperty('display', 'none', 'important');
                 input.removeAttribute('required');
                 input.value = '';
+                if (lblDept) lblDept.innerHTML = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಇಲಾಖೆಯ ಹೆಸರು (Department Name) *';
+                if (lblDesig) lblDesig.innerHTML = 'ಹುದ್ದೆಯ ಹೆಸರು (Designation) *';
+                if (lblLoc) lblLoc.innerHTML = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳಗಳು (Service Places)';
             }
         }
 
@@ -576,6 +593,18 @@
             document.getElementById('formContainer').style.display = 'none';
             document.getElementById('previewModal').style.display = 'flex';
 
+            let previewDeptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಇಲಾಖೆಯ ಹೆಸರು (Department Name)';
+            let previewDesigLabel = 'ಹುದ್ದೆಯ ಹೆಸರು (Designation)';
+            let previewLocLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳಗಳು (Service Places)';
+
+            if (formData['employeeType'] === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') {
+                previewDeptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಕೊನೆಯ ಇಲಾಖೆಯ ಹೆಸರು (Last Served Department Name)';
+                previewDesigLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಕೊನೆಯ ಹುದ್ದೆಯ ಹೆಸರು (Last Served Designation)';
+                previewLocLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಸ್ಥಳಗಳು (Service Places)';
+            } else if (formData['employeeType'] === 'ಖಾಸಗಿ ನೌಕರರ ಮಾಹಿತಿ') {
+                previewDeptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಖಾಸಗಿ ಸಂಸ್ಥೆಯ ಹೆಸರು (Company / Organization Name)';
+            }
+
             let previewHTML = '';
             const fieldsOrder = [
                 { key: 'employeeType', label: 'ಅರ್ಜಿಯ ವಿಧ (Application Type)' },
@@ -588,11 +617,11 @@
                 { key: 'qualification', label: 'ವಿದ್ಯಾರ್ಹತೆ (Qualification)' },
                 { key: 'dob', label: 'ಹುಟ್ಟಿದ ದಿನಾಂಕ (Date of Birth)' },
                 { key: 'age', label: 'ವಯಸ್ಸು (Age)' },
-                { key: 'departmentName', label: 'ಇಲಾಖೆಯ ಹೆಸರು (Department Name)' },
-                { key: 'designation', label: 'ಹುದ್ದೆಯ ಹೆಸರು (Designation)' },
+                { key: 'departmentName', label: previewDeptLabel },
+                { key: 'designation', label: previewDesigLabel },
                 { key: 'retirementDate', label: 'ನಿವೃತ್ತಿ ದಿನಾಂಕ (Date of Retirement)' },
                 { key: 'permanentAddress', label: 'ಕಾಯಂ ವಿಳಾಸ (Permanent Address)' },
-                { key: 'servicePlace', label: 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳ (Service Place)' }
+                { key: 'servicePlace', label: previewLocLabel }
             ];
 
             fieldsOrder.forEach(item => {
@@ -863,15 +892,15 @@
             const formattedRetirement = data.isRetired === 'ಹೌದು' && data.retirementDate ? new Date(data.retirementDate).toLocaleDateString('en-GB') : 'ಇಲ್ಲ (No)';
 
             let deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಇಲಾಖೆಯ ಹೆಸರು';
-            let locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳ';
+            let locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳಗಳು';
             let desigLabel = 'ಹುದ್ದೆಯ ಹೆಸರು';
             if (data.employeeType === 'ಖಾಸಗಿ ನೌಕರರ ಮಾಹಿತಿ') {
                 deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಖಾಸಗಿ ಸಂಸ್ಥೆಯ ಹೆಸರು';
-                locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳ';
+                locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿರುವ ಸ್ಥಳಗಳು';
                 desigLabel = 'ಹುದ್ದೆಯ ಹೆಸರು';
             } else if (data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ') {
                 deptLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಕೊನೆಯ ಇಲಾಖೆಯ ಹೆಸರು';
-                locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿರುವ ಸ್ಥಳಗಳು';
+                locLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಸ್ಥಳಗಳು';
                 desigLabel = 'ಸೇವೆ ಸಲ್ಲಿಸಿದ ಕೊನೆಯ ಹುದ್ದೆಯ ಹೆಸರು';
             }
 
@@ -942,72 +971,72 @@
                             </tr>
                         </table>
 
-                        <!-- 2-COLUMN DETAILS TABLE (EXACT 50% / 50% EQUAL HALVES WITH COMFORTABLE ROW HEIGHT & BIGGER FONT) -->
-                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 6px; background: #ffffff; table-layout: fixed;">
+                        <!-- 2-COLUMN DETAILS TABLE (52% / 48% SPLIT SO COLONS DO NOT WRAP) -->
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 0px; background: #ffffff; table-layout: fixed;">
                             <colgroup>
-                                <col style="width: 50%;">
-                                <col style="width: 50%;">
+                                <col style="width: 52%;">
+                                <col style="width: 48%;">
                             </colgroup>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; background: #ffffff; color: #b30000; font-weight: bold; vertical-align: middle; word-break: break-word; width: 50%;">೧. ನೌಕರರ ಹೆಸರು :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.employeeName || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; background: #ffffff; color: #b30000; font-weight: bold; vertical-align: middle; word-break: break-word; width: 52%;">೧. ನೌಕರರ ಹೆಸರು :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.employeeName || '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೨. ತಂದೆಯ ಹೆಸರು :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.fatherName || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೨. ತಂದೆಯ ಹೆಸರು :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.fatherName || '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೩. ಕಾಯಂ ವಿಳಾಸ :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.permanentAddress || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೩. ಕಾಯಂ ವಿಳಾಸ :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.permanentAddress || '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೪. ${locLabel} :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.servicePlace || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೪. ${locLabel} :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.servicePlace || '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೫. ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.contactNumber || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೫. ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.contactNumber || '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೬. ವಿದ್ಯಾರ್ಹತೆ :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.qualification || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೬. ವಿದ್ಯಾರ್ಹತೆ :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.qualification || '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೭. ಹುಟ್ಟಿದ ದಿನಾಂಕ :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${formattedDob}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೭. ಹುಟ್ಟಿದ ದಿನಾಂಕ :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${formattedDob}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೮. ವಯಸ್ಸು :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.age ? data.age + ' ವರ್ಷ' : '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೮. ವಯಸ್ಸು :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.age ? data.age + ' ವರ್ಷ' : '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೯. ${deptLabel} :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.departmentName || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೯. ${deptLabel} :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.departmentName || '-'}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೧೦. ${desigLabel} :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${data.designation || '-'}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೧೦. ${desigLabel} :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${data.designation || '-'}</td>
                             </tr>
                             ${data.employeeType === 'ನಿವೃತ್ತ ನೌಕರರ ಮಾಹಿತಿ' ? `
                             <tr>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">೧೧. ನಿವೃತ್ತಿ ದಿನಾಂಕ :</td>
-                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 50%;">${formattedRetirement}</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #b30000; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 52%;">೧೧. ನಿವೃತ್ತಿ ದಿನಾಂಕ :</td>
+                                <td style="border: 1px solid #b30000; padding: 7.5px 10px; font-size: 14.5px; line-height: 1.4; color: #000000 !important; font-weight: bold; background: #ffffff; vertical-align: middle; word-break: break-word; width: 48%;">${formattedRetirement}</td>
                             </tr>` : ''}
-                        </table>
-
-                        <!-- SIGNATURE / ENDORSEMENT SECTION (WITH GENEROUS STAMP AND SIGNATURE SPACE) -->
-                        <table style="width: 100%; border-collapse: collapse; margin-top: 8px; margin-bottom: 2px; table-layout: fixed;">
-                            <tr>
-                                <td style="border: 1px solid #b30000; padding: 8px 8px; width: 50%; vertical-align: top; height: 85px; text-align: center; background: #ffffff;">
-                                    <div style="font-size: 13.5px; font-weight: bold; color: #b30000; margin-bottom: 50px;">ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರ ಸಹಿ / ಮೊಹರು</div>
-                                </td>
-                                <td style="border: 1px solid #b30000; padding: 8px 8px; width: 50%; vertical-align: top; height: 85px; text-align: center; background: #ffffff;">
-                                    <div style="font-size: 13.5px; font-weight: bold; color: #b30000; margin-bottom: 50px;">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ ಸಹಿ / ಮೊಹರು</div>
-                                </td>
-                            </tr>
                         </table>
                     </div>
                 </div>
+
+                <!-- SIGNATURE / ENDORSEMENT SECTION (OUTSIDE THE BORDER) -->
+                <table style="width: 100%; border-collapse: collapse; margin-top: 18px; margin-bottom: 4px; table-layout: fixed; border: none; font-family: 'Noto Sans Kannada', sans-serif;">
+                    <tr>
+                        <td style="border: none; padding: 4px 8px; width: 50%; vertical-align: top; height: 85px; text-align: center; background: #ffffff;">
+                            <div style="font-size: 13.5px; font-weight: bold; color: #b30000; margin-bottom: 50px;">ತಾಲ್ಲೂಕು ಅಧ್ಯಕ್ಷರ ಸಹಿ / ಮೊಹರು</div>
+                        </td>
+                        <td style="border: none; padding: 4px 8px; width: 50%; vertical-align: top; height: 85px; text-align: center; background: #ffffff;">
+                            <div style="font-size: 13.5px; font-weight: bold; color: #b30000; margin-bottom: 50px;">ಜಿಲ್ಲಾ ಅಧ್ಯಕ್ಷರ ಸಹಿ / ಮೊಹರು</div>
+                        </td>
+                    </tr>
+                </table>
             `;
 
             try {
